@@ -89,6 +89,10 @@ jobs:
           pip install --quiet playwright
           playwright install --with-deps --only-shell chromium
       - name: Served-site gate
+        env:
+          GH_TOKEN: ${{ steps.token.outputs.token }}   # gen-catalogo.py live visibility
+          APS_ORG_ROOT: ${{ runner.temp }}/org         # the generate chain runs here too
+          GESTION_SRC: ${{ runner.temp }}/org/gestion  # fetch-brand.sh resolution branch 1
         run: make check-site
       - name: Pages artifact (main only)
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
