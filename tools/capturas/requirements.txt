@@ -1,0 +1,7 @@
+# Capture-driver deps only. CI installs from here — the site's root
+# requirements.txt stays sphinx-only, so build.yml never pays for Playwright.
+#
+# playwright is pinned to the version on the org box so the local double-capture
+# (risk r8) and the weekly CI captures ride the same driver + chromium build.
+playwright==1.61.0
+pyyaml==6.0.3

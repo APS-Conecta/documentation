@@ -1,0 +1,58 @@
+# Throwaway lean stack for the weekly screenshots (driven by tools/capturas/captura.py).
+#
+# Faithful copy of farmacia/compose.dev.yaml with named deltas: name `capturas`,
+# loopback port 8095 (8083/8090/8092 are taken by the territorio/farmacia/
+# estadistica dev stacks), named volumes under the capturas_ prefix, and NO app
+# mounts — all app wiring lives in captura.py via occ, so a roster change never
+# touches this file. postgres:18-alpine because estadistica declares pgsql >= 18
+# (estadistica/appinfo/info.xml); same images as the dev stacks to share layers.
+name: capturas
+
+services:
+  db:
+    image: postgres:18-alpine
+    restart: "no"
+    volumes:
+      # postgres:18+ stores data in a major-version subdir, so mount the
+      # parent, not /data (territorio's comment, learned the hard way).
+      - capturas_postgres:/var/lib/postgresql
+    environment:
+      POSTGRES_DB: nextcloud
+      POSTGRES_USER: nextcloud
+      POSTGRES_PASSWORD: dev
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nextcloud -d nextcloud"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  nextcloud:
+    image: nextcloud:34-apache
+    restart: "no"
+    ports:
+      - "127.0.0.1:${CAPTURAS_PORT:-8095}:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - capturas_nextcloud:/var/www/html
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_DB: nextcloud
+      POSTGRES_USER: nextcloud
+      POSTGRES_PASSWORD: dev
+      # Throwaway admin/admin creds: loopback-only port, volumes destroyed in
+      # the same run's `down -v`. Same shape as the farmacia dev stack.
+      NEXTCLOUD_ADMIN_USER: admin
+      NEXTCLOUD_ADMIN_PASSWORD: admin
+      NEXTCLOUD_TRUSTED_DOMAINS: localhost
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost/status.php || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 60s
+
+volumes:
+  capturas_postgres:
+  capturas_nextcloud:
