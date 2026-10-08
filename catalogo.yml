@@ -1,0 +1,136 @@
+# Catálogo SSOT de los repositorios de APS-Conecta.
+# Claves en inglés, valores legibles en español; la enumeración machine de
+# `kind` es un enum EN (vocabulario de la compuerta de paridad y del generador
+# de mapas) y se traduce en la página generada — ver KIND_ES en
+# tools/gen-catalogo.py, que garantiza que ningún valor EN del enum llega a la
+# superficie renderizada.
+# `role`: descripciones vivas de GitHub a 2026-10-07 — las españolas verbatim,
+# las inglesas traducidas, e IntraVox (sin descripción) con rol de fork
+# redactado para esta SSOT. tools/about-sync.py las replica en la org.
+org: APS-Conecta
+out_of_scope: [aps-conecta-web, calculadora-ecicep]
+repos:
+  - repo: gestion
+    kind: suite
+    role: "Suite Nextcloud 34 de operaciones internas para CESFAM chilenos — config-as-code (PostgreSQL, Redis, Euro-Office). Una instalación por establecimiento; sin datos de pacientes."
+    manuals:
+      - administracion/instalacion.md
+      - administracion/arquitectura.md
+      - administracion/aprovisionamiento.md
+      - administracion/usuarios-y-grupos.md
+      - administracion/oficina.md
+      - administracion/mapas-base.md
+      - administracion/seguridad.md
+      - administracion/operaciones.md
+      - desarrollo/gestion.md
+    depends_on: [AIO, IntraVox, farmacia, estadistica, epidemiologia, territorio]
+    status: "Activa"
+  - repo: AIO
+    kind: distribution-fork
+    role: "Instalador all-in-one de Nextcloud adaptado por APS Conecta (fork de nextcloud/all-in-one)."
+    manuals:
+      - administracion/aio.md
+      - desarrollo/aio.md
+    depends_on: []
+    status: "Activo"
+    version: "" # la única <version> del árbol es la app interna upstream (0.9.0), no una versión del repo
+    readme: .github/README.md
+  - repo: IntraVox
+    kind: nextcloud-app
+    role: "Intranet de la organización — fork propio de IntraVox (páginas colaborativas con editor visual de arrastre), aplicación Nextcloud 34 para el personal del CESFAM."
+    manuals:
+      - usuario/inicio.md
+      - desarrollo/intravox.md
+    depends_on: []
+    status: "En la suite desde v3.1.0-aps1 (2026-09-25)"
+    readme: .github/README.md
+  - repo: farmacia
+    kind: nextcloud-app
+    role: "Vademécum y arsenal farmacológico del CESFAM con importación CSV por etapas — app Nextcloud 34."
+    manuals:
+      - usuario/farmacia.md
+      - desarrollo/farmacia.md
+    depends_on: [aps-common]
+    status: "En la suite desde v0.11.1"
+  - repo: estadistica
+    kind: nextcloud-app
+    role: "Cifras REM del establecimiento junto al promedio nacional y de pares, y el avance de las Metas Sanitarias"
+    manuals:
+      - usuario/estadistica.md
+      - desarrollo/estadistica.md
+    depends_on: [aps-common]
+    soft_depends_on: [Databases] # arista doctrinal (inventarios REM), no de construcción
+    status: "En la suite desde v0.1.0 (2026-09-30)"
+  - repo: epidemiologia
+    kind: nextcloud-app
+    role: "Información epidemiológica del MINSAL (alertas, IRAG, dashboard) — app Nextcloud 34 para el personal del CESFAM."
+    manuals:
+      - usuario/epidemiologia.md
+      - desarrollo/epidemiologia.md
+    depends_on: [aps-common]
+    status: "Activa"
+  - repo: territorio
+    kind: nextcloud-app
+    role: "Cartografía territorial y asignación de sectores (OpenStreetMap) — app Nextcloud 34 para el CESFAM."
+    manuals:
+      - usuario/territorio.md
+      - desarrollo/territorio.md
+    depends_on: [aps-common]
+    status: "En la suite desde v0.74.0 (2026-09)"
+  - repo: aps-common
+    kind: shared-library
+    role: "Reglas de texto compartidas por las aplicaciones propias de APS Conecta: dialecto CSV, familia fold/slug, postura de rechazo y forma del error de cliente (PHP + JS)."
+    manuals:
+      - desarrollo/aps-common.md
+      - desarrollo/desarrollo-de-aplicaciones.md
+    depends_on: []
+    status: "Estable"
+  - repo: Databases
+    kind: data-corpus
+    role: "Corpus textual de normativa sanitaria chilena, catálogo de APIs de fuentes oficiales e inventario REM (compuertas de sondeo y verificación)."
+    manuals:
+      - desarrollo/databases.md
+    depends_on: []
+    status: "Activo"
+  - repo: repo-docs
+    kind: canon-engine
+    role: "Control de documentación de APS-Conecta — primero auditar, después construir; el motor del canon, los perfiles y el barrido semanal."
+    manuals:
+      - desarrollo/repo-docs.md
+    depends_on: []
+    status: "Activo"
+  - repo: agents
+    kind: agent-prompts
+    role: "Prompts de los agentes Jules programados y de las rutinas de Claude de APS-Conecta."
+    manuals:
+      - desarrollo/agents.md
+    depends_on: []
+    status: "Activo"
+  - repo: pi-sandbox
+    kind: laboratory-app
+    role: "Zona de pruebas del agente pi (@aps-pi)."
+    manuals:
+      - desarrollo/pi-sandbox.md
+    depends_on: []
+    status: "Laboratorio — nunca se distribuye"
+  - repo: rpiv-artifacts
+    kind: artifacts-store
+    role: "Almacén de artefactos de APS Conecta: planes, diseños, validaciones y traspasos de rpiv."
+    manuals:
+      - desarrollo/rpiv-artifacts.md
+    depends_on: []
+    status: "Activo"
+  - repo: .github
+    kind: org-defaults
+    role: "Valores por defecto a nivel de organización: perfil, guía de contribución, seguridad y plantillas de incidencia servidas a cada repositorio de APS-Conecta."
+    manuals:
+      - desarrollo/github-org.md
+    depends_on: []
+    status: "Activo"
+  - repo: documentation
+    kind: docs-site
+    role: "Documentación de APS Conecta: manuales de usuario, administración y desarrollo"
+    manuals:
+      - desarrollo/documentation.md
+    depends_on: []
+    status: "En construcción (R2 del sitio)"

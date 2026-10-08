@@ -1,0 +1,85 @@
+/* =====================================================================
+   APS-Conecta — hoja de marca del sitio de documentación (sphinx_rtd_theme)
+
+   Transplante, no rediseño. Cada valor procede del tema de gestión y se cita:
+
+   · Paleta y razones de contraste: gestion themes/apsconecta/MAPEO.md §1
+     (libro mayor de contraste).
+   · Gradiente de cabecera, @font-face y tipografía: gestion
+     themes/apsconecta/core/css/server.css.
+   · El umbral «background_color debe ser el violeta oscuro (#5315a8)» existe
+     en gestion porque Nextcloud deriva de ese valor el color del texto de la
+     cabecera y la inversión de iconos (defaults.php, THEMING-MODEL regla 5).
+     Ese mecanismo es exclusivo de Nextcloud: aquí NO se transfiere; el violeta
+     oscuro se aplica directamente sobre .wy-nav-side.
+
+   La regla de oro de server.css («una variable en :root es inerte») tampoco
+   aplica: no hay Nextcloud debajo. Selectores planos, sin variables, sin
+   !important. Solo luz — el ecosistema no publica modo oscuro. */
+
+/* ---- Luz, siempre (gestion opera con enforce_theme=light; ídem aquí) ---- */
+:root { color-scheme: light; }
+
+/* ---- Fuentes autohospedadas (cero egreso) ----
+   Redeclaradas de gestion core/css/server.css, verbatim salvo la URL: aquí es
+   relativa a la hoja (../fonts/ → _static/fonts/), no la ruta absoluta de
+   Nextcloud. Solo .woff2, sin .ttf de respaldo (ADR-0001 del tema). */
+@font-face {
+  font-family: "Fraunces"; font-style: normal; font-weight: 400 800; font-display: swap;
+  src: url("../fonts/Fraunces.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Fraunces"; font-style: italic; font-weight: 400 800; font-display: swap;
+  src: url("../fonts/Fraunces-Italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Nunito Sans"; font-style: normal; font-weight: 400 800; font-display: swap;
+  src: url("../fonts/NunitoSans.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Nunito Sans"; font-style: italic; font-weight: 400 800; font-display: swap;
+  src: url("../fonts/NunitoSans-Italic.woff2") format("woff2");
+}
+
+/* ---- Tipografía (server.css: display en Fraunces, cuerpo en Nunito Sans) ---- */
+body {
+  font-family: "Nunito Sans", system-ui, -apple-system, sans-serif;
+  color: #101828; /* tinta — texto principal (libro mayor, ~16:1) */
+}
+h1, h2, h3 {
+  font-family: "Fraunces", Georgia, serif;
+  letter-spacing: -0.015em;
+}
+
+/* ---- Paleta sobre sphinx_rtd_theme ---- */
+
+/* Barra lateral: violeta oscuro con texto claro (blanco sobre #5315a8 ≈ 8:1,
+   libro mayor). El prefijo .wy-nav-side gana en especificidad al tema y no
+   depende del orden de carga. */
+.wy-nav-side { background: #5315a8; }
+.wy-nav-side .wy-menu-vertical a { color: #ffffff; }
+.wy-nav-side .wy-menu-vertical a:hover,
+.wy-nav-side .wy-menu-vertical a:focus {
+  background: rgba(255, 255, 255, 0.26); /* realce de la casa, server.css */
+  color: #ffffff;
+}
+
+/* Ítem de menú actual: relleno dorado con texto tinta. El oro #e06f00 (3.07:1
+   sobre blanco) se reserva a rellenos, iconos y texto grande — libro mayor;
+   el texto sobre el relleno es tinta #101828 (~5.5:1 sobre el oro). */
+.wy-nav-side .wy-menu-vertical li.current > a,
+.wy-nav-side .wy-menu-vertical li.on a {
+  background: #e06f00;
+  color: #101828;
+}
+
+/* Enlaces del contenido: oro oscuro, el par AA para texto pequeño sobre blanco
+   (#9a4c00 ≥ 4.5:1, libro mayor). El realce al pasar el cursor o enfocar usa
+   el violeta primario (#7f21fe, 5.57:1, texto AA según el libro mayor). */
+.wy-nav-content a { color: #9a4c00; }
+.wy-nav-content a:hover,
+.wy-nav-content a:focus { color: #7f21fe; }
+
+/* Leyendas de tablas y figuras: apagado (#485363, ~7:1, libro mayor). */
+.wy-nav-content caption,
+.wy-nav-content .caption-text { color: #485363; }

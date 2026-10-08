@@ -1,0 +1,10 @@
+{# Pie del sitio: enlaza el aviso legal desde cada página construida.
+   El prefijo «!» en el extends es imprescindible: hace que la resolución de
+   la plantilla arranque en el tema (y no en templates_path), evitando que
+   footer.html se extienda a sí mismo. En la propia página del aviso,
+   pathto('aviso') devuelve «#»; se emite entonces el enlace relativo
+   «aviso.html» para que toda página lleve un href real al aviso. #}
+{% extends "!footer.html" %}
+{% block extrafooter %}
+<a href="{{ pathto('aviso') if pagename != 'aviso' else 'aviso.html' }}">Aviso legal</a>
+{% endblock %}
