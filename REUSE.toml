@@ -1,0 +1,19 @@
+version = 1
+
+# Site prose (+ future capturas/) — CC BY 3.0 per COPYING
+[[annotations]]
+path = ["index.md", "aviso.md", "usuario/**", "administracion/**", "desarrollo/**", "proyecto/**", "capturas/**"]
+SPDX-License-Identifier = "CC-BY-3.0"
+
+# Build scripts/templates — AGPL-3.0-or-later per LICENSES/AGPL-3.0-or-later.txt
+[[annotations]]
+path = ["conf.py", "Makefile", "tools/**", "_templates/**"]
+SPDX-License-Identifier = "AGPL-3.0-or-later"
+
+# Brand mapping (palette + @font-face redeclarations) — reserved
+[[annotations]]
+path = ["_static/css/aps-brand.css"]
+SPDX-License-Identifier = "LicenseRef-APS-Conecta-Reservado"
+
+# Fonts (Fraunces, Nunito Sans) are OFL-1.1 but fetched at build into _generated/ —
+# never committed, so no annotation covers them; this comment + aviso.md carry the fact.
