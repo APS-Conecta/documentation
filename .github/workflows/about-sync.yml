@@ -1,0 +1,66 @@
+---
+# about-sync — replica los `role` de catalogo.yml en las descripciones (About)
+# de los repos de la org: una sola fuente de verdad, dirección SSOT → GitHub.
+#
+# Token: la App del bot con administration: write sobre la nómina del catálogo.
+# La org almacena los nombres APS_BOT_APP_ID / APS_BOT_APP_KEY (verificado en
+# vivo, riesgo r13 — la alternativa APS_PI_* no existe); el valor del variable
+# es el App ID numérico, por lo que se usa la entrada `app-id` (presente pero
+# deprecada en v3 a favor de `client-id`: migrar cuando la org almacene el
+# client ID de la App).
+name: about-sync
+
+on:
+  push:
+    branches: [main]
+    paths: [catalogo.yml]
+  workflow_dispatch: {}
+
+permissions: {}
+
+jobs:
+  roster:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      repos: ${{ steps.roster.outputs.repos }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299e34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+      - run: pip install pyyaml
+      - name: Nómina de repositorios desde catalogo.yml
+        id: roster
+        run: |
+          python3 - <<'EOF'
+          import os, yaml
+          rows = yaml.safe_load(open('catalogo.yml', encoding='utf-8'))['repos']
+          assert len(rows) == 15, f'catalogo.yml: esperaba 15 filas, hay {len(rows)}'
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as out:
+              out.write('repos=' + ','.join(r['repo'] for r in rows) + '\n')
+          EOF
+  sync:
+    needs: roster
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299e34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+      - name: "Acuñar token de la App (administration: write, repos de la nómina)"
+        id: mint
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          app-id: ${{ vars.APS_BOT_APP_ID }} # App ID numérico (r13); deprecado en v3, ver cabecera
+          private-key: ${{ secrets.APS_BOT_APP_KEY }}
+          permission-administration: write
+          repositories: ${{ needs.roster.outputs.repos }}
+      - run: pip install pyyaml
+      - name: Sincronizar descripciones (PATCH repos/…/description por fila)
+        run: python3 tools/about-sync.py
+        env:
+          GH_TOKEN: ${{ steps.mint.outputs.token }}

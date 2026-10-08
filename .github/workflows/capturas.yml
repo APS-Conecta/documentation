@@ -1,0 +1,124 @@
+# Weekly screenshots of the five suite apps (Phase 11).
+#
+# Brings up the throwaway lean stack, enables the apps from clones (never
+# app:install), pins es/es_CL + light theme, captures 1440x900 Playwright
+# screenshots, oxipng-normalizes them, and opens a draft PR only when PNG
+# bytes actually change. Schedule implies main-only (writes-on-main doctrine).
+# GITHUB_TOKEN is never used for writes: two step-scoped App-token mints —
+# mint A clones the roster repos (contents: read), mint B authors the PR
+# (contents + pull_requests write, this repo only). The PR is App-authored
+# precisely so the canon docs.yml pr-gate runs on it.
+name: capturas
+
+on:
+  schedule:
+    - cron: "17 4 * * 1" # Mondays 04:17 UTC, off the top of the hour
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: capturas
+  cancel-in-progress: false
+
+jobs:
+  roster:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    outputs:
+      repos: ${{ steps.roster.outputs.repos }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Fold catalogo.yml into the five-app roster
+        id: roster
+        run: |
+          pip install --quiet pyyaml
+          python3 - <<'PY'
+          import os
+          import yaml
+          repos = [r["repo"] for r in yaml.safe_load(open("catalogo.yml"))["repos"]
+                   if r["kind"] == "nextcloud-app"]
+          if len(repos) != 5:
+              raise SystemExit(f"expected exactly 5 nextcloud-app rows, got {len(repos)}: {repos}")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as out:
+              out.write("repos<<EOF\n" + "\n".join(repos) + "\nEOF\n")
+          PY
+
+  capturas:
+    needs: roster
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: "Mint A — clone token (roster-fed, contents: read)"
+        id: clone-mint
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          app-id: ${{ vars.APS_BOT_APP_ID }}
+          private-key: ${{ secrets.APS_BOT_APP_KEY }}
+          permission-contents: read
+          repositories: ${{ needs.roster.outputs.repos }}
+
+      - name: Shallow-clone the five apps under RUNNER_TEMP (never the checkout)
+        env:
+          GH_TOKEN: ${{ steps.clone-mint.outputs.token }}
+          REPOS: ${{ needs.roster.outputs.repos }}
+          CAPTURAS_APPS: ${{ runner.temp }}/capturas/apps
+        run: |
+          set -euo pipefail
+          for repo in $REPOS; do
+            gh repo clone "APS-Conecta/$repo" "$CAPTURAS_APPS/$repo" -- --depth 1
+          done
+
+      - name: Playwright + driver deps
+        run: |
+          pip install -r tools/capturas/requirements.txt
+          playwright install --with-deps --only-shell chromium
+
+      - name: Install oxipng 10.2.1 (pinned release, sha256-verified)
+        run: |
+          set -euo pipefail
+          url="https://github.com/oxipng/oxipng/releases/download/v10.2.1/oxipng-10.2.1-x86_64-unknown-linux-musl.tar.gz"
+          curl --silent --show-error --location --retry 3 --output "$RUNNER_TEMP/oxipng.tar.gz" "$url"
+          printf '%s  %s\n' \
+            1813750ef592c5350ca79c88f98b2c0876d05c826dc7156245256d4255c1ad17 \
+            "$RUNNER_TEMP/oxipng.tar.gz" | sha256sum --check
+          mkdir -p "$RUNNER_TEMP/oxipng"
+          tar -xzf "$RUNNER_TEMP/oxipng.tar.gz" -C "$RUNNER_TEMP/oxipng" --strip-components=1
+          "$RUNNER_TEMP/oxipng/oxipng" --version
+
+      - name: Capture (make capturas — the single entry point)
+        env:
+          CAPTURAS_APPS: ${{ runner.temp }}/capturas/apps
+          OXIPNG_BIN: ${{ runner.temp }}/oxipng/oxipng
+        run: make capturas
+
+      - name: "Mint B — PR author (this repo only)"
+        id: pr-mint
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          app-id: ${{ vars.APS_BOT_APP_ID }}
+          private-key: ${{ secrets.APS_BOT_APP_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+          repositories: documentation
+
+      - name: Draft PR if PNG bytes changed
+        env:
+          GH_TOKEN: ${{ steps.pr-mint.outputs.token }}
+        run: python3 tools/capturas/pr.py
+
+      - name: Teardown (belt to the tool's own finally)
+        # `status()` is not an Actions function — `!cancelled()` is the modern
+        # form of "any non-cancelled completion" (success or failure).
+        if: always() && !cancelled()
+        run: docker compose -f tools/capturas/compose.yaml down -v
