@@ -120,21 +120,27 @@ linkcheck_ignore += (
 )
 
 
-# linkcheck: enlaces que upstream cita y que ya no responden (upstream.yml, dead_links). El texto
-# tejido conserva la URL tal cual; aquí solo se omite su comprobación.
+# linkcheck: el texto tejido de Nextcloud cita miles de URL de terceros que deben quedar byte a byte
+# (fidelidad). Mantenerlas vivas es tarea de upstream, y su disponibilidad (límites de tasa, muros
+# anti-bots, enlaces rotos) no debe frenar la fusión de un lote. linkcheck omite las URL que solo
+# aparecen dentro de bloques {upstream}, la línea «Fuente» (enlace a GitHub por SHA, que
+# upstream-fidelity ya prueba) y el respaldo a docs.nextcloud.com de los documentos aún no tejidos.
+# Toda URL que escribe la prosa de APS se sigue comprobando.
 _sys.path.insert(0, _os.path.join(_os.path.dirname(__file__), 'tools'))
 import re as _re
 import upstreamlib as _upstreamlib
 
-linkcheck_ignore += [_re.escape(_url) + '$' for _url in _upstreamlib.dead_links()]
-# …y las anclas que ya no existen en páginas que sí responden (upstream.yml, dead_anchors).
-_dead_anchors = [_re.escape(_url) + '$' for _url in _upstreamlib.dead_anchors()]
+_pages = [_p.read_text(encoding='utf-8') for _d in ('usuario', 'administracion', 'desarrollo', 'proyecto')
+          for _p in _Path(__file__).with_name(_d).rglob('*.md')]
+linkcheck_ignore += [_re.escape(_url) + '$' for _url in sorted(_upstreamlib.woven_urls(_pages))]
+linkcheck_ignore += [r'https://github\.com/nextcloud/documentation/blob/[0-9a-f]{40}/',
+                     r'https://docs\.nextcloud\.com/server/\d+/']
 
 # linkcheck: GitHub arma las anclas de un README o un archivo con JavaScript, así que una URL
 # github.com/...#seccion nunca muestra su ancla a un GET (falso «Anchor not found»). La URL sí
 # se comprueba; solo se omite el ancla. Los textos tejidos de Nextcloud citan anclas de README
 # (p. ej. github.com/42wim/matterbridge#features) y deben conservar la URL byte a byte.
-linkcheck_anchors_ignore_for_url = [r'https://github\.com/.+'] + _dead_anchors
+linkcheck_anchors_ignore_for_url = [r'https://github\.com/.+']
 
 # Sin comillas tipográficas automáticas: con language='es' docutils cambia "…" por «…» también en
 # texto técnico que no es código (QT_LOGGING_RULES="qt.*=true" en un texto tejido de Nextcloud),
