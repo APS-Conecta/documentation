@@ -56,7 +56,7 @@ Gestión beyond what the :difiere: notice points to.>
 | Register | The official strings use «usted»; on a page that has them, match it. Otherwise use neutral, direct Spanish (impersonal or infinitive). |
 | Administration and developer prose | No official Spanish exists: translate every paragraph, in neutral impersonal Spanish. UI labels are the shipped interface's Spanish (`{guilabel}`, backed by the catalog the gate reads). |
 | Section titles | Spanish. Same count, order and relative depth as upstream. The body's first level is `###` on a single-document page. |
-| `.. _label:` | `(nc-label)=` on its own line, right before the heading it labels (label lower-case, verbatim). |
+| `.. _label:` | `(nc-label)=` on its own line, right before the heading it labels (label lower-case, verbatim). In `developer_manual` docs, `(nc-dev-label)=`: each upstream manual is its own project and the developer manual shares labels with the others (`upstream.yml` `label_prefix`). An `{nc-ref}` keeps upstream's bare label; the build resolves it in the block's own manual. |
 | `:doc:\`x\`` / `:ref:\`x\`` | `{nc-doc}\`<absolute docname>\`` / `{nc-ref}\`<label>\``, with Spanish link text when upstream gives text: `{nc-ref}\`Texto <label>\``. A bare `:doc:` or `:ref:` stays bare: the build writes the target page's or section's Spanish title. |
 | External link `` `text <url>`_ `` | A Markdown link (Spanish text, same URL), URL byte-identical. |
 | Named reference `` `Name`_ `` with its `.. _Name: url` target | A reference link `[texto][Name]`, with `[Name]: url` at the end of the block. URL byte-identical. |

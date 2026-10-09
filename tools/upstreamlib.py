@@ -259,6 +259,28 @@ def rst_headings(text: str, styles: list[str] | None = None) -> list[tuple[int, 
     return out
 
 
+def label_prefix(doc: str, cfg: dict | None = None) -> str:
+    """What follows «nc-» in a woven label of `doc`'s manual. Each upstream manual is its own
+    Sphinx project, so a label is unique only inside it; upstream.yml `label_prefix` gives the
+    manuals that share labels with another one a prefix of their own."""
+    cfg = cfg or config()
+    return (cfg["source"].get("label_prefix") or {}).get(doc.split("/", 1)[0], "")
+
+
+def label_collisions(texts: dict[str, str], cfg: dict | None = None) -> list[str]:
+    """Upstream labels that two manuals define under the same woven name `(nc-<prefix><label>)=`."""
+    seen, out = {}, []
+    for doc, text in texts.items():
+        manual = doc.split("/", 1)[0]
+        for label, _ in rst_labels(text):
+            name = label_prefix(doc, cfg) + label.lower()
+            other = seen.setdefault(name, manual)
+            if other != manual:
+                out.append(f"label {label!r} is in {other} and {manual}: give one a label_prefix")
+                seen[name] = manual
+    return sorted(set(out))
+
+
 def rst_labels(text: str) -> list[tuple[str, int]]:
     """(label, line index) of every `.. _label:` target. A target whose URL sits on the next,
     indented line is an external hyperlink target (docutils), not a label."""
