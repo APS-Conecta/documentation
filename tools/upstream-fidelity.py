@@ -23,6 +23,7 @@ Coverage (every mapped document has a block somewhere) is reported always and en
 
 from __future__ import annotations
 
+import fnmatch
 import re
 import sys
 from collections import Counter
@@ -88,7 +89,15 @@ def check_block(
             want -= Counter(u.rst_inline_literals(para))
             want += Counter(u.rst_inline_literals(catalog[para]))
     have = Counter(u.myst_inline_literals(content))
-    ui = u.ui_strings() if ui is None else ui
+    ui = dict(u.ui_strings() if ui is None else ui)
+    # a literal this doc's own official msgstr translates is shown that way by the interface
+    for para in u.rst_paragraphs(section):
+        if catalog.get(para):
+            en, es = u.rst_inline_literals(para), u.rst_inline_literals(catalog[para])
+            if len(en) == len(es):
+                for a, b in zip(en, es):
+                    if a != b:
+                        ui[a] = set(ui.get(a, ())) | {b}
     swapped = _ui_swaps(want - have, Counter(u.myst_guilabels(content)), ui)
     want -= swapped
     if want != have:
@@ -107,10 +116,12 @@ def check_block(
             f"{doc}: cross-references differ: missing "
             f"{sorted(Counter(u.rst_xrefs(section, doc)) - Counter(u.myst_xrefs(content)))[:3]}"
         )
+    # quoted labels of other software (WinSCP, Finder, Thunderbird…) are not Nextcloud's strings
+    third_party = any(fnmatch.fnmatch(doc, pat) for pat in cfg.get("ui_third_party", []))
     for quoted in re.findall(r"«([^»\n]+)»|\"([^\"\n]+)\"|“([^”\n]+)”", re.sub(r"`[^`\n]*`", "", u._without_fences(content))):
         text = next(q for q in quoted if q).strip()
         spanish = ui.get(text)
-        if spanish and text not in spanish:
+        if spanish and text not in spanish and not third_party:
             out.append(f"{doc}: «{text}» is a UI string the interface shows in Spanish: «{sorted(spanish)[0]}»")
     bare = u.bare_urls(content)
     if bare:
@@ -231,9 +242,15 @@ def warnings(content: str, section: str, ui: dict | None = None) -> list[str]:
         if fenced or not s.endswith(":") or s.startswith((":", "|", "#", "(")):
             continue
         nxt = next((x for x, _ in walk[i + 1:] if x.strip()), "")
-        # a lead-in may introduce a fence, list, table, admonition or quote; prose, a heading or
-        # the end of the block means what it introduced is gone
-        if not nxt or not (u.FENCE.match(nxt) or re.match(r"^\s*([-*+|>]\s|\d+[.)]\s|:::)", nxt) or nxt[0].isspace()):
+        # a lead-in may introduce a fence, list, table, admonition or quote; prose, a heading, a
+        # sibling list step, an admonition's closing «:::» or the block's end means it is gone
+        item = re.match(r"^(\s*)(?:[-*+]|\d+[.)])\s+", ln)
+        base = len(item.group(1)) if item else len(ln) - len(ln.lstrip())
+        indent = len(nxt) - len(nxt.lstrip())
+        opens = re.match(r"^\s*([-*+|>]\s|\d+[.)]\s|:::\{)", nxt)
+        closing = re.match(r"^\s*:::\s*$", nxt)
+        # code introduced is code wherever it sits (upstream puts some fences between steps)
+        if not nxt or closing or not (u.FENCE.match(nxt) or indent > base or (opens and not item and indent >= base)):
             out.append(f"«{s[:60]}» ends in «:» but introduces nothing — a dropped screenshot?")
     return out
 

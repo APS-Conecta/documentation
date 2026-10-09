@@ -68,17 +68,20 @@ Gestión beyond what the :difiere: notice points to.>
 | An English-only message upstream quotes (an error or UI string with no Spanish version) | Verbatim, inside «…», with no gloss. The English check skips quoted text. |
 | `.. raw:: html` | Dropped. Name it under **gaps** with what it carried. |
 | An upstream defect: a pointer with no target («see here» linking nothing), a name the steps contradict («Introduction» vs «Introductions») | As upstream writes it, and named under **gaps** with the upstream line. Repairing upstream's meaning belongs in an upstream PR; a silent repair breaks the next `upstream` lane diff. |
+| An official msgstr that drops meaning or reads wrong («A random 15-digit token» without «random») | Verbatim all the same (Q20), and named under **gaps** with the upstream English, so it can be fixed in Transifex. |
+| `.. raw:: html` that wraps RST content (`<details><summary>Android</summary>` … `</details>`) | The summary becomes a bold line (`**Android**`) before the content it scopes; the tags are dropped. |
 | `.. versionadded::`, `versionchanged`, `deprecated`, `versionremoved` | The same MyST directive in a colon fence (`:::{versionadded} 29` … `:::`), its text translated. The site translates the label («Nuevo en la versión 29»). |
 | A code block inside a list item | The fence indented with the item's text, so the list keeps its numbering; the gate reads the body without that indent. |
 | `.. code-block:: lang`, `.. code::`, `::` literal blocks | A plain fence: ```` ```lang ```` (or ```` ``` ````). Content byte-identical: commands, paths, config keys, output, comments inside code. A `:caption:` becomes a sentence before the fence. |
 | ``` ``literal`` ``` | `` `literal` ``, byte-identical. |
 | A ``` ``literal`` ``` that is a UI label (a button, menu item or setting, or a path `Settings -> General`) | `{guilabel}` with the Spanish the interface shows, one per step: `{guilabel}`Ajustes` → {guilabel}`General``. The gate accepts the swap only when the shipped app's `l10n/es.json` or `glosario.yml` backs it, and warns on a literal it could swap. With no Spanish string, keep the literal. |
 | A UI string upstream quotes ("Start recording") | The interface's Spanish in «…» («Empezar a grabar»); the gate rejects the English when the catalog has the Spanish. With no Spanish string, the English verbatim in «…». |
+| A UI string of other software (WinSCP, Finder, Thunderbird; docs in `upstream.yml` `ui_third_party`) | Verbatim in «…»: it is that program's label, not Nextcloud's. |
 | `:guilabel:`, `:menuselection:` | `{guilabel}`, with the Spanish UI label from `glosario.yml` or the app's own Spanish strings. |
 | `:file:`, `:command:`, `:kbd:` | The same role, content verbatim. |
 | `.. note::` / `warning` / `tip` / `important` / `hint` / `danger` / `seealso` | `:::{note}` … `:::` (same kind, colon fence), translated. No headings inside. |
 | Tables (`list-table`, grid, simple) | A Markdown pipe table, or `:::{list-table}`. Cells translated, literals verbatim. |
-| `.. figure::`, `.. image::` | Dropped; they show the Nextcloud logo. A caption that carries information becomes a sentence. When the text around the image points at it («this page», «here», «below», «as shown»), its caption or alt text becomes one short sentence saying what the screen shows, so the pointer still lands. |
+| `.. figure::`, `.. image::` | Dropped; they show the Nextcloud logo. A caption that carries information becomes a sentence. When the text around the image points at it («this page», «here», «below», «as shown»), its caption or alt text becomes one short sentence saying what the screen shows, so the pointer still lands. An image with no alt text and no caption gives nothing to say: the lead-in just ends in «.». |
 | `.. toctree::` | A bullet list of bare `{nc-doc}` links, one per entry, in upstream order: ``- {nc-doc}`user_manual/talk/call` ``. Upstream renders a toctree as that list on the page; the build writes each target's Spanish title once it is woven (the brief lists the entries). A `:hidden:` toctree shows nothing upstream: drop it. |
 | `|version|` and other substitutions | The resolved value (the suite's major, e.g. `34`). |
 | `.. include::`, `.. literalinclude::`, anything else unknown | Do not guess. Name it under **gaps** in your result. |
