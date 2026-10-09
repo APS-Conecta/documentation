@@ -174,6 +174,8 @@ LABEL = re.compile(r"^\.\.\s+_([^:`]+):\s*$")
 RST_CODE_DIRECTIVE = re.compile(r"^(\s*)\.\.\s+(?:code-block|code|sourcecode)::.*$")
 RST_INLINE_LITERAL = re.compile(r"``(.+?)``")
 RST_EXT_LINK = re.compile(r"`[^`<]*<(https?://[^>]+)>`__?")
+RST_NAMED_TARGET = re.compile(r"^\.\. _[^:\n]+:\s*(https?://\S+)\s*$", re.M)
+URL = re.compile(r"https?://[^\s<>`\"')\]]+")
 RST_ROLE = re.compile(r":(doc|ref):`(?:[^`<]*<([^>]+)>|([^`]+))`")
 
 
@@ -322,8 +324,18 @@ def _without_code_blocks_rst(text: str) -> str:
     return text
 
 
+def _urls(paragraphs: list[str]) -> set[str]:
+    """Every http(s) URL in prose: inline, embedded, autolinked or bare (trailing punctuation off)."""
+    return {m.rstrip(".,;:") for p in paragraphs for m in URL.findall(p)}
+
+
 def rst_links(text: str) -> set[str]:
-    return set(RST_EXT_LINK.findall(text))
+    """External URLs: `text <url>`_, named targets (`.. _Name: url`) and bare URLs in prose."""
+    return (
+        set(RST_EXT_LINK.findall(text))
+        | set(RST_NAMED_TARGET.findall(text))
+        | _urls(rst_paragraphs(text))
+    )
 
 
 def rst_xrefs(text: str, docname: str) -> list[tuple[str, str]]:
@@ -357,7 +369,7 @@ def rst_paragraphs(text: str) -> list[str]:
     """Prose paragraphs, list markers stripped and whitespace collapsed — the shape Sphinx
     gettext extracts as msgids."""
     out, cur = [], []
-    code = {ln for b in rst_code_blocks(text) for ln in b.split("\n") if ln.strip()}
+    code = {ln.strip() for b in rst_code_blocks(text) for ln in b.split("\n") if ln.strip()}
     for ln in text.split("\n") + [""]:
         s = ln.strip()
         if (
@@ -406,7 +418,7 @@ def _po_string(raw: str) -> str:
 
 # ------------------------------------------------------------------- MyST, the woven side
 
-FENCE = re.compile(r"^[ \t]{0,3}(`{3,}|~{3,})(.*)$")
+FENCE = re.compile(r"^[ \t]*(`{3,}|~{3,})(.*)$")  # any indent: fences nest in list items
 BLOCK_OPEN = re.compile(r"^[ \t]{0,3}(`{3,})\{upstream\}\s+(\S+)\s*$")
 BLOCK_ARG = re.compile(
     r"^(?P<doc>(?:user|admin|developer)_manual/[A-Za-z0-9_./-]+?)\.rst"
@@ -414,7 +426,6 @@ BLOCK_ARG = re.compile(
 )
 MYST_HEADING = re.compile(r"^(#{1,6})\s+(.+?)\s*#*\s*$")
 MYST_SPAN = re.compile(r"(\{[\w-]+\})?(?<!`)`([^`\n]+)`(?!`)")  # a role or a code span
-MYST_LINK = re.compile(r"\]\((https?://[^)\s]+)\)|<(https?://[^>\s]+)>")
 MYST_ROLE = re.compile(r"\{nc-(doc|ref)\}`(?:[^`<]*<([^>]+)>|([^`]+))`")
 MYST_LABEL = re.compile(r"^\(nc-([^)]+)\)=\s*$")
 
@@ -469,6 +480,7 @@ def myst_code_blocks(content: str) -> list[str]:
             i += 1
             continue
         fence, body = m.group(1), []
+        indent = len(lines[i]) - len(lines[i].lstrip())  # the body loses the fence's indent
         i += 1
         while i < len(lines):
             fm = FENCE.match(lines[i])
@@ -479,7 +491,8 @@ def myst_code_blocks(content: str) -> list[str]:
                 and not fm.group(2).strip()
             ):
                 break
-            body.append(lines[i])
+            ln = lines[i]
+            body.append(ln[min(indent, len(ln) - len(ln.lstrip())):])
             i += 1
         i += 1
         out.append(normalize_code(body))
@@ -524,7 +537,9 @@ def myst_inline_literals(content: str) -> list[str]:
 
 
 def myst_links(content: str) -> set[str]:
-    return {a or b for a, b in MYST_LINK.findall(content)}
+    """External URLs anywhere outside code fences: [text](url), <url>, reference definitions,
+    table cells and bare URLs."""
+    return _urls([_without_fences(content)])
 
 
 def myst_xrefs(content: str) -> list[tuple[str, str]]:
@@ -578,10 +593,15 @@ def plain(text: str) -> str:
     t = re.sub(r"\{[\w-]+\}`([^`]+)`", r"\1", t)  # {role}`text`
     t = re.sub(r"`([^`<]*?)\s*<[^>]+>`__?", r"\1", t)  # `text <url>`_
     t = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", t)  # [text](url)
+    t = re.sub(r"\[([^\]]*)\]\[[^\]]*\]", r"\1", t)  # [text][Name]
+    t = re.sub(r"<(https?://[^>\s]+)>", r"\1", t)  # <url>
     t = re.sub(r"``(.+?)``", r"\1", t)
     t = re.sub(r"`([^`]+)`", r"\1", t)
+    t = re.sub(r"(?<=\w)__?(?=[\s.,;:)]|$)", "", t)  # `Name`_ and Name_ (named references)
     t = re.sub(r"\*\*(.+?)\*\*|\*(.+?)\*", lambda m: m.group(1) or m.group(2), t)
-    return " ".join(t.split())
+    t = " ".join(t.split())
+    # RST's literal-block marker: "text::" reads "text:", "text ::" and a bare "::" read nothing
+    return re.sub(r"(?<=\S)::$", ":", re.sub(r"\s*(?<!\S)::$", "", t))
 
 
 EN_STOPWORDS = {
@@ -614,7 +634,10 @@ EN_STOPWORDS = {
 
 
 def reads_english(paragraph: str) -> bool:
-    words = re.findall(r"[a-záéíóúñü]+", plain(paragraph).lower())
+    """Untranslated prose: English stopwords ≥ 15 % of 8+ words. A quoted message («…» or "…")
+    is not prose: upstream quotes some UI and error strings in English only."""
+    text = re.sub(r"«[^»]*»|\"[^\"]*\"|“[^”]*”", " ", plain(paragraph))
+    words = re.findall(r"[a-záéíóúñü]+", text.lower())
     if len(words) < 8:
         return False
     return sum(w in EN_STOPWORDS for w in words) / len(words) >= 0.15
