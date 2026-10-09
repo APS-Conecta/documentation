@@ -68,6 +68,7 @@ Gestión beyond what the :difiere: notice points to.>
 | An English-only message upstream quotes (an error or UI string with no Spanish version) | Verbatim, inside «…», with no gloss. The English check skips quoted text. |
 | `.. raw:: html` | Dropped. Name it under **gaps** with what it carried. |
 | An upstream defect: a pointer with no target («see here» linking nothing), a name the steps contradict («Introduction» vs «Introductions») | As upstream writes it, and named under **gaps** with the upstream line. Repairing upstream's meaning belongs in an upstream PR; a silent repair breaks the next `upstream` lane diff. |
+| A Markdown fence written inside upstream RST (```` ``` ```` lines) | Docutils renders it as one inline literal (`` ` TLS_REQCERT ALLOW ` ``): write that literal as a double-backtick code span, and name the defect under **gaps**. |
 | An official msgstr that drops meaning or reads wrong («A random 15-digit token» without «random») | Verbatim all the same (Q20), and named under **gaps** with the upstream English, so it can be fixed in Transifex. |
 | `.. raw:: html` that wraps RST content (`<details><summary>Android</summary>` … `</details>`) | The summary becomes a bold line (`**Android**`) before the content it scopes; the tags are dropped. |
 | `.. versionadded::`, `versionchanged`, `deprecated`, `versionremoved` | The same MyST directive in a colon fence (`:::{versionadded} 29` … `:::`), its text translated. The site translates the label («Nuevo en la versión 29»). |
