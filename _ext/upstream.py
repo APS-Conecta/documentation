@@ -173,6 +173,9 @@ def resolve(app, doctree, fromdocname):
                 if ref.get("nc_auto_title") and section:
                     # the std domain records the title before rebrand.py renames it
                     ref.children = [nodes.Text(u.rename(section, cfg))]
+            elif label in env.domaindata["std"]["anonlabels"]:  # a target before a paragraph, not a heading
+                page, anchor = env.domaindata["std"]["anonlabels"][label]
+                ref["refuri"] = builder.get_relative_uri(fromdocname, page) + f"#{anchor}"
             elif target in _labels(app):
                 doc, anchor = _labels(app)[target]
                 ref["refuri"] = u.external_url(doc, anchor)

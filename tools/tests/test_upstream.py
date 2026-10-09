@@ -936,6 +936,58 @@ class DifiereLinkTest(unittest.TestCase):
             self.assertRegex(dos, r'<a [^>]*href="index.html"[^>]*>Ver la página de APS Conecta Gestión</a>')
 
 
+class W9GateTest(unittest.TestCase):
+    """admin-manual-ai-2: a malformed upstream role, vendor sub-hosts, anonymous labels."""
+
+    def test_a_backtick_inside_a_role_does_not_close_it(self):
+        rst = "See :ref:`other apps making use of the core `Text-To-Speech Task type<t2s-consumer-apps>`.\n"
+        self.assertEqual(u.rst_xrefs(rst, "admin_manual/ai/x"), [("ref", "t2s-consumer-apps")])
+        self.assertEqual(u.rst_xrefs("A :doc:`plain` and :ref:`Text <lab>`.\n", "admin_manual/x"),
+                         [("doc", "admin_manual/plain"), ("ref", "lab")])
+
+    def test_a_vendor_host_covers_its_subdomains(self):
+        cfg = dict(CFG, rename=dict(CFG["rename"], keep_hosts=["nextcloud.com", "github.com/nextcloud"]))
+        self.assertTrue(u.vendor_link("https://apps.nextcloud.com/apps/assistant", cfg))
+        self.assertTrue(u.vendor_link("https://docs.nextcloud.com/server/34/x.html", cfg))
+        self.assertFalse(u.vendor_link("https://notnextcloud.com/", cfg))
+        self.assertFalse(u.vendor_link("https://github.com/nextcloudfoo/x", cfg))
+
+    def test_vendor_product_names_keep_their_name(self):
+        cfg = u.config()
+        self.assertEqual(u.rename("Nextcloud-AIO y Nextcloud Mail en Nextcloud.", cfg),
+                         "Nextcloud-AIO y Nextcloud Mail en APS Conecta Gestión.")
+
+    def test_a_ref_to_a_label_before_a_paragraph_stays_on_the_site(self):
+        import os
+        import tempfile
+        from unittest import mock
+        from sphinx.application import Sphinx
+
+        with tempfile.TemporaryDirectory() as tmp:
+            src = Path(tmp)
+            (src / "org" / "gestion").mkdir(parents=True)
+            (src / "org" / "gestion" / "compose.yaml").write_text("image: nextcloud:34\n", encoding="utf-8")
+            env = mock.patch.dict(os.environ, {"APS_ORG_ROOT": str(src / "org")})
+            env.start()
+            self.addCleanup(env.stop)
+            (src / "conf.py").write_text(
+                "import sys\n"
+                f"sys.path.insert(0, {str(TOOLS.parent / '_ext')!r})\n"
+                "extensions = ['myst_parser', 'upstream']\n"
+                "exclude_patterns = ['org', '_out', '_dt']\n",
+                encoding="utf-8",
+            )
+            (src / "index.md").write_text("# Inicio\n\n```{toctree}\nuno\n```\n\nVer {nc-ref}`las apps <t2s-consumer-apps>`.\n",
+                                          encoding="utf-8")
+            (src / "uno.md").write_text("# Uno\n\n## Resumen\n\n````{upstream} admin_manual/x.rst@3ad9158\nTexto.\n\n"
+                                        "(nc-t2s-consumer-apps)=\nApps que usan la tarea.\n````\n", encoding="utf-8")
+            app = Sphinx(str(src), str(src), str(src / "_out"), str(src / "_dt"),
+                         "html", status=None, warning=None, freshenv=True)
+            app.build()
+            html = (src / "_out" / "index.html").read_text(encoding="utf-8")
+            self.assertRegex(html, r'href="uno.html#nc-t2s-consumer-apps"[^>]*>las apps<')
+
+
 class CatalogTest(unittest.TestCase):
     def test_reads_multiline_msgid_and_msgstr(self):
         import tempfile
