@@ -21,7 +21,7 @@ Se necesita la siguiente información:
 - El nombre de usuario y la contraseña del servidor remoto
 - `https://` Seguro: siempre se recomienda `https://` por seguridad, aunque se puede dejar sin marcar para usar `http://`.
 
-Opcionalmente, se puede especificar una `Remote Subfolder` para cambiar el directorio de destino. El valor predeterminado es usar toda la raíz.
+Opcionalmente, se puede especificar una {guilabel}`Subcarpeta remota` para cambiar el directorio de destino. El valor predeterminado es usar toda la raíz.
 
 :::{note}
 Los usuarios de CPanel deberían instalar [Web Disk](https://documentation.cpanel.net/display/ALD/Web+Disk) para activar la funcionalidad WebDAV.

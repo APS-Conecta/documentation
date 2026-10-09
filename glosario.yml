@@ -40,3 +40,6 @@ terms:
   - {en: "Tags", es: "Etiquetas", source: apps/files}
   - {en: "Expiration date", es: "Fecha de caducidad", source: apps/files_sharing}
   - {en: "Allow editing", es: "Permitir edición", source: apps/files_sharing}
+  - {en: "Remote Subfolder", es: "Subcarpeta remota", source: apps/files_external}
+  - {en: "Enforce password protection", es: "Forzar la protección por contraseña", source: apps/settings}
+  - {en: "Allow public uploads", es: "Permitir subidas públicas", source: apps/settings}

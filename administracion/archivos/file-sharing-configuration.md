@@ -31,9 +31,9 @@ La política de compartición se configura en la sección Compartir de la págin
 
 - Marcar `Allow users to share via link and email` para permitir crear recursos compartidos públicos, mediante un hipervínculo, para personas que no son usuarios de Nextcloud.
 
-  - Marcar `Allow public uploads` para permitir que cualquier persona suba archivos a los recursos compartidos públicos.
+  - Marcar {guilabel}`Permitir subidas públicas` para permitir que cualquier persona suba archivos a los recursos compartidos públicos.
   - Marcar `Always ask for a password` para pedir de forma proactiva al usuario que establezca una contraseña para un enlace compartido.
-  - Marcar `Enforce password protection` para obligar a los usuarios a establecer una contraseña en todos los enlaces compartidos públicos. No se aplica a los recursos compartidos con usuarios y grupos locales.
+  - Marcar {guilabel}`Forzar la protección por contraseña` para obligar a los usuarios a establecer una contraseña en todos los enlaces compartidos públicos. No se aplica a los recursos compartidos con usuarios y grupos locales.
   - Añadir grupos a `Exclude groups from creating link shares` para no aplicar los ajustes a esos grupos.
 
 - Marcar `Exclude groups from sharing` para impedir que los miembros de grupos concretos creen recursos compartidos de archivos en esos grupos. Al marcarlo, aparece una lista desplegable con todos los grupos para elegir. Escribir cualquier nombre de grupo para buscarlo. Los miembros de los grupos excluidos pueden seguir recibiendo recursos compartidos, pero no crear ninguno.
@@ -141,7 +141,7 @@ Una solución es crear recursos compartidos persistentes para los usuarios. Es p
 
 ### Usar enlaces de recurso compartido de entrega de archivos
 
-Un recurso compartido de entrega de archivos permite a los usuarios subir archivos a Nextcloud mediante una sesión no autenticada. Los enlaces de recurso compartido de entrega de archivos solo funcionan cuando `Allow public uploads` está marcado en la sección Compartir de la página Configuraciones de administración.
+Un recurso compartido de entrega de archivos permite a los usuarios subir archivos a Nextcloud mediante una sesión no autenticada. Los enlaces de recurso compartido de entrega de archivos solo funcionan cuando {guilabel}`Permitir subidas públicas` está marcado en la sección Compartir de la página Configuraciones de administración.
 
 :::{note}
 Los recursos compartidos de entrega de archivos tienen actualmente una limitación: los archivos subidos mediante una sesión no autenticada no se fragmentan. Por tanto, el tamaño máximo de archivo que puede subirse mediante recursos compartidos de entrega de archivos depende por completo de los ajustes establecidos en el entorno.
