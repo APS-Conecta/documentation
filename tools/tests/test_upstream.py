@@ -616,12 +616,22 @@ class RenderTest(unittest.TestCase):
         import tempfile
         from sphinx.application import Sphinx
 
+        import os
+        from unittest import mock
+
         with tempfile.TemporaryDirectory() as tmp:
             src = Path(tmp)
+            # the unwoven link's fallback URL names the major: a fixture org, not this box's gestion
+            (src / "org" / "gestion").mkdir(parents=True)
+            (src / "org" / "gestion" / "compose.yaml").write_text("image: nextcloud:34\n", encoding="utf-8")
+            env = mock.patch.dict(os.environ, {"APS_ORG_ROOT": str(src / "org")})
+            env.start()
+            self.addCleanup(env.stop)
             (src / "conf.py").write_text(
                 "import sys\n"
                 f"sys.path.insert(0, {str(TOOLS.parent / '_ext')!r})\n"
-                "extensions = ['myst_parser', 'upstream']\n",
+                "extensions = ['myst_parser', 'upstream']\n"
+                "exclude_patterns = ['org', '_out', '_dt']\n",
                 encoding="utf-8",
             )
             block = "````{{upstream}} user_manual/{d}.rst@3ad9158\nTexto.\n````\n"
