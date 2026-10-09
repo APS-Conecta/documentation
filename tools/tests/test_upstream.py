@@ -535,6 +535,10 @@ class ContractV3Test(unittest.TestCase):
             ["https://a.example/x", "https://d.example/p"],
         )
 
+    def test_a_url_template_is_not_a_bare_url(self):
+        # desktop commandline: «--httpproxy *http://[user@pass:]<server>:<port>*» is an argument shape
+        self.assertEqual(u.bare_urls("- `--httpproxy` *http://[user@pass:]\\<server\\>:\\<port\\>*: proxy.\n"), [])
+
     def test_dangling_lead_in_and_short_section_warn(self):
         up = "Title\n=====\n\nIntro.\n\nPart\n----\n\n" + " ".join(["word"] * 60) + ".\n"
         page = "Introducción.\n\n### Parte\n\nEn Talk:\n\nPocas palabras aquí.\n"

@@ -615,7 +615,8 @@ def bare_urls(content: str) -> list[str]:
     text = re.sub(r"<https?://[^>\s]+>", " ", text)  # autolinks
     text = re.sub(r"\]\(https?://[^)\s]*\)", "]", text)  # [text](url)
     text = re.sub(r"(?m)^\[[^\]\n]+\]:\s*\S+", " ", text)  # [Name]: url
-    return [m.rstrip(".,;:") for m in URL.findall(text)]
+    # a host never starts with «[» or «<»: `http://[user@pass:]<server>` is an argument shape
+    return [m.rstrip(".,;:") for m in URL.findall(text) if re.match(r"https?://\w", m)]
 
 
 def myst_headings(content: str) -> list[tuple[int, str]]:

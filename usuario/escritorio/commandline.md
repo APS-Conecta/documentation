@@ -46,7 +46,7 @@ Otras opciones de línea de comandos que admite `nextcloudcmd` son las siguiente
 - `--non-interactive`: no hace preguntas e intenta leer $NC_USER y $NC_PASSWORD del entorno.
 - `--silent`, `--s`: suprime la salida detallada del registro.
 - `--trust`: confía en cualquier certificado SSL, incluidos los no válidos.
-- `--httpproxy` *<http://[user@pass>:]\<server\>:\<port\>*: usa *server* como proxy HTTP.
+- `--httpproxy` *http://[user@pass:]\<server\>:\<port\>*: usa *server* como proxy HTTP.
 - `--exclude` *\<file\>*: archivo de lista de exclusión
 - `--unsyncedfolders` *\<file\>*: archivo que contiene la lista de carpetas no sincronizadas (sincronización selectiva)
 - `--max-sync-retries` *\<n\>*: reintenta como máximo n veces (3 de forma predeterminada)
