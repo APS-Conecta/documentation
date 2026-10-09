@@ -55,7 +55,7 @@ Gestión beyond what the :difiere: notice points to.>
 | Section titles | Spanish. Same count, order and relative depth as upstream. The body's first level is `###` on a single-document page. |
 | `.. _label:` | `(nc-label)=` on its own line, right before the heading it labels (label lower-case, verbatim). |
 | `:doc:\`x\`` / `:ref:\`x\`` | `{nc-doc}\`<absolute docname>\`` / `{nc-ref}\`<label>\``, with Spanish link text when upstream gives text: `{nc-ref}\`Texto <label>\``. |
-| External link `` `text <url>`_ `` | `[texto](url)`, URL byte-identical. |
+| External link `` `text <url>`_ `` | A Markdown link (Spanish text, same URL), URL byte-identical. |
 | `.. code-block:: lang`, `.. code::`, `::` literal blocks | A plain fence: ```` ```lang ```` (or ```` ``` ````). Content byte-identical: commands, paths, config keys, output, comments inside code. A `:caption:` becomes a sentence before the fence. |
 | ``` ``literal`` ``` | `` `literal` ``, byte-identical. |
 | `:guilabel:`, `:menuselection:` | `{guilabel}`, with the Spanish UI label from `glosario.yml` or the app's own Spanish strings. |
