@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import os
+import posixpath
 import re
 import string
 import subprocess
@@ -244,7 +245,7 @@ RST_INLINE_LITERAL = re.compile(r"``((?:[^\n]|\n(?!\s*\n))+?)``(?!`)")
 RST_EXT_LINK = re.compile(r"`[^`<]*<(https?://[^>]+)>`__?")
 RST_NAMED_TARGET = re.compile(r"^\.\. _[^:\n]+:\s*(https?://\S+)\s*$", re.M)
 # «'» may sit inside (…/wiki/FAQ's), and balanced «(…)» too (…-encryption-(HTTPS)); a closing «)» alone ends it
-URL = re.compile(r"https?://(?:[^\s<>`\"()\]]|\([^\s<>`\"()]*\))+")
+URL = re.compile(r"https?://(?:[^\s<>`\"()\]{}]|\([^\s<>`\"(){}]*\))+")  # «{ns}name»: docutils stops at «}»
 # docutils' end-string: a backtick followed by a word character does not close the role
 # (upstream's «:ref:`… core `Text-To-Speech Task type<t2s-consumer-apps>`» links t2s-consumer-apps)
 RST_ROLE = re.compile(r":(doc|ref):`((?:[^`]|`(?=\w))+?)`(?![\w`])")
@@ -513,12 +514,28 @@ def _urls(paragraphs: list[str]) -> set[str]:
     return {m.rstrip(".,;:*'") for p in paragraphs for m in URL.findall(p)}  # «**url**», «'url'»: markup
 
 
-def rst_links(text: str) -> set[str]:
-    """External URLs: `text <url>`_, named targets (`.. _Name: url`) and bare URLs in prose.
+RST_REL_LINK = re.compile(r"`[^`<]*<([^>`\s:]+)>`__?")
+
+
+def link_target(docname: str, target: str, cfg: dict | None = None) -> str:
+    """Where a relative embedded link points: upstream's built site, beside the doc's own page
+    (`<../../_static/openapi.html>` from developer client_apis/OCS/index)."""
+    cfg = cfg or config()
+    manual, path = docname.split("/", 1)
+    base = cfg["source"]["external"][manual].split("{path}")[0].format(major=major(cfg))
+    return base + posixpath.normpath(posixpath.join(posixpath.dirname(path), target))
+
+
+def rst_links(text: str, docname: str = "", cfg: dict | None = None) -> set[str]:
+    """External URLs: `text <url>`_, named targets (`.. _Name: url`) and bare URLs in prose; with
+    `docname`, a relative embedded link too, as the address it points to (link_target).
     An embedded URL that wraps a line is one URL: docutils drops the line break."""
     text = RST_EXT_LINK.sub(lambda m: m.group(0).replace(m.group(1), re.sub(r"\s+", "", m.group(1))), text)
+    relative = {link_target(docname, t, cfg) for t in RST_REL_LINK.findall(text)
+                if docname and not t.endswith("_") and not t.startswith("#")}
     return (
-        set(RST_EXT_LINK.findall(text))
+        relative
+        | set(RST_EXT_LINK.findall(text))
         | set(RST_NAMED_TARGET.findall(text))
         # an embedded URL is read whole above; its «)» or «#…» never reaches the bare-URL scan
         | _urls(rst_paragraphs(re.sub(r"<https?://[^>]+>", " ", text)))

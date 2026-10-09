@@ -1191,6 +1191,28 @@ class TitleLabelTest(unittest.TestCase):
         self.assertEqual(fidelity.title_label_problems(page, dict(blk, anchor="smtp"), self.SRC, CFG), [])
 
 
+class LinkTargetTest(unittest.TestCase):
+    def test_a_url_stops_at_a_brace(self):
+        # developer WebDAV/comments: docutils links {http://owncloud.org/ns}readMarker's namespace only
+        self.assertEqual(u.rst_links("Use {http://owncloud.org/ns}readMarker here.\n"), {"http://owncloud.org/ns"})
+        self.assertEqual(u.myst_links("Usar {http://owncloud.org/ns}readMarker aquí.\n"), {"http://owncloud.org/ns"})
+
+    def test_a_relative_link_resolves_to_the_upstream_site(self):
+        # developer client_apis/OCS/index: `here <../../_static/openapi.html>`_ points into upstream's
+        # built site; the page links that address, and the gate must expect it
+        import copy, os, tempfile
+        from unittest import mock
+        with tempfile.TemporaryDirectory() as td:
+            Path(td, "compose.yaml").write_text("image: nextcloud:34\n")
+            cfg = copy.deepcopy(CFG)
+            cfg["source"]["major_from"] = {"file": "compose.yaml", "pattern": r"image:\s*nextcloud:(\d+)"}
+            cfg["source"]["external"]["developer_manual"] = "https://docs.example/{major}/d/{path}.html"
+            with mock.patch.dict(os.environ, {"APS_ORG_ROOT": td}):
+                got = u.rst_links("Read it `here <../../_static/openapi.html>`_.\n",
+                                  "developer_manual/client_apis/OCS/index", cfg)
+        self.assertEqual(got, {"https://docs.example/34/d/_static/openapi.html"})
+
+
 class CatalogTest(unittest.TestCase):
     def test_reads_multiline_msgid_and_msgstr(self):
         import tempfile
