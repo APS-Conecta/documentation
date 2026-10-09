@@ -45,7 +45,7 @@ La tabla de componentes, al final de esta sección, cuenta los parches de cada c
 
 ### Código propio
 
-Las aplicaciones epidemiologia, farmacia, territorio y estadistica, el fork de IntraVox, el tema visual de la suite y la configuración como código del aprovisionamiento son trabajo de APS Conecta bajo la licencia AGPL-3.0-or-later. El [catálogo de repositorios](_generated/catalogo) los enumera uno a uno.
+Las aplicaciones epidemiologia, farmacia, territorio y estadistica, el fork de IntraVox, el tema visual de la suite y la configuración como código del aprovisionamiento son trabajo de APS Conecta bajo la licencia AGPL-3.0-or-later. El {doc}`catálogo de repositorios <_generated/catalogo>` los enumera uno a uno.
 
 ### Texto de los manuales
 
