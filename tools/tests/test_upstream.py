@@ -193,6 +193,13 @@ class RenameTest(unittest.TestCase):
         )
         self.assertEqual(len(u.leftovers(rebrand_check.visible_text(html, (), cfg), cfg)), 1)
 
+    def test_an_autolink_shows_its_url_not_prose(self):
+        # user-manual-groupware-2: <https://www.reddit.com/r/Nextcloud/…> is URL text, which the
+        # build leaves alone (rebrand.py: reference text == refuri); the check must agree
+        url = "https://www.reddit.com/r/Nextcloud/comments/5rcypb/x/"
+        html = f'<p>Gracias: <a class="reference external" href="{url}">{url}</a>. <a href="{url}">foro de Nextcloud</a></p>'
+        self.assertEqual(len(u.leftovers(rebrand_check.visible_text(html), CFG)), 1)
+
 class RstTest(unittest.TestCase):
     def test_headings_levels_follow_first_seen_style(self):
         self.assertEqual(
