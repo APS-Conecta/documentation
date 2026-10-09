@@ -44,6 +44,8 @@ Gestión beyond what the :difiere: notice points to.>
   before any toctree.
 - A page holding **several** documents gives each one a `### <title in Spanish>` heading right
   before its block. Inside each block the body starts one level lower (`####`).
+- A page whose blocks carry `:difiere:` gets its «En APS Conecta Gestión» section from the
+  orchestrator, written from cited code evidence. A translator never writes it.
 
 ## 3. The block body
 
@@ -52,12 +54,14 @@ Gestión beyond what the :difiere: notice points to.>
 | Prose | Spanish. Meaning complete and exact: no additions, omissions or summaries. |
 | A paragraph or section title listed under «Official Spanish» | That `msgstr`, word for word, literals included: where the `msgstr` translates a literal (``` ``Files`` ``` → ``` ``Archivos`` ```), the `msgstr` wins. Only whitespace may change. |
 | Register | The official strings use «usted»; on a page that has them, match it. Otherwise use neutral, direct Spanish (impersonal or infinitive). |
+| Administration and developer prose | No official Spanish exists: translate every paragraph, in neutral impersonal Spanish. UI labels are the shipped interface's Spanish (`{guilabel}`, backed by the catalog the gate reads). |
 | Section titles | Spanish. Same count, order and relative depth as upstream. The body's first level is `###` on a single-document page. |
 | `.. _label:` | `(nc-label)=` on its own line, right before the heading it labels (label lower-case, verbatim). |
 | `:doc:\`x\`` / `:ref:\`x\`` | `{nc-doc}\`<absolute docname>\`` / `{nc-ref}\`<label>\``, with Spanish link text when upstream gives text: `{nc-ref}\`Texto <label>\``. A bare `:doc:` stays bare: the build writes the target's Spanish title. |
 | External link `` `text <url>`_ `` | A Markdown link (Spanish text, same URL), URL byte-identical. |
 | Named reference `` `Name`_ `` with its `.. _Name: url` target | A reference link `[texto][Name]`, with `[Name]: url` at the end of the block. URL byte-identical. |
 | A bare URL in prose or in a table cell | An autolink `<url>`, byte-identical: the site has no linkify, so a bare URL renders as plain text (the gate rejects it). |
+| A URL template with placeholders (`http://[user@pass:]<server>:<port>`) | As upstream formats it, never an autolink: it names an argument's shape, not a page. |
 | A link that is dead or slow upstream (404, 403, rate-limited) | Byte-identical all the same; name it under **gaps** when it is dead. linkcheck skips URLs that appear only inside `{upstream}` blocks: keeping them alive is upstream's job. |
 | Single-backtick text with no role (`` `text` ``: RST's default role) | `*text*`. Upstream renders it in italics. |
 | A definition list | Bullets `- term: definition`, with the term formatted as upstream formats it. |
