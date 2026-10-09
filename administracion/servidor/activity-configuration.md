@@ -41,9 +41,9 @@ El interruptor **Activar las notificaciones de emails** impide que se pongan en 
 
 - Configurar el número máximo de actividades que se muestran completas en los correos de notificación mediante el ajuste `mail_max_items`. Las actividades que superan este límite se resumen como *«y X más»* al final del correo. El valor predeterminado es `200` y el valor máximo permitido es `1000`. Por ejemplo, para establecerlo en `500`:
 
-```
-occ config:app:set activity mail_max_items --value=500
-```
+  ```
+  occ config:app:set activity mail_max_items --value=500
+  ```
 
 ### Referencia de configuración
 

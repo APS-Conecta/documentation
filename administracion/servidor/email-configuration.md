@@ -18,8 +18,6 @@ Nextcloud no incluye un servidor de correo completo, sino que se conecta al serv
 
 Para acceder a la página de configuración que se muestra abajo, iniciar sesión con una cuenta de administración. Hacer clic en el avatar y después en {guilabel}`Ajustes`. En el lado izquierdo, en {guilabel}`Administración`, hacer clic en {guilabel}`Ajustes básicos`.
 
-La página muestra la sección {guilabel}`Servidor de correo electrónico`, con sus campos de configuración y el botón {guilabel}`Enviar mensaje`.
-
 Con el asistente, conectar Nextcloud al servidor de correo es rápido y sencillo. El asistente rellena los valores de `config/config.php`, así que puede usarse uno u otro, o ambos, según se prefiera.
 
 El asistente de correo de Nextcloud admite tres tipos de conexión con el servidor de correo: SMTP, qmail y Sendmail. Usar el configurador SMTP para un servidor remoto, o Sendmail cuando el servidor de correo está en la misma máquina que Nextcloud.
