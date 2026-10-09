@@ -15,6 +15,12 @@ source:
     file: gestion/compose.yaml
     pattern: 'image:\s*nextcloud:(\d+)'
   manuals: [user_manual, admin_manual, developer_manual]
+  # Cada manual es un proyecto Sphinx propio: una etiqueta es única solo dentro de él. El de
+  # desarrollo comparte tres con los otros (critical-changes, contents, unified-search), así que
+  # sus etiquetas tejidas llevan prefijo: (nc-dev-<etiqueta>)=. upstream-fidelity falla si dos
+  # manuales con el mismo prefijo definen la misma etiqueta.
+  label_prefix:
+    developer_manual: dev-
   # Catálogos oficiales en español del manual de usuario (Transifex). Cubren ~20 % del texto
   # vigente (medido 2026-10-09): se usan textuales donde el msgid aún coincide.
   catalog: "user_manual/locale/es/LC_MESSAGES/{path}.pot"

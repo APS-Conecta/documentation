@@ -79,7 +79,11 @@ class UpstreamDirective(SphinxDirective):
         # them instead would place them after the block's own subsections.
         parent = self.state_machine.node
         parent += out
+        # an {nc-ref} inside resolves among this manual's labels (resolve())
+        outer = self.env.temp_data.get("nc_doc")
+        self.env.temp_data["nc_doc"] = doc
         nested_parse_with_titles(self.state, self.content, parent, self.content_offset)
+        self.env.temp_data["nc_doc"] = outer
         # The title of the section the block sits in: a bare {nc-doc} link to a page holding
         # several documents shows this one's own heading (resolve()).
         head = parent[0].astext() if isinstance(parent, nodes.section) and len(parent) and \
@@ -108,6 +112,7 @@ class NcRole(SphinxRole):
         # no text given: resolve() writes the woven page's title (doc) or section title (ref),
         # so a title lives in one place
         ref["nc_auto_title"] = not title
+        ref["nc_doc"] = self.env.temp_data.get("nc_doc") or ""
         ref["nc_kind"], ref["nc_target"] = (
             self.kind,
             target if self.kind == "doc" else target.lower(),
@@ -116,7 +121,7 @@ class NcRole(SphinxRole):
 
 
 def _labels(app) -> dict:
-    """upstream label → (docname, anchor id), read once from the clone."""
+    """(manual, upstream label) → (docname, anchor id), read once from the clone."""
     if not hasattr(app, "_nc_labels"):
         found = {}
         updir = u.upstream_dir()
@@ -126,7 +131,7 @@ def _labels(app) -> dict:
                     encoding="utf-8", errors="replace"
                 )
                 for label, _ in u.rst_labels(text):
-                    found.setdefault(label, (doc, u.make_id(label)))
+                    found.setdefault((doc.split("/", 1)[0], label), (doc, u.make_id(label)))
         app._nc_labels = found
     return app._nc_labels
 
@@ -164,7 +169,10 @@ def resolve(app, doctree, fromdocname):
             else:
                 ref["refuri"] = u.external_url(target)
         else:
-            label = f"nc-{target}"
+            label = f"nc-{u.label_prefix(ref['nc_doc'], cfg)}{target}"
+            manual = ref["nc_doc"].split("/", 1)[0]
+            unwoven = next((v for (m, lab), v in _labels(app).items()
+                            if lab == target and m in (manual or m,)), None)
             if label in std_labels:
                 page, anchor, section = std_labels[label]
                 ref["refuri"] = (
@@ -176,8 +184,8 @@ def resolve(app, doctree, fromdocname):
             elif label in env.domaindata["std"]["anonlabels"]:  # a target before a paragraph, not a heading
                 page, anchor = env.domaindata["std"]["anonlabels"][label]
                 ref["refuri"] = builder.get_relative_uri(fromdocname, page) + f"#{anchor}"
-            elif target in _labels(app):
-                doc, anchor = _labels(app)[target]
+            elif unwoven:
+                doc, anchor = unwoven
                 ref["refuri"] = u.external_url(doc, anchor)
             else:
                 ref["refuri"] = u.external_url("admin_manual/index")

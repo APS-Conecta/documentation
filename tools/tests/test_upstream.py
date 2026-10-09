@@ -943,6 +943,70 @@ class BareRefTitleTest(unittest.TestCase):
                              ["Usar HTTPS en APS Conecta Gestión", "Texto propio"])
 
 
+class LabelScopeTest(unittest.TestCase):
+    """Each upstream manual is its own Sphinx project: `critical-changes` is an admin and a
+    developer label, so a developer ref must land in the developer manual (W-run 12)."""
+
+    def cfg(self, prefix):
+        import copy
+        c = copy.deepcopy(CFG)
+        c["source"]["label_prefix"] = prefix
+        return c
+
+    def test_a_manual_prefix_names_its_labels(self):
+        self.assertEqual(u.label_prefix("developer_manual/basics/events", self.cfg({"developer_manual": "dev-"})), "dev-")
+        self.assertEqual(u.label_prefix("admin_manual/release_notes/index", self.cfg({"developer_manual": "dev-"})), "")
+
+    def test_fidelity_wants_the_prefixed_label(self):
+        cfg = self.cfg({"user_manual": "u-"})
+        source = "Title\n=====\n\nIntro.\n\n.. _sec-a:\n\nSection A\n---------\n\nText.\n"
+        page = "Introducción.\n\n({label})=\n#### Sección A\n\nTexto.\n"
+        found, _ = fidelity.check_block(block(page.format(label="nc-sec-a")), "usuario/interfaz-web.md", source, {}, cfg)
+        self.assertTrue(any("labels missing" in f for f in found), found)
+        found, _ = fidelity.check_block(block(page.format(label="nc-u-sec-a")), "usuario/interfaz-web.md", source, {}, cfg)
+        self.assertFalse(any("labels" in f for f in found), found)
+
+    def test_a_label_two_manuals_share_under_one_prefix_is_a_problem(self):
+        texts = {"admin_manual/release_notes/index": ".. _critical-changes:\n\nX\n=\n",
+                 "developer_manual/release_notes/critical_changes": ".. _critical-changes:\n\nY\n=\n"}
+        self.assertEqual(len(u.label_collisions(texts, self.cfg({}))), 1)
+        self.assertEqual(u.label_collisions(texts, self.cfg({"developer_manual": "dev-"})), [])
+
+    def test_a_ref_resolves_inside_its_blocks_manual(self):
+        import os
+        import tempfile
+        from unittest import mock
+        from sphinx.application import Sphinx
+
+        with tempfile.TemporaryDirectory() as tmp:
+            src = Path(tmp)
+            (src / "org" / "gestion").mkdir(parents=True)
+            (src / "org" / "gestion" / "compose.yaml").write_text("image: nextcloud:34\n", encoding="utf-8")
+            env = mock.patch.dict(os.environ, {"APS_ORG_ROOT": str(src / "org")})
+            env.start()
+            self.addCleanup(env.stop)
+            (src / "conf.py").write_text(
+                "import sys\n"
+                f"sys.path.insert(0, {str(TOOLS.parent / '_ext')!r})\n"
+                "extensions = ['myst_parser', 'upstream']\n"
+                "exclude_patterns = ['org', '_out', '_dt']\n",
+                encoding="utf-8",
+            )
+            (src / "index.md").write_text("# Inicio\n\n```{toctree}\nadmin\ndev\n```\n", encoding="utf-8")
+            (src / "admin.md").write_text(
+                "# Admin\n\n````{upstream} admin_manual/release_notes/index.rst@3ad9158\n"
+                "(nc-critical-changes)=\n## Cambios críticos\n\nVer {nc-ref}`critical-changes`.\n````\n", encoding="utf-8")
+            (src / "dev.md").write_text(
+                "# Dev\n\n````{upstream} developer_manual/release_notes/critical_changes.rst@3ad9158\n"
+                "(nc-dev-critical-changes)=\n## Cambios críticos de la API\n\nVer {nc-ref}`critical-changes`.\n````\n", encoding="utf-8")
+            app = Sphinx(str(src), str(src), str(src / "_out"), str(src / "_dt"),
+                         "html", status=None, warning=None, freshenv=True)
+            app.build()
+            for page, want in [("admin", "#nc-critical-changes"), ("dev", "#nc-dev-critical-changes")]:
+                html = (src / "_out" / f"{page}.html").read_text(encoding="utf-8")
+                self.assertIn(f'href="{want}"', html)
+
+
 class DifiereLinkTest(unittest.TestCase):
     def test_the_difiere_notice_links_to_the_aps_section(self):
         # admin collectives: the notice said «Ver la página de APS Conecta Gestión» and linked to its own page

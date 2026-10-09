@@ -126,10 +126,10 @@ def check_block(
     bare = u.bare_urls(content)
     if bare:
         out.append(f"{doc}: bare URL renders as plain text, write it as <url>: {bare[:2]}")
-    labels_up = {lab for lab, _ in u.rst_labels(section)}
+    labels_up = {u.label_prefix(doc, cfg) + lab for lab, _ in u.rst_labels(section)}
     if not labels_up <= set(u.myst_labels(content)):
         out.append(
-            f"{doc}: labels missing as (nc-label)=: {sorted(labels_up - set(u.myst_labels(content)))[:3]}"
+            f"{doc}: labels missing as (nc-{u.label_prefix(doc, cfg)}label)=: {sorted(labels_up - set(u.myst_labels(content)))[:3]}"
         )
 
     # section titles are msgids too; on the page they are headings
@@ -277,6 +277,8 @@ def main(argv: list[str]) -> int:
     problems, notes, woven, ai_total, n_blocks = [], [], set(), 0, 0
     names = u.docnames(updir, cfg)
     problems += [f"upstream.yml: {p}" for p in u.map_problems(names, cfg)]
+    problems += [f"upstream.yml: {p}" for p in u.label_collisions(
+        {n: (updir / f"{n}.rst").read_text(encoding="utf-8", errors="replace") for n in names}, cfg)]
     for path in pages(paths):
         page = (
             path.relative_to(u.ROOT).as_posix()
