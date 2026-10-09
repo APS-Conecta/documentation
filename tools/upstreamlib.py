@@ -236,7 +236,7 @@ def leftovers(text: str, cfg: dict | None = None) -> list[str]:
 
 # ------------------------------------------------------------------- RST, the upstream side
 
-ADORN = re.compile(r"^([=\-~^\"'`#*+_:.<>])\1{2,}\s*$")
+ADORN = re.compile(r"^([!-/:-@\[-`{-~])\1{2,}\s*$")  # docutils: any non-alphanumeric printable ASCII
 LABEL = re.compile(r"^\.\.\s+_([^:`]+):\s*$")
 RST_CODE_DIRECTIVE = re.compile(r"^(\s*)\.\.\s+(?:code-block|code|sourcecode)\s*::.*$")  # docutils allows «code-block ::»
 # may wrap a line, never a paragraph; it closes on a «``» no backtick follows, as docutils does
@@ -454,7 +454,14 @@ def normalize_code(block: list[str]) -> str:
 
 
 def rst_inline_literals(text: str) -> list[str]:
-    return [" ".join(x.split()) for x in RST_INLINE_LITERAL.findall(_without_code_blocks_rst(text))]
+    lines = _without_code_blocks_rst(text).split("\n")
+    # a title's backtick adornment («`````````», developer basics/events) is no literal; a
+    # Markdown fence in prose is one, as docutils renders it (weave contract)
+    for style, _, at in _rst_titles(text):
+        lines[at + 1] = ""
+        if style[0] == "o":
+            lines[at - 1] = ""
+    return [" ".join(x.split()) for x in RST_INLINE_LITERAL.findall("\n".join(lines))]
 
 
 DROPPED_DIRECTIVE = re.compile(r"^(\s*)\.\.\s+(?:mermaid|graphviz|raw)::")
