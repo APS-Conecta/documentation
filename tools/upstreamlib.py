@@ -818,8 +818,10 @@ def myst_links(content: str) -> set[str]:
     """External URLs anywhere outside code fences: [text](url), <url>, reference definitions,
     table cells and bare URLs."""
     text = _without_fences(content)
-    # inside <…> a URL is whole, «)» included (…#L52-L74)); bare URLs end at markup
-    return set(re.findall(r"<(https?://[^>\s]+)>", text)) | _urls([re.sub(r"<https?://[^>\s]+>", " ", text)])
+    # inside <…> a URL is whole, «)» included (…#L52-L74)); bare URLs end at markup. A <url> inside
+    # a code span is code (the Link header in client_apis/activity-api), as rst_links reads it
+    autolinks = re.findall(r"<(https?://[^>\s]+)>", MYST_SPAN.sub(" ", text))
+    return set(autolinks) | _urls([re.sub(r"<https?://[^>\s]+>", " ", text)])
 
 
 def myst_xrefs(content: str) -> list[tuple[str, str]]:

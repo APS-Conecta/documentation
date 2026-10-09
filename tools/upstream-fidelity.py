@@ -236,6 +236,14 @@ def warnings(content: str, section: str, ui: dict | None = None) -> list[str]:
         es = [sorted((ui or {}).get(p, ())) for p in parts]
         if all(es) and any(p not in e for p, e in zip(parts, es)):
             out.append(f"`{lit}` is a UI label the interface shows as «{' → '.join(e[0] for e in es)}»: write {{guilabel}}")
+    # upstream lead-ins that introduce the subsections right after them («The following hooks
+    # are available:» + «Session»): the page may do the same that many times
+    up, starts = section.split("\n"), {at - (style[0] == "o") for style, _, at in u._rst_titles(section)}
+    subsections = sum(
+        1 for k, ln in enumerate(up)
+        if ln.rstrip().endswith(":") and not ln.rstrip().endswith("::") and not ln.lstrip().startswith("..")
+        and next((j for j in range(k + 1, len(up)) if up[j].strip()), None) in starts
+    )
     walk = list(u.fence_walk(content.split("\n")))
     for i, (ln, fenced) in enumerate(walk):
         s = ln.strip()
@@ -253,6 +261,9 @@ def warnings(content: str, section: str, ui: dict | None = None) -> list[str]:
         # code introduced is code wherever it sits (upstream puts some fences between steps)
         # a paragraph of code spans only (a command, a list of keys), or a bold label («**MySQL**:»)
         command = re.match(r"^\s*(?:(?:\{\w+\})?`[^`]+`[\s,.;:…]*)+$", nxt) or re.match(r"^\s*\*\*[^*]+\*\*:?\s*$", nxt)
+        if subsections and u.MYST_HEADING.match(nxt.strip()):
+            subsections -= 1
+            continue
         if not nxt or closing or not (u.FENCE.match(nxt) or command or indent > base or (opens and not item and indent >= base)):
             out.append(f"«{s[:60]}» ends in «:» but introduces nothing — a dropped screenshot?")
     return out

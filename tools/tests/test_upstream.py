@@ -705,6 +705,26 @@ class MaintenanceDocTest(unittest.TestCase):
         self.assertEqual([w for w in fidelity.warnings(page, u.rst_section(sec)) if "ends in «:»" in w], [])
 
 
+    def test_a_lead_in_before_subsections_upstream_also_introduces(self):
+        # developer basics/events: «The following hooks are available:» then the Session section
+        sec = "Title\n=====\n\nThe following hooks are available:\n\nSession\n-------\n\nText.\n"
+        page = "Están disponibles los siguientes ganchos:\n\n#### Sesión\n\nTexto.\n"
+        self.assertEqual([w for w in fidelity.warnings(page, sec) if "ends in «:»" in w], [])
+
+    def test_a_lead_in_whose_screenshot_was_dropped_still_warns(self):
+        sec = "Title\n=====\n\nIt looks like this:\n\n.. image:: x.png\n\nNext\n----\n\nText.\n"
+        page = "Se ve así:\n\n#### Siguiente\n\nTexto.\n"
+        self.assertEqual(len([w for w in fidelity.warnings(page, sec) if "ends in «:»" in w]), 1)
+
+
+    def test_a_url_in_angle_brackets_inside_code_is_no_link(self):
+        # developer client_apis/activity-api: the Link header value ``<https://…?since=364>; rel="next"``
+        rst = 'Headers:\n\n- ``Link``: next page: ``<https://cloud.example.com/x?since=364>; rel="next"``\n\nSee <https://example.org/a>.\n'
+        page = 'Cabeceras:\n\n- `Link`: página siguiente: `<https://cloud.example.com/x?since=364>; rel="next"`\n\nVer <https://example.org/a>.\n'
+        self.assertEqual(u.myst_links(page), u.rst_links(rst) | {"https://example.org/a"})
+        self.assertNotIn("https://cloud.example.com/x?since=364", u.myst_links(page))
+
+
 class RenderTest(unittest.TestCase):
     """The block renders in source order: attribution, then its text, then its subsections."""
 
