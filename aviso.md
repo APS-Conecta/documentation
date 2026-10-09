@@ -56,6 +56,38 @@ Las páginas de la plataforma base derivan de la documentación oficial de Nextc
 ```{include} _generated/componentes.md
 ```
 
+(ia)=
+## Uso de inteligencia artificial
+
+### Cómo se construye
+
+APS Conecta Gestión nace de una idea de Daniel Espinoza Charrier y se construye mediante *vibe coding*: él define el problema, las decisiones y los criterios de aceptación, y agentes de inteligencia artificial escriben el código, las pruebas y la documentación. El trabajo avanza por flujos con etapas y compuertas, no por conversación libre:
+
+- **rpiv (rpiv-pi):** corridas por etapas —investigación, diseño, plan, implementación y validación— en las que el plan espera aprobación antes de implementarse.
+- **Flujos multiagente de Claude Code:** varios agentes en paralelo con una verificación adversarial de cada resultado; así se teje la documentación de Nextcloud en este sitio.
+- **Rutinas programadas de Claude:** la revisión de cada pull request, los resúmenes diarios y semanales, las propuestas de integración, el consejo de diseño y 📚 Scribe, que mantiene esta documentación.
+- **pi en GitHub Actions y los agentes programados de Jules:** primeras revisiones y mejoras nocturnas acotadas, cada una en su propio pull request.
+
+### Herramientas y modelos
+
+La tabla sale de `ia.yml` en cada compilación. Cada semana, una comprobación recorre el historial de los repositorios de la organización y falla si un commit de APS Conecta trae un modelo o un bot que la tabla no declara.
+
+```{include} _generated/ia.md
+```
+
+### Qué escribe la inteligencia artificial
+
+- El código, las pruebas y la documentación de los repositorios de la organización.
+- En este sitio: las páginas propias, las novedades de cada aplicación y la traducción de la documentación de Nextcloud, salvo los párrafos donde se usa la traducción oficial al español.
+- No escribe las tablas generadas —componentes, catálogo, referencia y glosario—: las producen programas deterministas a partir del código.
+
+### Cómo se revisa
+
+- Cada cambio entra por pull request, con la etiqueta `ai-assisted` y con compuertas automáticas: compilación, pruebas, idioma, estructura de página, fidelidad con el texto original y enlaces.
+- Las páginas propias y el código se integran con la aprobación de Daniel Espinoza Charrier, o de un agente al que él delega la integración, siempre con las compuertas en verde.
+- Las novedades, los registros de cambios y el seguimiento de la documentación de Nextcloud se integran solos cuando sus comprobaciones deterministas pasan; cualquier cambio se puede revertir.
+- Ningún modelo recibe datos de pacientes: la suite no los guarda.
+
 ## Marcas
 
 - Este proyecto no es producido por, ni está afiliado con, patrocinado o respaldado por Nextcloud GmbH, titular de la marca «Nextcloud».

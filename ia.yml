@@ -1,0 +1,63 @@
+# Uso de inteligencia artificial en APS Conecta (iniciativa scribe, Q25). Claves en inglés y
+# valores en español, como catalogo.yml. Una persona declara aquí cada herramienta de IA que
+# escribe en los repositorios de la organización, sus modelos, qué hace, desde cuándo y cómo se
+# revisa su trabajo. tools/gen-ia.py publica la tabla del aviso legal; tools/ia-check.py, cada
+# semana, recorre el historial de los repositorios del catálogo y falla si un commit de APS trae
+# un modelo coautor (Co-Authored-By) o un bot autor que este archivo no declara.
+#
+# Fuentes de la primera versión (2026-10-09): los trailers Co-Authored-By de los commits con
+# identidad de APS (el historial upstream de los forks queda fuera), agents/schedule.md (rutinas),
+# agents/roster.json (pi) y la configuración de Pi (/root/.config/rpiv-pi/models.json y su respaldo
+# del 2026-10-04). Lo que ningún registro dice se escribe como tal, nunca se supone.
+
+# Autores que cuentan como APS: el historial upstream de AIO e IntraVox no se revisa.
+identities:
+  - Dani Espinoza Charrier
+  - Daniel Espinoza Charrier
+  - ddespinoza
+  - root
+  - Claude
+  - "google-labs-jules[bot]"
+  - "aps-pi[bot]"
+  - "aps-conecta-bot[bot]"
+  - "claude[bot]"
+
+# Coautores humanos y bots sin IA (automatización determinista): no son herramientas de IA.
+people: [ddespinoza, Dani Espinoza Charrier]
+automation: ["aps-conecta-bot[bot]", "dependabot[bot]"]
+
+tools:
+  - tool: Claude Code
+    provider: Anthropic
+    models: ["Claude Opus 5.5", "Claude Opus 5 (1M context)", "Claude Opus 4.8", "Claude Opus 4.8 (1M context)", "Claude Fable 5.1", "Claude Sonnet 5.5", "Claude Sonnet 5", "Claude Haiku 4.5"]
+    use: "Código, pruebas, documentación, revisión de pull requests y los flujos multiagente (entre ellos el tejido de la documentación de Nextcloud)."
+    since: "2026-07-18"
+    review: "Cada cambio entra por pull request con compuertas automáticas y la etiqueta ai-assisted."
+  - tool: Rutinas de Claude (revisor, resumen diario, informe semanal, integrador, consejo, 📚 Scribe)
+    provider: Anthropic
+    models: ["claude-opus-5-5"]
+    bots: []
+    use: "Revisión de pull requests, resúmenes por correo, propuestas de integración y el mantenimiento diario de la documentación."
+    since: "2026-10-02"
+    review: "Las vías de prosa esperan la integración del responsable; las de listas y traducciones se integran solas con las comprobaciones deterministas en verde."
+  - tool: Pi con rpiv (rpiv-pi)
+    provider: "Zhipu AI, vía OpenRouter hasta el 2026-10-04 y vía z.ai desde entonces"
+    models: ["GLM-5.3"]
+    use: "Orquestación de flujos rpiv por etapas: investigación, diseño, plan, implementación y validación, con aprobación del plan."
+    since: "2026-09-25"
+    review: "El plan de cada corrida espera aprobación; el resultado entra por pull request con compuertas automáticas."
+    note: "Los modelos anteriores a la configuración del 2026-10-04 no quedaron registrados."
+  - tool: pi en GitHub Actions (aps-pi)
+    provider: "Zhipu AI, vía z.ai"
+    models: ["GLM-5.3"]
+    bots: ["aps-pi[bot]"]
+    use: "Primera revisión de pull requests, respuestas a pedidos @aps-pi y participación en los consejos de diseño."
+    since: "2026-10-03"
+    review: "La rutina revisora de Claude contrasta cada revisión; el responsable decide."
+  - tool: Jules
+    provider: Google
+    models: ["no informado por el servicio"]
+    bots: ["google-labs-jules[bot]"]
+    use: "Agentes programados por noche: seguridad, errores, rendimiento, simplificación, limpieza, interfaz y vocabulario."
+    since: "2026-08-18"
+    review: "La rutina revisora de Claude revisa cada pull request; el responsable decide."

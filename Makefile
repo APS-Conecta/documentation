@@ -30,6 +30,7 @@ generate:
 	python3 tools/gen-inicio-rapido.py
 	python3 tools/gen-glosario.py
 	python3 tools/gen-componentes.py
+	python3 tools/gen-ia.py
 
 # Cada bloque tejido dice lo que dice su fuente upstream (estructura, código, enlaces, texto oficial).
 fidelity: upstream
@@ -42,6 +43,7 @@ rebrand-check:
 test:
 	python3 -m unittest discover -s tools/tests
 	python3 tools/gen-componentes.py --selftest
+	python3 tools/ia-check.py --selftest
 
 clean:
 	rm -rf _build _generated
