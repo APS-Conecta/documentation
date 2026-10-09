@@ -62,7 +62,7 @@ systemctl start clamd@scan.service
 
 Con eso debería quedar todo listo. Activar el registro detallado en `scan.conf` y `freshclam.conf` hasta que funcione como se desea.
 
-**Docker, Docker-compose:** para instalar ClamAV con docker o docker compose puede usarse la imagen oficial de ClamAV o construir una propia. Este ejemplo se basa en la imagen de docker de https://github.com/Cisco-Talos/clamav.
+**Docker, Docker-compose:** para instalar ClamAV con docker o docker compose puede usarse la imagen oficial de ClamAV o construir una propia. Este ejemplo se basa en la imagen de docker de <https://github.com/Cisco-Talos/clamav>.
 
 El socket de ClamAV puede montarse desde el contenedor Docker en el sistema anfitrión como volumen. En ese caso no hace falta exponer ningún puerto fuera del contenedor.
 
@@ -125,7 +125,7 @@ Cuando ClamAV funcione de forma satisfactoria, conviene volver atrás y cambiar 
 
 ### Confirmar que todo funciona
 
-Todos los proveedores de antivirus implementan una cadena de virus de prueba, lo que facilita bastante las pruebas. Los archivos están aquí: https://www.eicar.org/download-anti-malware-testfile/
+Todos los proveedores de antivirus implementan una cadena de virus de prueba, lo que facilita bastante las pruebas. Los archivos están aquí: <https://www.eicar.org/download-anti-malware-testfile/>
 
 - Subir el archivo provocará un error: «Virus Win.Test.EICAR_HDB-1 se ha detectado en el archivo. No se ha podido completar la subida.»
 

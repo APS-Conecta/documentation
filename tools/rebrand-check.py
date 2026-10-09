@@ -3,9 +3,10 @@
 
 Reads every page of _build/html as a reader sees it and fails on any «Nextcloud» outside the
 places the rename rule leaves alone: code (<code>, <pre>), scripts and styles, attribution lines
-(class `atribucion`), the legal and product names upstream.yml `rename.keep` lists, and the
-pages `rename.exempt_pages` names. Proves _ext/rebrand.py from the outside, so a page that
-bypasses the transform (a template, a generator writing raw HTML) is caught too.
+(class `atribucion`), the vendor ({vendor} role, links to `rename.keep_hosts`), the legal and
+product names upstream.yml `rename.keep` lists, and the pages `rename.exempt_pages` names.
+Proves _ext/rebrand.py from the outside, so a page that bypasses the transform (a template, a
+generator writing raw HTML) is caught too.
 
     python3 tools/rebrand-check.py [html_dir]
 """
@@ -26,9 +27,9 @@ class Reader(HTMLParser):
     """Collects visible text outside skipped contexts. A link INTO an exempt page (the legal
     notice) is skipped too: the navigation repeats that page's headings, which name the origin."""
 
-    def __init__(self, exempt: tuple[str, ...] = ()):
+    def __init__(self, exempt: tuple[str, ...] = (), cfg: dict | None = None):
         super().__init__(convert_charrefs=True)
-        self.stack, self.text, self.exempt = [], [], exempt
+        self.stack, self.text, self.exempt, self.cfg = [], [], exempt, cfg
 
     def handle_starttag(self, tag, attrs):
         if tag in VOID:
@@ -37,7 +38,8 @@ class Reader(HTMLParser):
         classes = (attrs.get("class") or "").split()
         href = (attrs.get("href") or "").split("#", 1)[0]
         into_exempt = tag == "a" and any(href.endswith(e) for e in self.exempt)
-        self.stack.append(tag in SKIP_TAGS or "atribucion" in classes or into_exempt)
+        vendor = "vendor" in classes or (tag == "a" and u.vendor_link(attrs.get("href") or "", self.cfg))
+        self.stack.append(tag in SKIP_TAGS or "atribucion" in classes or into_exempt or vendor)
 
     def handle_endtag(self, tag):
         if tag not in VOID and self.stack:
@@ -48,8 +50,8 @@ class Reader(HTMLParser):
             self.text.append(data)
 
 
-def visible_text(html: str, exempt: tuple[str, ...] = ()) -> str:
-    r = Reader(exempt)
+def visible_text(html: str, exempt: tuple[str, ...] = (), cfg: dict | None = None) -> str:
+    r = Reader(exempt, cfg)
     r.feed(html)
     return " ".join(r.text)
 
@@ -63,7 +65,7 @@ def main(argv: list[str]) -> int:
         rel = page.relative_to(site).as_posix()
         if rel in exempt or rel.startswith(("_static/", "_sources/")) or rel in ("genindex.html", "search.html"):
             continue
-        text = visible_text(page.read_text(encoding="utf-8", errors="replace"), tuple(sorted(exempt)))
+        text = visible_text(page.read_text(encoding="utf-8", errors="replace"), tuple(sorted(exempt)), cfg)
         for hit in u.leftovers(text, cfg):
             print(f"ERROR {rel}: «…{' '.join(hit.split())}…»")
             found += 1

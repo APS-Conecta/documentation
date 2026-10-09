@@ -24,7 +24,7 @@ En Android 12 y versiones posteriores se requiere un paso de configuración adic
 
 #### Crear assetlinks.json
 
-Crear un archivo llamado `assetlinks.json` y alojarlo en el directorio .well-known del sitio web (p. ej., https://www.cloud.example.com/.well-known/assetlinks.json).
+Crear un archivo llamado `assetlinks.json` y alojarlo en el directorio .well-known del sitio web (p. ej., <https://www.cloud.example.com/.well-known/assetlinks.json>).
 
 Ejemplo de `assetlinks.json`:
 

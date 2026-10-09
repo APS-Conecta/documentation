@@ -35,7 +35,7 @@ Si aparece un mensaje de error relacionado con SSL, se puede intentar lo siguien
 :::
 
 :::{note}
-A partir de iOS 12 es necesario el cifrado SSL. Por lo tanto, **no** desactivar **SSL** (por este motivo se requiere un certificado en el dominio; https://letsencrypt.org/ sirve).
+A partir de iOS 12 es necesario el cifrado SSL. Por lo tanto, **no** desactivar **SSL** (por este motivo se requiere un certificado en el dominio; <https://letsencrypt.org/> sirve).
 :::
 
 :::{note}
@@ -58,7 +58,7 @@ Si se selecciona **CardDAV**, solo quedará disponible la sincronización de con
 Los contactos ahora deberían aparecer en la libreta de direcciones del iPhone.
 
 :::{note}
-A partir de iOS 12 es necesario el cifrado SSL. Por lo tanto, **no** desactivar **SSL** (por este motivo se requiere un certificado en el dominio; https://letsencrypt.org/ sirve).
+A partir de iOS 12 es necesario el cifrado SSL. Por lo tanto, **no** desactivar **SSL** (por este motivo se requiere un certificado en el dominio; <https://letsencrypt.org/> sirve).
 :::
 
 :::{note}

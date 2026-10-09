@@ -150,6 +150,14 @@ def brief(docname: str) -> str:
             "`````",
             "",
         ]
+    entries = u.rst_toctree(body, docname)
+    if entries:
+        lines += ["## Toctree entries (a bullet list of bare `{nc-doc}` links; the build writes the titles)", ""]
+        for e in entries:
+            f = updir / f"{e}.rst"
+            heads = u.rst_headings(f.read_text(encoding="utf-8", errors="replace")) if f.is_file() else []
+            lines.append(f"- `{e}` — upstream title: {heads[0][1] if heads else '(not found)'}")
+        lines.append("")
     if official:
         lines += ["## Official Spanish (msgid → msgstr)", ""]
         for en, es in official:

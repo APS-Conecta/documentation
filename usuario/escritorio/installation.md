@@ -46,9 +46,9 @@ Para opciones de despliegue orientadas a administradores, como la configuración
 
 ### Instalación en Linux
 
-Para Linux, Nextcloud ofrece oficialmente el cliente de escritorio como AppImage en la [página de descargas de Nextcloud][Nextcloud download page].
+Para Linux, {vendor}`Nextcloud` ofrece oficialmente el cliente de escritorio como AppImage en la [página de descargas de Nextcloud][Nextcloud download page].
 
-Algunas distribuciones Linux también ofrecen el cliente de escritorio de Nextcloud a través de sus gestores de paquetes. Estos paquetes los mantiene la distribución o la comunidad, no Nextcloud. Si se prefiere una instalación gestionada por paquetes, consultar la documentación de la distribución.
+Algunas distribuciones Linux también ofrecen el cliente de escritorio de {vendor}`Nextcloud` a través de sus gestores de paquetes. Estos paquetes los mantiene la distribución o la comunidad, no {vendor}`Nextcloud`. Si se prefiere una instalación gestionada por paquetes, consultar la documentación de la distribución.
 
 Los usuarios de Linux también deben tener habilitado un gestor de contraseñas, como GNOME Keyring o KWallet, para que el cliente de escritorio pueda iniciar sesión automáticamente.
 

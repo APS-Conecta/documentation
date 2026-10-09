@@ -20,6 +20,11 @@ Los documentos del establecimiento viven en cuatro áreas del CESFAM — Transve
 - Favoritos y etiquetas
 
 ````{upstream} user_manual/files/index.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
+
+- {nc-doc}`user_manual/files/accessing`
+- {nc-doc}`user_manual/files/managing`
+- {nc-doc}`user_manual/files/collaboration`
+- {nc-doc}`user_manual/files/security`
 ````
 
 ```{toctree}

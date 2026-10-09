@@ -14,6 +14,10 @@ Esta página presenta la app Collectives, pensada para que grupos y comunidades 
 ````{upstream} user_manual/collectives/index.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 :difiere: usuario/colectivos/index
 Un espacio propio para escribir y organizarse en colaboración. Collectives está diseñado para que grupos y comunidades estructuren el conocimiento compartido.
+
+- {nc-doc}`user_manual/collectives/getting_started`
+- {nc-doc}`user_manual/collectives/onboard_your_team`
+- {nc-doc}`user_manual/collectives/markdown_files`
 ````
 
 ## En APS Conecta Gestión

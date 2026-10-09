@@ -47,11 +47,11 @@ Windows Registry Editor Version 5.00
 
 2. Hacer doble clic en el archivo .reg para importarlo en el registro.
 
-Consultar https://nextcloud.com/blog/nextcloud-office-release-solves-document-compatibility-overhauls-knowledge-management/ para más información.
+Consultar <https://nextcloud.com/blog/nextcloud-office-release-solves-document-compatibility-overhauls-knowledge-management/> para más información.
 
 ### Algunos archivos se suben continuamente al servidor, incluso cuando no se han modificado.
 
-Es posible que otro programa esté cambiando la fecha de modificación del archivo. Si el archivo usa la extensión `.eml`, Windows cambia automática y continuamente todos los archivos, a menos que se elimine `\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\PropertySystem\PropertyHandlers` del registro de Windows. Consultar http://petersteier.wordpress.com/2011/10/22/windows-indexer-changes-modification-dates-of-eml-files/ para más información.
+Es posible que otro programa esté cambiando la fecha de modificación del archivo. Si el archivo usa la extensión `.eml`, Windows cambia automática y continuamente todos los archivos, a menos que se elimine `\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\PropertySystem\PropertyHandlers` del registro de Windows. Consultar <http://petersteier.wordpress.com/2011/10/22/windows-indexer-changes-modification-dates-of-eml-files/> para más información.
 
 ### La sincronización se detiene al intentar sincronizar a más de 100 subdirectorios de profundidad.
 

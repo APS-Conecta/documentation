@@ -12,4 +12,9 @@ resumen: "Punto de entrada al chat de Talk; enviar mensajes, interactuar con ell
 Esta página agrupa, para las personas usuarias, los temas del chat de Talk. Cada tema se describe en su propia página de esta sección.
 
 ````{upstream} user_manual/talk/chat_index.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
+
+- {nc-doc}`user_manual/talk/chat`
+- {nc-doc}`user_manual/talk/messages`
+- {nc-doc}`user_manual/talk/message_integrations`
+- {nc-doc}`user_manual/talk/attachments`
 ````

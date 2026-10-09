@@ -9,6 +9,8 @@ import sys
 import unittest
 from pathlib import Path
 
+import re
+
 from docutils import nodes
 
 TOOLS = Path(__file__).resolve().parent.parent
@@ -174,6 +176,22 @@ class RenameTest(unittest.TestCase):
         nav = '<a href="../aviso.html#origen">Origen: distribución derivada de Nextcloud</a><a href="x.html">Nextcloud</a>'
         self.assertEqual(len(u.leftovers(rebrand_check.visible_text(nav, ("aviso.html",)), CFG)), 1)
 
+
+    def test_the_vendor_keeps_its_name(self):
+        # audit (user-manual-desktop-1): «APS Conecta Gestión ofrece oficialmente el cliente como
+        # AppImage» on a page linking to nextcloud.com is a false claim
+        cfg = dict(CFG, rename=dict(CFG["rename"], keep_hosts=["nextcloud.com", "github.com/nextcloud"]))
+        self.assertTrue(u.vendor_link("https://nextcloud.com/download/", cfg))
+        self.assertTrue(u.vendor_link("https://www.nextcloud.com/x", cfg))
+        self.assertTrue(u.vendor_link("https://github.com/nextcloud/server/wiki", cfg))
+        self.assertFalse(u.vendor_link("https://github.com/APS-Conecta/gestion", cfg))
+        self.assertFalse(u.vendor_link("https://notnextcloud.com/", cfg))
+        html = (
+            '<p><a href="https://nextcloud.com/download">página de descargas de Nextcloud</a> '
+            '<span class="vendor">Nextcloud</span> ofrece la AppImage; '
+            '<a href="otra.html">Nextcloud</a></p>'
+        )
+        self.assertEqual(len(u.leftovers(rebrand_check.visible_text(html, (), cfg), cfg)), 1)
 
 class RstTest(unittest.TestCase):
     def test_headings_levels_follow_first_seen_style(self):
@@ -493,6 +511,78 @@ class CodeByPositionTest(unittest.TestCase):
         page = "`man clamd.conf` y `man\nfreshclam.conf` explican todas las opciones. Ver `/etc/passwd`.\n"
         self.assertEqual(u.myst_inline_literals(page), ["man clamd.conf", "man freshclam.conf", "/etc/passwd"])
 
+
+class ContractV3Test(unittest.TestCase):
+    """Blind spots the first omission audit found: dropped toctrees, dangling lead-ins, short sections."""
+
+    TOC = (
+        "Calls\n=====\n\n.. toctree::\n   :maxdepth: 1\n\n   call\n   Ver pantalla <call_screenshare>\n   *\n\n"
+        ".. toctree::\n   :hidden:\n\n   secret\n"
+    )
+
+    def test_a_visible_toctree_is_a_list_of_doc_links(self):
+        self.assertEqual(
+            u.rst_toctree(self.TOC, "user_manual/talk/call_index"),
+            ["user_manual/talk/call", "user_manual/talk/call_screenshare"],
+        )
+        self.assertIn(("doc", "user_manual/talk/call"), u.rst_xrefs(self.TOC, "user_manual/talk/call_index"))
+
+    def test_a_bare_url_is_not_a_link(self):
+        # no linkify on this site: a bare URL renders as plain text (audit, user-manual-desktop-1)
+        self.assertEqual(
+            u.bare_urls("Ver https://a.example/x y <https://b.example/y>, [c](https://c.example/z).\n\n"
+                        "| Alpine | https://d.example/p |\n\n[Ref]: https://e.example/r\n\n`https://f.example/code`\n"),
+            ["https://a.example/x", "https://d.example/p"],
+        )
+
+    def test_a_url_template_is_not_a_bare_url(self):
+        # desktop commandline: «--httpproxy *http://[user@pass:]<server>:<port>*» is an argument shape
+        self.assertEqual(u.bare_urls("- `--httpproxy` *http://[user@pass:]\\<server\\>:\\<port\\>*: proxy.\n"), [])
+
+    def test_dangling_lead_in_and_short_section_warn(self):
+        up = "Title\n=====\n\nIntro.\n\nPart\n----\n\n" + " ".join(["word"] * 60) + ".\n"
+        page = "Introducción.\n\n### Parte\n\nEn Talk:\n\nPocas palabras aquí.\n"
+        warns = fidelity.warnings(page, u.rst_section(up))
+        self.assertTrue(any("ends in «:»" in w for w in warns), warns)
+        self.assertTrue(any("words" in w for w in warns), warns)
+        ok = "Introducción.\n\n### Parte\n\nPara instalar:\n\n```bash\nls\n```\n\n" + " ".join(["palabra"] * 70) + ".\n"
+        self.assertEqual(fidelity.warnings(ok, u.rst_section(up)), [])
+
+
+class UiLabelTest(unittest.TestCase):
+    """Talk and desktop audits: upstream writes buttons as ``literals``, so the page kept English
+    UI labels the Spanish interface never shows."""
+
+    UI = {"Start call": {"Comenzar llamada"}, "Settings": {"Ajustes"}, "Updates": {"Actualizaciones"},
+          "Start recording": {"Empezar a grabar"}}
+    UP = "Title\n=====\n\nClick ``Start call``, then ``Settings -> Updates`` and ``occ``.\n"
+
+    def check(self, content):
+        blk = block(content, "user_manual/files/x.rst@3ad9158")
+        return fidelity.check_block(blk, "usuario/archivos/x.md", self.UP, {}, CFG, ui=self.UI)[0]
+
+    def test_a_ui_literal_may_become_its_spanish_label(self):
+        ok = "Hacer clic en {guilabel}`Comenzar llamada`, luego en {guilabel}`Ajustes` → {guilabel}`Actualizaciones` y `occ`.\n"
+        self.assertEqual(self.check(ok), [])
+        bad = "Hacer clic en {guilabel}`Empezar`, luego en `Settings -> Updates` y `occ`.\n"
+        self.assertTrue(any("inline literals" in f for f in self.check(bad)))
+
+    def test_an_official_lead_in_may_end_in_a_period(self):
+        # user-root audit: «Simplemente introduzca su código:» introduced a dropped screenshot
+        up = "Title\n=====\n\nNow, just enter your code:\n"
+        cat = {"Now, just enter your code:": "Simplemente introduzca su código:"}
+        blk = block("Simplemente introduzca su código.\n", "user_manual/files/x.rst@3ad9158")
+        self.assertEqual(fidelity.check_block(blk, "usuario/archivos/x.md", up, cat, CFG, ui={})[0], [])
+
+    def test_a_quote_inside_fenced_code_is_code(self):
+        # config-database-1: «mysql> SHOW VARIABLES LIKE "version";» read as a quoted UI string
+        page = "Hacer clic en `Start call`, luego en `Settings -> Updates` y `occ`.\n\n```\nmysql> SHOW VARIABLES LIKE \"Settings\";\n```\n"
+        self.assertFalse(any("UI string" in f for f in self.check(page)), self.check(page))
+
+    def test_a_quoted_english_ui_string_with_spanish_is_wrong(self):
+        page = "Hacer clic en `Start call`, luego en `Settings -> Updates` y `occ`. Marcar \"Start recording\".\n"
+        self.assertTrue(any("Empezar a grabar" in f for f in self.check(page)))
+
 class RenderTest(unittest.TestCase):
     """The block renders in source order: attribution, then its text, then its subsections."""
 
@@ -525,6 +615,47 @@ class RenderTest(unittest.TestCase):
                 if c.tagname != "target"
             ]
             self.assertEqual(kinds, ["title", "paragraph", "atribucion", "paragraph", "section"])
+
+    def test_a_bare_doc_link_takes_the_woven_page_title(self):
+        import tempfile
+        from sphinx.application import Sphinx
+
+        import os
+        from unittest import mock
+
+        with tempfile.TemporaryDirectory() as tmp:
+            src = Path(tmp)
+            # the unwoven link's fallback URL names the major: a fixture org, not this box's gestion
+            (src / "org" / "gestion").mkdir(parents=True)
+            (src / "org" / "gestion" / "compose.yaml").write_text("image: nextcloud:34\n", encoding="utf-8")
+            env = mock.patch.dict(os.environ, {"APS_ORG_ROOT": str(src / "org")})
+            env.start()
+            self.addCleanup(env.stop)
+            (src / "conf.py").write_text(
+                "import sys\n"
+                f"sys.path.insert(0, {str(TOOLS.parent / '_ext')!r})\n"
+                "extensions = ['myst_parser', 'upstream']\n"
+                "exclude_patterns = ['org', '_out', '_dt']\n",
+                encoding="utf-8",
+            )
+            block = "````{{upstream}} user_manual/{d}.rst@3ad9158\nTexto.\n````\n"
+            (src / "index.md").write_text(
+                "# Inicio\n\n```{toctree}\nuno\nvarios\n```\n\n"
+                "- {nc-doc}`user_manual/uno`\n- {nc-doc}`user_manual/b`\n- {nc-doc}`user_manual/nada`\n"
+                "- {nc-doc}`Texto propio <user_manual/uno>`\n",
+                encoding="utf-8",
+            )
+            (src / "uno.md").write_text("# Página uno\n\n## Resumen\n\n" + block.format(d="uno"), encoding="utf-8")
+            (src / "varios.md").write_text(
+                "# Varios\n\n## Resumen\n\n### Doc A\n\n" + block.format(d="a")
+                + "\n### Doc B\n\n" + block.format(d="b"), encoding="utf-8")
+            app = Sphinx(str(src), str(src), str(src / "_out"), str(src / "_dt"),
+                         "html", status=None, warning=None, freshenv=True)
+            app.build()
+            html = (src / "_out" / "index.html").read_text(encoding="utf-8")
+            links = re.findall(r'<a [^>]*href="([^"]+)"[^>]*>(.*?)</a>', html)
+            text = {re.sub(r"<[^>]+>", "", t).strip() for h, t in links if "#upstream-" in h or "docs.nextcloud" in h}
+            self.assertEqual(text, {"Página uno", "Doc B", "user_manual/nada", "Texto propio"})
 
 
 class CatalogTest(unittest.TestCase):

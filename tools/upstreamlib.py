@@ -12,9 +12,11 @@ text, link targets, paragraphs) are visible at the line level.
 
 from __future__ import annotations
 
+import json
 import os
 import re
 import subprocess
+import tarfile
 from functools import lru_cache
 from pathlib import Path
 
@@ -171,6 +173,15 @@ def rename(text: str, cfg: dict | None = None) -> str:
     """«Nextcloud» → «APS Conecta Gestión», except inside the legal/product names `keep` lists."""
     cfg = cfg or config()
     return _rename_re(cfg).sub(cfg["rename"]["to"], text)
+
+
+def vendor_link(url: str, cfg: dict | None = None) -> bool:
+    """A link to the vendor's own site (rename.keep_hosts): its text names the vendor, never the
+    suite — «la página de descargas de Nextcloud» points at nextcloud.com, which APS does not run."""
+    cfg = cfg or config()
+    where = re.sub(r"^https?://(www\.)?", "", url or "")
+    return any(where == h or where.startswith((h + "/", h + "#", h + "?"))
+               for h in cfg["rename"].get("keep_hosts") or [])
 
 
 def leftovers(text: str, cfg: dict | None = None) -> list[str]:
@@ -362,9 +373,32 @@ def rst_links(text: str) -> set[str]:
     )
 
 
-def rst_xrefs(text: str, docname: str) -> list[tuple[str, str]]:
-    """(kind, target) of every :doc: and :ref:, :doc: targets made absolute docnames."""
+TOCTREE = re.compile(r"^[ \t]*\.\. toctree::[^\n]*\n((?:[ \t]+[^\n]*\n|[ \t]*\n)*)", re.M)
+
+
+def rst_toctree(text: str, docname: str) -> list[str]:
+    """Absolute docnames a visible toctree lists, in order. Upstream renders a toctree as a list
+    of links on the page, so the woven page carries that list; a :hidden: toctree shows nothing,
+    and glob patterns, `self` and URLs name no single document."""
     out = []
+    for body in TOCTREE.findall(text + "\n"):
+        lines = [ln.strip() for ln in body.split("\n") if ln.strip()]
+        if ":hidden:" in lines:
+            continue
+        for ln in lines:
+            if ln.startswith(":"):
+                continue
+            target = re.sub(r"^[^<]*<([^>]+)>$", r"\1", ln).strip()
+            if "*" in target or target == "self" or "://" in target:
+                continue
+            out.append(absolute_doc(docname, target))
+    return out
+
+
+def rst_xrefs(text: str, docname: str) -> list[tuple[str, str]]:
+    """(kind, target) of every :doc: and :ref: and every visible toctree entry, :doc: targets
+    made absolute docnames."""
+    out = [("doc", t) for t in rst_toctree(text, docname)]
     for kind, explicit, bare in RST_ROLE.findall(text):
         target = (explicit or bare).strip()
         if kind == "doc":
@@ -521,23 +555,68 @@ def myst_code_blocks(content: str) -> list[str]:
     return out
 
 
-def _without_fences(content: str) -> str:
-    lines, keep, opener = content.split("\n"), [], None
+def fence_walk(lines: list[str]):
+    """(line, fenced) per line: fenced is True on a code fence's own lines and on the lines it
+    holds. A fence closes only on the same character, at least as long, with nothing after it."""
+    opener = None
     for ln in lines:
         m = FENCE.match(ln)
         if opener is None:
             if m:
                 opener = m.group(1)
-            else:
-                keep.append(ln)
-        elif (
-            m
-            and m.group(1)[0] == opener[0]
-            and len(m.group(1)) >= len(opener)
-            and not m.group(2).strip()
-        ):
-            opener = None
-    return "\n".join(keep)
+            yield ln, bool(m)
+        else:
+            if m and m.group(1)[0] == opener[0] and len(m.group(1)) >= len(opener) \
+                    and not m.group(2).strip():
+                opener = None
+            yield ln, True
+
+
+def _without_fences(content: str) -> str:
+    return "\n".join(ln for ln, fenced in fence_walk(content.split("\n")) if not fenced)
+
+
+MYST_GUILABEL = re.compile(r"\{guilabel\}`([^`]+)`")
+
+
+def myst_guilabels(content: str) -> list[str]:
+    return MYST_GUILABEL.findall(_without_fences(content))
+
+
+_UI: dict | None = None
+
+
+def ui_strings() -> dict[str, set[str]]:
+    """English UI string → the Spanish the interface shows: glosario.yml (server strings) and the
+    l10n/es.json of every app the suite ships, read from the exact tarballs gestion installs
+    (provisioning/apps/*/*.tar.gz). Without a gestion checkout, the glossary alone."""
+    global _UI
+    if _UI is None:
+        out: dict[str, set[str]] = {}
+        for t in (yaml.safe_load((ROOT / "glosario.yml").read_text(encoding="utf-8")) or {}).get("terms", []):
+            out.setdefault(t["en"], set()).add(t["es"])
+        for tgz in sorted((org_root() / "gestion" / "provisioning" / "apps").glob("*/*.tar.gz")):
+            with tarfile.open(tgz) as tf:
+                for m in tf.getmembers():
+                    if m.name.endswith("/l10n/es.json") and m.name.count("/") == 2:
+                        data = json.load(tf.extractfile(m)).get("translations", {})
+                        for en, es in data.items():
+                            if isinstance(es, str) and es.strip():
+                                out.setdefault(en, set()).add(es)
+        _UI = out
+    return _UI
+
+
+def bare_urls(content: str) -> list[str]:
+    """URLs written as plain text outside code: with no linkify on this site they render
+    unclickable, so the contract writes them as autolinks <url>."""
+    text = _without_fences(content)
+    text = re.sub(r"`[^`\n]*`", " ", text)  # code spans
+    text = re.sub(r"<https?://[^>\s]+>", " ", text)  # autolinks
+    text = re.sub(r"\]\(https?://[^)\s]*\)", "]", text)  # [text](url)
+    text = re.sub(r"(?m)^\[[^\]\n]+\]:\s*\S+", " ", text)  # [Name]: url
+    # a host never starts with «[» or «<»: `http://[user@pass:]<server>` is an argument shape
+    return [m.rstrip(".,;:") for m in URL.findall(text) if re.match(r"https?://\w", m)]
 
 
 def myst_headings(content: str) -> list[tuple[int, str]]:
@@ -656,9 +735,9 @@ EN_STOPWORDS = {
 
 
 def reads_english(paragraph: str) -> bool:
-    """Untranslated prose: English stopwords ≥ 15 % of 8+ words. A quoted message («…» or "…")
-    is not prose: upstream quotes some UI and error strings in English only."""
-    text = re.sub(r"«[^»]*»|\"[^\"]*\"|“[^”]*”", " ", plain(paragraph))
+    """Untranslated prose: English stopwords ≥ 15 % of 8+ words. A message in «…» is not prose:
+    upstream quotes some UI and error strings in English only, and the contract puts them there."""
+    text = re.sub(r"«[^»]*»", " ", plain(paragraph))
     words = re.findall(r"[a-záéíóúñü]+", text.lower())
     if len(words) < 8:
         return False
