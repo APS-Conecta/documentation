@@ -38,6 +38,12 @@ def dead_links(cfg: dict | None = None) -> list[str]:
     return [d["url"] for d in (cfg or config()).get("dead_links") or []]
 
 
+def dead_anchors(cfg: dict | None = None) -> list[str]:
+    """Pages upstream links into whose anchor no longer exists (the page answers): linkcheck skips
+    the anchor on these base URLs only (conf.py)."""
+    return [d["url"].partition("#")[0] for d in (cfg or config()).get("dead_anchors") or []]
+
+
 def org_root() -> Path:
     return Path(os.environ.get("APS_ORG_ROOT", "/opt/aps-conecta-org"))
 
