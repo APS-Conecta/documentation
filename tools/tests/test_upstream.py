@@ -471,6 +471,10 @@ class DeadLinkTest(unittest.TestCase):
         self.assertEqual(u.dead_links(cfg), ["https://x.example/gone"])
         self.assertEqual(u.dead_links(CFG), [])
 
+    def test_dead_anchors_are_base_urls(self):
+        cfg = dict(CFG, dead_anchors=[{"url": "https://x.example/page.html#gone", "doc": "user_manual/x", "seen": "2026-10-09"}])
+        self.assertEqual(u.dead_anchors(cfg), ["https://x.example/page.html"])
+
 class RenderTest(unittest.TestCase):
     """The block renders in source order: attribution, then its text, then its subsections."""
 
