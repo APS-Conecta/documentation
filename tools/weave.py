@@ -123,7 +123,7 @@ def brief(docname: str) -> str:
     cfg, updir = u.config(), u.upstream_dir()
     page, rule = u.destination(docname, cfg)
     sha = u.tip(updir)
-    source = (updir / f"{docname}.rst").read_text(encoding="utf-8", errors="replace")
+    source = u.show(updir, sha, docname)
     body = u.rst_section(source)
     title = u.rst_headings(source)[0][1] if u.rst_headings(source) else docname
     catalog = u.catalog(updir, docname, cfg)

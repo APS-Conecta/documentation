@@ -90,8 +90,45 @@ def git(updir: Path, *args: str) -> str:
 
 
 def show(updir: Path, sha: str, docname: str) -> str:
-    """The upstream RST of `docname` at `sha` (a partial clone fetches the blob on demand)."""
-    return git(updir, "show", f"{sha}:{docname}.rst")
+    """The upstream RST of `docname` at `sha`, includes expanded (a partial clone fetches each
+    blob on demand)."""
+    read = lambda path: git(updir, "show", f"{sha}:{path}")
+    return expand_includes(read(f"{docname}.rst"), docname, read)
+
+
+INCLUDE = re.compile(r"^([ \t]*)\.\.\s+(include|literalinclude)::\s*(\S+)\s*$")
+INCLUDE_OPTION = re.compile(r"^[ \t]+:([\w-]+):\s*(.*?)\s*$")
+
+
+def expand_includes(text: str, docname: str, read) -> str:
+    """The doc as Sphinx renders it: each `.. include::` replaced by the file's RST, each
+    `.. literalinclude::` by a code-block of the file. `read(path)` returns a file of the
+    upstream tree; a path starting with «/» is from the manual's root. Any option but a
+    literalinclude's `:language:` is refused: it would change what renders."""
+    out, lines, i = [], text.split("\n"), 0
+    while i < len(lines):
+        m = INCLUDE.match(lines[i])
+        i += 1
+        if not m:
+            out.append(lines[i - 1])
+            continue
+        indent, kind, target = m.groups()
+        opts = {}
+        while i < len(lines) and (o := INCLUDE_OPTION.match(lines[i])):
+            opts[o.group(1)] = o.group(2)
+            i += 1
+        if set(opts) - ({"language"} if kind == "literalinclude" else set()):
+            raise LookupError(f"{docname}: {kind} {target} with options {sorted(opts)} is not supported")
+        manual = docname.split("/", 1)[0]
+        path = os.path.normpath(f"{manual}{target}" if target.startswith("/") else os.path.join(os.path.dirname(docname), target))
+        body = read(path).rstrip("\n")
+        if kind == "include":
+            body = expand_includes(body, path, read)
+            out += [indent + ln if ln.strip() else "" for ln in body.split("\n")]
+        else:
+            out += [f"{indent}.. code-block:: {opts.get('language', '')}".rstrip(), ""]
+            out += [f"{indent}   {ln}" if ln.strip() else "" for ln in body.split("\n")]
+    return "\n".join(out)
 
 
 # ------------------------------------------------------------------- the map

@@ -1031,6 +1031,35 @@ class W9GateTest(unittest.TestCase):
             self.assertRegex(html, r'href="uno.html#nc-t2s-consumer-apps"[^>]*>las apps<')
 
 
+class IncludeTest(unittest.TestCase):
+    """Upstream renders an included file in place: the gate reads what renders (basics/events
+    includes 164 OCP events; installation/nginx literalincludes both nginx configs)."""
+
+    FILES = {
+        "developer_manual/basics/_events.rst": "``OCP\\A\\Ev``\n**************\n\nFired when ``a`` happens.\n",
+        "admin_manual/installation/root.conf.sample": "server {\n    listen 80;\n}\n",
+    }
+
+    def test_an_include_renders_in_place(self):
+        rst = "Events\n======\n\nAvailable\n---------\n\n.. include:: _events.rst\n\nAfter.\n"
+        out = u.expand_includes(rst, "developer_manual/basics/events", self.FILES.__getitem__)
+        self.assertEqual([(lv, t) for lv, t, _ in u.rst_headings(out)],
+                         [(1, "Events"), (2, "Available"), (3, "``OCP\\A\\Ev``")])
+        self.assertEqual(u.rst_inline_literals(out), ["OCP\\A\\Ev", "a"])
+        self.assertIn("Fired when ``a`` happens.", u.rst_paragraphs(out))
+
+    def test_a_literalinclude_is_a_code_block(self):
+        rst = "Root\n----\n\nUse this:\n\n.. literalinclude:: root.conf.sample\n   :language: nginx\n\nTips.\n"
+        out = u.expand_includes(rst, "admin_manual/installation/nginx", self.FILES.__getitem__)
+        self.assertEqual(u.rst_code_blocks(out), ["server {\n    listen 80;\n}"])
+        self.assertIn("Tips.", u.rst_paragraphs(out))
+
+    def test_an_option_that_changes_the_output_is_refused(self):
+        rst = ".. literalinclude:: root.conf.sample\n   :lines: 1-2\n"
+        with self.assertRaises(LookupError):
+            u.expand_includes(rst, "admin_manual/installation/nginx", self.FILES.__getitem__)
+
+
 class CatalogTest(unittest.TestCase):
     def test_reads_multiline_msgid_and_msgstr(self):
         import tempfile
