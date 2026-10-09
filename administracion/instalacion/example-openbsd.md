@@ -5,6 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Recorrido de instalación en OpenBSD, sin soporte oficial: httpd(8), PHP-FPM, PostgreSQL, redis, tarea cron, chroot y asistente web."
 ---
+(nc-openbsd_installation_label)=
 # Ejemplo de instalación en OpenBSD
 
 ## Resumen

@@ -5,6 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Comandos occ de OCM: listar las claves de firma del JWKS, sus tres ranuras y la rotación en tres pasos (preparar, activar, retirar)."
 ---
+(nc-ocm_label)=
 # Comandos de OCM
 
 ## Resumen

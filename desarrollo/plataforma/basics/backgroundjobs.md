@@ -5,6 +5,7 @@ audiencia: desarrollo
 apps: [gestion]
 resumen: "Cómo escribir, registrar y programar trabajos en segundo plano (QueuedJob y TimedJob), incluidos los trabajos insensibles al tiempo y el paralelismo."
 ---
+(nc-dev-app-backgroundjobs)=
 # Trabajos en segundo plano (Cron)
 
 ## Resumen

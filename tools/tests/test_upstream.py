@@ -1158,6 +1158,26 @@ class IncludeTest(unittest.TestCase):
             u.expand_includes(rst, "admin_manual/installation/nginx", self.FILES.__getitem__)
 
 
+class TitleLabelTest(unittest.TestCase):
+    """A label above upstream's doc title (`.. _occ:` on line 1) names the whole doc; other docs'
+    {nc-ref} land on it. The section the gate compares starts below the title, so 34 woven pages
+    had dropped theirs and those refs left the site."""
+
+    SRC = ".. _email-config:\n\n=====\nEmail\n=====\n\nIntro.\n\n.. _smtp:\n\nSMTP\n----\n\nText.\n"
+
+    def test_title_labels_are_the_ones_above_the_first_title(self):
+        self.assertEqual(u.title_labels(self.SRC), ["email-config"])
+
+    def test_the_page_must_carry_its_title_label(self):
+        blk = {"doc": "admin_manual/configuration_server/email_configuration", "anchor": ""}
+        page = "---\ntipo: guia\n---\n\n# Correo\n\n````{upstream} x\n(nc-smtp)=\n### SMTP\n````\n"
+        self.assertEqual(len(fidelity.title_label_problems(page, blk, self.SRC, CFG)), 1)
+        fixed = page.replace("# Correo", "(nc-email-config)=\n# Correo")
+        self.assertEqual(fidelity.title_label_problems(fixed, blk, self.SRC, CFG), [])
+        # a block woven from an anchor is a section, not the doc: its title labels are not owed here
+        self.assertEqual(fidelity.title_label_problems(page, dict(blk, anchor="smtp"), self.SRC, CFG), [])
+
+
 class CatalogTest(unittest.TestCase):
     def test_reads_multiline_msgid_and_msgstr(self):
         import tempfile

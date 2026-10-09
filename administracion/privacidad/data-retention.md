@@ -5,6 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Periodos de conservación configurables (papelera, versiones, actividad, tokens, sesiones, registros, copias de seguridad) y su ajuste al RGPD."
 ---
+(nc-gdpr_data_retention)=
 # Conservación de datos
 
 ## Resumen

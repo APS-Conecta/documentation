@@ -5,6 +5,7 @@ audiencia: desarrollo
 apps: [gestion]
 resumen: "Preparar a mano un entorno de desarrollo sin docker: servidor web, código fuente desde GitHub, apps incluidas, modo de depuración y código al día."
 ---
+(nc-dev-devenv)=
 # Entorno de desarrollo
 
 ## Resumen

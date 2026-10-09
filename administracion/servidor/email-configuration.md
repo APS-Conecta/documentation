@@ -5,6 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Conectar Nextcloud a un servidor de correo: asistente, SMTP, Sendmail y qmail, plantillas de correo, parámetros de config.php y solución de problemas."
 ---
+(nc-email-config)=
 # Correo electrónico
 
 ## Resumen

@@ -5,6 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Servir la instancia con NGINX y PHP-FPM: ajustes de la configuración, webroot o subdirectorio, y soluciones a errores frecuentes."
 ---
+(nc-nginx-config)=
 # Configuración de NGINX
 
 ## Resumen

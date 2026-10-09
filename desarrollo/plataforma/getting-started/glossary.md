@@ -5,6 +5,7 @@ audiencia: desarrollo
 apps: [gestion]
 resumen: "Conceptos y términos de la documentación para desarrolladores: PHP, peticiones web, base de datos, herramientas de frontend y términos de la plataforma."
 ---
+(nc-dev-dev-glossary)=
 # Glosario
 
 ## Resumen

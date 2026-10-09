@@ -5,6 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Imponer nombres de archivo válidos en Windows: activarlo desde la interfaz web o con occ, sus consecuencias y cómo sanear los nombres no válidos."
 ---
+(nc-windows_compatible_filenames)=
 # Nombres de archivo compatibles con Windows
 
 ## Resumen

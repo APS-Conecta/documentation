@@ -5,6 +5,7 @@ audiencia: usuario
 apps: [gestion]
 resumen: "Usar montajes de almacenamiento externo en Archivos: estado de la conexión, compartir, añadir montajes propios y backends compatibles."
 ---
+(nc-external_storage_user_label)=
 # Usar almacenamiento externo
 
 ## Resumen

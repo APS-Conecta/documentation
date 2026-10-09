@@ -273,6 +273,18 @@ def warnings(content: str, section: str, ui: dict | None = None) -> list[str]:
     return out
 
 
+def title_label_problems(page_text: str, block: dict, source: str, cfg: dict) -> list[str]:
+    """A block that weaves a whole doc owes the labels above upstream's title somewhere on the page
+    (before its `#` title): other docs' {nc-ref} land on them. The compared section starts below
+    the title, so check_block cannot see them."""
+    if block["anchor"]:
+        return []
+    have = set(u.myst_labels(page_text))
+    want = [u.label_prefix(block["doc"], cfg) + lab.lower() for lab in u.title_labels(source)]
+    missing = [w for w in want if w not in have]
+    return [f"{block['doc']}: title labels missing as (nc-label)= before the page title: {missing}"] if missing else []
+
+
 def pages(paths: list[str] | None) -> list[Path]:
     if paths:
         return [Path(p) for p in paths]
@@ -300,7 +312,8 @@ def main(argv: list[str]) -> int:
             if path.is_absolute()
             else path.as_posix()
         )
-        for block in u.blocks(path.read_text(encoding="utf-8")):
+        text = path.read_text(encoding="utf-8")
+        for block in u.blocks(text):
             n_blocks += 1
             where = f"{page}:{block['line']}"
             if block["doc"]:
@@ -315,6 +328,8 @@ def main(argv: list[str]) -> int:
             else:
                 source, cat = "", {}
             found, ai = check_block(block, page, source, cat, cfg)
+            if block["doc"]:
+                found += title_label_problems(text, block, source, cfg)
             problems += [f"{where}: {p}" for p in found]
             if block["doc"] and not found:
                 notes += [f"{where}: {w}" for w in warnings(block["content"], u.rst_section(source, block["anchor"]), u.ui_strings())]
