@@ -58,12 +58,14 @@ Tras la instalación, se abre el asistente de configuración inicial. En el asis
 
 Primero, hay que introducir la URL del servidor Nextcloud.
 
+La pantalla muestra un formulario para elegir entre iniciar sesión y registrarse.
+
 Si ya se tiene una cuenta en una instancia de Nextcloud, hacer clic en `Login to your
 Nextcloud`. Si todavía no se tiene una instancia de Nextcloud o una cuenta, puede que haya que crear una primero.
 Como alternativa, puede registrarse una cuenta con un proveedor. En ese caso, pulsar `Create account with Provider`.
 
 :::{note}
-Es posible que la compilación del cliente de escritorio que se está usando se haya creado sin soporte para proveedores. En ese caso, no se verá esta página y se pasará directamente a la siguiente.
+Es posible que la compilación del cliente de escritorio que se está usando se haya creado sin soporte para proveedores. En ese caso, no se verá esta pantalla y se pasará directamente a la siguiente.
 :::
 
 Introducir la URL de la instancia de Nextcloud. La URL es la misma que se escribe en el navegador para acceder a la instancia de Nextcloud.

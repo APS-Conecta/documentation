@@ -122,5 +122,5 @@ Este comportamiento se puede cambiar en los ajustes de la conversación. Además
 - **Conversaciones importantes**: siempre se recibe aviso de los mensajes nuevos, incluso en el modo «No molestar»;
 - **Conversaciones sensibles**: el contenido de los mensajes no se muestra en la lista de conversaciones y se oculta en las notificaciones.
 
-Para tener más control sobre la privacidad, también se puede configurar la visibilidad de los indicadores propios de escritura y de lectura en `Talk settings`:
+Para tener más control sobre la privacidad, también se puede configurar la visibilidad de los indicadores propios de escritura y de lectura en `Talk settings`.
 ````

@@ -20,7 +20,7 @@ Esta función debe activarla un administrador del sistema.
 
 Para recibir una invitación, la otra parte necesita el CloudID de quien la recibe, que es su identidad federada en las instancias de Nextcloud. El CloudID se encuentra en **Ajustes personales**, en **Compartir**, y tiene la forma `user@cloud.example.com`.
 
-El moderador de la conversación puede enviar una invitación a un participante de otro servidor:
+El moderador de la conversación puede enviar una invitación a un participante de otro servidor.
 
 ### Aceptar una invitación
 
