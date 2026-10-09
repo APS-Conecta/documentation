@@ -16,17 +16,17 @@ Puede crear sus propios directorios especiales de subida para que otras personas
 
 ### Configurar su propia carpeta de entrega de archivos
 
-En la aplicación Archivos, cree o elija la carpeta que recibirá las subidas anónimas:
+En la aplicación Archivos, cree o elija la carpeta que recibirá las subidas anónimas.
 
-Active **Compartir enlace**, **Permitir edición** y **Ocultar lista de archivos**:
+Active **Compartir enlace**, **Permitir edición** y **Ocultar lista de archivos**.
 
 Ahora puede enviar el enlace de la carpeta manualmente o usando la función de enviar incluida en Nextcloud, si el administrador la ha habilitado.
 
 ### Subir archivos
 
-Subir archivos de forma anónima es sencillo. Usted recibirá un enlace a la carpeta de subida, ábralo y verá una página de Nextcloud con un botón etiquetado "**Seleccione o arrestre y suelte archivos**":
+Subir archivos de forma anónima es sencillo. Usted recibirá un enlace a la carpeta de subida, ábralo y verá una página de Nextcloud con un botón etiquetado "**Seleccione o arrestre y suelte archivos**".
 
 Esto abre un selector de archivos, en el que usted selecciona el archivo o directorio que quiere subir. También puede soltar archivos en la ventana.
 
-Cuando su subida se haya completado, se mostrarán los nombres de los archivos:
+Cuando su subida se haya completado, se mostrarán los nombres de los archivos.
 ````

@@ -44,7 +44,7 @@ Si se refiere añadir usuarios a grupos y que funcione mágicamente, no. Esto so
 
 El cifrado de Nextcloud es del tipo "actívalo y olvídate", pero tiene unas cuantas opciones que puede usar.
 
-Cuando su administrador de Nextcloud activa el cifrado por primera vez, debe cerrar sesión y reabrirla para crear sus claves de cifrado y cifrar sus archivos. Cuando el cifrado ha sido habilitado en su servidor Nextcloud, verá un cartel amarillo en su página de Archivos, indicándole que cierre sesión y la abra de nuevo:
+Cuando su administrador de Nextcloud activa el cifrado por primera vez, debe cerrar sesión y reabrirla para crear sus claves de cifrado y cifrar sus archivos. Cuando el cifrado ha sido habilitado en su servidor Nextcloud, verá un cartel amarillo en su página de Archivos, indicándole que cierre sesión y la abra de nuevo.
 
 Cuando inicie sesión de nuevo, puede que tarde unos minutos en conseguirlo, en función del número de archivos que tenga. A continuación volverá a su página por defecto de Nextcloud.
 

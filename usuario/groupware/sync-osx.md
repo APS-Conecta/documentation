@@ -18,7 +18,7 @@ En los siguientes pasos añadirá **CalDAV** (Calendario) y **CardDAV** (Contact
 
 1. Haga clic en el menú **Apple** y seleccione **Ajustes del Sistema...** en el menú desplegable.
 
-2. Navegue a **Cuentas de Internet**:
+2. Navegue a **Cuentas de Internet**.
 
 3. Haga clic en la pequeña opción azul **seleccionar de una lista.**
 

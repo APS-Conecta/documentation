@@ -86,7 +86,7 @@ davs://example.com/nextcloud/remote.php/dav/files/USERNAME/
 ```
 
 :::{note}
-Si la conexión con su servidor no está protegida con HTTPS, use `dav://` en lugar de `davs://`:
+Si la conexión con su servidor no está protegida con HTTPS, use `dav://` en lugar de `davs://`.
 :::
 
 :::{note}
@@ -111,21 +111,21 @@ Usted puede crear una unidad WebDAV desde la consola de Linux. Esto es útil si 
 
 1. Instale el driver `davfs2` para el sistema de archivos WebDAV, que le permite montar unidades WebDAV como cualquier otro sistema de archivos remoto. Utilice este comando para instalarlo en Debian/Ubuntu:
 
-```
-apt-get install davfs2
-```
+   ```
+   apt-get install davfs2
+   ```
 
 2. Utilice este comando para instalarlo en CentOS, Fedora y openSUSE:
 
-```
-yum install davfs2
-```
+   ```
+   yum install davfs2
+   ```
 
 3. Añádase al grupo `davfs2`:
 
-```
-usermod -aG davfs2 <username>
-```
+   ```
+   usermod -aG davfs2 <username>
+   ```
 
 :::{note}
 Si el grupo davfs2 no existe después de instalar el paquete, es posible que tenga que crearlo usted mismo y, posiblemente, ajustar el archivo de configuración de davfs para que use el grupo después de haberlo creado.
@@ -133,51 +133,51 @@ Si el grupo davfs2 no existe después de instalar el paquete, es posible que ten
 
 4. A continuación, cree un directorio `nextcloud` en su directorio de usuario para el punto de montaje y `.davfs2/` para su archivo de configuración personal:
 
-```
-mkdir ~/nextcloud
-mkdir ~/.davfs2
-```
+   ```
+   mkdir ~/nextcloud
+   mkdir ~/.davfs2
+   ```
 
 5. Copie `/etc/davfs2/secrets` a `~/.davfs2`:
 
-```
-cp  /etc/davfs2/secrets ~/.davfs2/secrets
-```
+   ```
+   cp  /etc/davfs2/secrets ~/.davfs2/secrets
+   ```
 
 6. Establézcase como el propietario y seleccione permisos de lectura y escritura para el propietario exclusivamente:
 
-```
-chown <linux_username>:<linux_username> ~/.davfs2/secrets
-chmod 600 ~/.davfs2/secrets
-```
+   ```
+   chown <linux_username>:<linux_username> ~/.davfs2/secrets
+   chmod 600 ~/.davfs2/secrets
+   ```
 
 7. Añada sus credenciales de acceso a Nextcloud al final del archivo `secrets`, utilizando su URL del servidor Nextcloud y su nombre de usuario y contraseña de Nextcloud:
 
-```
-https://example.com/nextcloud/remote.php/dav/files/USERNAME/ <username> <password>
-or
-$PathToMountPoint $USERNAME $PASSWORD
-for example
-/home/user/nextcloud john 1234
-```
+   ```
+   https://example.com/nextcloud/remote.php/dav/files/USERNAME/ <username> <password>
+   or
+   $PathToMountPoint $USERNAME $PASSWORD
+   for example
+   /home/user/nextcloud john 1234
+   ```
 
 8. Añada la información de la unidad a `/etc/fstab`:
 
-```
-https://example.com/nextcloud/remote.php/dav/files/USERNAME/ /home/<linux_username>/nextcloud davfs user,rw,auto 0 0
-```
+   ```
+   https://example.com/nextcloud/remote.php/dav/files/USERNAME/ /home/<linux_username>/nextcloud davfs user,rw,auto 0 0
+   ```
 
 9. Y entonces compruebe que se monta y autentica, ejecutando el siguiente comando. Si lo ha configurado correctamente, no necesitará permisos de administrador:
 
-```
-mount ~/nextcloud
-```
+   ```
+   mount ~/nextcloud
+   ```
 
 10. También debería ser capaz de desmontarla:
 
-```
-umount ~/nextcloud
-```
+    ```
+    umount ~/nextcloud
+    ```
 
 Ahora cada vez que inicie sesión en su sistema Linux, su unidad Nextcloud debería montarse automáticamente vía WebDAV en su directorio `~/nextcloud`. Si prefiere montarlo manualmente, cambie `auto` por `noauto` en `/etc/fstab`.
 
@@ -211,13 +211,13 @@ servercert /etc/davfs2/certs/mycertificate.pem
 
 Para acceder archivos a través de Finder en macOS:
 
-1. Desde la barra de menú de Finder, elija **Ir > Conectarse a un servidor...**:
+1. Desde la barra de menú de Finder, elija **Ir > Conectarse a un servidor...**.
 
 2. Cuando la ventana **Conectarse a un servidor...** se abra, introduzca la dirección WebDAV del servidor Nextcloud en el campo **Dirección del servidor**, p. ej.:
 
-```
-https://cloud.YOURDOMAIN.com/remote.php/dav/files/USERNAME/
-```
+   ```
+   https://cloud.YOURDOMAIN.com/remote.php/dav/files/USERNAME/
+   ```
 
 3. Haga clic en **Conectar**. Su servidor WebDAV debería aparecer en el Escritorio como una unidad de disco compartido.
 
@@ -244,17 +244,17 @@ El siguiente ejemplo muestra cómo asignar una unidad utilizando la línea de co
 1. Abra un símbolo del sistema en Windows.
 2. Introduzca la siguiente línea en el símbolo del sistema para asignar la unidad Z del equipo:
 
-```
-net use Z: https://<drive_path>/remote.php/dav/files/USERNAME/ /user:youruser yourpassword
-```
+   ```
+   net use Z: https://<drive_path>/remote.php/dav/files/USERNAME/ /user:youruser yourpassword
+   ```
 
-con <drive_path> como la URL de su servidor Nextcloud. Por ejemplo:
+   con <drive_path> como la URL de su servidor Nextcloud. Por ejemplo:
 
-```
-net use Z: https://example.com/nextcloud/remote.php/dav/files/USERNAME/ /user:youruser yourpassword
-```
+   ```
+   net use Z: https://example.com/nextcloud/remote.php/dav/files/USERNAME/ /user:youruser yourpassword
+   ```
 
-El ordenador asigna a la unidad Z los archivos de su cuenta de Nextcloud.
+   El ordenador asigna a la unidad Z los archivos de su cuenta de Nextcloud.
 
 :::{error}
 Si recibe el siguiente error, `System error 67 has occurred. The network name cannot be found.`, o desconexiones frecuentes, abra la aplicación **Services** y asegúrese de que el servicio `WebClient` esté en ejecución y se inicie automáticamente al arrancar.
@@ -284,13 +284,13 @@ Para asignar una unidad usando el Explorador de Archivos de Microsoft Windows:
 
    Por ejemplo:
 
-```
-https://example.com/nextcloud/remote.php/dav/files/USERNAME/
-```
+   ```
+   https://example.com/nextcloud/remote.php/dav/files/USERNAME/
+   ```
 
-:::{note}
-En los servidores protegidos con SSL, marque **Reconnect at sign-in** para que la asignación se mantenga en los reinicios posteriores. Si quiere conectarse al servidor Nextcloud como un usuario distinto, marque **Connect using different credentials**.
-:::
+   :::{note}
+   En los servidores protegidos con SSL, marque **Reconnect at sign-in** para que la asignación se mantenga en los reinicios posteriores. Si quiere conectarse al servidor Nextcloud como un usuario distinto, marque **Connect using different credentials**.
+   :::
 
 5. Haga clic en el botón `Finalizar`.
 
@@ -393,7 +393,7 @@ No se puede asignar Nextcloud a una unidad WebDAV en Windows utilizando un certi
 4. Guarde el archivo en su escritorio con un nombre arbitrario, por ejemplo `myNextcloud.pem`.
 5. Vaya a Start menu > Run, escriba MMC y haga clic en «OK» para abrir Microsoft Management Console.
 6. Vaya a File > Add/Remove Snap-In.
-7. Seleccione Certificates, haga clic en «Añadir», elija «My User Account», luego «Finish» y, por último, «OK».
+7. Seleccione Certificates, haga clic en {guilabel}`Add`, elija «My User Account», luego «Finish» y, por último, «OK».
 8. Profundice hasta Trust Root Certification Authorities, Certificates.
 9. Haga clic con el botón derecho en Certificate y seleccione All Tasks e Import.
 10. Seleccione el certificado guardado en el escritorio.
@@ -501,9 +501,9 @@ Para conectarse a Nextcloud:
 - Vaya a «Environment», «Directories» en el lado izquierdo
 - Rellene el campo «Remote directory» con lo siguiente: `/nextcloud/remote.php/dav/files/NEXTCLOUDUSERNAME/`
 - Pulse el botón «OK»
-- Pulse el botón «Guardar»
+- Pulse el botón {guilabel}`Save`
 - Seleccione las opciones deseadas y pulse el botón «OK»
-- Pulse el botón «Iniciar sesión» para conectarse a Nextcloud
+- Pulse el botón {guilabel}`Login` para conectarse a Nextcloud
 
 :::{note}
 Si usa TOTP, use una contraseña de aplicación. En el momento de escribir esto (2022-11-07), WinSCP no admite TOTP con Nextcloud.

@@ -18,7 +18,7 @@ La compartición de archivos en federación le permite montar archivos compartid
 
 La compartición de archivos en federación está activada en las instalaciones de Nextcloud por defecto, ya sean nuevas o actualizadas. Siga los siguientes pasos para crear una nueva compartición con otros servidores Nextcloud u ownCloud 9+:
 
-1. Vaya a su página `Files` y haga clic en el icono **Compartir** del archivo o directorio que quiere compartir. En la barra lateral, introduzca el nombre de usuario y la URL del usuario remoto con este formato: `<username>@<oc-server-url>`. El formulario confirma automáticamente la dirección que escribe y la etiqueta como «remoto». Haga clic en la etiqueta.
+1. Vaya a su página {guilabel}`Archivos` y haga clic en el icono **Compartir** del archivo o directorio que quiere compartir. En la barra lateral, introduzca el nombre de usuario y la URL del usuario remoto con este formato: `<username>@<oc-server-url>`. El formulario confirma automáticamente la dirección que escribe y la etiqueta como «remoto». Haga clic en la etiqueta.
 
 2. Cuando su servidor Nextcloud local establezca una conexión correcta con el servidor Nextcloud remoto, verá una confirmación. Su única opción para compartir es **Puede editar**.
 

@@ -48,7 +48,7 @@ Si quiere transferir su calendario y sus respectivos eventos a su instancia de N
 
 2. Después de hacer clic en `Import Calendar`, que se encuentra en la sección `General`, puede seleccionar uno o más archivos de calendario de su dispositivo local para subirlos.
 
-3. Seleccione un `Calendar to import into`.
+3. Seleccione un {guilabel}`Calendario en el cual importar`.
 
 4. La subida puede tardar un tiempo y depende del tamaño del calendario que importe. Aparecerá una barra de progreso azul debajo de "Configuración del calendario".
 
@@ -64,7 +64,7 @@ Los eventos individuales suelen distribuirse como archivos `.ics` (a veces media
 
 2. Después de hacer clic en `Import calendar`, puede seleccionar uno o más archivos `.ics` de su dispositivo local para subirlos. Los archivos de un solo evento se añaden al calendario que seleccione.
 
-3. Seleccione un `Calendar to import into`.
+3. Seleccione un {guilabel}`Calendario en el cual importar`.
 
 4. La subida puede tardar un tiempo y depende del tamaño del calendario o evento que importe. Aparecerá una barra de progreso azul debajo de "Configuración del calendario".
 
@@ -132,7 +132,7 @@ En la página pública, los usuarios pueden obtener el enlace para subscribirse 
 
 #### Widget de calendario
 
-Puede insertar sus calendarios en aplicaciones compatibles como `Talk`, `Notes`, etc., ya sea compartiendo el enlace público para que el contenido insertado sea visible (en solo lectura) para todos los usuarios, o usando el enlace interno para que sea privado.
+Puede insertar sus calendarios en aplicaciones compatibles como `Talk`, {guilabel}`Notas`, etc., ya sea compartiendo el enlace público para que el contenido insertado sea visible (en solo lectura) para todos los usuarios, o usando el enlace interno para que sea privado.
 
 #### Suscribirse a un calendario
 
@@ -157,7 +157,7 @@ Puede suscribirse a un calendario de días feriados de sólo lectura provisto po
 
 1. Pulse `+ New calendar` en la barra lateral izquierda
 2. Pulse `+ Add holiday calendar`
-3. Busque su país o región y pulse `Subscribe`
+3. Busque su país o región y pulse {guilabel}`Suscribirse`
 
 ### Administrar eventos
 
@@ -178,7 +178,7 @@ Si desea editar detalles avanzados como los **Asistentes** o los **Recordatorios
 Puede incluir una conversación de Talk existente en su evento pulsando "Añadir una conversación de Talk". Para ver la lista de conversaciones de Talk existentes, asegúrese de que la aplicación Talk esté habilitada. Si desea crear una nueva conversación de Talk, puede hacerlo directamente desde la misma ventana modal.
 
 :::{note}
-Si siempre quiere abrir el editor avanzado en lugar de la ventana emergente del editor de eventos simple, desmarque la opción `Enable simplified editor` en la sección `Settings` de la aplicación.
+Si siempre quiere abrir el editor avanzado en lugar de la ventana emergente del editor de eventos simple, desmarque la opción `Enable simplified editor` en la sección {guilabel}`Ajustes` de la aplicación.
 :::
 
 Al hacer clic en el botón azul de `Guardar`, se creará el evento.
@@ -189,7 +189,7 @@ Si quiere editar, duplicar o eliminar un evento específico, primero debe hacer 
 
 Después de eso, podrá volver a establecer todos los detalles del evento y abrir el editor avanzado pulsando `More`.
 
-Al pulsar el botón `Update` se actualizará el evento. Para cancelar los cambios, pulse el botón **Cerrar** de la ventana emergente o del editor avanzado.
+Al pulsar el botón {guilabel}`Actualizar` se actualizará el evento. Para cancelar los cambios, pulse el botón **Cerrar** de la ventana emergente o del editor avanzado.
 
 Si abre la vista avanzada y pulsa el menú de tres puntos junto al nombre del evento, tiene la opción de exportar el evento como archivo `.ics` o de eliminarlo de su calendario.
 
@@ -227,7 +227,7 @@ Si usted es el organizador y todos sus asistentes rechazaron la invitación, el 
 
 #### Comprobar los horarios ocupados de los asistentes
 
-Después de añadir asistentes a un evento, puede pulsar `Find a time` para abrir la ventana modal "Libre / Ocupado". Esta le permite ver cuándo tiene otros eventos cada asistente y puede ayudarle a decidir una hora en la que todos estén libres.
+Después de añadir asistentes a un evento, puede pulsar {guilabel}`Buscar una hora` para abrir la ventana modal "Libre / Ocupado". Esta le permite ver cuándo tiene otros eventos cada asistente y puede ayudarle a decidir una hora en la que todos estén libres.
 
 Sus propios bloques ocupados se mostrarán del mismo color que su calendario personal, sus periodos de ausencia se mostrarán en gris y los horarios ocupados de los demás asistentes tendrán el mismo color que su avatar mostrado en el editor avanzado.
 
@@ -246,7 +246,7 @@ Las salas y los recursos no los gestiona Nextcloud en sí, y la aplicación Cale
 :::{versionadded} 5.0 Nextcloud 30 o posterior
 :::
 
-Si la aplicación "Calendar Rooms and Resources" está instalada en su instancia, ahora puede encontrar `Room availability` en la sección `Resources`. Allí se listan todas las salas existentes. Puede comprobar la disponibilidad de cada sala de forma similar a como comprueba el estado libre/ocupado de los asistentes a un evento.
+Si la aplicación "Calendar Rooms and Resources" está instalada en su instancia, ahora puede encontrar `Room availability` en la sección {guilabel}`Recursos`. Allí se listan todas las salas existentes. Puede comprobar la disponibilidad de cada sala de forma similar a como comprueba el estado libre/ocupado de los asistentes a un evento.
 
 #### Añadir adjuntos a los eventos
 

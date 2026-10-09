@@ -43,7 +43,7 @@ Existen varias opciones al compartir *carpetas* al público:
 - **No compartir** para revertir el recurso compartido
 - **Añadir otro enlace** para crear varios enlaces públicos con distintos permisos
 
-Para *archivos* compartidos por enlace, se puede permitir la edición del archivo con una de las soluciones de edición colaborativas de Nextcloud:
+Para *archivos* compartidos por enlace, se puede permitir la edición del archivo con una de las soluciones de edición colaborativas de Nextcloud.
 
 :::{note}
 La protección con contraseña y la caducidad de los archivos también se propagan mediante la compartición de archivos en federación desde Nextcloud 22.
@@ -51,11 +51,11 @@ La protección con contraseña y la caducidad de los archivos también se propag
 
 ### Compartir internamente con usuarios y grupos
 
-Al compartir archivos y carpetas con usuarios, grupos, círculos o miembros de una conversación de Talk, se pueden ajustar los permisos de cada uno:
+Al compartir archivos y carpetas con usuarios, grupos, círculos o miembros de una conversación de Talk, se pueden ajustar los permisos de cada uno.
 
 Al recibir un archivo compartido, puede configurar si quiere aceptar automáticamente los siguientes archivos que se compartan con usted, o si prefiere decidir cada vez entre aceptar o rechazar el archivo compartido.
 
-Para ajustar este ajuste, puede dirigirse a **Configuración** > **Personal** > **Compartir**:
+Para ajustar este ajuste, puede dirigirse a **Configuración** > **Personal** > **Compartir**.
 
 :::{warning}
 Si el propietario cambia el nombre de un archivo o carpeta compartidos, el nuevo nombre no se reflejará del lado del destinatario. Esto es necesario para evitar que se sobrescriban archivos o carpetas existentes del lado del destinatario.
@@ -63,9 +63,9 @@ Si el propietario cambia el nombre de un archivo o carpeta compartidos, el nuevo
 
 ### Otros con acceso
 
-Para descubrir si alguien tiene acceso a un archivo o carpeta porque se ha compartido una carpeta que lo contiene, haga clic en **Otros con acceso** en la pestaña Compartir:
+Para descubrir si alguien tiene acceso a un archivo o carpeta porque se ha compartido una carpeta que lo contiene, haga clic en **Otros con acceso** en la pestaña Compartir.
 
-La lista muestra a todos los usuarios, grupos, chats, etc. que tienen acceso a ese archivo cuando se ha compartido una carpeta que lo contiene en la jerarquía de carpetas:
+La lista muestra a todos los usuarios, grupos, chats, etc. que tienen acceso a ese archivo cuando se ha compartido una carpeta que lo contiene en la jerarquía de carpetas.
 
 Haga clic en los tres puntos para:
 
@@ -85,11 +85,13 @@ La compartición de archivos en federación le permite montar archivos compartid
 
 La compartición de archivos en federación está activada en las instalaciones de Nextcloud por defecto. Siga los siguientes pasos para crear una nueva compartición con otros servidores Nextcloud u ownCloud:
 
-Vaya a su página `Archivos` y haga clic en el icono Compartir del archivo o carpeta que quiere compartir. En la barra lateral, introduzca el usuario y la URL del usuario remoto en este formato: `<username>@<nc-server-url>`. En este ejemplo, resultaría en `bob@cloud.example.com`:
+Vaya a su página `Archivos` y haga clic en el icono Compartir del archivo o carpeta que quiere compartir. En la barra lateral, introduzca el usuario y la URL del usuario remoto en este formato: `<username>@<nc-server-url>`. En este ejemplo, resultaría en `bob@cloud.example.com`.
 
-El usuario destinatario recibirá una notificación en su Nextcloud, que les dará la opción de aceptar o rechazar la transferencia entrante:
+La pantalla muestra cómo se introduce la dirección de un recurso compartido en federación.
+
+El usuario destinatario recibirá una notificación en su Nextcloud, que les dará la opción de aceptar o rechazar la transferencia entrante.
 
 ### Añadir un recurso compartido por enlace público a su Nextcloud
 
-Las páginas de enlaces públicos compartidos de Nextcloud ofrecen la opción de añadir ese archivo o carpeta como recurso compartido en federación a su propia instancia de Nextcloud. Introduzca su `<username>@<nc-server-url>` como se mostró arriba para los recursos compartidos salientes:
+Las páginas de enlaces públicos compartidos de Nextcloud ofrecen la opción de añadir ese archivo o carpeta como recurso compartido en federación a su propia instancia de Nextcloud. Introduzca su `<username>@<nc-server-url>` como se mostró arriba para los recursos compartidos salientes.
 ````
