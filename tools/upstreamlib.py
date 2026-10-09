@@ -18,6 +18,7 @@ import re
 import string
 import subprocess
 import tarfile
+import textwrap
 from functools import lru_cache
 from pathlib import Path
 
@@ -377,9 +378,38 @@ def _rst_code_ranges(text: str) -> list[tuple[int, int, list[str]]]:
     return out
 
 
+GRID_BORDER = re.compile(r"^\s*\+(?:[-=]+\+)+\s*$")
+
+
+def _grid_cells(lines: list[str], i: int) -> tuple[list[tuple[int, str]], int]:
+    """(row's first line, cell text) of the grid table opening at line i, row by row and left to
+    right as docutils orders them, and the line after the table. Spanning cells are read as
+    their columns: none of upstream's code-holding tables spans."""
+    cols = [k for k, c in enumerate(lines[i].rstrip()) if c == "+"]
+    rows, cur, first, j = [], [[] for _ in cols[1:]], i + 1, i + 1
+    while j < len(lines) and lines[j].strip().startswith(("|", "+")):
+        if GRID_BORDER.match(lines[j]):
+            rows += [(first, textwrap.dedent("\n".join(c))) for c in cur]
+            cur, first = [[] for _ in cols[1:]], j + 1
+        else:
+            for k in range(len(cols) - 1):
+                cur[k].append(lines[j][cols[k] + 1 : cols[k + 1]].rstrip())
+        j += 1
+    return rows, j
+
+
 def rst_code_blocks(text: str) -> list[str]:
-    """Contents of code-block/code/sourcecode directives and `::` literal blocks, in order."""
-    return [normalize_code(block) for _, _, block in _rst_code_ranges(text)]
+    """Contents of code-block/code/sourcecode directives and `::` literal blocks, in order,
+    those inside grid-table cells included (developer WebDAV/basic)."""
+    found = [(start, normalize_code(block)) for start, _, block in _rst_code_ranges(text)]
+    lines, i = text.split("\n"), 0
+    while i < len(lines):
+        if GRID_BORDER.match(lines[i]):
+            cells, i = _grid_cells(lines, i)
+            found += [(start, code) for start, cell in cells for code in rst_code_blocks(cell)]
+        else:
+            i += 1
+    return [code for _, code in sorted(found, key=lambda x: x[0])]
 
 
 def normalize_code(block: list[str]) -> str:

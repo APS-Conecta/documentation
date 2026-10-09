@@ -871,6 +871,24 @@ class Round4WarnTest(unittest.TestCase):
         self.assertTrue(self.leads("Los campos son:\n\nTexto sin nada más.\n"))
 
 
+class GridTableCodeTest(unittest.TestCase):
+    def test_code_inside_a_grid_table_cell_is_code(self):
+        # developer WebDAV/basic: <d:supportedlock /> holds two code-blocks inside a table cell
+        rst = ("Run::\n\n  ls\n\n"
+               "+------------+---------------------------+\n"
+               "| Name       | Value                     |\n"
+               "+============+===========================+\n"
+               "| lock       | .. code-block:: XML       |\n"
+               "|            |                           |\n"
+               "|            |   <d:lockentry>           |\n"
+               "|            |   </d:lockentry>          |\n"
+               "+------------+---------------------------+\n"
+               "| plain      | ``value``                 |\n"
+               "+------------+---------------------------+\n\n"
+               "Then::\n\n  pwd\n")
+        self.assertEqual(u.rst_code_blocks(rst), ["ls", "<d:lockentry>\n</d:lockentry>", "pwd"])
+
+
 class BareRefTitleTest(unittest.TestCase):
     """configuration_server audit: a bare :ref: showed its raw label, so translators invented text."""
 
