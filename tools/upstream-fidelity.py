@@ -248,7 +248,9 @@ def warnings(content: str, section: str, ui: dict | None = None) -> list[str]:
     for i, (ln, fenced) in enumerate(walk):
         s = ln.strip()
         # a bold label («**MySQL**:») names what follows, like a heading: not a lead-in
-        if fenced or not s.endswith(":") or s.startswith((":", "|", "#", "(")) or re.match(r"^\*\*[^*]+\*\*:$", s):
+        # a colon standing alone («como ! o :») quotes the character; it introduces nothing
+        if fenced or not s.endswith(":") or s.startswith((":", "|", "#", "(")) or re.match(r"^\*\*[^*]+\*\*:$", s) \
+                or re.search(r"\s:$", s):
             continue
         nxt = next((x for x, _ in walk[i + 1:] if x.strip()), "")
         # the paragraph goes on right after the colon: it introduced that text («…two ways:\nAdd…»)
@@ -264,7 +266,7 @@ def warnings(content: str, section: str, ui: dict | None = None) -> list[str]:
         closing = re.match(r"^\s*:::\s*$", nxt)
         # code introduced is code wherever it sits (upstream puts some fences between steps)
         # a paragraph of code spans only (a command, a list of keys), or a bold label («**MySQL**:»)
-        command = re.match(r"^\s*(?:(?:\{\w+\})?`[^`]+`[\s,.;:…]*)+$", nxt) or re.match(r"^\s*\*\*[^*]+\*\*:?\s*$", nxt)
+        command = re.match(r"^\s*(?:(?:\{\w+\})?(?:``.+?``|`[^`]+`)[\s,.;:…]*)+$", nxt) or re.match(r"^\s*\*\*[^*]+\*\*:?\s*$", nxt)
         if subsections and u.MYST_HEADING.match(nxt.strip()):
             subsections -= 1
             continue

@@ -245,7 +245,7 @@ Los ajustes avanzados se dividen en cuatro partes:
   solo para pruebas!
   *Nota*: el efecto de este ajuste depende de la configuración de PHP del sistema. Por ejemplo, no
   funciona con la
-  \[imagen oficial del contenedor de {vendor}`Nextcloud`\]\(<https://github.com/nextcloud/docker>).
+  [imagen oficial del contenedor de {vendor}`Nextcloud`](https://github.com/nextcloud/docker).
   Para desactivar la verificación de certificados en un uso concreto, añadir la siguiente línea de
   configuración a */etc/ldap/ldap.conf*:
 
