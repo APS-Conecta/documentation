@@ -488,7 +488,7 @@ def rst_paragraphs(text: str) -> list[str]:
             not s
             or ADORN.match(s)
             or s.startswith(".. ")
-            or s.startswith(":")
+            or re.match(r"^:[^:`\s][^:`]*:(\s|$)", s)  # a field or option; a role (:code:`…`) is text
         ):
             if cur:
                 out.append(" ".join(" ".join(cur).split()))
