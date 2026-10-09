@@ -745,6 +745,26 @@ class MaintenanceDocTest(unittest.TestCase):
         self.assertEqual([w for w in fidelity.warnings(page, sec) if "ends in «:»" in w], [])
 
 
+    def test_a_lead_in_before_prose_upstream_also_has(self):
+        # admin reverse_proxy: «If your site is behind an nginx frontend (…):» then a prose paragraph
+        sec = "Title\n=====\n\nIf behind a load balancer:\n\nBy default, it works.\n"
+        page = "Si está detrás de un balanceador de carga:\n\nDe forma predeterminada, funciona.\n"
+        self.assertEqual([w for w in fidelity.warnings(page, sec) if "ends in «:»" in w], [])
+
+    def test_a_lead_in_before_prose_where_upstream_had_a_screenshot_warns(self):
+        sec = "Title\n=====\n\nIt looks like this:\n\n.. image:: x.png\n\nBy default, it works.\n"
+        page = "Se ve así:\n\nDe forma predeterminada, funciona.\n"
+        self.assertEqual(len([w for w in fidelity.warnings(page, sec) if "ends in «:»" in w]), 1)
+
+    def test_a_decorated_ui_literal_may_become_its_label(self):
+        # admin external_storage_gui: ``Folder name.`` (stray period), files: ``+ New`` (icon prefix)
+        from collections import Counter
+        ui = {"New": {"Nuevo"}, "Folder name": {"Nombre de la carpeta"}}
+        swapped = fidelity._ui_swaps(Counter({"+ New": 1, "Folder name.": 1}),
+                                     Counter({"Nuevo": 1, "Nombre de la carpeta": 1}), ui)
+        self.assertEqual(swapped, Counter({"+ New": 1, "Folder name.": 1}))
+
+
 class RenderTest(unittest.TestCase):
     """The block renders in source order: attribution, then its text, then its subsections."""
 
