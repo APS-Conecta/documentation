@@ -12,6 +12,7 @@ El proyecto mantiene la suite, sus aplicaciones y esta documentación como una o
 
 Catálogo de repositorios <../_generated/catalogo>
 novedades/index
+Glosario <../_generated/glosario>
 errores-conocidos
 pendientes
 hoja-de-ruta

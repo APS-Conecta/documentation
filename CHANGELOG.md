@@ -23,14 +23,22 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
   page, so the page set follows the catalog. 📚 Scribe fills the tables.
 - Daily `schedule:` on `build.yml` (09:30 UTC, after Scribe) that also deploys, so
   the generated reference follows every repo's `main` on days nothing merges here.
+- The base-platform machinery (scribe S2b): `upstream.yml` (source rule
+  `nextcloud/documentation` `stable<major>`, the site-wide rename rule, and the map
+  of all 509 upstream docs to APS pages); `tools/upstreamlib.py`, its one reader;
+  the `{upstream}` directive (marker, attribution, «difiere» notice) and the
+  `nc-doc`/`nc-ref` roles, which resolve to the woven APS page or to
+  docs.nextcloud.com; `_ext/rebrand.py` («Nextcloud» → «APS Conecta Gestión» on
+  every page except code, URLs, attribution, legal names and the legal notice);
+  `tools/upstream-fidelity.py` and `tools/rebrand-check.py`, both in CI;
+  `glosario.yml` published as `proyecto/glosario`; `tools/fetch-upstream.sh`;
+  unit tests under `tools/tests/`.
 
 ### Changed
 
 - `catalogo.yml` `manuals` accept nested pages (`<audience>/<dir>/<page>.md`).
 - Vendored repo-docs re-rendered to canon after repo-docs #11 (no `Docs:` line in
   the PR gate) and #12 (the opt-in `site-structure` rule).
-
-### Changed
 
 ### Fixed
 
