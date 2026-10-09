@@ -26,7 +26,7 @@ A continuación se explica cómo añadir contactos, editarlos o eliminarlos, sub
 
 ### Añadir contactos
 
-Al acceder por primera vez a la aplicación Contactos, quedan disponibles la libreta de direcciones del sistema, que contiene todos los usuarios de la instancia que se tiene permitido ver, y una libreta de direcciones predeterminada vacía:
+Al acceder por primera vez a la aplicación Contactos, quedan disponibles la libreta de direcciones del sistema, que contiene todos los usuarios de la instancia que se tiene permitido ver, y una libreta de direcciones predeterminada vacía.
 
 Para añadir contactos a la libreta de direcciones, se puede usar uno de los siguientes métodos:
 
@@ -40,8 +40,8 @@ La forma más rápida de añadir un contacto es usar un archivo de contacto virt
 Para importar contactos con un archivo VCF/vCard:
 
 1. Cuando aún no hay contactos, se muestra un botón **Importar contactos**.
-2. Buscar "Ajustes" en la parte inferior de la barra lateral izquierda, junto al botón del engranaje:
-3. Hacer clic en el botón del engranaje. Aparecerá el botón "Importar" de la aplicación Contactos:
+2. Buscar "Ajustes" en la parte inferior de la barra lateral izquierda, junto al botón del engranaje.
+3. Hacer clic en el botón del engranaje. Aparecerá el botón "Importar" de la aplicación Contactos.
 
 :::{note}
 La aplicación Contactos solo admite la importación de vCards de las versiones 3.0 y 4.0.
@@ -59,7 +59,7 @@ Para crear un contacto nuevo:
 
 1. Hacer clic en el botón `+ New contact`.
 
-   La configuración de la vista de edición se abre en el campo de vista de la aplicación:
+   La configuración de la vista de edición se abre en el campo de vista de la aplicación.
 
 2. Especificar la información del nuevo contacto y luego hacer clic en Guardar.
 3. Se mostrará el modo de vista con los datos añadidos
@@ -80,11 +80,11 @@ No todos los contactos serán editables. La libreta de direcciones del sistema n
 
 #### Foto de contacto
 
-Para añadir una foto a los contactos nuevos, hacer clic en el botón de subida:
+Para añadir una foto a los contactos nuevos, hacer clic en el botón de subida.
 
-Una vez establecida la foto de contacto, se verá así:
+Una vez establecida la foto de contacto, se verá así. La imagen muestra la foto de contacto ya establecida.
 
-Para subir una nueva, quitarla, verla a tamaño completo o descargarla, hacer clic en la foto del contacto para que aparezcan las siguientes opciones:
+Para subir una nueva, quitarla, verla a tamaño completo o descargarla, hacer clic en la foto del contacto para que aparezcan esas opciones.
 
 Si el administrador permite las actualizaciones desde redes sociales en los ajustes de groupware de administración, los usuarios también pueden obtener fotos de contacto directamente desde redes sociales. En ese caso, el contacto debe tener guardado un nombre de usuario en la sección de redes sociales. Cada entrada de una red social compatible añade una entrada de descarga para esa red. Actualmente se admiten las siguientes redes sociales:
 
@@ -102,7 +102,7 @@ Los avatares sociales solo se obtienen si están disponibles públicamente sin i
 
 La aplicación Contactos permite seleccionar varios contactos y realizar acciones en lote sobre ellos. Para seleccionar varios contactos, hacer clic en la foto de perfil de cada contacto por separado, o hacer clic en la foto de perfil del primer contacto y luego, manteniendo pulsada la tecla Mayús, hacer clic en otro contacto de la lista para seleccionar todos los contactos que hay entre el primero y el segundo.
 
-Esto muestra un menú en la parte superior de la lista de contactos con varias acciones que se pueden realizar sobre los contactos seleccionados:
+Esto muestra un menú en la parte superior de la lista de contactos con varias acciones que se pueden realizar sobre los contactos seleccionados.
 
 En el modo por lotes, el botón con el icono de cruz deselecciona todos los contactos seleccionados, mientras que el botón con el icono de papelera elimina todos los contactos seleccionados.
 
@@ -134,7 +134,7 @@ Los grupos de contactos deben tener al menos un miembro para guardarse. Tener en
 
 ### Añadir y gestionar libretas de direcciones
 
-Al hacer clic en el botón "Ajustes" (engranaje) en la parte inferior de la barra lateral izquierda, se accede a los ajustes de la aplicación Contactos. Este campo muestra todas las libretas de direcciones disponibles y ciertas opciones para cada una, y permite crear libretas de direcciones nuevas con solo indicar su nombre:
+Al hacer clic en el botón "Ajustes" (engranaje) en la parte inferior de la barra lateral izquierda, se accede a los ajustes de la aplicación Contactos. Este campo muestra todas las libretas de direcciones disponibles y ciertas opciones para cada una, y permite crear libretas de direcciones nuevas con solo indicar su nombre.
 
 En los ajustes de Contactos también se pueden compartir, exportar y eliminar libretas de direcciones. Allí se encuentran las URL de CardDAV.
 

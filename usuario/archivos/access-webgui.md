@@ -27,13 +27,13 @@ La barra lateral contiene las siguientes entradas:
 - Etiquetas: explore los archivos por etiqueta del sistema. Consulte {nc-doc}`user_manual/files/tagging` para obtener detalles sobre cómo asignar etiquetas y filtrar sus archivos.
 - Archivos eliminados: archivos que ha eliminado y que todavía se pueden recuperar de la papelera.
 
-Cuando entra en una carpeta, aparece una ruta de navegación en la parte superior de la lista de archivos para que pueda volver a cualquier carpeta superior con un solo clic:
+Cuando entra en una carpeta, aparece una ruta de navegación en la parte superior de la lista de archivos para que pueda volver a cualquier carpeta superior con un solo clic.
 
 ### Control sobre archivos
 
 Nextcloud muestra miniaturas de vista previa de imágenes, archivos de texto y otros tipos compatibles; la lista exacta depende de la configuración de su servidor.
 
-Cada fila de archivo y de carpeta tiene un botón de menú de acciones de tres puntos. Haga clic en él para renombrar, mover, copiar, descargar o eliminar el elemento, o para marcarlo como favorito. Los archivos marcados como favoritos muestran un icono de estrella:
+Cada fila de archivo y de carpeta tiene un botón de menú de acciones de tres puntos. Haga clic en él para renombrar, mover, copiar, descargar o eliminar el elemento, o para marcarlo como favorito. Los archivos marcados como favoritos muestran un icono de estrella.
 
 :::{note}
 Puede encontrar rápidamente todos sus favoritos con la entrada **Favoritos** de la barra lateral izquierda.
@@ -41,25 +41,25 @@ Puede encontrar rápidamente todos sus favoritos con la entrada **Favoritos** de
 
 ### Barra lateral de detalles
 
-Seleccione **Detalles** en el menú de acciones de tres puntos para abrir la barra lateral de detalles. La barra lateral muestra información sobre el archivo seleccionado y ofrece acceso, mediante pestañas, a su historial de actividad, sus opciones para compartir y su historial de versiones:
+Seleccione **Detalles** en el menú de acciones de tres puntos para abrir la barra lateral de detalles. La barra lateral muestra información sobre el archivo seleccionado y ofrece acceso, mediante pestañas, a su historial de actividad, sus opciones para compartir y su historial de versiones.
 
 ### Actividad y comentarios
 
-La pestaña **Actividad** de la barra lateral de detalles muestra un registro cronológico de los cambios del archivo: subidas, ediciones, recursos compartidos y comentarios. Puede dejar un comentario directamente en esta pestaña; los comentarios son visibles para todas las personas que tienen acceso al archivo:
+La pestaña **Actividad** de la barra lateral de detalles muestra un registro cronológico de los cambios del archivo: subidas, ediciones, recursos compartidos y comentarios. Puede dejar un comentario directamente en esta pestaña; los comentarios son visibles para todas las personas que tienen acceso al archivo.
 
 ### Buscar y filtrar
 
-Use la barra de búsqueda de la parte superior de la página para buscar archivos por nombre en todos sus archivos, o escriba en el campo de búsqueda de la barra lateral izquierda para filtrar la vista actual:
+Use la barra de búsqueda de la parte superior de la página para buscar archivos por nombre en todos sus archivos, o escriba en el campo de búsqueda de la barra lateral izquierda para filtrar la vista actual.
 
 ### Vista de cuadrícula
 
-La aplicación Archivos usa de forma predeterminada una vista de lista. Haga clic en el botón para alternar a cuadrícula, situado sobre la lista de archivos, para cambiar a una cuadrícula de miniaturas, útil para explorar carpetas de imágenes:
+La aplicación Archivos usa de forma predeterminada una vista de lista. Haga clic en el botón para alternar a cuadrícula, situado sobre la lista de archivos, para cambiar a una cuadrícula de miniaturas, útil para explorar carpetas de imágenes.
 
 Haga clic de nuevo en el botón para volver a la vista de lista.
 
 ### Subir y crear archivos
 
-Haga clic en el botón **+** cerca de la parte superior de la lista de archivos para subir archivos desde su ordenador o crear elementos nuevos en la carpeta actual:
+Haga clic en el botón **+** cerca de la parte superior de la lista de archivos para subir archivos desde su ordenador o crear elementos nuevos en la carpeta actual.
 
 El menú ofrece las siguientes opciones:
 

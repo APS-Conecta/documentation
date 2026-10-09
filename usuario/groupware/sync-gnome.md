@@ -17,9 +17,9 @@ El [Escritorio GNOME](https://www.gnome.org) tiene soporte nativo para los calen
 Siga estos pasos para conseguirlo:
 
 1. En los ajustes de GNOME, abra Cuentas en línea.
-2. En "Añadir una cuenta", elija `Nextcloud`:
-3. Introduzca la URL de su servidor, su nombre de usuario y su contraseña. Si ha habilitado la autenticación de dos factores (2FA), necesita generar una contraseña/token de aplicación, porque Cuentas en línea de GNOME [aún no admite el inicio de sesión WebFlow de Nextcloud](https://gitlab.gnome.org/GNOME/gnome-online-accounts/issues/81) ({nc-ref}`Más información <managing_devices>`):
-4. En la siguiente ventana, seleccione a qué recursos debe acceder GNOME y pulse el botón **Cerrar** para cerrar el diálogo:
+2. En "Añadir una cuenta", elija `Nextcloud`.
+3. Introduzca la URL de su servidor, su nombre de usuario y su contraseña. Si ha habilitado la autenticación de dos factores (2FA), necesita generar una contraseña/token de aplicación, porque Cuentas en línea de GNOME [aún no admite el inicio de sesión WebFlow de Nextcloud](https://gitlab.gnome.org/GNOME/gnome-online-accounts/issues/81) ({nc-ref}`Más información <managing_devices>`).
+4. En la siguiente ventana, seleccione a qué recursos debe acceder GNOME y pulse el botón **Cerrar** para cerrar el diálogo.
 
 Las tareas, calendarios y contactos de Nextcloud aparecerán en el gestor de información personal (PIM) Evolution y las aplicaciones de Tareas, Contactos y Calendario.
 

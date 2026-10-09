@@ -14,7 +14,7 @@ Esta página explica qué son las etiquetas del sistema y sus niveles de acceso,
 ````{upstream} user_manual/files/tagging.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 Las etiquetas del sistema son rótulos de alcance de todo el servidor que se pueden asignar a archivos y carpetas para organizarlos, filtrar la lista de archivos y activar flujos de trabajo automatizados, como reglas de retención y control de acceso.
 
-Las etiquetas aparecen directamente en las filas de archivos y carpetas de la aplicación **Archivos**, de modo que se ve de un vistazo qué etiquetas están asignadas:
+Las etiquetas aparecen directamente en las filas de archivos y carpetas de la aplicación **Archivos**, de modo que se ve de un vistazo qué etiquetas están asignadas.
 
 Los administradores crean las etiquetas en los ajustes del servidor. Según la configuración del servidor, es posible que los usuarios normales también puedan crear etiquetas; el administrador puede restringir la creación de etiquetas solo a los administradores.
 

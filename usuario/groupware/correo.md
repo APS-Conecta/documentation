@@ -104,7 +104,7 @@ Aquí se mostrarán en orden cronológico todos los mensajes de todas las cuenta
 
 Los ajustes de la cuenta, como:
 
-1. Aliases
+1. Alias
 2. Firma
 3. Carpetas predeterminadas
 4. Respuestas automáticas
@@ -271,7 +271,7 @@ Cuando se produce un error durante el envío, hay tres mensajes de error posible
 
 #### Buzón compartido
 
-Si se ha compartido un buzón con ciertos permisos específicos, ese buzón aparecerá como un buzón nuevo con un icono de compartido, como se muestra a continuación:
+Si se ha compartido un buzón con ciertos permisos específicos, ese buzón aparecerá como un buzón nuevo con un icono de compartido.
 
 ### Acciones de sobre
 
