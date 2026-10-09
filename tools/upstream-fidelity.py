@@ -251,6 +251,10 @@ def warnings(content: str, section: str, ui: dict | None = None) -> list[str]:
         if fenced or not s.endswith(":") or s.startswith((":", "|", "#", "(")) or re.match(r"^\*\*[^*]+\*\*:$", s):
             continue
         nxt = next((x for x, _ in walk[i + 1:] if x.strip()), "")
+        # the paragraph goes on right after the colon: it introduced that text («…two ways:\nAdd…»)
+        follow = walk[i + 1][0] if i + 1 < len(walk) else ""
+        if follow.strip() and not walk[i + 1][1] and not re.match(r"^\s*([-*+|>#]|\d+[.)]|:::|`{3})", follow):
+            continue
         # a lead-in may introduce a fence, list, table, admonition or quote; prose, a heading, a
         # sibling list step, an admonition's closing «:::» or the block's end means it is gone
         item = re.match(r"^(\s*)(?:[-*+]|\d+[.)])\s+", ln)

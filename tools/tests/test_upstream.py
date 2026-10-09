@@ -725,6 +725,13 @@ class MaintenanceDocTest(unittest.TestCase):
         self.assertNotIn("https://cloud.example.com/x?since=364", u.myst_links(page))
 
 
+    def test_a_colon_inside_a_paragraph_is_no_lead_in(self):
+        # developer basics/controllers wraps «…two ways:» straight into the same paragraph
+        sec = "Title\n=====\n\nThis can be done in two ways:\nAdd an attribute.\n"
+        page = "Esto puede hacerse de dos maneras:\nSe puede agregar un atributo.\n"
+        self.assertEqual([w for w in fidelity.warnings(page, sec) if "ends in «:»" in w], [])
+
+
 class RenderTest(unittest.TestCase):
     """The block renders in source order: attribution, then its text, then its subsections."""
 
