@@ -50,7 +50,7 @@ Gestión beyond what the :difiere: notice points to.>
 | Upstream | In the block |
 |---|---|
 | Prose | Spanish. Meaning complete and exact: no additions, omissions or summaries. |
-| A paragraph listed under «Official Spanish» | That `msgstr`, word for word. Only whitespace may change. |
+| A paragraph or section title listed under «Official Spanish» | That `msgstr`, word for word, literals included: where the `msgstr` translates a literal (``` ``Files`` ``` → ``` ``Archivos`` ```), the `msgstr` wins. Only whitespace may change. |
 | Register | The official strings use «usted»; on a page that has them, match it. Otherwise use neutral, direct Spanish (impersonal or infinitive). |
 | Section titles | Spanish. Same count, order and relative depth as upstream. The body's first level is `###` on a single-document page. |
 | `.. _label:` | `(nc-label)=` on its own line, right before the heading it labels (label lower-case, verbatim). |

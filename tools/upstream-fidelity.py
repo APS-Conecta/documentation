@@ -60,7 +60,9 @@ def check_block(
         return out + [f"{doc}: {error}"], 0
     content = block["content"]
 
-    up_levels = u.relative_levels([lv for lv, _, _ in u.rst_headings(section)])
+    up_levels = u.relative_levels(
+        [lv for lv, _, _ in u.rst_headings(section, u.rst_styles(source))]
+    )
     my_levels = u.relative_levels([lv for lv, _ in u.myst_headings(content)])
     if up_levels != my_levels:
         out.append(
@@ -78,12 +80,14 @@ def check_block(
             f"{doc}: code blocks differ from upstream ({len(my_code)} vs {len(up_code)}; "
             f"first not byte-identical: {missing[:1] or '(order)'})"
         )
-    if Counter(u.rst_inline_literals(section)) != Counter(
-        u.myst_inline_literals(content)
-    ):
-        diff = Counter(u.rst_inline_literals(section)) - Counter(
-            u.myst_inline_literals(content)
-        )
+    # an official paragraph's literals are its msgstr's: the Transifex string may translate one
+    want = Counter(u.rst_inline_literals(section))
+    for para in u.rst_paragraphs(section):
+        if catalog.get(para):
+            want -= Counter(u.rst_inline_literals(para))
+            want += Counter(u.rst_inline_literals(catalog[para]))
+    if want != Counter(u.myst_inline_literals(content)):
+        diff = want - Counter(u.myst_inline_literals(content))
         out.append(
             f"{doc}: inline literals differ from upstream (missing or altered: {sorted(diff)[:3]})"
         )
@@ -104,7 +108,10 @@ def check_block(
             f"{doc}: labels missing as (nc-label)=: {sorted(labels_up - set(u.myst_labels(content)))[:3]}"
         )
 
-    mine = [u.plain(p) for p in u.myst_paragraphs(content)]
+    # section titles are msgids too; on the page they are headings
+    mine = [u.plain(p) for p in u.myst_paragraphs(content)] + [
+        u.plain(t) for _, t in u.myst_headings(content)
+    ]
     ai = 0
     for para in u.rst_paragraphs(section):
         official = catalog.get(para, "")

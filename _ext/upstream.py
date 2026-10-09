@@ -74,12 +74,15 @@ class UpstreamDirective(SphinxDirective):
             para += nodes.Text(".")
             note += para
             out.append(note)
-        holder = nodes.Element()
-        nested_parse_with_titles(self.state, self.content, holder, self.content_offset)
-        out += holder.children
+        # Headings in the content open sections straight in the page's section tree, so the
+        # attribution and the text before the first heading go into the page first; returning
+        # them instead would place them after the block's own subsections.
+        parent = self.state_machine.node
+        parent += out
+        nested_parse_with_titles(self.state, self.content, parent, self.content_offset)
         blocks = self.env.domaindata.setdefault("upstream", {}).setdefault("blocks", {})
         blocks.setdefault(doc, (self.env.docname, anchor_id))
-        return out
+        return []
 
 
 class NcRole(SphinxRole):
