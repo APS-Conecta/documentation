@@ -198,12 +198,13 @@ def leftovers(text: str, cfg: dict | None = None) -> list[str]:
 
 ADORN = re.compile(r"^([=\-~^\"'`#*+_:.<>])\1{2,}\s*$")
 LABEL = re.compile(r"^\.\.\s+_([^:`]+):\s*$")
-RST_CODE_DIRECTIVE = re.compile(r"^(\s*)\.\.\s+(?:code-block|code|sourcecode)::.*$")
+RST_CODE_DIRECTIVE = re.compile(r"^(\s*)\.\.\s+(?:code-block|code|sourcecode)\s*::.*$")  # docutils allows «code-block ::»
 # may wrap a line, never a paragraph; it closes on a «``» no backtick follows, as docutils does
 RST_INLINE_LITERAL = re.compile(r"``((?:[^\n]|\n(?!\s*\n))+?)``(?!`)")
 RST_EXT_LINK = re.compile(r"`[^`<]*<(https?://[^>]+)>`__?")
 RST_NAMED_TARGET = re.compile(r"^\.\. _[^:\n]+:\s*(https?://\S+)\s*$", re.M)
-URL = re.compile(r"https?://[^\s<>`\")\]]+")  # «'» may sit inside (…/wiki/FAQ's); a trailing one is quoting
+# «'» may sit inside (…/wiki/FAQ's), and balanced «(…)» too (…-encryption-(HTTPS)); a closing «)» alone ends it
+URL = re.compile(r"https?://(?:[^\s<>`\"()\]]|\([^\s<>`\"()]*\))+")
 RST_ROLE = re.compile(r":(doc|ref):`(?:[^`<]*<([^>]+)>|([^`]+))`")
 
 
@@ -299,23 +300,30 @@ def relative_levels(levels: list[int]) -> list[int]:
     return [lv - base for lv in levels]
 
 
-def _indented_block(lines: list[str], i: int) -> tuple[list[str], int]:
-    """The indented block starting after line i (blank lines allowed inside)."""
+def _indented_block(lines: list[str], i: int, base: int | None = None) -> tuple[list[str], int]:
+    """The literal block after line i, as docutils reads it: every line indented deeper than
+    `base` (line i's own indent unless a directive passes its own), blank lines allowed inside,
+    with the smallest indent stripped."""
     j = i + 1
     while j < len(lines) and not lines[j].strip():
         j += 1
-    if j >= len(lines) or not lines[j][:1].isspace():
+    if base is None:
+        # the paragraph's own indent; past a list marker («#. Edit it::» is column 3) when the
+        # block sits deeper than that, so the item's next paragraph is not swallowed
+        base = len(lines[i]) - len(lines[i].lstrip())
+        m = re.match(r"^\s*(?:[-*+]|#\.|\d+[.)]|\(\d+\))\s+", lines[i])
+        if m and j < len(lines) and len(lines[j]) - len(lines[j].lstrip()) > len(m.group(0)):
+            base = len(m.group(0))
+    if j >= len(lines) or len(lines[j]) - len(lines[j].lstrip()) <= base:
         return [], i + 1
-    indent = len(lines[j]) - len(lines[j].lstrip())
     block = []
-    while j < len(lines) and (
-        not lines[j].strip() or len(lines[j]) - len(lines[j].lstrip()) >= indent
-    ):
-        block.append(lines[j][indent:] if lines[j].strip() else "")
+    while j < len(lines) and (not lines[j].strip() or len(lines[j]) - len(lines[j].lstrip()) > base):
+        block.append(lines[j])
         j += 1
-    while block and not block[-1]:
+    while block and not block[-1].strip():
         block.pop()
-    return block, j
+    cut = min(len(ln) - len(ln.lstrip()) for ln in block if ln.strip())
+    return [ln[cut:] if ln.strip() else "" for ln in block], j
 
 
 def _quoted_block(lines: list[str], i: int) -> tuple[list[str], int]:
@@ -349,7 +357,7 @@ def _rst_code_ranges(text: str) -> list[tuple[int, int, list[str]]]:
             j = i + 1
             while j < len(lines) and re.match(r"^\s+:[\w-]+:", lines[j]):
                 j += 1
-            block, nxt = _indented_block(lines, j - 1)
+            block, nxt = _indented_block(lines, j - 1, base=len(ln) - len(ln.lstrip()))
             out.append((i, nxt, block))
             i = nxt
             continue

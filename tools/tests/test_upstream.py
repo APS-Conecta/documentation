@@ -837,6 +837,28 @@ class W7GateTest(unittest.TestCase):
         self.assertEqual(u.myst_links(page), {"https://g.example/a.php#L52-L74)"})
 
 
+class W8GateTest(unittest.TestCase):
+    """admin-manual-installation-1 and -2."""
+
+    def test_a_literal_block_ends_where_docutils_ends_it(self):
+        # example_openbsd: the first line is indented 4, the closing brace 2; docutils keeps both
+        rst = "Add a virtual host::\n\n    server \"domain.tld\" {\n        listen on *\n  }\n\nThen restart.\n"
+        self.assertEqual(u.rst_code_blocks(rst), ['  server "domain.tld" {\n      listen on *\n}'])
+        nested = "#. Edit it::\n\n      a = 1\n\n   More text.\n"
+        self.assertEqual(u.rst_code_blocks(nested), ["a = 1"])
+
+    def test_a_directive_may_space_its_colons(self):
+        # developer debugging: «.. code-block :: sql» is a code block for docutils
+        rst = "Log queries.\n\n.. code-block :: sql\n\n  SET GLOBAL general_log = 'ON';\n\nDone.\n"
+        self.assertEqual(u.rst_code_blocks(rst), ["SET GLOBAL general_log = 'ON';"])
+
+    def test_a_url_keeps_balanced_parentheses(self):
+        url = "https://github.com/x/wiki/Managing-HTTP-encryption-(HTTPS)"
+        rst = f"See `Managing <{url}>`_ (and https://a.example/b).\n"
+        self.assertEqual(u.rst_links(rst), {url, "https://a.example/b"})
+        self.assertEqual(u.myst_links(f"Ver [Gestionar]({url}) (y https://a.example/b).\n"), {url, "https://a.example/b"})
+
+
 class BareRefTitleTest(unittest.TestCase):
     """configuration_server audit: a bare :ref: showed its raw label, so translators invented text."""
 
