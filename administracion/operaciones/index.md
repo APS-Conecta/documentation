@@ -18,9 +18,21 @@ El Mantenimiento diario de la instalación abarca la salud de la pila, la deriva
 - Actualización de imágenes
 - Solución de problemas
 
+````{upstream} admin_manual/maintenance/index.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
+- {nc-doc}`admin_manual/maintenance/backup`
+- {nc-doc}`admin_manual/maintenance/restore`
+- {nc-doc}`admin_manual/maintenance/upgrade`
+- {nc-doc}`admin_manual/maintenance/update`
+- {nc-doc}`admin_manual/maintenance/manual_upgrade`
+- {nc-doc}`admin_manual/maintenance/package_upgrade`
+- {nc-doc}`admin_manual/maintenance/migrating`
+- {nc-doc}`admin_manual/maintenance/migrating_owncloud`
+````
+
 ```{toctree}
 :maxdepth: 1
 :glob:
 
 *
+*/index
 ```
