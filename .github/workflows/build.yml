@@ -11,6 +11,8 @@ on:
     branches: [main]     # main-only push: a PR is never checked twice
   pull_request:
   workflow_dispatch:     # token-reach verification on any branch; deploy stays gated
+  schedule:
+    - cron: "30 9 * * *"  # daily, after 📚 Scribe (09:00 UTC): generated pages follow every repo's main
 
 permissions: {}          # GITHUB_TOKEN is never used for a write; build re-grants read
 
@@ -95,14 +97,14 @@ jobs:
           GESTION_SRC: ${{ runner.temp }}/org/gestion  # fetch-brand.sh resolution branch 1
         run: make check-site
       - name: Pages artifact (main only)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: (github.event_name == 'push' || github.event_name == 'schedule') && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
         with:
           path: _build/html
 
   deploy:
     needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: (github.event_name == 'push' || github.event_name == 'schedule') && github.ref == 'refs/heads/main'
     permissions:
       pages: write
       id-token: write
