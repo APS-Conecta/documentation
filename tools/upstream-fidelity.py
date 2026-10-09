@@ -252,7 +252,7 @@ def warnings(content: str, section: str, ui: dict | None = None) -> list[str]:
         closing = re.match(r"^\s*:::\s*$", nxt)
         # code introduced is code wherever it sits (upstream puts some fences between steps)
         # a paragraph of code spans only (a command, a list of keys), or a bold label («**MySQL**:»)
-        command = re.match(r"^\s*(?:`[^`]+`[\s,.;:…]*)+$", nxt) or re.match(r"^\s*\*\*[^*]+\*\*:?\s*$", nxt)
+        command = re.match(r"^\s*(?:(?:\{\w+\})?`[^`]+`[\s,.;:…]*)+$", nxt) or re.match(r"^\s*\*\*[^*]+\*\*:?\s*$", nxt)
         if not nxt or closing or not (u.FENCE.match(nxt) or command or indent > base or (opens and not item and indent >= base)):
             out.append(f"«{s[:60]}» ends in «:» but introduces nothing — a dropped screenshot?")
     return out

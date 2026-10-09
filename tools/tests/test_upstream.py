@@ -698,6 +698,13 @@ class MaintenanceDocTest(unittest.TestCase):
         self.assertEqual([w for w in fidelity.warnings(page, u.rst_section(sec)) if "ends in «:»" in w], [])
 
 
+    def test_a_lead_in_before_a_code_role_command_introduced_it(self):
+        # admin installation/nginx: «Look for the line … like:» then :code:`listen = …` lines
+        sec = "Title\n=====\n\nText.\n"
+        page = "Buscar la línea que tenga un valor parecido a:\n\n{code}`listen = /var/run/php/php-fpm.sock`\no\n"
+        self.assertEqual([w for w in fidelity.warnings(page, u.rst_section(sec)) if "ends in «:»" in w], [])
+
+
 class RenderTest(unittest.TestCase):
     """The block renders in source order: attribution, then its text, then its subsections."""
 
