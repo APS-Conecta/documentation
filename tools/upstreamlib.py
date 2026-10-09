@@ -182,7 +182,9 @@ def vendor_link(url: str, cfg: dict | None = None) -> bool:
     suite — «la página de descargas de Nextcloud» points at nextcloud.com, which APS does not run."""
     cfg = cfg or config()
     where = re.sub(r"^https?://(www\.)?", "", url or "")
+    host = re.split(r"[/#?]", where, maxsplit=1)[0]
     return any(where == h or where.startswith((h + "/", h + "#", h + "?"))
+               or ("/" not in h and host.endswith("." + h))  # apps.nextcloud.com, docs.nextcloud.com
                for h in cfg["rename"].get("keep_hosts") or [])
 
 
@@ -205,7 +207,9 @@ RST_EXT_LINK = re.compile(r"`[^`<]*<(https?://[^>]+)>`__?")
 RST_NAMED_TARGET = re.compile(r"^\.\. _[^:\n]+:\s*(https?://\S+)\s*$", re.M)
 # «'» may sit inside (…/wiki/FAQ's), and balanced «(…)» too (…-encryption-(HTTPS)); a closing «)» alone ends it
 URL = re.compile(r"https?://(?:[^\s<>`\"()\]]|\([^\s<>`\"()]*\))+")
-RST_ROLE = re.compile(r":(doc|ref):`(?:[^`<]*<([^>]+)>|([^`]+))`")
+# docutils' end-string: a backtick followed by a word character does not close the role
+# (upstream's «:ref:`… core `Text-To-Speech Task type<t2s-consumer-apps>`» links t2s-consumer-apps)
+RST_ROLE = re.compile(r":(doc|ref):`((?:[^`]|`(?=\w))+?)`(?![\w`])")
 
 
 def _rst_titles(text: str):
@@ -472,8 +476,9 @@ def rst_xrefs(text: str, docname: str) -> list[tuple[str, str]]:
     """(kind, target) of every :doc: and :ref: and every visible toctree entry, :doc: targets
     made absolute docnames."""
     out = [("doc", t) for t in rst_toctree(text, docname)]
-    for kind, explicit, bare in RST_ROLE.findall(text):
-        target = (explicit or bare).strip()
+    for kind, content in RST_ROLE.findall(text):
+        m = re.match(r"(?s)^(.*?)\s*<([^<>]+)>$", content)
+        target = (m.group(2) if m else content).strip()
         if kind == "doc":
             target = absolute_doc(docname, target)
         else:

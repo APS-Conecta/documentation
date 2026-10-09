@@ -35,7 +35,7 @@ rename:
   # Nombres legales o de productos que la persona busca tal cual (tiendas de aplicaciones).
   keep: [Nextcloud GmbH, Nextcloud Desktop, Nextcloud Files, Nextcloud Talk, Nextcloud Server,
          Nextcloud Office, Nextcloud Hub, Nextcloud AIO, Nextcloud All-in-One,
-         Nextcloud All In One]
+         Nextcloud All In One, Nextcloud-AIO, Nextcloud Mail]
   # El texto de un enlace al sitio del fabricante nombra al fabricante, no a la suite: «la página de
   # descargas de Nextcloud» apunta a nextcloud.com, que APS no administra. Una afirmación del
   # fabricante como sujeto («Nextcloud ofrece…», «no Nextcloud») va en el rol {vendor}.
