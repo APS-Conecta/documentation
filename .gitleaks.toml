@@ -1,0 +1,23 @@
+# Woven upstream code stays byte-identical (tools/weave-contract.md), so the placeholder
+# credentials published in nextcloud/documentation examples are allowed by exact value,
+# nothing else. Legacy [allowlist]: gitleaks 8.21 ignores the newer [[allowlists]] table.
+# A new upstream sample that trips gitleaks gets its exact value added here.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "nextcloud/documentation example placeholders"
+regexes = [
+  '''^57b58edb6637fe3059b3595cf9c41b9$''',
+  '''^67336bcdf7630dd80b2b81a413d07$''',
+  '''^EJ39ITYZEUH5BGWDRUFY$''',
+  '''^ID_TOKEN$''',
+  '''^M5MrXTRjkyMaxXPe2FRXMTfTfbKEnZCu\+7uRTVSj$''',
+  '''^USER:PASSWD$''',
+  '''^kFrH9\-TXk4s\-gUoOQ\-KOVH8$''',
+  '''^mQUYQdffOSAMJYtm8pVpkOsVqXt5hglnuSpO5EMbgJMNEPFGaiDe8OUjvrJ2WcYcBSLgqynu9jaPFvZHMl83ybMvp6aDIDARjTFIBpRWod6p32fL9LIpIStvc6k8Wrs1$''',
+  '''^o9d3Q9tHcPMv6TIpH53MSXaUmY91YheZRwuIhwCFRSs=$''',
+  '''^pX65Ty5DrHQkYPE5HRsDvyFHlZZHcm$''',
+  '''^username:app\-password$''',
+  '''^yKTVA4zgxjfivy52WqD8kW3M2pKGQr6srmUXMipRdunxjPFripJn0GMfmtNOqOolYSuJ6sCN$''',
+]
