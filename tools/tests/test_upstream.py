@@ -773,6 +773,18 @@ class GlobToctreeTest(unittest.TestCase):
         self.assertEqual(u.rst_toctree(no_glob, "admin_manual/x/index", docs), ["admin_manual/x/security_setup_warnings"])
 
 
+class RoleLineTest(unittest.TestCase):
+    def test_a_line_opened_by_a_role_continues_its_paragraph(self):
+        # primary_storage, amazons3: the wrapped line «:code:`https://hostname.domain/bucket` instead.»
+        rst = ("Setting :code:`use_path_style` to true makes requests like\n"
+               ":code:`https://hostname.domain/bucket` instead.\n\n"
+               ".. figure:: a.png\n   :alt: A screenshot\n\nText.\n")
+        self.assertEqual(u.rst_links(rst), {"https://hostname.domain/bucket"})
+        self.assertEqual(u.rst_paragraphs(rst), [
+            "Setting :code:`use_path_style` to true makes requests like :code:`https://hostname.domain/bucket` instead.",
+            "Text."])
+
+
 class BareRefTitleTest(unittest.TestCase):
     """configuration_server audit: a bare :ref: showed its raw label, so translators invented text."""
 
