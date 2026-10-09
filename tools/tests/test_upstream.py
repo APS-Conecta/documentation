@@ -403,6 +403,15 @@ class PilotTest(unittest.TestCase):
         self.assertTrue(any("inline literals" in f for f in self.sharing(SHARING_PAGE, {})))
 
 
+    def test_a_brace_inside_code_is_not_a_role(self):
+        # user_manual/talk/call_from_anywhere: ``Call {user}`` followed by real roles
+        self.assertEqual(
+            u.myst_inline_literals(
+                "Seleccionar `Call {user}`.\n\nVer {nc-doc}`Llamar <user_manual/talk/call>` y `otro`."
+            ),
+            ["Call {user}", "otro"],
+        )
+
 class RenderTest(unittest.TestCase):
     """The block renders in source order: attribution, then its text, then its subsections."""
 

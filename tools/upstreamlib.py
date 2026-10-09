@@ -413,7 +413,7 @@ BLOCK_ARG = re.compile(
     r"@(?P<sha>[0-9a-f]{7,40})(?:#(?P<anchor>[A-Za-z0-9_.-]+))?$"
 )
 MYST_HEADING = re.compile(r"^(#{1,6})\s+(.+?)\s*#*\s*$")
-MYST_INLINE = re.compile(r"(?<![`}])`([^`\n]+)`(?!`)")
+MYST_SPAN = re.compile(r"(\{[\w-]+\})?(?<!`)`([^`\n]+)`(?!`)")  # a role or a code span
 MYST_LINK = re.compile(r"\]\((https?://[^)\s]+)\)|<(https?://[^>\s]+)>")
 MYST_ROLE = re.compile(r"\{nc-(doc|ref)\}`(?:[^`<]*<([^>]+)>|([^`]+))`")
 MYST_LABEL = re.compile(r"^\(nc-([^)]+)\)=\s*$")
@@ -514,9 +514,13 @@ def myst_headings(content: str) -> list[tuple[int, str]]:
 
 
 def myst_inline_literals(content: str) -> list[str]:
-    """Inline code spans, after removing {role}`…` spans: a role's backticks are not code."""
-    text = re.sub(r"\{[\w-]+\}`[^`]*`", "", _without_fences(content))
-    return MYST_INLINE.findall(text)
+    """Inline code spans; a {role}`…` span is not code. One left-to-right scan, so a brace inside
+    a code span (`Call {user}`) can never open a role."""
+    return [
+        code
+        for role, code in MYST_SPAN.findall(_without_fences(content))
+        if not role
+    ]
 
 
 def myst_links(content: str) -> set[str]:
