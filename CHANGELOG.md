@@ -52,6 +52,14 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
   moved to `<chapter>/index.md` with a glob toctree; `check-site.py` re-targeted (brand
   sidebar, light under a dark preference, no sideways scroll at 360 px, drawer, Pagefind
   query and filter).
+- The AI disclosure (scribe S2e): `aviso.md` «Uso de inteligencia artificial» — how
+  APS Conecta Gestión is built (vibe coding from Daniel Espinoza Charrier's idea,
+  through rpiv, Claude Code multi-agent workflows, Claude routines, pi and Jules),
+  a tools-and-models table generated from `ia.yml` by `tools/gen-ia.py`, what AI
+  writes and what it does not, and how each change is reviewed. `tools/ia-check.py`
+  and the weekly `ia-check` workflow fail when an APS-authored commit carries a
+  Co-Authored-By model or a bot author `ia.yml` does not declare (12,018 commits
+  scanned on 2026-10-09: 0 problems).
 
 ### Changed
 
