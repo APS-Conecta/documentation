@@ -58,7 +58,7 @@ Gestión beyond what the :difiere: notice points to.>
 | External link `` `text <url>`_ `` | A Markdown link (Spanish text, same URL), URL byte-identical. |
 | Named reference `` `Name`_ `` with its `.. _Name: url` target | A reference link `[texto][Name]`, with `[Name]: url` at the end of the block. URL byte-identical. |
 | A bare URL in prose | An autolink `<url>`, byte-identical. |
-| A link that is dead upstream (404 or gone) | Byte-identical all the same. Name it under **gaps**; the orchestrator lists it under `dead_links` in `upstream.yml`, which linkcheck skips. |
+| A link that is dead or slow upstream (404, 403, rate-limited) | Byte-identical all the same; name it under **gaps** when it is dead. linkcheck skips URLs that appear only inside `{upstream}` blocks: keeping them alive is upstream's job. |
 | Single-backtick text with no role (`` `text` ``: RST's default role) | `*text*`. Upstream renders it in italics. |
 | A definition list | Bullets `- term: definition`, with the term formatted as upstream formats it. |
 | An English-only message upstream quotes (an error or UI string with no Spanish version) | Verbatim, inside «…», with no gloss. The English check skips quoted text. |
