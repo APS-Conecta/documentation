@@ -151,3 +151,7 @@ Para entrar en los ajustes de accesibilidad:
 El contraste de los elementos puede variar dependiendo del tema personalizado. Por ejemplo, el color primario del tema es usado como color de fondo por la cabecera, la página de inicio de sesión, y los botones primarios. Si esto causa problemas con el contraste, por favor contacta a tu administrador para que te ayude.
 :::
 ````
+
+:::{note}
+Los problemas de APS Conecta Gestión, de sus aplicaciones y de su instalación se informan en los issues de la suite APS-Conecta: {doc}`/proyecto/errores-conocidos` reúne los de todos sus repositorios. El centro de incidencias citado arriba es el de {vendor}`Nextcloud`, para fallos del software original.
+:::
