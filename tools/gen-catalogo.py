@@ -264,34 +264,47 @@ def version_for(row: dict) -> str:
 # ---------------------------------------------------------------- visibilidad
 
 
-def org_visibility() -> dict[str, bool]:
-    proc = subprocess.run(
-        ["gh", "api", f"orgs/{ORG}/repos", "--paginate",
-         "--jq", ".[] | [.name, .private] | @tsv"],
-        capture_output=True, text=True,
-    )
-    if proc.returncode != 0:
-        fail(f"gh api orgs/{ORG}/repos: {proc.stderr.strip()}")
-    visibility: dict[str, bool] = {}
-    for line in proc.stdout.splitlines():
-        if not line.strip():
-            continue
-        name, private = line.split("\t")[:2]
-        visibility[name] = private.strip() == "true"
-    if not visibility:
-        fail("la consulta de visibilidad devolvió cero repositorios")
-    return visibility
+def _gh(path: str, jq: str) -> subprocess.CompletedProcess:
+    extra = ["--paginate"] if path.startswith("orgs/") else []
+    return subprocess.run(["gh", "api", path, *extra, "--jq", jq], capture_output=True, text=True)
+
+
+def org_visibility(rows: list[dict], api=_gh) -> tuple[dict[str, bool], bool]:
+    """nombre → privado, y si hubo censo de la org. Primero el listado de la org (también halla
+    repos que el catálogo no nombra). Una sesión atada a sus repositorios (una rutina de Claude)
+    rechaza las rutas de org: entonces cada repo del catálogo responde por sí mismo y el censo
+    se omite, con aviso."""
+    proc = api(f"orgs/{ORG}/repos", ".[] | [.name, .private] | @tsv")
+    if proc.returncode == 0:
+        visibility: dict[str, bool] = {}
+        for line in proc.stdout.splitlines():
+            if line.strip():
+                name, private = line.split("\t")[:2]
+                visibility[name] = private.strip() == "true"
+        if not visibility:
+            fail("la consulta de visibilidad devolvió cero repositorios")
+        return visibility, True
+    warn(f"gh api orgs/{ORG}/repos rechazada ({proc.stderr.strip().splitlines()[0][:90] if proc.stderr.strip() else proc.returncode});"
+         " visibilidad repo por repo, sin censo de la org")
+    visibility = {}
+    for row in rows:
+        one = api(f"repos/{ORG}/{row['repo']}", ".private")
+        if one.returncode != 0:
+            fail(f"{row['repo']}: no existe en la org viva (gh api repos/{ORG}/{row['repo']}: {one.stderr.strip()})")
+        visibility[row["repo"]] = one.stdout.strip() == "true"
+    return visibility, False
 
 
 def check_visibility(rows: list[dict], out_of_scope: list[str]) -> dict[str, bool]:
-    visibility = org_visibility()
+    visibility, census = org_visibility(rows)
     for row in rows:
         if row["repo"] not in visibility:
             fail(f"{row['repo']}: no existe en la org viva (gh api orgs/{ORG}/repos)")
-    known = {r["repo"] for r in rows} | set(out_of_scope)
-    for name in sorted(visibility):
-        if name not in known:
-            warn(f"repo de la org fuera del catálogo y de out_of_scope: {name}")
+    if census:
+        known = {r["repo"] for r in rows} | set(out_of_scope)
+        for name in sorted(visibility):
+            if name not in known:
+                warn(f"repo de la org fuera del catálogo y de out_of_scope: {name}")
     return visibility
 
 
@@ -399,6 +412,13 @@ def selftest() -> int:
         if versions[k] != PINNED_VERSIONS[k])
     publicos = {r["repo"] for r in rows if not visibility[r["repo"]]}
     assert publicos == PINNED_PUBLIC, f"visibilidad: {sorted(publicos)}"
+    # Una rutina de Claude no puede listar la org: repo por repo da la misma visibilidad.
+    def refused(path, jq):
+        if path.startswith("orgs/"):
+            return subprocess.CompletedProcess([], 1, "", "HTTP 403: sessions are bound to their configured repositories")
+        return _gh(path, jq)
+    per_repo, census = org_visibility(rows, refused)
+    assert not census and per_repo == {r["repo"]: visibility[r["repo"]] for r in rows}, per_repo
     page = render(rows, versions, visibility)
     for row in rows:
         assert row["repo"] in page, row["repo"]
@@ -421,7 +441,7 @@ def selftest() -> int:
     privadas = [f"https://github.com/{ORG}/{r['repo']}" for r in rows if visibility[r["repo"]]]
     assert len(privadas) == 9, privadas
     print("[gen-catalogo] selftest OK (nómina, paridad, versiones, visibilidad, "
-          "etiquetas, semilla privada)")
+          "visibilidad sin listado de org, etiquetas, semilla privada)")
     return 0
 
 
