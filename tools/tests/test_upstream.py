@@ -732,6 +732,19 @@ class MaintenanceDocTest(unittest.TestCase):
         self.assertEqual([w for w in fidelity.warnings(page, sec) if "ends in «:»" in w], [])
 
 
+    def test_a_list_item_ending_in_a_literal_colon_is_no_lead_in(self):
+        # admin user_password_policy: «- enforce special characters like ! or :»
+        sec = "Title\n=====\n\n- enforce upper and lower case\n- enforce special characters like ! or :\n- check against breaches\n"
+        page = "- obligar a usar mayúsculas y minúsculas\n- la obligación de usar caracteres especiales como ! o :\n- comprobar contraseñas filtradas\n"
+        self.assertEqual([w for w in fidelity.warnings(page, sec) if "ends in «:»" in w], [])
+
+    def test_a_lead_in_before_a_double_backtick_span_introduced_it(self):
+        # admin user_auth_ldap: upstream's Markdown fence renders as `` ` TLS_REQCERT ALLOW ` ``
+        sec = "Title\n=====\n\nText.\n"
+        page = "Añadir esta línea a */etc/ldap/ldap.conf*:\n\n`` ` TLS_REQCERT ALLOW ` ``\n"
+        self.assertEqual([w for w in fidelity.warnings(page, sec) if "ends in «:»" in w], [])
+
+
 class RenderTest(unittest.TestCase):
     """The block renders in source order: attribution, then its text, then its subsections."""
 
