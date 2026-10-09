@@ -760,6 +760,58 @@ class RenderTest(unittest.TestCase):
             self.assertEqual(text, {"Página uno", "Doc B", "user_manual/nada", "Texto propio"})
 
 
+class GlobToctreeTest(unittest.TestCase):
+    def test_a_glob_toctree_lists_every_matching_doc_as_sphinx_does(self):
+        # configuration_server/index: «:glob:» + «*» renders every document of the folder upstream
+        rst = "Index\n=====\n\n.. toctree::\n   :glob:\n\n   security_setup_warnings\n   *\n   */index\n"
+        docs = ["admin_manual/x/index", "admin_manual/x/a", "admin_manual/x/security_setup_warnings",
+                "admin_manual/x/b", "admin_manual/x/sub/index", "admin_manual/x/sub/c", "admin_manual/y/z"]
+        self.assertEqual(u.rst_toctree(rst, "admin_manual/x/index", docs), [
+            "admin_manual/x/security_setup_warnings", "admin_manual/x/a", "admin_manual/x/b",
+            "admin_manual/x/sub/index"])
+        no_glob = rst.replace("   :glob:\n", "")
+        self.assertEqual(u.rst_toctree(no_glob, "admin_manual/x/index", docs), ["admin_manual/x/security_setup_warnings"])
+
+
+class BareRefTitleTest(unittest.TestCase):
+    """configuration_server audit: a bare :ref: showed its raw label, so translators invented text."""
+
+    def test_a_bare_ref_link_takes_its_sections_title(self):
+        import os
+        import tempfile
+        from unittest import mock
+        from sphinx.application import Sphinx
+
+        with tempfile.TemporaryDirectory() as tmp:
+            src = Path(tmp)
+            (src / "org" / "gestion").mkdir(parents=True)
+            (src / "org" / "gestion" / "compose.yaml").write_text("image: nextcloud:34\n", encoding="utf-8")
+            env = mock.patch.dict(os.environ, {"APS_ORG_ROOT": str(src / "org")})
+            env.start()
+            self.addCleanup(env.stop)
+            (src / "conf.py").write_text(
+                "import sys\n"
+                f"sys.path.insert(0, {str(TOOLS.parent / '_ext')!r})\n"
+                "extensions = ['myst_parser', 'upstream']\n"
+                "exclude_patterns = ['org', '_out', '_dt']\n",
+                encoding="utf-8",
+            )
+            (src / "index.md").write_text(
+                "# Inicio\n\n```{toctree}\nuno\n```\n\n"
+                "- {nc-ref}`use_https_label`\n- {nc-ref}`Texto propio <use_https_label>`\n",
+                encoding="utf-8",
+            )
+            (src / "uno.md").write_text(
+                "# Uno\n\n## Resumen\n\n````{upstream} admin_manual/x.rst@3ad9158\nTexto.\n\n"
+                "(nc-use_https_label)=\n#### Usar HTTPS\n\nMás texto.\n````\n", encoding="utf-8")
+            app = Sphinx(str(src), str(src), str(src / "_out"), str(src / "_dt"),
+                         "html", status=None, warning=None, freshenv=True)
+            app.build()
+            html = (src / "_out" / "index.html").read_text(encoding="utf-8")
+            links = re.findall(r'<a class="reference external" href="([^"]+)"[^>]*>(.*?)</a>', html)
+            self.assertEqual([re.sub(r"<[^>]+>", "", t).strip() for _, t in links], ["Usar HTTPS", "Texto propio"])
+
+
 class CatalogTest(unittest.TestCase):
     def test_reads_multiline_msgid_and_msgstr(self):
         import tempfile

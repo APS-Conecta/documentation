@@ -105,8 +105,9 @@ class NcRole(SphinxRole):
         else:
             title, target = "", text.strip()
         ref = nodes.reference(self.rawtext, title or target, internal=False)
-        # no text given: resolve() writes the woven page's own title, so a title lives in one place
-        ref["nc_auto_title"] = not title and self.kind == "doc"
+        # no text given: resolve() writes the woven page's title (doc) or section title (ref),
+        # so a title lives in one place
+        ref["nc_auto_title"] = not title
         ref["nc_kind"], ref["nc_target"] = (
             self.kind,
             target if self.kind == "doc" else target.lower(),
@@ -161,10 +162,12 @@ def resolve(app, doctree, fromdocname):
         else:
             label = f"nc-{target}"
             if label in std_labels:
-                page, anchor, _ = std_labels[label]
+                page, anchor, section = std_labels[label]
                 ref["refuri"] = (
                     builder.get_relative_uri(fromdocname, page) + f"#{anchor}"
                 )
+                if ref.get("nc_auto_title") and section:
+                    ref.children = [nodes.Text(section)]
             elif target in _labels(app):
                 doc, anchor = _labels(app)[target]
                 ref["refuri"] = u.external_url(doc, anchor)
@@ -195,4 +198,4 @@ def setup(app):
     app.connect("doctree-resolved", resolve)
     app.connect("env-purge-doc", purge)
     app.connect("env-merge-info", merge)
-    return {"parallel_read_safe": True, "parallel_write_safe": True, "env_version": 2}
+    return {"parallel_read_safe": True, "parallel_write_safe": True, "env_version": 3}
