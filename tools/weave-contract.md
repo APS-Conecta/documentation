@@ -88,6 +88,9 @@ Gestión beyond what the :difiere: notice points to.>
 | `.. mermaid::`, `.. graphviz::` (a diagram) | Dropped, like a figure. When the text points at it, one short sentence per diagram says what it shows, read from the diagram's source. |
 | `.. figure::`, `.. image::` | Dropped; they show the Nextcloud logo. A caption that carries information becomes a sentence. When the text around the image points at it («this page», «here», «below», «as shown»), its caption or alt text becomes one short sentence saying what the screen shows, so the pointer still lands. An image with no alt text and no caption gives nothing to say: the lead-in just ends in «.». |
 | `.. toctree::` | A bullet list of bare `{nc-doc}` links, one per entry, in upstream order: ``- {nc-doc}`user_manual/talk/call` ``. Upstream renders a toctree as that list on the page; the build writes each target's Spanish title once it is woven (the brief lists the entries). A `:hidden:` toctree shows nothing upstream: drop it. Under `:glob:`, a pattern (`*`, `*/index`) lists every matching document as Sphinx does: sorted, minus the page itself and entries already listed (the brief expands it). |
+| `.. contents::` (a local table of contents) | Dropped: the page's «En esta página» lists the same headings. |
+| `.. sectionauthor::`, `.. codeauthor::` | Dropped: upstream's `conf.py` leaves `show_authors` off, so they render nothing there either. |
+| A transition (a line of 4+ punctuation between blank lines, `----`) | A Markdown thematic break `----` with a blank line on each side. |
 | `|version|` and other substitutions | The resolved value (the suite's major, e.g. `34`). |
 | `.. include::`, `.. literalinclude::`, anything else unknown | Do not guess. Name it under **gaps** in your result. |
 | The word «Nextcloud» | Keep it exactly as upstream writes it. The build renames it site-wide; never rename by hand. |
