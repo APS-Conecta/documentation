@@ -120,6 +120,14 @@ linkcheck_ignore += (
 )
 
 
+# linkcheck: enlaces que upstream cita y que ya no responden (upstream.yml, dead_links). El texto
+# tejido conserva la URL tal cual; aquí solo se omite su comprobación.
+_sys.path.insert(0, _os.path.join(_os.path.dirname(__file__), 'tools'))
+import re as _re
+import upstreamlib as _upstreamlib
+
+linkcheck_ignore += [_re.escape(_url) + '$' for _url in _upstreamlib.dead_links()]
+
 # linkcheck: GitHub arma las anclas de un README o un archivo con JavaScript, así que una URL
 # github.com/...#seccion nunca muestra su ancla a un GET (falso «Anchor not found»). La URL sí
 # se comprueba; solo se omite el ancla. Los textos tejidos de Nextcloud citan anclas de README
