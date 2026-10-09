@@ -821,6 +821,22 @@ class W6GateTest(unittest.TestCase):
         self.assertFalse(u.reads_english(u.plain(page)))
 
 
+class W7GateTest(unittest.TestCase):
+    """admin-manual-exapps-management-1 and -office-1."""
+
+    def test_a_diagram_is_dropped_content_not_prose(self):
+        rst = ("Intro.\n\n.. mermaid::\n\n   graph LR\n   classDef d background: url(https://raw.example/x.png)\n\n"
+               "Text https://a.example/y here.\n")
+        self.assertEqual(u.rst_links(rst), {"https://a.example/y"})
+        self.assertEqual(u.rst_code_blocks(rst), [])
+
+    def test_a_url_in_angle_brackets_is_read_whole(self):
+        rst = "It has `fixed parameters <https://g.example/a.php#L52-L74)>`_:\n"
+        self.assertEqual(u.rst_links(rst), {"https://g.example/a.php#L52-L74)"})
+        page = "Tiene [parámetros fijos][A]:\n\n[A]: <https://g.example/a.php#L52-L74)>\n"
+        self.assertEqual(u.myst_links(page), {"https://g.example/a.php#L52-L74)"})
+
+
 class BareRefTitleTest(unittest.TestCase):
     """configuration_server audit: a bare :ref: showed its raw label, so translators invented text."""
 
