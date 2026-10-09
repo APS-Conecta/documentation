@@ -74,7 +74,7 @@ Gestión beyond what the :difiere: notice points to.>
 | `.. raw:: html` that wraps RST content (`<details><summary>Android</summary>` … `</details>`) | The summary becomes a bold line (`**Android**`) before the content it scopes; the tags are dropped. |
 | `.. versionadded::`, `versionchanged`, `deprecated`, `versionremoved` | The same MyST directive in a colon fence (`:::{versionadded} 29` … `:::`), its text translated. The site translates the label («Nuevo en la versión 29»). |
 | A code block inside a list item | The fence indented with the item's text, so the list keeps its numbering; the gate reads the body without that indent. |
-| `.. code-block:: lang`, `.. code::`, `::` literal blocks | A plain fence: ```` ```lang ```` (or ```` ``` ````). Content byte-identical: commands, paths, config keys, output, comments inside code. A `:caption:` becomes a sentence before the fence. |
+| `.. code-block:: lang`, `.. code::`, `::` literal blocks | A plain fence: ```` ```lang ```` (or ```` ``` ````). Content byte-identical: commands, paths, config keys, output, comments inside code. A `:caption:` becomes a sentence before the fence. `:emphasize-lines:` and `:linenos:` are dropped: a plain fence has neither, and the code stays byte-identical. |
 | ``` ``literal`` ``` | `` `literal` ``, byte-identical. |
 | A ``` ``literal`` ``` that is a stored value (a scope, a config value, an API enum such as ``Published``), even when a UI label shares its text | `` `literal` ``, byte-identical, like its sibling values: never `{guilabel}`. A set of parallel values stays in one language. |
 | An upstream typo («PostrgreSQL», «bocking») | The intended word in Spanish prose (code stays byte-identical), and the typo named under **gaps**. |
@@ -82,12 +82,15 @@ Gestión beyond what the :difiere: notice points to.>
 | A UI string upstream quotes ("Start recording") | The interface's Spanish in «…» («Empezar a grabar»); the gate rejects the English when the catalog has the Spanish. With no Spanish string, the English verbatim in «…». |
 | A UI string of other software (WinSCP, Finder, Thunderbird; docs in `upstream.yml` `ui_third_party`) | Verbatim in «…»: it is that program's label, not Nextcloud's. |
 | `:guilabel:`, `:menuselection:` | `{guilabel}`, with the Spanish UI label from `glosario.yml` or the app's own Spanish strings. |
-| `:file:`, `:command:`, `:kbd:` | The same role, content verbatim. |
-| `.. note::` / `warning` / `tip` / `important` / `hint` / `danger` / `seealso` | `:::{note}` … `:::` (same kind, colon fence), translated. No headings inside. |
+| `:file:`, `:command:`, `:kbd:`, `:code:` | The same role, content verbatim. |
+| `:class:`, `:func:`, `:meth:`, phpdomain roles (`:php:class:`, `:php:meth:`, `:php:func:`, `:php:const:`) | `{code}` with the content verbatim: the site has no PHP or Python domain to link to, so no cross-reference and no `()` suffix. |
+| `.. note::` / `warning` / `tip` / `important` / `hint` / `danger` / `attention` / `caution` / `error` / `seealso` | `:::{note}` … `:::` (same kind, colon fence), translated. No headings inside. |
 | Tables (`list-table`, grid, simple) | A Markdown pipe table, or `:::{list-table}`. Cells translated, literals verbatim. |
 | `.. mermaid::`, `.. graphviz::` (a diagram) | Dropped, like a figure. When the text points at it, one short sentence per diagram says what it shows, read from the diagram's source. |
 | `.. figure::`, `.. image::` | Dropped; they show the Nextcloud logo. A caption that carries information becomes a sentence. When the text around the image points at it («this page», «here», «below», «as shown»), its caption or alt text becomes one short sentence saying what the screen shows, so the pointer still lands. An image with no alt text and no caption gives nothing to say: the lead-in just ends in «.». |
 | `.. toctree::` | A bullet list of bare `{nc-doc}` links, one per entry, in upstream order: ``- {nc-doc}`user_manual/talk/call` ``. Upstream renders a toctree as that list on the page; the build writes each target's Spanish title once it is woven (the brief lists the entries). A `:hidden:` toctree shows nothing upstream: drop it. Under `:glob:`, a pattern (`*`, `*/index`) lists every matching document as Sphinx does: sorted, minus the page itself and entries already listed (the brief expands it). |
+| `.. collapse:: Title` (a folded section) | The title as a bold line (`**Título**`, translated) before the content it scopes, as for `<details>`; the content follows unfolded. |
+| A footnote (`text [1]_` … `.. [1] note`) | A MyST footnote: `[^1]` in the text, `[^1]: nota` at the end of the block. |
 | `.. contents::` (a local table of contents) | Dropped: the page's «En esta página» lists the same headings. |
 | `.. sectionauthor::`, `.. codeauthor::` | Dropped: upstream's `conf.py` leaves `show_authors` off, so they render nothing there either. |
 | A transition (a line of 4+ punctuation between blank lines, `----`) | A Markdown thematic break `----` with a blank line on each side. |
