@@ -250,7 +250,8 @@ def warnings(content: str, section: str, ui: dict | None = None) -> list[str]:
         opens = re.match(r"^\s*([-*+|>]\s|\d+[.)]\s|:::\{)", nxt)
         closing = re.match(r"^\s*:::\s*$", nxt)
         # code introduced is code wherever it sits (upstream puts some fences between steps)
-        if not nxt or closing or not (u.FENCE.match(nxt) or indent > base or (opens and not item and indent >= base)):
+        command = re.match(r"^\s*`[^`]+`\s*$", nxt)  # a paragraph that is only a command
+        if not nxt or closing or not (u.FENCE.match(nxt) or command or indent > base or (opens and not item and indent >= base)):
             out.append(f"«{s[:60]}» ends in «:» but introduces nothing — a dropped screenshot?")
     return out
 

@@ -667,6 +667,24 @@ class LdapDocTest(unittest.TestCase):
         self.assertEqual(u.rst_links(two), {"https://a.example/x-y", "https://b.example/z"})
 
 
+class MaintenanceDocTest(unittest.TestCase):
+    """admin-manual-maintenance-1: two RST readings unlike docutils, one warning false positive."""
+
+    def test_a_target_whose_url_is_on_the_next_line_is_not_a_label(self):
+        rst = "Text.\n\n.. _install_target:\n\nHeading\n-------\n\n.. _nextcloud.com/install/:\n   https://nextcloud.com/install/\n"
+        self.assertEqual([lab for lab, _ in u.rst_labels(rst)], ["install_target"])
+
+    def test_a_url_may_hold_an_apostrophe(self):
+        rst = "See `the FAQ <https://github.com/x/y/wiki/FAQ's>`_ or 'https://a.example/b'.\n"
+        self.assertEqual(u.rst_links(rst), {"https://github.com/x/y/wiki/FAQ's", "https://a.example/b"})
+        self.assertEqual(u.myst_links("Ver [las FAQ](https://github.com/x/y/wiki/FAQ's).\n"), {"https://github.com/x/y/wiki/FAQ's"})
+
+    def test_a_lead_in_before_a_command_paragraph_introduced_it(self):
+        sec = "Title\n=====\n\nText.\n"
+        page = "Para actualizar, ejecutar:\n\n`sudo snap refresh nextcloud`\n"
+        self.assertEqual([w for w in fidelity.warnings(page, u.rst_section(sec)) if "ends in «:»" in w], [])
+
+
 class RenderTest(unittest.TestCase):
     """The block renders in source order: attribution, then its text, then its subsections."""
 

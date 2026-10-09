@@ -203,7 +203,7 @@ RST_CODE_DIRECTIVE = re.compile(r"^(\s*)\.\.\s+(?:code-block|code|sourcecode)::.
 RST_INLINE_LITERAL = re.compile(r"``((?:[^\n]|\n(?!\s*\n))+?)``(?!`)")
 RST_EXT_LINK = re.compile(r"`[^`<]*<(https?://[^>]+)>`__?")
 RST_NAMED_TARGET = re.compile(r"^\.\. _[^:\n]+:\s*(https?://\S+)\s*$", re.M)
-URL = re.compile(r"https?://[^\s<>`\"')\]]+")
+URL = re.compile(r"https?://[^\s<>`\")\]]+")  # «'» may sit inside (…/wiki/FAQ's); a trailing one is quoting
 RST_ROLE = re.compile(r":(doc|ref):`(?:[^`<]*<([^>]+)>|([^`]+))`")
 
 
@@ -252,11 +252,14 @@ def rst_headings(text: str, styles: list[str] | None = None) -> list[tuple[int, 
 
 
 def rst_labels(text: str) -> list[tuple[str, int]]:
-    """(label, line index) of every `.. _label:` target."""
+    """(label, line index) of every `.. _label:` target. A target whose URL sits on the next,
+    indented line is an external hyperlink target (docutils), not a label."""
+    lines = text.split("\n")
     return [
         (m.group(1).strip().lower(), i)
-        for i, ln in enumerate(text.split("\n"))
+        for i, ln in enumerate(lines)
         if (m := LABEL.match(ln))
+        and not (i + 1 < len(lines) and re.match(r"^\s+https?://", lines[i + 1]))
     ]
 
 
@@ -383,7 +386,7 @@ def _without_code_blocks_rst(text: str) -> str:
 
 def _urls(paragraphs: list[str]) -> set[str]:
     """Every http(s) URL in prose: inline, embedded, autolinked or bare (trailing punctuation off)."""
-    return {m.rstrip(".,;:*") for p in paragraphs for m in URL.findall(p)}  # «**url**»: stars are markup
+    return {m.rstrip(".,;:*'") for p in paragraphs for m in URL.findall(p)}  # «**url**», «'url'»: markup
 
 
 def rst_links(text: str) -> set[str]:
@@ -642,7 +645,7 @@ def bare_urls(content: str) -> list[str]:
     text = re.sub(r"\]\(https?://[^)\s]*\)", "]", text)  # [text](url)
     text = re.sub(r"(?m)^\[[^\]\n]+\]:\s*\S+", " ", text)  # [Name]: url
     # a host never starts with «[» or «<»: `http://[user@pass:]<server>` is an argument shape
-    return [m.rstrip(".,;:*") for m in URL.findall(text) if re.match(r"https?://\w", m)]
+    return [m.rstrip(".,;:*'") for m in URL.findall(text) if re.match(r"https?://\w", m)]
 
 
 def myst_headings(content: str) -> list[tuple[int, str]]:
