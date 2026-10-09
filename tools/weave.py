@@ -3,13 +3,15 @@
 
 The AI translator never decides WHAT to weave or WHERE: this script does, from upstream.yml.
 
-    python3 tools/weave.py batches [--done]     JSON: batches still to weave (or all), in Q11 order
+    python3 tools/weave.py batches [--done]     JSON: batches still to weave (or all), in Q11 order;
+                                                `needs` names the batches that must merge first
     python3 tools/weave.py brief <docname>      Markdown: everything a translator needs for one doc
     python3 tools/weave.py prepare <batch-id>   create the folder index pages the batch's pages need
                                                 but no upstream document provides
 
 A batch is one upstream directory, at most BATCH documents, never split across two directories,
-so a batch's pages share one chapter folder and two batches never edit the same file.
+so a batch's pages share one chapter folder and two batches never edit the same file. A batch is
+ready when its `needs` list is empty: the folder index pages it lands under are on main.
 """
 
 from __future__ import annotations
@@ -46,37 +48,74 @@ def woven_docs() -> set[str]:
     return done
 
 
-def batches(include_done: bool = False) -> list[dict]:
-    cfg, updir = u.config(), u.upstream_dir()
-    done = set() if include_done else woven_docs()
+def ancestors(page: str) -> list[str]:
+    """The folder index pages above a page, outermost first."""
+    parts = page.split("/")
+    return ["/".join(parts[:depth]) + "/index.md" for depth in range(2, len(parts))]
+
+
+def group(entries: list[dict], done: set[str] = frozenset()) -> list[dict]:
+    """Batch entries (sorted docs with their pages): one directory per batch, at most BATCH docs,
+    the directory's own `index` doc first so the batch that creates a folder lands before the
+    batches that fill it. Chunks are cut over every doc, done or not, so a batch id names the
+    same docs on every run; done docs are dropped afterwards."""
     groups: "OrderedDict[str, list]" = OrderedDict()
-    names = sorted(
-        u.docnames(updir, cfg), key=lambda n: (ORDER.index(n.split("/", 1)[0]), n)
-    )
-    for name in names:
-        hit = u.destination(name, cfg)
-        if hit is None or name in done:
-            continue
-        page, rule = hit
-        groups.setdefault(name.rsplit("/", 1)[0], []).append(
-            {
-                "doc": name,
-                "page": page,
-                "difiere": rule.get("difiere", ""),
-                "exists": (u.ROOT / page).exists(),
-            }
-        )
+    for e in entries:
+        groups.setdefault(e["doc"].rsplit("/", 1)[0], []).append(e)
     out = []
     for directory, docs in groups.items():
+        docs.sort(key=lambda e: e["doc"].rsplit("/", 1)[1] != "index")
         for i in range(0, len(docs), BATCH):
-            chunk = docs[i : i + BATCH]
-            out.append(
+            chunk = [e for e in docs[i : i + BATCH] if e["doc"] not in done]
+            if chunk:
+                out.append(
+                    {
+                        "id": f"{u.slug(directory).replace('/', '-')}-{i // BATCH + 1}",
+                        "dir": directory,
+                        "docs": chunk,
+                    }
+                )
+    return out
+
+
+def link(out: list[dict], exists) -> None:
+    """Set each batch's `needs`: the batches that create a folder index page its pages sit under,
+    when that page is not on disk yet. `prepare` refuses a batch with needs, so a woven page never
+    lands outside every toctree."""
+    owner = {}
+    for b in out:
+        for d in b["docs"]:
+            owner.setdefault(d["page"], b["id"])
+    for b in out:
+        b["needs"] = sorted(
+            {
+                owner[index]
+                for d in b["docs"]
+                for index in ancestors(d["page"])
+                if index in owner and owner[index] != b["id"] and not exists(index)
+            }
+        )
+
+
+def batches(include_done: bool = False) -> list[dict]:
+    cfg, updir = u.config(), u.upstream_dir()
+    entries = []
+    for name in sorted(
+        u.docnames(updir, cfg), key=lambda n: (ORDER.index(n.split("/", 1)[0]), n)
+    ):
+        hit = u.destination(name, cfg)
+        if hit is not None:
+            page, rule = hit
+            entries.append(
                 {
-                    "id": f"{u.slug(directory).replace('/', '-')}-{i // BATCH + 1}",
-                    "dir": directory,
-                    "docs": chunk,
+                    "doc": name,
+                    "page": page,
+                    "difiere": rule.get("difiere", ""),
+                    "exists": (u.ROOT / page).exists(),
                 }
             )
+    out = group(entries, set() if include_done else woven_docs())
+    link(out, lambda page: (u.ROOT / page).exists())
     return out
 
 
@@ -140,9 +179,13 @@ def prepare(batch_id: str) -> list[str]:
     """Create the index page of every folder this batch's pages live in when no upstream doc of
     the whole map provides it — so every woven page sits in a toctree."""
     cfg = u.config()
-    batch = next((b for b in batches(include_done=True) if b["id"] == batch_id), None)
+    batch = next((b for b in batches() if b["id"] == batch_id), None)
     if batch is None:
-        raise SystemExit(f"weave: no batch {batch_id!r}")
+        raise SystemExit(f"weave: no batch {batch_id!r} left to weave")
+    if batch["needs"]:
+        raise SystemExit(
+            f"weave: {batch_id} needs {', '.join(batch['needs'])} merged first (folder index)"
+        )
     mapped = {
         u.destination(n, cfg)[0]
         for n in u.docnames(u.upstream_dir(), cfg)
