@@ -464,6 +464,16 @@ class ContractV2Test(unittest.TestCase):
         self.assertFalse(u.reads_english(quoted))
         self.assertTrue(u.reads_english("You can open the file in the sidebar and then share it with your team."))
 
+
+class WovenUrlTest(unittest.TestCase):
+    def test_upstream_urls_are_upstreams_to_keep_alive(self):
+        page = (
+            "# P\n\nVer <https://aps.example/propia> y <https://both.example/x>.\n\n"
+            "````{upstream} user_manual/x.rst@3ad9158\nVer <https://up.example/a> y [b](https://up.example/b#ancla)"
+            " y <https://both.example/x>.\n\n```bash\ncurl https://code.example/c\n```\n````\n"
+        )
+        self.assertEqual(u.woven_urls([page]), {"https://up.example/a", "https://up.example/b#ancla"})
+
 class RenderTest(unittest.TestCase):
     """The block renders in source order: attribution, then its text, then its subsections."""
 

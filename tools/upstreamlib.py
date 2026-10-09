@@ -32,6 +32,20 @@ def config() -> dict:
     return yaml.safe_load(CONFIG.read_text(encoding="utf-8"))
 
 
+def woven_urls(pages) -> set[str]:
+    """External URLs that appear only inside {upstream} blocks of the given page texts. They are
+    upstream's text, kept byte-identical (fidelity); keeping them alive is upstream's job, so
+    linkcheck skips them (conf.py) and checks every URL the APS prose writes."""
+    inside, outside = set(), set()
+    for text in pages:
+        rest = text
+        for b in blocks(text):
+            inside |= myst_links(b["content"])
+            rest = rest.replace(b["content"], "")
+        outside |= myst_links(rest)
+    return inside - outside
+
+
 def org_root() -> Path:
     return Path(os.environ.get("APS_ORG_ROOT", "/opt/aps-conecta-org"))
 
