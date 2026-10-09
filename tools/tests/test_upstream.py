@@ -859,6 +859,18 @@ class W8GateTest(unittest.TestCase):
         self.assertEqual(u.myst_links(f"Ver [Gestionar]({url}) (y https://a.example/b).\n"), {url, "https://a.example/b"})
 
 
+class Round4WarnTest(unittest.TestCase):
+    """Round-4 audit: lead-in warnings that taught reviewers to ignore the check."""
+
+    def leads(self, page):
+        return [w for w in fidelity.warnings(page, u.rst_section("Title\n=====\n\nText.\n")) if "ends in «:»" in w]
+
+    def test_a_list_of_code_spans_or_a_bold_label_is_introduced(self):
+        self.assertEqual(self.leads("Claves disponibles:\n\n`displaynameScope`, `emailScope`, `phoneScope`.\n"), [])
+        self.assertEqual(self.leads("La forma más sencilla es la línea de comandos:\n\n**MySQL**:\n\nTexto.\n"), [])
+        self.assertTrue(self.leads("Los campos son:\n\nTexto sin nada más.\n"))
+
+
 class BareRefTitleTest(unittest.TestCase):
     """configuration_server audit: a bare :ref: showed its raw label, so translators invented text."""
 
