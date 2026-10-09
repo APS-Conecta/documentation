@@ -335,7 +335,7 @@ Para acceder a un archivo compartido públicamente, abra:
 https://example.com/nextcloud/public.php/dav/files/USERNAME
 ```
 
-En un cliente WebDAV, utilice el token del recurso compartido como el nombre de usuario y la contraseña del recurso compartido (opcional) como contraseña. Por ejemplo, en un enlace compartido https://example.com/s/kFy9Lek5sm928xP, `kFy9Lek5sm928xP` será el nombre de usuario.
+En un cliente WebDAV, utilice el token del recurso compartido como el nombre de usuario y la contraseña del recurso compartido (opcional) como contraseña. Por ejemplo, en un enlace compartido <https://example.com/s/kFy9Lek5sm928xP>, `kFy9Lek5sm928xP` será el nombre de usuario.
 
 :::{note}
 **Ajustes** → **Administración** → **Compartir** → **Permitir a los usuarios en este servidor enviar recursos compartidos a otros servidores**. Esta opción también permite el acceso por WebDAV a los recursos compartidos públicos y debe estar habilitada para que esta función funcione, salvo si se usa cURL (véase más abajo).
@@ -393,7 +393,7 @@ No se puede asignar Nextcloud a una unidad WebDAV en Windows utilizando un certi
 4. Guarde el archivo en su escritorio con un nombre arbitrario, por ejemplo `myNextcloud.pem`.
 5. Vaya a Start menu > Run, escriba MMC y haga clic en «OK» para abrir Microsoft Management Console.
 6. Vaya a File > Add/Remove Snap-In.
-7. Seleccione Certificates, haga clic en «Add», elija «My User Account», luego «Finish» y, por último, «OK».
+7. Seleccione Certificates, haga clic en «Añadir», elija «My User Account», luego «Finish» y, por último, «OK».
 8. Profundice hasta Trust Root Certification Authorities, Certificates.
 9. Haga clic con el botón derecho en Certificate y seleccione All Tasks e Import.
 10. Seleccione el certificado guardado en el escritorio.
@@ -501,9 +501,9 @@ Para conectarse a Nextcloud:
 - Vaya a «Environment», «Directories» en el lado izquierdo
 - Rellene el campo «Remote directory» con lo siguiente: `/nextcloud/remote.php/dav/files/NEXTCLOUDUSERNAME/`
 - Pulse el botón «OK»
-- Pulse el botón «Save»
+- Pulse el botón «Guardar»
 - Seleccione las opciones deseadas y pulse el botón «OK»
-- Pulse el botón «Login» para conectarse a Nextcloud
+- Pulse el botón «Iniciar sesión» para conectarse a Nextcloud
 
 :::{note}
 Si usa TOTP, use una contraseña de aplicación. En el momento de escribir esto (2022-11-07), WinSCP no admite TOTP con Nextcloud.

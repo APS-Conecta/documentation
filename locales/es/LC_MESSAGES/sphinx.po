@@ -38,3 +38,17 @@ msgstr "Hecho con "
 
 msgid "Made with"
 msgstr "Hecho con"
+
+# Las directivas de versión de los textos tejidos de Nextcloud (versionadded y afines): el
+# catálogo español de Sphinx 9 no traduce estas cadenas y la página mostraría «Added in version 29».
+msgid "Added in version %s"
+msgstr "Nuevo en la versión %s"
+
+msgid "Changed in version %s"
+msgstr "Cambiado en la versión %s"
+
+msgid "Deprecated since version %s"
+msgstr "Obsoleto desde la versión %s"
+
+msgid "Removed in version %s"
+msgstr "Eliminado en la versión %s"

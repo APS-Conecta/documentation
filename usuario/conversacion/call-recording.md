@@ -25,10 +25,10 @@ Para habilitar esta función, la administración del sistema debe configurar el 
 
 El moderador de la conversación puede iniciar una grabación junto con el inicio de una llamada o en cualquier momento durante una llamada:
 
-- **Antes de la llamada**: marcar la casilla "Start recording immediately with the call" en "Media settings" y luego hacer clic en "Start call".
-- **Durante la llamada**: hacer clic en el menú de la barra superior y luego en "Start recording".
+- **Antes de la llamada**: marcar la casilla «Iniciar la grabación inmediatamente con la llamada» en "Media settings" y luego hacer clic en «Comenzar llamada».
+- **Durante la llamada**: hacer clic en el menú de la barra superior y luego en «Empezar a grabar».
 
-La grabación comenzará en breve y se verá un indicador rojo junto al tiempo de la llamada. La grabación se puede detener en cualquier momento mientras la llamada sigue en curso, haciendo clic en ese indicador y seleccionando "Stop recording", o con la misma acción del menú de la barra superior. Si no se detiene la grabación manualmente, terminará automáticamente cuando termine la llamada.
+La grabación comenzará en breve y se verá un indicador rojo junto al tiempo de la llamada. La grabación se puede detener en cualquier momento mientras la llamada sigue en curso, haciendo clic en ese indicador y seleccionando «Detener grabación», o con la misma acción del menú de la barra superior. Si no se detiene la grabación manualmente, terminará automáticamente cuando termine la llamada.
 
 Después de detener una grabación, el servidor tardará unos segundos en preparar y guardar el archivo grabado. El moderador que inició la grabación recibe una notificación cuando el archivo se ha subido. Desde ahí, se puede compartir en el chat.
 

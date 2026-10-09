@@ -20,12 +20,12 @@ Los paquetes del cliente de Nextcloud contienen un cliente de línea de comandos
 
 | SO | Paquete |
 |---|---|
-| Alpine | https://pkgs.alpinelinux.org/package/edge/community/x86_64/nextcloud-client |
-| Debian | https://packages.debian.org/search?suite=all&arch=any&searchon=names&keywords=nextcloud-desktop-cmd |
-| Fedora | https://packages.fedoraproject.org/pkgs/nextcloud-client/nextcloud-client/ |
-| Ubuntu | https://packages.ubuntu.com/search?keywords=nextcloud-desktop-cmd |
-| Ubuntu (PPA) | https://launchpad.net/~nextcloud-devs/+archive/ubuntu/client |
-| Windows | https://nextcloud.com/install/#install-clients |
+| Alpine | <https://pkgs.alpinelinux.org/package/edge/community/x86_64/nextcloud-client> |
+| Debian | <https://packages.debian.org/search?suite=all&arch=any&searchon=names&keywords=nextcloud-desktop-cmd> |
+| Fedora | <https://packages.fedoraproject.org/pkgs/nextcloud-client/nextcloud-client/> |
+| Ubuntu | <https://packages.ubuntu.com/search?keywords=nextcloud-desktop-cmd> |
+| Ubuntu (PPA) | <https://launchpad.net/~nextcloud-devs/+archive/ubuntu/client> |
+| Windows | <https://nextcloud.com/install/#install-clients> |
 
 ### Uso
 
@@ -46,7 +46,7 @@ Otras opciones de línea de comandos que admite `nextcloudcmd` son las siguiente
 - `--non-interactive`: no hace preguntas e intenta leer $NC_USER y $NC_PASSWORD del entorno.
 - `--silent`, `--s`: suprime la salida detallada del registro.
 - `--trust`: confía en cualquier certificado SSL, incluidos los no válidos.
-- `--httpproxy` *http://[user@pass:]\<server\>:\<port\>*: usa *server* como proxy HTTP.
+- `--httpproxy` *<http://[user@pass>:]\<server\>:\<port\>*: usa *server* como proxy HTTP.
 - `--exclude` *\<file\>*: archivo de lista de exclusión
 - `--unsyncedfolders` *\<file\>*: archivo que contiene la lista de carpetas no sincronizadas (sincronización selectiva)
 - `--max-sync-retries` *\<n\>*: reintenta como máximo n veces (3 de forma predeterminada)

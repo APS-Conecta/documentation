@@ -17,4 +17,9 @@ Como moderador se pueden crear y configurar conversaciones, gestionar participan
 :::{note}
 Las acciones exclusivas de los moderadores dentro de las conversaciones y las llamadas también se describen en las páginas generales {nc-doc}`Conversaciones <user_manual/talk/conversations>` y {nc-doc}`Llamadas <user_manual/talk/call>`: buscar las secciones marcadas como *moderador*.
 :::
+- {nc-doc}`user_manual/talk/webinar`
+- {nc-doc}`user_manual/talk/call_recording`
+- {nc-doc}`user_manual/talk/breakout_rooms`
+- {nc-doc}`user_manual/talk/bots`
+- {nc-doc}`user_manual/talk/matterbridge`
 ````

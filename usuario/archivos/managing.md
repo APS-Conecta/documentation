@@ -12,4 +12,9 @@ resumen: "Entrada de la sección de gestión de archivos del manual base: archiv
 Esta página corresponde a la sección «Gestionar sus archivos» del manual de usuario de la plataforma base, que solo agrupa cuatro temas: archivos eliminados, control de versiones, cuota de almacenamiento y etiquetas del sistema. Cada tema se documenta en su propia página.
 
 ````{upstream} user_manual/files/managing.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
+
+- {nc-doc}`user_manual/files/deleted_file_management`
+- {nc-doc}`user_manual/files/version_control`
+- {nc-doc}`user_manual/files/quota`
+- {nc-doc}`user_manual/files/tagging`
 ````

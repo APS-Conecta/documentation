@@ -54,27 +54,31 @@ Gestión beyond what the :difiere: notice points to.>
 | Register | The official strings use «usted»; on a page that has them, match it. Otherwise use neutral, direct Spanish (impersonal or infinitive). |
 | Section titles | Spanish. Same count, order and relative depth as upstream. The body's first level is `###` on a single-document page. |
 | `.. _label:` | `(nc-label)=` on its own line, right before the heading it labels (label lower-case, verbatim). |
-| `:doc:\`x\`` / `:ref:\`x\`` | `{nc-doc}\`<absolute docname>\`` / `{nc-ref}\`<label>\``, with Spanish link text when upstream gives text: `{nc-ref}\`Texto <label>\``. |
+| `:doc:\`x\`` / `:ref:\`x\`` | `{nc-doc}\`<absolute docname>\`` / `{nc-ref}\`<label>\``, with Spanish link text when upstream gives text: `{nc-ref}\`Texto <label>\``. A bare `:doc:` stays bare: the build writes the target's Spanish title. |
 | External link `` `text <url>`_ `` | A Markdown link (Spanish text, same URL), URL byte-identical. |
 | Named reference `` `Name`_ `` with its `.. _Name: url` target | A reference link `[texto][Name]`, with `[Name]: url` at the end of the block. URL byte-identical. |
-| A bare URL in prose | An autolink `<url>`, byte-identical. |
+| A bare URL in prose or in a table cell | An autolink `<url>`, byte-identical: the site has no linkify, so a bare URL renders as plain text (the gate rejects it). |
 | A link that is dead or slow upstream (404, 403, rate-limited) | Byte-identical all the same; name it under **gaps** when it is dead. linkcheck skips URLs that appear only inside `{upstream}` blocks: keeping them alive is upstream's job. |
 | Single-backtick text with no role (`` `text` ``: RST's default role) | `*text*`. Upstream renders it in italics. |
 | A definition list | Bullets `- term: definition`, with the term formatted as upstream formats it. |
 | An English-only message upstream quotes (an error or UI string with no Spanish version) | Verbatim, inside «…», with no gloss. The English check skips quoted text. |
 | `.. raw:: html` | Dropped. Name it under **gaps** with what it carried. |
+| `.. versionadded::`, `versionchanged`, `deprecated`, `versionremoved` | The same MyST directive in a colon fence (`:::{versionadded} 29` … `:::`), its text translated. The site translates the label («Nuevo en la versión 29»). |
 | A code block inside a list item | The fence indented with the item's text, so the list keeps its numbering; the gate reads the body without that indent. |
 | `.. code-block:: lang`, `.. code::`, `::` literal blocks | A plain fence: ```` ```lang ```` (or ```` ``` ````). Content byte-identical: commands, paths, config keys, output, comments inside code. A `:caption:` becomes a sentence before the fence. |
 | ``` ``literal`` ``` | `` `literal` ``, byte-identical. |
+| A ``` ``literal`` ``` that is a UI label (a button, menu item or setting, or a path `Settings -> General`) | `{guilabel}` with the Spanish the interface shows, one per step: `{guilabel}`Ajustes` → {guilabel}`General``. The gate accepts the swap only when the shipped app's `l10n/es.json` or `glosario.yml` backs it, and warns on a literal it could swap. With no Spanish string, keep the literal. |
+| A UI string upstream quotes ("Start recording") | The interface's Spanish in «…» («Empezar a grabar»); the gate rejects the English when the catalog has the Spanish. With no Spanish string, the English verbatim in «…». |
 | `:guilabel:`, `:menuselection:` | `{guilabel}`, with the Spanish UI label from `glosario.yml` or the app's own Spanish strings. |
 | `:file:`, `:command:`, `:kbd:` | The same role, content verbatim. |
 | `.. note::` / `warning` / `tip` / `important` / `hint` / `danger` / `seealso` | `:::{note}` … `:::` (same kind, colon fence), translated. No headings inside. |
 | Tables (`list-table`, grid, simple) | A Markdown pipe table, or `:::{list-table}`. Cells translated, literals verbatim. |
-| `.. figure::`, `.. image::` | Dropped; they show the Nextcloud logo. A figure caption that carries information becomes a sentence. |
-| `.. toctree::` | Dropped: the site's own toctree lists the pages. |
+| `.. figure::`, `.. image::` | Dropped; they show the Nextcloud logo. A caption that carries information becomes a sentence. When the text around the image points at it («this page», «here», «below», «as shown»), its caption or alt text becomes one short sentence saying what the screen shows, so the pointer still lands. |
+| `.. toctree::` | A bullet list of bare `{nc-doc}` links, one per entry, in upstream order: ``- {nc-doc}`user_manual/talk/call` ``. Upstream renders a toctree as that list on the page; the build writes each target's Spanish title once it is woven (the brief lists the entries). A `:hidden:` toctree shows nothing upstream: drop it. |
 | `|version|` and other substitutions | The resolved value (the suite's major, e.g. `34`). |
 | `.. include::`, `.. literalinclude::`, anything else unknown | Do not guess. Name it under **gaps** in your result. |
 | The word «Nextcloud» | Keep it exactly as upstream writes it. The build renames it site-wide; never rename by hand. |
+| «Nextcloud» as the **vendor**: the subject that publishes, maintains or offers something («Nextcloud ofrece oficialmente…», «no Nextcloud», «el equipo de Nextcloud») | `{vendor}`Nextcloud``. The rename keeps the name, so the page never claims APS publishes Nextcloud's software. Link text into nextcloud.com or github.com/nextcloud keeps the name by itself. |
 
 **Fences.** Inside a block, backtick fences are for code only. Every directive (admonitions,
 `list-table`, …) uses a colon fence, `:::{name}` … `:::`, so a code fence inside it can never close

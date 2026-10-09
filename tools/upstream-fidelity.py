@@ -23,6 +23,7 @@ Coverage (every mapped document has a block somewhere) is reported always and en
 
 from __future__ import annotations
 
+import re
 import sys
 from collections import Counter
 from pathlib import Path
@@ -34,7 +35,7 @@ AUDIENCES = ("usuario", "administracion", "desarrollo", "proyecto")
 
 
 def check_block(
-    block: dict, page: str, source: str, catalog: dict, cfg: dict
+    block: dict, page: str, source: str, catalog: dict, cfg: dict, ui: dict | None = None
 ) -> tuple[list[str], int]:
     """(problems, AI-translated paragraph count) for one block against its upstream section."""
     if not block["doc"]:
@@ -86,8 +87,12 @@ def check_block(
         if catalog.get(para):
             want -= Counter(u.rst_inline_literals(para))
             want += Counter(u.rst_inline_literals(catalog[para]))
-    if want != Counter(u.myst_inline_literals(content)):
-        diff = want - Counter(u.myst_inline_literals(content))
+    have = Counter(u.myst_inline_literals(content))
+    ui = u.ui_strings() if ui is None else ui
+    swapped = _ui_swaps(want - have, Counter(u.myst_guilabels(content)), ui)
+    want -= swapped
+    if want != have:
+        diff = want - have
         out.append(
             f"{doc}: inline literals differ from upstream (missing or altered: {sorted(diff)[:3]})"
         )
@@ -102,6 +107,14 @@ def check_block(
             f"{doc}: cross-references differ: missing "
             f"{sorted(Counter(u.rst_xrefs(section, doc)) - Counter(u.myst_xrefs(content)))[:3]}"
         )
+    for quoted in re.findall(r"«([^»\n]+)»|\"([^\"\n]+)\"|“([^”\n]+)”", re.sub(r"`[^`\n]*`", "", u._without_fences(content))):
+        text = next(q for q in quoted if q).strip()
+        spanish = ui.get(text)
+        if spanish and text not in spanish:
+            out.append(f"{doc}: «{text}» is a UI string the interface shows in Spanish: «{sorted(spanish)[0]}»")
+    bare = u.bare_urls(content)
+    if bare:
+        out.append(f"{doc}: bare URL renders as plain text, write it as <url>: {bare[:2]}")
     labels_up = {lab for lab, _ in u.rst_labels(section)}
     if not labels_up <= set(u.myst_labels(content)):
         out.append(
@@ -109,14 +122,15 @@ def check_block(
         )
 
     # section titles are msgids too; on the page they are headings
-    mine = [u.plain(p) for p in u.myst_paragraphs(content)] + [
-        u.plain(t) for _, t in u.myst_headings(content)
+    # a lead-in may end in «.» where the «:» introduced a screenshot the page drops
+    mine = [u.plain(p).rstrip(":.") for p in u.myst_paragraphs(content)] + [
+        u.plain(t).rstrip(":.") for _, t in u.myst_headings(content)
     ]
     ai = 0
     for para in u.rst_paragraphs(section):
         official = catalog.get(para, "")
         if official:
-            if u.plain(official) not in mine:
+            if u.plain(official).rstrip(":.") not in mine:
                 out.append(
                     f"{doc}: official Spanish not used verbatim: «{u.plain(official)[:70]}…»"
                 )
@@ -127,6 +141,101 @@ def check_block(
             out.append(f"{doc}: paragraph reads as English: «{u.plain(para)[:70]}…»")
             break
     return out, ai
+
+
+DROPPED = re.compile(r"^(\s*)\.\. (toctree|figure|image)::")
+
+
+def _rst_parts(section: str) -> list[str]:
+    """The section cut at each heading: what precedes the first one, then one part per heading."""
+    lines = section.split("\n")
+    cuts = [0] + [
+        at - (1 if at and u.ADORN.match(lines[at - 1]) else 0) for _, _, at in u.rst_headings(section)
+    ] + [len(lines)]
+    return ["\n".join(lines[a:b]) for a, b in zip(cuts, cuts[1:])]
+
+
+def _myst_parts(content: str) -> list[str]:
+    out, cur = [], []
+    for ln, fenced in u.fence_walk(content.split("\n")):
+        if not fenced and u.MYST_HEADING.match(ln.strip()):
+            out.append("\n".join(cur))
+            cur = []
+        cur.append(ln)
+    return out + ["\n".join(cur)]
+
+
+def _words(paragraphs: list[str]) -> int:
+    return sum(len(re.findall(r"[^\W\d_]+", u.plain(p))) for p in paragraphs)
+
+
+def _rst_prose(part: str) -> list[str]:
+    """Prose the page owes: no toctree or figure bodies (the page renders those differently)."""
+    keep, skip = [], None
+    for ln in part.split("\n"):
+        if skip is not None:
+            if ln.strip() and len(ln) - len(ln.lstrip()) <= skip:
+                skip = None
+            else:
+                continue
+        if m := DROPPED.match(ln):
+            skip = len(m.group(1))
+            continue
+        keep.append(ln)
+    return u.rst_paragraphs("\n".join(keep))
+
+
+def _myst_prose(part: str) -> list[str]:
+    body = u._without_fences(part)
+    cells = [ln.strip().strip("|").replace("|", " ") for ln in body.split("\n")
+             if ln.strip().startswith("|") and not re.match(r"^\|[\s:|-]+\|?$", ln.strip())]
+    return u.myst_paragraphs(part) + cells + [t for _, t in u.myst_headings(part)]
+
+
+def _ui_swaps(missing: Counter, labels: Counter, ui: dict) -> Counter:
+    """The upstream UI literals the page wrote as {guilabel} with the interface's own Spanish
+    (a menu path `A -> B` as one label per step). Only a swap the catalog backs counts."""
+    swapped = Counter()
+    for lit, n in missing.items():
+        parts = re.split(r"\s*(?:->|→)\s*", lit)
+        for _ in range(n):
+            picks = [next((es for es in sorted(ui.get(p, ())) if labels[es] > 0), None) for p in parts]
+            if None in picks:
+                break
+            for es in picks:
+                labels[es] -= 1
+            swapped[lit] += 1
+    return swapped
+
+
+def warnings(content: str, section: str, ui: dict | None = None) -> list[str]:
+    """Signals a reviewer reads; never a failure. A section whose Spanish runs well under its
+    English (Spanish runs ~1.1x) may have lost text; a lead-in ending in «:» with nothing after
+    it introduced something the page dropped (usually a screenshot)."""
+    out = []
+    up, mine = _rst_parts(section), _myst_parts(content)
+    if len(up) == len(mine):
+        for i, (a, b) in enumerate(zip(up, mine)):
+            en, es = _words(_rst_prose(a)), _words(_myst_prose(b))
+            if en >= 40 and es < 0.7 * en:
+                title = next((t for _, t in u.myst_headings(b)), "(before the first heading)")
+                out.append(f"section «{title}»: {es} Spanish words for {en} English — text may be missing")
+    for lit in dict.fromkeys(u.myst_inline_literals(content)):
+        parts = re.split(r"\s*(?:->|→)\s*", lit)
+        es = [sorted((ui or {}).get(p, ())) for p in parts]
+        if all(es) and any(p not in e for p, e in zip(parts, es)):
+            out.append(f"`{lit}` is a UI label the interface shows as «{' → '.join(e[0] for e in es)}»: write {{guilabel}}")
+    walk = list(u.fence_walk(content.split("\n")))
+    for i, (ln, fenced) in enumerate(walk):
+        s = ln.strip()
+        if fenced or not s.endswith(":") or s.startswith((":", "|", "#", "(")):
+            continue
+        nxt = next((x for x, _ in walk[i + 1:] if x.strip()), "")
+        # a lead-in may introduce a fence, list, table, admonition or quote; prose, a heading or
+        # the end of the block means what it introduced is gone
+        if not nxt or not (u.FENCE.match(nxt) or re.match(r"^\s*([-*+|>]\s|\d+[.)]\s|:::)", nxt) or nxt[0].isspace()):
+            out.append(f"«{s[:60]}» ends in «:» but introduces nothing — a dropped screenshot?")
+    return out
 
 
 def pages(paths: list[str] | None) -> list[Path]:
@@ -145,7 +254,7 @@ def main(argv: list[str]) -> int:
             file=sys.stderr,
         )
         return 2
-    problems, woven, ai_total, n_blocks = [], set(), 0, 0
+    problems, notes, woven, ai_total, n_blocks = [], [], set(), 0, 0
     names = u.docnames(updir, cfg)
     problems += [f"upstream.yml: {p}" for p in u.map_problems(names, cfg)]
     for path in pages(paths):
@@ -170,6 +279,8 @@ def main(argv: list[str]) -> int:
                 source, cat = "", {}
             found, ai = check_block(block, page, source, cat, cfg)
             problems += [f"{where}: {p}" for p in found]
+            if block["doc"] and not found:
+                notes += [f"{where}: {w}" for w in warnings(block["content"], u.rst_section(source, block["anchor"]), u.ui_strings())]
             ai_total += ai
             if block["doc"]:
                 woven.add(block["doc"])
@@ -181,6 +292,8 @@ def main(argv: list[str]) -> int:
     )
     if require and missing and not paths:
         problems += [f"coverage: {n} has no block" for n in missing]
+    for n in notes:
+        print(f"WARN {n}")
     for p in problems:
         print(f"ERROR {p}")
     return 1 if problems else 0

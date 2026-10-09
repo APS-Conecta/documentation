@@ -17,6 +17,18 @@ El software de trabajo en grupo de Nextcloud es una colección de aplicaciones q
 Complementamos estas herramientas de productividad con **Deck**, una herramienta de gestión de proyectos que le permite crear tableros de tareas al estilo Kanban y compartirlos con su equipo.
 
 Puede encontrar más información sobre el software de trabajo en grupo de Nextcloud [en nuestra página web](https://nextcloud.com/groupware/).
+
+- {nc-doc}`user_manual/groupware/contacts`
+- {nc-doc}`user_manual/groupware/calendar`
+- {nc-doc}`user_manual/groupware/mail`
+- {nc-doc}`user_manual/groupware/absence`
+- {nc-doc}`user_manual/groupware/sync_android`
+- {nc-doc}`user_manual/groupware/sync_ios`
+- {nc-doc}`user_manual/groupware/sync_osx`
+- {nc-doc}`user_manual/groupware/sync_thunderbird`
+- {nc-doc}`user_manual/groupware/sync_kde`
+- {nc-doc}`user_manual/groupware/sync_gnome`
+- {nc-doc}`user_manual/groupware/sync_windows10`
 ````
 
 ```{toctree}

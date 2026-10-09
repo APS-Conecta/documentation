@@ -23,6 +23,14 @@ Nextcloud Talk ofrece audio/video y chat de texto integrados en Nextcloud. Está
 
 Hay más información sobre Nextcloud Talk [en su sitio web](https://nextcloud.com/talk/).
 Los clientes de escritorio y móviles se descargan desde [nextcloud.com/install](https://nextcloud.com/install/).
+
+- {nc-doc}`user_manual/talk/chat_index`
+- {nc-doc}`user_manual/talk/conversation_index`
+- {nc-doc}`user_manual/talk/call_index`
+- {nc-doc}`user_manual/talk/federation_index`
+- {nc-doc}`user_manual/talk/integrations_index`
+- {nc-doc}`user_manual/talk/moderator_index`
+- {nc-doc}`user_manual/talk/guest`
 ````
 
 ```{toctree}

@@ -80,8 +80,12 @@ class UpstreamDirective(SphinxDirective):
         parent = self.state_machine.node
         parent += out
         nested_parse_with_titles(self.state, self.content, parent, self.content_offset)
+        # The title of the section the block sits in: a bare {nc-doc} link to a page holding
+        # several documents shows this one's own heading (resolve()).
+        head = parent[0].astext() if isinstance(parent, nodes.section) and len(parent) and \
+            isinstance(parent[0], nodes.title) else ""
         blocks = self.env.domaindata.setdefault("upstream", {}).setdefault("blocks", {})
-        blocks.setdefault(doc, (self.env.docname, anchor_id))
+        blocks.setdefault(doc, (self.env.docname, anchor_id, u.rename(head, cfg)))
         return []
 
 
@@ -101,6 +105,8 @@ class NcRole(SphinxRole):
         else:
             title, target = "", text.strip()
         ref = nodes.reference(self.rawtext, title or target, internal=False)
+        # no text given: resolve() writes the woven page's own title, so a title lives in one place
+        ref["nc_auto_title"] = not title and self.kind == "doc"
         ref["nc_kind"], ref["nc_target"] = (
             self.kind,
             target if self.kind == "doc" else target.lower(),
@@ -140,10 +146,16 @@ def resolve(app, doctree, fromdocname):
             )
         elif kind == "doc":
             if target in blocks:
-                page, anchor = blocks[target]
+                page, anchor, head = blocks[target]
                 ref["refuri"] = (
                     builder.get_relative_uri(fromdocname, page) + f"#{anchor}"
                 )
+                if ref.get("nc_auto_title"):
+                    several = sum(1 for p, _, _ in blocks.values() if p == page) > 1
+                    title = head if several and head else (
+                        env.titles[page].astext() if page in env.titles else "")
+                    if title:
+                        ref.children = [nodes.Text(title)]
             else:
                 ref["refuri"] = u.external_url(target)
         else:
@@ -165,7 +177,7 @@ def resolve(app, doctree, fromdocname):
 
 def purge(app, env, docname):
     blocks = env.domaindata.get("upstream", {}).get("blocks", {})
-    for doc in [d for d, (page, _) in blocks.items() if page == docname]:
+    for doc in [d for d, (page, *_) in blocks.items() if page == docname]:
         del blocks[doc]
 
 
@@ -183,4 +195,4 @@ def setup(app):
     app.connect("doctree-resolved", resolve)
     app.connect("env-purge-doc", purge)
     app.connect("env-merge-info", merge)
-    return {"parallel_read_safe": True, "parallel_write_safe": True, "env_version": 1}
+    return {"parallel_read_safe": True, "parallel_write_safe": True, "env_version": 2}

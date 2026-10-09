@@ -12,4 +12,8 @@ resumen: "Punto de entrada a las integraciones de Talk con otras aplicaciones, c
 Esta página agrupa, para las personas usuarias, las integraciones de Talk con otras aplicaciones. Cada integración se describe en su propia página de esta sección.
 
 ````{upstream} user_manual/talk/integrations_index.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
+
+- {nc-doc}`user_manual/talk/files_integration`
+- {nc-doc}`user_manual/talk/calendar_integration`
+- {nc-doc}`user_manual/talk/call_from_anywhere`
 ````
