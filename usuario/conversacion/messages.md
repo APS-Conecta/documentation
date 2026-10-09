@@ -20,7 +20,7 @@ Los mensajes y los textos que acompañan a los archivos compartidos se pueden ed
 
 Un moderador puede fijar los mensajes importantes de una conversación durante un periodo de tiempo determinado o hasta que dejen de ser relevantes.
 
-Los mensajes fijados se destacan y se puede acceder a ellos encima del chat o en la pestaña `Shared items` de la barra lateral de contenido. Cuando un mensaje fijado ya no hace falta, se puede desfijar para todos o solo para uno mismo desde las acciones rápidas.
+Los mensajes fijados se destacan y se puede acceder a ellos encima del chat o en la pestaña {guilabel}`Elementos compartidos` de la barra lateral de contenido. Cuando un mensaje fijado ya no hace falta, se puede desfijar para todos o solo para uno mismo desde las acciones rápidas.
 
 ### Poner recordatorios en los mensajes
 
@@ -42,11 +42,11 @@ Se pueden crear hilos en las conversaciones para mantener las discusiones organi
 
 Después se puede añadir un título y una descripción al hilo e iniciar la discusión.
 
-Todas las respuestas de un hilo se pueden ver desde el botón de respuestas del mensaje o desde la pestaña `Shared items` de la barra lateral de contenido.
+Todas las respuestas de un hilo se pueden ver desde el botón de respuestas del mensaje o desde la pestaña {guilabel}`Elementos compartidos` de la barra lateral de contenido.
 
 Es posible suscribirse a un hilo para recibir notificaciones de las respuestas nuevas. La suscripción se puede hacer desde el propio hilo o desde la barra lateral.
 
-Los hilos suscritos son fácilmente accesibles desde la barra de navegación, en el apartado `Threads`.
+Los hilos suscritos son fácilmente accesibles desde la barra de navegación, en el apartado {guilabel}`Hilos`.
 
 El título del hilo se puede editar desde el propio hilo o desde la barra lateral.
 
@@ -55,7 +55,7 @@ El título del hilo se puede editar desde el propio hilo o desde la barra latera
 Las respuestas privadas son mensajes que se reenvían directamente a una conversación uno a uno entre quien responde y el autor de un mensaje concreto, para mantener la privacidad donde hace falta.
 
 1. En las conversaciones de grupo y públicas, seleccionar el mensaje al que se quiere responder en privado
-2. En las acciones del mensaje, seleccionar `Reply privately`
+2. En las acciones del mensaje, seleccionar {guilabel}`Responder en privado`
 3. Se abre una ventana de conversación uno a uno con el mensaje original citado
 4. Añadir la respuesta y enviar el mensaje
 

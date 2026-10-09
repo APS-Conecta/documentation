@@ -19,7 +19,7 @@ Nextcloud Talk ofrece funciones para organizar y gestionar las conversaciones de
 Crear etiquetas personalizadas para clasificar las conversaciones y mantenerlas organizadas. Las etiquetas ayudan a agrupar las conversaciones por proyecto, equipo, tema o cualquier otro criterio que tenga sentido para la propia forma de trabajar.
 
 1. Seleccionar una conversación y abrir el menú de acciones
-2. Seleccionar `Tags` y elegir una etiqueta existente o crear una nueva
+2. Seleccionar {guilabel}`Etiquetas` y elegir una etiqueta existente o crear una nueva
 3. La conversación queda etiquetada y agrupada en consecuencia
 
 Más adelante se pueden gestionar las etiquetas existentes: renombrarlas, reordenarlas o eliminarlas.

@@ -16,11 +16,11 @@ Esta página explica cómo iniciar una llamada de Talk o unirse a ella desde el 
 
 #### Navegador y cliente Talk Desktop
 
-Al formar parte de una conversación y tener permiso para hacerlo, se puede iniciar una llamada en cualquier momento haciendo clic en `Start call` en la barra superior.
-Cuando ya hay una llamada en curso, para unirse a ella se hace clic en el botón verde `Join call` del área del chat o de la barra superior.
+Al formar parte de una conversación y tener permiso para hacerlo, se puede iniciar una llamada en cualquier momento haciendo clic en {guilabel}`Comenzar llamada` en la barra superior.
+Cuando ya hay una llamada en curso, para unirse a ella se hace clic en el botón verde {guilabel}`Unirse a la llamada` del área del chat o de la barra superior.
 
 :::{note}
-Si todavía no se dio permiso al navegador o al cliente Talk Desktop para usar el micrófono y la cámara, se pedirá hacerlo al hacer clic en `Start call` o `Join call`.
+Si todavía no se dio permiso al navegador o al cliente Talk Desktop para usar el micrófono y la cámara, se pedirá hacerlo al hacer clic en {guilabel}`Comenzar llamada` o {guilabel}`Unirse a la llamada`.
 Elegir el micrófono y la cámara que se quieren usar y hacer clic en `Allow` para conceder acceso a los dispositivos.
 :::
 
@@ -59,15 +59,15 @@ En las próximas llamadas de esta conversación se entrará directamente, sin el
 
 ##### Grabar una llamada
 
-Si se inició la llamada y se quiere grabarla, marcar la casilla `Start recording immediately with the call`.
-Es posible que la opción de grabar la llamada no esté disponible, según si los administradores del sistema la habilitaron y si se tiene el permiso `Moderator` en la conversación.
+Si se inició la llamada y se quiere grabarla, marcar la casilla {guilabel}`Iniciar la grabación inmediatamente con la llamada`.
+Es posible que la opción de grabar la llamada no esté disponible, según si los administradores del sistema la habilitaron y si se tiene el permiso {guilabel}`Moderador` en la conversación.
 Al unirse a una llamada que se está grabando, puede que se pida dar el consentimiento antes de poder entrar.
 Para más información, consultar {nc-ref}`Grabación de llamadas <call-recording>`.
 
 ##### Iniciar la llamada
 
-Hacer clic en el botón `Start call` de la parte inferior de `Media settings` para notificar la llamada a todos los participantes de la conversación.
-Para no notificar a los demás participantes, iniciar una llamada silenciosa: abrir el menú de tres puntos a la izquierda del botón `Start call`
+Hacer clic en el botón {guilabel}`Comenzar llamada` de la parte inferior de `Media settings` para notificar la llamada a todos los participantes de la conversación.
+Para no notificar a los demás participantes, iniciar una llamada silenciosa: abrir el menú de tres puntos a la izquierda del botón {guilabel}`Comenzar llamada`
 y elegir `Call without notification`.
 
 :::{note}
@@ -140,7 +140,7 @@ Todos los participantes verán el emoji subir desde la parte inferior de su pant
 
 ##### Levantar la mano
 
-Al hacer clic en `Raise hand` se notificará a los moderadores y se mostrará un icono junto al nombre. También está disponible con el atajo de teclado `R`.
+Al hacer clic en {guilabel}`Levantar la mano` se notificará a los moderadores y se mostrará un icono junto al nombre. También está disponible con el atajo de teclado `R`.
 
 ##### Pantalla completa
 

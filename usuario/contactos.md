@@ -57,7 +57,7 @@ Si no se pueden importar contactos virtuales, la aplicación Contactos permite *
 
 Para crear un contacto nuevo:
 
-1. Hacer clic en el botón `+ New contact`.
+1. Hacer clic en el botón {guilabel}`Nuevo contacto`.
 
    La configuración de la vista de edición se abre en el campo de vista de la aplicación.
 

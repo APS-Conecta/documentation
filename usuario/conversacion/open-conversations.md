@@ -18,5 +18,5 @@ Se puede crear una conversación abierta que cualquier usuario registrado en est
 
 ### Ver todas las conversaciones abiertas
 
-Para ver todas las conversaciones a las que es posible unirse, hacer clic en el botón situado junto al campo de búsqueda y luego en `Join open conversations`.
+Para ver todas las conversaciones a las que es posible unirse, hacer clic en el botón situado junto al campo de búsqueda y luego en {guilabel}`Unirse a conversaciones abiertas`.
 ````

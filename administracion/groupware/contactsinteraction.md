@@ -33,7 +33,7 @@ Para los contactos nuevos se genera una vCard mínima que contiene:
 - `FN` (nombre mostrado): se obtiene del perfil de usuario de Nextcloud si la persona es un usuario local; si no, se recurre a la dirección de correo electrónico o al ID de nube federada.
 - `EMAIL`: se incluye cuando se conoce una dirección de correo electrónico.
 - `CLOUD`: se incluye cuando se conoce un ID de nube federada.
-- `CATEGORIES`: se establece en `Recently contacted`, lo que permite a la app Contactos identificar las entradas de esta libreta de direcciones y ofrecer a los usuarios la opción de copiarlas a una libreta de direcciones normal.
+- `CATEGORIES`: se establece en {guilabel}`Contactados recientemente`, lo que permite a la app Contactos identificar las entradas de esta libreta de direcciones y ofrecer a los usuarios la opción de copiarlas a una libreta de direcciones normal.
 
 Si se vuelve a contactar con la misma persona, se actualiza la marca de tiempo de la entrada existente en lugar de crear un duplicado.
 
