@@ -1,11 +1,23 @@
 ---
 tipo: referencia
+esqueleto: borrador
+audiencia: desarrollo
+apps: [IntraVox]
+resumen: "Referencia del repositorio IntraVox: la intranet de páginas editables, fork de APS."
 ---
 # IntraVox
 
+## Resumen
+
 Intranet de páginas editables de la suite: el fork APS de IntraVox se envía como la aplicación «Inicio» de cada CESFAM.
 
-- Secciones previstas: descripción del repositorio, licencia, referencia de occ, ajustes y rutas, mapa de módulos
+## Secciones previstas
+
+- Descripción del repositorio
+- Licencia
+- Referencia de occ
+- Ajustes y rutas
+- Mapa de módulos
 
 ```{include} ../_generated/attach/intravox.md
 ```

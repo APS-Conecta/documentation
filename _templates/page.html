@@ -1,0 +1,13 @@
+{# Página: filtros de búsqueda (Pagefind) desde la portada YAML de cada página, y el pie que
+   declara el origen del producto en todas las páginas (iniciativa scribe, Q21–Q23). #}
+{% extends "!page.html" %}
+{% block content %}
+{%- for name, value in pagefind_filters|default([]) %}<span data-pagefind-filter="{{ name }}" hidden>{{ value }}</span>{% endfor -%}
+{{ super() }}
+{% endblock %}
+{% block footer %}
+{{ super() }}
+<div class="aps-pie">
+  <span class="atribucion">APS Conecta Gestión es una distribución derivada de Nextcloud y de otro software, adaptada a la atención primaria — <a href="{{ (pathto('aviso') if pagename != 'aviso' else 'aviso.html') }}#origen">Origen y licencias</a> · <a href="{{ pathto('aviso') if pagename != 'aviso' else 'aviso.html' }}">Aviso legal</a></span>
+</div>
+{% endblock %}

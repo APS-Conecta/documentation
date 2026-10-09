@@ -1,5 +1,8 @@
 ---
 tipo: explicacion
+audiencia: administracion
+apps: []
+resumen: "Operación de una instalación de la suite: instalación, aprovisionamiento, oficina, mapas base, seguridad y mantenimiento."
 ---
 # Administración
 
@@ -7,16 +10,19 @@ Introducción a la operación de una instalación de la suite, para quienes admi
 
 ```{toctree}
 :maxdepth: 1
+:glob:
 
-Instalación <instalacion>
+Instalación <instalacion/index>
 AIO <aio>
 Arquitectura <arquitectura>
 Aprovisionamiento <aprovisionamiento>
-Usuarios y grupos <usuarios-y-grupos>
-Oficina <oficina>
+Usuarios y grupos <usuarios-y-grupos/index>
+Oficina <oficina/index>
 Mapas base <mapas-base>
 Seguridad <seguridad>
-Operaciones <operaciones>
+Operaciones <operaciones/index>
+*
+*/index
 ```
 
 [Aviso legal](../aviso.md)

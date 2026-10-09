@@ -2,7 +2,7 @@
 tipo: referencia
 audiencia: proyecto
 apps: [gestion]
-resumen: Cambios de gestion visibles para usuarios y administradores, agrupados por versión.
+resumen: "Cambios de gestion visibles para usuarios y administradores, agrupados por versión."
 ---
 # Novedades de gestion
 

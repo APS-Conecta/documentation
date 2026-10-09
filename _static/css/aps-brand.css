@@ -1,5 +1,5 @@
 /* =====================================================================
-   APS-Conecta — hoja de marca del sitio de documentación (sphinx_rtd_theme)
+   APS-Conecta — hoja de marca del sitio de documentación (Furo)
 
    Transplante, no rediseño. Cada valor procede del tema de gestión y se cita:
 
@@ -11,11 +11,12 @@
      en gestion porque Nextcloud deriva de ese valor el color del texto de la
      cabecera y la inversión de iconos (defaults.php, THEMING-MODEL regla 5).
      Ese mecanismo es exclusivo de Nextcloud: aquí NO se transfiere; el violeta
-     oscuro se aplica directamente sobre .wy-nav-side.
+     oscuro llega a la barra lateral por la variable --color-sidebar-background
+     de Furo (conf.py).
 
-   La regla de oro de server.css («una variable en :root es inerte») tampoco
-   aplica: no hay Nextcloud debajo. Selectores planos, sin variables, sin
-   !important. Solo luz — el ecosistema no publica modo oscuro. */
+   La paleta entra por las variables CSS de Furo, declaradas en conf.py; esta hoja
+   solo carga las fuentes, oculta el selector de tema y ajusta lo que las
+   variables no alcanzan. Solo luz — el ecosistema no publica modo oscuro. */
 
 /* ---- Luz, siempre (gestion opera con enforce_theme=light; ídem aquí) ---- */
 :root { color-scheme: light; }
@@ -41,45 +42,32 @@
   src: url("../fonts/NunitoSans-Italic.woff2") format("woff2");
 }
 
-/* ---- Tipografía (server.css: display en Fraunces, cuerpo en Nunito Sans) ---- */
-body {
-  font-family: "Nunito Sans", system-ui, -apple-system, sans-serif;
-  color: #101828; /* tinta — texto principal (libro mayor, ~16:1) */
-}
-h1, h2, h3 {
-  font-family: "Fraunces", Georgia, serif;
-  letter-spacing: -0.015em;
-}
+/* ---- Solo luz: el selector de tema de Furo no se ofrece ---- */
+.theme-toggle-container,
+.theme-toggle { display: none; }
 
-/* ---- Paleta sobre sphinx_rtd_theme ---- */
+/* ---- Ítem actual de la barra lateral: relleno dorado con texto tinta ----
+   El oro #e06f00 (3.07:1 sobre blanco) se reserva a rellenos; el texto sobre él es
+   tinta #101828 (~5.5:1), como en el libro mayor. */
+.sidebar-tree .current-page > .reference,
+.sidebar-tree li.current > .reference.current { color: #101828; }
 
-/* Barra lateral: violeta oscuro con texto claro (blanco sobre #5315a8 ≈ 8:1,
-   libro mayor). El prefijo .wy-nav-side gana en especificidad al tema y no
-   depende del orden de carga. */
-.wy-nav-side { background: #5315a8; }
-.wy-nav-side .wy-menu-vertical a { color: #ffffff; }
-.wy-nav-side .wy-menu-vertical a:hover,
-.wy-nav-side .wy-menu-vertical a:focus {
-  background: rgba(255, 255, 255, 0.26); /* realce de la casa, server.css */
-  color: #ffffff;
-}
-
-/* Ítem de menú actual: relleno dorado con texto tinta. El oro #e06f00 (3.07:1
-   sobre blanco) se reserva a rellenos, iconos y texto grande — libro mayor;
-   el texto sobre el relleno es tinta #101828 (~5.5:1 sobre el oro). */
-.wy-nav-side .wy-menu-vertical li.current > a,
-.wy-nav-side .wy-menu-vertical li.on a {
-  background: #e06f00;
-  color: #101828;
+/* ---- Búsqueda (Pagefind) con la paleta de la casa ---- */
+.aps-buscar {
+  --pagefind-ui-primary: #5315a8;
+  --pagefind-ui-text: #101828;
+  --pagefind-ui-background: #ffffff;
+  --pagefind-ui-border: #d0c4e8;
+  --pagefind-ui-tag: #f7f5fb;
+  --pagefind-ui-font: "Nunito Sans", system-ui, -apple-system, sans-serif;
+  --pagefind-ui-scale: 0.8;
+  padding: 0.5rem 1rem;
+  background: #ffffff;
 }
 
-/* Enlaces del contenido: oro oscuro, el par AA para texto pequeño sobre blanco
-   (#9a4c00 ≥ 4.5:1, libro mayor). El realce al pasar el cursor o enfocar usa
-   el violeta primario (#7f21fe, 5.57:1, texto AA según el libro mayor). */
-.wy-nav-content a { color: #9a4c00; }
-.wy-nav-content a:hover,
-.wy-nav-content a:focus { color: #7f21fe; }
-
-/* Leyendas de tablas y figuras: apagado (#485363, ~7:1, libro mayor). */
-.wy-nav-content caption,
-.wy-nav-content .caption-text { color: #485363; }
+/* ---- Pie: origen del producto en cada página ---- */
+.aps-pie {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: #485363; /* apagado, ~7:1 */
+}

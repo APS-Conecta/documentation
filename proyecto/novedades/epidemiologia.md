@@ -2,7 +2,7 @@
 tipo: referencia
 audiencia: proyecto
 apps: [epidemiologia]
-resumen: Cambios de epidemiologia visibles para usuarios y administradores, agrupados por versión.
+resumen: "Cambios de epidemiologia visibles para usuarios y administradores, agrupados por versión."
 ---
 # Novedades de epidemiologia
 

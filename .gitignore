@@ -1,3 +1,4 @@
 _generated/
 _build/
 __pycache__/
+*.mo

@@ -14,9 +14,14 @@
 #             ('600 1em "Fraunces"') are both true, and both faces are loaded —
 #             use, not just delivery (check() alone is vacuously true with no
 #             @font-face declared, so the face status is asserted too)
-#   theme     .wy-nav-side computes rgb(83, 21, 168); aps-brand.css declares
-#             color-scheme: light; zero prefers-color-scheme in any served CSS
-#             every request the load issued resolves to the serving host
+#   theme     the Furo sidebar computes rgb(83, 21, 168); aps-brand.css declares
+#             color-scheme: light; with the browser asking for dark mode the page
+#             still renders light (body[data-theme="light"], white background)
+#   responsive at 360x800 no page scrolls sideways (index, legal notice, catalog) and
+#             the navigation drawer opens
+#   search    Pagefind answers a Spanish query with the expected page, and the
+#             audiencia filter narrows it
+#   isolation every request the load issued resolves to the serving host
 #             (127.0.0.1 locally; the deployed origin under --url) — the
 #             no-third-party rule as a mechanical gate
 
@@ -49,7 +54,9 @@ BRAND_ASSETS = (
     "img/favicon-touch.png",
 )
 
-SIDEBAR_RGB = "rgb(83, 21, 168)"  # #5315a8 — the .wy-nav-side backdrop in aps-brand.css
+SIDEBAR_RGB = "rgb(83, 21, 168)"  # #5315a8 — Furo's --color-sidebar-background (conf.py)
+NARROW_PAGES = ("", "aviso.html", "_generated/catalogo.html")
+SEARCH_QUERY, SEARCH_EXPECT, SEARCH_FILTER = "vademécum", "usuario/farmacia", "usuario"
 BRAND_CSS = "css/aps-brand.css"
 
 
@@ -92,7 +99,7 @@ def serve(root, base):
 
 def main():
     ap = argparse.ArgumentParser(
-        description="Playwright gate on the served site: docs/brand/fonts/theme/isolation families."
+        description="Playwright gate on the served site: docs/brand/fonts/theme/responsive/search/isolation."
     )
     ap.add_argument("--root", default="_build/html",
                     help="built site root (default: %(default)s)")
@@ -188,37 +195,81 @@ def main():
                 errs.append(f'no loaded "Fraunces" face (status: {fonts["frauncesFace"]!r})')
             check_family("fonts", errs)
 
-            # theme: brand backdrop applied, light color-scheme declared, no dark-mode media.
+            # theme: brand sidebar, light declared, and light even when the browser asks for dark.
             errs = []
             sidebar = page.evaluate(
                 """() => {
-                    const el = document.querySelector('.wy-nav-side');
+                    const el = document.querySelector('.sidebar-drawer');
                     return el ? getComputedStyle(el).backgroundColor : null;
                 }"""
             )
             if sidebar is None:
-                errs.append("no .wy-nav-side element — the theme sheet did not apply")
+                errs.append("no .sidebar-drawer element — the Furo theme did not render")
             elif sidebar != SIDEBAR_RGB:
-                errs.append(f".wy-nav-side background is {sidebar}, expected {SIDEBAR_RGB}")
-            css_urls = set(page.evaluate(
-                """() => Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
-                          .map(l => l.href)"""
-            ))
+                errs.append(f".sidebar-drawer background is {sidebar}, expected {SIDEBAR_RGB}")
             brand_css_url = urljoin(static_base, BRAND_CSS)
-            css_urls.add(brand_css_url)
-            served = {}
-            for url in sorted(css_urls):
-                resp = context.request.get(url)
-                served[url] = resp.text() if resp.ok else None
-                if not resp.ok:
-                    errs.append(f"{url} -> HTTP {resp.status}")
-            brand_css = served.get(brand_css_url) or ""
-            if not re.search(r"color-scheme:\s*light", brand_css):
+            resp = context.request.get(brand_css_url)
+            if not resp.ok:
+                errs.append(f"{brand_css_url} -> HTTP {resp.status}")
+            elif not re.search(r"color-scheme:\s*light", resp.text()):
                 errs.append(f"{BRAND_CSS} does not declare color-scheme: light")
-            for url, text in served.items():
-                if text and "prefers-color-scheme" in text:
-                    errs.append(f"prefers-color-scheme present in {url}")
+            dark = browser.new_context(color_scheme="dark")
+            dpage = dark.new_page()
+            dpage.goto(base_url, wait_until="networkidle")
+            look = dpage.evaluate(
+                """() => ({theme: document.body.dataset.theme,
+                          bg: getComputedStyle(document.body).backgroundColor})"""
+            )
+            dark.close()
+            if look["theme"] != "light":
+                errs.append(f'with a dark preference body[data-theme] is {look["theme"]!r}, expected "light"')
+            if look["bg"] != "rgb(255, 255, 255)":
+                errs.append(f"with a dark preference the body background is {look['bg']}, expected white")
             check_family("theme", errs)
+
+            # responsive: nothing scrolls sideways at phone width; the navigation drawer opens.
+            errs = []
+            narrow = browser.new_context(viewport={"width": 360, "height": 800})
+            npage = narrow.new_page()
+            npage.on("request", lambda r: requests_seen.append(r.url))
+            for rel in NARROW_PAGES:
+                npage.goto(urljoin(base_url, rel), wait_until="networkidle")
+                over = npage.evaluate("() => document.documentElement.scrollWidth - window.innerWidth")
+                if over > 0:
+                    errs.append(f"/{rel or ''} scrolls sideways by {over}px at 360px wide")
+            npage.goto(base_url, wait_until="networkidle")
+            npage.click(".mobile-header label[for='__navigation']")
+            npage.wait_for_timeout(400)
+            left = npage.evaluate(
+                "() => document.querySelector('.sidebar-drawer').getBoundingClientRect().left"
+            )
+            if left < 0:
+                errs.append(f"the navigation drawer did not open at 360px (left edge at {left}px)")
+            narrow.close()
+            check_family("responsive", errs)
+
+            # search: Pagefind answers a Spanish query, and the audiencia filter narrows it.
+            errs = []
+            found = page.evaluate(
+                """async ([q, f]) => {
+                    const pf = await import(new URL('pagefind/pagefind.js', document.baseURI
+                        .replace(/[^/]*$/, '')).href);
+                    await pf.init();
+                    const all = await pf.search(q);
+                    const narrowed = await pf.search(q, {filters: {audiencia: f}});
+                    const urls = async (r) => Promise.all(r.results.slice(0, 5).map(x => x.data().then(d => d.url)));
+                    return {all: await urls(all), narrowed: await urls(narrowed),
+                            allCount: all.results.length, narrowedCount: narrowed.results.length};
+                }""",
+                [SEARCH_QUERY, SEARCH_FILTER],
+            )
+            if not any(SEARCH_EXPECT in u for u in found["all"]):
+                errs.append(f"query {SEARCH_QUERY!r} did not return {SEARCH_EXPECT} (got {found['all']})")
+            if found["narrowedCount"] == 0 or found["narrowedCount"] > found["allCount"]:
+                errs.append(f"filter audiencia={SEARCH_FILTER} did not narrow ({found['narrowedCount']} of {found['allCount']})")
+            if any(f"/{SEARCH_FILTER}/" not in u for u in found["narrowed"]):
+                errs.append(f"filter audiencia={SEARCH_FILTER} let other audiences through: {found['narrowed']}")
+            check_family("search", errs)
 
             # isolation: nothing the load issued left the serving host.
             errs = []

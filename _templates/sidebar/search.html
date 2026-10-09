@@ -1,0 +1,22 @@
+{# Búsqueda instantánea con Pagefind (iniciativa scribe, Q23): índice estático generado tras la
+   compilación, servido desde el propio sitio, sin terceros. Sin JavaScript, el formulario cae en
+   la búsqueda de Sphinx. #}
+<link rel="stylesheet" href="{{ pathto('pagefind/pagefind-ui.css', 1) }}">
+<div id="buscar" class="aps-buscar"></div>
+<noscript>
+  <form class="sidebar-search-container" method="get" action="{{ pathto('search') }}" role="search">
+    <input class="sidebar-search" placeholder="Buscar" name="q" aria-label="Buscar">
+  </form>
+</noscript>
+<script src="{{ pathto('pagefind/pagefind-ui.js', 1) }}"></script>
+<script>
+  window.addEventListener("DOMContentLoaded", function () {
+    if (typeof PagefindUI === "undefined") return;
+    new PagefindUI({
+      element: "#buscar",
+      showSubResults: true,
+      showImages: false,
+      translations: { placeholder: "Buscar" }
+    });
+  });
+</script>

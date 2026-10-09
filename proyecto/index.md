@@ -1,5 +1,8 @@
 ---
 tipo: explicacion
+audiencia: proyecto
+apps: []
+resumen: "La organización detrás de la suite: catálogo, novedades, glosario, errores conocidos, pendientes y hoja de ruta."
 ---
 # Proyecto
 
@@ -9,6 +12,7 @@ El proyecto mantiene la suite, sus aplicaciones y esta documentación como una o
 
 ```{toctree}
 :maxdepth: 1
+:glob:
 
 Catálogo de repositorios <../_generated/catalogo>
 novedades/index
@@ -16,4 +20,6 @@ Glosario <../_generated/glosario>
 errores-conocidos
 pendientes
 hoja-de-ruta
+*
+*/index
 ```

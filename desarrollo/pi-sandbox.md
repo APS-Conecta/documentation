@@ -1,11 +1,21 @@
 ---
 tipo: referencia
+esqueleto: borrador
+audiencia: desarrollo
+apps: [pi-sandbox]
+resumen: "Referencia de pi-sandbox: el banco de pruebas del agente pi."
 ---
 # pi-sandbox
 
+## Resumen
+
 Banco de pruebas del agente pi de la organización: laboratorio que nunca se envía en una entrega.
 
-- Secciones previstas: descripción del repositorio, licencia, mapa de módulos
+## Secciones previstas
+
+- Descripción del repositorio
+- Licencia
+- Mapa de módulos
 
 ```{toctree}
 :maxdepth: 1

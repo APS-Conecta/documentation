@@ -14,14 +14,14 @@ repos:
     kind: suite
     role: "Suite Nextcloud 34 de operaciones internas para CESFAM chilenos — config-as-code (PostgreSQL, Redis, Euro-Office). Una instalación por establecimiento; sin datos de pacientes."
     manuals:
-      - administracion/instalacion.md
+      - administracion/instalacion/index.md
       - administracion/arquitectura.md
       - administracion/aprovisionamiento.md
-      - administracion/usuarios-y-grupos.md
-      - administracion/oficina.md
+      - administracion/usuarios-y-grupos/index.md
+      - administracion/oficina/index.md
       - administracion/mapas-base.md
       - administracion/seguridad.md
-      - administracion/operaciones.md
+      - administracion/operaciones/index.md
       - desarrollo/gestion.md
       - proyecto/novedades/gestion.md
     depends_on: [AIO, IntraVox, farmacia, estadistica, epidemiologia, territorio]
