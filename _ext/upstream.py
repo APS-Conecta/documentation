@@ -142,6 +142,10 @@ def resolve(app, doctree, fromdocname):
         target = ref["nc_target"]
         if kind == "page":
             page, _, anchor = target.partition("#")
+            aps = env.domaindata.get("upstream", {}).get("aps", {})
+            if not anchor and page in aps:  # the notice lands on the section that explains it
+                anchor = aps[page]
+                ref.children = [nodes.Text(f"Ver «{APS_SECTION}»")]
             ref["refuri"] = builder.get_relative_uri(fromdocname, page) + (
                 f"#{anchor}" if anchor else ""
             )
@@ -178,10 +182,22 @@ def resolve(app, doctree, fromdocname):
                 )
 
 
+APS_SECTION = "En APS Conecta Gestión"
+
+
+def collect(app, doctree):
+    """The id of the page's «En APS Conecta Gestión» section: a :difiere: notice links there."""
+    for sec in doctree.findall(nodes.section):
+        if sec.children and isinstance(sec[0], nodes.title) and sec[0].astext() == APS_SECTION and sec["ids"]:
+            app.env.domaindata.setdefault("upstream", {}).setdefault("aps", {})[app.env.docname] = sec["ids"][0]
+            return
+
+
 def purge(app, env, docname):
     blocks = env.domaindata.get("upstream", {}).get("blocks", {})
     for doc in [d for d, (page, *_) in blocks.items() if page == docname]:
         del blocks[doc]
+    env.domaindata.get("upstream", {}).get("aps", {}).pop(docname, None)
 
 
 def merge(app, env, docnames, other):
@@ -189,13 +205,16 @@ def merge(app, env, docnames, other):
     for doc, where in other.domaindata.get("upstream", {}).get("blocks", {}).items():
         if where[0] in docnames:
             mine.setdefault(doc, where)
+    aps = env.domaindata["upstream"].setdefault("aps", {})
+    aps.update({d: i for d, i in other.domaindata.get("upstream", {}).get("aps", {}).items() if d in docnames})
 
 
 def setup(app):
     app.add_directive("upstream", UpstreamDirective)
     app.add_role("nc-doc", NcRole("doc"))
     app.add_role("nc-ref", NcRole("ref"))
+    app.connect("doctree-read", collect)
     app.connect("doctree-resolved", resolve)
     app.connect("env-purge-doc", purge)
     app.connect("env-merge-info", merge)
-    return {"parallel_read_safe": True, "parallel_write_safe": True, "env_version": 3}
+    return {"parallel_read_safe": True, "parallel_write_safe": True, "env_version": 4}
