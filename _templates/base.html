@@ -1,0 +1,7 @@
+{# Solo modo claro (iniciativa scribe, Q22): Furo lee el tema de localStorage y por omisión
+   sigue la preferencia del sistema; aquí se fija «light» antes de pintar. El selector de tema
+   está oculto en aps-brand.css, y conf.py repite la paleta clara en las variables oscuras. #}
+{% extends "!base.html" %}
+{% block body %}
+<script>document.body.dataset.theme = "light";</script>
+{% endblock %}

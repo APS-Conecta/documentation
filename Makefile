@@ -11,6 +11,7 @@
 
 html: brand upstream generate
 	sphinx-build -W --keep-going -b html . _build/html
+	python3 -m pagefind
 
 linkcheck: brand upstream generate
 	sphinx-build -W --keep-going -b linkcheck . _build/linkcheck

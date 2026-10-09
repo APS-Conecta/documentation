@@ -1,11 +1,23 @@
 ---
 tipo: referencia
+esqueleto: borrador
+audiencia: desarrollo
+apps: [estadistica]
+resumen: "Referencia del repositorio estadistica: cifras REM y Metas Sanitarias."
 ---
 # estadistica
 
+## Resumen
+
 Cifras REM del establecimiento junto al promedio nacional y de pares, y el avance de las Metas Sanitarias.
 
-- Secciones previstas: descripción del repositorio, licencia, referencia de occ, ajustes y rutas, mapa de módulos
+## Secciones previstas
+
+- Descripción del repositorio
+- Licencia
+- Referencia de occ
+- Ajustes y rutas
+- Mapa de módulos
 
 ```{include} ../_generated/attach/estadistica.md
 ```

@@ -1,11 +1,23 @@
 ---
 tipo: referencia
+esqueleto: borrador
+audiencia: desarrollo
+apps: [epidemiologia]
+resumen: "Referencia del repositorio epidemiologia: alertas, informe de virus respiratorios y tablero nacional."
 ---
 # epidemiologia
 
+## Resumen
+
 Alertas del MINSAL, del ISP y de la OPS/OMS, informe semanal de virus respiratorios del ISP y tablero nacional.
 
-- Secciones previstas: descripción del repositorio, licencia, referencia de occ, ajustes y rutas, mapa de módulos
+## Secciones previstas
+
+- Descripción del repositorio
+- Licencia
+- Referencia de occ
+- Ajustes y rutas
+- Mapa de módulos
 
 ```{include} ../_generated/attach/epidemiologia.md
 ```

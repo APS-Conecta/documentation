@@ -2,7 +2,7 @@
 tipo: referencia
 audiencia: proyecto
 apps: [estadistica]
-resumen: Cambios de estadistica visibles para usuarios y administradores, agrupados por versión.
+resumen: "Cambios de estadistica visibles para usuarios y administradores, agrupados por versión."
 ---
 # Novedades de estadistica
 

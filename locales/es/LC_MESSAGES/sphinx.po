@@ -1,0 +1,40 @@
+# Textos de la interfaz del tema Furo en español (iniciativa scribe, Q22). Furo no trae
+# catálogo en español y el de Sphinx no cubre estas cadenas; Sphinx compila este archivo.
+msgid ""
+msgstr ""
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "On this page"
+msgstr "En esta página"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Next"
+msgstr "Siguiente"
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "Home"
+msgstr "Inicio"
+
+msgid "Index"
+msgstr "Índice"
+
+msgid "Edit this page"
+msgstr "Editar esta página"
+
+msgid "View this page"
+msgstr "Ver esta página"
+
+msgid "Back to top"
+msgstr "Volver arriba"
+
+msgid "Made with "
+msgstr "Hecho con "
+
+msgid "Made with"
+msgstr "Hecho con"

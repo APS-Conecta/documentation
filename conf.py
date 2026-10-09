@@ -19,9 +19,13 @@ _sys.path.insert(0, _os.path.join(_os.path.dirname(__file__), '_ext'))
 
 # upstream: los bloques tejidos de la documentación oficial de Nextcloud y sus referencias;
 # rebrand: el nombre del producto en todo el sitio (iniciativa scribe; regla en upstream.yml).
-extensions = ['myst_parser', 'upstream', 'rebrand']
+extensions = ['myst_parser', 'upstream', 'rebrand', 'pagefind_meta']
 
-html_theme = 'sphinx_rtd_theme'
+# Furo (iniciativa scribe, Q22): diseño pensado primero para pantallas angostas, índice
+# «En esta página» a la derecha y tipografía legible en capítulos largos. La marca entra por
+# las variables CSS del tema; solo modo claro (las variables oscuras repiten las claras y
+# _templates/base.html fija data-theme="light"); sin solicitudes a terceros.
+html_theme = 'furo'
 
 # La segunda entrada existe solo tras `make brand`; sin ella, sphinx-build -W
 # falla en la ruta estática ausente — obtener la marca antes de compilar es
@@ -30,11 +34,44 @@ html_static_path = ['_static', '_generated/brand']
 html_css_files = ['css/aps-brand.css']
 html_logo = '_generated/brand/img/logo/logo-header.svg'
 html_favicon = '_generated/brand/img/favicon.svg'
-html_theme_options = {
-    # Gradiente de cabecera del tema de gestión (core/css/server.css, #header).
-    'style_nav_header_background': 'linear-gradient(90deg, #5315a8, #7f21fe)',
-    'logo_only': True,
+html_title = 'Documentación APS Conecta'
+html_show_sphinx = False
+html_show_copyright = False
+# Textos de la interfaz de Furo en español: locales/es/LC_MESSAGES/sphinx.po.
+locale_dirs = ['locales']
+
+_APS = {
+    # Paleta del tema de gestión (themes/apsconecta/MAPEO.md §1, libro mayor de contraste).
+    'color-brand-primary': '#5315a8',
+    'color-brand-content': '#9a4c00',          # enlaces: oro oscuro, AA sobre blanco
+    'color-brand-visited': '#7f21fe',
+    'color-sidebar-background': '#5315a8',
+    'color-sidebar-background-border': '#5315a8',
+    'color-sidebar-brand-text': '#ffffff',
+    'color-sidebar-caption-text': '#ffffff',
+    'color-sidebar-link-text': '#ffffff',
+    'color-sidebar-link-text--top-level': '#ffffff',
+    'color-sidebar-item-background--current': '#e06f00',
+    'color-sidebar-item-background--hover': 'rgba(255, 255, 255, 0.26)',
+    'color-sidebar-item-expander-background--hover': 'rgba(255, 255, 255, 0.26)',
+    'color-sidebar-search-background': '#ffffff',
+    'color-sidebar-search-text': '#101828',
+    'color-foreground-primary': '#101828',     # tinta
+    'color-foreground-secondary': '#485363',   # apagado
+    'color-background-primary': '#ffffff',
+    'color-background-secondary': '#f7f5fb',
+    'font-stack': '"Nunito Sans", system-ui, -apple-system, sans-serif',
+    'font-stack--headings': '"Fraunces", Georgia, serif',
 }
+html_theme_options = {
+    'light_css_variables': _APS,
+    'dark_css_variables': _APS,
+    'sidebar_hide_name': True,
+    'navigation_with_keys': True,
+    'top_of_page_buttons': [],
+}
+pygments_style = 'friendly'
+pygments_dark_style = 'friendly'
 
 templates_path = ['_templates']
 
@@ -77,3 +114,17 @@ linkcheck_ignore += (
     [line.strip() for line in _blob_seed.read_text(encoding='utf-8').splitlines() if line.strip()]
     if _blob_seed.exists() else []
 )
+
+
+# Un toctree con glob en una carpeta que el tejido aún no llena no es un error: la carpeta
+# existe para recibir páginas (iniciativa scribe). Sphinx 9 emite ese aviso sin `type`
+# (sphinx/directives/other.py, subtype='empty_glob'), así que suppress_warnings no lo alcanza;
+# un filtro de logging descarta exactamente ese mensaje y deja intactos todos los demás.
+def setup(app):
+    import logging as _logging
+
+    class _EmptyGlob(_logging.Filter):
+        def filter(self, record):
+            return "didn't match any documents" not in str(record.msg)
+
+    _logging.getLogger('sphinx.sphinx.directives.other').addFilter(_EmptyGlob())

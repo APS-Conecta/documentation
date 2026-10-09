@@ -2,7 +2,7 @@
 tipo: referencia
 audiencia: proyecto
 apps: []
-resumen: Cambios visibles de cada aplicación de la suite, agrupados por versión.
+resumen: "Cambios visibles de cada aplicación de la suite, agrupados por versión."
 ---
 # Novedades
 

@@ -2,7 +2,7 @@
 tipo: referencia
 audiencia: proyecto
 apps: [farmacia]
-resumen: Cambios de farmacia visibles para usuarios y administradores, agrupados por versión.
+resumen: "Cambios de farmacia visibles para usuarios y administradores, agrupados por versión."
 ---
 # Novedades de farmacia
 

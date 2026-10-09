@@ -1,5 +1,8 @@
 ---
 tipo: explicacion
+audiencia: desarrollo
+apps: []
+resumen: "Desarrollo sobre la suite: invariantes de diseño, entorno, construcción de aplicaciones y referencia de cada repositorio."
 ---
 # Desarrollo
 
@@ -7,6 +10,7 @@ Introducción al desarrollo sobre la suite para la organización. El desarrollo 
 
 ```{toctree}
 :maxdepth: 1
+:glob:
 
 Entorno <entorno>
 Desarrollo de aplicaciones <desarrollo-de-aplicaciones>
@@ -29,6 +33,8 @@ rpiv-artifacts <rpiv-artifacts>
 .github <github-org>
 documentation <documentation>
 Inicio rápido de desarrollo <../_generated/inicio-rapido/index>
+*
+*/index
 ```
 
 [Aviso legal](../aviso.md)

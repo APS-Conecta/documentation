@@ -42,9 +42,21 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
   gestion `compose.yaml`/`VENDOR`, patch counts from the `.patch` files and the AIO
   queue; the build fails when gestion ships a component the file does not list, or
   the file lists one gestion no longer ships). The footer links it on every page.
+- The site design (scribe S2d): Furo with the APS palette and fonts through its CSS
+  variables, light only (`_templates/base.html`), Spanish interface strings
+  (`locales/es/LC_MESSAGES/sphinx.po`); Pagefind instant search in the sidebar with
+  `audiencia` and `apps` filters from each page's front matter (`_ext/pagefind_meta.py`,
+  `pagefind.yml`), built by `make html`; every page typed with `tipo`, `audiencia`,
+  `apps` and `resumen` and opted into repo-docs `site-structure` (`.github/site-structure`),
+  placeholders marked `esqueleto: borrador`; chapters the upstream map turns into folders
+  moved to `<chapter>/index.md` with a glob toctree; `check-site.py` re-targeted (brand
+  sidebar, light under a dark preference, no sideways scroll at 360 px, drawer, Pagefind
+  query and filter).
 
 ### Changed
 
+- Theme: `sphinx_rtd_theme` → Furo (scribe Q22); `catalogo.yml` paths follow the
+  chapter folders.
 - `catalogo.yml` `manuals` accept nested pages (`<audience>/<dir>/<page>.md`).
 - Vendored repo-docs re-rendered to canon after repo-docs #11 (no `Docs:` line in
   the PR gate) and #12 (the opt-in `site-structure` rule).

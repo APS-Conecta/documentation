@@ -1,5 +1,8 @@
 ---
 tipo: explicacion
+audiencia: usuario
+apps: []
+resumen: "Uso diario de la plataforma para el personal del CESFAM: acceso, archivos, oficina, comunicación, agenda, perfil y aplicaciones."
 ---
 # Usuario
 
@@ -7,11 +10,12 @@ Introducción al uso diario de la plataforma para el personal del CESFAM. La gu�
 
 ```{toctree}
 :maxdepth: 1
+:glob:
 
 Interfaz web <interfaz-web>
-Archivos <archivos>
+Archivos <archivos/index>
 Oficina <oficina>
-Conversación <conversacion>
+Conversación <conversacion/index>
 Calendario <calendario>
 Contactos <contactos>
 Perfil y seguridad <perfil-y-seguridad>
@@ -20,6 +24,8 @@ Epidemiología <epidemiologia>
 Farmacia <farmacia>
 Territorio <territorio>
 Estadística <estadistica>
+*
+*/index
 ```
 
 [Aviso legal](../aviso.md)

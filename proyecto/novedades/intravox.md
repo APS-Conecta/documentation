@@ -2,7 +2,7 @@
 tipo: referencia
 audiencia: proyecto
 apps: [IntraVox]
-resumen: Cambios de IntraVox visibles para usuarios y administradores, agrupados por versión.
+resumen: "Cambios de IntraVox visibles para usuarios y administradores, agrupados por versión."
 ---
 # Novedades de IntraVox
 

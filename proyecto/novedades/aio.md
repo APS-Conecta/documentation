@@ -2,7 +2,7 @@
 tipo: referencia
 audiencia: proyecto
 apps: [AIO]
-resumen: Cambios de AIO visibles para usuarios y administradores, agrupados por versión.
+resumen: "Cambios de AIO visibles para usuarios y administradores, agrupados por versión."
 ---
 # Novedades de AIO
 
