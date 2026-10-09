@@ -326,7 +326,7 @@ public function __construct(
 - emptyContentMessage: el mensaje que se muestra si no hay elementos disponibles.
 - halfEmptyContentMessage: un mensaje opcional que se muestra encima de la lista de elementos. Es útil si no
   hay elementos importantes pero aun así se quieren mostrar algunos elementos al usuario. Ver el
-  siguiente ejemplo de la app Talk:
+  siguiente ejemplo de la app Talk.
 
 La pantalla muestra el widget de Talk en el Dashboard en el estado de contenido medio vacío, con un mensaje encima de una lista breve de elementos.
 

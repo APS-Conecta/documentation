@@ -203,6 +203,11 @@ def _myst_prose(part: str) -> list[str]:
     return u.myst_paragraphs(part) + cells + [t for _, t in u.myst_headings(part)]
 
 
+def _bare_label(text: str) -> str:
+    """A UI literal without its decoration: an icon prefix («+ New») or a stray period («Folder name.»)."""
+    return re.sub(r"^[+•›»]\s*", "", text).rstrip(" .:…")
+
+
 def _ui_swaps(missing: Counter, labels: Counter, ui: dict) -> Counter:
     """The upstream UI literals the page wrote as {guilabel} with the interface's own Spanish
     (a menu path `A -> B` as one label per step). Only a swap the catalog backs counts."""
@@ -210,7 +215,8 @@ def _ui_swaps(missing: Counter, labels: Counter, ui: dict) -> Counter:
     for lit, n in missing.items():
         parts = re.split(r"\s*(?:->|→)\s*", lit)
         for _ in range(n):
-            picks = [next((es for es in sorted(ui.get(p, ())) if labels[es] > 0), None) for p in parts]
+            picks = [next((es for es in sorted(ui.get(p) or ui.get(_bare_label(p), ())) if labels[es] > 0), None)
+                     for p in parts]
             if None in picks:
                 break
             for es in picks:
@@ -233,16 +239,22 @@ def warnings(content: str, section: str, ui: dict | None = None) -> list[str]:
                 out.append(f"section «{title}»: {es} Spanish words for {en} English — text may be missing")
     for lit in dict.fromkeys(u.myst_inline_literals(content)):
         parts = re.split(r"\s*(?:->|→)\s*", lit)
-        es = [sorted((ui or {}).get(p, ())) for p in parts]
+        es = [sorted((ui or {}).get(p) or (ui or {}).get(_bare_label(p), ())) for p in parts]
         if all(es) and any(p not in e for p, e in zip(parts, es)):
             out.append(f"`{lit}` is a UI label the interface shows as «{' → '.join(e[0] for e in es)}»: write {{guilabel}}")
-    # upstream lead-ins that introduce the subsections right after them («The following hooks
-    # are available:» + «Session»): the page may do the same that many times
+    # upstream lead-ins followed by a section title («The following hooks are available:» +
+    # «Session») or by a plain paragraph: the page may have that shape as many times. A lead-in
+    # followed by an image upstream stays a candidate for a dropped screenshot.
     up, starts = section.split("\n"), {at - (style[0] == "o") for style, _, at in u._rst_titles(section)}
-    subsections = sum(
+
+    def plain(j):
+        ln = up[j]
+        return j in starts or not (ln[:1].isspace() or ln.lstrip().startswith("..")
+                                   or re.match(r"^\s*([-*+|]\s|\d+[.)]\s|#\.\s)", ln))
+    budget = sum(
         1 for k, ln in enumerate(up)
         if ln.rstrip().endswith(":") and not ln.rstrip().endswith("::") and not ln.lstrip().startswith("..")
-        and next((j for j in range(k + 1, len(up)) if up[j].strip()), None) in starts
+        and (j := next((j for j in range(k + 1, len(up)) if up[j].strip()), None)) is not None and plain(j)
     )
     walk = list(u.fence_walk(content.split("\n")))
     for i, (ln, fenced) in enumerate(walk):
@@ -267,10 +279,10 @@ def warnings(content: str, section: str, ui: dict | None = None) -> list[str]:
         # code introduced is code wherever it sits (upstream puts some fences between steps)
         # a paragraph of code spans only (a command, a list of keys), or a bold label («**MySQL**:»)
         command = re.match(r"^\s*(?:(?:\{\w+\})?(?:``.+?``|`[^`]+`)[\s,.;:…]*)+$", nxt) or re.match(r"^\s*\*\*[^*]+\*\*:?\s*$", nxt)
-        if subsections and u.MYST_HEADING.match(nxt.strip()):
-            subsections -= 1
-            continue
         if not nxt or closing or not (u.FENCE.match(nxt) or command or indent > base or (opens and not item and indent >= base)):
+            if nxt and not closing and budget:  # a heading or prose upstream also has after a lead-in
+                budget -= 1
+                continue
             out.append(f"«{s[:60]}» ends in «:» but introduces nothing — a dropped screenshot?")
     return out
 
