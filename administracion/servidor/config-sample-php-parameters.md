@@ -819,7 +819,7 @@ Valor predeterminado: distintas direcciones FROM según la función.
 Activa la depuración de la clase SMTP.
 
 :::{note}
-- Probablemente también haya que ajustar `loglevel`. Consultar la documentación: https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/email_configuration.html#enabling-debug-mode
+- Probablemente también haya que ajustar `loglevel`. Consultar la documentación: <https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/email_configuration.html#enabling-debug-mode>
 :::
 
 Valor predeterminado: `false`
@@ -1131,7 +1131,7 @@ El tiempo mínimo es el número de días que se conserva un archivo, tras los cu
 
 Que «se necesite espacio» depende de si hay definida una cuota de usuario o no:
 
-- Si no hay definida una cuota de usuario, el espacio disponible en la partición de datos de Nextcloud fija el límite de la papelera (incidencias: ver https://github.com/nextcloud/server/issues/28451).
+- Si no hay definida una cuota de usuario, el espacio disponible en la partición de datos de Nextcloud fija el límite de la papelera (incidencias: ver <https://github.com/nextcloud/server/issues/28451>).
 - Si hay definida una cuota de usuario, el 50 % del espacio restante de la cuota del usuario fija el límite de la papelera.
 
 El tiempo máximo es el número de días tras los cuales está *garantizado* que se elimine. No depende además del espacio disponible.
@@ -1261,10 +1261,10 @@ Si no se indica ningún protocolo, se prueban tanto http como https. Por ejemplo
 
 Valor predeterminado: los siguientes dominios:
 
-- https://www.nextcloud.com
-- https://www.startpage.com
-- https://www.eff.org
-- https://www.edri.org
+- <https://www.nextcloud.com>
+- <https://www.startpage.com>
+- <https://www.eff.org>
+- <https://www.edri.org>
 
 #### check_for_working_wellknown_setup
 
@@ -1470,9 +1470,9 @@ Valor predeterminado: `false`.
 'logdateformat' => 'F d, Y H:i:s',
 ```
 
-Usa el formato de PHP.date; ver https://www.php.net/manual/en/function.date.php
+Usa el formato de PHP.date; ver <https://www.php.net/manual/en/function.date.php>
 
-Valor predeterminado: ISO 8601 `2005-08-15T15:52:01+00:00`, ver `\DateTime::ATOM` https://www.php.net/manual/en/class.datetimeinterface.php#datetimeinterface.constants.atom
+Valor predeterminado: ISO 8601 `2005-08-15T15:52:01+00:00`, ver `\DateTime::ATOM` <https://www.php.net/manual/en/class.datetimeinterface.php#datetimeinterface.constants.atom>
 
 #### logtimezone
 
@@ -1480,7 +1480,7 @@ Valor predeterminado: ISO 8601 `2005-08-15T15:52:01+00:00`, ver `\DateTime::ATOM
 'logtimezone' => 'Europe/Berlin',
 ```
 
-La zona horaria de los archivos de registro. Ver https://www.php.net/manual/en/timezones.php
+La zona horaria de los archivos de registro. Ver <https://www.php.net/manual/en/timezones.php>
 
 Valor predeterminado: `UTC`
 
@@ -1671,7 +1671,7 @@ Opciones de la carpeta de apps, la tienda de apps y el verificador de código de
 'defaultapp' => 'dashboard,files',
 ```
 
-Establece la app predeterminada que se abre al iniciar sesión. Los ID de las entradas pueden obtenerse del endpoint de la API OCS de navegación: https://docs.nextcloud.com/server/latest/developer_manual/_static/openapi.html#/operations/core-navigation-get-apps-navigation.
+Establece la app predeterminada que se abre al iniciar sesión. Los ID de las entradas pueden obtenerse del endpoint de la API OCS de navegación: <https://docs.nextcloud.com/server/latest/developer_manual/_static/openapi.html#/operations/core-navigation-get-apps-navigation>.
 
 Puede usarse una lista de nombres de apps separados por comas, de modo que, si la primera app no está activada para un usuario, Nextcloud prueba con la segunda, y así sucesivamente. Si no se encuentra ninguna app activada, se usa la app Dashboard.
 
@@ -1848,7 +1848,7 @@ También requiere que el proveedor `OC\Preview\Imaginary` esté activado en la m
 
 Si se quiere que Imaginary cree también imágenes de vista previa a partir de documentos PDF, hay que añadir además el proveedor `OC\Preview\ImaginaryPDF`.
 
-Ver https://github.com/h2non/imaginary
+Ver <https://github.com/h2non/imaginary>
 
 #### preview_imaginary_key
 
@@ -2117,7 +2117,7 @@ Advertencia: si el servidor de caché no está alojado en la misma máquina que 
 
 Se admiten tres topologías: un único servidor, un conjunto de replicación gestionado por Sentinel y un clúster de servidores. Configurar exactamente uno de `server`, `sentinel` o `seeds`.
 
-Para mayor seguridad, se recomienda configurar ACL en el servidor de caché y configurar `user` y `password` (o un certificado de cliente TLS). Como alternativa, también puede configurarse el servidor de caché para que use solo un `password`. Ver https://valkey.io/topics/security/ para más información al usar Valkey.
+Para mayor seguridad, se recomienda configurar ACL en el servidor de caché y configurar `user` y `password` (o un certificado de cliente TLS). Como alternativa, también puede configurarse el servidor de caché para que use solo un `password`. Ver <https://valkey.io/topics/security/> para más información al usar Valkey.
 
 #### server
 
@@ -2197,9 +2197,9 @@ Indicar algunos o todos los nodos del clúster para arrancar el descubrimiento. 
 
 Datos de conexión de Redis para la caché de memoria en una configuración de un único servidor.
 
-Para mayor seguridad, se recomienda configurar Redis para que requiera una contraseña. Ver http://redis.io/topics/security para más información.
+Para mayor seguridad, se recomienda configurar Redis para que requiera una contraseña. Ver <http://redis.io/topics/security> para más información.
 
-También se admite el cifrado SSL/TLS de Redis a partir de la versión 6. Ver https://redis.io/topics/encryption para más información.
+También se admite el cifrado SSL/TLS de Redis a partir de la versión 6. Ver <https://redis.io/topics/encryption> para más información.
 
 #### redis.cluster
 
@@ -2237,9 +2237,9 @@ La compatibilidad con clústeres de Redis requiere el módulo PHP phpredis en la
 `\RedisCluster::FAILOVER_DISTRIBUTE` es un ajuste no recomendado, y se aconseja encarecidamente no usarlo si se usa Redis para el bloqueo de archivos. Por la forma en que se sincroniza Redis, podría ocurrir que la lectura de un bloqueo existente se asigne a un esclavo que no está totalmente sincronizado con el maestro conectado, lo que provoca una excepción FileLocked.
 :::
 
-Ver https://redis.io/topics/cluster-spec para más detalles sobre el clúster de Redis
+Ver <https://redis.io/topics/cluster-spec> para más detalles sobre el clúster de Redis
 
-La autenticación funciona con phpredis 4.2.1 o superior. Ver https://github.com/phpredis/phpredis/commit/c5994f2a42b8a348af92d3acb4edff1328ad8ce1
+La autenticación funciona con phpredis 4.2.1 o superior. Ver <https://github.com/phpredis/phpredis/commit/c5994f2a42b8a348af92d3acb4edff1328ad8ce1>
 
 #### memcached_servers
 
@@ -2574,7 +2574,7 @@ De forma predeterminada, Nextcloud usa el hash de contraseñas Argon2 si está d
 
 Sin embargo, si por cualquier motivo se quiere mantener el PASSWORD_DEFAULT de la versión de PHP, establecer el ajuste en true.
 
-Nextcloud usa el algoritmo Argon2 (con PHP >= 7.2) para crear hashes por sí mismo y expone sus opciones de configuración como se indica a continuación. Hay más información en: https://www.php.net/manual/en/function.password-hash.php
+Nextcloud usa el algoritmo Argon2 (con PHP >= 7.2) para crear hashes por sí mismo y expone sus opciones de configuración como se indica a continuación. Hay más información en: <https://www.php.net/manual/en/function.password-hash.php>
 
 #### hashingThreads
 
@@ -2638,7 +2638,7 @@ Al configurar TLS/SSL para cifrar las conexiones, hay que asegurarse de que el p
 'sqlite.journal_mode' => 'DELETE',
 ```
 
-El modo de diario de SQLite3 puede indicarse con este parámetro de configuración; puede ser `'WAL'` o `'DELETE'`. Ver https://www.sqlite.org/wal.html para más detalles.
+El modo de diario de SQLite3 puede indicarse con este parámetro de configuración; puede ser `'WAL'` o `'DELETE'`. Ver <https://www.sqlite.org/wal.html> para más detalles.
 
 #### mysql.utf8mb4
 
@@ -2667,11 +2667,11 @@ innodb_file_per_table=ON
   - row_format: `dynamic`
 
 - Ver:
-  - https://dev.mysql.com/doc/refman/5.7/en/charset-unicode-utf8mb4.html
-  - https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_large_prefix
-  - https://mariadb.com/kb/en/mariadb/xtradbinnodb-server-system-variables/#innodb_large_prefix
-  - http://www.tocker.ca/2013/10/31/benchmarking-innodb-page-compression-performance.html
-  - http://mechanics.flite.com/blog/2014/07/29/using-innodb-large-prefix-to-avoid-error-1071/
+  - <https://dev.mysql.com/doc/refman/5.7/en/charset-unicode-utf8mb4.html>
+  - <https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_large_prefix>
+  - <https://mariadb.com/kb/en/mariadb/xtradbinnodb-server-system-variables/#innodb_large_prefix>
+  - <http://www.tocker.ca/2013/10/31/benchmarking-innodb-page-compression-performance.html>
+  - <http://mechanics.flite.com/blog/2014/07/29/using-innodb-large-prefix-to-avoid-error-1071/>
 
 #### mysql.collation
 
@@ -2797,7 +2797,7 @@ Bloquea caracteres concretos en los nombres de archivo. Útil para sistemas de a
 
 Los caracteres `/` y `\`, así como los caracteres ASCII [0-31], siempre están prohibidos.
 
-Ejemplo para Windows: `['?', '<', '>', ':', '*', '|', '"']` Ver: https://en.wikipedia.org/wiki/Comparison_of_file_systems#Limits
+Ejemplo para Windows: `['?', '<', '>', ':', '*', '|', '"']` Ver: <https://en.wikipedia.org/wiki/Comparison_of_file_systems#Limits>
 
 Valor predeterminado: `[]` (matriz vacía)
 
@@ -3294,7 +3294,7 @@ Valor predeterminado: `[]` (matriz vacía)
 
 Muestra u oculta el enlace de «registro sencillo» en las páginas públicas.
 
-Ver: https://nextcloud.com/signup/
+Ver: <https://nextcloud.com/signup/>
 
 Valor predeterminado: `true`
 
