@@ -14,8 +14,6 @@ Esta página explica, para quienes administran el servidor, cómo incrustar o en
 ````{upstream} admin_manual/configuration_server/external_sites.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 Con la app **External sites** pueden incrustarse sitios web o documentos externos dentro de las páginas de Nextcloud, como muestra esta captura de pantalla.
 
-La captura muestra un manual en PDF incrustado en una página de Nextcloud.
-
 Esto es útil para acceder rápidamente a páginas importantes, como los manuales de Nextcloud y las páginas informativas de la empresa, y para presentar páginas externas dentro de la imagen de marca personalizada de Nextcloud, si se usan temas personalizados propios.
 
 La app External sites se instala fácilmente desde la tienda de apps. Ir a {guilabel}`Ajustes` → {guilabel}`Apps` → **Customization** para activarla. Después, ir en Nextcloud a {guilabel}`Ajustes` → {guilabel}`Administración` → **External sites** para crear los enlaces, que se guardan automáticamente.
@@ -34,11 +32,7 @@ Los enlaces pueden funcionar correctamente o no, debido a las distintas formas e
 
 La mayoría de los sitios web que ofrecen funciones de inicio de sesión usan la cabecera HTTP `X-Frame-Options` o `Content-Security-Policy`, que indica a los navegadores que no permitan incrustar sus páginas por motivos de seguridad (p. ej., «Clickjacking»). Normalmente, el motivo por el que no es posible incrustar el sitio web puede verificarse con la consola del navegador. Por ejemplo, esta página tiene un certificado SSL no válido.
 
-La captura muestra en la consola del navegador el error «net::ERR_INSECURE_RESPONSE» al cargar la página incrustada.
-
 En esta página, X-Frame-Options impide la incrustación.
-
-La captura muestra en la consola del navegador que se rechaza mostrar la página en un marco porque establece «X-Frame-Options» en «sameorigin».
 
 También hay una opción de redirección, que permite añadir igualmente esos sitios web para un acceso rápido. En lugar de incrustar el sitio web, se redirige al usuario a él.
 ````

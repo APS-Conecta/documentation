@@ -2735,7 +2735,7 @@ Tipos de base de datos admitidos para la instalación.
 'tempdirectory' => '/tmp/nextcloudtemp',
 ```
 
-Sustituye la ubicación en la que Nextcloud almacena los archivos temporales. Útil en instalaciones en las que el directorio temporal del sistema está en un disco RAM de espacio limitado o restringido, o al usar un almacenamiento externo que no admite streaming.
+Sustituye la ubicación en la que Nextcloud almacena los archivos temporales. Útil en instalaciones en las que el directorio temporal del sistema está en un disco RAM de espacio limitado o tiene restricciones, o al usar un almacenamiento externo que no admite streaming.
 
 El usuario del servidor web/PHP debe tener acceso de escritura a este directorio. Asegurarse de que la configuración de PHP lo reconozca como directorio temporal válido estableciendo en consecuencia las variables de entorno TMP, TMPDIR y TEMP. Puede que se requieran permisos adicionales para AppArmor o SELinux.
 

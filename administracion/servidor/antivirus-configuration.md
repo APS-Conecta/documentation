@@ -127,11 +127,11 @@ Cuando ClamAV funcione de forma satisfactoria, conviene volver atrás y cambiar 
 
 Todos los proveedores de antivirus implementan una cadena de virus de prueba, lo que facilita bastante las pruebas. Los archivos están aquí: <https://www.eicar.org/download-anti-malware-testfile/>
 
-- Subir el archivo provocará un error: «Virus Win.Test.EICAR_HDB-1 se ha detectado en el archivo. No se ha podido completar la subida.»
+- Subir el archivo provocará un error: «Virus Win.Test.EICAR_HDB-1 is detected in the file. Upload cannot be completed.»
 
 ### Limitaciones de la detección de archivos cifrados con ClamAV
 
-De forma predeterminada, ClamAV puede devolver «OK» para archivos comprimidos protegidos con contraseña y archivos cifrados. Este comportamiento conocido de ClamAV elude la opción «Bloquear archivos no analizables» de la app Antivirus. Pueden configurarse opciones de alerta adicionales en `clamd.conf` que deberían detectarlo:
+De forma predeterminada, ClamAV puede devolver «OK» para archivos comprimidos protegidos con contraseña y archivos cifrados. Este comportamiento conocido de ClamAV elude la opción «Block unscannable files» de la app Antivirus. Pueden configurarse opciones de alerta adicionales en `clamd.conf` que deberían detectarlo:
 
 - `AlertEncryptedArchive` - Alerta sobre archivos comprimidos cifrados con firma heurística (.zip, .7zip, .rar cifrados).
 - `AlertEncryptedDoc` - Alerta sobre archivos comprimidos cifrados con firma heurística (.pdf cifrados).
