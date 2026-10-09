@@ -5,6 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Comandos occ de archivos: caché y análisis, almacenamiento de objetos, vistas previas, papelera, versiones, comparticiones, montajes externos e integridad."
 ---
+(nc-file_operations_label)=
 # Comandos de archivos
 
 ## Resumen

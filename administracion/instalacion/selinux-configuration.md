@@ -5,6 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Contextos de archivo y booleanos de SELinux para Nextcloud: escritura en sus directorios, red, base de datos remota, LDAP, correo y almacenamiento."
 ---
+(nc-selinux-config-label)=
 # Configuración de SELinux
 
 ## Resumen

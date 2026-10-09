@@ -5,6 +5,7 @@ audiencia: desarrollo
 apps: [gestion]
 resumen: "El despachador de eventos de OCP, cómo escribir eventos y listeners, los eventos públicos de la plataforma (OCP) y de las apps (OCA), y los ganchos obsoletos."
 ---
+(nc-dev-events)=
 # Eventos
 
 ## Resumen

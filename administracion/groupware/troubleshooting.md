@@ -5,6 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Solución de problemas del groupware: calendarios compartidos que faltan, errores 501 en contactos y diagnóstico de la app Correo con occ y registros."
 ---
+(nc-troubleshooting_groupware)=
 # Solución de problemas
 
 ## Resumen

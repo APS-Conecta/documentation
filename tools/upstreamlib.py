@@ -330,6 +330,13 @@ def rst_labels(text: str) -> list[tuple[str, int]]:
     ]
 
 
+def title_labels(text: str) -> list[str]:
+    """The labels above the doc's first title (`.. _occ:` on line 1): they name the whole doc."""
+    starts = [at - (style[0] == "o") for style, _, at in _rst_titles(text)]
+    first = min(starts) if starts else len(text.split("\n"))
+    return [label for label, at in rst_labels(text) if at < first]
+
+
 def rst_section(text: str, anchor: str = "") -> str:
     """Without `anchor`: the whole document below its title (every top-level section — a few
     upstream docs carry more than one). With `anchor`: the section that label `anchor` (or the

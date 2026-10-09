@@ -5,6 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Qué es occ y cómo ejecutarlo como usuario HTTP: ayuda, formatos de salida, autocompletado, límites del modo de mantenimiento y depuración."
 ---
+(nc-occ)=
 # Uso del comando occ
 
 ## Resumen

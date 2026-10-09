@@ -5,6 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Nextcloud detrás de un proxy inverso: proxies de confianza, parámetros overwrite, redirecciones de descubrimiento de servicios y ejemplos de config.php."
 ---
+(nc-serverconf_reverseproxy)=
 # Proxy inverso
 
 ## Resumen

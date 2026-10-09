@@ -5,6 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Las cookies que establece el servidor: nombre, finalidad, datos personales y duración, y la base jurídica de las cookies de «Recordarme»."
 ---
+(nc-cookies)=
 # Cookies
 
 ## Resumen

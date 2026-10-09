@@ -5,6 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Perfiles de usuario: activarlos o desactivarlos, la visibilidad de sus campos, los ámbitos de cada propiedad y sus valores predeterminados en config.php."
 ---
+(nc-profile)=
 # Perfiles
 
 ## Resumen

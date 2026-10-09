@@ -5,6 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Ajustes de compartición de archivos, ajustes avanzados con occ, caducidad de recursos compartidos, transferencia de archivos y enlaces de entrega."
 ---
+(nc-file-sharing-configuration)=
 # Compartición de archivos
 
 ## Resumen

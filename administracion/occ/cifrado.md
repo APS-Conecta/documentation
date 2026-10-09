@@ -5,6 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Comandos occ del cifrado en el servidor: estado, cifrar y descifrar todo, módulos, almacenamiento de claves, clave maestra y reparación."
 ---
+(nc-encryption_label)=
 # Comandos de cifrado
 
 ## Resumen

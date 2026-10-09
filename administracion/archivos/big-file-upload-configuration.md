@@ -5,6 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Subir archivos de más de 512 MB: límites del sistema, ajustes de PHP, Apache y nginx, directorio temporal, tamaño de fragmento y almacenamiento de objetos."
 ---
+(nc-uploading_big_files)=
 # Subida de archivos grandes > 512 MB
 
 ## Resumen

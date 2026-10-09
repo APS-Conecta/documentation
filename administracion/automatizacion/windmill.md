@@ -5,6 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Integrar el motor de flujos de trabajo Windmill: instalación, conexión del espacio de trabajo, disparadores, scripts, autenticación y pasos de aprobación."
 ---
+(nc-windmill_workflows)=
 # Flujos de trabajo de Windmill
 
 ## Resumen

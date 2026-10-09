@@ -5,6 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Contraseñas de aplicación de Nextcloud, el borrado remoto y la limpieza automática de las que no se usan, con los parámetros que fijan sus plazos."
 ---
+(nc-authentication)=
 # Autenticación
 
 ## Resumen

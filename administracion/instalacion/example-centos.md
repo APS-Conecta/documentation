@@ -5,6 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Recorrido de instalación en CentOS 8, sin soporte desde 2021: Apache, PHP, MariaDB, Redis como memcache y SELinux, conservado como referencia."
 ---
+(nc-centos7_installation_label)=
 # Ejemplo de instalación en CentOS 8
 
 ## Resumen

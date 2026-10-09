@@ -5,6 +5,7 @@ audiencia: desarrollo
 apps: [gestion]
 resumen: "Índice de la documentación para desarrolladores: primeros pasos, conceptos básicos, desarrollo de apps y ExApps, servidor, diseño, publicación y clientes."
 ---
+(nc-dev-contents)=
 # Documentación para desarrolladores de Nextcloud
 
 ## Resumen

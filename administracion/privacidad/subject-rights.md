@@ -5,6 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Atender los derechos del RGPD: acceso, supresión, portabilidad, rectificación y limitación del tratamiento, con occ y lo que queda por limpiar."
 ---
+(nc-gdpr_subject_rights)=
 # Responder a las solicitudes de los interesados
 
 ## Resumen

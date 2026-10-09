@@ -5,6 +5,7 @@ audiencia: usuario
 apps: [gestion]
 resumen: "Ver y filtrar el flujo de actividad, la actividad de un archivo, la fuente RSS y las notificaciones de actividad por correo electrónico y push."
 ---
+(nc-activity)=
 # Usar la aplicación Actividad
 
 ## Resumen

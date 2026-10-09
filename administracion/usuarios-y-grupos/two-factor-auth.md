@@ -5,6 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Activar proveedores de autenticación de dos factores, imponerla a todos o a grupos, y limpiar, desactivar o consultar la 2FA de usuarios con occ."
 ---
+(nc-two-factor-auth)=
 # Autenticación de dos factores
 
 ## Resumen

@@ -5,6 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Apps que ayudan a cumplir el RGPD: aviso legal de la app Tema, Drop Account y Data Request, y cómo atender las solicitudes que llegan."
 ---
+(nc-gdpr_helpful_apps)=
 # Apps útiles
 
 ## Resumen
