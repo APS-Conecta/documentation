@@ -76,6 +76,8 @@ Gestión beyond what the :difiere: notice points to.>
 | A code block inside a list item | The fence indented with the item's text, so the list keeps its numbering; the gate reads the body without that indent. |
 | `.. code-block:: lang`, `.. code::`, `::` literal blocks | A plain fence: ```` ```lang ```` (or ```` ``` ````). Content byte-identical: commands, paths, config keys, output, comments inside code. A `:caption:` becomes a sentence before the fence. |
 | ``` ``literal`` ``` | `` `literal` ``, byte-identical. |
+| A ``` ``literal`` ``` that is a stored value (a scope, a config value, an API enum such as ``Published``), even when a UI label shares its text | `` `literal` ``, byte-identical, like its sibling values: never `{guilabel}`. A set of parallel values stays in one language. |
+| An upstream typo («PostrgreSQL», «bocking») | The intended word in Spanish prose (code stays byte-identical), and the typo named under **gaps**. |
 | A ``` ``literal`` ``` that is a UI label (a button, menu item or setting, or a path `Settings -> General`) | `{guilabel}` with the Spanish the interface shows, one per step: `{guilabel}`Ajustes` → {guilabel}`General``. The gate accepts the swap only when the shipped app's `l10n/es.json` or `glosario.yml` backs it, and warns on a literal it could swap. With no Spanish string, keep the literal. |
 | A UI string upstream quotes ("Start recording") | The interface's Spanish in «…» («Empezar a grabar»); the gate rejects the English when the catalog has the Spanish. With no Spanish string, the English verbatim in «…». |
 | A UI string of other software (WinSCP, Finder, Thunderbird; docs in `upstream.yml` `ui_third_party`) | Verbatim in «…»: it is that program's label, not Nextcloud's. |

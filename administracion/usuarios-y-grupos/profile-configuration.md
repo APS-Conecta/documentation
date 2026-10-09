@@ -114,10 +114,10 @@ Solo pueden exponerse allí los campos del perfil marcados como Publicado.
 
 :::{note}
 No todos los campos pueden publicarse en el servidor de búsqueda, aunque su ámbito sea
-{guilabel}`Publicado`. Algunos campos no se publican nunca, de forma intencionada (por ejemplo Biografía,
+`Published`. Algunos campos no se publican nunca, de forma intencionada (por ejemplo Biografía,
 Título, Organización, Cargo, Fecha de nacimiento).
 
-Dicho de otro modo: {guilabel}`Publicado` es necesario, pero no siempre suficiente, para publicarse en el servidor de búsqueda.
+Dicho de otro modo: `Published` es necesario, pero no siempre suficiente, para publicarse en el servidor de búsqueda.
 :::
 
 :::{important}
@@ -178,7 +178,7 @@ Para los usuarios locales de la misma instancia:
   y otras restricciones de la función.
 - `Local`: visible en la instancia local.
 - `Federated`: visible en la instancia local (y también compartido con los servidores federados de confianza).
-- {guilabel}`Publicado`: visible en la instancia local (y también en la federación y en el servidor público de búsqueda).
+- `Published`: visible en la instancia local (y también en la federación y en el servidor público de búsqueda).
 
 :::{note}
 La exposición en la libreta de direcciones del sistema tiene en cuenta el ámbito y el contexto: las propiedades con ámbito privado o vacío se excluyen de las tarjetas generadas, y
@@ -337,7 +337,7 @@ Con ámbitos más restrictivos (sobre todo `Private`), cabe esperar menos visibi
 - Los diálogos de compartir y el contexto de menciones y autocompletado
 - Los contextos públicos o relacionados con compartir en los que pueden mostrarse metadatos de la cuenta
 - La visibilidad federada de los atributos del perfil
-- La publicación en el servidor público de búsqueda (allí solo aparece {guilabel}`Publicado`)
+- La publicación en el servidor público de búsqueda (allí solo aparece `Published`)
 
 En resumen: una privacidad más estricta reduce la comodidad y la capacidad de descubrimiento basadas en el perfil.
 
