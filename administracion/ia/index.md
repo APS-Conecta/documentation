@@ -31,6 +31,10 @@ Esta sección reúne, para quienes administran el servidor, las páginas sobre l
 - {nc-doc}`admin_manual/ai/eu_ai_act`
 ````
 
+## En APS Conecta Gestión
+
+APS Conecta Gestión no incluye el Asistente ni otras funciones de inteligencia artificial. La suite instala un conjunto fijo de aplicaciones y deja desactivada la tienda de aplicaciones, de modo que las aplicaciones de IA no se agregan desde la interfaz de administración. Las que corren como aplicaciones externas (ExApps) necesitarían además un daemon de despliegue de AppAPI, y la provisión no registra ninguno ([gestion#75](https://github.com/APS-Conecta/gestion/issues/75)). Lo que ve cada persona usuaria está en {doc}`/usuario/asistente-ia`.
+
 ```{toctree}
 :maxdepth: 1
 :glob:
