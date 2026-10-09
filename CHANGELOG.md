@@ -33,6 +33,15 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
   `tools/upstream-fidelity.py` and `tools/rebrand-check.py`, both in CI;
   `glosario.yml` published as `proyecto/glosario`; `tools/fetch-upstream.sh`;
   unit tests under `tools/tests/`.
+- The legal notice states where everything comes from (scribe S2c): `aviso.md`
+  «Origen: distribución derivada de Nextcloud» — the problem (no reliable document
+  version in a CESFAM) and the goal (a primary-care centre installs the platform
+  without a system administrator), the unmodified base, what APS modifies, the
+  primary-care adaptations, own code, the manual text, and a components table
+  generated from `componentes.yml` by `tools/gen-componentes.py` (versions from
+  gestion `compose.yaml`/`VENDOR`, patch counts from the `.patch` files and the AIO
+  queue; the build fails when gestion ships a component the file does not list, or
+  the file lists one gestion no longer ships). The footer links it on every page.
 
 ### Changed
 

@@ -6,5 +6,5 @@
    «aviso.html» para que toda página lleve un href real al aviso. #}
 {% extends "!footer.html" %}
 {% block extrafooter %}
-<a href="{{ pathto('aviso') if pagename != 'aviso' else 'aviso.html' }}">Aviso legal</a>
+<span class="atribucion">APS Conecta Gestión es una distribución derivada de Nextcloud y de otro software, adaptada a la atención primaria — <a href="{{ (pathto('aviso') if pagename != 'aviso' else 'aviso.html') }}#origen">Origen y licencias</a> · <a href="{{ pathto('aviso') if pagename != 'aviso' else 'aviso.html' }}">Aviso legal</a></span>
 {% endblock %}
