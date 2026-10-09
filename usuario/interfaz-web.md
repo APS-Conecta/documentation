@@ -21,7 +21,7 @@ El acceso a la plataforma se hace por navegador web, con inicio de sesión en el
 ### La interfaz web de Nextcloud
 
 ````{upstream} user_manual/webinterface.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
-Abre la URL de tu servidor Nextcloud en cualquier navegador web e inicia sesión con tu nombre de cuenta (o dirección de correo electrónico) y tu contraseña:
+Abre la URL de tu servidor Nextcloud en cualquier navegador web e inicia sesión con tu nombre de cuenta (o dirección de correo electrónico) y tu contraseña.
 
 También puedes iniciar sesión con una llave de acceso o una llave de seguridad física haciendo clic en **Iniciar sesión con dispositivo**.
 
@@ -59,7 +59,7 @@ Cada aplicación tiene además su propia **barra lateral izquierda** con filtros
 
 #### Ajustes y perfil
 
-Haz clic en tu foto de perfil para acceder a las opciones de tu cuenta:
+Haz clic en tu foto de perfil para acceder a las opciones de tu cuenta.
 
 Desde este menú puedes:
 
@@ -73,7 +73,7 @@ Desde este menú puedes:
 (nc-unified-search)=
 #### Búsqueda unificada
 
-Haz clic en el icono de búsqueda de la barra de navegación (o pulsa {kbd}`Ctrl+F`) para abrir la ventana modal de búsqueda unificada:
+Haz clic en el icono de búsqueda de la barra de navegación (o pulsa {kbd}`Ctrl+F`) para abrir la ventana modal de búsqueda unificada.
 
 La búsqueda unificada busca en todas tus aplicaciones instaladas a la vez: archivos, eventos del calendario, mensajes, contactos y más. Los resultados se agrupan por aplicación para que puedas ver rápidamente dónde se encontró una coincidencia.
 

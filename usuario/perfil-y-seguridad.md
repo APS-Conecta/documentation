@@ -61,7 +61,7 @@ Las opciones y los ajustes disponibles dependen de la configuración de su admin
 
 Algunos administradores comparten su libreta de direcciones global con otras instancias de Nextcloud (los llamados *Servidores de confianza*) o incluso con todo el mundo. Esto es útil cuando dos instancias quieren trabajar en estrecha colaboración, o cuando las personas quieren usar Nextcloud como una guía telefónica virtual que otros puedan consultar. También permite buscar contactos, crear recursos compartidos y mucho más.
 
-Puede cambiar qué datos personales se comparten estableciendo el alcance de sus datos. Haga clic en el icono del candado para abrir el siguiente desplegable junto a cada entrada:
+Puede cambiar qué datos personales se comparten estableciendo el alcance de sus datos. Haga clic en el icono del candado para abrir el siguiente desplegable junto a cada entrada. La pantalla muestra el desplegable de alcance de visibilidad de un campo de información personal, con las opciones Privado, Local, Federado y Publicado.
 
 Si establece sus datos como **Privados**, nadie salvo Ud. podrá verla.
 
@@ -78,9 +78,9 @@ Si su administrador ha habilitado el perfil, otros usuarios e invitados pueden l
 - **Privado** solo permitirá verlos a usted y a los usuarios que haya agregado a su agenda telefónica.
 - **Local** y superiores también permitirán que los invitados vean sus datos.
 
-Para restringir aún más la visibilidad, puede impedir que los invitados vean los datos de su perfil cambiando la visibilidad del perfil a usuarios con sesión iniciada. En sus ajustes personales, busque el botón de visibilidad del perfil:
+Para restringir aún más la visibilidad, puede impedir que los invitados vean los datos de su perfil cambiando la visibilidad del perfil a usuarios con sesión iniciada. En sus ajustes personales, busque el botón de visibilidad del perfil.
 
-Esto le permite configurar la visibilidad de cada atributo del perfil:
+Esto le permite configurar la visibilidad de cada atributo del perfil.
 ````
 
 ### Usar la verificación en dos pasos
@@ -92,23 +92,23 @@ Una vez que su administrador haya habilitado una aplicación de verificación en
 
 #### Configurar la verificación en dos pasos
 
-En sus ajustes personales, busque el ajuste **Autenticación de segundo factor**. En este ejemplo se trata de TOTP, un código basado en el tiempo compatible con Google Authenticator:
+En sus ajustes personales, busque el ajuste **Autenticación de segundo factor**. En este ejemplo se trata de TOTP, un código basado en el tiempo compatible con Google Authenticator. La pantalla muestra la configuración de TOTP.
 
 A continuación verá su código secreto y un código QR que puede ser escaneado por la aplicación TOTP en su teléfono (u otro dispositivo). En función de la aplicación o herramienta, tendrá que copiar el código o escanear el QR, y su dispositivo le mostrará un código de inicio de sesión que cambia cada 30 segundos.
 
 #### Códigos de recuperación si pierde su segundo factor
 
-Siempre debería generar códigos de respaldo para la verificación en dos pasos. Si le roban el dispositivo de su segundo factor o deja de funcionar, puede usar uno de estos códigos para desbloquear su cuenta. En la práctica, funciona como un segundo factor de respaldo. Para obtener los códigos de respaldo, vaya a sus ajustes personales y busque en los ajustes de **Autenticación de segundo factor**. Elija *Generar códigos de respaldo*:
+Siempre debería generar códigos de respaldo para la verificación en dos pasos. Si le roban el dispositivo de su segundo factor o deja de funcionar, puede usar uno de estos códigos para desbloquear su cuenta. En la práctica, funciona como un segundo factor de respaldo. Para obtener los códigos de respaldo, vaya a sus ajustes personales y busque en los ajustes de **Autenticación de segundo factor**. Elija *Generar códigos de respaldo*.
 
-Luego verá una lista de códigos de respaldo de un solo uso:
+Luego verá una lista de códigos de respaldo de un solo uso.
 
 Guarde estos códigos en un lugar seguro donde pueda encontrarlos. No los guarde junto con su segundo factor (como su teléfono móvil), sino por separado, de modo que perder uno no signifique perder el otro.
 
 #### Iniciar sesión con la verificación en dos pasos
 
-Después de cerrar sesión y volver a iniciarla, verá una solicitud para introducir el código TOTP en su navegador. Si ha habilitado más de un segundo factor, verá una pantalla de selección en la que puede elegir qué método usar para este inicio de sesión. Seleccione TOTP:
+Después de cerrar sesión y volver a iniciarla, verá una solicitud para introducir el código TOTP en su navegador. Si ha habilitado más de un segundo factor, verá una pantalla de selección en la que puede elegir qué método usar para este inicio de sesión. Seleccione TOTP.
 
-Simplemente introduzca su código:
+Simplemente introduzca su código.
 
 Si el código es correcto, será redirigido a su cuenta de Nextcloud.
 
@@ -146,18 +146,18 @@ La página de ajustes personales le ofrece una vista general de los navegadores 
 
 #### Gestionar los navegadores conectados
 
-La lista de navegadores conectados muestra qué navegadores se han conectado recientemente a su cuenta:
+La lista de navegadores conectados muestra qué navegadores se han conectado recientemente a su cuenta.
 
 Puede usar el icono de la papelera para desconectar cualquiera de los navegadores de la lista.
 
 (nc-managing_devices)=
 #### Gestionar dispositivos
 
-La lista de dispositivos conectados muestra todos los dispositivos y clientes para los que generó una contraseña de dispositivo, y su última actividad:
+La lista de dispositivos conectados muestra todos los dispositivos y clientes para los que generó una contraseña de dispositivo, y su última actividad.
 
 Puede usar el icono de la papelera para desconectar cualquiera de los dispositivos de la lista.
 
-Al final de la lista, puede crear una nueva contraseña específica de dispositivo. Puede elegir un nombre para identificar el token más adelante. La contraseña generada se usa para configurar el nuevo cliente. Lo ideal es generar tokens individuales para cada dispositivo que conecte a su cuenta, de modo que pueda desconectarlos individualmente si es necesario:
+Al final de la lista, puede crear una nueva contraseña específica de dispositivo. Puede elegir un nombre para identificar el token más adelante. La contraseña generada se usa para configurar el nuevo cliente. Lo ideal es generar tokens individuales para cada dispositivo que conecte a su cuenta, de modo que pueda desconectarlos individualmente si es necesario.
 
 :::{note}
 Solo tiene acceso a la contraseña del dispositivo al crearla. Nextcloud no guarda la contraseña en texto plano, así que introduzca la contraseña en el nuevo cliente de inmediato.

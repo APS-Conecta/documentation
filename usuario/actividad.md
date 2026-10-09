@@ -58,7 +58,7 @@ Se puede elegir cómo recibir notificaciones sobre los distintos tipos de activi
 
 Los ajustes se organizan por categoría (por ejemplo, **Archivos**, **Compartir**, **Calendario, contactos y tareas**). Para cada tipo de actividad se puede elegir recibir:
 
-- Notificaciones por **Correo electrónico** (email)
+- Notificaciones por **Correo electrónico**
 - Notificaciones **Push** (en el móvil y en el escritorio)
 
 Marcar o desmarcar las casillas correspondientes para habilitar o deshabilitar las notificaciones de cada tipo de actividad.
