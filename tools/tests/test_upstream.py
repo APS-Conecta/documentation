@@ -412,6 +412,43 @@ class PilotTest(unittest.TestCase):
             ["Call {user}", "otro"],
         )
 
+class ContractV2Test(unittest.TestCase):
+    """Constructs the first batches met that the contract and gate did not name (user-manual-desktop-1)."""
+
+    RST = (
+        "See the `Admin manual`_ and https://b.example/y.\n\n"
+        "Read `the guide <https://c.example/g>`_.\n\n"
+        ".. _Admin manual: https://a.example/x\n"
+    )
+
+    def test_named_and_bare_links_are_links(self):
+        self.assertEqual(
+            u.rst_links(self.RST), {"https://a.example/x", "https://b.example/y", "https://c.example/g"}
+        )
+
+    def test_reference_links_and_autolinks_match(self):
+        page = (
+            "Ver el [manual de administración][Admin manual] y <https://b.example/y>.\n\n"
+            "Leer [la guía](https://c.example/g).\n\n"
+            "[Admin manual]: https://a.example/x\n"
+        )
+        self.assertEqual(u.myst_links(page), u.rst_links(self.RST))
+        # a URL dropped from the page is caught
+        self.assertNotEqual(u.myst_links(page.replace(" y <https://b.example/y>", "")), u.rst_links(self.RST))
+
+    def test_an_indented_code_line_is_not_prose(self):
+        rst = "the command line would be::\n\n  $ cmd --path /Music \\\n        https://server/nextcloud\n\nDone.\n"
+        self.assertEqual(u.rst_links(rst), set())
+        self.assertNotIn("https://server/nextcloud", " ".join(u.rst_paragraphs(rst)))
+
+    def test_a_quoted_english_message_is_not_english_prose(self):
+        quoted = (
+            "El navegador advertirá del fallo: «Failed to launch 'nc://...' "
+            "because the scheme does not have a registered handler.»"
+        )
+        self.assertFalse(u.reads_english(quoted))
+        self.assertTrue(u.reads_english("You can open the file in the sidebar and then share it with your team."))
+
 class RenderTest(unittest.TestCase):
     """The block renders in source order: attribution, then its text, then its subsections."""
 
