@@ -612,6 +612,44 @@ class ConfigServer2Test(unittest.TestCase):
                          "Borrar $HOME/.config/Nextcloud/nextcloud.cfg y %APPDATA%\\Nextcloud\\x de APS Conecta Gestión.")
 
 
+class FilesGroupwareAuditTest(unittest.TestCase):
+    """Round-2 omission audit (files, groupware): blind spots of the warnings and the UI check."""
+
+    SECTION = "Title\n=====\n\nText.\n"
+
+    def leads(self, page):
+        return [w for w in fidelity.warnings(page, u.rst_section(self.SECTION)) if "ends in «:»" in w]
+
+    def test_a_list_step_ending_in_a_colon_before_its_sibling_warns(self):
+        self.assertTrue(self.leads("1. Abrir el menú **Ir**:\n2. Elegir el servidor.\n"))
+        self.assertEqual(self.leads("1. Ejecutar:\n\n   ```\n   ls\n   ```\n\n2. Fin.\n"), [])
+        self.assertEqual(self.leads("1. Elegir:\n   - uno\n   - dos\n"), [])
+        self.assertEqual(self.leads("Para instalar:\n\n```bash\nls\n```\n"), [])
+        self.assertEqual(self.leads("1. Desinstalar con msiexec:\n\n```shell\nmsiexec /x\n```\n\n2. Fin.\n"), [])
+
+    def test_a_lead_in_closing_an_admonition_warns(self):
+        self.assertTrue(self.leads(":::{note}\nUse `dav://` en lugar de `davs://`:\n:::\n\nTexto.\n"))
+        self.assertEqual(self.leads(":::{note}\nEjecutar:\n\n```\nls\n```\n:::\n"), [])
+
+    def test_third_party_ui_strings_are_not_nextcloud_labels(self):
+        up = "Title\n=====\n\nIn WinSCP, click \"Save\".\n"
+        page = "En WinSCP, hacer clic en «Save».\n"
+        ui = {"Save": {"Guardar"}}
+        cfg = dict(CFG, ui_third_party=["user_manual/files/access_*"])
+        third = block(page, "user_manual/files/access_webdav.rst@3ad9158")
+        own = block(page, "user_manual/files/x.rst@3ad9158")
+        self.assertEqual(fidelity.check_block(third, "usuario/archivos/access-webdav.md", up, {}, cfg, ui=ui)[0], [])
+        self.assertTrue(any("Guardar" in f for f in fidelity.check_block(own, "usuario/archivos/x.md", up, {}, cfg, ui=ui)[0]))
+
+    def test_a_literal_the_docs_official_msgstr_translates_may_become_its_label(self):
+        # calendario: «+ New calendar» stayed English next to the official «+ Nuevo calendario»
+        up = "Title\n=====\n\nClick ``+ New calendar``.\n\nThen use ``+ New calendar`` again.\n"
+        cat = {"Click ``+ New calendar``.": "Haga clic en ``+ Nuevo calendario``."}
+        page = "Haga clic en `+ Nuevo calendario`.\n\nLuego usar {guilabel}`+ Nuevo calendario` otra vez.\n"
+        blk = block(page, "user_manual/files/x.rst@3ad9158")
+        self.assertEqual(fidelity.check_block(blk, "usuario/archivos/x.md", up, cat, CFG, ui={})[0], [])
+
+
 class RenderTest(unittest.TestCase):
     """The block renders in source order: attribution, then its text, then its subsections."""
 
