@@ -834,6 +834,42 @@ class BareRefTitleTest(unittest.TestCase):
             self.assertEqual([re.sub(r"<[^>]+>", "", t).strip() for _, t in links], ["Usar HTTPS", "Texto propio"])
 
 
+class DifiereLinkTest(unittest.TestCase):
+    def test_the_difiere_notice_links_to_the_aps_section(self):
+        # admin collectives: the notice said «Ver la página de APS Conecta Gestión» and linked to its own page
+        import os
+        import tempfile
+        from unittest import mock
+        from sphinx.application import Sphinx
+
+        with tempfile.TemporaryDirectory() as tmp:
+            src = Path(tmp)
+            (src / "org" / "gestion").mkdir(parents=True)
+            (src / "org" / "gestion" / "compose.yaml").write_text("image: nextcloud:34\n", encoding="utf-8")
+            env = mock.patch.dict(os.environ, {"APS_ORG_ROOT": str(src / "org")})
+            env.start()
+            self.addCleanup(env.stop)
+            (src / "conf.py").write_text(
+                "import sys\n"
+                f"sys.path.insert(0, {str(TOOLS.parent / '_ext')!r})\n"
+                "extensions = ['myst_parser', 'upstream']\n"
+                "exclude_patterns = ['org', '_out', '_dt']\n",
+                encoding="utf-8",
+            )
+            (src / "index.md").write_text("# Inicio\n\n```{toctree}\nuno\ndos\n```\n", encoding="utf-8")
+            block = "````{{upstream}} admin_manual/{d}.rst@3ad9158\n:difiere: {t}\nTexto.\n````\n"
+            (src / "uno.md").write_text("# Uno\n\n## Resumen\n\n" + block.format(d="uno", t="uno")
+                                        + "\n## En APS Conecta Gestión\n\nLa suite no lo instala.\n", encoding="utf-8")
+            (src / "dos.md").write_text("# Dos\n\n## Resumen\n\n" + block.format(d="dos", t="index"), encoding="utf-8")
+            app = Sphinx(str(src), str(src), str(src / "_out"), str(src / "_dt"),
+                         "html", status=None, warning=None, freshenv=True)
+            app.build()
+            uno = (src / "_out" / "uno.html").read_text(encoding="utf-8")
+            self.assertRegex(uno, r'<a [^>]*href="#en-aps-conecta-gestion"[^>]*>Ver «En APS Conecta Gestión»</a>')
+            dos = (src / "_out" / "dos.html").read_text(encoding="utf-8")
+            self.assertRegex(dos, r'<a [^>]*href="index.html"[^>]*>Ver la página de APS Conecta Gestión</a>')
+
+
 class CatalogTest(unittest.TestCase):
     def test_reads_multiline_msgid_and_msgstr(self):
         import tempfile
