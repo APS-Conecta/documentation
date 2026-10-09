@@ -418,7 +418,7 @@ def _po_string(raw: str) -> str:
 
 # ------------------------------------------------------------------- MyST, the woven side
 
-FENCE = re.compile(r"^[ \t]{0,3}(`{3,}|~{3,})(.*)$")
+FENCE = re.compile(r"^[ \t]*(`{3,}|~{3,})(.*)$")  # any indent: fences nest in list items
 BLOCK_OPEN = re.compile(r"^[ \t]{0,3}(`{3,})\{upstream\}\s+(\S+)\s*$")
 BLOCK_ARG = re.compile(
     r"^(?P<doc>(?:user|admin|developer)_manual/[A-Za-z0-9_./-]+?)\.rst"
@@ -480,6 +480,7 @@ def myst_code_blocks(content: str) -> list[str]:
             i += 1
             continue
         fence, body = m.group(1), []
+        indent = len(lines[i]) - len(lines[i].lstrip())  # the body loses the fence's indent
         i += 1
         while i < len(lines):
             fm = FENCE.match(lines[i])
@@ -490,7 +491,8 @@ def myst_code_blocks(content: str) -> list[str]:
                 and not fm.group(2).strip()
             ):
                 break
-            body.append(lines[i])
+            ln = lines[i]
+            body.append(ln[min(indent, len(ln) - len(ln.lstrip())):])
             i += 1
         i += 1
         out.append(normalize_code(body))
@@ -591,10 +593,15 @@ def plain(text: str) -> str:
     t = re.sub(r"\{[\w-]+\}`([^`]+)`", r"\1", t)  # {role}`text`
     t = re.sub(r"`([^`<]*?)\s*<[^>]+>`__?", r"\1", t)  # `text <url>`_
     t = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", t)  # [text](url)
+    t = re.sub(r"\[([^\]]*)\]\[[^\]]*\]", r"\1", t)  # [text][Name]
+    t = re.sub(r"<(https?://[^>\s]+)>", r"\1", t)  # <url>
     t = re.sub(r"``(.+?)``", r"\1", t)
     t = re.sub(r"`([^`]+)`", r"\1", t)
+    t = re.sub(r"(?<=\w)__?(?=[\s.,;:)]|$)", "", t)  # `Name`_ and Name_ (named references)
     t = re.sub(r"\*\*(.+?)\*\*|\*(.+?)\*", lambda m: m.group(1) or m.group(2), t)
-    return " ".join(t.split())
+    t = " ".join(t.split())
+    # RST's literal-block marker: "text::" reads "text:", "text ::" and a bare "::" read nothing
+    return re.sub(r"(?<=\S)::$", ":", re.sub(r"\s*(?<!\S)::$", "", t))
 
 
 EN_STOPWORDS = {

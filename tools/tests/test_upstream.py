@@ -441,6 +441,21 @@ class ContractV2Test(unittest.TestCase):
         self.assertEqual(u.rst_links(rst), set())
         self.assertNotIn("https://server/nextcloud", " ".join(u.rst_paragraphs(rst)))
 
+    def test_plain_reads_rst_and_myst_shapes_the_same(self):
+        # user-manual-files-1: msgstrs end in "::" and carry named references and bare URLs
+        self.assertEqual(u.plain("Por ejemplo::"), "Por ejemplo:")
+        self.assertEqual(u.plain("Monte el recurso ::"), "Monte el recurso")
+        self.assertEqual(u.plain("Use `WinHTTP`_ y KB2123563_."), "Use WinHTTP y KB2123563.")
+        self.assertEqual(u.plain("Use [WinHTTP][WinHTTP] y [KB2123563][KB2123563]."), "Use WinHTTP y KB2123563.")
+        self.assertEqual(
+            u.plain("en un enlace <https://example.com/s/kFy9>, abra"), "en un enlace https://example.com/s/kFy9, abra"
+        )
+
+    def test_a_fence_inside_a_list_item_is_code(self):
+        page = "1. Instalar:\n\n   ```bash\n   sudo apt install davfs2\n   ```\n\n2. Montar.\n"
+        self.assertEqual(u.myst_code_blocks(page), ["sudo apt install davfs2"])
+        self.assertNotIn("davfs2", u._without_fences(page))
+
     def test_a_quoted_english_message_is_not_english_prose(self):
         quoted = (
             "El navegador advertirá del fallo: «Failed to launch 'nc://...' "

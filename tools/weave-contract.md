@@ -62,6 +62,7 @@ Gestión beyond what the :difiere: notice points to.>
 | A definition list | Bullets `- term: definition`, with the term formatted as upstream formats it. |
 | An English-only message upstream quotes (an error or UI string with no Spanish version) | Verbatim, inside «…», with no gloss. The English check skips quoted text. |
 | `.. raw:: html` | Dropped. Name it under **gaps** with what it carried. |
+| A code block inside a list item | The fence indented with the item's text, so the list keeps its numbering; the gate reads the body without that indent. |
 | `.. code-block:: lang`, `.. code::`, `::` literal blocks | A plain fence: ```` ```lang ```` (or ```` ``` ````). Content byte-identical: commands, paths, config keys, output, comments inside code. A `:caption:` becomes a sentence before the fence. |
 | ``` ``literal`` ``` | `` `literal` ``, byte-identical. |
 | `:guilabel:`, `:menuselection:` | `{guilabel}`, with the Spanish UI label from `glosario.yml` or the app's own Spanish strings. |
