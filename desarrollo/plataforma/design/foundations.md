@@ -147,7 +147,7 @@ Otros buenos ejemplos de esto: Notas, Marcadores, Mapas, Formularios, Tareas, M�
 
 La redacción y el lenguaje de la app marcan su tono y lo cercana que resulta.
 
-- {vendor}`Nextcloud` debe escribirse siempre completo, y solo con N mayúscula. No «NextCloud» ni «Nc».
+- {vendor}`Nextcloud` debe escribirse siempre completo, y solo con N mayúscula. No «{vendor}`NextCloud`» ni «Nc».
 - Ser cercano y accesible, no condescendiente.
 - Usar un lenguaje comprensible, no jerga técnica. Por ejemplo, «enlace» es mucho mejor que «URL», y explicar los errores es mejor que mostrar códigos de error.
 - No escribir TODO EN MAYÚSCULAS, ya que no es tan legible y da la impresión de estar gritando, lo que resulta agresivo. Usar también mayúscula de oración y no Mayúscula En Cada Palabra, con la excepción de los nombres de productos como Nextcloud Talk, Nextcloud Hub, etc.

@@ -209,10 +209,27 @@ def _rename_re(cfg: dict) -> re.Pattern:
     return re.compile(rf"(?<![/\\])\b{word}\b(?![/\\]){guard}")
 
 
+def _forms_re(cfg: dict) -> re.Pattern | None:
+    """The inflected forms `rename.forms` maps («Nextclouds»), each a whole word."""
+    forms = cfg["rename"].get("forms") or {}
+    if not forms:
+        return None
+    alt = "|".join(re.escape(f) for f in sorted(forms, key=len, reverse=True))
+    return re.compile(rf"(?<![/\\])\b(?:{alt})\b(?![/\\])")
+
+
 def rename(text: str, cfg: dict | None = None) -> str:
-    """«Nextcloud» → «APS Conecta Gestión», except inside the legal/product names `keep` lists."""
+    """«Nextcloud» → «APS Conecta Gestión», except inside the legal/product names `keep` lists;
+    an inflected form («Nextclouds») takes its own wording from `rename.forms`."""
     cfg = cfg or config()
+    if forms := _forms_re(cfg):
+        text = forms.sub(lambda m: cfg["rename"]["forms"][m.group(0)], text)
     return _rename_re(cfg).sub(cfg["rename"]["to"], text)
+
+
+# A casing variant of the name as a whole word («NextCloud», «NEXTCLOUD», «NextClouds»): the rename
+# never matches it, so it shows the vendor's name. Lower case is a path or a database name.
+CASE_VARIANT = re.compile(r"(?<![\w/\\.-])(?i:nextclouds?)(?![\w/\\.-])")
 
 
 def vendor_link(url: str, cfg: dict | None = None) -> bool:
@@ -228,10 +245,13 @@ def vendor_link(url: str, cfg: dict | None = None) -> bool:
 
 def leftovers(text: str, cfg: dict | None = None) -> list[str]:
     cfg = cfg or config()
-    return [
-        text[max(0, m.start() - 30) : m.end() + 30]
-        for m in _rename_re(cfg).finditer(text)
-    ]
+    word, forms = cfg["rename"]["from"], cfg["rename"].get("forms") or {}
+    hits = list(_rename_re(cfg).finditer(text))
+    if f := _forms_re(cfg):
+        hits += f.finditer(text)
+    hits += [m for m in CASE_VARIANT.finditer(text)
+             if not m.group(0).islower() and m.group(0) != word and m.group(0) not in forms]
+    return [text[max(0, m.start() - 30) : m.end() + 30] for m in sorted(hits, key=lambda m: m.start())]
 
 
 # ------------------------------------------------------------------- RST, the upstream side

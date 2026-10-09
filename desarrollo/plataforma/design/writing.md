@@ -32,7 +32,7 @@ No usar nunca todo en mayúsculas en encabezados, rótulos ni etiquetas.
 | Se Ha Producido Un Error Al Cargar El Archivo | No se pudo cargar el archivo |
 | Sus cambios se han aplicado correctamente al sistema | Cambios guardados |
 | COMPARTIR | Compartir |
-| NextCloud | {vendor}`Nextcloud` |
+| {vendor}`NextCloud` | {vendor}`Nextcloud` |
 
 **Prescindir de «correctamente».** Si una acción se completó, el resultado habla por sí mismo.
 Decir qué ocurrió, no que ocurrió sin errores.
