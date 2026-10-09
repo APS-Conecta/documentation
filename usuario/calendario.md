@@ -138,8 +138,8 @@ Puede insertar sus calendarios en aplicaciones compatibles como `Talk`, {guilabe
 
 Usted puede suscribirse a calendarios iCal directamente desde su Nextcloud. Al soportar el estándar interoperable (RFC 5545) hemos hecho el calendario de Nextcloud compatible con Google Calendar, Apple iCloud y muchos otros servidores de calendario con los que puedes intercambiar calendarios, incluyendo enlaces de suscripción a calendarios publicados en otras instancias Nextcloud, como se describe anteriormente.
 
-1. Pulse `+ New calendar` en la barra lateral izquierda
-2. Pulse `+ New subscription from link (read-only)`
+1. Pulse {guilabel}`Nuevo calendario` en la barra lateral izquierda
+2. Pulse {guilabel}`Nueva suscripción desde enlace (sólo lectura)`
 3. Escriba o pegue el enlace del calendario compartido al que desea suscribirse.
 
 Completado. Los calendarios a los que se suscriba se actualizarán regularmente.
@@ -155,7 +155,7 @@ De forma predeterminada, las suscripciones se actualizan cada semana. Es posible
 
 Puede suscribirse a un calendario de días feriados de sólo lectura provisto por [Thunderbird](https://www.thunderbird.net/calendar/holidays/).
 
-1. Pulse `+ New calendar` en la barra lateral izquierda
+1. Pulse {guilabel}`Nuevo calendario` en la barra lateral izquierda
 2. Pulse `+ Add holiday calendar`
 3. Busque su país o región y pulse {guilabel}`Suscribirse`
 

@@ -16,5 +16,5 @@ La función de sala de espera permite mostrar a los invitados una pantalla de es
 
 Se puede elegir que los participantes se unan a la llamada a una hora determinada, o cuando se retire manualmente la sala de espera.
 
-La sala de espera se configura en `Conversation settings`, en la sección `Webinar`.
+La sala de espera se configura en {guilabel}`Ajustes de la conversación`, en la sección `Webinar`.
 ````

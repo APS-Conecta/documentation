@@ -39,5 +39,5 @@ Una encuesta se puede cerrar desde el diálogo de la encuesta.
 
 Como moderador, se puede crear la encuesta directamente o guardarla como borrador para editarla más tarde.
 
-Los borradores de encuestas se encuentran en la pestaña `Shared items` o junto al campo de entrada del título de la encuesta.
+Los borradores de encuestas se encuentran en la pestaña {guilabel}`Elementos compartidos` o junto al campo de entrada del título de la encuesta.
 ````

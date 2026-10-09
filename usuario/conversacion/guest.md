@@ -18,13 +18,13 @@ Si se recibió un enlace a una conversación de Nextcloud Talk, es posible unirs
 
 Si se recibió un enlace a una conversación de chat, se puede abrir en el navegador para unirse al chat. Ahí se pedirá introducir un nombre antes de unirse.
 
-El nombre también se puede cambiar más tarde haciendo clic en el botón `Edit` de la barra superior.
+El nombre también se puede cambiar más tarde haciendo clic en el botón {guilabel}`Editar` de la barra superior.
 
-Los ajustes de cámara y micrófono se encuentran en el menú `Settings`. Ahí también hay una lista de los atajos de teclado que se pueden usar.
+Los ajustes de cámara y micrófono se encuentran en el menú {guilabel}`Ajustes`. Ahí también hay una lista de los atajos de teclado que se pueden usar.
 
 ### Unirse a una llamada
 
-Se puede iniciar una llamada en cualquier momento con el botón `Start call`. Los demás participantes recibirán una notificación y podrán unirse a la llamada. Si otra persona ya inició una llamada, el botón cambiará a un botón verde `Join call`.
+Se puede iniciar una llamada en cualquier momento con el botón {guilabel}`Comenzar llamada`. Los demás participantes recibirán una notificación y podrán unirse a la llamada. Si otra persona ya inició una llamada, el botón cambiará a un botón verde {guilabel}`Unirse a la llamada`.
 
 Antes de unirse se muestra una comprobación de dispositivos, donde se puede seleccionar la cámara y el micrófono, activar el desenfoque del fondo o unirse sin ningún dispositivo.
 
@@ -46,7 +46,7 @@ En el menú de la conversación se puede elegir pasar a pantalla completa. Tambi
 
 Un invitado puede recibir una invitación a una conversación por correo electrónico. El correo contiene un enlace para unirse a la conversación. Si el invitado hace clic en el enlace, se le redirigirá a la conversación con un token de acceso individual.
 
-La invitación se hace introduciendo la dirección de correo electrónico en el campo de búsqueda de la pestaña `Participants`.
+La invitación se hace introduciendo la dirección de correo electrónico en el campo de búsqueda de la pestaña {guilabel}`Participantes`.
 
-Se puede invitar en bloque a participantes por correo electrónico subiendo un archivo CSV. La opción está disponible en los ajustes de la conversación, en la sección `Meeting`.
+Se puede invitar en bloque a participantes por correo electrónico subiendo un archivo CSV. La opción está disponible en los ajustes de la conversación, en la sección {guilabel}`Reunión`.
 ````
