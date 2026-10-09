@@ -25,9 +25,9 @@ source:
     developer_manual: "https://docs.nextcloud.com/server/{major}/developer_manual/{path}.html"
 
 # Documentos cuyas cadenas de interfaz citadas son de otro software (WinSCP, Finder, Nautilus,
-# Thunderbird, KDE…): el catálogo de Nextcloud no las traduce, y exigir su español empujaría a
+# Thunderbird, KDE, Windmill…): el catálogo de Nextcloud no las traduce, y exigir su español empujaría a
 # traducir un botón suelto de otro programa. tools/upstream-fidelity.py no las contrasta.
-ui_third_party: [user_manual/files/access_webdav, user_manual/groupware/sync_*]
+ui_third_party: [user_manual/files/access_webdav, user_manual/groupware/sync_*, admin_manual/windmill_workflows/index]
 
 rename:
   from: Nextcloud

@@ -785,6 +785,16 @@ class RoleLineTest(unittest.TestCase):
             "Text."])
 
 
+class DocJoinTest(unittest.TestCase):
+    def test_dotdot_stops_at_the_manual_root_as_sphinx_does(self):
+        # admin-manual-1: each manual is its own Sphinx project; docname_join('occ_database',
+        # '../groupware/calendar') is 'groupware/calendar' there, i.e. admin_manual/groupware/calendar
+        self.assertEqual(u.absolute_doc("admin_manual/occ_database", "../groupware/calendar"),
+                         "admin_manual/groupware/calendar")
+        self.assertEqual(u.absolute_doc("admin_manual/x/y", "../z"), "admin_manual/z")
+        self.assertEqual(u.absolute_doc("admin_manual/x/y", "/a/b"), "admin_manual/a/b")
+
+
 class BareRefTitleTest(unittest.TestCase):
     """configuration_server audit: a bare :ref: showed its raw label, so translators invented text."""
 

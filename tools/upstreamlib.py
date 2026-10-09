@@ -472,7 +472,8 @@ def absolute_doc(docname: str, target: str) -> str:
     parts = []
     for p in f"{base}/{target}".split("/"):
         if p == "..":
-            parts.pop()
+            if len(parts) > 1:  # each manual is its own Sphinx project: «..» stops at its root
+                parts.pop()
         elif p and p != ".":
             parts.append(p)
     return "/".join(parts)
