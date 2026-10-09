@@ -21,6 +21,10 @@ _sys.path.insert(0, _os.path.join(_os.path.dirname(__file__), '_ext'))
 # rebrand: el nombre del producto en todo el sitio (iniciativa scribe; regla en upstream.yml).
 extensions = ['myst_parser', 'upstream', 'rebrand', 'pagefind_meta']
 
+# colon_fence: dentro de un bloque {upstream}, las directivas (avisos, tablas) usan «:::» y las
+# vallas de acentos graves quedan solo para código (tools/weave-contract.md).
+myst_enable_extensions = ['colon_fence']
+
 # Furo (iniciativa scribe, Q22): diseño pensado primero para pantallas angostas, índice
 # «En esta página» a la derecha y tipografía legible en capítulos largos. La marca entra por
 # las variables CSS del tema; solo modo claro (las variables oscuras repiten las claras y

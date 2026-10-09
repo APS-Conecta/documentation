@@ -67,6 +67,10 @@ def check_block(
             f"{doc}: headings {my_levels} differ from upstream's {up_levels} (count, order, level)"
         )
 
+    directive_fences = [ln.strip() for ln in content.split("\n")
+                        if (m := u.FENCE.match(ln)) and m.group(1)[0] == "`" and m.group(2).strip().startswith("{")]
+    if directive_fences:
+        out.append(f"{doc}: directive in a backtick fence ({directive_fences[0][:40]}); use a colon fence :::{{…}}")
     up_code, my_code = u.rst_code_blocks(section), u.myst_code_blocks(content)
     if up_code != my_code:
         missing = [c.split("\n")[0][:60] for c in up_code if c not in my_code]

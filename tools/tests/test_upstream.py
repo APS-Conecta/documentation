@@ -302,6 +302,12 @@ class FidelityTest(unittest.TestCase):
         )
         self.assertTrue(any("reads as English" in f for f in found), found)
 
+    def test_directive_needs_a_colon_fence(self):
+        found, _ = self.check(GOOD + "\n```{note}\nUna nota.\n```\n")
+        self.assertTrue(any("colon fence" in f for f in found), found)
+        ok, _ = self.check(GOOD + "\n:::{note}\nUna nota.\n:::\n")
+        self.assertEqual(ok, [])
+
     def test_labels_kept(self):
         up = UPSTREAM.replace(
             "Details\n~~~~~~~", ".. _details-label:\n\nDetails\n~~~~~~~"
