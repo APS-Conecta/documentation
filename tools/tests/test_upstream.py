@@ -475,6 +475,25 @@ class DeadLinkTest(unittest.TestCase):
         cfg = dict(CFG, dead_anchors=[{"url": "https://x.example/page.html#gone", "doc": "user_manual/x", "seen": "2026-10-09"}])
         self.assertEqual(u.dead_anchors(cfg), ["https://x.example/page.html"])
 
+
+class CodeByPositionTest(unittest.TestCase):
+    """admin-manual-configuration-server-1: code detected by content misread two pages."""
+
+    def test_an_ellipsis_paragraph_is_not_a_comment(self):
+        rst = "... or a Memcached cluster, set::\n\n  'memcache.local' => 'x',\n\nDone.\n"
+        self.assertEqual(u.rst_code_blocks(rst), ["'memcache.local' => 'x',"])
+
+    def test_a_code_line_never_eats_a_prose_literal(self):
+        rst = "Add ``[Install]`` to the unit::\n\n  [Install]\n  WantedBy=timers.target\n\nThen run ``freshclam``.\n\n.. code-block:: bash\n\n   freshclam\n"
+        self.assertEqual(u.rst_inline_literals(rst), ["[Install]", "freshclam"])
+        self.assertNotIn("WantedBy=timers.target", " ".join(u.rst_paragraphs(rst)))
+
+    def test_a_literal_may_wrap_a_line(self):
+        rst = "``man clamd.conf`` and ``man\nfreshclam.conf`` explain all the options. Refer to ``/etc/passwd``.\n"
+        self.assertEqual(u.rst_inline_literals(rst), ["man clamd.conf", "man freshclam.conf", "/etc/passwd"])
+        page = "`man clamd.conf` y `man\nfreshclam.conf` explican todas las opciones. Ver `/etc/passwd`.\n"
+        self.assertEqual(u.myst_inline_literals(page), ["man clamd.conf", "man freshclam.conf", "/etc/passwd"])
+
 class RenderTest(unittest.TestCase):
     """The block renders in source order: attribution, then its text, then its subsections."""
 

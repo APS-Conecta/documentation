@@ -184,7 +184,7 @@ def leftovers(text: str, cfg: dict | None = None) -> list[str]:
 ADORN = re.compile(r"^([=\-~^\"'`#*+_:.<>])\1{2,}\s*$")
 LABEL = re.compile(r"^\.\.\s+_([^:`]+):\s*$")
 RST_CODE_DIRECTIVE = re.compile(r"^(\s*)\.\.\s+(?:code-block|code|sourcecode)::.*$")
-RST_INLINE_LITERAL = re.compile(r"``(.+?)``")
+RST_INLINE_LITERAL = re.compile(r"``((?:[^\n]|\n(?!\s*\n))+?)``")  # may wrap a line, never a paragraph
 RST_EXT_LINK = re.compile(r"`[^`<]*<(https?://[^>]+)>`__?")
 RST_NAMED_TARGET = re.compile(r"^\.\. _[^:\n]+:\s*(https?://\S+)\s*$", re.M)
 URL = re.compile(r"https?://[^\s<>`\"')\]]+")
@@ -297,8 +297,13 @@ def _indented_block(lines: list[str], i: int) -> tuple[list[str], int]:
     return block, j
 
 
-def rst_code_blocks(text: str) -> list[str]:
-    """Contents of code-block/code/sourcecode directives and `::` literal blocks, in order."""
+RST_COMMENT = re.compile(r"^\s*\.\.(\s|$)")  # explicit markup; «...» opening a sentence is prose
+
+
+def _rst_code_ranges(text: str) -> list[tuple[int, int, list[str]]]:
+    """(first line, end line, body) of each code-block/code/sourcecode directive and `::` literal
+    block, in order. Callers drop code BY POSITION: a code line equal to a prose literal
+    (``[Install]``, ``freshclam``) must not erase that literal."""
     lines, out, i = text.split("\n"), [], 0
     while i < len(lines):
         ln = lines[i]
@@ -306,17 +311,23 @@ def rst_code_blocks(text: str) -> list[str]:
             j = i + 1
             while j < len(lines) and re.match(r"^\s+:[\w-]+:", lines[j]):
                 j += 1
-            block, i = _indented_block(lines, j - 1)
-            out.append(normalize_code(block))
+            block, nxt = _indented_block(lines, j - 1)
+            out.append((i, nxt, block))
+            i = nxt
             continue
-        if ln.rstrip().endswith("::") and not ln.lstrip().startswith(".."):
+        if ln.rstrip().endswith("::") and not RST_COMMENT.match(ln):
             block, nxt = _indented_block(lines, i)
             if block:
-                out.append(normalize_code(block))
+                out.append((i + 1, nxt, block))
                 i = nxt
                 continue
         i += 1
     return out
+
+
+def rst_code_blocks(text: str) -> list[str]:
+    """Contents of code-block/code/sourcecode directives and `::` literal blocks, in order."""
+    return [normalize_code(block) for _, _, block in _rst_code_ranges(text)]
 
 
 def normalize_code(block: list[str]) -> str:
@@ -324,16 +335,15 @@ def normalize_code(block: list[str]) -> str:
 
 
 def rst_inline_literals(text: str) -> list[str]:
-    return RST_INLINE_LITERAL.findall(_without_code_blocks_rst(text))
+    return [" ".join(x.split()) for x in RST_INLINE_LITERAL.findall(_without_code_blocks_rst(text))]
 
 
 def _without_code_blocks_rst(text: str) -> str:
-    blocks = rst_code_blocks(text)
-    for b in blocks:
-        for ln in b.split("\n"):
-            if ln.strip():
-                text = text.replace(ln, "", 1)
-    return text
+    """The text with every code line blanked in place (line count and paragraph breaks kept)."""
+    lines = text.split("\n")
+    for start, end, _ in _rst_code_ranges(text):
+        lines[start:end] = [""] * (end - start)
+    return "\n".join(lines)
 
 
 def _urls(paragraphs: list[str]) -> set[str]:
@@ -381,15 +391,13 @@ def rst_paragraphs(text: str) -> list[str]:
     """Prose paragraphs, list markers stripped and whitespace collapsed — the shape Sphinx
     gettext extracts as msgids."""
     out, cur = [], []
-    code = {ln.strip() for b in rst_code_blocks(text) for ln in b.split("\n") if ln.strip()}
-    for ln in text.split("\n") + [""]:
+    for ln in _without_code_blocks_rst(text).split("\n") + [""]:
         s = ln.strip()
         if (
             not s
             or ADORN.match(s)
             or s.startswith(".. ")
             or s.startswith(":")
-            or s in code
         ):
             if cur:
                 out.append(" ".join(" ".join(cur).split()))
@@ -437,7 +445,7 @@ BLOCK_ARG = re.compile(
     r"@(?P<sha>[0-9a-f]{7,40})(?:#(?P<anchor>[A-Za-z0-9_.-]+))?$"
 )
 MYST_HEADING = re.compile(r"^(#{1,6})\s+(.+?)\s*#*\s*$")
-MYST_SPAN = re.compile(r"(\{[\w-]+\})?(?<!`)`([^`\n]+)`(?!`)")  # a role or a code span
+MYST_SPAN = re.compile(r"(\{[\w-]+\})?(?<!`)`((?:[^`\n]|\n(?!\s*\n))+?)`(?!`)")  # a role or a code span; may wrap a line
 MYST_ROLE = re.compile(r"\{nc-(doc|ref)\}`(?:[^`<]*<([^>]+)>|([^`]+))`")
 MYST_LABEL = re.compile(r"^\(nc-([^)]+)\)=\s*$")
 
@@ -542,7 +550,7 @@ def myst_inline_literals(content: str) -> list[str]:
     """Inline code spans; a {role}`…` span is not code. One left-to-right scan, so a brace inside
     a code span (`Call {user}`) can never open a role."""
     return [
-        code
+        " ".join(code.split())
         for role, code in MYST_SPAN.findall(_without_fences(content))
         if not role
     ]
