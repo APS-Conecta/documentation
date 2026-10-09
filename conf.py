@@ -120,6 +120,12 @@ linkcheck_ignore += (
 )
 
 
+# linkcheck: GitHub arma las anclas de un README o un archivo con JavaScript, así que una URL
+# github.com/...#seccion nunca muestra su ancla a un GET (falso «Anchor not found»). La URL sí
+# se comprueba; solo se omite el ancla. Los textos tejidos de Nextcloud citan anclas de README
+# (p. ej. github.com/42wim/matterbridge#features) y deben conservar la URL byte a byte.
+linkcheck_anchors_ignore_for_url = [r'https://github\.com/.+']
+
 # Un toctree con glob en una carpeta que el tejido aún no llena no es un error: la carpeta
 # existe para recibir páginas (iniciativa scribe). Sphinx 9 emite ese aviso sin `type`
 # (sphinx/directives/other.py, subtype='empty_glob'), así que suppress_warnings no lo alcanza;
