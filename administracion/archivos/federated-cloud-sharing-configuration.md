@@ -58,9 +58,9 @@ Desmarcar la casilla {guilabel}`Compartir enlace` para desactivar cualquier recu
 
 La sección Compartir de la página de administración permite controlar cómo gestionan los usuarios los recursos compartidos federados en la nube:
 
-- Marcar `Enforce password protection` para exigir contraseñas en los recursos compartidos por enlace.
+- Marcar {guilabel}`Forzar la protección por contraseña` para exigir contraseñas en los recursos compartidos por enlace.
 - Marcar `Set default expiration date` para exigir una fecha de caducidad en los recursos compartidos por enlace.
-- Marcar `Allow public uploads` para permitir la compartición de archivos en ambos sentidos.
+- Marcar {guilabel}`Permitir subidas públicas` para permitir la compartición de archivos en ambos sentidos.
 - Si se producen tiempos de espera agotados al descargar o subir archivos grandes, puede usarse la opción `davstorage.request_timeout` del `config.php` para aumentar el tiempo de espera. El valor predeterminado es de 30 segundos.
 
 El servidor web Apache debe tener activado `mod_rewrite`, y `trusted_domains` debe estar correctamente configurado en `config.php` para permitir conexiones externas (consultar {nc-doc}`admin_manual/installation/installation_wizard`). Conviene también activar SSL para cifrar todo el tráfico entre los servidores.

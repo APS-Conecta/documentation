@@ -40,7 +40,7 @@ Si hay un error en el almacenamiento, se marcará como no disponible durante die
 
 {guilabel}`Nombre de la carpeta` es el nombre que tendrá la carpeta dentro de Nextcloud, es decir, el nombre que verán los usuarios de Nextcloud.
 
-Hay que tener en cuenta que el nombre de la carpeta no puede incluir una ruta ni un subdirectorio: no incluir barras en `Folder name.`
+Hay que tener en cuenta que el nombre de la carpeta no puede incluir una ruta ni un subdirectorio: no incluir barras en {guilabel}`Nombre de la carpeta`.
 
 ### Uso de variables en las rutas de montaje
 
