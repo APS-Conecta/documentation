@@ -32,6 +32,18 @@ def config() -> dict:
     return yaml.safe_load(CONFIG.read_text(encoding="utf-8"))
 
 
+def dead_links(cfg: dict | None = None) -> list[str]:
+    """Upstream URLs that no longer answer: kept byte-identical in the woven text, skipped by
+    linkcheck (conf.py). An entry leaves the list when upstream fixes the link."""
+    return [d["url"] for d in (cfg or config()).get("dead_links") or []]
+
+
+def dead_anchors(cfg: dict | None = None) -> list[str]:
+    """Pages upstream links into whose anchor no longer exists (the page answers): linkcheck skips
+    the anchor on these base URLs only (conf.py)."""
+    return [d["url"].partition("#")[0] for d in (cfg or config()).get("dead_anchors") or []]
+
+
 def org_root() -> Path:
     return Path(os.environ.get("APS_ORG_ROOT", "/opt/aps-conecta-org"))
 

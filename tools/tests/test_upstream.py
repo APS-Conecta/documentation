@@ -464,6 +464,17 @@ class ContractV2Test(unittest.TestCase):
         self.assertFalse(u.reads_english(quoted))
         self.assertTrue(u.reads_english("You can open the file in the sidebar and then share it with your team."))
 
+
+class DeadLinkTest(unittest.TestCase):
+    def test_dead_links_are_listed_urls(self):
+        cfg = dict(CFG, dead_links=[{"url": "https://x.example/gone", "doc": "user_manual/user_2fa", "seen": "2026-10-09"}])
+        self.assertEqual(u.dead_links(cfg), ["https://x.example/gone"])
+        self.assertEqual(u.dead_links(CFG), [])
+
+    def test_dead_anchors_are_base_urls(self):
+        cfg = dict(CFG, dead_anchors=[{"url": "https://x.example/page.html#gone", "doc": "user_manual/x", "seen": "2026-10-09"}])
+        self.assertEqual(u.dead_anchors(cfg), ["https://x.example/page.html"])
+
 class RenderTest(unittest.TestCase):
     """The block renders in source order: attribution, then its text, then its subsections."""
 
