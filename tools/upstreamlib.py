@@ -403,22 +403,50 @@ def rst_links(text: str) -> set[str]:
 TOCTREE = re.compile(r"^[ \t]*\.\. toctree::[^\n]*\n((?:[ \t]+[^\n]*\n|[ \t]*\n)*)", re.M)
 
 
-def rst_toctree(text: str, docname: str) -> list[str]:
+_ALL_DOCS: list[str] | None = None
+
+
+def _all_docs() -> list[str]:
+    """Every upstream docname, once; empty without a clone (a glob then names nothing)."""
+    global _ALL_DOCS
+    if _ALL_DOCS is None:
+        _ALL_DOCS = docnames() if (upstream_dir() / ".git").exists() else []
+    return _ALL_DOCS
+
+
+def _glob(pattern: str) -> re.Pattern:
+    """Sphinx's toctree glob: «*» and «?» never cross a «/»."""
+    return re.compile("".join("[^/]*" if c == "*" else "[^/]" if c == "?" else re.escape(c) for c in pattern) + "$")
+
+
+def rst_toctree(text: str, docname: str, all_docs: list[str] | None = None) -> list[str]:
     """Absolute docnames a visible toctree lists, in order. Upstream renders a toctree as a list
     of links on the page, so the woven page carries that list; a :hidden: toctree shows nothing,
-    and glob patterns, `self` and URLs name no single document."""
+    `self` and URLs name no document. Under :glob:, a pattern lists every matching document as
+    Sphinx does: sorted, minus the toctree's own page and the entries already listed."""
     out = []
     for body in TOCTREE.findall(text + "\n"):
         lines = [ln.strip() for ln in body.split("\n") if ln.strip()]
         if ":hidden:" in lines:
             continue
+        glob, seen = ":glob:" in lines, {docname}
         for ln in lines:
             if ln.startswith(":"):
                 continue
             target = re.sub(r"^[^<]*<([^>]+)>$", r"\1", ln).strip()
-            if "*" in target or target == "self" or "://" in target:
+            if target == "self" or "://" in target:
                 continue
-            out.append(absolute_doc(docname, target))
+            if "*" in target or "?" in target:
+                if glob:
+                    pat = _glob(absolute_doc(docname, target))
+                    hits = [d for d in sorted(_all_docs() if all_docs is None else all_docs)
+                            if pat.match(d) and d not in seen]
+                    seen.update(hits)
+                    out += hits
+                continue
+            doc = absolute_doc(docname, target)
+            seen.add(doc)
+            out.append(doc)
     return out
 
 

@@ -57,7 +57,7 @@ Gestión beyond what the :difiere: notice points to.>
 | Administration and developer prose | No official Spanish exists: translate every paragraph, in neutral impersonal Spanish. UI labels are the shipped interface's Spanish (`{guilabel}`, backed by the catalog the gate reads). |
 | Section titles | Spanish. Same count, order and relative depth as upstream. The body's first level is `###` on a single-document page. |
 | `.. _label:` | `(nc-label)=` on its own line, right before the heading it labels (label lower-case, verbatim). |
-| `:doc:\`x\`` / `:ref:\`x\`` | `{nc-doc}\`<absolute docname>\`` / `{nc-ref}\`<label>\``, with Spanish link text when upstream gives text: `{nc-ref}\`Texto <label>\``. A bare `:doc:` stays bare: the build writes the target's Spanish title. |
+| `:doc:\`x\`` / `:ref:\`x\`` | `{nc-doc}\`<absolute docname>\`` / `{nc-ref}\`<label>\``, with Spanish link text when upstream gives text: `{nc-ref}\`Texto <label>\``. A bare `:doc:` or `:ref:` stays bare: the build writes the target page's or section's Spanish title. |
 | External link `` `text <url>`_ `` | A Markdown link (Spanish text, same URL), URL byte-identical. |
 | Named reference `` `Name`_ `` with its `.. _Name: url` target | A reference link `[texto][Name]`, with `[Name]: url` at the end of the block. URL byte-identical. |
 | A bare URL in prose or in a table cell | An autolink `<url>`, byte-identical: the site has no linkify, so a bare URL renders as plain text (the gate rejects it). |
@@ -84,7 +84,7 @@ Gestión beyond what the :difiere: notice points to.>
 | `.. note::` / `warning` / `tip` / `important` / `hint` / `danger` / `seealso` | `:::{note}` … `:::` (same kind, colon fence), translated. No headings inside. |
 | Tables (`list-table`, grid, simple) | A Markdown pipe table, or `:::{list-table}`. Cells translated, literals verbatim. |
 | `.. figure::`, `.. image::` | Dropped; they show the Nextcloud logo. A caption that carries information becomes a sentence. When the text around the image points at it («this page», «here», «below», «as shown»), its caption or alt text becomes one short sentence saying what the screen shows, so the pointer still lands. An image with no alt text and no caption gives nothing to say: the lead-in just ends in «.». |
-| `.. toctree::` | A bullet list of bare `{nc-doc}` links, one per entry, in upstream order: ``- {nc-doc}`user_manual/talk/call` ``. Upstream renders a toctree as that list on the page; the build writes each target's Spanish title once it is woven (the brief lists the entries). A `:hidden:` toctree shows nothing upstream: drop it. |
+| `.. toctree::` | A bullet list of bare `{nc-doc}` links, one per entry, in upstream order: ``- {nc-doc}`user_manual/talk/call` ``. Upstream renders a toctree as that list on the page; the build writes each target's Spanish title once it is woven (the brief lists the entries). A `:hidden:` toctree shows nothing upstream: drop it. Under `:glob:`, a pattern (`*`, `*/index`) lists every matching document as Sphinx does: sorted, minus the page itself and entries already listed (the brief expands it). |
 | `|version|` and other substitutions | The resolved value (the suite's major, e.g. `34`). |
 | `.. include::`, `.. literalinclude::`, anything else unknown | Do not guess. Name it under **gaps** in your result. |
 | The word «Nextcloud» | Keep it exactly as upstream writes it. The build renames it site-wide; never rename by hand. |
