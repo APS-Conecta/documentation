@@ -25,11 +25,13 @@ VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "met
 
 class Reader(HTMLParser):
     """Collects visible text outside skipped contexts. A link INTO an exempt page (the legal
-    notice) is skipped too: the navigation repeats that page's headings, which name the origin."""
+    notice) is skipped too: the navigation repeats that page's headings, which name the origin.
+    So is a link whose text is its own URL (an autolink)."""
 
     def __init__(self, exempt: tuple[str, ...] = (), cfg: dict | None = None):
         super().__init__(convert_charrefs=True)
         self.stack, self.text, self.exempt, self.cfg = [], [], exempt, cfg
+        self.hrefs: list[str | None] = []
 
     def handle_starttag(self, tag, attrs):
         if tag in VOID:
@@ -40,13 +42,16 @@ class Reader(HTMLParser):
         into_exempt = tag == "a" and any(href.endswith(e) for e in self.exempt)
         vendor = "vendor" in classes or (tag == "a" and u.vendor_link(attrs.get("href") or "", self.cfg))
         self.stack.append(tag in SKIP_TAGS or "atribucion" in classes or into_exempt or vendor)
+        self.hrefs.append(attrs.get("href") if tag == "a" else None)
 
     def handle_endtag(self, tag):
         if tag not in VOID and self.stack:
             self.stack.pop()
+            self.hrefs.pop()
 
     def handle_data(self, data):
-        if not any(self.stack):
+        # an autolink shows its own URL: URL text, which the build never renames (rebrand.py)
+        if not any(self.stack) and not (self.hrefs and self.hrefs[-1] == data.strip()):
             self.text.append(data)
 
 
