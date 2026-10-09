@@ -650,6 +650,23 @@ class FilesGroupwareAuditTest(unittest.TestCase):
         self.assertEqual(fidelity.check_block(blk, "usuario/archivos/x.md", up, cat, CFG, ui={})[0], [])
 
 
+class LdapDocTest(unittest.TestCase):
+    """admin-manual-configuration-user-1 (user_auth_ldap): two places the gate read RST unlike docutils."""
+
+    def test_a_markdown_fence_in_rst_is_one_inline_literal(self):
+        # docutils reads ```\nTLS_REQCERT ALLOW\n``` as the literal «` TLS_REQCERT ALLOW `»
+        rst = "* Add this line:\n\n  ```\n  TLS_REQCERT ALLOW\n  ```\n\nNext ``occ``.\n"
+        self.assertEqual(u.rst_inline_literals(rst), ["` TLS_REQCERT ALLOW `", "occ"])
+        page = "- Añadir esta línea:\n\n  `` ` TLS_REQCERT ALLOW ` ``\n\nLuego `occ`.\n"
+        self.assertEqual(u.myst_inline_literals(page), ["` TLS_REQCERT ALLOW `", "occ"])
+
+    def test_an_embedded_url_split_across_lines_is_one_url(self):
+        rst = "This is described `here <https://a.example/q/1/what-are\n-required/2#2>`_.\n"
+        self.assertEqual(u.rst_links(rst), {"https://a.example/q/1/what-are-required/2#2"})
+        two = "See `the long\nguide <https://a.example/x\n-y>`_ and `this <https://b.example/z>`_.\n"
+        self.assertEqual(u.rst_links(two), {"https://a.example/x-y", "https://b.example/z"})
+
+
 class RenderTest(unittest.TestCase):
     """The block renders in source order: attribution, then its text, then its subsections."""
 

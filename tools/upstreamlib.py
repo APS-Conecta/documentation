@@ -199,7 +199,8 @@ def leftovers(text: str, cfg: dict | None = None) -> list[str]:
 ADORN = re.compile(r"^([=\-~^\"'`#*+_:.<>])\1{2,}\s*$")
 LABEL = re.compile(r"^\.\.\s+_([^:`]+):\s*$")
 RST_CODE_DIRECTIVE = re.compile(r"^(\s*)\.\.\s+(?:code-block|code|sourcecode)::.*$")
-RST_INLINE_LITERAL = re.compile(r"``((?:[^\n]|\n(?!\s*\n))+?)``")  # may wrap a line, never a paragraph
+# may wrap a line, never a paragraph; it closes on a «``» no backtick follows, as docutils does
+RST_INLINE_LITERAL = re.compile(r"``((?:[^\n]|\n(?!\s*\n))+?)``(?!`)")
 RST_EXT_LINK = re.compile(r"`[^`<]*<(https?://[^>]+)>`__?")
 RST_NAMED_TARGET = re.compile(r"^\.\. _[^:\n]+:\s*(https?://\S+)\s*$", re.M)
 URL = re.compile(r"https?://[^\s<>`\"')\]]+")
@@ -386,7 +387,9 @@ def _urls(paragraphs: list[str]) -> set[str]:
 
 
 def rst_links(text: str) -> set[str]:
-    """External URLs: `text <url>`_, named targets (`.. _Name: url`) and bare URLs in prose."""
+    """External URLs: `text <url>`_, named targets (`.. _Name: url`) and bare URLs in prose.
+    An embedded URL that wraps a line is one URL: docutils drops the line break."""
+    text = RST_EXT_LINK.sub(lambda m: m.group(0).replace(m.group(1), re.sub(r"\s+", "", m.group(1))), text)
     return (
         set(RST_EXT_LINK.findall(text))
         | set(RST_NAMED_TARGET.findall(text))
@@ -502,7 +505,9 @@ BLOCK_ARG = re.compile(
     r"@(?P<sha>[0-9a-f]{7,40})(?:#(?P<anchor>[A-Za-z0-9_.-]+))?$"
 )
 MYST_HEADING = re.compile(r"^(#{1,6})\s+(.+?)\s*#*\s*$")
-MYST_SPAN = re.compile(r"(\{[\w-]+\})?(?<!`)`((?:[^`\n]|\n(?!\s*\n))+?)`(?!`)")  # a role or a code span; may wrap a line
+# a role or a code span, opened and closed by the same run of one or two backticks (CommonMark:
+# ``` `` ` x ` `` ``` holds a backtick); may wrap a line
+MYST_SPAN = re.compile(r"(\{[\w-]+\})?(?<!`)(``?)(?!`)((?:[^\n]|\n(?!\s*\n))+?)(?<!`)\2(?!`)")
 MYST_ROLE = re.compile(r"\{nc-(doc|ref)\}`(?:[^`<]*<([^>]+)>|([^`]+))`")
 MYST_LABEL = re.compile(r"^\(nc-([^)]+)\)=\s*$")
 
@@ -653,7 +658,7 @@ def myst_inline_literals(content: str) -> list[str]:
     a code span (`Call {user}`) can never open a role."""
     return [
         " ".join(code.split())
-        for role, code in MYST_SPAN.findall(_without_fences(content))
+        for role, _, code in MYST_SPAN.findall(_without_fences(content))
         if not role
     ]
 
