@@ -590,6 +590,28 @@ class UiLabelTest(unittest.TestCase):
         page = "Hacer clic en `Start call`, luego en `Settings -> Updates` y `occ`. Marcar \"Start recording\".\n"
         self.assertTrue(any("Empezar a grabar" in f for f in self.check(page)))
 
+class ConfigServer2Test(unittest.TestCase):
+    """admin-manual-configuration-server-2: three gate defects its reviewer proved."""
+
+    def test_a_quoted_literal_block_is_code(self):
+        # RST: after «::», an unindented block whose lines start with the same punctuation is literal
+        rst = "Check the port::\n\n# netstat -pant\n# ss -tlnp\n\nThen continue.\n"
+        self.assertEqual(u.rst_code_blocks(rst), ["# netstat -pant\n# ss -tlnp"])
+        self.assertNotIn("netstat", " ".join(u.rst_paragraphs(rst)))
+        plain = "Not literal::\n\nPlain text follows.\n"
+        self.assertEqual(u.rst_code_blocks(plain), [])
+
+    def test_a_url_in_strong_emphasis_ends_before_the_stars(self):
+        rst = "Served at **https://example.com/nextcloud**, behind a proxy.\n"
+        self.assertEqual(u.rst_links(rst), {"https://example.com/nextcloud"})
+        self.assertEqual(u.myst_links("Servido en **<https://example.com/nextcloud>**.\n"), {"https://example.com/nextcloud"})
+
+    def test_a_path_component_keeps_its_name(self):
+        # desktop-2: *$HOME/.config/Nextcloud/nextcloud.cfg* rendered a path that does not exist
+        self.assertEqual(u.rename("Borrar $HOME/.config/Nextcloud/nextcloud.cfg y %APPDATA%\\Nextcloud\\x de Nextcloud.", CFG),
+                         "Borrar $HOME/.config/Nextcloud/nextcloud.cfg y %APPDATA%\\Nextcloud\\x de APS Conecta Gestión.")
+
+
 class RenderTest(unittest.TestCase):
     """The block renders in source order: attribution, then its text, then its subsections."""
 

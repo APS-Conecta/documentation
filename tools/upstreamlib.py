@@ -15,6 +15,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import string
 import subprocess
 import tarfile
 from functools import lru_cache
@@ -166,7 +167,8 @@ def _rename_re(cfg: dict) -> re.Pattern:
         for k in keep
         if k.startswith(cfg["rename"]["from"])
     )
-    return re.compile(rf"\b{word}\b{guard}")
+    # a path component keeps its name: $HOME/.config/Nextcloud/ is where the client really writes
+    return re.compile(rf"(?<![/\\])\b{word}\b(?![/\\]){guard}")
 
 
 def rename(text: str, cfg: dict | None = None) -> str:
@@ -310,6 +312,23 @@ def _indented_block(lines: list[str], i: int) -> tuple[list[str], int]:
     return block, j
 
 
+def _quoted_block(lines: list[str], i: int) -> tuple[list[str], int]:
+    """RST quoted literal block after line i's «::»: unindented contiguous lines that all start
+    with the same punctuation character («# netstat -pant»). Docutils renders it as code."""
+    pad = lines[i][: len(lines[i]) - len(lines[i].lstrip())]
+    j = i + 1
+    while j < len(lines) and not lines[j].strip():
+        j += 1
+    lead = lines[j][len(pad) : len(pad) + 1] if j < len(lines) and lines[j].startswith(pad) else ""
+    if not lead or lead not in string.punctuation:
+        return [], i + 1
+    block = []
+    while j < len(lines) and lines[j].startswith(pad + lead):
+        block.append(lines[j][len(pad) :])
+        j += 1
+    return block, j
+
+
 RST_COMMENT = re.compile(r"^\s*\.\.(\s|$)")  # explicit markup; «...» opening a sentence is prose
 
 
@@ -330,6 +349,8 @@ def _rst_code_ranges(text: str) -> list[tuple[int, int, list[str]]]:
             continue
         if ln.rstrip().endswith("::") and not RST_COMMENT.match(ln):
             block, nxt = _indented_block(lines, i)
+            if not block:
+                block, nxt = _quoted_block(lines, i)
             if block:
                 out.append((i + 1, nxt, block))
                 i = nxt
@@ -361,7 +382,7 @@ def _without_code_blocks_rst(text: str) -> str:
 
 def _urls(paragraphs: list[str]) -> set[str]:
     """Every http(s) URL in prose: inline, embedded, autolinked or bare (trailing punctuation off)."""
-    return {m.rstrip(".,;:") for p in paragraphs for m in URL.findall(p)}
+    return {m.rstrip(".,;:*") for p in paragraphs for m in URL.findall(p)}  # «**url**»: stars are markup
 
 
 def rst_links(text: str) -> set[str]:
@@ -616,7 +637,7 @@ def bare_urls(content: str) -> list[str]:
     text = re.sub(r"\]\(https?://[^)\s]*\)", "]", text)  # [text](url)
     text = re.sub(r"(?m)^\[[^\]\n]+\]:\s*\S+", " ", text)  # [Name]: url
     # a host never starts with «[» or «<»: `http://[user@pass:]<server>` is an argument shape
-    return [m.rstrip(".,;:") for m in URL.findall(text) if re.match(r"https?://\w", m)]
+    return [m.rstrip(".,;:*") for m in URL.findall(text) if re.match(r"https?://\w", m)]
 
 
 def myst_headings(content: str) -> list[tuple[int, str]]:
