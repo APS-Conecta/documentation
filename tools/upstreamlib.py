@@ -378,11 +378,18 @@ def rst_inline_literals(text: str) -> list[str]:
     return [" ".join(x.split()) for x in RST_INLINE_LITERAL.findall(_without_code_blocks_rst(text))]
 
 
+DROPPED_DIRECTIVE = re.compile(r"^(\s*)\.\.\s+(?:mermaid|graphviz|raw)::")
+
+
 def _without_code_blocks_rst(text: str) -> str:
-    """The text with every code line blanked in place (line count and paragraph breaks kept)."""
+    """The text with every code line blanked in place (line count and paragraph breaks kept),
+    and the bodies of the directives the contract drops (diagrams, raw HTML): neither is prose."""
     lines = text.split("\n")
     for start, end, _ in _rst_code_ranges(text):
         lines[start:end] = [""] * (end - start)
+    for i in [i for i, ln in enumerate(lines) if DROPPED_DIRECTIVE.match(ln)]:
+        _, end = _indented_block(lines, i)
+        lines[i:end] = [""] * (end - i)
     return "\n".join(lines)
 
 
@@ -398,7 +405,8 @@ def rst_links(text: str) -> set[str]:
     return (
         set(RST_EXT_LINK.findall(text))
         | set(RST_NAMED_TARGET.findall(text))
-        | _urls(rst_paragraphs(text))
+        # an embedded URL is read whole above; its «)» or «#…» never reaches the bare-URL scan
+        | _urls(rst_paragraphs(re.sub(r"<https?://[^>]+>", " ", text)))
     )
 
 
@@ -700,7 +708,9 @@ def myst_inline_literals(content: str) -> list[str]:
 def myst_links(content: str) -> set[str]:
     """External URLs anywhere outside code fences: [text](url), <url>, reference definitions,
     table cells and bare URLs."""
-    return _urls([_without_fences(content)])
+    text = _without_fences(content)
+    # inside <…> a URL is whole, «)» included (…#L52-L74)); bare URLs end at markup
+    return set(re.findall(r"<(https?://[^>\s]+)>", text)) | _urls([re.sub(r"<https?://[^>\s]+>", " ", text)])
 
 
 def myst_xrefs(content: str) -> list[tuple[str, str]]:
