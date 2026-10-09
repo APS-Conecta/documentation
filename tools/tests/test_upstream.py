@@ -795,6 +795,32 @@ class DocJoinTest(unittest.TestCase):
         self.assertEqual(u.absolute_doc("admin_manual/x/y", "/a/b"), "admin_manual/a/b")
 
 
+class W6GateTest(unittest.TestCase):
+    """admin-manual-desktop-1 and -release-notes-1: three readings unlike docutils/Sphinx."""
+
+    def test_a_short_overline_is_not_a_title(self):
+        # docutils: an overline shorter than 4 characters and than the text is text (short_overline)
+        rst = "Title\n=====\n\nPart\n----\n\nRun:\n\n```\nnextcloud --logdir /tmp/logs\n```\n\nDone.\n"
+        self.assertEqual([t for _, t, _ in u.rst_headings(rst)], ["Title", "Part"])
+
+    def test_a_toctree_entry_may_carry_its_suffix(self):
+        rst = "Notes\n=====\n\n.. toctree::\n\n   upgrade_to_33.rst\n   upgrade_to_32\n"
+        self.assertEqual(u.rst_toctree(rst, "admin_manual/release_notes/index"),
+                         ["admin_manual/release_notes/upgrade_to_33", "admin_manual/release_notes/upgrade_to_32"])
+
+    def test_code_is_not_english_prose(self):
+        # issues-1: a line block holding one SQL literal read as untranslated prose
+        sql = "`DELETE FROM oc_cards_properties WHERE name = 'CLOUD' AND addressbookid = (select id from oc_addressbooks where principaluri = 'principals/system/system')`"
+        self.assertFalse(u.reads_english(sql))
+        self.assertTrue(u.reads_english("Click the {guilabel}`Save` button and then go to the settings of the app."))
+        # an all-caps keyword (an SMTP header) is not English prose
+        self.assertFalse(u.reads_english("Dirección FROM que sustituye a las direcciones FROM integradas `a@b.c` y `d@e.f`."))
+
+    def test_a_bare_doc_link_list_is_not_english(self):
+        page = "- {nc-doc}`admin_manual/release_notes/upgrade_to_33`\n- {nc-doc}`admin_manual/release_notes/upgrade_to_32`\n"
+        self.assertFalse(u.reads_english(u.plain(page)))
+
+
 class BareRefTitleTest(unittest.TestCase):
     """configuration_server audit: a bare :ref: showed its raw label, so translators invented text."""
 
@@ -825,13 +851,15 @@ class BareRefTitleTest(unittest.TestCase):
             )
             (src / "uno.md").write_text(
                 "# Uno\n\n## Resumen\n\n````{upstream} admin_manual/x.rst@3ad9158\nTexto.\n\n"
-                "(nc-use_https_label)=\n#### Usar HTTPS\n\nMás texto.\n````\n", encoding="utf-8")
+                "(nc-use_https_label)=\n#### Usar HTTPS en Nextcloud\n\nMás texto.\n````\n", encoding="utf-8")
             app = Sphinx(str(src), str(src), str(src / "_out"), str(src / "_dt"),
                          "html", status=None, warning=None, freshenv=True)
             app.build()
             html = (src / "_out" / "index.html").read_text(encoding="utf-8")
             links = re.findall(r'<a class="reference external" href="([^"]+)"[^>]*>(.*?)</a>', html)
-            self.assertEqual([re.sub(r"<[^>]+>", "", t).strip() for _, t in links], ["Usar HTTPS", "Texto propio"])
+            # the std domain records the title before the rename: the link text is renamed here
+            self.assertEqual([re.sub(r"<[^>]+>", "", t).strip() for _, t in links],
+                             ["Usar HTTPS en APS Conecta Gestión", "Texto propio"])
 
 
 class DifiereLinkTest(unittest.TestCase):

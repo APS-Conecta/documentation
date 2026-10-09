@@ -218,6 +218,8 @@ def _rst_titles(text: str):
             and lines[i + 1].strip()
             and ADORN.match(lines[i + 2])
             and lines[i + 2][0] == lines[i][0]
+            # docutils: an overline under 4 characters and shorter than the text is text («```»)
+            and (len(lines[i].strip()) >= 4 or len(lines[i].strip()) >= len(lines[i + 1].strip()))
         ):
             yield "o" + lines[i][0], lines[i + 1].strip(), i + 1
             i += 3
@@ -433,7 +435,7 @@ def rst_toctree(text: str, docname: str, all_docs: list[str] | None = None) -> l
         for ln in lines:
             if ln.startswith(":"):
                 continue
-            target = re.sub(r"^[^<]*<([^>]+)>$", r"\1", ln).strip()
+            target = re.sub(r"\.rst$", "", re.sub(r"^[^<]*<([^>]+)>$", r"\1", ln).strip())  # Sphinx drops the suffix
             if target == "self" or "://" in target:
                 continue
             if "*" in target or "?" in target:
@@ -749,6 +751,7 @@ def plain(text: str) -> str:
     )  # :role:`text <target>`
     t = re.sub(r":(?:[\w-]+:)?[\w-]+:`([^`]+)`", r"\1", t)  # :role:`text`
     t = re.sub(r"\{[\w-]+\}`([^`<]*?)\s*<[^>]+>`", r"\1", t)  # {role}`text <target>`
+    t = re.sub(r"\{nc-(?:doc|ref)\}`[^`<]+`", "", t)  # a bare link shows its target's title, not this
     t = re.sub(r"\{[\w-]+\}`([^`]+)`", r"\1", t)  # {role}`text`
     t = re.sub(r"`([^`<]*?)\s*<[^>]+>`__?", r"\1", t)  # `text <url>`_
     t = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", t)  # [text](url)
@@ -795,8 +798,11 @@ EN_STOPWORDS = {
 def reads_english(paragraph: str) -> bool:
     """Untranslated prose: English stopwords ≥ 15 % of 8+ words. A message in «…» is not prose:
     upstream quotes some UI and error strings in English only, and the contract puts them there."""
-    text = re.sub(r"«[^»]*»", " ", plain(paragraph))
-    words = re.findall(r"[a-záéíóúñü]+", text.lower())
+    # code is not prose: drop code spans (a role's text stays), then quoted messages
+    code_free = MYST_SPAN.sub(lambda m: m.group(0) if m.group(1) else " ", paragraph)
+    text = re.sub(r"«[^»]*»", " ", plain(code_free))
+    # an all-caps token (FROM, SQL, URL) is a keyword or acronym, not English prose
+    words = [w.lower() for w in re.findall(r"[A-Za-zÁÉÍÓÚÑÜáéíóúñü]+", text) if not (len(w) > 1 and w.isupper())]
     if len(words) < 8:
         return False
     return sum(w in EN_STOPWORDS for w in words) / len(words) >= 0.15

@@ -132,7 +132,7 @@ def _labels(app) -> dict:
 
 
 def resolve(app, doctree, fromdocname):
-    env, builder = app.env, app.builder
+    env, builder, cfg = app.env, app.builder, u.config()
     blocks = env.domaindata.get("upstream", {}).get("blocks", {})
     std_labels = env.domaindata["std"]["labels"]
     for ref in list(doctree.findall(nodes.reference)):
@@ -171,7 +171,8 @@ def resolve(app, doctree, fromdocname):
                     builder.get_relative_uri(fromdocname, page) + f"#{anchor}"
                 )
                 if ref.get("nc_auto_title") and section:
-                    ref.children = [nodes.Text(section)]
+                    # the std domain records the title before rebrand.py renames it
+                    ref.children = [nodes.Text(u.rename(section, cfg))]
             elif target in _labels(app):
                 doc, anchor = _labels(app)[target]
                 ref["refuri"] = u.external_url(doc, anchor)
