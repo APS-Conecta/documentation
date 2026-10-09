@@ -512,6 +512,19 @@ class CodeByPositionTest(unittest.TestCase):
         self.assertEqual(u.rst_inline_literals(rst), ["[Install]", "freshclam"])
         self.assertNotIn("WantedBy=timers.target", " ".join(u.rst_paragraphs(rst)))
 
+    def test_any_docutils_adornment_marks_a_section(self):
+        # developer calendar_provider: «!!!!» subsections; docutils takes any non-alphanumeric
+        # printable ASCII character as an adornment
+        rst = "Top\n===\n\nSub\n---\n\nHelper\n!!!!!!\n\nText.\n\nOther\n!!!!!\n\nDeep\n$$$$\n\nMore.\n"
+        self.assertEqual([lv for lv, _, _ in u.rst_headings(rst)], [1, 2, 3, 3, 4])
+
+    def test_a_backtick_adornment_is_not_a_literal(self):
+        # developer basics/events underlines titles with backticks
+        rst = "Naming scheme\n`````````````\n\nSuffix with ``Event``.\n\n```\nremote.php/comments\n```\n"
+        # the Markdown fence (WebDAV/comments) stays the one literal docutils renders
+        self.assertEqual(u.rst_inline_literals(rst), ["Event", "` remote.php/comments `"])
+        self.assertEqual([t for _, t, _ in u.rst_headings(rst)], ["Naming scheme"])
+
     def test_a_literal_may_wrap_a_line(self):
         rst = "``man clamd.conf`` and ``man\nfreshclam.conf`` explain all the options. Refer to ``/etc/passwd``.\n"
         self.assertEqual(u.rst_inline_literals(rst), ["man clamd.conf", "man freshclam.conf", "/etc/passwd"])
