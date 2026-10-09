@@ -120,6 +120,22 @@ linkcheck_ignore += (
 )
 
 
+# linkcheck: el texto tejido de Nextcloud cita miles de URL de terceros que deben quedar byte a byte
+# (fidelidad). Mantenerlas vivas es tarea de upstream, y su disponibilidad (límites de tasa, muros
+# anti-bots, enlaces rotos) no debe frenar la fusión de un lote. linkcheck omite las URL que solo
+# aparecen dentro de bloques {upstream}, la línea «Fuente» (enlace a GitHub por SHA, que
+# upstream-fidelity ya prueba) y el respaldo a docs.nextcloud.com de los documentos aún no tejidos.
+# Toda URL que escribe la prosa de APS se sigue comprobando.
+_sys.path.insert(0, _os.path.join(_os.path.dirname(__file__), 'tools'))
+import re as _re
+import upstreamlib as _upstreamlib
+
+_pages = [_p.read_text(encoding='utf-8') for _d in ('usuario', 'administracion', 'desarrollo', 'proyecto')
+          for _p in _Path(__file__).with_name(_d).rglob('*.md')]
+linkcheck_ignore += [_re.escape(_url) + '$' for _url in sorted(_upstreamlib.woven_urls(_pages))]
+linkcheck_ignore += [r'https://github\.com/nextcloud/documentation/blob/[0-9a-f]{40}/',
+                     r'https://docs\.nextcloud\.com/server/\d+/']
+
 # linkcheck: GitHub arma las anclas de un README o un archivo con JavaScript, así que una URL
 # github.com/...#seccion nunca muestra su ancla a un GET (falso «Anchor not found»). La URL sí
 # se comprueba; solo se omite el ancla. Los textos tejidos de Nextcloud citan anclas de README
