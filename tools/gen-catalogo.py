@@ -69,7 +69,10 @@ KIND_ES = {
 }
 REQUIRED = ("repo", "kind", "role", "manuals", "depends_on", "status")
 OPTIONAL = ("version", "soft_depends_on", "readme")
-MANUAL_RE = re.compile(r"^(?:usuario|administracion|desarrollo|proyecto)/[a-z0-9-]+\.md$")
+MANUAL_RE = re.compile(r"^(?:usuario|administracion|desarrollo|proyecto)/(?:[a-z0-9-]+/)*[a-z0-9-]+\.md$")
+# Las filas cuyo cambio ve una persona usuaria o administradora llevan su página de
+# novedades (scribe Q4): la escribe 📚 Scribe; el catálogo garantiza que exista.
+NOVEDADES_KINDS = {"suite", "distribution-fork", "nextcloud-app"}
 OWN_APPS_RE = re.compile(r'^OWN_APPS="(.*)"$', re.M)
 SEMVER_RE = re.compile(r"^#{1,3}\s*\[?\s*v?(\d+(?:\.\d+){2}[0-9A-Za-z.+-]*)", re.M)
 
@@ -197,6 +200,9 @@ def parity(rows: list[dict]) -> set[str]:
 
 def check_manuals(rows: list[dict]) -> None:
     for row in rows:
+        novedades = f"proyecto/novedades/{row['repo'].lower()}.md"
+        if row["kind"] in NOVEDADES_KINDS and novedades not in row["manuals"]:
+            fail(f"fila {row['repo']}: falta su página de novedades {novedades} en manuals")
         for page in row["manuals"]:
             if not MANUAL_RE.match(page):
                 fail(f"fila {row['repo']}: manual mal formado: {page!r}")
