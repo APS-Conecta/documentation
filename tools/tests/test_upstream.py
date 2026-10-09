@@ -9,6 +9,8 @@ import sys
 import unittest
 from pathlib import Path
 
+from docutils import nodes
+
 TOOLS = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(TOOLS))
 import upstreamlib as u  # noqa: E402
@@ -324,6 +326,115 @@ class FidelityTest(unittest.TestCase):
             CFG,
         )
         self.assertEqual(ok, [])
+
+
+SHARING = """\
+==============
+File sharing
+==============
+
+Share files with others.
+
+Public links
+------------
+
+Go to your ``Files`` page.
+
+==============
+Federated shares
+==============
+
+Share across servers.
+
+Creating
+--------
+
+Open the sidebar.
+"""
+
+SHARING_PAGE = """\
+### Enlaces públicos
+
+Vaya a su página de `Archivos`.
+
+## Recursos compartidos en federación
+
+Compartir entre servidores.
+
+### Crear
+
+Abrir la barra lateral.
+"""
+
+
+OFFICIAL = {"Go to your ``Files`` page.": "Vaya a su página de ``Archivos``."}
+
+
+class PilotTest(unittest.TestCase):
+    """What the first weave batches (user-manual-talk-3, user-manual-files-2) found in the gate."""
+
+    def sharing(self, content, catalog):
+        return fidelity.check_block(
+            block("Compartir archivos con otras personas.\n\n" + content,
+                  "user_manual/files/sharing.rst@3ad9158"),
+            "usuario/archivos/sharing.md", SHARING, catalog, CFG,
+        )[0]
+
+    def test_an_official_section_title_is_a_heading(self):
+        found, _ = self.check_title()
+        self.assertEqual(found, [])
+
+    def check_title(self):
+        return fidelity.check_block(
+            block(GOOD.replace("### Navegar", "### Navegación")),
+            "usuario/interfaz-web.md", UPSTREAM,
+            dict(CATALOG, Navigating="Navegación"), CFG,
+        )
+
+    def test_levels_rank_styles_over_the_whole_document(self):
+        # «Federated shares» reuses the title's overline: a sibling of the title, above «Public links».
+        self.assertEqual(self.sharing(SHARING_PAGE, OFFICIAL), [])
+        flat = SHARING_PAGE.replace("## Recursos", "### Recursos")
+        self.assertTrue(any("headings" in f for f in self.sharing(flat, OFFICIAL)))
+
+    def test_an_official_msgstr_may_translate_a_literal(self):
+        self.assertEqual(self.sharing(SHARING_PAGE, OFFICIAL), [])
+        # without the official string the literal stays byte-identical
+        self.assertTrue(any("inline literals" in f for f in self.sharing(SHARING_PAGE, {})))
+
+
+class RenderTest(unittest.TestCase):
+    """The block renders in source order: attribution, then its text, then its subsections."""
+
+    def test_attribution_and_intro_precede_the_subsections(self):
+        import tempfile
+        from sphinx.application import Sphinx
+
+        with tempfile.TemporaryDirectory() as tmp:
+            src = Path(tmp)
+            (src / "conf.py").write_text(
+                "import sys\n"
+                f"sys.path.insert(0, {str(TOOLS.parent / '_ext')!r})\n"
+                "extensions = ['myst_parser', 'upstream']\n"
+                "myst_enable_extensions = ['colon_fence']\n",
+                encoding="utf-8",
+            )
+            (src / "index.md").write_text(
+                "# Página\n\n## Resumen\n\nResumen.\n\n"
+                "````{upstream} user_manual/files/sharing.rst@3ad9158\n"
+                "Texto inicial.\n\n### Sección\n\nTexto de la sección.\n````\n",
+                encoding="utf-8",
+            )
+            app = Sphinx(str(src), str(src), str(src / "_out"), str(src / "_dt"),
+                         "dummy", status=None, warning=None, freshenv=True)
+            app.build()
+            resumen = app.env.get_doctree("index").next_node(nodes.section).next_node(nodes.section)
+            kinds = [
+                "atribucion" if "atribucion" in c.get("classes", []) else c.tagname
+                for c in resumen.children
+                if c.tagname != "target"
+            ]
+            self.assertEqual(kinds, ["title", "paragraph", "atribucion", "paragraph", "section"])
 
 
 class CatalogTest(unittest.TestCase):

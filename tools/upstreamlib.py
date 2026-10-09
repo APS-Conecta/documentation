@@ -177,11 +177,9 @@ RST_EXT_LINK = re.compile(r"`[^`<]*<(https?://[^>]+)>`__?")
 RST_ROLE = re.compile(r":(doc|ref):`(?:[^`<]*<([^>]+)>|([^`]+))`")
 
 
-def rst_headings(text: str) -> list[tuple[int, str, int]]:
-    """(level, title, line index) per section title; levels follow the order adornment styles
-    first appear in the document, as docutils assigns them."""
-    lines, styles, out = text.split("\n"), [], []
-    i = 0
+def _rst_titles(text: str):
+    """(adornment style, title, line index) per section title: "o=" overlined, "u-" underlined."""
+    lines, i = text.split("\n"), 0
     while i < len(lines) - 1:
         over = ADORN.match(lines[i])
         if (
@@ -191,20 +189,35 @@ def rst_headings(text: str) -> list[tuple[int, str, int]]:
             and ADORN.match(lines[i + 2])
             and lines[i + 2][0] == lines[i][0]
         ):
-            style, title, at, i = "o" + lines[i][0], lines[i + 1].strip(), i + 1, i + 3
+            yield "o" + lines[i][0], lines[i + 1].strip(), i + 1
+            i += 3
         elif (
             lines[i].strip()
             and not lines[i].startswith((" ", "\t", ".."))
-            and (m := ADORN.match(lines[i + 1]))
+            and ADORN.match(lines[i + 1])
             and len(lines[i + 1].rstrip()) >= len(lines[i].rstrip())
         ):
-            style, title, at, i = "u" + lines[i + 1][0], lines[i].strip(), i, i + 2
+            yield "u" + lines[i + 1][0], lines[i].strip(), i
+            i += 2
         else:
             i += 1
-            continue
-        if style not in styles:
-            styles.append(style)
-        out.append((styles.index(style) + 1, title, at))
+
+
+def rst_styles(text: str) -> list[str]:
+    """The adornment styles in the order they first appear — docutils' section ranks."""
+    return list(dict.fromkeys(style for style, _, _ in _rst_titles(text)))
+
+
+def rst_headings(text: str, styles: list[str] | None = None) -> list[tuple[int, str, int]]:
+    """(level, title, line index) per section title, ranked by `styles` (default: the order the
+    styles first appear in `text`). Rank a section with its whole document's `rst_styles`: a
+    section alone can meet its styles in another order than docutils does."""
+    order = list(styles or [])
+    out = []
+    for style, title, at in _rst_titles(text):
+        if style not in order:
+            order.append(style)
+        out.append((order.index(style) + 1, title, at))
     return out
 
 
