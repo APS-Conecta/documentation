@@ -106,10 +106,11 @@ def check_block(
             f"{doc}: inline literals differ from upstream (missing or altered: {sorted(diff)[:3]})"
         )
 
-    if u.rst_links(section) != u.myst_links(content):
+    up_links = u.rst_links(section, doc, cfg)
+    if up_links != u.myst_links(content):
         out.append(
-            f"{doc}: external links differ: missing {sorted(u.rst_links(section) - u.myst_links(content))[:3]}, "
-            f"extra {sorted(u.myst_links(content) - u.rst_links(section))[:3]}"
+            f"{doc}: external links differ: missing {sorted(up_links - u.myst_links(content))[:3]}, "
+            f"extra {sorted(u.myst_links(content) - up_links)[:3]}"
         )
     if Counter(u.rst_xrefs(section, doc)) != Counter(u.myst_xrefs(content)):
         out.append(
