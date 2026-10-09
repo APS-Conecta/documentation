@@ -169,6 +169,8 @@ class RenameTest(unittest.TestCase):
         )
         text = rebrand_check.visible_text(html)
         self.assertEqual(len(u.leftovers(text, CFG)), 1)
+        nav = '<a href="../aviso.html#origen">Origen: distribución derivada de Nextcloud</a><a href="x.html">Nextcloud</a>'
+        self.assertEqual(len(u.leftovers(rebrand_check.visible_text(nav, ("aviso.html",)), CFG)), 1)
 
 
 class RstTest(unittest.TestCase):

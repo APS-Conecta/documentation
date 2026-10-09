@@ -1,0 +1,61 @@
+# Componentes que distribuye APS Conecta Gestión (iniciativa scribe, Q14). Claves en inglés y
+# valores en español, como catalogo.yml.
+#
+# Una persona declara aquí lo que solo una persona sabe: de dónde viene cada componente, su
+# licencia (SPDX, leída del propio componente) y, si APS lo modifica, qué cambia. Lo demás lo
+# calcula tools/gen-componentes.py en cada compilación: la versión (compose.yaml, VENDOR), si un
+# componente vendorizado está modificado (hay archivos .patch junto a él) y el largo de la cola
+# de parches del fork de AIO. La compilación falla si gestion distribuye algo que no figura aquí,
+# o si aquí figura algo que gestion ya no distribuye.
+#
+# kind:
+#   image    imagen de contenedor de gestion compose.yaml; `id` = nombre de la imagen
+#   app      aplicación Nextcloud vendorizada en gestion provisioning/apps/<id>/
+#   own-app  aplicación propia de APS (repositorio de la organización), vendorizada igual
+#   fork     repositorio de la organización que bifurca un proyecto upstream; `id` = repositorio
+#   asset    archivo de terceros que sirve el tema; `id` = ruta en gestion
+#   data     datos de terceros que distribuye la suite; `id` = ruta en gestion
+#
+# AIO: el LICENSE upstream es la AGPL v3 sin cláusula «o posterior» (GitHub la detecta como AGPL-3.0,
+# que en SPDX equivale a AGPL-3.0-only). Upstreams de eurooffice e IntraVox leídos del info.xml del
+# tarball y del padre del fork en GitHub (2026-10-09).
+#
+# Fuente de las licencias: gestion docs/LICENSING.md §3 (verificadas contra cada proyecto el
+# 2026-07-19 y 2026-07-30, y contra el info.xml de cada tarball) hasta que docs-es R4-k retire ese
+# archivo; desde entonces, este.
+
+components:
+  # ---- Servicios (imágenes oficiales, sin modificar)
+  - {name: Servidor Nextcloud, kind: image, id: nextcloud, upstream: "https://github.com/nextcloud/server", licence: AGPL-3.0-or-later}
+  - {name: PostgreSQL, kind: image, id: postgres, upstream: "https://www.postgresql.org/", licence: PostgreSQL}
+  - {name: Redis, kind: image, id: redis, upstream: "https://github.com/redis/redis", licence: AGPL-3.0-or-later, note: "Redis 8 ofrece tres licencias; APS Conecta elige la AGPL v3."}
+  - {name: Euro-Office (servidor de documentos), kind: image, id: ghcr.io/euro-office/documentserver, upstream: "https://github.com/Euro-Office/DocumentServer", licence: AGPL-3.0-only}
+
+  # ---- Aplicaciones Nextcloud de terceros (tarball vendorizado)
+  - {name: Carpetas de grupo, kind: app, id: groupfolders, upstream: "https://github.com/nextcloud/groupfolders", licence: AGPL-3.0-or-later}
+  - {name: Conector de Euro-Office, kind: app, id: eurooffice, upstream: "https://github.com/Euro-Office/eurooffice-nextcloud", licence: AGPL-3.0-only, changes: "Nombre de la sección de administración y nombre visible de la aplicación."}
+  - {name: Menú lateral, kind: app, id: side_menu, upstream: "https://gitnet.fr/deblan/side_menu", licence: AGPL-3.0-or-later}
+  - {name: Calendario, kind: app, id: calendar, upstream: "https://github.com/nextcloud/calendar", licence: AGPL-3.0-or-later}
+  - {name: Contactos, kind: app, id: contacts, upstream: "https://github.com/nextcloud/contacts", licence: AGPL-3.0-or-later}
+  - {name: Talk (conversación), kind: app, id: spreed, upstream: "https://github.com/nextcloud/spreed", licence: AGPL-3.0-or-later}
+  - {name: Escritorio (desktop_workspace), kind: app, id: desktop_workspace, upstream: "https://github.com/canisdata/desktop_workspace", licence: AGPL-3.0-or-later, changes: "Ruta del registro en los ajustes, errores que ya no se silencian, política de contenido sin HTTP, límites de tamaño de carga útil, documentación de la administración, pruebas fijadas, división del shell, del observador y del controlador, y código muerto eliminado."}
+  - {name: Notify Push, kind: app, id: notify_push, upstream: "https://github.com/nextcloud/notify_push", licence: AGPL-3.0-or-later}
+
+  # ---- Aplicaciones propias de APS Conecta
+  - {name: Epidemiología, kind: own-app, id: epidemiologia, upstream: "https://github.com/APS-Conecta/epidemiologia", licence: AGPL-3.0-or-later}
+  - {name: Farmacia, kind: own-app, id: farmacia, upstream: "https://github.com/APS-Conecta/farmacia", licence: AGPL-3.0-or-later}
+  - {name: Territorio, kind: own-app, id: territorio, upstream: "https://github.com/APS-Conecta/territorio", licence: AGPL-3.0-or-later}
+  - {name: Estadística, kind: own-app, id: estadistica, upstream: "https://github.com/APS-Conecta/estadistica", licence: AGPL-3.0-or-later}
+  - {name: Inicio (IntraVox), kind: own-app, id: intravox, upstream: "https://github.com/nextcloud/IntraVox", fork: "https://github.com/APS-Conecta/IntraVox", licence: AGPL-3.0-or-later, changes: "Fork con funciones locales: muros y páginas protegidas, portada de bienvenida administrada, raíz de almacenamiento con nombre para el personal y el idioma español por defecto (IntraVox ADR-0001)."}
+
+  # ---- Instalador
+  - {name: Nextcloud All-in-One (instalador), kind: fork, id: AIO, upstream: "https://github.com/nextcloud/all-in-one", fork: "https://github.com/APS-Conecta/AIO", licence: AGPL-3.0-only, changes: "Asistente en español de Chile con la marca y el nombre del producto, Euro-Office como única suite ofimática, tienda de aplicaciones, autoactualización y contenedores comunitarios desactivados, aplicaciones y tema horneados en la imagen, imágenes propias en el registro, valores por defecto de APS, certificado del instalador y la ruta del mapa base."}
+
+  # ---- Recursos del tema
+  - {name: Tipografía Fraunces, kind: asset, id: themes/apsconecta/core/fonts, upstream: "https://github.com/undercasetype/Fraunces", licence: OFL-1.1, changes: "Servida en WOFF2; un subconjunto va incrustado en los logotipos SVG (versión modificada según la OFL, sin los nombres reservados)."}
+  - {name: Tipografía Nunito Sans, kind: asset, id: themes/apsconecta/core/fonts, upstream: "https://github.com/googlefonts/NunitoSans", licence: OFL-1.1, changes: "Servida en WOFF2; un subconjunto va incrustado en los logotipos SVG (versión modificada según la OFL, sin los nombres reservados)."}
+  - {name: Leaflet, kind: asset, id: themes/apsconecta/core/mapa/leaflet.js, upstream: "https://github.com/Leaflet/Leaflet", licence: BSD-2-Clause, version: "1.9.4"}
+  - {name: protomaps-leaflet, kind: asset, id: themes/apsconecta/core/mapa/protomaps-leaflet.js, upstream: "https://github.com/protomaps/protomaps-leaflet", licence: BSD-3-Clause, version: "5.1.0"}
+
+  # ---- Datos
+  - {name: Registro de establecimientos (DEIS) con coordenadas del Geoportal de Chile, kind: data, id: sites, upstream: "https://deis.minsal.cl/", licence: "sin licencia declarada", note: "Datos públicos del MINSAL; crédito «Puntos: MINSAL/DEIS, Geoportal de Chile»."}

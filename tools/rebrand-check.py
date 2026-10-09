@@ -23,15 +23,21 @@ VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "met
 
 
 class Reader(HTMLParser):
-    def __init__(self):
+    """Collects visible text outside skipped contexts. A link INTO an exempt page (the legal
+    notice) is skipped too: the navigation repeats that page's headings, which name the origin."""
+
+    def __init__(self, exempt: tuple[str, ...] = ()):
         super().__init__(convert_charrefs=True)
-        self.stack, self.text = [], []
+        self.stack, self.text, self.exempt = [], [], exempt
 
     def handle_starttag(self, tag, attrs):
         if tag in VOID:
             return
-        classes = (dict(attrs).get("class") or "").split()
-        self.stack.append(tag in SKIP_TAGS or "atribucion" in classes)
+        attrs = dict(attrs)
+        classes = (attrs.get("class") or "").split()
+        href = (attrs.get("href") or "").split("#", 1)[0]
+        into_exempt = tag == "a" and any(href.endswith(e) for e in self.exempt)
+        self.stack.append(tag in SKIP_TAGS or "atribucion" in classes or into_exempt)
 
     def handle_endtag(self, tag):
         if tag not in VOID and self.stack:
@@ -42,8 +48,8 @@ class Reader(HTMLParser):
             self.text.append(data)
 
 
-def visible_text(html: str) -> str:
-    r = Reader()
+def visible_text(html: str, exempt: tuple[str, ...] = ()) -> str:
+    r = Reader(exempt)
     r.feed(html)
     return " ".join(r.text)
 
@@ -57,7 +63,8 @@ def main(argv: list[str]) -> int:
         rel = page.relative_to(site).as_posix()
         if rel in exempt or rel.startswith(("_static/", "_sources/")) or rel in ("genindex.html", "search.html"):
             continue
-        for hit in u.leftovers(visible_text(page.read_text(encoding="utf-8", errors="replace")), cfg):
+        text = visible_text(page.read_text(encoding="utf-8", errors="replace"), tuple(sorted(exempt)))
+        for hit in u.leftovers(text, cfg):
             print(f"ERROR {rel}: «…{' '.join(hit.split())}…»")
             found += 1
     print(f"[rebrand-check] {found} leftover(s)")
