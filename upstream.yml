@@ -46,6 +46,11 @@ rename:
   # descargas de Nextcloud» apunta a nextcloud.com, que APS no administra. Una afirmación del
   # fabricante como sujeto («Nextcloud ofrece…», «no Nextcloud») va en el rol {vendor}.
   keep_hosts: [nextcloud.com, github.com/nextcloud]
+  # Formas flexionadas: el plural «Nextclouds» («una nube de Nextclouds») no es la palabra entera y
+  # el renombrado lo dejaba visible. Una variante de mayúsculas («NextCloud») es una errata de
+  # upstream: se corrige en la fuente, y rebrand-check la rechaza.
+  forms:
+    Nextclouds: instancias de APS Conecta Gestión
   # Páginas que nombran Nextcloud a propósito: el aviso explica el origen y las marcas.
   exempt_pages: [aviso]
 

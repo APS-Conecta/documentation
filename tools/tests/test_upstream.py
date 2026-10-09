@@ -166,6 +166,21 @@ class RenameTest(unittest.TestCase):
             u.rename("nextcloud.com y NextcloudPi", CFG), "nextcloud.com y NextcloudPi"
         )
 
+    def test_the_plural_has_its_own_form(self):
+        # «una nube de Nextclouds» (federated sharing, official msgstr) kept the vendor name
+        import copy
+        cfg = copy.deepcopy(CFG)
+        cfg["rename"]["forms"] = {"Nextclouds": "instancias de APS Conecta Gestión"}
+        self.assertEqual(u.rename("su propia nube de Nextclouds y Nextcloud.", cfg),
+                         "su propia nube de instancias de APS Conecta Gestión y APS Conecta Gestión.")
+        self.assertEqual(len(u.leftovers("una nube de Nextclouds", cfg)), 1)
+
+    def test_a_casing_typo_of_the_name_is_a_leftover(self):
+        # «los usuarios de NextCloud» (upstream typo) passed every gate and showed the vendor name;
+        # lower case (paths, databases) and compound identifiers (NextcloudPi, NEXTCLOUD_URL) stay
+        text = "los usuarios de NextCloud, NEXTCLOUD; el directorio nextcloud, NextcloudPi y NEXTCLOUD_URL"
+        self.assertEqual(len(u.leftovers(text, CFG)), 2)
+
     def test_rebrand_check_reads_only_visible_prose(self):
         html = (
             "<p>Abrir Nextcloud.</p><pre>nextcloud Nextcloud</pre><code>Nextcloud</code>"
