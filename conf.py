@@ -13,7 +13,13 @@
 project = 'Documentación APS-Conecta'
 language = 'es'
 
-extensions = ['myst_parser']
+import os as _os
+import sys as _sys
+_sys.path.insert(0, _os.path.join(_os.path.dirname(__file__), '_ext'))
+
+# upstream: los bloques tejidos de la documentación oficial de Nextcloud y sus referencias;
+# rebrand: el nombre del producto en todo el sitio (iniciativa scribe; regla en upstream.yml).
+extensions = ['myst_parser', 'upstream', 'rebrand']
 
 html_theme = 'sphinx_rtd_theme'
 
@@ -41,6 +47,7 @@ exclude_patterns = [
     '.github',
     '.rpiv',
     '_generated/brand',
+    '_generated/upstream',   # el clon de nextcloud/documentation: fuente, no páginas
     '_generated/attach',
     '_build',
     '_static',

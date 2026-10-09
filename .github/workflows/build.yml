@@ -81,6 +81,14 @@ jobs:
           APS_ORG_ROOT: ${{ runner.temp }}/org         # the generators' sibling-checkout contract
           GESTION_SRC: ${{ runner.temp }}/org/gestion  # fetch-brand.sh resolution branch 1
         run: make html
+      - name: Unit tests (tools/tests)
+        run: make test
+      - name: Upstream fidelity (every woven block says what its source says)
+        env:
+          APS_ORG_ROOT: ${{ runner.temp }}/org         # the suite's Nextcloud major comes from gestion
+        run: make fidelity
+      - name: Rebrand check (the built site names the product APS Conecta Gestión)
+        run: make rebrand-check
       - name: Linkcheck (ignore seed = _generated/linkcheck-private.txt via conf.py)
         env:
           GH_TOKEN: ${{ steps.token.outputs.token }}

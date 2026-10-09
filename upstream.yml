@@ -1,0 +1,103 @@
+# Plataforma base — la documentación oficial de Nextcloud, tejida en los capítulos de APS
+# Conecta (iniciativa scribe, Q13–Q21). Claves en inglés y valores en español, como
+# catalogo.yml. Este archivo es el único dueño de tres hechos:
+#   source — de dónde sale el texto upstream y en qué rama;
+#   rename — cómo se nombra el producto en todo el sitio;
+#   map    — en qué página de APS se teje cada documento upstream.
+# tools/upstreamlib.py lo lee; la extensión _ext/upstream.py, tools/upstream-fidelity.py y
+# el flujo de traducción por lotes consumen esa lectura y nunca este archivo directamente.
+
+source:
+  repo: nextcloud/documentation
+  # La rama sigue a la suite: el mayor sale de la imagen del servidor en gestion compose.yaml.
+  branch: "stable{major}"
+  major_from:
+    file: gestion/compose.yaml
+    pattern: 'image:\s*nextcloud:(\d+)'
+  manuals: [user_manual, admin_manual, developer_manual]
+  # Catálogos oficiales en español del manual de usuario (Transifex). Cubren ~20 % del texto
+  # vigente (medido 2026-10-09): se usan textuales donde el msgid aún coincide.
+  catalog: "user_manual/locale/es/LC_MESSAGES/{path}.pot"
+  # Enlace externo cuando el documento referido aún no está tejido en este sitio.
+  external:
+    user_manual: "https://docs.nextcloud.com/server/{major}/user_manual/es/{path}.html"
+    admin_manual: "https://docs.nextcloud.com/server/{major}/admin_manual/{path}.html"
+    developer_manual: "https://docs.nextcloud.com/server/{major}/developer_manual/{path}.html"
+
+rename:
+  from: Nextcloud
+  to: APS Conecta Gestión
+  # Nombres legales o de productos que la persona busca tal cual (tiendas de aplicaciones).
+  keep: [Nextcloud GmbH, Nextcloud Desktop, Nextcloud Files, Nextcloud Talk]
+  # Páginas que nombran Nextcloud a propósito: el aviso explica el origen y las marcas.
+  exempt_pages: [aviso]
+
+# Documentos sin prosa propia: solo un índice de árbol (toctree) del manual completo.
+exclude:
+  - user_manual/contents
+  - admin_manual/contents
+
+# Reglas en orden; gana la primera que coincide. `from` es un docname o un prefijo con `/*`
+# (todo el subárbol). `to` admite {path}: la ruta bajo el prefijo, en minúsculas y con `_`
+# convertido en `-`. Un `to` sin {path} teje varios documentos en una misma página.
+# `difiere` nombra la página de APS que explica en qué se aparta la suite; cada bloque de
+# esos documentos lleva entonces `:difiere:`.
+map:
+  # ---- Manual de usuario → usuario/
+  - {from: user_manual/index, to: usuario/index.md}
+  - {from: user_manual/webinterface, to: usuario/interfaz-web.md}
+  - {from: user_manual/universal_access, to: usuario/interfaz-web.md}
+  - {from: user_manual/userpreferences, to: usuario/perfil-y-seguridad.md}
+  - {from: user_manual/user_2fa, to: usuario/perfil-y-seguridad.md}
+  - {from: user_manual/session_management, to: usuario/perfil-y-seguridad.md}
+  - {from: user_manual/activity, to: usuario/actividad.md}
+  - {from: user_manual/ai_assistant, to: usuario/asistente-ia.md, difiere: usuario/asistente-ia}
+  - {from: user_manual/files/*, to: "usuario/archivos/{path}.md"}
+  - {from: user_manual/groupware/calendar, to: usuario/calendario.md}
+  - {from: user_manual/groupware/contacts, to: usuario/contactos.md}
+  - {from: user_manual/groupware/mail, to: usuario/groupware/correo.md, difiere: usuario/groupware/correo}
+  - {from: user_manual/groupware/*, to: "usuario/groupware/{path}.md"}
+  - {from: user_manual/talk/*, to: "usuario/conversacion/{path}.md"}
+  - {from: user_manual/desktop/*, to: "usuario/escritorio/{path}.md"}
+  - {from: user_manual/collectives/*, to: "usuario/colectivos/{path}.md", difiere: usuario/colectivos/index}
+
+  # ---- Manual de administración → administracion/
+  - {from: admin_manual/index, to: administracion/index.md}
+  - {from: admin_manual/installation/*, to: "administracion/instalacion/{path}.md", difiere: administracion/aio}
+  - {from: admin_manual/configuration_server/*, to: "administracion/servidor/{path}.md"}
+  - {from: admin_manual/configuration_mimetypes/index, to: administracion/servidor/tipos-mime.md}
+  - {from: admin_manual/configuration_monitoring/index, to: administracion/servidor/monitoreo.md}
+  - {from: admin_manual/configuration_user/*, to: "administracion/usuarios-y-grupos/{path}.md"}
+  - {from: admin_manual/configuration_files/*, to: "administracion/archivos/{path}.md"}
+  - {from: admin_manual/configuration_database/*, to: "administracion/base-de-datos/{path}.md"}
+  - {from: admin_manual/maintenance/*, to: "administracion/operaciones/{path}.md"}
+  - {from: admin_manual/office/*, to: "administracion/oficina/{path}.md", difiere: administracion/oficina/index}
+  - {from: admin_manual/groupware/*, to: "administracion/groupware/{path}.md"}
+  - {from: admin_manual/ai/*, to: "administracion/ia/{path}.md", difiere: administracion/ia/index}
+  - {from: admin_manual/exapps_management/*, to: "administracion/exapps/{path}.md", difiere: administracion/exapps/index}
+  - {from: admin_manual/gdpr/*, to: "administracion/privacidad/{path}.md"}
+  - {from: admin_manual/file_workflows/*, to: "administracion/flujos-de-archivos/{path}.md"}
+  - {from: admin_manual/issues/*, to: "administracion/problemas/{path}.md"}
+  - {from: admin_manual/release_notes, to: administracion/notas-de-version/resumen.md}
+  - {from: admin_manual/release_schedule, to: administracion/notas-de-version/calendario.md}
+  - {from: admin_manual/release_notes/*, to: "administracion/notas-de-version/{path}.md"}
+  - {from: admin_manual/reference/*, to: "administracion/referencia/{path}.md"}
+  - {from: admin_manual/declarations/*, to: "administracion/declaraciones/{path}.md"}
+  - {from: admin_manual/desktop/*, to: "administracion/escritorio/{path}.md"}
+  - {from: admin_manual/collectives/index, to: administracion/colectivos.md, difiere: administracion/colectivos}
+  - {from: admin_manual/webhook_listeners/index, to: administracion/automatizacion/webhooks.md}
+  - {from: admin_manual/windmill_workflows/index, to: administracion/automatizacion/windmill.md, difiere: administracion/automatizacion/windmill}
+  - {from: admin_manual/apps_management, to: administracion/aplicaciones.md, difiere: administracion/aplicaciones}
+  - {from: admin_manual/occ_command, to: administracion/occ/index.md}
+  - {from: admin_manual/occ_apps, to: administracion/occ/aplicaciones.md}
+  - {from: admin_manual/occ_database, to: administracion/occ/base-de-datos.md}
+  - {from: admin_manual/occ_encryption, to: administracion/occ/cifrado.md}
+  - {from: admin_manual/occ_files, to: administracion/occ/archivos.md}
+  - {from: admin_manual/occ_ldap, to: administracion/occ/ldap.md}
+  - {from: admin_manual/occ_ocm, to: administracion/occ/ocm.md}
+  - {from: admin_manual/occ_system, to: administracion/occ/sistema.md}
+  - {from: admin_manual/occ_users, to: administracion/occ/usuarios.md}
+
+  # ---- Manual de desarrollo → desarrollo/plataforma/
+  - {from: developer_manual/index, to: desarrollo/plataforma/index.md}
+  - {from: developer_manual/*, to: "desarrollo/plataforma/{path}.md"}

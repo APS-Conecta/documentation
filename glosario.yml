@@ -1,0 +1,42 @@
+# Glosario de la plataforma base (iniciativa scribe, Q24): el término de la interfaz en inglés,
+# el que la interfaz en español muestra, y el archivo de traducciones del servidor que lo dice.
+# Fuente: nextcloud/server rama stable34, <fuente>/l10n/es.json. Los traductores y revisores del
+# tejido lo usan; tools/gen-glosario.py lo publica en proyecto/glosario. Agregar un término
+# exige citar su archivo de traducciones.
+server_branch: stable34
+terms:
+  - {en: "Files", es: "Archivos", source: apps/files}
+  - {en: "All files", es: "Todos los archivos", source: apps/files}
+  - {en: "Recent", es: "Reciente", source: apps/files}
+  - {en: "Favorites", es: "Favoritos", source: apps/files}
+  - {en: "Shares", es: "Compartidos", source: apps/files_sharing}
+  - {en: "Deleted files", es: "Archivos eliminados", source: apps/files_trashbin}
+  - {en: "Share", es: "Compartir", source: apps/files}
+  - {en: "Shared with you", es: "Compartido conmigo", source: apps/files_sharing}
+  - {en: "Share link", es: "Compartir enlace", source: apps/files_sharing}
+  - {en: "Upload", es: "Subir", source: apps/files_sharing}
+  - {en: "New folder", es: "Nueva carpeta", source: apps/files}
+  - {en: "Rename", es: "Renombrar", source: apps/files}
+  - {en: "Move or copy", es: "Mover o copiar", source: apps/files}
+  - {en: "Download", es: "Descargar", source: apps/files}
+  - {en: "Delete", es: "Eliminar", source: apps/files}
+  - {en: "Versions", es: "Versiones", source: apps/files_versions}
+  - {en: "Restore", es: "Recuperar", source: apps/files_trashbin}
+  - {en: "Settings", es: "Ajustes", source: apps/settings}
+  - {en: "Personal info", es: "Información personal", source: apps/settings}
+  - {en: "Security", es: "Seguridad", source: apps/settings}
+  - {en: "Administration settings", es: "Configuraciones de administración", source: apps/settings}
+  - {en: "Users", es: "Usuarios", source: apps/settings}
+  - {en: "Groups", es: "Grupos", source: apps/settings}
+  - {en: "Apps", es: "Apps", source: apps/settings}
+  - {en: "Log out", es: "Cerrar sesión", source: core}
+  - {en: "Search", es: "Buscar", source: apps/files}
+  - {en: "Password", es: "Contraseña", source: apps/files_sharing}
+  - {en: "Two-factor authentication", es: "Autenticación de dos factores", source: core}
+  - {en: "Display name", es: "Nombre mostrado", source: apps/settings}
+  - {en: "Email", es: "Correo electrónico", source: apps/files_sharing}
+  - {en: "Quota", es: "Cuota", source: apps/settings}
+  - {en: "Details", es: "Detalles", source: apps/files}
+  - {en: "Tags", es: "Etiquetas", source: apps/files}
+  - {en: "Expiration date", es: "Fecha de caducidad", source: apps/files_sharing}
+  - {en: "Allow editing", es: "Permitir edición", source: apps/files_sharing}
