@@ -120,11 +120,24 @@ linkcheck_ignore += (
 )
 
 
+# linkcheck: enlaces que upstream cita y que ya no responden (upstream.yml, dead_links). El texto
+# tejido conserva la URL tal cual; aquí solo se omite su comprobación.
+_sys.path.insert(0, _os.path.join(_os.path.dirname(__file__), 'tools'))
+import re as _re
+import upstreamlib as _upstreamlib
+
+linkcheck_ignore += [_re.escape(_url) + '$' for _url in _upstreamlib.dead_links()]
+
 # linkcheck: GitHub arma las anclas de un README o un archivo con JavaScript, así que una URL
 # github.com/...#seccion nunca muestra su ancla a un GET (falso «Anchor not found»). La URL sí
 # se comprueba; solo se omite el ancla. Los textos tejidos de Nextcloud citan anclas de README
 # (p. ej. github.com/42wim/matterbridge#features) y deben conservar la URL byte a byte.
 linkcheck_anchors_ignore_for_url = [r'https://github\.com/.+']
+
+# Sin comillas tipográficas automáticas: con language='es' docutils cambia "…" por «…» también en
+# texto técnico que no es código (QT_LOGGING_RULES="qt.*=true" en un texto tejido de Nextcloud),
+# y un valor de configuración debe leerse tal cual. La prosa de APS escribe «…» a mano.
+smartquotes = False
 
 # Un toctree con glob en una carpeta que el tejido aún no llena no es un error: la carpeta
 # existe para recibir páginas (iniciativa scribe). Sphinx 9 emite ese aviso sin `type`

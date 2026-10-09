@@ -101,3 +101,14 @@ map:
   # ---- Manual de desarrollo → desarrollo/plataforma/
   - {from: developer_manual/index, to: desarrollo/plataforma/index.md}
   - {from: developer_manual/*, to: "desarrollo/plataforma/{path}.md"}
+
+# Enlaces que upstream cita y que ya no responden. La URL queda byte a byte en el texto tejido
+# (fidelidad, tools/weave-contract.md) y linkcheck la omite (conf.py). Sale de aquí cuando upstream
+# corrige el enlace; el carril upstream de 📚 Scribe lo nota al seguir los cambios del documento.
+dead_links:
+  - url: https://shop.nitrokey.com/shop/product/nkfi2-nitrokey-fido2-55
+    doc: user_manual/user_2fa
+    seen: 2026-10-09   # 404 Not Found
+  - url: https://shop.nitrokey.com/shop/product/nitrokey-fido-u2f-20
+    doc: user_manual/user_2fa
+    seen: 2026-10-09   # 404 Not Found

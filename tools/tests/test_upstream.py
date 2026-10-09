@@ -412,6 +412,65 @@ class PilotTest(unittest.TestCase):
             ["Call {user}", "otro"],
         )
 
+class ContractV2Test(unittest.TestCase):
+    """Constructs the first batches met that the contract and gate did not name (user-manual-desktop-1)."""
+
+    RST = (
+        "See the `Admin manual`_ and https://b.example/y.\n\n"
+        "Read `the guide <https://c.example/g>`_.\n\n"
+        ".. _Admin manual: https://a.example/x\n"
+    )
+
+    def test_named_and_bare_links_are_links(self):
+        self.assertEqual(
+            u.rst_links(self.RST), {"https://a.example/x", "https://b.example/y", "https://c.example/g"}
+        )
+
+    def test_reference_links_and_autolinks_match(self):
+        page = (
+            "Ver el [manual de administración][Admin manual] y <https://b.example/y>.\n\n"
+            "Leer [la guía](https://c.example/g).\n\n"
+            "[Admin manual]: https://a.example/x\n"
+        )
+        self.assertEqual(u.myst_links(page), u.rst_links(self.RST))
+        # a URL dropped from the page is caught
+        self.assertNotEqual(u.myst_links(page.replace(" y <https://b.example/y>", "")), u.rst_links(self.RST))
+
+    def test_an_indented_code_line_is_not_prose(self):
+        rst = "the command line would be::\n\n  $ cmd --path /Music \\\n        https://server/nextcloud\n\nDone.\n"
+        self.assertEqual(u.rst_links(rst), set())
+        self.assertNotIn("https://server/nextcloud", " ".join(u.rst_paragraphs(rst)))
+
+    def test_plain_reads_rst_and_myst_shapes_the_same(self):
+        # user-manual-files-1: msgstrs end in "::" and carry named references and bare URLs
+        self.assertEqual(u.plain("Por ejemplo::"), "Por ejemplo:")
+        self.assertEqual(u.plain("Monte el recurso ::"), "Monte el recurso")
+        self.assertEqual(u.plain("Use `WinHTTP`_ y KB2123563_."), "Use WinHTTP y KB2123563.")
+        self.assertEqual(u.plain("Use [WinHTTP][WinHTTP] y [KB2123563][KB2123563]."), "Use WinHTTP y KB2123563.")
+        self.assertEqual(
+            u.plain("en un enlace <https://example.com/s/kFy9>, abra"), "en un enlace https://example.com/s/kFy9, abra"
+        )
+
+    def test_a_fence_inside_a_list_item_is_code(self):
+        page = "1. Instalar:\n\n   ```bash\n   sudo apt install davfs2\n   ```\n\n2. Montar.\n"
+        self.assertEqual(u.myst_code_blocks(page), ["sudo apt install davfs2"])
+        self.assertNotIn("davfs2", u._without_fences(page))
+
+    def test_a_quoted_english_message_is_not_english_prose(self):
+        quoted = (
+            "El navegador advertirá del fallo: «Failed to launch 'nc://...' "
+            "because the scheme does not have a registered handler.»"
+        )
+        self.assertFalse(u.reads_english(quoted))
+        self.assertTrue(u.reads_english("You can open the file in the sidebar and then share it with your team."))
+
+
+class DeadLinkTest(unittest.TestCase):
+    def test_dead_links_are_listed_urls(self):
+        cfg = dict(CFG, dead_links=[{"url": "https://x.example/gone", "doc": "user_manual/user_2fa", "seen": "2026-10-09"}])
+        self.assertEqual(u.dead_links(cfg), ["https://x.example/gone"])
+        self.assertEqual(u.dead_links(CFG), [])
+
 class RenderTest(unittest.TestCase):
     """The block renders in source order: attribution, then its text, then its subsections."""
 
