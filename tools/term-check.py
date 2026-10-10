@@ -63,10 +63,10 @@ def check_page(text: str, gl: dict, source_of) -> list[str]:
         found += [p for para in paras for p in check_paragraph(prose(para), gl)]
         # upstream prose as the Spanish side reads its own: no code, roles or quoted text
         up = " ".join(x for x in u.rst_paragraphs(section) if x not in cat)  # an official translation is the translators'
-        up = re.sub(r"``.+?``|:[\w:-]+:`[^`]*`|`[^`<]*`(?!_)|\"[^\"\n]*\"|“[^”]*”", " ", up)
-        es = " ".join(prose(p) for p in u.myst_paragraphs(block["content"]))
+        up = re.sub(r"``.+?``|:[\w:-]+:`[^`]*`|`[^`<]*`(?!_)|\"[^\"\n]*\"|“[^”]*”|\*\*[^*]+\*\*", " ", up)  # **label**
+        es = " ".join(prose(p) for p in u.myst_paragraphs(block["content"]) + [h for _, h in u.myst_headings(block["content"])])
         for t in (t for t in gl.get("tecnicos", []) if "en" in t):
-            en = re.compile(r"(?<!\w)" + (t.get("re") or re.escape(t["en"]) + "(?:s|es)?") + r"(?!\w)", re.I)
+            en = re.compile(r"(?<![\w-])" + (t.get("re") or re.escape(t["en"]) + "(?:s|es)?") + r"(?![\w-])", re.I)
             if en.search(up) and not re.search(r"(?<!\w)" + re.escape(t["es"]), es, re.I):
                 found.append(f"block line {block['line']}: upstream says «{t['en']}», the block lacks «{t['es']}» (glosario.yml)")
     return found

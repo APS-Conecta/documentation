@@ -46,6 +46,11 @@ class TermCheckTest(unittest.TestCase):
         self.assertEqual(self.check(page("Habilitar la app."), "Enable the ``webhook_listeners`` app with a ``backend``."), [])
         self.assertEqual(self.check(page("El mensaje «Revise los registros»."), 'It says "Look at the backend logs".'), [])
 
+    def test_headings_names_and_bold_labels(self):
+        self.assertEqual(self.check(page("### Cambios de backend\n\nTexto."), "Backend changes\n===============\n\nText."), [])
+        self.assertEqual(self.check(page("Ver la página."), "See code-backend and backend-x."), [])
+        self.assertEqual(self.check(page("Hacer clic en «Open backend»."), "Click **Open backend**."), [])
+
     def test_an_official_msgstr_is_the_translators_words(self):
         text = page("Desde su ordenador, puedes subir archivos.", "user_manual/x")
         self.assertEqual(self.check(text, cat=[("From your computer you can upload files.", "Desde su ordenador, puedes subir archivos.")]), [])

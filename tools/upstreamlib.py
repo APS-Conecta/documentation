@@ -989,8 +989,8 @@ def reads_english(paragraph: str) -> bool:
     code_free = MYST_SPAN.sub(lambda m: m.group(0) if m.group(1) else " ", paragraph)
     code_free = re.sub(r"(?<![*\w])\*(?!\*)[^*\n]+?(?<!\*)\*(?![*\w])", " ", code_free)
     code_free = re.sub(r"(?m)^\s*\[[^\]\n]+\]:\s*\S+.*$", " ", code_free)  # [Name]: url definitions
-    # quotes, URLs, addresses, PHP written as text ($this->inc('x'))
-    text = re.sub(r"«[^»]*»|<?https?://\S+|\S+@\S+|\$\w+(?:->\w+|\([^)]*\))*", " ", plain(code_free))
+    # quotes, URLs, addresses, PHP written as text ($this->inc('x')), command-line flags (-it, --force)
+    text = re.sub(r"«[^»]*»|<?https?://\S+|\S+@\S+|\$\w+(?:->\w+|\([^)]*\))*|(?<![\w-])--?\w[\w-]*", " ", plain(code_free))
     # a hyphenated compound is one word (plug-and-play, AGPL-3.0-or-later)
     words = re.findall(r"[A-Za-zÁÉÍÓÚÑÜáéíóúñü0-9]+(?:[-_.:/][A-Za-zÁÉÍÓÚÑÜáéíóúñü0-9]+)*", text)
     for i, w in enumerate(words):

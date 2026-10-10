@@ -1323,6 +1323,9 @@ class EnglishWordTest(unittest.TestCase):
     def test_one_leftover_word_reads_as_english(self):
         self.assertTrue(u.reads_english("Para activar el botón, ir a la página de ajustes and hacer clic en guardar el archivo."))
 
+    def test_command_line_flags_are_not_words(self):
+        self.assertFalse(u.reads_english("- docker exec -it ONLYOFFICEDOCKER /bin/bash y luego apt-get install vim -y para editar."))
+
     def test_names_titles_and_italics_are_not_leftovers(self):
         for ok in ("Instalar el repositorio Extra Packages for Enterprise Linux (EPEL) y después ClamAV.",
                    "Ver [PHP Session Locking and How to Prevent It](https://a.example/x) para más detalles.",
