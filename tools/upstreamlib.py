@@ -515,15 +515,18 @@ def rst_inline_literals(text: str) -> list[str]:
 
 
 DROPPED_DIRECTIVE = re.compile(r"^(\s*)\.\.\s+(?:mermaid|graphviz|raw)::")
+# a comment: «.. text» that is no directive, target, substitution or footnote («.. code-block: php»)
+COMMENT_BLOCK = re.compile(r"^(\s*)\.\.\s+(?![_|\[])(?![\w:+.-]+::)\S")
 
 
 def _without_code_blocks_rst(text: str) -> str:
     """The text with every code line blanked in place (line count and paragraph breaks kept),
-    and the bodies of the directives the contract drops (diagrams, raw HTML): neither is prose."""
+    and the bodies of the directives the contract drops (diagrams, raw HTML) and of comments:
+    none is prose."""
     lines = text.split("\n")
     for start, end, _ in _rst_code_ranges(text):
         lines[start:end] = [""] * (end - start)
-    for i in [i for i, ln in enumerate(lines) if DROPPED_DIRECTIVE.match(ln)]:
+    for i in [i for i, ln in enumerate(lines) if DROPPED_DIRECTIVE.match(ln) or COMMENT_BLOCK.match(ln)]:
         _, end = _indented_block(lines, i)
         lines[i:end] = [""] * (end - i)
     return "\n".join(lines)
@@ -655,6 +658,7 @@ def rst_paragraphs(text: str) -> list[str]:
             not s
             or ADORN.match(s)
             or s.startswith(".. ")
+            or s == ".."  # an empty comment
             or re.match(r"^:[^:`\s][^:`]*:(\s|$)", s)  # a field or option; a role (:code:`…`) is text
         ):
             if cur:
@@ -797,7 +801,9 @@ def fence_walk(lines: list[str]):
 
 
 def _without_fences(content: str) -> str:
-    return "\n".join(ln for ln, fenced in fence_walk(content.split("\n")) if not fenced)
+    """The page outside code fences, a «%» comment line blanked: MyST renders it as nothing."""
+    return "\n".join("" if ln.lstrip().startswith("%") else ln
+                     for ln, fenced in fence_walk(content.split("\n")) if not fenced)
 
 
 MYST_GUILABEL = re.compile(r"\{guilabel\}`([^`]+)`")

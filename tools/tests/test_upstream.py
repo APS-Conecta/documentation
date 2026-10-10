@@ -1260,6 +1260,28 @@ class ToctreeUrlTest(unittest.TestCase):
         self.assertEqual(u.rst_links(".. toctree::\n   :hidden:\n\n   Store <https://store.example/dev.html>\n"), set())
 
 
+class RstCommentTest(unittest.TestCase):
+    """digging-deeper-4 publicpage: «.. code-block: php» (one colon) is a comment; docutils renders
+    nothing for it or its indented body, so neither is upstream prose."""
+
+    def test_a_comment_and_its_indented_body_are_not_prose(self):
+        rst = ("Intro.\n\n.. code-block: php\n\n    <?php\n    class Shown {}\n\n"
+               ".. note:  The log level is\n   ``2``. Read https://a.example/x\n\nMore.\n")
+        self.assertEqual(u.rst_paragraphs(rst), ["Intro.", "More."])
+        self.assertEqual(u.rst_links(rst), set())
+
+    def test_a_myst_comment_is_not_prose_either(self):
+        # general_troubleshooting: the page keeps «.. note:  … ``2``» as «% note: … `2`»
+        page = "% note: el nivel es `2`. Ver https://a.example/x\n\nTexto con `x`.\n"
+        self.assertEqual(u.myst_inline_literals(page), ["x"])
+        self.assertEqual(u.myst_links(page), set())
+        self.assertEqual(u.myst_paragraphs(page), ["Texto con `x`."])
+
+    def test_directives_targets_and_an_empty_comment_are_not_comments(self):
+        rst = (".. _label:\n\nIntro.\n\n.. note::\n\n   Shown note.\n\n..\n\n   Quoted text.\n")
+        self.assertEqual(u.rst_paragraphs(rst), ["Intro.", "Shown note.", "Quoted text."])
+
+
 class CatalogTest(unittest.TestCase):
     def test_reads_multiline_msgid_and_msgstr(self):
         import tempfile
