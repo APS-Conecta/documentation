@@ -5,7 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Requisitos y parámetros de la base de datos: configurar MySQL, MariaDB o PostgreSQL, SSL para MySQL, solución de problemas y comandos SQL útiles."
 ---
-# Configuración de la base de datos
+# Configuración de MySQL, MariaDB y PostgreSQL
 
 ## Resumen
 

@@ -5,7 +5,7 @@ audiencia: usuario
 apps: [gestion]
 resumen: "Tipos de conversación de Talk, panel de Talk, crear, filtrar, archivar y gestionar conversaciones, vetar participantes, caducidad y notificaciones."
 ---
-# Conversaciones
+# Tipos y gestión de conversaciones
 
 ## Resumen
 

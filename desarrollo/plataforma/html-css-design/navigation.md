@@ -5,7 +5,7 @@ audiencia: desarrollo
 apps: [gestion]
 resumen: "Barra lateral de navegación de una app: botón de acción primaria, menú de navegación con sus utilidades y tipos de entrada, y área de ajustes."
 ---
-# Introducción
+# Navegación
 
 ## Resumen
 

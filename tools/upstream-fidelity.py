@@ -301,6 +301,25 @@ def title_label_problems(page_text: str, block: dict, source: str, cfg: dict) ->
     return [f"{block['doc']}: title labels missing as (nc-label)= before the page title: {missing}"] if missing else []
 
 
+
+def page_title(text: str) -> str:
+    return next((line[2:].strip() for line in text.splitlines() if line.startswith("# ")), "")
+
+
+def sibling_title_problems(titles: dict[str, str]) -> list[str]:
+    """Two pages in one folder with one title read as one entry twice in the menu. Upstream reuses
+    titles across sibling docs and opens some docs with a generic one («Introduction»). A folder's
+    index.md heads its own pages and is listed among its parent folder's pages."""
+    by_title: dict[tuple[str, str], list[str]] = {}
+    for page, title in titles.items():
+        folder = page.rpartition("/")[0]
+        folders = [folder, folder.rpartition("/")[0]] if page.endswith("/index.md") else [folder]
+        for f in folders:
+            by_title.setdefault((f + "/", title), []).append(page)
+    return [f"{folder}: «{title}» titles {len(group)} pages ({', '.join(sorted(group))}); the menu cannot tell them apart"
+            for (folder, title), group in sorted(by_title.items()) if title and len(group) > 1]
+
+
 def pages(paths: list[str] | None) -> list[Path]:
     if paths:
         return [Path(p) for p in paths]
@@ -322,6 +341,7 @@ def main(argv: list[str]) -> int:
     problems += [f"upstream.yml: {p}" for p in u.map_problems(names, cfg)]
     problems += [f"upstream.yml: {p}" for p in u.label_collisions(
         {n: (updir / f"{n}.rst").read_text(encoding="utf-8", errors="replace") for n in names}, cfg)]
+    titles: dict[str, str] = {}
     for path in pages(paths):
         page = (
             path.relative_to(u.ROOT).as_posix()
@@ -329,6 +349,7 @@ def main(argv: list[str]) -> int:
             else path.as_posix()
         )
         text = path.read_text(encoding="utf-8")
+        titles[page] = page_title(text)
         for block in u.blocks(text):
             n_blocks += 1
             where = f"{page}:{block['line']}"
@@ -358,6 +379,8 @@ def main(argv: list[str]) -> int:
         f"[upstream-fidelity] {n_blocks} block(s); coverage {len(mapped) - len(missing)}/{len(mapped)} "
         f"documents; {ai_total} AI-translated paragraph(s) counted"
     )
+    if not paths:
+        problems += sibling_title_problems(titles)
     if require and missing and not paths:
         problems += [f"coverage: {n} has no block" for n in missing]
     for n in notes:
