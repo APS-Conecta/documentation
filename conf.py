@@ -135,6 +135,9 @@ _pages = [_p.read_text(encoding='utf-8') for _d in ('usuario', 'administracion',
 linkcheck_ignore += [_re.escape(_url) + '$' for _url in sorted(_upstreamlib.woven_urls(_pages))]
 linkcheck_ignore += [r'https://github\.com/nextcloud/documentation/blob/[0-9a-f]{40}/',
                      r'https://docs\.nextcloud\.com/server/\d+/']
+# deis.minsal.cl responde 403 a los runners de GitHub de forma intermitente (muro anti-bots del
+# MINSAL; 2 de ~40 builds el 2026-10-10). La URL es la correcta y se sigue citando en componentes.yml.
+linkcheck_ignore += [r'https://deis\.minsal\.cl/']
 
 # linkcheck: GitHub arma las anclas de un README o un archivo con JavaScript, así que una URL
 # github.com/...#seccion nunca muestra su ancla a un GET (falso «Anchor not found»). La URL sí
