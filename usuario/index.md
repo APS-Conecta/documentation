@@ -31,6 +31,7 @@ Calendario <calendario>
 Contactos <contactos>
 Perfil y seguridad <perfil-y-seguridad>
 Inicio (IntraVox) <inicio>
+Publicar un aviso en Inicio <inicio-publicar-aviso>
 Epidemiología <epidemiologia>
 Farmacia <farmacia>
 Territorio <territorio>
