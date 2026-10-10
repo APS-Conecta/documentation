@@ -21,13 +21,13 @@ El acceso a la plataforma se hace por navegador web, con inicio de sesión en el
 ### La interfaz web de Nextcloud
 
 ````{upstream} user_manual/webinterface.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
-Abre la URL de tu servidor Nextcloud en cualquier navegador web e inicia sesión con tu nombre de cuenta (o dirección de correo electrónico) y tu contraseña.
+Abrir la URL del servidor Nextcloud en cualquier navegador web e iniciar sesión con el nombre de cuenta (o la dirección de correo electrónico) y la contraseña.
 
-También puedes iniciar sesión con una llave de acceso o una llave de seguridad física haciendo clic en **Iniciar sesión con dispositivo**.
+También se puede iniciar sesión con una llave de acceso o una llave de seguridad física haciendo clic en **Iniciar sesión con dispositivo**.
 
 #### Requisitos del navegador web
 
-Para obtener la mejor experiencia, usa la versión más reciente de uno de estos navegadores:
+Para obtener la mejor experiencia, usar la versión más reciente de uno de estos navegadores:
 
 - Google **Chrome** / Chromium
 - Mozilla **Firefox**
@@ -40,44 +40,44 @@ No todas las versiones son compatibles. Nextcloud se orienta a los [navegadores 
 
 #### El Dashboard
 
-Después de iniciar sesión, Nextcloud abre el **Dashboard**, una vista general personalizable de tu actividad más importante: próximos eventos del calendario, mensajes no leídos, archivos recientes y más.
+Después de iniciar sesión, Nextcloud abre el **Dashboard**, una vista general personalizable de la actividad más importante: próximos eventos del calendario, mensajes no leídos, archivos recientes y más.
 
-Usa el botón **Personalizar** en la parte inferior de la página para agregar, quitar o reorganizar widgets y adaptarlo a tu forma de trabajar.
+Usar el botón **Personalizar** en la parte inferior de la página para agregar, quitar o reorganizar widgets y adaptarlo a la propia forma de trabajar.
 
 #### Navegar por la interfaz
 
-La barra de navegación en la parte superior de cada página es tu principal punto de acceso:
+La barra de navegación en la parte superior de cada página es el principal punto de acceso:
 
 - El **logotipo de Nextcloud** (arriba a la izquierda) te lleva de vuelta al Dashboard.
-- Los **accesos directos a aplicaciones** se muestran junto al logotipo: haz clic en cualquier icono para cambiar a esa aplicación (Archivos, Calendario, Talk, etc.).
-- El **icono de búsqueda** a la derecha abre la {nc-ref}`búsqueda unificada <unified-search>`, que busca en todas tus aplicaciones a la vez.
-- El **icono de campana** muestra tus notificaciones.
-- El **icono de contactos** te permite buscar y contactar rápidamente a otros usuarios de tu servidor.
-- Tu **foto de perfil** (en el extremo derecho) abre el menú de ajustes.
+- Los **accesos directos a aplicaciones** se muestran junto al logotipo: hacer clic en cualquier icono para cambiar a esa aplicación (Archivos, Calendario, Talk, etc.).
+- El **icono de búsqueda** a la derecha abre la {nc-ref}`búsqueda unificada <unified-search>`, que busca en todas las aplicaciones a la vez.
+- El **icono de campana** muestra las notificaciones.
+- El **icono de contactos** permite buscar y contactar rápidamente a otros usuarios del servidor.
+- La **foto de perfil** (en el extremo derecho) abre el menú de ajustes.
 
 Cada aplicación tiene además su propia **barra lateral izquierda** con filtros y acciones específicos de esa aplicación.
 
 #### Ajustes y perfil
 
-Haz clic en tu foto de perfil para acceder a las opciones de tu cuenta.
+Hacer clic en la foto de perfil para acceder a las opciones de la cuenta.
 
-Desde este menú puedes:
+Desde este menú se puede:
 
-- Ver y editar tu perfil
-- Establecer tu estado en línea
+- Ver y editar el perfil
+- Establecer el estado en línea
 - Cambiar los ajustes de apariencia y accesibilidad
-- Abrir tu página personal de {nc-doc}`Ajustes <user_manual/userpreferences>`
+- Abrir la página personal de {nc-doc}`Ajustes <user_manual/userpreferences>`
 - Acceder a la ayuda y a la información de privacidad
 - Cerrar sesión
 
 (nc-unified-search)=
 #### Búsqueda unificada
 
-Haz clic en el icono de búsqueda de la barra de navegación (o pulsa {kbd}`Ctrl+F`) para abrir la ventana modal de búsqueda unificada.
+Hacer clic en el icono de búsqueda de la barra de navegación (o pulsar {kbd}`Ctrl+F`) para abrir la ventana modal de búsqueda unificada.
 
-La búsqueda unificada busca en todas tus aplicaciones instaladas a la vez: archivos, eventos del calendario, mensajes, contactos y más. Los resultados se agrupan por aplicación para que puedas ver rápidamente dónde se encontró una coincidencia.
+La búsqueda unificada busca en todas las aplicaciones instaladas a la vez: archivos, eventos del calendario, mensajes, contactos y más. Los resultados se agrupan por aplicación para que se pueda ver rápidamente dónde se encontró una coincidencia.
 
-Usa los botones de filtro para acotar los resultados:
+Usar los botones de filtro para acotar los resultados:
 
 - **Ubicaciones**: limita la búsqueda a una aplicación concreta, como Archivos o Calendario.
 - **Fecha**: filtra por periodo (hoy, últimos 7 días, últimos 30 días, este año o un rango personalizado).
@@ -97,7 +97,7 @@ La interfaz de Nextcloud es completamente adaptativa y se puede usar con pantall
 
 #### Navegar con el teclado
 
-Puedes navegar por la interfaz web con un teclado, igual que lo harías con un ratón:
+Se puede navegar por la interfaz web con un teclado, igual que con un ratón:
 
 - `Tab` y `Shift + Tab` para moverte entre elementos
 - `Enter` o `Space` para activar o abrir el elemento (según el tipo de elemento)
@@ -137,15 +137,15 @@ Nextcloud Mail tiene atajos también, documentados en las preferencias de la pro
 
 Ofrecemos algunos temas que puedes activar para mejorar la accesibilidad:
 
-- **Tema de alto contraste:** un modo de alto contraste para facilitar tu navegación. La calidad visual se reducirá, pero la claridad aumentará.
-- **Tema oscuro:** un tema oscuro para descansar la vista al reducir la luminosidad y el brillo generales. Todavía está en desarrollo, así que, por favor, informa de cualquier problema que encuentres.
+- **Tema de alto contraste:** un modo de alto contraste para facilitar la navegación. La calidad visual se reducirá, pero la claridad aumentará.
+- **Tema oscuro:** un tema oscuro para descansar la vista al reducir la luminosidad y el brillo generales. Todavía está en desarrollo, así que se agradece informar de cualquier problema que se encuentre.
 - **Tipo de letra para dislexia:** OpenDyslexic es una tipografía/fuente gratuita diseñada para mitigar algunos de los errores de lectura comunes causados por la dislexia.
 
 Para entrar en los ajustes de accesibilidad:
 
-1. Abre el menú de ajustes al final de la cabecera
-2. Selecciona **Ajustes**
-3. En la navegación, elige **Accesibilidad**
+1. Abrir el menú de ajustes al final de la cabecera
+2. Seleccionar **Ajustes**
+3. En la navegación, elegir **Accesibilidad**
 
 :::{note}
 El contraste de los elementos puede variar dependiendo del tema personalizado. Por ejemplo, el color primario del tema es usado como color de fondo por la cabecera, la página de inicio de sesión, y los botones primarios. Si esto causa problemas con el contraste, por favor contacta a tu administrador para que te ayude.

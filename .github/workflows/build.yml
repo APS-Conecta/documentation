@@ -87,6 +87,10 @@ jobs:
         env:
           APS_ORG_ROOT: ${{ runner.temp }}/org         # the suite's Nextcloud major comes from gestion
         run: make fidelity
+      - name: Term check (one Spanish - glosario.yml forms, usted/impersonal register)
+        env:
+          APS_ORG_ROOT: ${{ runner.temp }}/org
+        run: make term-check
       - name: Rebrand check (the built site names the product APS Conecta Gestión)
         run: make rebrand-check
       - name: Linkcheck (ignore seed = _generated/linkcheck-private.txt via conf.py)
