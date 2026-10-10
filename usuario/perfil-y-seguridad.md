@@ -1,24 +1,15 @@
 ---
 tipo: guia
-esqueleto: borrador
+esqueleto: plataforma
 audiencia: usuario
 apps: [gestion]
-resumen: "Gestionar la cuenta propia: perfil, idioma, zona horaria, contraseña y verificación en dos pasos."
+resumen: "La cuenta propia: idioma, región y teléfono, visibilidad del perfil, sesiones, contraseña, verificación en dos pasos y accesibilidad en la suite."
 ---
 # Perfil y seguridad
 
 ## Resumen
 
-Cada persona gestiona su cuenta desde la configuración personal: perfil, idioma y región de Chile, zona horaria y Preferencias. La seguridad personal cubre la higiene de contraseñas, los Dispositivos y sesiones activas, la Verificación en dos pasos con códigos de respaldo y la accesibilidad de la interfaz.
-
-## Secciones previstas
-
-- Configuración personal
-- Localización de Chile y zona horaria
-- Contraseñas
-- Dispositivos y sesiones
-- Verificación en dos pasos
-- Accesibilidad
+Cada persona gestiona su cuenta desde sus ajustes personales: el perfil, las preferencias, la verificación en dos pasos y los navegadores y dispositivos conectados. Esta página reúne esas secciones del manual de la plataforma base y, al final, lo que APS Conecta Gestión fija en cada cuenta del establecimiento.
 
 ### Gestionar sus preferencias
 
@@ -171,3 +162,47 @@ Si usa la {nc-doc}`verificación en dos pasos <user_manual/user_2fa>` en su cuen
 
 Cuando una contraseña cambia en un backend de usuarios externo, todas las contraseñas específicas de dispositivo se marcan como no válidas. Una vez que inicie sesión con la contraseña principal, todas las contraseñas específicas de dispositivo se actualizan y vuelven a funcionar.
 ````
+
+## En APS Conecta Gestión
+
+### Idioma, región y teléfono
+
+- **Idioma**: la suite fija el español para todas las cuentas, así que el idioma no se cambia en **Información personal**.
+- **Región**: parte en Chile (`es_CL`), con fechas y números en el formato de Chile. Cada persona la puede cambiar en **Información personal**.
+- **Número de teléfono**: la región telefónica predeterminada es Chile, así que un número chileno se puede escribir sin el código de país.
+
+### Visibilidad del perfil
+
+La suite deja la instalación sin servidor público de búsqueda: ningún dato del perfil se envía a ese servidor, ni siquiera con el alcance **Publicado** que describe «Compartir sus datos en la libreta de direcciones global». Los alcances deciden quién ve cada dato dentro del establecimiento, por ejemplo en el directorio de {doc}`/usuario/contactos`.
+
+### Sesiones
+
+El inicio de sesión no ofrece **Recordarme**: la sesión del navegador termina al cerrar la ventana del navegador. En un computador compartido, cerrar la sesión al terminar:
+
+1. Abrir el menú de la foto de perfil.
+2. Elegir **Cerrar sesión**.
+
+Algunos navegadores restauran la sesión anterior al volver a abrirse, con la opción de continuar donde se quedó o con la restauración de sesión. Evitarlo requiere una política en el computador.
+
+Los clientes de escritorio y móviles conservan su propia sesión, que aparece en **Dispositivos y sesiones**, dentro de **Seguridad**.
+
+### Contraseña
+
+Para cambiar la contraseña:
+
+1. Abrir el menú de la foto de perfil.
+2. Elegir **Ajustes**.
+3. Abrir **Seguridad** en la barra lateral.
+4. Escribir la contraseña vigente en **Contraseña actual**.
+5. Escribir la contraseña nueva en **Nueva contraseña**.
+6. Hacer clic en **Cambiar contraseña**.
+
+La suite no envía ninguna parte de las contraseñas a servicios externos, así que el servidor no comprueba si una contraseña nueva aparece en filtraciones conocidas. Elegir una contraseña propia que no se use en otros servicios. El largo mínimo y las demás reglas de contraseña son las de la plataforma base.
+
+### Verificación en dos pasos
+
+La suite todavía no habilita ningún proveedor de verificación en dos pasos ni la exige; la hoja de ruta deja la exigencia de la verificación en dos pasos para la puesta en producción. Mientras la administración no habilite un proveedor, la sección «Usar la verificación en dos pasos» no se aplica.
+
+### Accesibilidad
+
+La suite fija el tema claro, como explica {doc}`/usuario/interfaz-web`, así que los temas de alto contraste y la fuente para dislexia no están disponibles. Su ajuste de contraste responde a la preferencia del sistema operativo: con la preferencia de aumentar el contraste activada, el texto secundario, los bordes y el contorno del foco se ven más marcados. Con la preferencia de reducir el movimiento activada, la interfaz quita las animaciones.

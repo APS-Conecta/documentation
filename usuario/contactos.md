@@ -1,21 +1,15 @@
 ---
 tipo: guia
-esqueleto: borrador
+esqueleto: plataforma
 audiencia: usuario
 apps: [gestion]
-resumen: "El directorio del personal del establecimiento en la aplicación Contactos."
+resumen: "La aplicación Contactos como directorio del personal: las cuentas del establecimiento, las cuentas por cargo y los datos que no salen del servidor."
 ---
 # Contactos
 
 ## Resumen
 
-La aplicación Contactos mantiene el directorio del personal del establecimiento: cada cuenta activa aparece con su nombre, rol clínico y sector. El directorio se busca por rol, anexo telefónico o unidad, y desde cada tarjeta se puede iniciar una conversación en Talk o agendar una reunión.
-
-## Secciones previstas
-
-- Directorio del personal
-- Búsqueda por rol y unidad
-- Comunicación directa
+La aplicación **Contactos** guarda libretas de direcciones, contactos y equipos. Esta página reúne su manual en la plataforma base y, al final, cómo sirve en APS Conecta Gestión de directorio del personal del establecimiento.
 
 ````{upstream} user_manual/groupware/contacts.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 La aplicación Contactos no está habilitada de forma predeterminada en Nextcloud 34 y debe instalarse por separado desde nuestra tienda de aplicaciones.
@@ -201,3 +195,24 @@ Cuando esta opción está habilitada, el equipo ya no puede añadirse directamen
 
 Los elementos compartidos entre dos contactos se mostrarán en la aplicación de contactos. Esto incluye archivos multimedia, eventos de calendario, salas de chat y tarjetas de Deck compartidas, todo lo cual será visible en los detalles del contacto. Esta función se limita a los contactos que figuran en la libreta de direcciones del sistema. Actualmente, nuestro sistema solo admite elementos compartidos entre dos contactos.
 ````
+
+## En APS Conecta Gestión
+
+APS Conecta Gestión instala la aplicación **Contactos** en todas sus instalaciones, así que no hace falta instalarla: la tienda de aplicaciones está desactivada.
+
+### El directorio del personal
+
+Cada instalación sirve a un solo establecimiento, así que la libreta de direcciones del sistema reúne a su personal. La suite crea cada cuenta solo con su nombre mostrado: los demás datos de una tarjeta vienen del perfil de cada persona y de los alcances que esta eligió, como describe {doc}`/usuario/perfil-y-seguridad`.
+
+Las jefaturas permanentes tienen una cuenta por cargo, con el nombre del cargo: «Director/a de CESFAM», «Subdirector/a Médico o Jefe Técnico», «Jefe/a de Farmacia (Químico/a Farmacéutico/a)», «Jefe/a de SOME» y una por sector, como «Jefe/a de Sector Norte». La jefatura de una unidad propia del establecimiento, como un SAR, también tiene su cuenta por cargo.
+
+Para buscar a una persona o un cargo del establecimiento:
+
+1. Abrir la aplicación **Contactos**.
+2. Elegir **Todos los contactos** en la barra lateral izquierda.
+3. Escribir el nombre de la persona o del cargo en el campo de búsqueda.
+4. Abrir la tarjeta en la lista de resultados.
+
+### Datos que no salen del servidor
+
+La visibilidad de los datos del perfil fuera del establecimiento y la región telefónica predeterminada se describen en {doc}`/usuario/perfil-y-seguridad`.
