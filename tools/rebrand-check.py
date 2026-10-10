@@ -12,6 +12,8 @@ generator writing raw HTML) is caught too.
 """
 from __future__ import annotations
 
+import html as htmllib
+import re
 import sys
 from html.parser import HTMLParser
 from pathlib import Path
@@ -55,10 +57,26 @@ class Reader(HTMLParser):
             self.text.append(data)
 
 
-def visible_text(html: str, exempt: tuple[str, ...] = (), cfg: dict | None = None) -> str:
+def visible_text(html: str, exempt: tuple[str, ...] = (), cfg: dict | None = None,
+                 titles: set[str] = frozenset()) -> str:
     r = Reader(exempt, cfg)
     r.feed(html)
-    return " ".join(r.text)
+    text = " ".join(" ".join(r.text).split())
+    for t in titles:  # plain copies of a vendor title (vendor_titles)
+        text = text.replace(t, " ")
+    return text
+
+
+def vendor_titles(pages: list[str]) -> set[str]:
+    """Page titles whose h1 marks «Nextcloud» as the vendor ({vendor}`Nextcloud`): Sphinx copies a
+    title into <title> and every toctree entry as plain text, so those copies lose the mark."""
+    out = set()
+    for html in pages:
+        m = re.search(r"<h1[^>]*>(.*?)</h1>", html, re.S)
+        if m and 'class="vendor"' in m.group(1):
+            inner = re.sub(r'<a class="headerlink".*?</a>', "", m.group(1), flags=re.S)
+            out.add(" ".join(htmllib.unescape(re.sub(r"<[^>]+>", "", inner)).split()))
+    return out
 
 
 def main(argv: list[str]) -> int:
@@ -66,11 +84,15 @@ def main(argv: list[str]) -> int:
     cfg = u.config()
     exempt = {f"{p}.html" for p in cfg["rename"]["exempt_pages"]}
     found = 0
+    pages = {}
     for page in sorted(site.rglob("*.html")):
         rel = page.relative_to(site).as_posix()
         if rel in exempt or rel.startswith(("_static/", "_sources/")) or rel in ("genindex.html", "search.html"):
             continue
-        text = visible_text(page.read_text(encoding="utf-8", errors="replace"), tuple(sorted(exempt)), cfg)
+        pages[rel] = page.read_text(encoding="utf-8", errors="replace")
+    titles = vendor_titles(list(pages.values()))
+    for rel, html in pages.items():
+        text = visible_text(html, tuple(sorted(exempt)), cfg, titles)
         for hit in u.leftovers(text, cfg):
             print(f"ERROR {rel}: «…{' '.join(hit.split())}…»")
             found += 1
