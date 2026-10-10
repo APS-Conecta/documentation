@@ -14,3 +14,4 @@ Esta página registra los cambios de epidemiologia que ve una persona usuaria o 
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| Próxima versión |  | El resumen de la aplicación nombra el informe semanal de circulación de virus respiratorios del ISP. |
