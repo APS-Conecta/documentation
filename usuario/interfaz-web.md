@@ -1,22 +1,15 @@
 ---
 tipo: guia
-esqueleto: borrador
+esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion, IntraVox]
 resumen: "Cómo entrar a la plataforma desde el navegador y orientarse en la interfaz web del establecimiento."
 ---
 # Interfaz web
 
 ## Resumen
 
-El acceso a la plataforma se hace por navegador web, con inicio de sesión en el dominio del establecimiento y la identidad del CESFAM visible en la barra superior. La navegación principal es el menú lateral (side_menu), agrupado en Principal, Salud y Comunicaciones y Agenda, complementado por la búsqueda global unificada y por el modo escritorio (desktop_workspace), que ejecuta las aplicaciones en ventanas dentro de una sola pestaña.
-
-## Secciones previstas
-
-- Acceso e inicio de sesión
-- Menú lateral
-- Barra superior y búsqueda global
-- Modo escritorio
+El acceso a la plataforma se hace por navegador web, con la cuenta y la contraseña que entrega la administración del centro. Esta página describe la interfaz web y la accesibilidad que ofrece y, al final, lo que la suite fija en ella para el establecimiento: la pantalla de inicio, el idioma, la apariencia y el modo escritorio.
 
 ### La interfaz web de Nextcloud
 
@@ -155,3 +148,22 @@ El contraste de los elementos puede variar dependiendo del tema personalizado. P
 :::{note}
 Los problemas de APS Conecta Gestión, de sus aplicaciones y de su instalación se informan en los issues de la suite APS-Conecta: {doc}`/proyecto/errores-conocidos` reúne los de todos sus repositorios. El centro de incidencias citado arriba es el de {vendor}`Nextcloud`, para fallos del software original.
 :::
+
+## En APS Conecta Gestión
+
+APS Conecta Gestión configura la interfaz igual para todo el personal del establecimiento. Las diferencias con la descripción anterior son estas:
+
+- **Pantalla de inicio.** Después de iniciar sesión se abre la pantalla de bienvenida de la intranet (IntraVox), no el **Dashboard**. El icono de casa de la barra superior vuelve a esa pantalla. Si la intranet no está instalada, el inicio vuelve al **Dashboard**.
+- **Nombre del centro.** La barra superior y la página de inicio de sesión muestran el nombre corto del establecimiento junto a la marca de APS Conecta.
+- **Idioma.** La interfaz está siempre en español, con fechas y números en el formato de Chile. El idioma del navegador no la cambia.
+- **Apariencia.** La suite fija el tema claro con los colores de APS Conecta. El tema oscuro, el de alto contraste y los fondos o colores personales que describe la sección «Acceso universal» no están disponibles.
+- **Aplicaciones.** El conjunto de aplicaciones es fijo y la tienda de aplicaciones está desactivada: ninguna aplicación se agrega desde la interfaz.
+- **Archivos de una cuenta nueva.** Una cuenta nueva empieza con su carpeta personal vacía, sin archivos ni carpetas de ejemplo; el trabajo del centro está en las carpetas de equipo. Por la misma razón, la cuenta no recibe plantillas para crear documentos nuevos.
+- **Modo escritorio.** La aplicación **Escritorio** abre las aplicaciones en ventanas dentro de una sola pestaña, con una **Barra de tareas**. Su propio aviso la declara una versión alfa, una prueba de concepto que puede contener errores.
+
+Para entrar por primera vez:
+
+1. Abrir en el navegador la dirección del servidor que entrega la administración del centro.
+2. Escribir el nombre de cuenta y la contraseña inicial entregados.
+3. Iniciar sesión.
+4. Leer la pantalla de bienvenida de la intranet, que se abre sola.
