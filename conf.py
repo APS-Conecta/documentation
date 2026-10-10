@@ -138,6 +138,10 @@ linkcheck_ignore += [r'https://github\.com/nextcloud/documentation/blob/[0-9a-f]
 # deis.minsal.cl responde 403 a los runners de GitHub de forma intermitente (muro anti-bots del
 # MINSAL; 2 de ~40 builds el 2026-10-10). La URL es la correcta y se sigue citando en componentes.yml.
 linkcheck_ignore += [r'https://deis\.minsal\.cl/']
+# gitnet.fr (forja del componente side_menu) no responde a los runners de GitHub dentro de 30 s de
+# forma intermitente (2 de 3 builds el 2026-10-10: read timeout y connect timeout). Desde la VPS
+# responde 200 en ~8 s. La URL es la correcta y se sigue citando en componentes.yml.
+linkcheck_ignore += [r'https://gitnet\.fr/']
 
 # linkcheck: GitHub arma las anclas de un README o un archivo con JavaScript, así que una URL
 # github.com/...#seccion nunca muestra su ancla a un GET (falso «Anchor not found»). La URL sí
