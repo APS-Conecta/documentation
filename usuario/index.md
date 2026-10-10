@@ -26,6 +26,7 @@ Se pueden compartir uno o más archivos y carpetas del equipo y sincronizarlos c
 Interfaz web <interfaz-web>
 Archivos <archivos/index>
 Oficina <oficina>
+Crear un documento con Euro-Office <oficina-crear-documento>
 Conversación <conversacion/index>
 Calendario <calendario>
 Contactos <contactos>
