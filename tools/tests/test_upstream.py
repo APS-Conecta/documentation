@@ -215,6 +215,20 @@ class RenameTest(unittest.TestCase):
         html = f'<p>Gracias: <a class="reference external" href="{url}">{url}</a>. <a href="{url}">foro de Nextcloud</a></p>'
         self.assertEqual(len(u.leftovers(rebrand_check.visible_text(html), CFG)), 1)
 
+    def test_a_vendor_title_keeps_its_name_in_its_plain_copies(self):
+        # app-publishing-maintenance-1: «# Las reglas de la tienda de apps de {vendor}`Nextcloud`»;
+        # Sphinx copies a title into <title> and every toctree entry as plain text
+        page = ('<title>Las reglas de la tienda de apps de Nextcloud - Documentación</title>'
+                '<h1>Las reglas de la tienda de apps de <span class="vendor">Nextcloud</span>'
+                '<a class="headerlink" href="#x" title="Link to this heading">¶</a></h1>')
+        titles = rebrand_check.vendor_titles([page, "<h1>Arquitectura de Nextcloud</h1>"])
+        self.assertEqual(titles, {"Las reglas de la tienda de apps de Nextcloud"})
+        nav = ('<a href="publishing.html">Las reglas de la tienda de apps de Nextcloud</a>'
+               '<a href="files.html">Arquitectura de Nextcloud</a>')
+        for html, n in ((page, 0), (nav, 1)):
+            self.assertEqual(len(u.leftovers(rebrand_check.visible_text(html, (), CFG, titles), CFG)), n)
+
+
 class RstTest(unittest.TestCase):
     def test_headings_levels_follow_first_seen_style(self):
         self.assertEqual(
