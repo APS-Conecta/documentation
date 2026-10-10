@@ -74,7 +74,7 @@ y elegir `Call without notification`.
 Los demás participantes pueden modificar las notificaciones conversación por conversación, incluido si quieren recibir notificaciones de llamadas.
 :::
 
-El estado de usuario pasará a `In a call` y el icono de estado mostrará el emoji de bocadillo de diálogo.
+El estado de usuario pasará a {guilabel}`En una llamada` y el icono de estado mostrará el emoji de bocadillo de diálogo.
 
 #### Clientes móviles
 
@@ -91,7 +91,7 @@ Tocar `Phone` o `Video` para unirse, o tocar el botón rojo para rechazarla. Rec
 
 El micrófono y la cámara (si es una videollamada) se controlan con las opciones que aparecen en la parte inferior de la pantalla.
 
-El estado de usuario pasará a `In a call` y el icono de estado mostrará un bocadillo de diálogo.
+El estado de usuario pasará a {guilabel}`En una llamada` y el icono de estado mostrará un bocadillo de diálogo.
 
 ### Durante una llamada
 

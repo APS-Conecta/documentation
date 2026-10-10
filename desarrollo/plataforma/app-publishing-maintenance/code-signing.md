@@ -25,7 +25,7 @@ Al admitir la firma de código añadimos otra capa de seguridad, al garantizar q
 
 #### ¿Restringimos Nextcloud?
 
-El proyecto {vendor}`Nextcloud` es de código abierto y siempre lo será. No queremos dificultar a nuestros usuarios la ejecución de Nextcloud. Ningún error de firma de código en las actualizaciones impedirá que Nextcloud funcione, pero se mostrará un aviso en la página de administración. Para las aplicaciones que no están etiquetadas como «Featured», el proceso de firma de código es opcional.
+El proyecto {vendor}`Nextcloud` es de código abierto y siempre lo será. No queremos dificultar a nuestros usuarios la ejecución de Nextcloud. Ningún error de firma de código en las actualizaciones impedirá que Nextcloud funcione, pero se mostrará un aviso en la página de administración. Para las aplicaciones que no están etiquetadas como «Destacadas», el proceso de firma de código es opcional.
 
 #### ¿Ya no es de código abierto?
 

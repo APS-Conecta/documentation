@@ -17,13 +17,13 @@ Los usuarios de Nextcloud pueden compartir archivos con sus grupos de Nextcloud 
 
 La política de compartición se configura en la sección Compartir de la página de administración.
 
-- Marcar `Allow apps to use the Share API` para permitir que los usuarios compartan archivos. Si no está marcado, ningún usuario puede crear recursos compartidos de archivos.
+- Marcar {guilabel}`Permitir a las aplicaciones utilizar la API de Compartir` para permitir que los usuarios compartan archivos. Si no está marcado, ningún usuario puede crear recursos compartidos de archivos.
 
-  - Marcar `Allow resharing` para permitir que los usuarios vuelvan a compartir los archivos que se han compartido con ellos.
-  - Marcar `Allow sharing with groups` para permitir que los usuarios compartan con grupos.
-  - Marcar `Restrict users to only share with users in their groups` para limitar la compartición a la pertenencia a grupos. Al marcarlo, aparece una lista desplegable opcional de grupos que se ignoran al comprobar la pertenencia a grupos. Escribir cualquier nombre de grupo para buscarlo.
+  - Marcar {guilabel}`Permitir que se vuelva a compartir` para permitir que los usuarios vuelvan a compartir los archivos que se han compartido con ellos.
+  - Marcar {guilabel}`Permitir compartir con grupos` para permitir que los usuarios compartan con grupos.
+  - Marcar {guilabel}`Limitar a los usuarios a compartir solo con los usuarios de sus grupos` para limitar la compartición a la pertenencia a grupos. Al marcarlo, aparece una lista desplegable opcional de grupos que se ignoran al comprobar la pertenencia a grupos. Escribir cualquier nombre de grupo para buscarlo.
 
-    - Los grupos añadidos a `Ignore the following groups when checking group membership` no se tendrán en cuenta para determinar si los usuarios están en los mismos grupos y pueden compartir entre sí.
+    - Los grupos añadidos a {guilabel}`Ignorar los siguientes grupos cuando se verifique la pertenencia a grupos` no se tendrán en cuenta para determinar si los usuarios están en los mismos grupos y pueden compartir entre sí.
 
     :::{note}
     Este ajuste no se aplica a la función de compartición federada en la nube. Si la {nc-doc}`compartición federada en la nube <admin_manual/configuration_files/federated_cloud_sharing_configuration>` está activada, los usuarios pueden seguir compartiendo elementos con cualquier usuario de cualquier instancia (incluida aquella en la que están) mediante un recurso compartido remoto.
@@ -32,14 +32,14 @@ La política de compartición se configura en la sección Compartir de la págin
 - Marcar `Allow users to share via link and email` para permitir crear recursos compartidos públicos, mediante un hipervínculo, para personas que no son usuarios de Nextcloud.
 
   - Marcar {guilabel}`Permitir subidas públicas` para permitir que cualquier persona suba archivos a los recursos compartidos públicos.
-  - Marcar `Always ask for a password` para pedir de forma proactiva al usuario que establezca una contraseña para un enlace compartido.
+  - Marcar {guilabel}`Pedir siempre la contraseña` para pedir de forma proactiva al usuario que establezca una contraseña para un enlace compartido.
   - Marcar {guilabel}`Forzar la protección por contraseña` para obligar a los usuarios a establecer una contraseña en todos los enlaces compartidos públicos. No se aplica a los recursos compartidos con usuarios y grupos locales.
-  - Añadir grupos a `Exclude groups from creating link shares` para no aplicar los ajustes a esos grupos.
+  - Añadir grupos a {guilabel}`Excluir grupos de la creación de enlaces de recursos compartidos` para no aplicar los ajustes a esos grupos.
 
 - Marcar `Exclude groups from sharing` para impedir que los miembros de grupos concretos creen recursos compartidos de archivos en esos grupos. Al marcarlo, aparece una lista desplegable con todos los grupos para elegir. Escribir cualquier nombre de grupo para buscarlo. Los miembros de los grupos excluidos pueden seguir recibiendo recursos compartidos, pero no crear ninguno.
 - Marcar `Set default expiration date for shares` para establecer una fecha de caducidad predeterminada en los recursos compartidos con usuarios y grupos locales.
 
-  - Marcar `Enforce expiration date` para imponer siempre la fecha de caducidad configurada en los recursos compartidos con usuarios y grupos locales.
+  - Marcar {guilabel}`Forzar expiración` para imponer siempre la fecha de caducidad configurada en los recursos compartidos con usuarios y grupos locales.
 
     :::{note}
     Los usuarios no podrán establecer una fecha de caducidad más lejana en el futuro que la fecha de caducidad impuesta, aunque sí podrán establecer una fecha más próxima. Hay que tener en cuenta también que los usuarios podrán volver a actualizar la fecha de caducidad más adelante. La fecha de caducidad se basa en la fecha actual y no en la fecha de creación del recurso compartido. El usuario podrá volver a ampliar la fecha de caducidad siempre que una fecha de caducidad anterior esté a punto de alcanzarse.
@@ -47,7 +47,7 @@ La política de compartición se configura en la sección Compartir de la págin
 
 - Marcar `Set default expiration date for shares via link or email` para establecer una fecha de caducidad predeterminada en los recursos compartidos públicos.
 
-  - Marcar `Enforce expiration date` para imponer siempre la fecha de caducidad configurada en los recursos compartidos públicos.
+  - Marcar {guilabel}`Forzar expiración` para imponer siempre la fecha de caducidad configurada en los recursos compartidos públicos.
 
     :::{note}
     Los usuarios no podrán establecer una fecha de caducidad más lejana en el futuro que la fecha de caducidad impuesta, aunque sí podrán establecer una fecha más próxima. Hay que tener en cuenta también que los usuarios podrán volver a actualizar la fecha de caducidad más adelante. La fecha de caducidad se basa en la fecha actual y no en la fecha de creación del recurso compartido. El usuario podrá volver a ampliar la fecha de caducidad siempre que una fecha de caducidad anterior esté a punto de alcanzarse.
@@ -61,7 +61,7 @@ La política de compartición se configura en la sección Compartir de la págin
 - Marcar `Allow autocompletion when entering the full name or email address (ignoring missing phonebook match and being in the same group)` para mostrar, a pesar de las restricciones anteriores, una sugerencia de usuario cuando se ha escrito el nombre mostrado o el ID de usuario completos.
 - Marcar `Show disclaimer text on the public link upload page` para establecer y mostrar un texto de aviso legal en los enlaces públicos con listas de archivos ocultas. Al activar esta función, aparece un campo de texto para introducir el texto de aviso legal.
 
-Con `Default share permissions` es posible establecer los permisos predeterminados de los recursos compartidos con usuarios ({guilabel}`Crear`, `Change`, {guilabel}`Eliminar` y `Reshare`) sin imponerlos.
+Con {guilabel}`Permisos por defecto para recurso compartido` es posible establecer los permisos predeterminados de los recursos compartidos con usuarios ({guilabel}`Crear`, {guilabel}`Cambiar`, {guilabel}`Eliminar` y {guilabel}`Volver a compartir`) sin imponerlos.
 
 :::{note}
 Nextcloud no conserva el mtime (fecha de modificación) de los directorios, aunque sí actualiza el mtime de los archivos. Consultar [Fecha de carpeta incorrecta al sincronizar](https://github.com/owncloud/core/issues/7009) para ver la discusión al respecto.

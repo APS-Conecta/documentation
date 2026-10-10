@@ -50,7 +50,7 @@ Actualizar la instalación de Nextcloud con el actualizador integrado lleva solo
 
 2. Hacer clic en el botón «Abrir el actualizador».
 
-3. Verificar la información que se muestra y hacer clic en el botón «Start update» para iniciar la actualización.
+3. Verificar la información que se muestra y hacer clic en el botón «Iniciar actualización» para iniciar la actualización.
 
 4. Si ocurre un error o la comprobación falla, el actualizador detiene el proceso e informa de ello. Entonces puede intentarse resolver el problema y hacer clic en el botón «Retry update». Esto continuará la actualización y volverá a ejecutar el paso fallido. No volverá a ejecutar los pasos anteriores que se completaron correctamente.
 

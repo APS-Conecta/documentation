@@ -60,6 +60,11 @@ def upstream_dir() -> Path:
     return Path(os.environ.get("UPSTREAM_DIR", ROOT / "_generated" / "upstream"))
 
 
+def server_dir() -> Path:
+    """The sparse clone of nextcloud/server's Spanish l10n that tools/fetch-upstream.sh maintains."""
+    return Path(os.environ.get("SERVER_DIR", ROOT / "_generated" / "server"))
+
+
 def major(cfg: dict | None = None) -> str:
     cfg = cfg or config()
     spec = cfg["source"]["major_from"]
@@ -819,12 +824,18 @@ _UI: dict | None = None
 def ui_strings() -> dict[str, set[str]]:
     """English UI string → the Spanish the interface shows: glosario.yml (server strings) and the
     l10n/es.json of every app the suite ships, read from the exact tarballs gestion installs
-    (provisioning/apps/*/*.tar.gz). Without a gestion checkout, the glossary alone."""
+    (provisioning/apps/*/*.tar.gz), and of the server and every app it bundles (server_dir()).
+    Without those checkouts, the glossary alone."""
     global _UI
     if _UI is None:
         out: dict[str, set[str]] = {}
         for t in (yaml.safe_load((ROOT / "glosario.yml").read_text(encoding="utf-8")) or {}).get("terms", []):
             out.setdefault(t["en"], set()).add(t["es"])
+        srv = server_dir()
+        for f in sorted(srv.glob("apps/*/l10n/es.json")) + sorted(srv.glob("core/l10n/es.json")):
+            for en, es in json.loads(f.read_text(encoding="utf-8")).get("translations", {}).items():
+                if isinstance(es, str) and es.strip():
+                    out.setdefault(en, set()).add(es)
         for tgz in sorted((org_root() / "gestion" / "provisioning" / "apps").glob("*/*.tar.gz")):
             with tarfile.open(tgz) as tf:
                 for m in tf.getmembers():

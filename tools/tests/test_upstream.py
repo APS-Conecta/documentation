@@ -1296,6 +1296,27 @@ class RstCommentTest(unittest.TestCase):
         self.assertEqual(u.rst_paragraphs(rst), ["Intro.", "Shown note.", "Quoted text."])
 
 
+class ServerUiStringsTest(unittest.TestCase):
+    """S5 (5): labels of the apps the server bundles (user_ldap, settings, twofactor_*…) come from
+    nextcloud/server stable<major> l10n, not only from the suite's own app tarballs."""
+
+    def test_server_bundled_app_and_core_labels_are_ui_strings(self):
+        import json, os, tempfile
+        from unittest import mock
+
+        with tempfile.TemporaryDirectory() as d:
+            for rel, data in (("apps/user_ldap/l10n/es.json", {"Test Configuration": "Probar configuración"}),
+                              ("core/l10n/es.json", {"Log in": "Iniciar sesión"})):
+                f = Path(d) / rel
+                f.parent.mkdir(parents=True)
+                f.write_text(json.dumps({"translations": data}), encoding="utf-8")
+            with mock.patch.dict(os.environ, {"SERVER_DIR": d, "APS_ORG_ROOT": "/nonexistent"}), \
+                    mock.patch.object(u, "_UI", None):
+                ui = u.ui_strings()
+        self.assertEqual(ui["Test Configuration"], {"Probar configuración"})
+        self.assertEqual(ui["Log in"], {"Iniciar sesión"})
+
+
 class CatalogTest(unittest.TestCase):
     def test_reads_multiline_msgid_and_msgstr(self):
         import tempfile

@@ -268,7 +268,7 @@ Consultar la [incidencia n.º 8546 de GitHub](https://github.com/nextcloud/serve
 
 #### Error de firma incorrecta
 
-En algunos casos poco frecuentes, los archivos cifrados no pueden descargarse y devuelven un «500 Internal Server Error». Si el registro de Nextcloud contiene un error sobre «Bad Signature», ejecutar el siguiente comando para reparar los archivos afectados:
+En algunos casos poco frecuentes, los archivos cifrados no pueden descargarse y devuelven un «500 Internal Server Error». Si el registro de Nextcloud contiene un error sobre «Firma errónea», ejecutar el siguiente comando para reparar los archivos afectados:
 
 ```
 occ encryption:fix-encrypted-version userId --path=/path/to/broken/file.txt
