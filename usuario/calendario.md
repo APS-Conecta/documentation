@@ -1,23 +1,16 @@
 ---
 tipo: guia
-esqueleto: borrador
+esqueleto: plataforma
 audiencia: usuario
 apps: [gestion]
-resumen: "Coordinar turnos, programas y comités del establecimiento con la aplicación Calendario."
+resumen: "La aplicación Calendario y cómo la usa el establecimiento: la hora de Chile, los calendarios de equipo y los avisos sin correo electrónico."
 ---
 (nc-calendar-app)=
 # Calendario
 
 ## Resumen
 
-La aplicación Calendar coordina turnos, programas y comités del establecimiento: eventos con asistentes, salas de video y vistas de día, semana, mes y agenda. Los sectores mantienen calendarios compartidos para visitas domiciliarias, talleres y turnos, con toda la agenda en la zona horaria de Chile continental.
-
-## Secciones previstas
-
-- Crear eventos
-- Calendarios de sector
-- Turnos y programas
-- Huddles de sector
+La aplicación **Calendario** organiza calendarios, eventos, invitaciones y citas. Esta página reúne su manual en la plataforma base y, al final, lo que APS Conecta Gestión fija para el establecimiento: la zona horaria, los calendarios compartidos con los grupos del centro y los avisos de los eventos.
 
 ````{upstream} user_manual/groupware/calendar.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 :::{note}
@@ -429,3 +422,40 @@ Los participantes pueden responder a una reunión propuesta pulsando el enlace d
 
 Los participantes pueden seleccionar su disponibilidad para cada hora propuesta eligiendo su preferencia en la línea correspondiente de la matriz de horas y participantes. Pueden elegir entre tres opciones: "Sí", "No" o "Quizás". Una vez hechas sus selecciones, pueden pulsar el botón "Enviar" para guardar sus respuestas.
 ````
+
+## En APS Conecta Gestión
+
+APS Conecta Gestión instala la aplicación **Calendario** en todas sus instalaciones. La instalación no crea calendarios: cada persona recibe su calendario inicial y cada equipo crea y comparte los suyos.
+
+### Zona horaria
+
+La instalación fija la zona horaria del servidor en `America/Santiago`, la de Chile continental. El Calendario muestra los eventos en la zona horaria que detecta el navegador de cada persona.
+
+Para revisar la zona horaria del Calendario:
+
+1. Abrir la aplicación **Calendario**.
+2. Abrir **Configuración del calendario**.
+3. Revisar que **Zona horaria** sea la de Chile continental.
+
+Si el navegador avisa de una diferencia de zona horaria, revisar que el reloj del sistema operativo esté en la hora de Chile continental.
+
+### Calendarios de equipo
+
+La suite crea grupos para todo el establecimiento: «Todo el personal», las cuatro categorías («Jefaturas», «Clínicos», «Técnicos» y «Administrativos»), los roles y un equipo por programa y por sector, como «Sector Norte». Un calendario compartido con uno de estos grupos llega a todas las personas del grupo. Un sector, por ejemplo, lleva en un calendario compartido sus visitas domiciliarias, sus talleres comunitarios y sus turnos.
+
+Para compartir un calendario con un equipo:
+
+1. Abrir la aplicación **Calendario**.
+2. Abrir el menú de tres puntos del calendario en la barra lateral izquierda.
+3. Elegir **Editar y compartir calendario**.
+4. Escribir el nombre del grupo en **Compartir con otros usuarios o grupos**.
+5. Elegir el grupo en la lista de resultados.
+6. Marcar **puede editar y ver eventos privados** si el equipo crea y modifica eventos en el calendario.
+
+### Conversaciones de Talk
+
+La opción **Añadir una conversación de Talk** del editor de eventos depende de Talk, que cada instalación incluye o no según lo que decidió la administración al instalarla. {doc}`/usuario/conversacion/index` explica esa decisión.
+
+### Avisos y correo electrónico
+
+La hoja de ruta de la suite deja la configuración del correo saliente (SMTP) para la puesta en producción. Mientras la administración no configure un servidor de correo, las invitaciones y los recordatorios por correo electrónico no se envían, como indica el aviso «Atención» de la sección «Invitar a asistentes a un evento». Para recibir el aviso de un evento, elegir un recordatorio de tipo **Notificación**.
