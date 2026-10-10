@@ -5,7 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Aviso de que las notas de versión se dividieron en una subpágina por versión de Nextcloud, con el enlace a esas subpáginas."
 ---
-# Notas de versión
+# Ubicación de las notas de versión
 
 ## Resumen
 

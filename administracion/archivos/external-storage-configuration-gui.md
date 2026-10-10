@@ -5,7 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Activar y configurar el almacenamiento externo: montajes, autenticación, variables de ruta, permisos, opciones de montaje, backends y codificación de nombres."
 ---
-# Almacenamiento externo
+# Configuración del almacenamiento externo
 
 ## Resumen
 

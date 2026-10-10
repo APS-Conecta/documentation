@@ -5,7 +5,7 @@ audiencia: administracion
 apps: [gestion]
 resumen: "Comandos occ de AppAPI para registrar, anular el registro, actualizar, habilitar, deshabilitar y listar ExApps, con sus argumentos y opciones."
 ---
-# Gestión de ExApps
+# Comandos occ de ExApps
 
 ## Resumen
 

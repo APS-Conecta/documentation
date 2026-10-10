@@ -1361,5 +1361,33 @@ class CatalogTest(unittest.TestCase):
             )
 
 
+
+class SiblingTitleTest(unittest.TestCase):
+    """Upstream reuses a title for sibling docs («Database configuration» ×2) or opens a doc with a
+    generic one («Introduction»); woven verbatim, the menu shows two identical entries."""
+
+    def test_two_pages_in_one_folder_with_one_title_are_reported(self):
+        titles = {"a/x.md": "Introducción", "a/y.md": "Introducción", "a/z.md": "Navegación"}
+        self.assertEqual(
+            fidelity.sibling_title_problems(titles),
+            ["a/: «Introducción» titles 2 pages (a/x.md, a/y.md); the menu cannot tell them apart"],
+        )
+
+    def test_the_same_title_in_different_folders_is_fine(self):
+        titles = {"administracion/seguridad.md": "Seguridad", "desarrollo/seguridad.md": "Seguridad"}
+        self.assertEqual(fidelity.sibling_title_problems(titles), [])
+
+    def test_a_folder_index_is_listed_beside_its_parent_folder_pages(self):
+        titles = {"a/gui.md": "Almacenamiento externo", "a/ext/index.md": "Almacenamiento externo"}
+        self.assertEqual(
+            fidelity.sibling_title_problems(titles),
+            ["a/: «Almacenamiento externo» titles 2 pages (a/ext/index.md, a/gui.md); the menu cannot tell them apart"],
+        )
+
+    def test_page_title_is_the_first_h1(self):
+        text = "---\ntipo: referencia\n---\n(nc-label)=\n# Navegación\n\n## Resumen\n# not a title\n"
+        self.assertEqual(fidelity.page_title(text), "Navegación")
+
+
 if __name__ == "__main__":
     unittest.main()
