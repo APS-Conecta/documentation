@@ -548,7 +548,8 @@ def link_target(docname: str, target: str, cfg: dict | None = None) -> str:
 
 def rst_links(text: str, docname: str = "", cfg: dict | None = None) -> set[str]:
     """External URLs: `text <url>`_, named targets (`.. _Name: url`) and bare URLs in prose; with
-    `docname`, a relative embedded link too, as the address it points to (link_target).
+    `docname`, a relative embedded link too, as the address it points to (link_target), and a
+    visible toctree's URL entry (`Title <url>`), which Sphinx lists as a link.
     An embedded URL that wraps a line is one URL: docutils drops the line break."""
     text = RST_EXT_LINK.sub(lambda m: m.group(0).replace(m.group(1), re.sub(r"\s+", "", m.group(1))), text)
     relative = {link_target(docname, t, cfg) for t in RST_REL_LINK.findall(text)
@@ -557,12 +558,14 @@ def rst_links(text: str, docname: str = "", cfg: dict | None = None) -> set[str]
         relative
         | set(RST_EXT_LINK.findall(text))
         | set(RST_NAMED_TARGET.findall(text))
+        | {m for body in TOCTREE.findall(text + "\n") if ":hidden:" not in body for m in TOCTREE_URL.findall(body)}
         # an embedded URL is read whole above; its «)» or «#…» never reaches the bare-URL scan
         | _urls(rst_paragraphs(re.sub(r"<https?://[^>]+>", " ", text)))
     )
 
 
 TOCTREE = re.compile(r"^[ \t]*\.\. toctree::[^\n]*\n((?:[ \t]+[^\n]*\n|[ \t]*\n)*)", re.M)
+TOCTREE_URL = re.compile(r"^[ \t]+(?:[^<\n]*<)?(https?://[^>\s]+)>?[ \t]*$", re.M)
 
 
 _ALL_DOCS: list[str] | None = None
