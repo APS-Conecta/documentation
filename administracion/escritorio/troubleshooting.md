@@ -27,7 +27,7 @@ Al informar de errores, es útil determinar primero qué parte del sistema está
 
 - Asegurarse de que la API de WebDAV funciona: si todos los clientes de escritorio fallan al conectarse al servidor Nextcloud, pero el acceso mediante la interfaz web funciona correctamente, el problema suele ser una configuración incorrecta de la API de WebDAV.
 
-  El cliente de Nextcloud usa el acceso WebDAV integrado del servidor al contenido. Verificar que se puede iniciar sesión en el servidor WebDAV de Nextcloud. Para verificar la conectividad con el servidor WebDAV de Nextcloud:
+  El cliente de {vendor}`Nextcloud` usa el acceso WebDAV integrado del servidor al contenido. Verificar que se puede iniciar sesión en el servidor WebDAV de Nextcloud. Para verificar la conectividad con el servidor WebDAV de Nextcloud:
 
   - Abrir una ventana del navegador e introducir la dirección del servidor WebDAV de Nextcloud.
 
@@ -116,7 +116,7 @@ Desde la versión 3.1.0 es más fácil que los usuarios proporcionen informació
 
 Otra forma de obtener el archivo de registro del cliente:
 
-1. Abrir el cliente de escritorio de Nextcloud.
+1. Abrir el cliente de escritorio de {vendor}`Nextcloud`.
 
 2. Pulsar F12 o Ctrl-L en el teclado.
 
@@ -146,7 +146,7 @@ También puede abrirse una ventana de registro para una sesión que ya está en 
 
 #### Archivo de configuración
 
-El cliente de Nextcloud permite guardar los archivos de registro directamente en un archivo o directorio predefinido. Es una opción útil para solucionar problemas esporádicos, ya que permite registrar grandes cantidades de datos y eludir los ajustes de búfer limitados de la ventana de registro.
+El cliente de {vendor}`Nextcloud` permite guardar los archivos de registro directamente en un archivo o directorio predefinido. Es una opción útil para solucionar problemas esporádicos, ya que permite registrar grandes cantidades de datos y eludir los ajustes de búfer limitados de la ventana de registro.
 
 Para activar el registro en un directorio, detener el cliente y añadir lo siguiente a la sección General del archivo de configuración:
 

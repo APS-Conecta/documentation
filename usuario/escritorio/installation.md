@@ -14,7 +14,7 @@ Esta página explica dónde descargar el cliente de escritorio, qué sistemas y 
 ````{upstream} user_manual/desktop/installation.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 ### Descarga
 
-La última versión del cliente de sincronización de escritorio de Nextcloud puede descargarse desde la [página de descargas de Nextcloud][Nextcloud download page]. Hay clientes disponibles para Linux, macOS y Microsoft Windows.
+La última versión del cliente de sincronización de escritorio de {vendor}`Nextcloud` puede descargarse desde la [página de descargas de Nextcloud][Nextcloud download page]. Hay clientes disponibles para Linux, macOS y Microsoft Windows.
 
 En la página de descargas también hay enlaces a archivos de código fuente y a versiones anteriores.
 

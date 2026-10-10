@@ -27,7 +27,7 @@ Las variables de entorno son:
 
 ### Poco espacio en disco
 
-Cuando queda poco espacio en disco, el cliente de Nextcloud no puede sincronizar todos los archivos. Esta sección describe su comportamiento en una situación de poco espacio en disco, así como las opciones que influyen en él.
+Cuando queda poco espacio en disco, el cliente de {vendor}`Nextcloud` no puede sincronizar todos los archivos. Esta sección describe su comportamiento en una situación de poco espacio en disco, así como las opciones que influyen en él.
 
 1. La sincronización de una carpeta se interrumpe por completo si el espacio restante en disco cae por debajo de 512 MB. Este umbral puede ajustarse con la variable de entorno `OWNCLOUD_CRITICAL_FREE_SPACE_BYTES`.
 

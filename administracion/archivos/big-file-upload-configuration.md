@@ -22,7 +22,7 @@ El tamaño máximo de archivo predeterminado para las subidas es de 512 MB. Este
 Los sistemas de archivos de 64 bits tienen límites mucho más altos; consultar la documentación del sistema de archivos.
 
 :::{note}
-El cliente de sincronización de Nextcloud no se ve afectado por estos límites de subida, ya que sube los archivos en fragmentos más pequeños. Consultar la [documentación del cliente](https://docs.nextcloud.com/desktop/latest/advancedusage.html) para obtener más información sobre las opciones de configuración.
+El cliente de sincronización de {vendor}`Nextcloud` no se ve afectado por estos límites de subida, ya que sube los archivos en fragmentos más pequeños. Consultar la [documentación del cliente](https://docs.nextcloud.com/desktop/latest/advancedusage.html) para obtener más información sobre las opciones de configuración.
 :::
 
 ### Configuración del sistema

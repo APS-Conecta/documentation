@@ -12,7 +12,7 @@ resumen: "Uso del cliente de escritorio: iconos de estado, menú de la bandeja, 
 Esta página explica cómo usar el cliente de escritorio: sus iconos de estado, el menú de la bandeja del sistema, los ajustes de cuenta, las cuentas adicionales, los iconos superpuestos del gestor de archivos, el estado de usuario, el uso compartido desde el escritorio, los ajustes de red y el editor de archivos ignorados. Está dirigida a usuarios del cliente de escritorio.
 
 ````{upstream} user_manual/desktop/usage.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
-El cliente de escritorio de Nextcloud permanece en segundo plano y se muestra como un icono en la bandeja del sistema (Windows, KDE), en la barra de menús (macOS) o en el área de notificación (Linux).
+El cliente de escritorio de {vendor}`Nextcloud` permanece en segundo plano y se muestra como un icono en la bandeja del sistema (Windows, KDE), en la barra de menús (macOS) o en el área de notificación (Linux).
 
 El indicador de estado usa iconos para indicar el estado actual de la sincronización. El círculo verde con la marca de verificación blanca indica que la sincronización está al día y que hay conexión con el servidor Nextcloud.
 
@@ -75,7 +75,7 @@ Se pueden configurar varias cuentas de Nextcloud en el cliente de sincronizació
 
 ### Iconos superpuestos del gestor de archivos
 
-El cliente de sincronización de Nextcloud ofrece iconos superpuestos, además de los iconos normales de tipo de archivo, para el gestor de archivos del sistema (el Explorador en Windows, Finder en Mac y Nautilus en Linux), que indican el estado de sincronización de los archivos de Nextcloud.
+El cliente de sincronización de {vendor}`Nextcloud` ofrece iconos superpuestos, además de los iconos normales de tipo de archivo, para el gestor de archivos del sistema (el Explorador en Windows, Finder en Mac y Nautilus en Linux), que indican el estado de sincronización de los archivos de Nextcloud.
 
 Los iconos superpuestos son similares a los iconos de la bandeja del sistema presentados más arriba. Se comportan de forma diferente en archivos y en directorios según el estado de sincronización y los errores.
 
@@ -103,7 +103,7 @@ Si se está conforme con el estado creado, se puede activar con el botón **Esta
 
 ### Compartir desde el escritorio
 
-El cliente de sincronización de escritorio de Nextcloud se integra con el gestor de archivos: Finder en macOS y el Explorador en Windows. Los usuarios de Linux deben instalar un paquete adicional según el gestor de archivos que usen. Están disponibles, por ejemplo, `nautilus-nextcloud` (Ubuntu/Debian), `dolphin-nextcloud` (Kubuntu), `nemo-nextcloud` y `caja-nextcloud`. Se pueden crear enlaces para compartir, y compartir con usuarios internos de Nextcloud, de la misma forma que en la interfaz web de Nextcloud.
+El cliente de sincronización de escritorio de {vendor}`Nextcloud` se integra con el gestor de archivos: Finder en macOS y el Explorador en Windows. Los usuarios de Linux deben instalar un paquete adicional según el gestor de archivos que usen. Están disponibles, por ejemplo, `nautilus-nextcloud` (Ubuntu/Debian), `dolphin-nextcloud` (Kubuntu), `nemo-nextcloud` y `caja-nextcloud`. Se pueden crear enlaces para compartir, y compartir con usuarios internos de Nextcloud, de la misma forma que en la interfaz web de Nextcloud.
 
 En el explorador de archivos, hacer clic en un archivo y, en el menú contextual, ir a **Nextcloud** y luego hacer clic en **Opciones de compartir** para abrir el diálogo de compartir.
 
@@ -122,7 +122,7 @@ La ventana de ajustes de Red permite definir los ajustes del proxy de red y tamb
 
 Puede haber algunos archivos o directorios locales de los que no se quiera hacer copia de seguridad ni guardar en el servidor. Para identificar y excluir estos archivos o directorios, se puede usar el *Editor de archivos ignorados* (pestaña General).
 
-Por comodidad, el editor viene precargado con una lista predeterminada de patrones de exclusión típicos. Estos patrones se encuentran en un archivo del sistema (normalmente `sync-exclude.lst`) situado en el directorio de la aplicación del cliente de Nextcloud. Estos patrones precargados no pueden modificarse directamente desde el editor. Sin embargo, si es necesario, se puede pasar el cursor sobre cualquier patrón de la lista para mostrar la ruta y el nombre de archivo asociados a ese patrón, localizar el archivo y editar el archivo `sync-exclude.lst`.
+Por comodidad, el editor viene precargado con una lista predeterminada de patrones de exclusión típicos. Estos patrones se encuentran en un archivo del sistema (normalmente `sync-exclude.lst`) situado en el directorio de la aplicación del cliente de {vendor}`Nextcloud`. Estos patrones precargados no pueden modificarse directamente desde el editor. Sin embargo, si es necesario, se puede pasar el cursor sobre cualquier patrón de la lista para mostrar la ruta y el nombre de archivo asociados a ese patrón, localizar el archivo y editar el archivo `sync-exclude.lst`.
 
 :::{note}
 Modificar el archivo global de definición de exclusiones puede dejar el cliente inutilizable o provocar un comportamiento no deseado.
@@ -140,7 +140,7 @@ Cada cadena de patrón de la lista va seguida de una casilla. Cuando la casilla 
 
 Además de excluir los archivos y directorios que usan patrones definidos en esta lista:
 
-- El cliente de Nextcloud siempre excluye los archivos que contienen caracteres que no pueden sincronizarse con otros sistemas de archivos.
+- El cliente de {vendor}`Nextcloud` siempre excluye los archivos que contienen caracteres que no pueden sincronizarse con otros sistemas de archivos.
 
 - Se eliminan los archivos que provocan errores individuales tres veces durante una sincronización. Sin embargo, el cliente ofrece la opción de reintentar la sincronización tres veces más en los archivos que producen errores.
 

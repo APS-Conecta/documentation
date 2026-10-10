@@ -255,7 +255,7 @@ public function getWidgetOptions(): WidgetOptions {
 
 #### La interfaz IAPIWidget
 
-Si se quiere que el contenido del widget sea accesible mediante la API del Dashboard para los clientes de Nextcloud,
+Si se quiere que el contenido del widget sea accesible mediante la API del Dashboard para los clientes de {vendor}`Nextcloud`,
 el widget debe implementar la interfaz *OCP\\Dashboard\\IAPIWidget* en lugar de *OCP\\Dashboard\\IWidget*.
 Esta interfaz contiene un método adicional, *getItems*, que devuelve un array de objetos *OCP\\Dashboard\Model\\WidgetItem*.
 

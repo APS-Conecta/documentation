@@ -14,7 +14,7 @@ Esta página explica qué ocurre cuando un archivo cambia a la vez en el equipo 
 ````{upstream} user_manual/desktop/conflicts.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 ### Descripción general
 
-El cliente de escritorio de Nextcloud sube los cambios locales y descarga los cambios remotos. Cuando un archivo ha cambiado tanto en el lado local como en el remoto entre ejecuciones de sincronización, el cliente no puede resolver la situación por sí solo. Crea un archivo de conflicto con la versión local, descarga la versión remota y notifica al usuario que se produjo un conflicto que requiere atención.
+El cliente de escritorio de {vendor}`Nextcloud` sube los cambios locales y descarga los cambios remotos. Cuando un archivo ha cambiado tanto en el lado local como en el remoto entre ejecuciones de sincronización, el cliente no puede resolver la situación por sí solo. Crea un archivo de conflicto con la versión local, descarga la versión remota y notifica al usuario que se produjo un conflicto que requiere atención.
 
 ### Ejemplo
 

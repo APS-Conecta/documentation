@@ -292,7 +292,7 @@ Comandos comunes:
 (nc-dev-ocs-api)=
 #### API OCS
 
-OCS (Open Collaboration Services) es un formato de API HTTP que Nextcloud usa para la comunicación entre apps y entre cliente y servidor. Al construir una API REST en una app de Nextcloud, se extiende `OCSController` en lugar de la clase `Controller` simple. Las respuestas siguen un formato de sobre específico con JSON que los clientes móviles y de escritorio de Nextcloud saben manejar.
+OCS (Open Collaboration Services) es un formato de API HTTP que Nextcloud usa para la comunicación entre apps y entre cliente y servidor. Al construir una API REST en una app de Nextcloud, se extiende `OCSController` en lugar de la clase `Controller` simple. Las respuestas siguen un formato de sobre específico con JSON que los clientes móviles y de escritorio de {vendor}`Nextcloud` saben manejar.
 
 #### ExApp (app externa)
 

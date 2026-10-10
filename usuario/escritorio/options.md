@@ -12,7 +12,7 @@ resumen: "Opciones de línea de comandos para iniciar el cliente de escritorio: 
 Esta página enumera las opciones con las que puede iniciarse el cliente de escritorio desde la línea de comandos, sobre todo las de registro, el directorio de configuración y el inicio en segundo plano. Está dirigida a usuarios que inician el cliente desde una terminal o un script.
 
 ````{upstream} user_manual/desktop/options.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
-El cliente de escritorio de Nextcloud puede iniciarse con el comando `nextcloud`. Se admiten las siguientes opciones:
+El cliente de escritorio de {vendor}`Nextcloud` puede iniciarse con el comando `nextcloud`. Se admiten las siguientes opciones:
 
 - `nextcloud -h` o `nextcloud --help`: muestra todas las opciones del comando.
 

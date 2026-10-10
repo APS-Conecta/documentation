@@ -4,7 +4,8 @@
 Reads every page of _build/html as a reader sees it and fails on any «Nextcloud» outside the
 places the rename rule leaves alone: code (<code>, <pre>), scripts and styles, attribution lines
 (class `atribucion`), the vendor ({vendor} role, links to `rename.keep_hosts`), the legal and
-product names upstream.yml `rename.keep` lists, and the pages `rename.exempt_pages` names.
+product names upstream.yml `rename.keep` lists, and the pages `rename.exempt_pages` names. Also
+fails on a store client (desktop, Android, iOS) named as the product: client_problems.
 Proves _ext/rebrand.py from the outside, so a page that bypasses the transform (a template, a
 generator writing raw HTML) is caught too.
 
@@ -79,6 +80,19 @@ def vendor_titles(pages: list[str]) -> set[str]:
     return out
 
 
+
+def client_problems(text: str, cfg: dict) -> list[str]:
+    """A store client named as the product: «el cliente de escritorio de APS Conecta Gestión». The
+    desktop, Android and iOS clients ship as «Nextcloud», so the source writes {vendor}`Nextcloud`
+    (owner, 2026-10-10, documentation#136). HTTP and web clients, accounts and platform libraries
+    are the product itself and keep the rename."""
+    product = re.escape(cfg["rename"]["to"])
+    gap = r"((?:\s+(?!cuenta\b|web\b|HTTP\b)[^\s.;:]+){0,4}?)"
+    client = re.compile(r"\b(?:clientes?|aplicaci[oó]n(?:es)? m[oó]vil(?:es)?)\b(?!\s+(?:HTTP|web)\b)" + gap + r"\s+de " + product)
+    library = re.compile(r"\bbibliotecas? de (?:Android|iOS) de " + product)
+    return [m.group(0) for pat in (client, library) for m in pat.finditer(text)]
+
+
 def main(argv: list[str]) -> int:
     site = Path(argv[0]) if argv else u.ROOT / "_build" / "html"
     cfg = u.config()
@@ -95,6 +109,9 @@ def main(argv: list[str]) -> int:
         text = visible_text(html, tuple(sorted(exempt)), cfg, titles)
         for hit in u.leftovers(text, cfg):
             print(f"ERROR {rel}: «…{' '.join(hit.split())}…»")
+            found += 1
+        for hit in client_problems(text, cfg):
+            print(f"ERROR {rel}: «{hit}» — a store client keeps {{vendor}}`Nextcloud`")
             found += 1
     print(f"[rebrand-check] {found} leftover(s)")
     return 1 if found else 0

@@ -26,7 +26,7 @@ Si se ha denegado a un usuario el acceso a un archivo, el usuario no puede:
 - Modificar los archivos
 - Eliminar el archivo
 - Descargar el archivo
-- Sincronizar el archivo con clientes, como los clientes de escritorio y móviles de Nextcloud
+- Sincronizar el archivo con clientes, como los clientes de escritorio y móviles de {vendor}`Nextcloud`
 
 ### Ejemplos
 

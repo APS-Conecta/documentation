@@ -12,7 +12,7 @@ resumen: "El cliente de sincronización de escritorio para Windows, macOS y Linu
 Esta sección presenta el cliente de sincronización de escritorio para Windows, macOS y Linux y reúne las páginas sobre su implementación y configuración y sobre la solución de problemas de sincronización. Está dirigida a quienes administran el servidor.
 
 ````{upstream} admin_manual/desktop/index.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
-Disponible para Windows, macOS y varias distribuciones de Linux, el cliente de sincronización de escritorio de Nextcloud permite:
+Disponible para Windows, macOS y varias distribuciones de Linux, el cliente de sincronización de escritorio de {vendor}`Nextcloud` permite:
 
 - Especificar uno o más directorios del equipo que se quieren sincronizar con el servidor Nextcloud.
 - Tener siempre sincronizados los archivos más recientes, estén donde estén.

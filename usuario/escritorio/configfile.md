@@ -12,7 +12,7 @@ resumen: "Dónde está el archivo de configuración del cliente de escritorio en
 Esta página indica dónde se encuentra el archivo de configuración del cliente de escritorio en Linux, Windows y macOS, y describe algunos de los valores que pueden establecerse en él. Está dirigida a usuarios que necesitan ajustar el cliente más allá de su diálogo de configuración.
 
 ````{upstream} user_manual/desktop/configfile.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
-El cliente de Nextcloud lee un archivo de configuración. Este archivo de configuración se encuentra en las siguientes ubicaciones:
+El cliente de {vendor}`Nextcloud` lee un archivo de configuración. Este archivo de configuración se encuentra en las siguientes ubicaciones:
 
 - En distribuciones Linux: `$HOME/.config/Nextcloud/nextcloud.cfg`
 - En sistemas Microsoft Windows: `%APPDATA%\Nextcloud\nextcloud.cfg`
@@ -27,7 +27,7 @@ En un espacio de trabajo de Citrix, el perfil móvil del usuario debe conservars
 El archivo de configuración contiene los ajustes en el formato de archivo .ini de Microsoft Windows. Los cambios pueden sobrescribirse mediante el diálogo de configuración de Nextcloud.
 
 :::{note}
-Tener precaución al modificar el archivo de configuración del cliente de Nextcloud. Una configuración incorrecta puede producir resultados no deseados.
+Tener precaución al modificar el archivo de configuración del cliente de {vendor}`Nextcloud`. Una configuración incorrecta puede producir resultados no deseados.
 :::
 
 Algunos valores de interés que pueden establecerse en el archivo de configuración son:

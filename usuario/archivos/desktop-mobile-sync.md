@@ -14,7 +14,7 @@ Esta página presenta el cliente de sincronización de escritorio para Windows, 
 ````{upstream} user_manual/files/desktop_mobile_sync.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 Para sincronizar archivos con su computador de escritorio, recomendamos que utilice el [Cliente de Sincronización de Nextcloud][Nextcloud Sync Client] para Windows, macOS y Linux.
 
-El cliente de sincronización de escritorio de Nextcloud le permite conectarse a su servidor Nextcloud. Puede crear carpetas en su directorio personal y mantener el contenido de esas carpetas sincronizado con su servidor Nextcloud. Simplemente copie un archivo en el directorio y el cliente de escritorio de Nextcloud hace el resto. Haga un cambio en un computador y se propagará a los demás mediante estos clientes de sincronización de escritorio. Siempre tendrá consigo sus archivos más recientes, dondequiera que esté.
+El cliente de sincronización de escritorio de {vendor}`Nextcloud` le permite conectarse a su servidor Nextcloud. Puede crear carpetas en su directorio personal y mantener el contenido de esas carpetas sincronizado con su servidor Nextcloud. Simplemente copie un archivo en el directorio y el cliente de escritorio de {vendor}`Nextcloud` hace el resto. Haga un cambio en un computador y se propagará a los demás mediante estos clientes de sincronización de escritorio. Siempre tendrá consigo sus archivos más recientes, dondequiera que esté.
 
 Su uso está documentado de forma separada en el [Manual del Cliente de Escritorio de Nextcloud][Nextcloud Desktop Client Manual].
 

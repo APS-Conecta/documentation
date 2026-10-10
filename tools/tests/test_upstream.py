@@ -229,6 +229,28 @@ class RenameTest(unittest.TestCase):
             self.assertEqual(len(u.leftovers(rebrand_check.visible_text(html, (), CFG, titles), CFG)), n)
 
 
+class ClientNameTest(unittest.TestCase):
+    """The desktop, Android and iOS clients are installed from a store under «Nextcloud», so the
+    site names them {vendor}`Nextcloud` (owner, 2026-10-10, documentation#136)."""
+
+    def test_a_renamed_store_client_is_reported(self):
+        text = ("Instale el cliente Android de APS Conecta Gestión desde Google Play. "
+                "El cliente de sincronización de escritorio de APS Conecta Gestión sube los cambios. "
+                "Sin la aplicación móvil de APS Conecta Gestión, siga estos pasos. "
+                "Los clientes oficiales de APS Conecta Gestión. La biblioteca de Android de APS Conecta Gestión.")
+        self.assertEqual(len(rebrand_check.client_problems(text, CFG)), 5)
+
+    def test_the_platform_keeps_the_product_name(self):
+        text = ("Los clientes HTTP de APS Conecta Gestión. Varias aplicaciones cliente contra su cuenta de "
+                "APS Conecta Gestión. La biblioteca de Vue de APS Conecta Gestión. Las bibliotecas de "
+                "terceros de APS Conecta Gestión. El cliente web de APS Conecta Gestión.")
+        self.assertEqual(rebrand_check.client_problems(text, CFG), [])
+
+    def test_a_vendor_marked_client_passes(self):
+        html = '<p>El cliente de escritorio de <span class="vendor">Nextcloud</span> sincroniza.</p>'
+        self.assertEqual(rebrand_check.client_problems(rebrand_check.visible_text(html), CFG), [])
+
+
 class RstTest(unittest.TestCase):
     def test_headings_levels_follow_first_seen_style(self):
         self.assertEqual(

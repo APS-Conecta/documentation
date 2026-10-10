@@ -1615,7 +1615,7 @@ Parte del código de Nextcloud puede almacenarse en ubicaciones alternativas.
         => 'https://f-droid.org/packages/com.nextcloud.client/',
 ```
 
-Esta sección sirve para configurar los enlaces de descarga de los clientes de Nextcloud que aparecen en el asistente de primera ejecución y en las páginas personales.
+Esta sección sirve para configurar los enlaces de descarga de los clientes de {vendor}`Nextcloud` que aparecen en el asistente de primera ejecución y en las páginas personales.
 
 Valores predeterminados:
 
@@ -2299,7 +2299,7 @@ Valor predeterminado: `''` (cadena vacía)
 'cache_chunk_gc_ttl' => 60 * 60 * 24,
 ```
 
-TTL (en segundos) de los fragmentos ubicados en la carpeta de caché antes de que los elimine la recolección de basura. Aumentar este valor si los usuarios tienen problemas para subir archivos muy grandes con el cliente de Nextcloud porque la subida no termina en un día.
+TTL (en segundos) de los fragmentos ubicados en la carpeta de caché antes de que los elimine la recolección de basura. Aumentar este valor si los usuarios tienen problemas para subir archivos muy grandes con el cliente de {vendor}`Nextcloud` porque la subida no termina en un día.
 
 Valor predeterminado: `60*60*24` (1 día)
 
@@ -2871,7 +2871,7 @@ Valor predeterminado: `false`
 'minimum.supported.desktop.version' => '3.2.50',
 ```
 
-Indica la versión mínima del cliente de escritorio de Nextcloud que puede sincronizar con este servidor. Se rechazan las conexiones de clientes anteriores. El valor predeterminado es la versión mínima con soporte oficial en el momento de publicarse esta versión del servidor.
+Indica la versión mínima del cliente de escritorio de {vendor}`Nextcloud` que puede sincronizar con este servidor. Se rechazan las conexiones de clientes anteriores. El valor predeterminado es la versión mínima con soporte oficial en el momento de publicarse esta versión del servidor.
 
 Cambiarlo puede hacer que los clientes más antiguos y sin soporte funcionen mal, lo que podría provocar pérdida de datos o comportamientos inesperados.
 
@@ -2883,7 +2883,7 @@ Valor predeterminado: `3.2.50`
 'maximum.supported.desktop.version' => '99.99.99',
 ```
 
-Indica la versión máxima del cliente de escritorio de Nextcloud que puede sincronizar con este servidor. Se rechazan las conexiones de clientes posteriores.
+Indica la versión máxima del cliente de escritorio de {vendor}`Nextcloud` que puede sincronizar con este servidor. Se rechazan las conexiones de clientes posteriores.
 
 Valor predeterminado: `99.99.99`
 

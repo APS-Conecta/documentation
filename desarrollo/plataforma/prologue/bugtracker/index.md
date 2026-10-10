@@ -15,9 +15,9 @@ Esta página indica en qué repositorio de {vendor}`Nextcloud` se informa de un 
 Gracias por ayudar a {vendor}`Nextcloud` informando de errores. Antes de enviar una incidencia, leer primero las [pautas para el envío de incidencias][Issue submission guidelines].
 
 - Si el problema está en el servidor de Nextcloud, informar de él en el [repositorio del servidor][Server repository]
-- Si el problema está en el cliente de escritorio de Nextcloud, informar de él en el [repositorio del cliente de escritorio][Desktop repository]
-- Si el problema está en el cliente de Android de Nextcloud, informar de él en el [repositorio de Android][Android repository]
-- Si el problema está en el cliente de iOS de Nextcloud, informar de él en el [repositorio de iOS][iOS repository]
+- Si el problema está en el cliente de escritorio de {vendor}`Nextcloud`, informar de él en el [repositorio del cliente de escritorio][Desktop repository]
+- Si el problema está en el cliente de Android de {vendor}`Nextcloud`, informar de él en el [repositorio de Android][Android repository]
+- Si el problema está en el cliente de iOS de {vendor}`Nextcloud`, informar de él en el [repositorio de iOS][iOS repository]
 - Si el problema está en una app de Nextcloud, informar de él donde se desarrolla esa app. Consultar la página de la [tienda de apps][App Store] para ver los enlaces relacionados.
 - Si la app figura en nuestra [organización principal de GitHub][main GitHub organization], informar del problema en el subrepositorio correcto
 

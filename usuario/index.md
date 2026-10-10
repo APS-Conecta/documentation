@@ -14,7 +14,7 @@ Introducción al uso diario de la plataforma para el personal del CESFAM. La gu�
 
 Nextcloud es un programa de código abierto para sincronizar y compartir archivos. Es para todo el mundo, desde individuos que utilizan el Servidor Nextcloud gratuito en la privacidad de su casa hasta las grandes empresas y proveedores de servicios a los que da soporte la Subscripción de Empresa de Nextcloud. Nextcloud ofrece una solución a la sincronización y compartición de archivos fiable y seguro, en servidores bajo su control.
 
-Se pueden compartir uno o más archivos y carpetas del equipo y sincronizarlos con el servidor Nextcloud. Los archivos colocados en los directorios compartidos locales se sincronizan de inmediato con el servidor y con otros dispositivos mediante el cliente de sincronización de escritorio de Nextcloud, la aplicación para Android o la aplicación para iOS.
+Se pueden compartir uno o más archivos y carpetas del equipo y sincronizarlos con el servidor Nextcloud. Los archivos colocados en los directorios compartidos locales se sincronizan de inmediato con el servidor y con otros dispositivos mediante el cliente de sincronización de escritorio de {vendor}`Nextcloud`, la aplicación para Android o la aplicación para iOS.
 
 [Ayuda a traducir](https://explore.transifex.com/nextcloud/nextcloud-user-documentation/).
 ````
