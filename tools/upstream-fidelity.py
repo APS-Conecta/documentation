@@ -16,7 +16,7 @@ block, against the upstream document section at the block's own SHA:
               page, and a `difiere` rule's documents carry `:difiere:`
 
 Coverage (every mapped document has a block somewhere) is reported always and enforced with
---require-coverage, which the last bulk-weave run switches on.
+--require-coverage, on since the bulk weave reached every mapped document (make fidelity).
 
     python3 tools/upstream-fidelity.py [--require-coverage] [page.md …]
 """
