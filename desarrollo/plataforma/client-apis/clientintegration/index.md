@@ -51,7 +51,7 @@ Cada app puede añadir acciones nuevas mediante capacidades, siguiendo la sintax
 ]
 ```
 
-### Ganchos
+### Hooks
 
 Actualmente solo se admite «context-menu».
 

@@ -3,31 +3,31 @@ tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
 apps: [gestion]
-resumen: "Cómo se traducen las ExApps: archivos l10n del front-end y del back-end, sincronización con Transifex e instalación de traducciones manual o con Docker."
+resumen: "Cómo se traducen las ExApps: archivos l10n del frontend y del backend, sincronización con Transifex e instalación de traducciones manual o con Docker."
 ---
 (nc-dev-ex_app_translations_page)=
 # Traducciones
 
 ## Resumen
 
-Esta página explica cómo funcionan las traducciones de las ExApps, igual que en las apps PHP salvo algunos ajustes: los archivos l10n del front-end y del back-end, la sincronización con Transifex, cómo llegan las traducciones al servidor en los tipos `manual-install` y `docker-install`, y cómo ampliar el translationtool. Está dirigida a quienes desarrollan ExApps.
+Esta página explica cómo funcionan las traducciones de las ExApps, igual que en las apps PHP salvo algunos ajustes: los archivos l10n del frontend y del backend, la sincronización con Transifex, cómo llegan las traducciones al servidor en los tipos `manual-install` y `docker-install`, y cómo ampliar el translationtool. Está dirigida a quienes desarrollan ExApps.
 
 ````{upstream} developer_manual/exapp_development/tech_details/Translations.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 Las traducciones de las ExApps funcionan {nc-ref}`de la misma manera que en las apps PHP <Translations>`, con algunos ajustes y diferencias.
 
-En resumen, basta con proporcionar para la app los archivos `l10n/<lang>.js` (para el front-end) y `l10n/<lang>.json` (para el back-end).
+En resumen, basta con proporcionar para la app los archivos `l10n/<lang>.js` (para el frontend) y `l10n/<lang>.json` (para el backend).
 
-### Front-end
+### Frontend
 
-Para la parte del front-end, AppAPI inyectará el script `l10n/<lang>.js` de la configuración regional del usuario actual, de modo que el acceso a las cadenas traducidas se mantiene igual que antes en las apps PHP.
+Para la parte del frontend, AppAPI inyectará el script `l10n/<lang>.js` de la configuración regional del usuario actual, de modo que el acceso a las cadenas traducidas se mantiene igual que antes en las apps PHP.
 
 :::{note}
 Los archivos l10n de la ExApp se incluyen solo en las páginas de interfaz de la ExApp ({nc-ref}`Menú superior <top_menu_section>`), en Archivos (para {nc-ref}`FileAction <file_actions_menu_section>`) y en Ajustes (para {nc-ref}`DeclarativeSettings <exapp_declarative_settings_section>`).
 :::
 
-### Back-end
+### Backend
 
-En la parte del back-end de la ExApp, que puede escribirse en distintos lenguajes de programación, **corresponde a quien desarrolla decidir** cómo manejar los archivos de traducciones.
+En la parte del backend de la ExApp, que puede escribirse en distintos lenguajes de programación, **corresponde a quien desarrolla decidir** cómo manejar los archivos de traducciones.
 Hay un repositorio de ejemplo con traducciones: [ejemplo de interfaz con traducciones](https://github.com/nextcloud/ui_example).
 
 Hay dos funciones de Python que [translationtool](https://github.com/nextcloud/docker-ci/tree/master/translations/translationtool) usa para extraer las cadenas de traducción: `_('singular string')` y `_n('singular string', 'plural string', count)`.

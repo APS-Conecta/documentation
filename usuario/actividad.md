@@ -27,9 +27,9 @@ El flujo muestra todos los eventos agrupados por día. Cada entrada muestra qué
 
 La barra lateral izquierda ofrece filtros para acotar el flujo de actividad:
 
-- **Todas las actividades** muestra todo.
-- **Por ti** muestra solo las actividades que uno mismo inició.
-- **Por otros** muestra solo las actividades iniciadas por otros usuarios.
+- {guilabel}`Todas las actividades` muestra todo.
+- {guilabel}`Por ti` muestra solo las actividades que uno mismo inició.
+- {guilabel}`Por otros` muestra solo las actividades iniciadas por otros usuarios.
 - **Cambios del archivo** muestra solo los eventos de archivos y carpetas (crear, modificar, eliminar, renombrar, mover).
 
 Pueden aparecer filtros adicionales según las aplicaciones instaladas en la instancia de Nextcloud (por ejemplo, **Favoritos**, **Calendario**, **Contactos**).

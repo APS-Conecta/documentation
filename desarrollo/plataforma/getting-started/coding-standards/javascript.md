@@ -639,8 +639,8 @@ null == undefined   // true
 
 #### Estructuras de control
 
-- Usar siempre llaves, también en los if de una sola línea
-- Dividir los if largos en varias líneas
+- Usar siempre llaves, también en los *if* de una sola línea
+- Dividir los *if* largos en varias líneas
 - Usar siempre break en las sentencias switch y prevenir con advertencias un bloque default si no se debe acceder a él
 
 :::{list-table} Usar siempre llaves.

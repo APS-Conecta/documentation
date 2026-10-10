@@ -93,8 +93,8 @@ var_dump(100 == "1e2"); // 100 == 100 -> true
 
 ### Estructuras de control
 
-- Usar siempre { } en los if de una sola línea
-- Dividir los if largos en varias líneas
+- Usar siempre { } en los *if* de una sola línea
+- Dividir los *if* largos en varias líneas
 - Usar siempre break en las sentencias switch y prevenir con advertencias un bloque default si no se debe acceder a él
 
 ```php

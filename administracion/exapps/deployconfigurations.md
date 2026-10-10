@@ -81,7 +81,7 @@ docker run \
   -d ghcr.io/nextcloud/nextcloud-appapi-harp:release
 ```
 
-Ir a los ajustes de administración de AppAPI y registrar un daemon `HaRP Proxy (Host)`.
+Ir a las configuraciones de administración de AppAPI y registrar un daemon `HaRP Proxy (Host)`.
 
 Por último, probar toda la configuración con «Probar despliegue» en el menú de tres puntos del daemon de despliegue.
 
@@ -103,7 +103,7 @@ docker run \
   -d ghcr.io/nextcloud/nextcloud-appapi-harp:release
 ```
 
-Ir a los ajustes de administración de AppAPI y registrar un daemon `HaRP Proxy (Docker)`. Tomar nota del valor `<nextcloud_docker_network_name>` en el campo `Docker network`.
+Ir a las configuraciones de administración de AppAPI y registrar un daemon `HaRP Proxy (Docker)`. Tomar nota del valor `<nextcloud_docker_network_name>` en el campo `Docker network`.
 
 Por último, probar toda la configuración con «Probar despliegue» en el menú de tres puntos del daemon de despliegue.
 

@@ -156,7 +156,7 @@ Ya casi está: hay que seguir así, ¡va muy bien!
 Ahora, descargar el archivo comprimido de la última versión de Nextcloud:
 
 - Ir a la [página de descargas de Nextcloud](https://nextcloud.com/install).
-- Ir a **Download Nextcloud Server > Download > Archive file for server owners** y descargar el archivo tar.bz2 o el .zip.
+- Ir a *Download Nextcloud Server > Download > Archive file for server owners* y descargar el archivo tar.bz2 o el .zip.
 - Así se descarga un archivo llamado nextcloud-x.y.z.tar.bz2 o nextcloud-x.y.z.zip (donde x.y.z es el número de versión).
 - Descargar su archivo de suma de verificación correspondiente, p. ej., nextcloud-x.y.z.tar.bz2.md5 o nextcloud-x.y.z.tar.bz2.sha256.
 - Verificar la suma MD5 o SHA256:

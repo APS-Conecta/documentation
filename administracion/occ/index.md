@@ -208,11 +208,11 @@ En el modo de mantenimiento, las apps no se cargan[^1], por lo que los comandos 
 
 Se desaconseja usar el modo de mantenimiento salvo que el comando lo pida explícitamente o que la documentación del comando indique explícitamente que debe usarse el modo de mantenimiento.
 
-Un comando puede usar eventos para comunicarse con otras apps. Una app solo puede reaccionar a un evento si está cargada. Ejemplo: el comando user:delete elimina una cuenta de usuario y se emite UserDeletedEvent. La app Calendario implementa un receptor de eventos que elimina los datos del usuario[^2]. En el modo de mantenimiento, la app Calendario no se carga y, por tanto, los datos del usuario no se eliminan.
+Un comando puede usar eventos para comunicarse con otras apps. Una app solo puede reaccionar a un evento si está cargada. Ejemplo: el comando user:delete elimina una cuenta de usuario y se emite UserDeletedEvent. La app Calendario implementa un listener de eventos que elimina los datos del usuario[^2]. En el modo de mantenimiento, la app Calendario no se carga y, por tanto, los datos del usuario no se eliminan.
 
 [^1]: Excepción: [la app de ajustes sí se carga](https://github.com/nextcloud/server/blob/75f17b60945e15effc3eea41393eef2b13937226/lib/base.php#L780)
 
-[^2]: [Receptor de eventos de la app Calendario para UserDeletedEvent](https://github.com/nextcloud/calendar/blob/87e8586971a8676dc15a90f0cd969274678b7009/lib/Listener/UserDeletedListener.php)
+[^2]: [Listener de eventos de la app Calendario para UserDeletedEvent](https://github.com/nextcloud/calendar/blob/87e8586971a8676dc15a90f0cd969274678b7009/lib/Listener/UserDeletedListener.php)
 
 (nc-occ_debugging)=
 ### Depuración

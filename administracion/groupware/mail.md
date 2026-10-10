@@ -126,7 +126,7 @@ Salvo que se combine con buzones *Enviados* compartidos o que el servidor de cor
 ### Posponer y envío programado
 
 :::{note}
-Si en los ajustes de administración se selecciona AJAX para la ejecución de los trabajos cron, las funciones de posponer y de envío programado se desactivan, porque su ejecución no es fiable.
+Si en las configuraciones de administración se selecciona AJAX para la ejecución de los trabajos cron, las funciones de posponer y de envío programado se desactivan, porque su ejecución no es fiable.
 :::
 
 ### Autenticación XOAUTH2 con Microsoft Azure AD
@@ -134,7 +134,7 @@ Si en los ajustes de administración se selecciona AJAX para la ejecución de lo
 :::{versionadded} 3.0.0
 :::
 
-La app Correo admite la autenticación XOAUTH2 con cuentas alojadas de Microsoft Outlook. Hay que registrar una app en la interfaz web de Microsoft Azure y proporcionar sus credenciales a la instancia de Nextcloud. Los ajustes correspondientes están en la sección Groupware de los ajustes de administración.
+La app Correo admite la autenticación XOAUTH2 con cuentas alojadas de Microsoft Outlook. Hay que registrar una app en la interfaz web de Microsoft Azure y proporcionar sus credenciales a la instancia de Nextcloud. Los ajustes correspondientes están en la sección Groupware de las configuraciones de administración.
 
 **Paso 1: Abrir el panel de Azure AD**
 
@@ -158,7 +158,7 @@ Copiar el secreto de cliente manualmente o haciendo clic en el botón de copiar.
 
 **Paso 6: Configurar Nextcloud**
 
-Abrir los ajustes de groupware en los ajustes de administración de Nextcloud y rellenar el ID de cliente y el secreto de cliente. Dejar el ID de inquilino tal como está (common). Aquí también se encuentra el URI de redirección. Hacer clic en guardar para continuar.
+Abrir los ajustes de groupware en las configuraciones de administración de Nextcloud y rellenar el ID de cliente y el secreto de cliente. Dejar el ID de inquilino tal como está (common). Aquí también se encuentra el URI de redirección. Hacer clic en guardar para continuar.
 
 :::{warning}
 Esta guía no cubre el uso de un ID de inquilino personalizado. Configurarlo solo si se tiene experiencia avanzada y se cambiaron los tipos de cuenta admitidos en el paso 2.
@@ -193,7 +193,7 @@ Los idiomas admitidos dependen del modelo de lenguaje grande que se use.
 Para obtener los mejores resultados, se necesita una integración de procesamiento de texto rápida como <https://apps.nextcloud.com/apps/integration_openai>.
 :::
 
-La función puede activarse en los ajustes de administración de Correo.
+La función puede activarse en las configuraciones de administración de Correo.
 
 Configuraciones de administración > Groupware > App correo electrónico > Habilitar el procesamiento de texto a través de LLMs
 
@@ -210,7 +210,7 @@ La app de correo admite resumir hilos de mensajes que contienen 3 o más mensaje
 Para activar esta función, ya debe haber [una integración de IA de generación de texto](https://apps.nextcloud.com/apps/integration_openai) disponible.
 :::
 
-La función es opcional: está desactivada de forma predeterminada y puede activarse en los ajustes de administración de correo.
+La función es opcional: está desactivada de forma predeterminada y puede activarse en las configuraciones de administración de correo.
 
 Configuraciones de administración > Groupware > App correo electrónico > «Enable thread summary»
 

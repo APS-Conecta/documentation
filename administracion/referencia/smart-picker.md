@@ -20,7 +20,7 @@ El selector inteligente se puede usar en:
 
 - Text (y en todos los lugares donde se usa Text, como las páginas de Collectives, los comentarios de tarjetas de Deck, los comentarios de Archivos...): pulsando la tecla «/» o mediante una entrada del menú superior
 - Talk: pulsando la tecla «/» en el campo de redacción de mensajes
-- Nextcloud Office: mediante una entrada del menú superior («Insert» → «Pick Link» o «Smart Picker», según la versión de Collabora)
+- Nextcloud Office: mediante una entrada del menú superior («Insertar» → «Pick Link» o «Smart Picker», según la versión de Collabora)
 - Correo: en el área de redacción del correo electrónico, mediante una entrada del menú contextual
 
 ### Proveedores conocidos del selector inteligente

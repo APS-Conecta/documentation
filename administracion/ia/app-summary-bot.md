@@ -134,7 +134,7 @@ Más información sobre la clasificación de IA ética de {vendor}`Nextcloud` [e
 - Los modelos de IA pueden producir ocasionalmente información inexacta. Por tanto, deben emplearse con precaución en escenarios no críticos. Es fundamental verificar la exactitud de los resultados del bot antes de aplicarlos.
 - Tener en cuenta que los modelos de IA pueden consumir una cantidad considerable de energía. Es aconsejable considerar este factor en la planificación y el funcionamiento de los sistemas de IA si se alojan en las instalaciones propias o si la sostenibilidad es una preocupación.
 - Los modelos de IA pueden tener tiempos de procesamiento prolongados cuando se ejecutan en CPU. Para mejorar la eficiencia, se recomienda usar soporte de GPU para agilizar la atención de las solicitudes.
-- El soporte al cliente está disponible previa solicitud; sin embargo, {vendor}`Nextcloud` no puede resolver resultados falsos o problemáticos (alucinaciones), la mayoría de los problemas de rendimiento ni otros problemas causados por los modelos subyacentes. Por tanto, el soporte se limita a los errores causados directamente por la implementación de la app (conectores, API, front-end, AppAPI)
+- El soporte al cliente está disponible previa solicitud; sin embargo, {vendor}`Nextcloud` no puede resolver resultados falsos o problemáticos (alucinaciones), la mayoría de los problemas de rendimiento ni otros problemas causados por los modelos subyacentes. Por tanto, el soporte se limita a los errores causados directamente por la implementación de la app (conectores, API, frontend, AppAPI)
 ````
 
 :::{note}

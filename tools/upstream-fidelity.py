@@ -141,15 +141,16 @@ def check_block(
     ai = 0
     for para in u.rst_paragraphs(section):
         official = catalog.get(para, "")
-        if official:
+        if official and not u.style_problems(official):  # an off-register msgstr is adapted, not copied
             if u.plain(official).rstrip(":.") not in mine:
                 out.append(
                     f"{doc}: official Spanish not used verbatim: «{u.plain(official)[:70]}…»"
                 )
         else:
             ai += 1
+    msgstrs = {" ".join(u.plain(v).split()) for v in catalog.values()}  # translators' words, verbatim
     for para in u.myst_paragraphs(content):
-        if u.reads_english(para):
+        if u.reads_english(para) and " ".join(u.plain(para).split()) not in msgstrs:
             out.append(f"{doc}: paragraph reads as English: «{u.plain(para)[:70]}…»")
             break
     return out, ai

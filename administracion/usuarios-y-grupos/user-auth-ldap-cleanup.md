@@ -12,7 +12,7 @@ resumen: "La limpieza de usuarios LDAP: el proceso que marca como deleted a los 
 Esta página explica el proceso en segundo plano que marca como `deleted` a los usuarios que ya no están disponibles en LDAP, sus requisitos y cómo ajustarlo, y los comandos `occ` para revisar esos usuarios y borrar sus datos. Está dirigida a quienes administran el servidor.
 
 ````{upstream} admin_manual/configuration_user/user_auth_ldap_cleanup.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
-La limpieza de usuarios LDAP es una nueva función de la aplicación `LDAP user and group backend`. La limpieza de usuarios LDAP es un proceso en segundo plano que busca automáticamente en la tabla de correspondencias LDAP de Nextcloud y verifica si los usuarios LDAP siguen disponibles. Los usuarios que no están disponibles se marcan como `deleted` en la tabla de base de datos `oc_preferences`. Después se puede ejecutar un comando que muestra esta tabla, solo con los usuarios marcados como `deleted`, y a continuación existe la opción de eliminar sus datos del directorio de datos de Nextcloud.
+La limpieza de usuarios LDAP es una nueva función de la aplicación {guilabel}`Motor de usuarios y grupos LDAP`. La limpieza de usuarios LDAP es un proceso en segundo plano que busca automáticamente en la tabla de correspondencias LDAP de Nextcloud y verifica si los usuarios LDAP siguen disponibles. Los usuarios que no están disponibles se marcan como `deleted` en la tabla de base de datos `oc_preferences`. Después se puede ejecutar un comando que muestra esta tabla, solo con los usuarios marcados como `deleted`, y a continuación existe la opción de eliminar sus datos del directorio de datos de Nextcloud.
 
 En la limpieza se eliminan estos elementos:
 

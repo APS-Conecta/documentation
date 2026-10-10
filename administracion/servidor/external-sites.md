@@ -18,7 +18,7 @@ Esto es útil para acceder rápidamente a páginas importantes, como los manuale
 
 La app External sites se instala fácilmente desde la tienda de apps. Ir a {guilabel}`Ajustes` → {guilabel}`Apps` → **Customization** para activarla. Después, ir en Nextcloud a {guilabel}`Ajustes` → {guilabel}`Administración` → **External sites** para crear los enlaces, que se guardan automáticamente.
 
-Cada enlace puede tener su propio icono, que puede subirse en los ajustes de administración. Si se selecciona un idioma, el enlace solo se mostrará a los usuarios con el idioma seleccionado. Esto permite tener distintos enlaces de documentación para los usuarios según su idioma.
+Cada enlace puede tener su propio icono, que puede subirse en las configuraciones de administración. Si se selecciona un idioma, el enlace solo se mostrará a los usuarios con el idioma seleccionado. Esto permite tener distintos enlaces de documentación para los usuarios según su idioma.
 
 También es posible añadir enlaces para un dispositivo concreto (reconocido por el agente de usuario). Actualmente están disponibles las siguientes opciones: todos los dispositivos, app de Android, app de iOS, cliente de escritorio y todos los demás (navegadores).
 

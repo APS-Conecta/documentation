@@ -102,7 +102,7 @@ Esta función está activada de forma predeterminada y la controla la configurac
 
 Para desactivar la función de contacto de ejemplo:
 
-1. Ir a los ajustes de Groupware en los ajustes de administración.
+1. Ir a los ajustes de Groupware en las configuraciones de administración.
 2. Desplazarse hasta la sección «Contenido de ejemplo».
 3. Desactivar el ajuste «Add example contact ...» con la casilla de verificación
 

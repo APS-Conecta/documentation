@@ -136,7 +136,7 @@ Puede insertar sus calendarios en aplicaciones compatibles como `Talk`, {guilabe
 
 #### Suscribirse a un calendario
 
-Usted puede suscribirse a calendarios iCal directamente desde su Nextcloud. Al soportar el estándar interoperable (RFC 5545) hemos hecho el calendario de Nextcloud compatible con Google Calendar, Apple iCloud y muchos otros servidores de calendario con los que puedes intercambiar calendarios, incluyendo enlaces de suscripción a calendarios publicados en otras instancias Nextcloud, como se describe anteriormente.
+Usted puede suscribirse a calendarios iCal directamente desde su Nextcloud. Al soportar el estándar interoperable (RFC 5545) hemos hecho el calendario de Nextcloud compatible con Google Calendar, Apple iCloud y muchos otros servidores de calendario con los que puede intercambiar calendarios, incluyendo enlaces de suscripción a calendarios publicados en otras instancias Nextcloud, como se describe anteriormente.
 
 1. Pulse {guilabel}`Nuevo calendario` en la barra lateral izquierda
 2. Pulse {guilabel}`Nueva suscripción desde enlace (sólo lectura)`
@@ -171,7 +171,7 @@ La vista mensual requiere solo un clic en el área del día correspondiente.
 
 Después de eso, puede escribir el nombre del evento (p. ej., **Reunión con Linus**), elegir el calendario en el que desea guardar el evento (p. ej., **Personal**, **Eventos de la comunidad**), revisar y concretar el intervalo de tiempo o marcar el evento como evento de todo el día. Opcionalmente, puede especificar una ubicación y una descripción.
 
-Si desea editar detalles avanzados como los **Asistentes** o los **Recordatorios**, o si desea marcar el evento como evento recurrente, pulse el botón `More` para abrir el editor avanzado.
+Si desea editar detalles avanzados como los **Asistentes** o los **Recordatorios**, o si desea marcar el evento como evento recurrente, pulse el botón {guilabel}`Más` para abrir el editor avanzado.
 
 #### Añadir una conversación de Talk
 
@@ -187,7 +187,7 @@ Al hacer clic en el botón azul de `Guardar`, se creará el evento.
 
 Si quiere editar, duplicar o eliminar un evento específico, primero debe hacer clic en el evento.
 
-Después de eso, podrá volver a establecer todos los detalles del evento y abrir el editor avanzado pulsando `More`.
+Después de eso, podrá volver a establecer todos los detalles del evento y abrir el editor avanzado pulsando {guilabel}`Más`.
 
 Al pulsar el botón {guilabel}`Actualizar` se actualizará el evento. Para cancelar los cambios, pulse el botón **Cerrar** de la ventana emergente o del editor avanzado.
 
@@ -213,7 +213,7 @@ Al añadir a otros usuarios de Nextcloud como asistentes a un evento, puede acce
 :::
 
 :::{attention}
-La administración del servidor debe configurar el servidor de correo electrónico en la pestaña `Basic settings`, ya que este correo se usará para enviar las invitaciones.
+La administración del servidor debe configurar el servidor de correo electrónico en la pestaña {guilabel}`Ajustes básicos`, ya que este correo se usará para enviar las invitaciones.
 :::
 
 Leyenda del estado de la invitación (como asistente):

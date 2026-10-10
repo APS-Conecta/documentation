@@ -9,7 +9,7 @@ resumen: "Alertas epidemiológicas del MINSAL, el ISP y la OPS/OMS, dentro de la
 
 ## Resumen
 
-Muestra dentro de la intranet la información epidemiológica que publican el MINSAL, el ISP y la OPS/OMS: las alertas vigentes, el informe semanal de circulación de virus respiratorios, las alertas sanitarias y de farmacovigilancia, y el tablero nacional de vigilancia ETI e IRAG. Funciona como lector en tiempo real de fuentes públicas: no guarda ficheros propios ni información de pacientes.
+Muestra dentro de la intranet la información epidemiológica que publican el MINSAL, el ISP y la OPS/OMS: las alertas vigentes, el informe semanal de circulación de virus respiratorios, las alertas sanitarias y de farmacovigilancia, y el tablero nacional de vigilancia ETI e IRAG. Funciona como lector en tiempo real de fuentes públicas: no guarda archivos propios ni información de pacientes.
 
 ## Secciones previstas
 

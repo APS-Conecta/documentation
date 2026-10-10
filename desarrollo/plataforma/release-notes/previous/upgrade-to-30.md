@@ -24,7 +24,7 @@ Si la app requiere o usa el backend CalDAV del servidor, añadir el backend
 </dependencies>
 ```
 
-Si ninguna app requiere el backend CalDAV, la sección CalDAV de los ajustes de administración se ocultará.
+Si ninguna app requiere el backend CalDAV, la sección CalDAV de las configuraciones de administración se ocultará.
 Por ahora no hay ningún otro efecto, pero eso podría cambiar en el futuro.
 
 ### Capacidades

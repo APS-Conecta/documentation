@@ -49,7 +49,7 @@ Para desactivar el manejo de errores personalizado de Nextcloud (y que PHP y el 
 
 ### Usar un depurador de PHP (XDebug)
 
-Usar un depurador conectado a PHP permite recorrer el código línea a línea, ver las variables en cada línea e incluso cambiar valores mientras el código se ejecuta. El depurador estándar de facto para PHP es XDebug, disponible como paquete instalable en muchas distribuciones. Sin embargo, solo proporciona la parte de PHP, por lo que se necesita una interfaz para controlar realmente XDebug. Una vez instalado, debe activarse en {file}`php.ini`, junto con algunos parámetros para permitir las conexiones con la interfaz de depuración:
+Usar un depurador conectado a PHP permite recorrer el código línea a línea, ver las variables en cada línea e incluso cambiar valores mientras el código se ejecuta. El depurador estándar de facto para PHP es XDebug, disponible como paquete instalable en muchas distribuciones. Sin embargo, solo proporciona la parte de PHP, por lo que se necesita un frontend para controlar realmente XDebug. Una vez instalado, debe activarse en {file}`php.ini`, junto con algunos parámetros para permitir las conexiones con la interfaz de depuración:
 
 ```ini
 zend_extension=/usr/lib/php/modules/xdebug.so

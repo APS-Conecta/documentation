@@ -36,7 +36,7 @@ El actualizador integrado realiza estas operaciones:
 - **Crear copia de seguridad:** crea una copia de seguridad del código existente en `/updater-INSTANCEID/backups/nextcloud-CURRENTVERSION/` dentro del directorio de datos (no contiene el directorio `/data` ni la base de datos).
 - **Descarga:** descarga el código de la versión a la que debe actualizar. Esto también se muestra en la interfaz web antes de iniciar la actualización. Este archivo comprimido se descarga en `/updater-INSTANCEID/downloads/`.
 - **Extracción:** extrae el archivo comprimido en la misma carpeta.
-- **Sustituir los puntos de entrada:** sustituye todos los puntos de entrada de Nextcloud por archivos ficticios para que, mientras se sustituyen esos archivos, todos los clientes sigan recibiendo la respuesta adecuada del modo de mantenimiento. Ejemplos de esos puntos de entrada son `index.php`, `remote.php` o `ocs/v1.php`.
+- **Sustituir los puntos de entrada:** sustituye todos los puntos de entrada de Nextcloud por archivos ficticios para que, mientras se sustituyen esos archivos, todos los clientes sigan recibiendo la respuesta adecuada del modo de mantenimiento. Ejemplos de esos endpoints son `index.php`, `remote.php` o `ocs/v1.php`.
 - **Eliminar los archivos antiguos:** elimina todos los archivos excepto los puntos de entrada mencionados, el directorio de datos y el de configuración, así como las apps y los temas que no vienen incluidos. (Y, por supuesto, el propio actualizador)
 - **Mover los archivos nuevos a su lugar:** mueve a su lugar los archivos del archivo comprimido extraído.
 - **¿Mantener activo el modo de mantenimiento?:** pregunta si el modo de mantenimiento debe mantenerse activo. Esto permite al administrador usar el actualizador web pero ejecutar los pasos de migración propiamente dichos (`occ upgrade`) en la línea de comandos. Si el modo de mantenimiento se mantiene activo, se requiere acceso a la línea de comandos. Para usar la página web de actualización, desactivar el modo de mantenimiento y hacer clic en el enlace para ir a la página de actualización. (Este paso solo está disponible en el actualizador web).
@@ -46,11 +46,11 @@ El actualizador integrado realiza estas operaciones:
 
 Actualizar la instalación de Nextcloud con el actualizador integrado lleva solo unos pocos pasos:
 
-1. Debería verse una notificación en la parte superior de cualquier página de Nextcloud cuando hay una nueva actualización disponible. Ir a la página de ajustes de administración y desplazarse hasta la sección «Versión». Esta sección tiene un botón para abrir el actualizador. Esta sección, así como la notificación de actualización, solo está disponible si la app de notificación de actualizaciones está activada en la gestión de apps.
+1. Debería verse una notificación en la parte superior de cualquier página de Nextcloud cuando hay una nueva actualización disponible. Ir a la página de configuraciones de administración y desplazarse hasta la sección «Versión». Esta sección tiene un botón para abrir el actualizador. Esta sección, así como la notificación de actualización, solo está disponible si la app de notificación de actualizaciones está activada en la gestión de apps.
 
 2. Hacer clic en el botón «Abrir el actualizador».
 
-3. Verificar la información que se muestra y hacer clic en el botón «Start update» para iniciar la actualización.
+3. Verificar la información que se muestra y hacer clic en el botón «Iniciar actualización» para iniciar la actualización.
 
 4. Si ocurre un error o la comprobación falla, el actualizador detiene el proceso e informa de ello. Entonces puede intentarse resolver el problema y hacer clic en el botón «Retry update». Esto continuará la actualización y volverá a ejecutar el paso fallido. No volverá a ejecutar los pasos anteriores que se completaron correctamente.
 
@@ -103,7 +103,7 @@ El actualizador por línea de comandos funciona exactamente de la misma forma qu
 
 Los pasos son básicamente los mismos que en el actualizador web:
 
-1. Debería verse una notificación en la parte superior de cualquier página de Nextcloud cuando hay una nueva actualización disponible. Ir a la página de ajustes de administración y desplazarse hasta la sección «Versión». Esta sección tiene un botón para abrir el actualizador. Esta sección, así como la notificación de actualización, solo está disponible si la app de notificación de actualizaciones está activada en la gestión de apps.
+1. Debería verse una notificación en la parte superior de cualquier página de Nextcloud cuando hay una nueva actualización disponible. Ir a la página de configuraciones de administración y desplazarse hasta la sección «Versión». Esta sección tiene un botón para abrir el actualizador. Esta sección, así como la notificación de actualización, solo está disponible si la app de notificación de actualizaciones está activada en la gestión de apps.
 
 2. En lugar de hacer clic en ese botón, ahora puede invocarse el actualizador por línea de comandos yendo al directorio *updater/* del directorio de Nextcloud y ejecutando *updater.phar* como el usuario del servidor web. (Es decir, `sudo -E -u www-data php /var/www/nextcloud/updater/updater.phar`)
 

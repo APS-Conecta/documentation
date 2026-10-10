@@ -5,11 +5,11 @@ audiencia: desarrollo
 apps: [gestion]
 resumen: "Preparar Node.js y npm, compilar componentes Vue, scripts, estilos y plantillas Handlebars del servidor, y confirmar los archivos compilados."
 ---
-# Código de front-end
+# Código de frontend
 
 ## Resumen
 
-Esta página explica cómo preparar Node.js y npm, compilar los componentes y scripts de Vue, los estilos y las plantillas de Handlebars del servidor, y qué archivos compilados confirmar junto con los cambios. Está dirigida a quienes desarrollan el front-end del servidor.
+Esta página explica cómo preparar Node.js y npm, compilar los componentes y scripts de Vue, los estilos y las plantillas de Handlebars del servidor, y qué archivos compilados confirmar junto con los cambios. Está dirigida a quienes desarrollan el frontend del servidor.
 
 ````{upstream} developer_manual/server/code-front-end.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 ### Requisitos previos: Node.js y npm
@@ -54,7 +54,7 @@ Para la política completa de versiones de Node.js y npm de {vendor}`Nextcloud`,
 
 ### Compilar los componentes y scripts de Vue
 
-Se avanza cada vez más hacia el uso de Vue.js en el front-end, empezando por Ajustes. Para compilar el código tras los cambios, usar estos comandos de terminal en la carpeta raíz:
+Se avanza cada vez más hacia el uso de Vue.js en el frontend, empezando por Ajustes. Para compilar el código tras los cambios, usar estos comandos de terminal en la carpeta raíz:
 
 ```console
 # install dependencies

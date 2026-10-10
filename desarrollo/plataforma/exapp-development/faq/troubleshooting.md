@@ -20,7 +20,7 @@ Esta sección describe pasos habituales para diagnosticar problemas concretos.
 Los problemas de red pueden no ser tan sencillos de identificar y resolver.
 Estos son algunos pasos habituales para verificar la configuración de red:
 
-- Verificar que el daemon de despliegue esté en ejecución y sea accesible (ajustes de administración de AppAPI - seleccionar el daemon de despliegue - comprobar la conexión).
+- Verificar que el daemon de despliegue esté en ejecución y sea accesible (configuraciones de administración de AppAPI - seleccionar el daemon de despliegue - comprobar la conexión).
 - Verificar el modo de red y los niveles de acceso, el cortafuegos, la VPN, etc.
 - Verificar que Nextcloud sea accesible desde el host del daemon de despliegue
 - Verificar que el host del daemon de despliegue sea accesible desde el host de Nextcloud

@@ -9,7 +9,7 @@ resumen: "App Actividad: correos de notificación, opciones de config.php, carpe
 
 ## Resumen
 
-Esta página explica cómo configurar la app Actividad: los correos de notificación y sus ajustes de administración, las opciones de `config.php`, las actividades en carpetas de equipo y almacenamientos externos, la caducidad de los registros y la programación de los envíos, con una sección de solución de problemas. Está dirigida a quienes administran el servidor.
+Esta página explica cómo configurar la app Actividad: los correos de notificación y sus configuraciones de administración, las opciones de `config.php`, las actividades en carpetas de equipo y almacenamientos externos, la caducidad de los registros y la programación de los envíos, con una sección de solución de problemas. Está dirigida a quienes administran el servidor.
 
 ````{upstream} admin_manual/configuration_server/activity_configuration.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 La app Actividad registra y resume los eventos visibles para los usuarios en toda la instancia de Nextcloud y puede avisar a los usuarios mediante el flujo de actividad, el correo electrónico y las notificaciones push. Viene incluida y está activada de forma predeterminada.
@@ -18,7 +18,7 @@ La app Actividad registra y resume los eventos visibles para los usuarios en tod
 La app Actividad está pensada para notificar a los usuarios, no para el cumplimiento normativo ni la auditoría. Los usuarios pueden activar o desactivar el seguimiento de actividad de su propia cuenta, por lo que el flujo de actividad no es un registro de auditoría fiable. Si se necesita un registro completo de todas las acciones de la instancia, debe usarse en su lugar la app **admin_audit**; consultar {nc-doc}`Registro <admin_manual/configuration_server/logging_configuration>`.
 :::
 
-*La página de ajustes de administración de Actividad, que muestra las preferencias de notificación predeterminadas para las cuentas nuevas.*
+*La página de configuraciones de administración de Actividad, que muestra las preferencias de notificación predeterminadas para las cuentas nuevas.*
 
 ### Configurar Nextcloud para la app Actividad
 
@@ -28,7 +28,7 @@ Para enviar correos de notificación de actividad se requiere una configuración
 
 También se recomienda configurar el modo de ejecución de los trabajos en segundo plano en un modo de ejecución del sistema (`System Cron` o `systemd`), como se describe en {nc-doc}`Trabajos en segundo plano <admin_manual/configuration_server/background_jobs_configuration>`. Los modos `Ajax` y `Webcron` pueden retrasar u omitir el envío de correos.
 
-#### Ajustes de administración
+#### Configuraciones de administración
 
 Un administrador puede:
 

@@ -35,6 +35,6 @@ occ config:app:set core defaultTemplateDirectory --value="CustomPath"
 Esto solo se aplica a los usuarios nuevos.
 
 :::{note}
-Para crear su propio directorio de plantillas, los usuarios deben hacer clic en el botón `+ New` y después en `+ Create templates folder`.
+Para crear su propio directorio de plantillas, los usuarios deben hacer clic en el botón `+ New` y después en {guilabel}`Crear carpeta de plantillas`.
 :::
 ````

@@ -25,7 +25,7 @@ También se puede elegir invitar a todos los participantes, incluidos los invita
 
 Al crear un evento nuevo en Calendario, se puede definir una conversación de Talk como ubicación del evento. Esto creará una conversación nueva si todavía no existe.
 
-Una vez creado el evento, se verá un enlace a la conversación en los detalles del evento. La conversación también aparecerá en la lista de conversaciones (se puede encontrar con el filtro `Events`).
+Una vez creado el evento, se verá un enlace a la conversación en los detalles del evento. La conversación también aparecerá en la lista de conversaciones (se puede encontrar con el filtro {guilabel}`Eventos`).
 
 Al igual que las reuniones instantáneas, las conversaciones de eventos se eliminarán automáticamente después del periodo de inactividad configurado (de forma predeterminada, 28 días).
 ````

@@ -61,7 +61,7 @@ Los archivos etiquetados aparecen en la app Memories, en la sección «Etiquetas
 
    occ recognize:download-models
 
-3. Ir a las configuraciones de administración de Nextcloud y abrir la página de ajustes de administración de *recognize*
+3. Ir a las configuraciones de administración de Nextcloud y abrir la página de configuraciones de administración de *recognize*
 4. Activar todos los modos de funcionamiento que se quiera que lleve a cabo la app
 5. Activar el modo GPU si se tiene una GPU que se quiera usar; si se quiere usar solo la CPU, aquí puede fijarse el número de núcleos que se usan
 6. Ejecutar el siguiente comando en el terminal del servidor para detener el procesamiento en segundo plano de los archivos existentes:
@@ -96,7 +96,7 @@ Los clientes de {vendor}`Nextcloud` deben informar de los errores directamente a
 
 - Asegurarse de probar si la funcionalidad cumple los requisitos de calidad del caso de uso
 - Los modelos de aprendizaje automático tienen un consumo de energía notoriamente alto
-- El soporte al cliente está disponible previa solicitud; sin embargo, {vendor}`Nextcloud` no puede resolver resultados falsos o problemáticos, la mayoría de los problemas de rendimiento ni otros problemas causados por el modelo subyacente. Por tanto, el soporte se limita a los errores causados directamente por la implementación de la app (conectores, API, front-end, AppAPI)
+- El soporte al cliente está disponible previa solicitud; sin embargo, {vendor}`Nextcloud` no puede resolver resultados falsos o problemáticos, la mayoría de los problemas de rendimiento ni otros problemas causados por el modelo subyacente. Por tanto, el soporte se limita a los errores causados directamente por la implementación de la app (conectores, API, frontend, AppAPI)
 
 ### Clasificación de IA ética
 

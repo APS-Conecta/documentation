@@ -154,14 +154,14 @@ lo que mejora la experiencia de quienes no usan el inglés.
   - `Loading …`\
     (un espacio de no separación `U+00A0`)
   - Usar solo un **espacio de no separación** antes de los puntos suspensivos (`U+00A0`).
-* - Don't
-  - Do not
+* - «Don't»
+  - «Do not»
   - Usar la forma completa es más fácil de entender y facilita la traducción.
-* - Won't
-  - Will not
+* - «Won't»
+  - «Will not»
   - Usar la forma completa es más fácil de entender y facilita la traducción.
-* - Can not
-  - Cannot
+* - «Can not»
+  - «Cannot»
   - Usar la forma unida es más fácil de entender y facilita la traducción.
 * - id
   - ID

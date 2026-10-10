@@ -151,5 +151,5 @@ Si existe la posibilidad de restaurar versiones anteriores, puede integrarse med
 
 #### Compartir
 
-La pestaña de compartir permite a las personas usuarias compartir el elemento seleccionado con otras personas de distintas formas. Un elemento puede compartirse con usuarios o grupos concretos de la instancia simplemente seleccionando con quién se quiere compartir. Otra forma muy sencilla de compartir es mediante un enlace compartido, que opcionalmente también puede configurarse con la opción «Advanced settings».
+La pestaña de compartir permite a las personas usuarias compartir el elemento seleccionado con otras personas de distintas formas. Un elemento puede compartirse con usuarios o grupos concretos de la instancia simplemente seleccionando con quién se quiere compartir. Otra forma muy sencilla de compartir es mediante un enlace compartido, que opcionalmente también puede configurarse con la opción «Ajustes avanzados».
 ````

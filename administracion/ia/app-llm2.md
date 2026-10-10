@@ -133,7 +133,7 @@ Los clientes de {vendor}`Nextcloud` deben informar de los errores directamente a
 - Los modelos de lenguaje tienden a generar información falsa, por lo que solo deben usarse en situaciones que no sean críticas. Se recomienda usar la IA solo al principio de un proceso de creación y no al final, de modo que sus resultados sirvan, por ejemplo, como borrador y no como producto final. Revisar siempre los resultados de los modelos de lenguaje antes de usarlos.
 - Asegurarse de probar el modelo de lenguaje que se usa para comprobar si cumple los requisitos de calidad del caso de uso
 - Los modelos de lenguaje tienen un consumo de energía notoriamente alto; para reducir la carga del servidor pueden elegirse modelos más pequeños o cuantizados a cambio de una menor precisión
-- El soporte al cliente está disponible previa solicitud; sin embargo, {vendor}`Nextcloud` no puede resolver resultados falsos o problemáticos, la mayoría de los problemas de rendimiento ni otros problemas causados por el modelo subyacente. Por tanto, el soporte se limita a los errores causados directamente por la implementación de la app (conectores, API, front-end, AppAPI)
+- El soporte al cliente está disponible previa solicitud; sin embargo, {vendor}`Nextcloud` no puede resolver resultados falsos o problemáticos, la mayoría de los problemas de rendimiento ni otros problemas causados por el modelo subyacente. Por tanto, el soporte se limita a los errores causados directamente por la implementación de la app (conectores, API, frontend, AppAPI)
 
 ### Apéndice: ejecutar con un modelo totalmente abierto
 

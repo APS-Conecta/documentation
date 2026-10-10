@@ -343,10 +343,10 @@ Las dependencias *dependencies/php*, *dependencies/database* y *dependencies/lib
   * debe contener una clase php que implementa OCP\Activity\IProvider y se usa para reaccionar a eventos de la app de actividad
 - settings/admin:
   * opcional
-  * debe contener una clase php que implementa OCP\Settings\ISettings y devuelve el formulario que se muestra en el área de ajustes de administración
+  * debe contener una clase php que implementa OCP\Settings\ISettings y devuelve el formulario que se muestra en el área de configuraciones de administración
 - settings/admin-section:
   * opcional
-  * debe contener una clase php que implementa OCP\Settings\ISection y devuelve los datos para mostrar entradas de navegación en el área de ajustes de administración
+  * debe contener una clase php que implementa OCP\Settings\ISection y devuelve los datos para mostrar entradas de navegación en el área de configuraciones de administración
 - settings/personal:
   * opcional
   * debe contener una clase php que implementa OCP\Settings\ISettings y devuelve el formulario que se muestra en el área de ajustes personales

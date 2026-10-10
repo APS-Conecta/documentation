@@ -14,3 +14,4 @@ Esta página registra los cambios de estadistica que ve una persona usuaria o ad
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| Próxima versión |  | Los botones de cada tarjeta del tablero anuncian a los lectores de pantalla el nombre de la tarjeta. |
