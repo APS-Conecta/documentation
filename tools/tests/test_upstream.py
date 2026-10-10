@@ -1248,6 +1248,18 @@ class LinkTargetTest(unittest.TestCase):
         self.assertEqual(got, {"https://docs.example/34/d/_static/openapi.html"})
 
 
+class ToctreeUrlTest(unittest.TestCase):
+    """developer-manual-app-publishing-maintenance-1: «Publishing App on the App Store <https://…>»."""
+
+    def test_a_visible_toctree_url_entry_is_an_upstream_link(self):
+        rst = ".. toctree::\n   :maxdepth: 2\n\n   code_signing\n   Store <https://store.example/dev.html>\n"
+        self.assertEqual(u.rst_links(rst), {"https://store.example/dev.html"})
+        self.assertEqual(u.rst_toctree(rst, "developer_manual/x/index"), ["developer_manual/x/code_signing"])
+
+    def test_a_hidden_toctree_url_entry_shows_nothing(self):
+        self.assertEqual(u.rst_links(".. toctree::\n   :hidden:\n\n   Store <https://store.example/dev.html>\n"), set())
+
+
 class CatalogTest(unittest.TestCase):
     def test_reads_multiline_msgid_and_msgstr(self):
         import tempfile
