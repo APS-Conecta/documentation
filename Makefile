@@ -34,7 +34,7 @@ generate:
 
 # Cada bloque tejido dice lo que dice su fuente upstream (estructura, código, enlaces, texto oficial).
 fidelity: upstream
-	python3 tools/upstream-fidelity.py
+	python3 tools/upstream-fidelity.py --require-coverage
 
 # El sitio compilado nombra el producto «APS Conecta Gestión» (lee _build/html; correr tras html).
 rebrand-check:
