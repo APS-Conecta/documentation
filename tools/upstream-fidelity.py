@@ -148,8 +148,9 @@ def check_block(
                 )
         else:
             ai += 1
+    msgstrs = {" ".join(u.plain(v).split()) for v in catalog.values()}  # translators' words, verbatim
     for para in u.myst_paragraphs(content):
-        if u.reads_english(para):
+        if u.reads_english(para) and " ".join(u.plain(para).split()) not in msgstrs:
             out.append(f"{doc}: paragraph reads as English: «{u.plain(para)[:70]}…»")
             break
     return out, ai

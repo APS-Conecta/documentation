@@ -981,16 +981,27 @@ EN_STOPWORDS = {
 
 
 def reads_english(paragraph: str) -> bool:
-    """Untranslated prose: English stopwords ≥ 15 % of 8+ words. A message in «…» is not prose:
-    upstream quotes some UI and error strings in English only, and the contract puts them there."""
-    # code is not prose: drop code spans (a role's text stays), then quoted messages
+    """Untranslated prose, word by word: an English function word (EN_STOPWORDS) left in the
+    text. Not prose: code, «quoted» messages (upstream quotes some UI and error strings in English
+    only, and the contract keeps them), *italics* (identifiers, log lines), an all-caps keyword
+    (FROM, SQL), [Name]: url definitions, and a word inside a capitalised run, which is a name
+    or a title («Extra Packages for Enterprise Linux», «The Movie Database»)."""
     code_free = MYST_SPAN.sub(lambda m: m.group(0) if m.group(1) else " ", paragraph)
-    text = re.sub(r"«[^»]*»", " ", plain(code_free))
-    # an all-caps token (FROM, SQL, URL) is a keyword or acronym, not English prose
-    words = [w.lower() for w in re.findall(r"[A-Za-zÁÉÍÓÚÑÜáéíóúñü]+", text) if not (len(w) > 1 and w.isupper())]
-    if len(words) < 8:
-        return False
-    return sum(w in EN_STOPWORDS for w in words) / len(words) >= 0.15
+    code_free = re.sub(r"(?<![*\w])\*(?!\*)[^*\n]+?(?<!\*)\*(?![*\w])", " ", code_free)
+    code_free = re.sub(r"(?m)^\s*\[[^\]\n]+\]:\s*\S+.*$", " ", code_free)  # [Name]: url definitions
+    # quotes, URLs, addresses, PHP written as text ($this->inc('x'))
+    text = re.sub(r"«[^»]*»|<?https?://\S+|\S+@\S+|\$\w+(?:->\w+|\([^)]*\))*", " ", plain(code_free))
+    # a hyphenated compound is one word (plug-and-play, AGPL-3.0-or-later)
+    words = re.findall(r"[A-Za-zÁÉÍÓÚÑÜáéíóúñü0-9]+(?:[-_.:/][A-Za-zÁÉÍÓÚÑÜáéíóúñü0-9]+)*", text)
+    for i, w in enumerate(words):
+        if w.lower() in EN_STOPWORDS and not (len(w) > 1 and w.isupper()):
+            before = i > 0 and words[i - 1][0].isupper()
+            after = i < len(words) - 1 and words[i + 1][0].isupper()
+            # «Packages for Enterprise»; a capitalised one opens or closes a title («The Movie Database»)
+            name = (before and after) or (w[0].isupper() and (before or after))
+            if not name:
+                return True
+    return False
 
 
 def make_id(title: str) -> str:

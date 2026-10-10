@@ -389,17 +389,17 @@ No se puede asignar Nextcloud a una unidad WebDAV en Windows utilizando un certi
 
 1. Acceda a su instancia de Nextcloud en su navegador web preferido.
 2. Haga clic hasta llegar al error de certificado en la línea de estado del navegador.
-3. Vea el certificado y, luego, en la pestaña Details, seleccione «Copy to File».
+3. Vea el certificado y, luego, en la pestaña «Details», seleccione «Copy to File».
 4. Guarde el archivo en su escritorio con un nombre arbitrario, por ejemplo `myNextcloud.pem`.
-5. Vaya a Start menu > Run, escriba MMC y haga clic en «OK» para abrir Microsoft Management Console.
-6. Vaya a File > Add/Remove Snap-In.
-7. Seleccione Certificates, haga clic en {guilabel}`Add`, elija «My User Account», luego «Finish» y, por último, «OK».
-8. Profundice hasta Trust Root Certification Authorities, Certificates.
-9. Haga clic con el botón derecho en Certificate y seleccione All Tasks e Import.
+5. Vaya a «Start menu» > «Run», escriba MMC y haga clic en «OK» para abrir Microsoft Management Console.
+6. Vaya a «File» > «Add/Remove Snap-In».
+7. Seleccione «Certificates», haga clic en {guilabel}`Add`, elija «My User Account», luego «Finish» y, por último, «OK».
+8. Profundice hasta «Trust Root Certification Authorities», «Certificates».
+9. Haga clic con el botón derecho en «Certificate» y seleccione «All Tasks» e «Import».
 10. Seleccione el certificado guardado en el escritorio.
-11. Seleccione Place all Certificates in the following Store y haga clic en Browse.
-12. Marque la casilla Show Physical Stores, despliegue Trusted Root Certification Authorities, seleccione allí Local Computer, haga clic en «OK» y complete la importación.
-13. Revise la lista para asegurarse de que aparece el certificado. Probablemente tendrá que usar Refresh antes de verlo.
+11. Seleccione «Place all Certificates in the following Store» y haga clic en «Browse».
+12. Marque la casilla «Show Physical Stores», despliegue «Trusted Root Certification Authorities», seleccione allí «Local Computer», haga clic en «OK» y complete la importación.
+13. Revise la lista para asegurarse de que aparece el certificado. Probablemente tendrá que usar «Refresh» antes de verlo.
 14. Salga de MMC.
 
 Para usuarios de Firefox:

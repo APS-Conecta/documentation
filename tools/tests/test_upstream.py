@@ -1317,6 +1317,20 @@ class ServerUiStringsTest(unittest.TestCase):
         self.assertEqual(ui["Log in"], {"Iniciar sesión"})
 
 
+class EnglishWordTest(unittest.TestCase):
+    """S5 (4): one English word left in Spanish prose is a leftover; the 15 % ratio missed it."""
+
+    def test_one_leftover_word_reads_as_english(self):
+        self.assertTrue(u.reads_english("Para activar el botón, ir a la página de ajustes and hacer clic en guardar el archivo."))
+
+    def test_names_titles_and_italics_are_not_leftovers(self):
+        for ok in ("Instalar el repositorio Extra Packages for Enterprise Linux (EPEL) y después ClamAV.",
+                   "Ver [PHP Session Locking and How to Prevent It](https://a.example/x) para más detalles.",
+                   "- *Bruteforce attempt from* [...] en el registro.",
+                   "El AWS SDK for PHP se actualizó."):
+            self.assertFalse(u.reads_english(ok), ok)
+
+
 class CatalogTest(unittest.TestCase):
     def test_reads_multiline_msgid_and_msgstr(self):
         import tempfile
