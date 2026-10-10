@@ -5,10 +5,11 @@ Fails on:
 - a variant glosario.yml lists under `evitar` (terms and tecnicos), anywhere in prose;
 - an {upstream} block whose upstream section uses a `tecnicos` term the block does not carry in
   its approved form `es` (`re`, when given, is how the English term is matched);
-- tuteo or vosotros: the contract's register is «usted» on official strings, impersonal elsewhere.
+- tuteo or vosotros: the register is formal, direct and affirmative, «usted» or impersonal, on
+  every paragraph, an official Transifex msgstr included (owner, 2026-10-10; upstream-fidelity
+  then stops demanding that msgstr verbatim).
 Prose excludes code, roles ({guilabel} is the interface's own wording), URLs and «quoted» text
-(a message or an example someone types). A paragraph that is an official Transifex msgstr is the
-translators' wording, which the contract copies verbatim: not ours to check.
+(a message or an example someone types): upstreamlib.prose / style_problems.
 
     python3 tools/term-check.py [page.md …]
 """
@@ -24,43 +25,15 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import upstreamlib as u  # noqa: E402
 
 AUDIENCES = ("usuario", "administracion", "desarrollo")
-# unambiguous tú/vosotros forms; «pulsa», «elige», «recuerda» are also usted/él indicatives
-REGISTER = re.compile(
-    r"\b(?:puedes|tienes|debes|quieres|necesitas|sabes|haces|deberías|podrás|tendrás|asegúrate|"
-    r"haz|tú|tu|tus|ti|contigo|vosotr[oa]s|vuestr[oa]s?)\b", re.I)
-
-
-def prose(paragraph: str) -> str:
-    text = u.MYST_SPAN.sub(" ", paragraph)  # code spans and roles
-    text = re.sub(r"\]\([^)]*\)|<https?://[^>]+>|https?://\S+", " ", text)
-    return re.sub(r"«[^»]*»", " ", u.plain(text))
-
-
-def _word(s: str) -> re.Pattern:
-    return re.compile(r"(?<!\w)" + re.escape(s) + r"(?!\w)", re.I)
-
-
-def check_paragraph(text: str, gl: dict) -> list[str]:
-    out = []
-    for t in gl.get("terms", []) + gl.get("tecnicos", []):
-        out += [f"«{m.group(0)}» → «{t['es']}» (glosario.yml)" for v in t.get("evitar", []) for m in _word(v).finditer(text)]
-    out += [f"«{m.group(0)}»: register is «usted» or impersonal (weave-contract §3)" for m in REGISTER.finditer(text)]
-    return out
-
-
-def official(cat: dict) -> set[str]:
-    """The catalog's msgstrs as a page paragraph reads them (plain text, whitespace collapsed)."""
-    return {" ".join(u.plain(v).split()) for v in cat.values()}
+prose = u.prose  # the tests and the corpus tools read prose the way the gate does
 
 
 def check_page(text: str, gl: dict, source_of) -> list[str]:
     """source_of(block) → (upstream section RST, official catalog msgid → msgstr) for a block with a doc."""
-    found = [p for para in u.myst_paragraphs(text) for p in check_paragraph(prose(para), gl)]
+    found = [p for para in u.myst_paragraphs(text) for p in u.style_problems(para, gl)]
     for block in u.blocks(text):
         section, cat = source_of(block) if block["doc"] else ("", {})
-        mine = official(cat)
-        paras = [para for para in u.myst_paragraphs(block["content"]) if " ".join(u.plain(para).split()) not in mine]
-        found += [p for para in paras for p in check_paragraph(prose(para), gl)]
+        found += [p for para in u.myst_paragraphs(block["content"]) for p in u.style_problems(para, gl)]
         # upstream prose as the Spanish side reads its own: no code, roles or quoted text
         up = " ".join(x for x in u.rst_paragraphs(section) if x not in cat)  # an official translation is the translators'
         up = re.sub(r"``.+?``|:[\w:-]+:`[^`]*`|`[^`<]*`(?!_)|\"[^\"\n]*\"|“[^”]*”|\*\*[^*]+\*\*", " ", up)  # **label**

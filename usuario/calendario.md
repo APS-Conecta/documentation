@@ -136,7 +136,7 @@ Puede insertar sus calendarios en aplicaciones compatibles como `Talk`, {guilabe
 
 #### Suscribirse a un calendario
 
-Usted puede suscribirse a calendarios iCal directamente desde su Nextcloud. Al soportar el estándar interoperable (RFC 5545) hemos hecho el calendario de Nextcloud compatible con Google Calendar, Apple iCloud y muchos otros servidores de calendario con los que puedes intercambiar calendarios, incluyendo enlaces de suscripción a calendarios publicados en otras instancias Nextcloud, como se describe anteriormente.
+Usted puede suscribirse a calendarios iCal directamente desde su Nextcloud. Al soportar el estándar interoperable (RFC 5545) hemos hecho el calendario de Nextcloud compatible con Google Calendar, Apple iCloud y muchos otros servidores de calendario con los que puede intercambiar calendarios, incluyendo enlaces de suscripción a calendarios publicados en otras instancias Nextcloud, como se describe anteriormente.
 
 1. Pulse {guilabel}`Nuevo calendario` en la barra lateral izquierda
 2. Pulse {guilabel}`Nueva suscripción desde enlace (sólo lectura)`

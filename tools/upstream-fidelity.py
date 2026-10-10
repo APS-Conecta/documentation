@@ -141,7 +141,7 @@ def check_block(
     ai = 0
     for para in u.rst_paragraphs(section):
         official = catalog.get(para, "")
-        if official:
+        if official and not u.style_problems(official):  # an off-register msgstr is adapted, not copied
             if u.plain(official).rstrip(":.") not in mine:
                 out.append(
                     f"{doc}: official Spanish not used verbatim: «{u.plain(official)[:70]}…»"

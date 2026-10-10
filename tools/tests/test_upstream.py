@@ -350,6 +350,12 @@ class FidelityTest(unittest.TestCase):
             any("official Spanish not used verbatim" in f for f in found), found
         )
 
+    def test_an_official_msgstr_off_register_is_adapted_not_copied(self):
+        # owner 2026-10-10: formal, direct, affirmative; a tuteo msgstr is no longer copied verbatim
+        cat = {k: "Puedes acceder a tus archivos en Nextcloud con la interfaz web de Nextcloud." for k in CATALOG}
+        found, _ = self.check(GOOD, catalog=cat)
+        self.assertFalse(any("not used verbatim" in f for f in found), found)
+
     def test_english_paragraph(self):
         found, _ = self.check(
             GOOD

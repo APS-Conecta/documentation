@@ -1004,6 +1004,40 @@ def reads_english(paragraph: str) -> bool:
     return False
 
 
+# unambiguous tú/vosotros forms; «pulsa», «elige», «recuerda» are also usted/él indicatives
+REGISTER = re.compile(
+    r"\b(?:puedes|tienes|debes|quieres|necesitas|sabes|haces|deberías|podrás|tendrás|asegúrate|"
+    r"haz|tú|tu|tus|ti|contigo|vosotr[oa]s|vuestr[oa]s?)\b", re.I)
+_GLOSSARY: dict | None = None
+
+
+def glossary() -> dict:
+    global _GLOSSARY
+    if _GLOSSARY is None:
+        _GLOSSARY = yaml.safe_load((ROOT / "glosario.yml").read_text(encoding="utf-8")) or {}
+    return _GLOSSARY
+
+
+def prose(paragraph: str) -> str:
+    """What a reader sees as our words: no code, roles ({guilabel} is the interface's own
+    wording), URLs or «quoted» text (a message, an example someone types)."""
+    text = MYST_SPAN.sub(" ", paragraph)
+    text = re.sub(r"\]\([^)]*\)|<https?://[^>]+>|https?://\S+", " ", text)
+    return re.sub(r"«[^»]*»", " ", plain(text))
+
+
+def style_problems(paragraph: str, gl: dict | None = None) -> list[str]:
+    """One Spanish (scribe S5): no glosario.yml `evitar` variant, and the register is formal,
+    direct and affirmative — «usted» or impersonal, never tuteo or vosotros (owner, 2026-10-10)."""
+    text, gl = prose(paragraph), glossary() if gl is None else gl
+    out = []
+    for t in gl.get("terms", []) + gl.get("tecnicos", []):
+        out += [f"«{m.group(0)}» → «{t['es']}» (glosario.yml)" for v in t.get("evitar", [])
+                for m in re.finditer(r"(?<!\w)" + re.escape(v) + r"(?!\w)", text, re.I)]
+    out += [f"«{m.group(0)}»: register is «usted» or impersonal (weave-contract §3)" for m in REGISTER.finditer(text)]
+    return out
+
+
 def make_id(title: str) -> str:
     """docutils' id shape: lowercase ASCII, runs of anything else become one hyphen."""
     t = title.lower().translate(str.maketrans("áéíóúñü", "aeiounu"))

@@ -51,16 +51,13 @@ class TermCheckTest(unittest.TestCase):
         self.assertEqual(self.check(page("Ver la página."), "See code-backend and backend-x."), [])
         self.assertEqual(self.check(page("Hacer clic en «Open backend»."), "Click **Open backend**."), [])
 
-    def test_an_official_msgstr_is_the_translators_words(self):
+    def test_an_official_msgstr_meets_the_register_too(self):
+        # owner 2026-10-10: «must be formal, direct, affirmative language», official strings included
         text = page("Desde su ordenador, puedes subir archivos.", "user_manual/x")
-        self.assertEqual(self.check(text, cat=[("From your computer you can upload files.", "Desde su ordenador, puedes subir archivos.")]), [])
-        # nor does its upstream paragraph demand an approved form
-        self.assertEqual(self.check(page("Desde su ordenador, puedes subir archivos.", "user_manual/x"), "Use the server backend.",
-                                    cat=[("Use the server backend.", "Desde su ordenador, puedes subir archivos.")]), [])
-
-    def test_the_official_set_is_compared_as_plain_text(self):
-        self.assertEqual(tc.official({"m": "Algo que *tienes* y `un enlace <https://a.example>`_."}),
-                         {"Algo que tienes y un enlace."})
+        self.assertEqual(len(self.check(text, cat=[("From your computer you can upload files.", "Desde su ordenador, puedes subir archivos.")])), 2)
+        # its upstream paragraph still demands no approved form: the meaning is the translators'
+        self.assertEqual(self.check(page("Desde su computador puede subir archivos.", "user_manual/x"), "Use the server backend.",
+                                    cat=[("Use the server backend.", "Desde su computador puede subir archivos.")]), [])
 
     def test_tuteo_and_vosotros_fail_impersonal_and_usted_pass(self):
         for bad in ("Haz clic en Guardar.", "Ahora puedes subir tus archivos.", "Si tienes dudas, escribe.",

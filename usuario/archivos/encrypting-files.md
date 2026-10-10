@@ -30,7 +30,7 @@ Sí, *si* todos los usuarios usan la [clave de recuperación de archivos](https:
 
 #### ¿Puede deshabilitarse el cifrado sin la contraseña del usuario?
 
-Si no tienes la contraseña del usuario o [el archivo con la clave de recuperación](https://docs.nextcloud.com/server/latest/admin_manual/configuration_files/encryption_configuration.html#enabling-users-file-recovery-keys) del usuario, resultará imposible desencriptar todos los archivos. Además, ejecutarlo al iniciar sesión podría ser peligroso, ya que probablemente se agotaría el tiempo máximo de la petición.
+Si no tiene la contraseña del usuario o [el archivo con la clave de recuperación](https://docs.nextcloud.com/server/latest/admin_manual/configuration_files/encryption_configuration.html#enabling-users-file-recovery-keys) del usuario, resultará imposible desencriptar todos los archivos. Además, ejecutarlo al iniciar sesión podría ser peligroso, ya que probablemente se agotaría el tiempo máximo de la petición.
 
 #### ¿Hay planes para mover esto al siguiente inicio de sesión del usuario o una tarea en segundo plano?
 
@@ -54,7 +54,7 @@ Nunca debe perder su contraseña de Nextcloud, porque perdería el acceso a sus 
 
 ### Compartir archivos cifrados
 
-Solo aquellos usuarios que tengan claves de cifrado privadas tienen acceso a archivos y carpetas cifrados compartidos. Los usuarios que aún no han creado su clave de cifrado privada no tendrán acceso a archivos compartidos cifrados; verán carpetas y nombres de archivo, pero no podrán abrir ni descargar los archivos. Verán un cartel amarillo de aviso indicando "La aplicación de cifrado está habilitada, pero tus claves no están inicializadas. Por favor, cierra sesión e iníciala de nuevo."
+Solo aquellos usuarios que tengan claves de cifrado privadas tienen acceso a archivos y carpetas cifrados compartidos. Los usuarios que aún no han creado su clave de cifrado privada no tendrán acceso a archivos compartidos cifrados; verán carpetas y nombres de archivo, pero no podrán abrir ni descargar los archivos. Verán un cartel amarillo de aviso indicando «La app de cifrado está habilitada pero sus claves no se han inicializado, por favor, cierre la sesión y vuelva a iniciarla de nuevo.»
 
 Los propietarios de archivos o carpetas compartidas deberán re-compartir archivos tras la activación del cifrado; los usuarios que intenten acceder al recurso compartido verán un mensaje indicando que soliciten al propietario del recurso compartido que re-comparta el archivo con ellos. Para archivos compartidos a un solo usuario, deje de compartir y vuelva a compartirlo. Para archivos compartidos a un grupo, compártalos con los individuos que no puedan acceder. Esta acción actualiza el cifrado, y a continuación el propietario del recurso compartido puede borrar los usuarios añadidos de forma individual.
 
@@ -64,7 +64,7 @@ Si su administrador de Nextcloud ha habilitado la herramienta de la clave de rec
 
 ### Archivos no cifrados
 
-Solo los datos en tus archivos están cifrados, y no los nombres de archivo o estructuras de carpeta. Estos archivos nunca se cifran:
+Solo se cifran los datos de sus archivos, no los nombres de archivo ni las estructuras de carpetas. Estos archivos nunca se cifran:
 
 - Los archivos antiguos de la papelera.
 - Las miniaturas de imágenes de la aplicación Galería.

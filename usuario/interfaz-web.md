@@ -89,11 +89,11 @@ Usar los botones de filtro para acotar los resultados:
 ````{upstream} user_manual/universal_access.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 El acceso universal es muy importante para nosotros. Seguimos los estándares web y nos aseguramos de que todo se pueda usar con un teclado y con software de asistencia, como los lectores de pantalla. Nuestro objetivo es cumplir las [Pautas de Accesibilidad para el Contenido Web 2.1](https://www.w3.org/WAI/standards-guidelines/wcag/) en el nivel AA, y con el tema de alto contraste incluso en el nivel AAA. También seguimos las directrices alemanas BITV 2.0.
 
-Si encuentras algún problema, no dudes en informar de ello en nuestro [centro de incidencias](https://github.com/nextcloud/server/issues/). Y si quieres participar, ¡[únete a nuestro equipo de diseño](https://nextcloud.com/design)!
+Si encuentra algún problema, infórmelo en nuestro [centro de incidencias](https://github.com/nextcloud/server/issues/). Y si quiere participar, ¡[únase a nuestro equipo de diseño](https://nextcloud.com/design)!
 
 #### Ampliación y adaptatividad
 
-La interfaz de Nextcloud es completamente adaptativa y se puede usar con pantallas de cualquier tamaño. Puedes ampliar y alejar para ajustar el texto y el tamaño de los elementos a tu gusto. La barra de navegación y la barra lateral pueden ser expandidas o colapsadas.
+La interfaz de Nextcloud es completamente adaptativa y se puede usar con pantallas de cualquier tamaño. Puede ampliar y alejar para ajustar el texto y el tamaño de los elementos a su gusto. La barra de navegación y la barra lateral pueden ser expandidas o colapsadas.
 
 #### Navegar con el teclado
 
@@ -135,7 +135,7 @@ Nextcloud Mail tiene atajos también, documentados en las preferencias de la pro
 
 #### Temas incluídos
 
-Ofrecemos algunos temas que puedes activar para mejorar la accesibilidad:
+Ofrecemos algunos temas que puede activar para mejorar la accesibilidad:
 
 - **Tema de alto contraste:** un modo de alto contraste para facilitar la navegación. La calidad visual se reducirá, pero la claridad aumentará.
 - **Tema oscuro:** un tema oscuro para descansar la vista al reducir la luminosidad y el brillo generales. Todavía está en desarrollo, así que se agradece informar de cualquier problema que se encuentre.
@@ -148,7 +148,7 @@ Para entrar en los ajustes de accesibilidad:
 3. En la navegación, elegir **Accesibilidad**
 
 :::{note}
-El contraste de los elementos puede variar dependiendo del tema personalizado. Por ejemplo, el color primario del tema es usado como color de fondo por la cabecera, la página de inicio de sesión, y los botones primarios. Si esto causa problemas con el contraste, por favor contacta a tu administrador para que te ayude.
+El contraste de los elementos puede variar dependiendo del tema personalizado. Por ejemplo, el color primario del tema es usado como color de fondo por la cabecera, la página de inicio de sesión, y los botones primarios. Si esto causa problemas con el contraste, contacte a su administrador para que le ayude.
 :::
 ````
 
