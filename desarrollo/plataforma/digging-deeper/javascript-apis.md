@@ -9,17 +9,17 @@ resumen: "Las API de JavaScript para apps: los paquetes npm de @nextcloud, los e
 
 ## Resumen
 
-Esta página describe las API de JavaScript que pueden usar las apps: los paquetes npm de `@nextcloud`, su uso, compatibilidad y desarrollo, y qué ofrece cada paquete; los eventos de cambio del estado de la red; y las variables globales `OC`, `OCA` y `OCP`, cuyo uso se desaconseja. Está dirigida a quienes desarrollan el front-end de apps.
+Esta página describe las API de JavaScript que pueden usar las apps: los paquetes npm de `@nextcloud`, su uso, compatibilidad y desarrollo, y qué ofrece cada paquete; los eventos de cambio del estado de la red; y las variables globales `OC`, `OCA` y `OCP`, cuyo uso se desaconseja. Está dirigida a quienes desarrollan el frontend de apps.
 
 ````{upstream} developer_manual/digging_deeper/javascript-apis.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
-Las apps de Nextcloud pueden usar las API de JavaScript existentes para facilitar el desarrollo de componentes de front-end y de scripts sencillos.
+Las apps de Nextcloud pueden usar las API de JavaScript existentes para facilitar el desarrollo de componentes de frontend y de scripts sencillos.
 
 Antes, las API se proporcionaban mediante variables globales, disponibles en la mayoría de las páginas de Nextcloud. Para suavizar la experiencia de desarrollo con las herramientas de desarrollo modernas, este método está en proceso de declararse obsoleto y de eliminarse. Las API existentes se están migrando a paquetes npm y las nuevas API solo estarán disponibles de esa forma. La parte final de la página cubre los fundamentos del método de las variables globales, por si se quiere desarrollar una app para versiones antiguas de Nextcloud.
 
 (javascript-apis-npm-packages)=
 ### Paquetes npm
 
-Los [paquetes npm de @nextcloud](https://www.npmjs.com/org/nextcloud) proporcionan las API de front-end actuales para las apps de Nextcloud.
+Los [paquetes npm de @nextcloud](https://www.npmjs.com/org/nextcloud) proporcionan las API de frontend actuales para las apps de Nextcloud.
 
 #### Uso
 
@@ -70,7 +70,7 @@ y funciones de utilidad para trabajar con archivos y carpetas. Documentación: <
 
 #### `@nextcloud/initial-state`
 
-Este paquete proporciona la contraparte de *\\OCP\\IInitialStateService* del back-end. Usarlo para recuperar los datos almacenados al cargar la página. Documentación: <https://nextcloud-libraries.github.io/nextcloud-initial-state/>
+Este paquete proporciona la contraparte de *\\OCP\\IInitialStateService* del backend. Usarlo para recuperar los datos almacenados al cargar la página. Documentación: <https://nextcloud-libraries.github.io/nextcloud-initial-state/>
 
 #### `@nextcloud/l10n`
 

@@ -70,7 +70,7 @@ Los clientes de {vendor}`Nextcloud` deben informar de los errores directamente a
 - Actualmente solo se admiten los idiomas que admite el modelo Kokoro subyacente
 - Los modelos Kokoro rinden de forma desigual según el idioma, y pueden mostrar menor precisión en idiomas con pocos recursos o poca visibilidad, o en idiomas para los que había menos datos de entrenamiento disponibles.
 - Asegurarse de probar el modelo de lenguaje que se usa para comprobar si cumple los requisitos de calidad del caso de uso
-- El soporte al cliente está disponible previa solicitud; sin embargo, {vendor}`Nextcloud` no puede resolver resultados falsos o problemáticos, la mayoría de los problemas de rendimiento ni otros problemas causados por el modelo subyacente. Por tanto, el soporte se limita a los errores causados directamente por la implementación de la app (conectores, API, front-end, AppAPI)
+- El soporte al cliente está disponible previa solicitud; sin embargo, {vendor}`Nextcloud` no puede resolver resultados falsos o problemáticos, la mayoría de los problemas de rendimiento ni otros problemas causados por el modelo subyacente. Por tanto, el soporte se limita a los errores causados directamente por la implementación de la app (conectores, API, frontend, AppAPI)
 ````
 
 :::{note}

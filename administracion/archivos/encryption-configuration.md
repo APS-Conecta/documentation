@@ -256,7 +256,7 @@ El proceso de recuperación puede ser lento y consumir muchos recursos, sobre to
 
 #### ¿Por qué no aparece la opción de clave de recuperación en los ajustes de cifrado?
 
-Las claves de recuperación solo están disponibles en el modo de claves por usuario. Desde Nextcloud 13, el modo de cifrado predeterminado usa claves maestras (cifrado de todo el sistema). El modo de clave maestra no muestra las opciones de clave de recuperación en los ajustes de administración porque las claves de recuperación no son necesarias: los administradores pueden restablecer las contraseñas de los usuarios y los archivos siguen siendo accesibles.
+Las claves de recuperación solo están disponibles en el modo de claves por usuario. Desde Nextcloud 13, el modo de cifrado predeterminado usa claves maestras (cifrado de todo el sistema). El modo de clave maestra no muestra las opciones de clave de recuperación en las configuraciones de administración porque las claves de recuperación no son necesarias: los administradores pueden restablecer las contraseñas de los usuarios y los archivos siguen siendo accesibles.
 
 Si se usa el modo de clave maestra (el modo predeterminado y recomendado), no se necesitan claves de recuperación. Las claves de recuperación solo son relevantes en configuraciones con claves por usuario, que se mantienen por compatibilidad con implantaciones antiguas.
 

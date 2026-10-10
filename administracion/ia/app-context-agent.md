@@ -476,7 +476,7 @@ Los clientes de {vendor}`Nextcloud` deben informar de los errores directamente a
 - Asegurarse de probar si el modelo de lenguaje que se usa, junto con esta app, cumple los requisitos de calidad del caso de uso
 - La mayoría de los modelos tienen dificultades con idiomas distintos del inglés. Algunos modelos responden a veces en un idioma distinto del que usó el usuario.
 - El soporte al cliente está disponible previa solicitud; sin embargo, {vendor}`Nextcloud` no puede resolver resultados falsos o problemáticos, la mayoría de los problemas de rendimiento ni otros problemas causados por el modelo subyacente.
-  Por tanto, el soporte se limita a los errores causados directamente por la implementación de la app (conectores, API, front-end, AppAPI). Aun así, {vendor}`Nextcloud` intenta optimizar esto en la medida de lo posible, de modo que, si se obtienen resultados falsos o problemáticos, pueden informarse [en una incidencia de GitHub dedicada](https://github.com/nextcloud/context_agent/issues/51) para ayudar a mejorar esta app.
+  Por tanto, el soporte se limita a los errores causados directamente por la implementación de la app (conectores, API, frontend, AppAPI). Aun así, {vendor}`Nextcloud` intenta optimizar esto en la medida de lo posible, de modo que, si se obtienen resultados falsos o problemáticos, pueden informarse [en una incidencia de GitHub dedicada](https://github.com/nextcloud/context_agent/issues/51) para ayudar a mejorar esta app.
 - Cuando se configuran varios servicios MCP con herramientas que tienen el mismo nombre, el comportamiento es indefinido.
 - Solo se admiten servicios MCP remotos (transporte streamable_http).
 - Actualmente no se admiten servicios MCP que requieran tokens de acceso distintos para cada usuario.

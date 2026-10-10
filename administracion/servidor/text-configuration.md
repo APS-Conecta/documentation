@@ -3,7 +3,7 @@ tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
 apps: [gestion]
-resumen: "Ajustes de administración de la app Text con occ y php.ini: espacios de trabajo enriquecidos, extensión predeterminada, edición enriquecida y codificaciones."
+resumen: "Configuraciones de administración de la app Text con occ y php.ini: espacios de trabajo, extensión predeterminada, edición enriquecida y codificaciones."
 ---
 # App Text
 

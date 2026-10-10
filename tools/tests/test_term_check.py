@@ -14,7 +14,7 @@ GL = {
                "evitar": ["ajustes de administración"]}],
     "tecnicos": [{"en": "backend", "es": "backend", "evitar": ["back-end"]},
                  {"en": "log", "re": r"logs?(?![- ](?:in|out)\b)", "es": "registro"},
-                 {"en": "computer", "es": "computador", "evitar": ["ordenador", "ordenadores"]}],
+                 {"es": "computador", "evitar": ["ordenador", "ordenadores"]}],
 }
 
 
@@ -24,7 +24,7 @@ def page(content, doc="admin_manual/x"):
 
 class TermCheckTest(unittest.TestCase):
     def check(self, text, section="", cat=()):
-        return tc.check_page(text, GL, lambda block: (section, set(cat)))
+        return tc.check_page(text, GL, lambda block: (section, dict(cat)))
 
     def test_an_evitar_variant_fails_anywhere_in_prose(self):
         self.assertEqual(len(self.check("Abrir los ajustes de administración.\n")), 1)
@@ -42,9 +42,16 @@ class TermCheckTest(unittest.TestCase):
         self.assertEqual(self.check(page("Iniciar sesión."), "Log in first."), [])
         self.assertEqual(len(self.check(page("Ver el archivo."), "See the log file.")), 1)
 
+    def test_upstream_code_and_quoted_text_are_not_the_sections_terms(self):
+        self.assertEqual(self.check(page("Habilitar la app."), "Enable the ``webhook_listeners`` app with a ``backend``."), [])
+        self.assertEqual(self.check(page("El mensaje «Revise los registros»."), 'It says "Look at the backend logs".'), [])
+
     def test_an_official_msgstr_is_the_translators_words(self):
         text = page("Desde su ordenador, puedes subir archivos.", "user_manual/x")
-        self.assertEqual(self.check(text, cat=["Desde su ordenador, puedes subir archivos."]), [])
+        self.assertEqual(self.check(text, cat=[("From your computer you can upload files.", "Desde su ordenador, puedes subir archivos.")]), [])
+        # nor does its upstream paragraph demand an approved form
+        self.assertEqual(self.check(page("Desde su ordenador, puedes subir archivos.", "user_manual/x"), "Use the server backend.",
+                                    cat=[("Use the server backend.", "Desde su ordenador, puedes subir archivos.")]), [])
 
     def test_the_official_set_is_compared_as_plain_text(self):
         self.assertEqual(tc.official({"m": "Algo que *tienes* y `un enlace <https://a.example>`_."}),

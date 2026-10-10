@@ -94,7 +94,7 @@ El proceso de publicación es idéntico al de una versión final; solo el númer
 Ejemplo: la app se publicará como versión 3.7.2. Por tanto, podría haber una **v3.7.2-alpha.1**, **v3.7.2-beta.1**, **v3.7.2-rc.1**, **v3.7.2-rc.2** y la versión final **v3.7.2**.
 :::
 
-El canal de actualización define si el servidor instala versiones preliminares. Este ajuste se encuentra en los ajustes de administración o en el archivo `config/config.php`. El servidor instalará versiones preliminares si su canal de actualización está establecido en `beta`, `daily` o `git`. Con cualquier otro ajuste, no se instalarán versiones preliminares.
+El canal de actualización define si el servidor instala versiones preliminares. Este ajuste se encuentra en las configuraciones de administración o en el archivo `config/config.php`. El servidor instalará versiones preliminares si su canal de actualización está establecido en `beta`, `daily` o `git`. Con cualquier otro ajuste, no se instalarán versiones preliminares.
 
 :::{tip}
 No publicar las versiones preliminares como versión nightly en la tienda de apps, o las instalaciones de Nextcloud no podrán actualizarse. Publicar con cualquier sufijo (alfanumérico) basta para marcar la versión como no lista para producción, y las instancias pueden seguir actualizándose a ella.
@@ -159,7 +159,7 @@ Como las apps solo se clonan, no es posible tener un paso de compilación para l
 Ejemplo:
 
 - La app usa dependencias de `composer`: hacer commit de todas las dependencias de producción en el directorio `vendor`
-- La app usa dependencias de `npm` y herramientas de compilación del front-end: hacer commit de todos los artefactos del front-end en el directorio `js`
+- La app usa dependencias de `npm` y herramientas de compilación del frontend: hacer commit de todos los artefactos del frontend en el directorio `js`
 
 #### Versionado
 
@@ -171,7 +171,7 @@ Ejemplo:
 - `stable26`: versión 7.0.0, para Nextcloud 26
 - `stable25`: versión 6.0.0, para Nextcloud 25
 
-Las correcciones retroportadas incrementan la versión de parche en una rama estable. Las funciones retroportadas incrementan la versión menor.
+Las correcciones con backport incrementan la versión de parche en una rama estable. Las funciones con backport incrementan la versión menor.
 
 #### Distribución híbrida
 

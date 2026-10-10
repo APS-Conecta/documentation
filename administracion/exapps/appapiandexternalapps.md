@@ -32,7 +32,7 @@ Todas las ExApps requieren como dependencia la app de Nextcloud [AppAPI](https:/
 Un daemon de despliegue es el medio por el que Nextcloud instala las ExApps, se comunica con ellas y las controla.
 
 :::{note}
-Si se usa Nextcloud AIO con el contenedor «HaRP» o «Docker Socket Proxy» activado, se crea automáticamente un daemon de despliegue configurado para funcionar desde el primer momento. En caso contrario, seguir los pasos siguientes para configurar un daemon de despliegue desde los ajustes de administración de AppAPI.
+Si se usa Nextcloud AIO con el contenedor «HaRP» o «Docker Socket Proxy» activado, se crea automáticamente un daemon de despliegue configurado para funcionar desde el primer momento. En caso contrario, seguir los pasos siguientes para configurar un daemon de despliegue desde las configuraciones de administración de AppAPI.
 :::
 
 :::{tip}
@@ -47,7 +47,7 @@ Esta es la forma más reciente y la **recomendada** de instalar ExApps.
 Requiere cambios en el proxy de la instancia de Nextcloud. Si no se tiene acceso al proxy, puede usarse el método habitual {nc-ref}`descrito más abajo <ai-app_api_dsp>`.
 
 1. Configurar un contenedor Docker llamado [HaRP](https://github.com/nextcloud/HaRP?tab=readme-ov-file#how-to-install-it) que hace de proxy del acceso a Docker y a las ExApps para la instancia de Nextcloud. Tener cuidado de cambiar los valores de `HP_SHARED_KEY` y `NC_INSTANCE_URL`.
-2. Ir a los ajustes de administración de AppAPI.
+2. Ir a las configuraciones de administración de AppAPI.
 3. Hacer clic en el botón «Registrar Daemon».
 4. Debería aparecer un formulario completado. Esta configuración predeterminada, `HaRP Proxy (Host)`, debería funcionar en la mayoría de las instalaciones. Para Nextcloud AIO, usar `HaRP All-in-One`.
 
@@ -70,7 +70,7 @@ Las ExApps existentes pueden migrarse al nuevo proxy HaRP siguiendo [esta guía]
 #### Docker Socket Proxy
 
 1. Configurar un contenedor Docker llamado [docker-socket-proxy](https://github.com/nextcloud/docker-socket-proxy#readme) que hace de proxy del acceso a Docker para la instancia de Nextcloud.
-2. Ir a los ajustes de administración de AppAPI.
+2. Ir a las configuraciones de administración de AppAPI.
 3. Hacer clic en el botón «Registrar Daemon».
 4. Completar los campos obligatorios:
    - {guilabel}`Nombre`: nombre único del daemon de despliegue

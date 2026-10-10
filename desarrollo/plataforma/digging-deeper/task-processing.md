@@ -143,7 +143,7 @@ Están disponibles los siguientes tipos de tareas integrados:
   - Forma de salida:
     - `output`: `ListOfTexts`
 
-Los tipos de tarea pueden deshabilitarse en los ajustes de administración de IA para que no estén disponibles para el Asistente ni para otras apps, aunque estén implementados. Todos los tipos de tarea implementados están habilitados de forma predeterminada.
+Los tipos de tarea pueden deshabilitarse en las configuraciones de administración de IA para que no estén disponibles para el Asistente ni para otras apps, aunque estén implementados. Todos los tipos de tarea implementados están habilitados de forma predeterminada.
 
 ##### Prompts de LLM y E/S multilingüe
 

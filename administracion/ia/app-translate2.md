@@ -81,7 +81,7 @@ Más información sobre la clasificación de IA ética de {vendor}`Nextcloud` [e
 - Aunque la calidad del resultado será buena en los idiomas más comunes (inglés, francés, español), la calidad empeorará en los idiomas con menos cobertura en el conjunto de entrenamiento original.
 - Asegurarse de probar el modelo de traducción que se usa para comprobar si cumple los requisitos de calidad del caso de uso. El modelo predeterminado es el más pequeño del lote y puede producir traducciones duplicadas. Si se necesita mejor calidad y menos artefactos, cambiar a un modelo más grande; ver [Cambio de modelo](#model-switch).
 - Los modelos de lenguaje tienen un consumo de energía notoriamente alto.
-- El soporte al cliente está disponible previa solicitud; sin embargo, {vendor}`Nextcloud` no puede resolver resultados falsos o problemáticos, la mayoría de los problemas de rendimiento ni otros problemas causados por los modelos subyacentes. Por tanto, el soporte se limita a los errores causados directamente por la implementación de la app (conectores, API, front-end, AppAPI).
+- El soporte al cliente está disponible previa solicitud; sin embargo, {vendor}`Nextcloud` no puede resolver resultados falsos o problemáticos, la mayoría de los problemas de rendimiento ni otros problemas causados por los modelos subyacentes. Por tanto, el soporte se limita a los errores causados directamente por la implementación de la app (conectores, API, frontend, AppAPI).
 ````
 
 :::{note}

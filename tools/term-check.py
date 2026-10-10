@@ -54,14 +54,18 @@ def official(cat: dict) -> set[str]:
 
 
 def check_page(text: str, gl: dict, source_of) -> list[str]:
-    """source_of(block) → (upstream section RST, official msgstr set) for a block with a doc."""
+    """source_of(block) → (upstream section RST, official catalog msgid → msgstr) for a block with a doc."""
     found = [p for para in u.myst_paragraphs(text) for p in check_paragraph(prose(para), gl)]
     for block in u.blocks(text):
-        section, official = source_of(block) if block["doc"] else ("", set())
-        paras = [para for para in u.myst_paragraphs(block["content"]) if " ".join(u.plain(para).split()) not in official]
+        section, cat = source_of(block) if block["doc"] else ("", {})
+        mine = official(cat)
+        paras = [para for para in u.myst_paragraphs(block["content"]) if " ".join(u.plain(para).split()) not in mine]
         found += [p for para in paras for p in check_paragraph(prose(para), gl)]
-        up, es = " ".join(u.rst_paragraphs(section)), " ".join(prose(p) for p in u.myst_paragraphs(block["content"]))
-        for t in gl.get("tecnicos", []):
+        # upstream prose as the Spanish side reads its own: no code, roles or quoted text
+        up = " ".join(x for x in u.rst_paragraphs(section) if x not in cat)  # an official translation is the translators'
+        up = re.sub(r"``.+?``|:[\w:-]+:`[^`]*`|`[^`<]*`(?!_)|\"[^\"\n]*\"|“[^”]*”", " ", up)
+        es = " ".join(prose(p) for p in u.myst_paragraphs(block["content"]))
+        for t in (t for t in gl.get("tecnicos", []) if "en" in t):
             en = re.compile(r"(?<!\w)" + (t.get("re") or re.escape(t["en"]) + "(?:s|es)?") + r"(?!\w)", re.I)
             if en.search(up) and not re.search(r"(?<!\w)" + re.escape(t["es"]), es, re.I):
                 found.append(f"block line {block['line']}: upstream says «{t['en']}», the block lacks «{t['es']}» (glosario.yml)")
@@ -77,7 +81,7 @@ def main(argv: list[str]) -> int:
 
     def source_of(block):
         source = u.show(updir, block["sha"], block["doc"])
-        return u.rst_section(source, block["anchor"]), official(u.catalog(updir, block["doc"], cfg))
+        return u.rst_section(source, block["anchor"]), u.catalog(updir, block["doc"], cfg)
 
     paths = [Path(a) for a in argv] or sorted(p for a in AUDIENCES for p in (u.ROOT / a).rglob("*.md"))
     n = 0

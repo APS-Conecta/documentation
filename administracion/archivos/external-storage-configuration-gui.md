@@ -54,7 +54,7 @@ En el siguiente ejemplo, el punto de montaje de un usuario «alice» que ha inic
 
 ### Permisos de usuarios y grupos
 
-Un almacenamiento configurado en los ajustes personales de un usuario solo está disponible para el usuario que lo creó. Un almacenamiento configurado en los ajustes de administración está disponible de forma predeterminada para todos los usuarios, pero puede restringirse a usuarios y grupos concretos en el campo **Disponible para**.
+Un almacenamiento configurado en los ajustes personales de un usuario solo está disponible para el usuario que lo creó. Un almacenamiento configurado en las configuraciones de administración está disponible de forma predeterminada para todos los usuarios, pero puede restringirse a usuarios y grupos concretos en el campo **Disponible para**.
 
 (nc-external_storage_mount_options_label)=
 ### Opciones de montaje
@@ -123,7 +123,7 @@ Si el analizador informa de un problema de codificación en el archivo afectado,
 :::{note}
 Este modo afecta al rendimiento, porque Nextcloud siempre probará ambas codificaciones al detectar archivos en los almacenamientos externos.
 
-Los ordenadores Mac usan la normalización Unicode NFD para los nombres de archivo, que es distinta de NFC, la que usan otros sistemas operativos. Los usuarios de Mac podrían subir archivos directamente al almacenamiento externo con nombres de archivo normalizados en NFD. Al subir a través de Nextcloud, los nombres de archivo siempre se normalizan al estándar NFC por coherencia.
+Los computadores Mac usan la normalización Unicode NFD para los nombres de archivo, que es distinta de NFC, la que usan otros sistemas operativos. Los usuarios de Mac podrían subir archivos directamente al almacenamiento externo con nombres de archivo normalizados en NFD. Al subir a través de Nextcloud, los nombres de archivo siempre se normalizan al estándar NFC por coherencia.
 
 Se recomienda que los almacenamientos externos se usen exclusivamente a través de Nextcloud para evitar estos problemas.
 

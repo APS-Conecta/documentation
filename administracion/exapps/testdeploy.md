@@ -15,7 +15,7 @@ Esta página describe, para quienes administran el servidor, la prueba de despli
 ````{upstream} admin_manual/exapps_management/TestDeploy.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 :difiere: administracion/exapps/index
 
-Cada configuración de despliegue del daemon puede probarse desde los ajustes de administración de AppAPI.
+Cada configuración de despliegue del daemon puede probarse desde las configuraciones de administración de AppAPI.
 
 ### Comprobaciones de estado
 

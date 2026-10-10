@@ -59,11 +59,11 @@ Haga clic de nuevo en el botón para volver a la vista de lista.
 
 ### Subir y crear archivos
 
-Haga clic en el botón **+** cerca de la parte superior de la lista de archivos para subir archivos desde su ordenador o crear elementos nuevos en la carpeta actual.
+Haga clic en el botón **+** cerca de la parte superior de la lista de archivos para subir archivos desde su computador o crear elementos nuevos en la carpeta actual.
 
 El menú ofrece las siguientes opciones:
 
-- Subir archivo: abre un selector de archivos para subir uno o más archivos desde su ordenador. También puede arrastrar y soltar archivos directamente desde su gestor de archivos sobre la lista de archivos.
+- Subir archivo: abre un selector de archivos para subir uno o más archivos desde su computador. También puede arrastrar y soltar archivos directamente desde su gestor de archivos sobre la lista de archivos.
 - Subir carpeta: sube una carpeta completa conservando su estructura.
 - Nueva carpeta: crea una carpeta vacía en la ubicación actual.
 - Nuevo documento / Nueva hoja de cálculo / Nueva presentación: crea un archivo nuevo con el editor integrado Nextcloud Text u Office, si su administrador lo ha habilitado.
@@ -90,7 +90,7 @@ Arrastre cualquier archivo o carpeta y suéltelo sobre una carpeta de destino pa
 
 ### Previsualizar archivos
 
-Haga clic en el nombre de un archivo para abrir una vista previa directamente en Nextcloud. Los formatos compatibles incluyen imágenes, texto plano, PDF y, según su servidor, documentos de ofimática y archivos de audio. Si Nextcloud no puede previsualizar un formato de archivo, descarga el archivo a su ordenador.
+Haga clic en el nombre de un archivo para abrir una vista previa directamente en Nextcloud. Los formatos compatibles incluyen imágenes, texto plano, PDF y, según su servidor, documentos de ofimática y archivos de audio. Si Nextcloud no puede previsualizar un formato de archivo, descarga el archivo a su computador.
 
 ### Reproductor de vídeo
 

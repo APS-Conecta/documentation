@@ -98,7 +98,7 @@ Buscar entradas que empiecen por cualquiera de los siguientes textos:
 
 Si todos los clientes parecen proceder de la misma dirección IP y esa dirección IP resulta ser la del proxy, hay que revisar la configuración de `trusted_proxies`.
 
-Si la dirección IP es un punto de conexión común, como una oficina con varios usuarios, puede ser una opción incluirla en la lista blanca, con el inconveniente de que los usuarios tienen que ser de confianza.
+Si la dirección IP es un endpoint común, como una oficina con varios usuarios, puede ser una opción incluirla en la lista blanca, con el inconveniente de que los usuarios tienen que ser de confianza.
 
 Para hacer pruebas, puede convenir incluir la propia dirección IP en la lista blanca para ver si el problema desaparece. Si desaparece (y suponiendo que la configuración del proxy sea correcta), puede que haya en la red un cliente o dispositivo que se comporta mal y genera intentos de inicio de sesión no válidos desde esa dirección IP.
 

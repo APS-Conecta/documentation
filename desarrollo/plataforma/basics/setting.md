@@ -3,13 +3,13 @@ tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
 apps: [gestion]
-resumen: "Cómo crear secciones y ajustes de administración de una app, delegar su administración y autorizar claves de configuración y controladores."
+resumen: "Cómo crear secciones y configuraciones de administración de una app, delegar su administración y autorizar claves de configuración y controladores."
 ---
 # Ajustes
 
 ## Resumen
 
-Esta página explica cómo una app crea una sección y un formulario de ajustes de administración y los registra en `info.xml`, cómo permitir la administración delegada de esos ajustes autorizando claves de configuración de la app, y cómo autorizar controladores reservados a la administración. Está dirigida a quienes desarrollan apps.
+Esta página explica cómo una app crea una sección y un formulario de configuraciones de administración y los registra en `info.xml`, cómo permitir la administración delegada de esos ajustes autorizando claves de configuración de la app, y cómo autorizar controladores reservados a la administración. Está dirigida a quienes desarrollan apps.
 
 ````{upstream} developer_manual/basics/setting.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 ### Crear una sección de administración
@@ -127,7 +127,7 @@ Nextcloud tiene una funcionalidad integrada que permite [a los administradores d
 en otras personas sin otorgarles privilegios completos de administración (y sin hacerlas
 miembros del grupo `admin`).
 
-A grupos concretos se les puede conceder autorización para acceder a ajustes de administración individuales. Esta es una
+A grupos concretos se les puede conceder autorización para acceder a configuraciones de administración individuales. Esta es una
 funcionalidad que hay que habilitar en cada clase de ajuste de administración. Para ello, la clase del ajuste
 debe implementar `IDelegatedSettings` en lugar de `ISettings` e implementar dos métodos
 adicionales.

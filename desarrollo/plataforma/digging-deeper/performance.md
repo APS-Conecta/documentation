@@ -43,7 +43,7 @@ Con MySQL es muy fácil, con solo un poco de configuración:
 
 1. Registro de consultas lentas.
 
-Si se pone esto en el archivo my.cnf, toda consulta que tarde más de un segundo se registra en un archivo de log:
+Si se pone esto en el archivo my.cnf, toda consulta que tarde más de un segundo se registra en un archivo de registro:
 
 ```
 slow_query_log = 1
@@ -55,7 +55,7 @@ Si una consulta tarda más de un segundo, hay, por supuesto, un problema serio. 
 
 2. Registrar todas las consultas.
 
-Si se reduce long_query_time a cero, se registran todas las sentencias. Esto es muy útil para ver lo que está pasando. Basta con hacer un *tail -f* sobre el archivo de log y hacer clic por la interfaz o acceder a la interfaz WebDAV:
+Si se reduce long_query_time a cero, se registran todas las sentencias. Esto es muy útil para ver lo que está pasando. Basta con hacer un *tail -f* sobre el archivo de registro y hacer clic por la interfaz o acceder a la interfaz WebDAV:
 
 ```
 slow_query_log = 1
@@ -100,9 +100,9 @@ Hay dos patrones para evitar la lectura «sucia»:
 2. **Evitar la operación de lectura**. Si el código lo permite, evitar por completo la operación de lectura. Se debería saber qué se acaba de escribir. Si se necesita el ID autoincremental, usar la función *last insert ID* de la base de datos. Continuar con estos datos, pasarlos a los listeners de eventos, etc. Este enfoque también garantiza la consistencia, pero además mejora el rendimiento general.
 
 :::{tip}
-Nextcloud puede ayudar a identificar lecturas tras escritura sin necesidad de montar un clúster para el entorno de desarrollo. Si se cambia el nivel de log a 0 (debug), las lecturas sucias generarán una entrada en el log. Supervisar el log mientras se prueba el código.
+Nextcloud puede ayudar a identificar lecturas tras escritura sin necesidad de montar un clúster para el entorno de desarrollo. Si se cambia el nivel de log a 0 (debug), las lecturas sucias generarán una entrada en el registro. Supervisar el registro mientras se prueba el código.
 
-Prestar atención a mensajes como ``dirty table reads: SELECT `id` FROM `*PREFIX*jobs` WHERE (`class` = :dcValue1) AND (`argument_hash` = :dcValue2) LIMIT 1``. Usar la *traza* de la entrada del log para localizar el código que ejecutó la consulta.
+Prestar atención a mensajes como ``dirty table reads: SELECT `id` FROM `*PREFIX*jobs` WHERE (`class` = :dcValue1) AND (`argument_hash` = :dcValue2) LIMIT 1``. Usar la *traza* de la entrada del registro para localizar el código que ejecutó la consulta.
 
 Tener en cuenta que la detección de lecturas sucias no es perfecta y podría registrar por error una lectura sucia cuando se escriben y leen datos no relacionados. Por ejemplo, se puede leer el usuario *alice*, actualizar sus datos y después leer los datos de *bob* y hacer lo mismo. Aunque la base de datos replique lentamente, no se leerán datos que todavía no existen. Como Nextcloud hace el seguimiento a nivel de tabla, igualmente emite la advertencia.
 :::

@@ -59,7 +59,7 @@ El endpoint `POST /init` se llama después de que la ExApp se habilita en Nextcl
 Es un disparador para que la ExApp inicie su proceso de inicialización, p. ej., descargar modelos, datos iniciales, etc.
 
 :::{note}
-El tiempo de espera de inicialización predeterminado (`init_timeout`) es de 40 minutos. Puede cambiarse en los ajustes de administración de AppAPI
+El tiempo de espera de inicialización predeterminado (`init_timeout`) es de 40 minutos. Puede cambiarse en las configuraciones de administración de AppAPI
 o mediante el comando `occ config:app:set app_api init_timeout --value 40 --type mixed`.
 :::
 

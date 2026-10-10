@@ -17,7 +17,7 @@ Se recomienda encarecidamente configurar pruebas automatizadas para la app, de m
 
 - Linting: comprobar la sintaxis de los archivos fuente, p. ej., de todos los scripts php
 - Análisis estático: hacer que herramientas comprueben la solidez de tipos de la app; se usa sobre todo para php
-- Pruebas unitarias: ejecutar pruebas unitarias del front-end y del back-end, en las que clases y componentes individuales se prueban de forma aislada
+- Pruebas unitarias: ejecutar pruebas unitarias del frontend y del backend, en las que clases y componentes individuales se prueban de forma aislada
 - Pruebas de integración: probar los componentes cuando se combinan
 
 Hay una lista de plantillas de workflows de github disponibles en el [repositorio de plantillas de nextcloud](https://github.com/nextcloud/.github).

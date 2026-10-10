@@ -12,7 +12,7 @@ resumen: "Montar un directorio del propio servidor como almacenamiento externo l
 Esta página explica cómo montar como almacenamiento externo local un directorio del propio servidor que esté fuera del directorio de datos: el riesgo que implica, la propiedad y los permisos que necesita, y los campos que hay que rellenar. Está dirigida a quienes administran el servidor.
 
 ````{upstream} admin_manual/configuration_files/external_storage/local.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
-Los almacenamientos locales dan acceso a cualquier directorio del servidor Nextcloud. Como esto supone un riesgo de seguridad importante, el almacenamiento local solo puede configurarse en los ajustes de administración de Nextcloud. Los usuarios que no son administradores no pueden crear montajes de almacenamiento local.
+Los almacenamientos locales dan acceso a cualquier directorio del servidor Nextcloud. Como esto supone un riesgo de seguridad importante, el almacenamiento local solo puede configurarse en las configuraciones de administración de Nextcloud. Los usuarios que no son administradores no pueden crear montajes de almacenamiento local.
 
 Sirve para montar cualquier directorio del servidor Nextcloud que esté fuera del directorio `data/` de Nextcloud. El usuario del servidor HTTP debe poder leer y escribir en este directorio. Estos ejemplos de propiedad y permisos son para Ubuntu Linux:
 

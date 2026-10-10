@@ -101,7 +101,7 @@ Algunas operaciones pueden llevar bastante tiempo. Por eso se decidió no añadi
 
 #### Pasos de migración de larga duración
 
-De vez en cuando se hacen cambios en la estructura de la base de datos que llevan mucho tiempo, pero que pueden ejecutarse mientras Nextcloud sigue en línea. Por eso se trasladaron a un comando aparte que un administrador puede ejecutar en la CLI sin necesidad de bloquear la instancia en modo de mantenimiento (al menos para algunos de ellos). La instancia también funciona sin aplicar esos cambios, pero con ellos el rendimiento mejora significativamente. También hay siempre un aviso en las comprobaciones de configuración de la interfaz web de los ajustes de administración.
+De vez en cuando se hacen cambios en la estructura de la base de datos que llevan mucho tiempo, pero que pueden ejecutarse mientras Nextcloud sigue en línea. Por eso se trasladaron a un comando aparte que un administrador puede ejecutar en la CLI sin necesidad de bloquear la instancia en modo de mantenimiento (al menos para algunos de ellos). La instancia también funciona sin aplicar esos cambios, pero con ellos el rendimiento mejora significativamente. También hay siempre un aviso en las comprobaciones de configuración de la interfaz web de las configuraciones de administración.
 
 Entre ellos están, por ejemplo:
 

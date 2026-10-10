@@ -3,14 +3,14 @@ tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
 apps: [gestion]
-resumen: "El despachador de eventos de OCP, cómo escribir eventos y listeners, los eventos públicos de la plataforma (OCP) y de las apps (OCA), y los ganchos obsoletos."
+resumen: "El despachador de eventos de OCP, cómo escribir eventos y listeners, los eventos públicos de la plataforma (OCP) y de las apps (OCA), y los hooks obsoletos."
 ---
 (nc-dev-events)=
 # Eventos
 
 ## Resumen
 
-Esta página describe los mecanismos de eventos de la plataforma: el despachador de eventos de OCP con su esquema de nombres, cómo escribir eventos y listeners, la lista de eventos públicos disponibles, tanto los de la plataforma (OCP) como los de las apps (OCA), y los ganchos y el emisor público, ambos obsoletos. Está dirigida a quienes desarrollan apps.
+Esta página describe los mecanismos de eventos de la plataforma: el despachador de eventos de OCP con su esquema de nombres, cómo escribir eventos y listeners, la lista de eventos públicos disponibles, tanto los de la plataforma (OCP) como los de las apps (OCA), y los hooks y el emisor público, ambos obsoletos. Está dirigida a quienes desarrollan apps.
 
 ````{upstream} developer_manual/basics/events.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 Los eventos se usan para la comunicación entre distintos aspectos del ecosistema de Nextcloud. Se usan internamente en el servidor de Nextcloud, para la comunicación del servidor con las apps y para la comunicación entre apps.
@@ -20,7 +20,7 @@ Los eventos se usan para la comunicación entre distintos aspectos del ecosistem
 El término «eventos» es algo amplio en Nextcloud y hay varias formas de emitirlos.
 
 * [Despachador de eventos de OCP](#events-ocp-event-dispatcher)
-* [Ganchos](#events-hooks)
+* [Hooks](#events-hooks)
 * [Emisor público](#events-public-emitter)
 
 (events-ocp-event-dispatcher)=
@@ -622,21 +622,21 @@ Un evento que permite a las apps notificar a otros componentes sobre una interac
 :::{versionadded} 28
 :::
 
-Evento que permite a las apps registrar información sobre columnas faltantes de la base de datos. Este evento se despachará para la comprobación en los ajustes de administración y al ejecutar occ db:add-missing-columns, que entonces creará esas columnas
+Evento que permite a las apps registrar información sobre columnas faltantes de la base de datos. Este evento se despachará para la comprobación en las configuraciones de administración y al ejecutar occ db:add-missing-columns, que entonces creará esas columnas
 
 ##### `OCP\DB\Events\AddMissingIndicesEvent`
 
 :::{versionadded} 28
 :::
 
-Evento que permite a las apps registrar información sobre índices faltantes de la base de datos. Este evento se despachará para la comprobación en los ajustes de administración y al ejecutar occ db:add-missing-indices, que entonces creará esos índices
+Evento que permite a las apps registrar información sobre índices faltantes de la base de datos. Este evento se despachará para la comprobación en las configuraciones de administración y al ejecutar occ db:add-missing-indices, que entonces creará esos índices
 
 ##### `OCP\DB\Events\AddMissingPrimaryKeyEvent`
 
 :::{versionadded} 28
 :::
 
-Evento que permite a las apps registrar información sobre claves primarias faltantes de la base de datos. Este evento se despachará para la comprobación en los ajustes de administración y al ejecutar occ db:add-missing-primary-keys, que entonces creará esas claves
+Evento que permite a las apps registrar información sobre claves primarias faltantes de la base de datos. Este evento se despachará para la comprobación en las configuraciones de administración y al ejecutar occ db:add-missing-primary-keys, que entonces creará esas claves
 
 ##### `OCP\DirectEditing\RegisterDirectEditorEvent`
 
@@ -1384,17 +1384,17 @@ Se emite cuando se carga la página de ajustes del motor de flujos de trabajo.
 :::
 
 (events-hooks)=
-### Ganchos
+### Hooks
 
 :::{deprecated} 18
 Usar en su lugar el [despachador de eventos de OCP](#events-ocp-event-dispatcher).
 :::
 
-Los ganchos se usan para ejecutar código antes o después de que haya ocurrido un suceso. Esto es útil, por ejemplo, para ejecutar código de limpieza después de que se hayan eliminado usuarios, grupos o archivos. Los ganchos deben registrarse en el {nc-doc}`proceso de arranque <developer_manual/app_development/bootstrap>`.
+Los hooks se usan para ejecutar código antes o después de que haya ocurrido un suceso. Esto es útil, por ejemplo, para ejecutar código de limpieza después de que se hayan eliminado usuarios, grupos o archivos. Los hooks deben registrarse en el {nc-doc}`proceso de arranque <developer_manual/app_development/bootstrap>`.
 
-#### Ganchos disponibles
+#### Hooks disponibles
 
-El ámbito es el primer parámetro que se pasa al método **listen**; el segundo parámetro es el método y el tercero, el callback que debe ejecutarse una vez que se llama al gancho, p. ej.:
+El ámbito es el primer parámetro que se pasa al método **listen**; el segundo parámetro es el método y el tercero, el callback que debe ejecutarse una vez que se llama al hook, p. ej.:
 
 ```php
 <?php
@@ -1406,7 +1406,7 @@ $callback = function($user) {
 $userManager->listen('\OC\User', 'preDelete', $callback);
 ```
 
-Los ganchos también pueden quitarse con el método **removeListener** del objeto:
+Los hooks también pueden quitarse con el método **removeListener** del objeto:
 
 ```php
 <?php
@@ -1415,13 +1415,13 @@ Los ganchos también pueden quitarse con el método **removeListener** del objet
 $userManager->removeListener(null, null, $callback);
 ```
 
-Están disponibles los siguientes ganchos:
+Están disponibles los siguientes hooks:
 
 #### Sesión
 
 Se puede inyectar desde el ServerContainer con el servicio `\OCP\IUserSession`.
 
-Ganchos disponibles en el ámbito **\OC\User**:
+Hooks disponibles en el ámbito **\OC\User**:
 
 * **preSetPassword** (\OC\User\User $user, string $password, string $recoverPassword)
 * **postSetPassword** (\OC\User\User $user, string $password, string $recoverPassword)
@@ -1438,7 +1438,7 @@ Ganchos disponibles en el ámbito **\OC\User**:
 
 Se puede inyectar desde el ServerContainer con el servicio `\OCP\IUserManager`.
 
-Ganchos disponibles en el ámbito **\OC\User**:
+Hooks disponibles en el ámbito **\OC\User**:
 
 * **preSetPassword** (\OC\User\User $user, string $password, string $recoverPassword)
 * **postSetPassword** (\OC\User\User $user, string $password, string $recoverPassword)
@@ -1449,7 +1449,7 @@ Ganchos disponibles en el ámbito **\OC\User**:
 
 #### GroupManager
 
-Ganchos disponibles en el ámbito **\OC\Group**:
+Hooks disponibles en el ámbito **\OC\Group**:
 
 * **preAddUser** (\OC\Group\Group $group, \OC\User\User $user)
 * **postAddUser** (\OC\Group\Group $group, \OC\User\User $user)
@@ -1472,7 +1472,7 @@ Para activar estos eventos en la app, hay que agregar lo siguiente al archivo *i
 </types>
 ```
 
-Ganchos del sistema de archivos disponibles en el ámbito **\OC\Files**:
+Hooks del sistema de archivos disponibles en el ámbito **\OC\Files**:
 
 * **preWrite** (\OCP\Files\Node $node)
 * **postWrite** (\OCP\Files\Node $node)
@@ -1489,7 +1489,7 @@ Ganchos del sistema de archivos disponibles en el ámbito **\OC\Files**:
 
 #### Escáner del sistema de archivos
 
-Ganchos del escáner del sistema de archivos disponibles en el ámbito **\OC\Files\Utils\Scanner**:
+Hooks del escáner del sistema de archivos disponibles en el ámbito **\OC\Files\Utils\Scanner**:
 
 * **scanFile** (string $absolutePath)
 * **scanFolder** (string $absolutePath)
