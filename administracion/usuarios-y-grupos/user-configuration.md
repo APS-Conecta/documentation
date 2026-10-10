@@ -137,7 +137,7 @@ Eliminar a un usuario es fácil: pasar el cursor sobre su nombre en la página *
 
 En la parte superior de la página aparece un botón para deshacer, que permanece unos segundos. Cuando el botón para deshacer desaparece, el usuario eliminado ya no puede recuperarse.
 
-También se eliminan todos los archivos de los que el usuario es propietario, incluidos todos los que ha compartido. Si hay que conservar los archivos y los recursos compartidos del usuario, primero hay que descargarlos desde la página Archivos de Nextcloud, que los comprime en un archivo zip, o usar un cliente de sincronización para copiarlos al ordenador local. Véase {nc-doc}`admin_manual/configuration_files/file_sharing_configuration` para saber cómo crear recursos compartidos persistentes que sobreviven a la eliminación de usuarios.
+También se eliminan todos los archivos de los que el usuario es propietario, incluidos todos los que ha compartido. Si hay que conservar los archivos y los recursos compartidos del usuario, primero hay que descargarlos desde la página Archivos de Nextcloud, que los comprime en un archivo zip, o usar un cliente de sincronización para copiarlos al computador local. Véase {nc-doc}`admin_manual/configuration_files/file_sharing_configuration` para saber cómo crear recursos compartidos persistentes que sobreviven a la eliminación de usuarios.
 
 ### Desactivar el correo «Su dirección de correo electrónico [...] fue cambiada»
 

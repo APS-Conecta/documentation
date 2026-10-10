@@ -3,19 +3,19 @@ tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
 apps: [gestion]
-resumen: "Cómo una app registra ajustes de administración y personales: la clase ISettings con su plantilla, una sección propia y su registro en info.xml."
+resumen: "Cómo una app registra configuraciones de administración y ajustes personales: la clase ISettings con su plantilla, una sección y su registro en info.xml."
 ---
 (nc-dev-settings-section)=
 # Ajustes
 
 ## Resumen
 
-Esta página explica cómo una app registra ajustes de administración y personales: la clase que implementa `\OCP\Settings\ISettings` con su plantilla, una sección propia con `\OCP\Settings\IIconSection` y el registro de ambas en el info.xml de la app. Está dirigida a quienes desarrollan apps.
+Esta página explica cómo una app registra configuraciones de administración y ajustes personales: la clase que implementa `\OCP\Settings\ISettings` con su plantilla, una sección propia con `\OCP\Settings\IIconSection` y el registro de ambas en el info.xml de la app. Está dirigida a quienes desarrollan apps.
 
 ````{upstream} developer_manual/digging_deeper/settings.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 - {nc-doc}`developer_manual/digging_deeper/declarative_settings`
 
-Una app puede registrar tanto ajustes de administración como ajustes personales.
+Una app puede registrar tanto configuraciones de administración como ajustes personales.
 Los ajustes se dividen en secciones para agrupar los ajustes similares.
 Por ejemplo, en la sección **Compartir** solo hay ajustes (integrados y de apps)
 relacionados con el uso compartido.

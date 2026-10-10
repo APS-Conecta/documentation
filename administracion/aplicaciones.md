@@ -41,7 +41,7 @@ Todas las apps deben tener la licencia AGPLv3+ o cualquier licencia compatible.
 
 Se muestran las apps activadas, desactivadas y disponibles. También se muestran paquetes de apps adicionales y filtros, como Personalización, Seguridad y Monitorización, para encontrar más apps rápidamente.
 
-En la página de Apps se pueden activar o desactivar aplicaciones. Algunas apps tienen opciones configurables en la página de Apps, como **Activar solo para grupos específicos**, pero principalmente se activan o desactivan aquí y se configuran en los ajustes de Nextcloud (ajustes de administración o de usuario) o en `config.php`.
+En la página de Apps se pueden activar o desactivar aplicaciones. Algunas apps tienen opciones configurables en la página de Apps, como **Activar solo para grupos específicos**, pero principalmente se activan o desactivan aquí y se configuran en los ajustes de Nextcloud (configuraciones de administración o de usuario) o en `config.php`.
 
 Al seleccionar una app se ven su descripción y las opciones de configuración disponibles. Al hacer clic en el botón **Activar**, la app se activa. Si la app no forma parte de la instalación de Nextcloud, se descarga desde la tienda de apps, se instala y se activa.
 

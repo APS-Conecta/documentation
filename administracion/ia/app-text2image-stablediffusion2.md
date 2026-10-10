@@ -61,7 +61,7 @@ Los clientes de {vendor}`Nextcloud` deben informar de los errores directamente a
 - Los resultados de ciertas solicitudes de generación de imágenes pueden estar sesgados y reforzar estereotipos
 - Actualmente solo se admiten los idiomas que admite el modelo subyacente; la corrección del uso del idioma en idiomas distintos del inglés puede ser deficiente según la cobertura del idioma en los datos de entrenamiento del modelo
 - Asegurarse de probar la app para comprobar si cumple los requisitos de calidad del caso de uso
-- El soporte al cliente está disponible previa solicitud; sin embargo, {vendor}`Nextcloud` no puede resolver resultados falsos o problemáticos, la mayoría de los problemas de rendimiento ni otros problemas causados por el modelo subyacente. Por tanto, el soporte se limita a los errores causados directamente por la implementación de la app (conectores, API, front-end, AppAPI)
+- El soporte al cliente está disponible previa solicitud; sin embargo, {vendor}`Nextcloud` no puede resolver resultados falsos o problemáticos, la mayoría de los problemas de rendimiento ni otros problemas causados por el modelo subyacente. Por tanto, el soporte se limita a los errores causados directamente por la implementación de la app (conectores, API, frontend, AppAPI)
 ````
 
 :::{note}

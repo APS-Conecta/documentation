@@ -85,7 +85,7 @@ Esto incluye asegurarse de que la [configuración de WOPI](#wopi-configuration) 
 (wopi-configuration)=
 #### Configuración de WOPI
 
-Se recomienda encarecidamente restringir las peticiones WOPI a las direcciones IP de los servidores de Collabora que se espera que soliciten archivos a la instalación de Nextcloud. Esto puede hacerse estableciendo la opción `Allow list for WOPI requests` en los ajustes de administración de Office.
+Se recomienda encarecidamente restringir las peticiones WOPI a las direcciones IP de los servidores de Collabora que se espera que soliciten archivos a la instalación de Nextcloud. Esto puede hacerse estableciendo la opción `Allow list for WOPI requests` en las configuraciones de administración de Office.
 
 Del mismo modo, se aconseja configurar la [configuración de host WOPI de Collabora](https://sdk.collaboraonline.com/docs/installation/Configuration.html#multihost-configuration) para que solo sirva a las IP de los hosts esperados.
 ````

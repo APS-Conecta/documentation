@@ -60,6 +60,11 @@ def upstream_dir() -> Path:
     return Path(os.environ.get("UPSTREAM_DIR", ROOT / "_generated" / "upstream"))
 
 
+def server_dir() -> Path:
+    """The sparse clone of nextcloud/server's Spanish l10n that tools/fetch-upstream.sh maintains."""
+    return Path(os.environ.get("SERVER_DIR", ROOT / "_generated" / "server"))
+
+
 def major(cfg: dict | None = None) -> str:
     cfg = cfg or config()
     spec = cfg["source"]["major_from"]
@@ -819,12 +824,18 @@ _UI: dict | None = None
 def ui_strings() -> dict[str, set[str]]:
     """English UI string → the Spanish the interface shows: glosario.yml (server strings) and the
     l10n/es.json of every app the suite ships, read from the exact tarballs gestion installs
-    (provisioning/apps/*/*.tar.gz). Without a gestion checkout, the glossary alone."""
+    (provisioning/apps/*/*.tar.gz), and of the server and every app it bundles (server_dir()).
+    Without those checkouts, the glossary alone."""
     global _UI
     if _UI is None:
         out: dict[str, set[str]] = {}
         for t in (yaml.safe_load((ROOT / "glosario.yml").read_text(encoding="utf-8")) or {}).get("terms", []):
             out.setdefault(t["en"], set()).add(t["es"])
+        srv = server_dir()
+        for f in sorted(srv.glob("apps/*/l10n/es.json")) + sorted(srv.glob("core/l10n/es.json")):
+            for en, es in json.loads(f.read_text(encoding="utf-8")).get("translations", {}).items():
+                if isinstance(es, str) and es.strip():
+                    out.setdefault(en, set()).add(es)
         for tgz in sorted((org_root() / "gestion" / "provisioning" / "apps").glob("*/*.tar.gz")):
             with tarfile.open(tgz) as tf:
                 for m in tf.getmembers():
@@ -970,16 +981,61 @@ EN_STOPWORDS = {
 
 
 def reads_english(paragraph: str) -> bool:
-    """Untranslated prose: English stopwords ≥ 15 % of 8+ words. A message in «…» is not prose:
-    upstream quotes some UI and error strings in English only, and the contract puts them there."""
-    # code is not prose: drop code spans (a role's text stays), then quoted messages
+    """Untranslated prose, word by word: an English function word (EN_STOPWORDS) left in the
+    text. Not prose: code, «quoted» messages (upstream quotes some UI and error strings in English
+    only, and the contract keeps them), *italics* (identifiers, log lines), an all-caps keyword
+    (FROM, SQL), [Name]: url definitions, and a word inside a capitalised run, which is a name
+    or a title («Extra Packages for Enterprise Linux», «The Movie Database»)."""
     code_free = MYST_SPAN.sub(lambda m: m.group(0) if m.group(1) else " ", paragraph)
-    text = re.sub(r"«[^»]*»", " ", plain(code_free))
-    # an all-caps token (FROM, SQL, URL) is a keyword or acronym, not English prose
-    words = [w.lower() for w in re.findall(r"[A-Za-zÁÉÍÓÚÑÜáéíóúñü]+", text) if not (len(w) > 1 and w.isupper())]
-    if len(words) < 8:
-        return False
-    return sum(w in EN_STOPWORDS for w in words) / len(words) >= 0.15
+    code_free = re.sub(r"(?<![*\w])\*(?!\*)[^*\n]+?(?<!\*)\*(?![*\w])", " ", code_free)
+    code_free = re.sub(r"(?m)^\s*\[[^\]\n]+\]:\s*\S+.*$", " ", code_free)  # [Name]: url definitions
+    # quotes, URLs, addresses, PHP written as text ($this->inc('x')), command-line flags (-it, --force)
+    text = re.sub(r"«[^»]*»|<?https?://\S+|\S+@\S+|\$\w+(?:->\w+|\([^)]*\))*|(?<![\w-])--?\w[\w-]*", " ", plain(code_free))
+    # a hyphenated compound is one word (plug-and-play, AGPL-3.0-or-later)
+    words = re.findall(r"[A-Za-zÁÉÍÓÚÑÜáéíóúñü0-9]+(?:[-_.:/][A-Za-zÁÉÍÓÚÑÜáéíóúñü0-9]+)*", text)
+    for i, w in enumerate(words):
+        if w.lower() in EN_STOPWORDS and not (len(w) > 1 and w.isupper()):
+            before = i > 0 and words[i - 1][0].isupper()
+            after = i < len(words) - 1 and words[i + 1][0].isupper()
+            # «Packages for Enterprise»; a capitalised one opens or closes a title («The Movie Database»)
+            name = (before and after) or (w[0].isupper() and (before or after))
+            if not name:
+                return True
+    return False
+
+
+# unambiguous tú/vosotros forms; «pulsa», «elige», «recuerda» are also usted/él indicatives
+REGISTER = re.compile(
+    r"\b(?:puedes|tienes|debes|quieres|necesitas|sabes|haces|deberías|podrás|tendrás|asegúrate|"
+    r"haz|tú|tu|tus|ti|contigo|vosotr[oa]s|vuestr[oa]s?)\b", re.I)
+_GLOSSARY: dict | None = None
+
+
+def glossary() -> dict:
+    global _GLOSSARY
+    if _GLOSSARY is None:
+        _GLOSSARY = yaml.safe_load((ROOT / "glosario.yml").read_text(encoding="utf-8")) or {}
+    return _GLOSSARY
+
+
+def prose(paragraph: str) -> str:
+    """What a reader sees as our words: no code, roles ({guilabel} is the interface's own
+    wording), URLs or «quoted» text (a message, an example someone types)."""
+    text = MYST_SPAN.sub(" ", paragraph)
+    text = re.sub(r"\]\([^)]*\)|<https?://[^>]+>|https?://\S+", " ", text)
+    return re.sub(r"«[^»]*»", " ", plain(text))
+
+
+def style_problems(paragraph: str, gl: dict | None = None) -> list[str]:
+    """One Spanish (scribe S5): no glosario.yml `evitar` variant, and the register is formal,
+    direct and affirmative — «usted» or impersonal, never tuteo or vosotros (owner, 2026-10-10)."""
+    text, gl = prose(paragraph), glossary() if gl is None else gl
+    out = []
+    for t in gl.get("terms", []) + gl.get("tecnicos", []):
+        out += [f"«{m.group(0)}» → «{t['es']}» (glosario.yml)" for v in t.get("evitar", [])
+                for m in re.finditer(r"(?<!\w)" + re.escape(v) + r"(?!\w)", text, re.I)]
+    out += [f"«{m.group(0)}»: register is «usted» or impersonal (weave-contract §3)" for m in REGISTER.finditer(text)]
+    return out
 
 
 def make_id(title: str) -> str:

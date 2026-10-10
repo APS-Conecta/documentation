@@ -3,14 +3,14 @@ tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
 apps: [gestion]
-resumen: "Índice del desarrollo del servidor: código de front-end y back-end, análisis estático, pruebas unitarias, API externa, arquitectura y guías de prueba."
+resumen: "Índice del desarrollo del servidor: código de frontend y backend, análisis estático, pruebas unitarias, API externa, arquitectura y guías de prueba."
 ---
 (nc-dev-coreindex)=
 # Desarrollo del servidor
 
 ## Resumen
 
-Esta sección reúne el índice del desarrollo del servidor: el código de front-end y de back-end, el análisis estático, las pruebas unitarias, la API externa, la arquitectura y las guías de prueba. Parte de un entorno de desarrollo ya configurado y está dirigida a quienes desarrollan el servidor.
+Esta sección reúne el índice del desarrollo del servidor: el código de frontend y de backend, el análisis estático, las pruebas unitarias, la API externa, la arquitectura y las guías de prueba. Parte de un entorno de desarrollo ya configurado y está dirigida a quienes desarrollan el servidor.
 
 ````{upstream} developer_manual/server/index.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 Asegurarse de haber configurado un {nc-ref}`devenv`.

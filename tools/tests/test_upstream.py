@@ -350,6 +350,12 @@ class FidelityTest(unittest.TestCase):
             any("official Spanish not used verbatim" in f for f in found), found
         )
 
+    def test_an_official_msgstr_off_register_is_adapted_not_copied(self):
+        # owner 2026-10-10: formal, direct, affirmative; a tuteo msgstr is no longer copied verbatim
+        cat = {k: "Puedes acceder a tus archivos en Nextcloud con la interfaz web de Nextcloud." for k in CATALOG}
+        found, _ = self.check(GOOD, catalog=cat)
+        self.assertFalse(any("not used verbatim" in f for f in found), found)
+
     def test_english_paragraph(self):
         found, _ = self.check(
             GOOD
@@ -1294,6 +1300,44 @@ class RstCommentTest(unittest.TestCase):
     def test_directives_targets_and_an_empty_comment_are_not_comments(self):
         rst = (".. _label:\n\nIntro.\n\n.. note::\n\n   Shown note.\n\n..\n\n   Quoted text.\n")
         self.assertEqual(u.rst_paragraphs(rst), ["Intro.", "Shown note.", "Quoted text."])
+
+
+class ServerUiStringsTest(unittest.TestCase):
+    """S5 (5): labels of the apps the server bundles (user_ldap, settings, twofactor_*…) come from
+    nextcloud/server stable<major> l10n, not only from the suite's own app tarballs."""
+
+    def test_server_bundled_app_and_core_labels_are_ui_strings(self):
+        import json, os, tempfile
+        from unittest import mock
+
+        with tempfile.TemporaryDirectory() as d:
+            for rel, data in (("apps/user_ldap/l10n/es.json", {"Test Configuration": "Probar configuración"}),
+                              ("core/l10n/es.json", {"Log in": "Iniciar sesión"})):
+                f = Path(d) / rel
+                f.parent.mkdir(parents=True)
+                f.write_text(json.dumps({"translations": data}), encoding="utf-8")
+            with mock.patch.dict(os.environ, {"SERVER_DIR": d, "APS_ORG_ROOT": "/nonexistent"}), \
+                    mock.patch.object(u, "_UI", None):
+                ui = u.ui_strings()
+        self.assertEqual(ui["Test Configuration"], {"Probar configuración"})
+        self.assertEqual(ui["Log in"], {"Iniciar sesión"})
+
+
+class EnglishWordTest(unittest.TestCase):
+    """S5 (4): one English word left in Spanish prose is a leftover; the 15 % ratio missed it."""
+
+    def test_one_leftover_word_reads_as_english(self):
+        self.assertTrue(u.reads_english("Para activar el botón, ir a la página de ajustes and hacer clic en guardar el archivo."))
+
+    def test_command_line_flags_are_not_words(self):
+        self.assertFalse(u.reads_english("- docker exec -it ONLYOFFICEDOCKER /bin/bash y luego apt-get install vim -y para editar."))
+
+    def test_names_titles_and_italics_are_not_leftovers(self):
+        for ok in ("Instalar el repositorio Extra Packages for Enterprise Linux (EPEL) y después ClamAV.",
+                   "Ver [PHP Session Locking and How to Prevent It](https://a.example/x) para más detalles.",
+                   "- *Bruteforce attempt from* [...] en el registro.",
+                   "El AWS SDK for PHP se actualizó."):
+            self.assertFalse(u.reads_english(ok), ok)
 
 
 class CatalogTest(unittest.TestCase):

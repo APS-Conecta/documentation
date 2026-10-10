@@ -52,8 +52,8 @@ Gestión beyond what the :difiere: notice points to.>
 | Upstream | In the block |
 |---|---|
 | Prose | Spanish. Meaning complete and exact: no additions, omissions or summaries. |
-| A paragraph or section title listed under «Official Spanish» | That `msgstr`, word for word, literals included: where the `msgstr` translates a literal (``` ``Files`` ``` → ``` ``Archivos`` ```), the `msgstr` wins. Only whitespace may change. |
-| Register | The official strings use «usted»; on a page that has them, match it. Otherwise use neutral, direct Spanish (impersonal or infinitive). |
+| A paragraph or section title listed under «Official Spanish» | That `msgstr`, word for word, literals included: where the `msgstr` translates a literal (``` ``Files`` ``` → ``` ``Archivos`` ```), the `msgstr` wins. Only whitespace may change. Exception: a `msgstr` in tuteo or with a `glosario.yml` `evitar` form is adapted to the register below, changing only those words; the gates then stop demanding it verbatim. |
+| Register | Formal, direct and affirmative (owner, 2026-10-10): «usted» or impersonal/infinitive, never tuteo or vosotros; neutral Spanish, no Spain-only forms (`glosario.yml` `evitar`: ordenador, fichero). Say what to do («infórmelo»), not what not to hesitate to do. `make term-check` enforces it on every paragraph. |
 | Administration and developer prose | No official Spanish exists: translate every paragraph, in neutral impersonal Spanish. UI labels are the shipped interface's Spanish (`{guilabel}`, backed by the catalog the gate reads). |
 | Section titles | Spanish. Same count, order and relative depth as upstream. The body's first level is `###` on a single-document page. |
 | `.. _label:` | `(nc-label)=` on its own line, right before the heading it labels (label lower-case, verbatim). In `developer_manual` docs, `(nc-dev-label)=`: each upstream manual is its own project and the developer manual shares labels with the others (`upstream.yml` `label_prefix`). An `{nc-ref}` keeps upstream's bare label; the build resolves it in the block's own manual. |

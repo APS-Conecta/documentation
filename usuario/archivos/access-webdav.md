@@ -20,7 +20,7 @@ Antes de configurar WebDAV, revise la forma recomendada de conectar dispositivos
 
 ### Clientes oficiales Nextcloud para escritorio y móviles
 
-El modo recomendado de sincronizar un PC de escritorio con un servidor Nextcloud es usando [clientes oficiales de sincronización de Nextcloud](https://nextcloud.com/install/#install-clients). Puede configurar los clientes para guardar archivos en cualquier directorio local y puede elegir qué directorios sincronizar del servidor Nextcloud. El cliente muestra el estado de la conexión actual y registra toda la actividad, de modo que usted siempre pueda verificar que los archivos creados y actualizados en su ordenador estén adecuadamente sincronizados con el servidor.
+El modo recomendado de sincronizar un PC de escritorio con un servidor Nextcloud es usando [clientes oficiales de sincronización de Nextcloud](https://nextcloud.com/install/#install-clients). Puede configurar los clientes para guardar archivos en cualquier directorio local y puede elegir qué directorios sincronizar del servidor Nextcloud. El cliente muestra el estado de la conexión actual y registra toda la actividad, de modo que usted siempre pueda verificar que los archivos creados y actualizados en su computador estén adecuadamente sincronizados con el servidor.
 
 El modo recomendado de sincronizar dispositivos Android o Apple iOS es utilizando las [aplicaciones oficiales móviles Nextcloud](https://nextcloud.com/install/).
 
@@ -107,7 +107,7 @@ El mismo método funciona con otros gestores de archivos que usan GVFS, como Caj
 
 ### Crear una unidad WebDAV en la consola de Linux
 
-Usted puede crear una unidad WebDAV desde la consola de Linux. Esto es útil si prefiere acceder a Nextcloud del mismo modo que cualquier otra unidad del sistema de archivos. El siguiente ejemplo muestra cómo crear una unidad personal y configurarla para que se monte automáticamente cada vez que inicie sesión en su ordenador Linux.
+Usted puede crear una unidad WebDAV desde la consola de Linux. Esto es útil si prefiere acceder a Nextcloud del mismo modo que cualquier otra unidad del sistema de archivos. El siguiente ejemplo muestra cómo crear una unidad personal y configurarla para que se monte automáticamente cada vez que inicie sesión en su computador Linux.
 
 1. Instale el driver `davfs2` para el sistema de archivos WebDAV, que le permite montar unidades WebDAV como cualquier otro sistema de archivos remoto. Utilice este comando para instalarlo en Debian/Ubuntu:
 
@@ -221,7 +221,7 @@ Para acceder archivos a través de Finder en macOS:
 
 3. Haga clic en **Conectar**. Su servidor WebDAV debería aparecer en el Escritorio como una unidad de disco compartido.
 
-### Acceder a ficheros desde Microsoft Windows
+### Acceder a archivos desde Microsoft Windows
 
 Si utiliza la implementación nativa WebDAV de Windows, puede asignar Nextcloud a una nueva unidad utilizando el explorador de Windows. Asignar una unidad le permitirá explorar los archivos guardados en un servidor Nextcloud del mismo modo que lo haría con archivos guardados en una unidad de red.
 
@@ -254,7 +254,7 @@ El siguiente ejemplo muestra cómo asignar una unidad utilizando la línea de co
    net use Z: https://example.com/nextcloud/remote.php/dav/files/USERNAME/ /user:youruser yourpassword
    ```
 
-   El ordenador asigna a la unidad Z los archivos de su cuenta de Nextcloud.
+   El computador asigna a la unidad Z los archivos de su cuenta de Nextcloud.
 
 :::{error}
 Si recibe el siguiente error, `System error 67 has occurred. The network name cannot be found.`, o desconexiones frecuentes, abra la aplicación **Services** y asegúrese de que el servicio `WebClient` esté en ejecución y se inicie automáticamente al arrancar.
@@ -323,7 +323,7 @@ Para utilizar Cyberduck:
 
    Por ejemplo: `remote.php/dav/files/USUARIO/`
 
-Ahora Cyberduck le permite el acceso a ficheros de su servidor Nextcloud.
+Ahora Cyberduck le permite el acceso a archivos de su servidor Nextcloud.
 
 ### Acceder a archivos compartidos públicamente a través de WebDAV
 
@@ -389,17 +389,17 @@ No se puede asignar Nextcloud a una unidad WebDAV en Windows utilizando un certi
 
 1. Acceda a su instancia de Nextcloud en su navegador web preferido.
 2. Haga clic hasta llegar al error de certificado en la línea de estado del navegador.
-3. Vea el certificado y, luego, en la pestaña Details, seleccione «Copy to File».
+3. Vea el certificado y, luego, en la pestaña «Details», seleccione «Copy to File».
 4. Guarde el archivo en su escritorio con un nombre arbitrario, por ejemplo `myNextcloud.pem`.
-5. Vaya a Start menu > Run, escriba MMC y haga clic en «OK» para abrir Microsoft Management Console.
-6. Vaya a File > Add/Remove Snap-In.
-7. Seleccione Certificates, haga clic en {guilabel}`Add`, elija «My User Account», luego «Finish» y, por último, «OK».
-8. Profundice hasta Trust Root Certification Authorities, Certificates.
-9. Haga clic con el botón derecho en Certificate y seleccione All Tasks e Import.
+5. Vaya a «Start menu» > «Run», escriba MMC y haga clic en «OK» para abrir Microsoft Management Console.
+6. Vaya a «File» > «Add/Remove Snap-In».
+7. Seleccione «Certificates», haga clic en {guilabel}`Add`, elija «My User Account», luego «Finish» y, por último, «OK».
+8. Profundice hasta «Trust Root Certification Authorities», «Certificates».
+9. Haga clic con el botón derecho en «Certificate» y seleccione «All Tasks» e «Import».
 10. Seleccione el certificado guardado en el escritorio.
-11. Seleccione Place all Certificates in the following Store y haga clic en Browse.
-12. Marque la casilla Show Physical Stores, despliegue Trusted Root Certification Authorities, seleccione allí Local Computer, haga clic en «OK» y complete la importación.
-13. Revise la lista para asegurarse de que aparece el certificado. Probablemente tendrá que usar Refresh antes de verlo.
+11. Seleccione «Place all Certificates in the following Store» y haga clic en «Browse».
+12. Marque la casilla «Show Physical Stores», despliegue «Trusted Root Certification Authorities», seleccione allí «Local Computer», haga clic en «OK» y complete la importación.
+13. Revise la lista para asegurarse de que aparece el certificado. Probablemente tendrá que usar «Refresh» antes de verlo.
 14. Salga de MMC.
 
 Para usuarios de Firefox:

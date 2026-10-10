@@ -3,16 +3,16 @@ tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
 apps: [gestion]
-resumen: "Qué hacer al cambiar código PHP de back-end: actualizar el cargador automático y anotar las API públicas con @since y @deprecated."
+resumen: "Qué hacer al cambiar código PHP de backend: actualizar el cargador automático y anotar las API públicas con @since y @deprecated."
 ---
-# Código de back-end
+# Código de backend
 
 ## Resumen
 
-Esta página explica qué hacer antes de confirmar cambios en el código PHP de back-end del servidor: regenerar los archivos del cargador automático cuando se crean archivos nuevos y documentar la compatibilidad de las API públicas con `@since` y `@deprecated`. Está dirigida a quienes desarrollan el servidor.
+Esta página explica qué hacer antes de confirmar cambios en el código PHP de backend del servidor: regenerar los archivos del cargador automático cuando se crean archivos nuevos y documentar la compatibilidad de las API públicas con `@since` y `@deprecated`. Está dirigida a quienes desarrollan el servidor.
 
 ````{upstream} developer_manual/server/code-back-end.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
-Al cambiar código PHP de back-end, en general no hace falta ningún paso adicional antes de confirmar los cambios.
+Al cambiar código PHP de backend, en general no hace falta ningún paso adicional antes de confirmar los cambios.
 
 Sin embargo, si se crearon archivos nuevos, hay que ejecutar el siguiente comando para actualizar los archivos del cargador automático:
 

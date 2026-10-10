@@ -30,9 +30,9 @@ Utilice este método cuando está compartiendo con usuarios en ownCloud versión
 
 Si no conoce el nombre de usuario o la URL, puede hacer que Nextcloud cree el enlace por usted y lo envíe por correo electrónico a su destinatario.
 
-Cuando su destinatario reciba su correo electrónico, tendrá que seguir una serie de pasos para completar el enlace compartido. Primero debe abrir en un navegador web el enlace que usted le envió y, después, hacer clic en el botón **Añadir a tu Nextcloud**.
+Cuando su destinatario reciba su correo electrónico, tendrá que seguir una serie de pasos para completar el enlace compartido. Primero debe abrir en un navegador web el enlace que usted le envió y, después, hacer clic en el botón {guilabel}`Añadir a tu Nextcloud`.
 
-El botón **Añadir a tu Nextcloud** se convierte en un formulario, y el recipiente tiene que introducir la URL de su servidor Nextcloud u ownCloud en este campo, y pulsar la tecla de retorno o hacer clic en la flecha.
+El botón {guilabel}`Añadir a tu Nextcloud` se convierte en un formulario, y el recipiente tiene que introducir la URL de su servidor Nextcloud u ownCloud en este campo, y pulsar la tecla de retorno o hacer clic en la flecha.
 
 A continuación verán un diálogo que les solicita confirmación. Todo lo que queda por hacer es hacer clic en el botón **Añadir como archivo compartido remoto** y ya lo han conseguido.
 

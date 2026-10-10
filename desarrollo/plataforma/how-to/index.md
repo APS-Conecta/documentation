@@ -136,7 +136,7 @@ smbclient //127.0.0.1/home -U smb1 --password=pwd1   # Home storage
 - crear una cuenta de desarrollador en onelogin.com
 - iniciar sesión en onelogin.com
 - crear una app nueva: SAML Test Connector (Advanced)
-    - ir a «Configuration»
+    - ir a *Configuration*
         - Audience: <https://localhost/apps/user_saml/saml/metadata>
         - Recipient: <https://localhost/apps/user_saml/saml/acs>
         - ACS (Consumer) URL Validator: <https://localhost/apps/user_saml/saml/acs>
@@ -228,7 +228,7 @@ docker run -p 127.0.0.1:9980:9980 -e 'domain=172.17.0.1' \
     - descargar y activar la app OnlyOffice
     - configurar:
         - «Document Editing Service address»: <https://localhost:4433/>
-        - «Secret key»: secret (como arriba)
+        - «Clave secreta»: secret (como arriba)
         - «Document Editing Service address for internal requests from the server»: <https://localhost:4433/>
         - «Server address for internal requests from the Document Editing Service»: <http://192.168.1.95/nc16/> (tiene que ser una dirección IP real, ya que localhost apunta a Docker)
 

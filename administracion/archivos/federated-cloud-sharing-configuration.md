@@ -46,9 +46,9 @@ El requisito previo para un estado verde es que los servidores de confianza est�
 
 Marcar la entrada {guilabel}`Compartir enlace` para mostrar más opciones de compartición (que se describen con más detalle en {nc-doc}`admin_manual/configuration_files/file_sharing_configuration`). Es posible crear un recurso compartido federado dejando que Nextcloud cree un enlace público y enviándolo después por correo electrónico a la persona con la que se quiere crear el recurso compartido.
 
-Opcionalmente puede establecerse una contraseña y una fecha de caducidad. Cuando el destinatario recibe el correo, debe hacer clic en el enlace o copiarlo en un navegador web. Verá una página que muestra una miniatura del archivo, con un botón para **Añadir a tu Nextcloud**.
+Opcionalmente puede establecerse una contraseña y una fecha de caducidad. Cuando el destinatario recibe el correo, debe hacer clic en el enlace o copiarlo en un navegador web. Verá una página que muestra una miniatura del archivo, con un botón para {guilabel}`Añadir a tu Nextcloud`.
 
-El destinatario debe hacer clic en el botón **Añadir a tu Nextcloud**. En la siguiente pantalla, el destinatario debe introducir la URL de su servidor Nextcloud y pulsar la tecla Intro.
+El destinatario debe hacer clic en el botón {guilabel}`Añadir a tu Nextcloud`. En la siguiente pantalla, el destinatario debe introducir la URL de su servidor Nextcloud y pulsar la tecla Intro.
 
 Al destinatario le queda un paso más: confirmar la creación del enlace de recurso compartido federado en la nube haciendo clic en el botón **Aceptar**.
 

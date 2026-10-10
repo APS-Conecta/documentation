@@ -86,7 +86,7 @@ Esto le permite configurar la visibilidad de cada atributo del perfil.
 ### Usar la verificación en dos pasos
 
 ````{upstream} user_manual/user_2fa.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
-La verificación en dos pasos es una manera de proteger su cuenta de Nextcloud contra el acceso no autorizado. Su funcionamiento requiere dos 'pruebas' de su identidad. Por ejemplo, *algo que usted conoce* (como una contraseña) y *algo que usted tiene* (como una llave física). Normalmente, el primer paso es una contraseña como la que ya tiene y el segundo paso puede ser un mensaje de texto recibido o un código generado en un teléfono u otro dispositivo (*algo que tienes*). Nextcloud soporta varios segundos pasos, y se pueden agregar más.
+La verificación en dos pasos es una manera de proteger su cuenta de Nextcloud contra el acceso no autorizado. Su funcionamiento requiere dos 'pruebas' de su identidad. Por ejemplo, *algo que usted conoce* (como una contraseña) y *algo que usted tiene* (como una llave física). Normalmente, el primer paso es una contraseña como la que ya tiene y el segundo paso puede ser un mensaje de texto recibido o un código generado en un teléfono u otro dispositivo (*algo que usted tiene*). Nextcloud soporta varios segundos pasos, y se pueden agregar más.
 
 Una vez que su administrador haya habilitado una aplicación de verificación en dos pasos, puede habilitarla y configurarla en sus {nc-doc}`preferencias <user_manual/userpreferences>`.
 

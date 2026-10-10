@@ -36,6 +36,10 @@ generate:
 fidelity: upstream
 	python3 tools/upstream-fidelity.py --require-coverage
 
+# Un solo español: formas aprobadas de glosario.yml, registro «usted»/impersonal, sin formas de España.
+term-check: upstream
+	python3 tools/term-check.py
+
 # El sitio compilado nombra el producto «APS Conecta Gestión» (lee _build/html; correr tras html).
 rebrand-check:
 	python3 tools/rebrand-check.py

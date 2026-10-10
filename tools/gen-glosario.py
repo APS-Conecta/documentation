@@ -10,7 +10,9 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 def render(doc: dict) -> str:
-    rows = "\n".join(f"| {t['es']} | {t['en']} | `{t['source']}/l10n/es.json` |" for t in doc["terms"])
+    avoid = lambda t: ", ".join(f"«{v}»" for v in t.get("evitar", [])) or "—"  # noqa: E731
+    rows = "\n".join(f"| {t['es']} | {t['en']} | `{t['source']}/l10n/es.json` | {avoid(t)} |" for t in doc["terms"])
+    tech = "\n".join(f"| {t['es']} | {t.get('en', '—')} | {avoid(t)} |" for t in doc.get("tecnicos", []))
     return f"""---
 tipo: referencia
 audiencia: proyecto
@@ -25,9 +27,19 @@ La documentación nombra cada elemento de la interfaz como lo muestra la platafo
 
 ## Tabla
 
-| En la interfaz | En inglés | Fuente |
-|---|---|---|
+### Interfaz
+
+| En la interfaz | En inglés | Fuente | Evitar |
+|---|---|---|---|
 {rows}
+
+### Términos técnicos
+
+Forma aprobada de cada término técnico y las variantes que la documentación no usa; `make term-check` lo exige.
+
+| Forma aprobada | En inglés | Evitar |
+|---|---|---|
+{tech}
 """
 
 

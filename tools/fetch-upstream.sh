@@ -17,3 +17,14 @@ fi
 git -C "$dir" fetch --quiet origin "$branch"
 git -C "$dir" checkout --quiet --detach "origin/$branch"
 echo "[fetch-upstream] $repo $branch @ $(git -C "$dir" rev-parse --short HEAD)"
+
+# The server's own Spanish UI strings (core and every bundled app: settings, user_ldap, dav…), for
+# the UI-label checks: a shallow, blob-less clone holding only l10n/es.json files (~2 MB).
+srv="${SERVER_DIR:-_generated/server}"
+if [ ! -d "$srv/.git" ]; then
+  git clone --quiet --filter=blob:none --no-checkout --depth 1 --branch "$branch" https://github.com/nextcloud/server.git "$srv"
+  git -C "$srv" sparse-checkout set --no-cone 'apps/*/l10n/es.json' 'core/l10n/es.json'
+fi
+git -C "$srv" fetch --quiet --depth 1 origin "$branch"
+git -C "$srv" checkout --quiet --detach FETCH_HEAD
+echo "[fetch-upstream] nextcloud/server $branch l10n @ $(git -C "$srv" rev-parse --short HEAD)"

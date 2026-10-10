@@ -3,16 +3,16 @@ tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
 apps: [gestion]
-resumen: "Qué es un middleware, sus ganchos, cómo escribirlo y registrarlo (también como global), y cómo leer anotaciones de los métodos del controlador."
+resumen: "Qué es un middleware, sus hooks, cómo escribirlo y registrarlo (también como global), y cómo leer anotaciones de los métodos del controlador."
 ---
 # Middlewares
 
 ## Resumen
 
-Esta página explica los middlewares: la lógica que se ejecuta antes y después de cada solicitud, sus ganchos, cómo escribir uno y registrarlo en la clase `Application` o como middleware global, y cómo leer anotaciones personalizadas. Está dirigida a quienes desarrollan apps.
+Esta página explica los middlewares: la lógica que se ejecuta antes y después de cada solicitud, sus hooks, cómo escribir uno y registrarlo en la clase `Application` o como middleware global, y cómo leer anotaciones personalizadas. Está dirigida a quienes desarrollan apps.
 
 ````{upstream} developer_manual/basics/middlewares.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
-Un middleware es lógica que se ejecuta antes y después de cada solicitud, y está modelado a partir del [sistema de middleware de Django](https://docs.djangoproject.com/en/dev/topics/http/middleware/). Ofrece los siguientes ganchos:
+Un middleware es lógica que se ejecuta antes y después de cada solicitud, y está modelado a partir del [sistema de middleware de Django](https://docs.djangoproject.com/en/dev/topics/http/middleware/). Ofrece los siguientes hooks:
 
 * `beforeController`: se ejecuta antes de que se ejecute un método del controlador. Permite conectar comprobaciones o lógica adicionales antes de ese método, como, por ejemplo, comprobaciones de seguridad
 * `afterException`: se ejecuta cuando el método beforeController o el propio método del controlador lanza una excepción. Se pide a los middlewares, en orden inverso, que gestionen la excepción y devuelvan una respuesta. Si el middleware no puede gestionar la excepción, la vuelve a lanzar
@@ -143,7 +143,7 @@ class MyApp extends App {
 ```
 
 :::{note}
-¡El orden es importante! El middleware que se registra primero se ejecuta primero en el método **beforeController**. Para todos los demás ganchos, el orden se invierte; es decir, si un middleware se registra primero, se ejecuta último.
+¡El orden es importante! El middleware que se registra primero se ejecuta primero en el método **beforeController**. Para todos los demás hooks, el orden se invierte; es decir, si un middleware se registra primero, se ejecuta último.
 :::
 
 ### Analizar anotaciones

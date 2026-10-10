@@ -23,7 +23,7 @@ Los pasos de reparación son métodos que Nextcloud ejecuta ante ciertos eventos
 
 Un paso de reparación es una implementación de la interfaz `OCP\Migration\IRepairStep`.
 Por convención, estas clases se colocan en el directorio **lib/Migration**.
-El siguiente paso de reparación registrará un mensaje en el log al ejecutarse.
+El siguiente paso de reparación registrará un mensaje en el registro al ejecutarse.
 
 ```php
 <?php

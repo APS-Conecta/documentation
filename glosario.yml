@@ -25,7 +25,7 @@ terms:
   - {en: "Settings", es: "Ajustes", source: apps/settings}
   - {en: "Personal info", es: "Información personal", source: apps/settings}
   - {en: "Security", es: "Seguridad", source: apps/settings}
-  - {en: "Administration settings", es: "Configuraciones de administración", source: apps/settings}
+  - {en: "Administration settings", es: "Configuraciones de administración", source: apps/settings, evitar: ["ajustes de administración"]}
   - {en: "Users", es: "Usuarios", source: apps/settings}
   - {en: "Groups", es: "Grupos", source: apps/settings}
   - {en: "Apps", es: "Apps", source: apps/settings}
@@ -43,3 +43,22 @@ terms:
   - {en: "Remote Subfolder", es: "Subcarpeta remota", source: apps/files_external}
   - {en: "Enforce password protection", es: "Forzar la protección por contraseña", source: apps/settings}
   - {en: "Allow public uploads", es: "Permitir subidas públicas", source: apps/settings}
+
+# Términos técnicos (S5, aprobados por el responsable en el PR): la forma aprobada `es` y las
+# variantes que la documentación ya no usa (`evitar`). tools/term-check.py rechaza una variante
+# `evitar` en toda la prosa y, si el término tiene `en`, exige la forma aprobada en cada bloque
+# {upstream} cuya sección upstream lo usa (`re`: cómo se reconoce el término en inglés). Sin `en`,
+# solo se evitan las variantes: el español admite otras formas («equipo» también es «computer»).
+# Las cuentas vienen de la minería del corpus tejido (bloques que usaron cada forma).
+tecnicos:
+  - {en: backend, re: '(?<!database )back-?ends?', es: backend, evitar: [back-end, back end]}  # «database backend»: «motor de base de datos»
+  - {en: frontend, es: frontend, evitar: [front-end, front end]}
+  - {en: log, re: '(?:(?:the|a|your|server|error|audit|access|debug|system|PHP|Nextcloud) logs?|logs(?! (?:in|into|out)\b)|log (?:files?|levels?|entr(?:y|ies)|messages?|rotation))', es: registro, evitar: [el log, los logs, del log, un log, archivo de log, archivos de log]}
+  - {en: hook, re: '(?:hooks|(?:a|the|this) hook)(?! into)', es: hook, evitar: [gancho, ganchos]}  # «hook into» es un verbo
+  - {en: listener, re: 'event listeners?', es: listener, evitar: [receptor de eventos, receptores de eventos]}  # en Talk, «listeners» es el público: «oyentes»
+  - {en: endpoint, es: endpoint, evitar: [punto final, puntos finales, punto de conexión, puntos de conexión]}
+  - {en: pull request, es: pull request, evitar: [solicitud de extracción, solicitudes de extracción, solicitud de incorporación, solicitudes de incorporación]}
+  - {en: backport, es: backport, evitar: [retroportar, retroportado, retroportada, retroportados, retroportadas]}
+  - {en: cache, es: caché}
+  - {es: computador, evitar: [ordenador, ordenadores]}
+  - {es: archivo, evitar: [fichero, ficheros]}

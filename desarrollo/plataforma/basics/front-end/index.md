@@ -3,13 +3,13 @@ tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
 apps: [gestion]
-resumen: "Índice del front-end de las apps: plantillas, JavaScript, CSS y soporte de tematización."
+resumen: "Índice del frontend de las apps: plantillas, JavaScript, CSS y soporte de tematización."
 ---
-# Front-end
+# Frontend
 
 ## Resumen
 
-Esta sección reúne las páginas sobre el front-end de una app: las plantillas, JavaScript, CSS y el soporte de tematización. Está dirigida a quienes desarrollan apps.
+Esta sección reúne las páginas sobre el frontend de una app: las plantillas, JavaScript, CSS y el soporte de tematización. Está dirigida a quienes desarrollan apps.
 
 ````{upstream} developer_manual/basics/front-end/index.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 - {nc-doc}`developer_manual/basics/front-end/templates`

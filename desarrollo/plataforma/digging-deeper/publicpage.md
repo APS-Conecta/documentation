@@ -83,7 +83,7 @@ class PublicAPIController extends PublicShareController {
 }
 ```
 
-También se puede optar por sobrescribir la función `shareNotFound`, a la que se llama cuando el token no es válido. Ahí se puede, por ejemplo, registrar información adicional en el log.
+También se puede optar por sobrescribir la función `shareNotFound`, a la que se llama cuando el token no es válido. Ahí se puede, por ejemplo, registrar información adicional en el registro.
 
 ### Implementar una página pública autenticada
 
@@ -93,5 +93,5 @@ El AuthPublicShareController requiere, además de lo que requiere el PublicShare
 
 Además, se pueden sobrescribir las funciones `showAuthenticate` y `showAuthFailed` si no se quieren usar las páginas de autenticación predeterminadas.
 
-Las funciones `authFailed` y `authSucceeded` también pueden sobrescribirse, y se llaman según la autenticación haya tenido éxito o no. Ahí se puede, por ejemplo, registrar información adicional en el log.
+Las funciones `authFailed` y `authSucceeded` también pueden sobrescribirse, y se llaman según la autenticación haya tenido éxito o no. Ahí se puede, por ejemplo, registrar información adicional en el registro.
 ````

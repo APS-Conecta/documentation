@@ -42,7 +42,7 @@ configurada. Consultar {nc-ref}`Configuración de SELinux <selinux-config-label>
 
 ### Configuración
 
-Primero, activar la app `LDAP user and group backend` en la página Apps de Nextcloud. Después, ir a la
+Primero, activar la app {guilabel}`Motor de usuarios y grupos LDAP` en la página Apps de Nextcloud. Después, ir a la
 página de administración para configurarla.
 
 El panel de configuración de LDAP tiene cuatro pestañas. Para acceder a las demás pestañas es obligatorio

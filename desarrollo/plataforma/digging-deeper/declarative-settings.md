@@ -18,7 +18,7 @@ Esta página explica cómo definir los ajustes de una app de forma declarativa: 
 
 Con Nextcloud 29 hay una nueva forma de definir los ajustes de una app de manera declarativa.
 Esto significa que basta con registrar el esquema de ajustes,
-sin escribir código personalizado de front-end ni de back-end para gestionar los ajustes
+sin escribir código personalizado de frontend ni de backend para gestionar los ajustes
 (salvo cuando se requiere una lógica o un diseño de ajustes más complejos).
 
 ### Registrar el esquema de ajustes

@@ -41,7 +41,7 @@ En el campo **Clave secreta**, introducir la *clave de acceso de S3*.
 
 En el campo **Disponible para**, introducir los usuarios o grupos a los que se quiere dar acceso al montaje de S3.
 
-La casilla `Enable SSL` activa las conexiones HTTPS y, en general, es preferible. Es el valor predeterminado, salvo que se desactive aquí.
+La casilla {guilabel}`Habilitar SSL` activa las conexiones HTTPS y, en general, es preferible. Es el valor predeterminado, salvo que se desactive aquí.
 
 Opcionalmente, se puede proporcionar una clave SSE-C de 32 bytes codificada en base64 para el cifrado en el servidor. Consultar {nc-doc}`admin_manual/configuration_files/primary_storage` y la [documentación de AWS sobre SSE-C](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerSideEncryptionCustomerKeys.html) para obtener más información sobre cómo generar una clave.
 

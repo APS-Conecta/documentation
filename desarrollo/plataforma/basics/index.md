@@ -9,7 +9,7 @@ resumen: "Índice de los conceptos básicos para desarrollar apps: solicitudes, 
 
 ## Resumen
 
-Esta sección reúne los conceptos básicos del desarrollo de apps: el ciclo de vida de una solicitud, las rutas, los contenedores e inyección de dependencias, los controladores, los middlewares, los eventos, el front-end, las traducciones, los trabajos en segundo plano, la caché, el registro, los ajustes, el almacenamiento y la base de datos, la plantilla de recurso compartido público y las pruebas. Está dirigida a quienes desarrollan sobre la plataforma.
+Esta sección reúne los conceptos básicos del desarrollo de apps: el ciclo de vida de una solicitud, las rutas, los contenedores e inyección de dependencias, los controladores, los middlewares, los eventos, el frontend, las traducciones, los trabajos en segundo plano, la caché, el registro, los ajustes, el almacenamiento y la base de datos, la plantilla de recurso compartido público y las pruebas. Está dirigida a quienes desarrollan sobre la plataforma.
 
 ````{upstream} developer_manual/basics/index.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 - {nc-doc}`developer_manual/basics/request_lifecycle`

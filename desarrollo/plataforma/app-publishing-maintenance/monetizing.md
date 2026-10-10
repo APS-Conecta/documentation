@@ -42,5 +42,5 @@ Este botón lleva al [formulario de ventas de Nextcloud](https://nextcloud.com/g
 Si {vendor}`Nextcloud` recibe una solicitud interesante, el equipo de ventas se pondrá en contacto con quienes desarrollan la app para hablar de una colaboración para dar soporte de forma conjunta (de manera similar a otras apps, como Collabora y OnlyOffice).
 El soporte empresarial está dirigido a instalaciones de Nextcloud más grandes, de 100 usuarios o más.
 
-Para activar o desactivar el botón, ir a la página **Enterprise support** de los ajustes de la cuenta de la tienda de apps y hacer clic en **Mark as supported/unsupported**, según corresponda, junto a las apps deseadas.
+Para activar o desactivar el botón, ir a la página «Enterprise support» de los ajustes de la cuenta de la tienda de apps y hacer clic en «Mark as supported/unsupported», según corresponda, junto a las apps deseadas.
 ````

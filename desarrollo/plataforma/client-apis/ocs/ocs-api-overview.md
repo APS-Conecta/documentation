@@ -233,7 +233,7 @@ curl -i -u master -X GET -H "OCS-APIRequest: true" 'https://my.nextcloud/ocs/v2.
 ```
 
 Esto buscaría JOANNE@EMAIL.ISP como usuario invitado. Se devuelven como máximo 2 resultados para un usuario normal, y el array shareTypes llevaría solo "8". `itemType` e `itemId` se omiten (se establecen en un espacio en blanco);
-en esencia sirven para dar contexto sobre el caso de uso, de modo que los ordenadores (sorters) puedan hacer su trabajo (como quién comentó por última vez).
+en esencia sirven para dar contexto sobre el caso de uso, de modo que los computadores (sorters) puedan hacer su trabajo (como quién comentó por última vez).
 Puede ser una opción para filtrar en una etapa posterior, pero también se pueden omitir, como en el ejemplo siguiente.
 
 ```

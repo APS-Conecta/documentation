@@ -22,7 +22,7 @@ Nextcloud admite el envío de notificaciones a servicios externos cada vez que o
 
 La app Webhook Listeners permite que el servidor de Nextcloud notifique automáticamente a servicios externos cada vez que ocurren eventos importantes en la instancia, como cambios, subidas o eliminaciones de archivos. Al configurar receptores de webhooks, los administradores pueden establecer notificaciones HTTP personalizadas (webhooks) que se disparan con eventos internos específicos, lo que permite una integración fluida con otras plataformas y la automatización de flujos de trabajo sin intervención manual.
 
-La app funciona supervisando el sistema de eventos de Nextcloud y enviando solicitudes HTTP a los puntos de conexión definidos cada vez que se produce un evento coincidente. La gestión y la configuración de los receptores de webhooks se realizan mediante la API OCS de Nextcloud y herramientas de línea de comandos. La app es ideal para los casos en que se quiere conectar Nextcloud con sistemas de notificaciones, plataformas de automatización externas o integraciones personalizadas, sin necesidad de sondeo manual.
+La app funciona supervisando el sistema de eventos de Nextcloud y enviando solicitudes HTTP a los endpoints definidos cada vez que se produce un evento coincidente. La gestión y la configuración de los receptores de webhooks se realizan mediante la API OCS de Nextcloud y herramientas de línea de comandos. La app es ideal para los casos en que se quiere conectar Nextcloud con sistemas de notificaciones, plataformas de automatización externas o integraciones personalizadas, sin necesidad de sondeo manual.
 
 ### Instalación
 

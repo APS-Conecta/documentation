@@ -14,7 +14,7 @@ Esta página describe los ajustes y comandos `occ` del servidor de calendario Ca
 ````{upstream} admin_manual/groupware/calendar.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 ### Ajustes del servidor de calendario
 
-El servidor de calendario puede configurarse en la página de ajustes de administración de Groupware. Puede desactivarse de forma global el envío de correos de invitación a eventos, la generación del calendario de cumpleaños integrado y el envío de notificaciones por correo electrónico sobre los próximos eventos.
+El servidor de calendario puede configurarse en la página de configuraciones de administración de Groupware. Puede desactivarse de forma global el envío de correos de invitación a eventos, la generación del calendario de cumpleaños integrado y el envío de notificaciones por correo electrónico sobre los próximos eventos.
 
 :::{versionadded} 30.0.0 La sección se ocultará si ninguna app usa el backend de CalDAV.
 :::
@@ -37,7 +37,7 @@ sudo -E -u www-data php occ config:app:set calendar hideEventExport --value=yes
 
 Nextcloud puede enviar invitaciones a los asistentes de los eventos si esta opción está activada. Hay que asegurarse de haber configurado antes el servidor de correo electrónico, para que las invitaciones lleguen a su destino. Consultar {nc-doc}`admin_manual/configuration_server/email_configuration`.
 
-También hay que asegurarse de que el ajuste «Enviar invitaciones a los asistentes» esté activado en la sección de groupware de los ajustes de administración para que se envíen los correos.
+También hay que asegurarse de que el ajuste «Enviar invitaciones a los asistentes» esté activado en la sección de groupware de las configuraciones de administración para que se envíen los correos.
 
 La administración puede desactivar el envío de invitaciones a participantes externos con el siguiente comando:
 
@@ -59,7 +59,7 @@ Nextcloud se encarga de enviar las notificaciones de los eventos.
 
 Actualmente, Nextcloud gestiona dos tipos de notificaciones de recordatorio: las notificaciones integradas de Nextcloud y las notificaciones por correo electrónico. Para que se envíen los correos, hace falta un servidor de correo electrónico configurado. Consultar {nc-doc}`admin_manual/configuration_server/email_configuration`.
 
-Hay que asegurarse de que «Enviar notificaciones de los eventos» y «Activar notificaciones push para eventos» estén activados en la sección de groupware de los ajustes de administración para que esta función opere.
+Hay que asegurarse de que «Enviar notificaciones de los eventos» y «Activar notificaciones push para eventos» estén activados en la sección de groupware de las configuraciones de administración para que esta función opere.
 
 #### Trabajos en segundo plano
 
@@ -221,7 +221,7 @@ La administración puede desactivar la creación del evento de ejemplo. También
 
 Para desactivar la creación del evento de ejemplo para los usuarios nuevos:
 
-1. Ir a los ajustes de Groupware en los ajustes de administración.
+1. Ir a los ajustes de Groupware en las configuraciones de administración.
 2. Desplazarse hasta la sección «Contenido de ejemplo».
 3. Desactivar el ajuste «Add example event ...» con la casilla de verificación
 
@@ -233,7 +233,7 @@ sudo -E -u www-data php occ config:app:set dav create_example_event --value=no
 
 Para sustituir el evento predeterminado integrado por uno personalizado:
 
-1. Ir a los ajustes de Groupware en los ajustes de administración.
+1. Ir a los ajustes de Groupware en las configuraciones de administración.
 2. Pulsar el botón «Importar evento del calendario».
 3. Elegir un archivo ICS para importarlo.
 

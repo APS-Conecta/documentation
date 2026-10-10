@@ -17,7 +17,7 @@ Los comandos `occ` de esta sección abarcan la administración del servidor, la 
 (nc-admin_delegation_label)=
 ### Delegación de administración
 
-Los comandos `admin-delegation` permiten conceder a grupos que no son de administración acceso a paneles concretos de ajustes de administración, sin darles privilegios de administrador completos:
+Los comandos `admin-delegation` permiten conceder a grupos que no son de administración acceso a paneles concretos de configuraciones de administración, sin darles privilegios de administrador completos:
 
 ```
 admin-delegation
@@ -28,7 +28,7 @@ admin-delegation
 
 #### admin-delegation:add
 
-Delegar una clase de ajustes de administración a un grupo:
+Delegar una clase de configuraciones de administración a un grupo:
 
 ```
 sudo -E -u www-data php occ admin-delegation:add \
@@ -787,7 +787,7 @@ Usar `--output=json_pretty` para obtener una salida legible por máquina, que in
 sudo -E -u www-data php occ webhook_listeners:list --output=json_pretty
 ```
 
-Los receptores de webhooks se configuran desde la interfaz de ajustes de administración o con la API REST. Este comando es de solo lectura: ofrece una vista de auditoría de los receptores activos sin necesidad de acceder a la interfaz web.
+Los receptores de webhooks se configuran desde la interfaz de configuraciones de administración o con la API REST. Este comando es de solo lectura: ofrece una vista de auditoría de los receptores activos sin necesidad de acceder a la interfaz web.
 
 (nc-workflows_label)=
 ### Flujos de trabajo

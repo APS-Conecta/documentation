@@ -663,7 +663,7 @@ files_external
  files_external:verify                verify mount configuration
 ```
 
-Gestionar los montajes de almacenamiento externo de Nextcloud. Los comandos que leen o escriben la configuración de los montajes operan sobre los mismos datos que la página de ajustes de administración **Almacenamiento externo**.
+Gestionar los montajes de almacenamiento externo de Nextcloud. Los comandos que leen o escriben la configuración de los montajes operan sobre los mismos datos que la página de configuraciones de administración **Almacenamiento externo**.
 
 #### files_external:list
 
