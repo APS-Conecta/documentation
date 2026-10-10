@@ -101,6 +101,7 @@ Gestión beyond what the :difiere: notice points to.>
 | `.. include::`, `.. literalinclude::`, anything else unknown | Do not guess. Name it under **gaps** in your result. |
 | The word «Nextcloud» | Keep it exactly as upstream writes it. The build renames it site-wide; never rename by hand. |
 | «Nextcloud» as the **vendor**: the subject that publishes, maintains or offers something («Nextcloud ofrece oficialmente…», «no Nextcloud», «el equipo de Nextcloud») | `{vendor}`Nextcloud``. The rename keeps the name, so the page never claims APS publishes Nextcloud's software. Link text into nextcloud.com or github.com/nextcloud keeps the name by itself. |
+| A **store client**: the desktop, Android or iOS client and its libraries («el cliente de escritorio de Nextcloud», «la aplicación móvil de Nextcloud», «la biblioteca de Android de Nextcloud») | `{vendor}`Nextcloud``: people install it from a store under that name (owner, 2026-10-10, documentation#136); `rebrand-check` fails on a client named as the product. HTTP and web clients, accounts and platform libraries are the product itself and keep the rename. |
 
 **Fences.** Inside a block, backtick fences are for code only. Every directive (admonitions,
 `list-table`, …) uses a colon fence, `:::{name}` … `:::`, so a code fence inside it can never close

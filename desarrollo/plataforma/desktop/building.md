@@ -18,7 +18,7 @@ El objetivo de esta sección es preparar un entorno de compilación para desarro
 Estas instrucciones representan una metodología concreta, simplificada y fácil de entender, pero de ningún modo son la única forma de preparar un entorno de compilación.
 :::
 
-Los pasos indicados aquí se han probado varias veces y deberían permitir compilar el cliente o la documentación, o ambos, sin advertencias ni errores. Estas instrucciones deberían estar al día con la versión, 34, del cliente de Nextcloud con la que se distribuyen. Si se usa la versión más reciente de estas instrucciones y aparecen errores o advertencias con el código más reciente del repositorio, abrir un issue en GitHub para avisarnos y así poder documentar una solución alternativa o corregir los problemas de fondo.
+Los pasos indicados aquí se han probado varias veces y deberían permitir compilar el cliente o la documentación, o ambos, sin advertencias ni errores. Estas instrucciones deberían estar al día con la versión, 34, del cliente de {vendor}`Nextcloud` con la que se distribuyen. Si se usa la versión más reciente de estas instrucciones y aparecen errores o advertencias con el código más reciente del repositorio, abrir un issue en GitHub para avisarnos y así poder documentar una solución alternativa o corregir los problemas de fondo.
 
 ### Usar GitHub
 
@@ -256,7 +256,7 @@ Debido a la gran cantidad de dependencias, compilar el instalador del cliente pa
 
 Para simplificar la configuración, se puede usar el Dockerfile proporcionado para construir una imagen propia.
 
-1. Suponiendo que se está en la raíz del árbol de código fuente del cliente de Nextcloud, se puede construir una imagen a partir de este Dockerfile así:
+1. Suponiendo que se está en la raíz del árbol de código fuente del cliente de {vendor}`Nextcloud`, se puede construir una imagen a partir de este Dockerfile así:
 
    ```
    cd admin/win/docker
@@ -266,7 +266,7 @@ Para simplificar la configuración, se puede usar el Dockerfile proporcionado pa
    Reemplazar `<version>` por la versión del cliente que se está compilando, p. ej., 34 para la versión del cliente que describe este documento. Si no se quiere usar docker, se pueden ejecutar manualmente en una shell los comandos de `RUN`, p. ej., para crear un entorno de compilación propio en una máquina virtual.
 
    :::{note}
-   Las imágenes de docker son específicas de cada versión. Esta se refiere a la 34. ¡Las versiones más nuevas pueden tener dependencias distintas y, por tanto, requerir una versión posterior de la imagen de docker! ¡Elegir siempre la imagen de docker que corresponda a la versión del cliente de Nextcloud!
+   Las imágenes de docker son específicas de cada versión. Esta se refiere a la 34. ¡Las versiones más nuevas pueden tener dependencias distintas y, por tanto, requerir una versión posterior de la imagen de docker! ¡Elegir siempre la imagen de docker que corresponda a la versión del cliente de {vendor}`Nextcloud`!
    :::
 
 2. Desde dentro del árbol de código fuente, ejecutar la instancia de docker:

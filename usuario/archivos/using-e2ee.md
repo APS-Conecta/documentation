@@ -16,7 +16,7 @@ Si está habilitado en el servidor, Nextcloud ofrece la posibilidad de cifrar lo
 
 ### Habilitar el E2EE
 
-Si el administrador ha habilitado la [aplicación End-to-End Encryption](https://apps.nextcloud.com/apps/end_to_end_encryption), se puede empezar a usar desde uno de los propios dispositivos. Abrir los ajustes del cliente de Nextcloud y buscar los ajustes de cifrado E2EE.
+Si el administrador ha habilitado la [aplicación End-to-End Encryption](https://apps.nextcloud.com/apps/end_to_end_encryption), se puede empezar a usar desde uno de los propios dispositivos. Abrir los ajustes del cliente de {vendor}`Nextcloud` y buscar los ajustes de cifrado E2EE.
 
 :::{warning}
 No es posible habilitar el cifrado en una carpeta desde el navegador. Debe hacerse en una aplicación cliente, ya sea un cliente de escritorio o un cliente móvil.

@@ -12,7 +12,7 @@ resumen: "El cliente de línea de comandos nextcloudcmd: paquetes, sintaxis, opc
 Esta página describe `nextcloudcmd`, el cliente de línea de comandos que realiza una única sincronización entre un directorio local y el servidor: dónde obtenerlo, su sintaxis y opciones, el manejo de credenciales y la lista de exclusión. Está dirigida a usuarios que sincronizan desde la terminal o mediante scripts.
 
 ````{upstream} user_manual/desktop/commandline.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
-Los paquetes del cliente de Nextcloud contienen un cliente de línea de comandos, `nextcloudcmd`, que puede usarse para sincronizar archivos de Nextcloud con los equipos cliente.
+Los paquetes del cliente de {vendor}`Nextcloud` contienen un cliente de línea de comandos, `nextcloudcmd`, que puede usarse para sincronizar archivos de Nextcloud con los equipos cliente.
 
 `nextcloudcmd` realiza una única *ejecución de sincronización* y después finaliza el proceso de sincronización. De este modo, `nextcloudcmd` procesa las diferencias entre los directorios del cliente y del servidor y propaga los archivos para llevar ambos repositorios al mismo estado. A diferencia del cliente con interfaz gráfica, `nextcloudcmd` no repite las sincronizaciones por sí mismo. Tampoco supervisa los cambios en el sistema de archivos.
 

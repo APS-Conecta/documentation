@@ -12,7 +12,7 @@ resumen: "Implementar el cliente de escritorio de forma gestionada: opciones del
 Esta página describe las opciones de implementación y configuración del cliente de escritorio pensadas para administradores: personalizar la instalación en Windows con el instalador MSI, crear una cuenta desde la línea de comandos sin interacción del usuario y precargar o restringir el asistente de configuración. Está dirigida a quienes preparan despliegues gestionados del cliente.
 
 ````{upstream} admin_manual/desktop/massdeployment.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
-Este capítulo describe las opciones de implementación y configuración del cliente de escritorio de Nextcloud destinadas a administradores.
+Este capítulo describe las opciones de implementación y configuración del cliente de escritorio de {vendor}`Nextcloud` destinadas a administradores.
 
 Estas opciones están pensadas para despliegues gestionados y otros escenarios administrativos, como scripts de implementación, plataformas de gestión de software, scripts de inicio de sesión, flujos de trabajo de MDM o RMM y otros procesos automatizados de instalación o configuración.
 
@@ -171,7 +171,7 @@ msiexec /i Nextcloud-x.y.z-x64.msi DO_NOT_SCHEDULE_REBOOT="1"
 (nc-non-interactive-account-provisioning)=
 ### Aprovisionamiento de cuentas no interactivo
 
-El cliente de escritorio de Nextcloud admite el aprovisionamiento de cuentas no interactivo desde la línea de comandos.
+El cliente de escritorio de {vendor}`Nextcloud` admite el aprovisionamiento de cuentas no interactivo desde la línea de comandos.
 
 Está pensado para la automatización de implementaciones y otros escenarios de instalación gestionada en los que un administrador quiere crear una cuenta en el cliente de escritorio sin que el usuario tenga que pasar por el asistente de configuración gráfico.
 
@@ -360,7 +360,7 @@ En otras palabras:
 
 ### Resumen
 
-El cliente de escritorio de Nextcloud admite varios flujos de implementación y configuración destinados a administradores.
+El cliente de escritorio de {vendor}`Nextcloud` admite varios flujos de implementación y configuración destinados a administradores.
 
 Elegir el flujo de trabajo que mejor se ajuste al entorno:
 

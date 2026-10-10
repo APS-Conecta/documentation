@@ -35,7 +35,7 @@ Un trabajo cron diario gestiona automáticamente el historial de intentos. Las e
 Se admite excluir (incluir en la lista blanca) determinadas direcciones IP de la protección contra fuerza bruta para evitar falsos positivos, pero normalmente los falsos positivos se resuelven mejor corrigiendo sus causas de fondo (p. ej., un proxy inverso mal configurado o un cliente que se comporta mal).
 
 :::{tip}
-Si se detecta un problema en el comportamiento de autenticación de cualquiera de los clientes oficiales de Nextcloud, conviene informarlo en el repositorio correspondiente para que pueda investigarse.
+Si se detecta un problema en el comportamiento de autenticación de cualquiera de los clientes oficiales de {vendor}`Nextcloud`, conviene informarlo en el repositorio correspondiente para que pueda investigarse.
 :::
 
 Mantener la protección contra fuerza bruta activa y funcionando correctamente ayuda a proteger Nextcloud Server de actores maliciosos y, a la vez, minimiza el posible impacto en el uso legítimo.

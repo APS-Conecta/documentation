@@ -29,7 +29,7 @@ En macOS, nuestro cliente también puede integrar de forma transparente los arch
 
 ### Configuración
 
-Los ajustes relacionados con los archivos virtuales pueden modificarse por cuenta desde la ventana de ajustes del cliente de escritorio de Nextcloud.
+Los ajustes relacionados con los archivos virtuales pueden modificarse por cuenta desde la ventana de ajustes del cliente de escritorio de {vendor}`Nextcloud`.
 
 Aquí se puede habilitar o deshabilitar la integración con Finder.
 

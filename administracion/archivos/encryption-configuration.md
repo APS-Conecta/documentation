@@ -23,7 +23,7 @@ El cifrado y la gestión de riesgos son un tema complejo y lleno de matices. Sal
 ### Definiciones
 
 - **Cifrado en el servidor (SSE):** lo realiza el servidor Nextcloud y protege los archivos en reposo en el almacenamiento local y externo. Las claves de cifrado se guardan en el servidor.
-- **Cifrado de extremo a extremo (E2EE):** lo realizan los clientes de escritorio o móviles de Nextcloud antes de subir los archivos. Solo el cliente puede descifrarlos, lo que hace que los datos sean inaccesibles para los administradores del servidor y los proveedores de almacenamiento externo.
+- **Cifrado de extremo a extremo (E2EE):** lo realizan los clientes de escritorio o móviles de {vendor}`Nextcloud` antes de subir los archivos. Solo el cliente puede descifrarlos, lo que hace que los datos sean inaccesibles para los administradores del servidor y los proveedores de almacenamiento externo.
 - **Clave maestra:** una clave central controlada por el servidor que se usa para cifrar todos los archivos.
 - **Claves de usuario:** cada usuario tiene su propia clave, protegida por su contraseña, para cifrar sus archivos.
 - **Clave de recuperación:** una clave definida por el administrador para recuperar archivos si los usuarios pierden sus contraseñas.

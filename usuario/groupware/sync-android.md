@@ -14,7 +14,7 @@ Esta página explica cómo configurar el cliente Android para archivos y notific
 ````{upstream} user_manual/groupware/sync_android.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 ### Archivos y notificaciones
 
-1. Instale el cliente Android de Nextcloud [desde Google Play Store](https://play.google.com/store/apps/details?id=com.nextcloud.client) o [desde F-Droid](https://f-droid.org/packages/com.nextcloud.client/).
+1. Instale el cliente Android de {vendor}`Nextcloud` [desde Google Play Store](https://play.google.com/store/apps/details?id=com.nextcloud.client) o [desde F-Droid](https://f-droid.org/packages/com.nextcloud.client/).
 2. Inicie la aplicación. Hay dos maneras de configurarla:
 
    *O bien*: introduzca la URL de su servidor, pulse continuar, introduzca su usuario y contraseña y confirme que permite el acceso a su cuenta.
@@ -23,19 +23,19 @@ Esta página explica cómo configurar el cliente Android para archivos y notific
 
 ### Contactos y Calendario
 
-#### Con la aplicación móvil de Nextcloud
+#### Con la aplicación móvil de {vendor}`Nextcloud`
 
 1. Instale [DAVx⁵ (antes conocida como DAVDroid)](https://www.davx5.com/download/) en su dispositivo Android, [desde Google Play Store](https://play.google.com/store/apps/details?id=at.bitfire.davdroid) o [desde F-Droid](https://f-droid.org/packages/at.bitfire.davdroid/).
-2. En la aplicación móvil de Nextcloud, vaya a **Ajustes**/**Más** y toque "**Sincronizar calendarios y contactos**".
+2. En la aplicación móvil de {vendor}`Nextcloud`, vaya a **Ajustes**/**Más** y toque "**Sincronizar calendarios y contactos**".
 3. Ahora DAVx⁵ abrirá la ventana de inicio de sesión Webflow de Nextcloud, donde tendrá que introducir sus credenciales y conceder el acceso.
 4. DAVx⁵ se abrirá y le pedirá que cree una cuenta. Asigne a la cuenta el nombre que prefiera y establezca **Método de grupos de contactos** en **Los grupos son categorías por contacto**.
 5. Después de esto, DAVx⁵ se cerrará y volverá a aparecer la aplicación de Nextcloud. Para terminar la configuración, tiene que volver a abrir DAVx⁵ manualmente.
 6. Toque el icono de la cuenta que DAVx⁵ acaba de crear y, cuando se le solicite, conceda a DAVx⁵ acceso a sus calendarios y contactos.
 7. Al tocar el icono de la cuenta que DAVx⁵ ha configurado, la aplicación descubrirá las libretas de direcciones y los calendarios disponibles. Elija cuáles desea sincronizar y termine.
 
-#### Sin la aplicación móvil de Nextcloud
+#### Sin la aplicación móvil de {vendor}`Nextcloud`
 
-Si no desea instalar la aplicación móvil de Nextcloud, siga los siguientes pasos:
+Si no desea instalar la aplicación móvil de {vendor}`Nextcloud`, siga los siguientes pasos:
 
 1. Instale [DAVx⁵ (antes conocida como DAVDroid)](https://www.davx5.com/download/) en su dispositivo Android, [desde Google Play Store](https://play.google.com/store/apps/details?id=at.bitfire.davdroid) o [desde F-Droid](https://f-droid.org/packages/at.bitfire.davdroid/).
 2. Opcionalmente, instale OpenTasks ([Google Play Store](https://play.google.com/store/apps/details?id=org.dmfs.tasks) o [F-Droid](https://f-droid.org/packages/org.dmfs.tasks/)).
@@ -47,7 +47,7 @@ Si no desea instalar la aplicación móvil de Nextcloud, siga los siguientes pas
 8. Cuando se le solicite, conceda a DAVx⁵ permisos de acceso a sus contactos, sus calendarios y, opcionalmente, sus tareas.
 
 :::{note}
-Introduzca su dirección de correo electrónico como nombre de la cuenta de DAVx⁵ (obligatorio si desea poder enviar invitaciones de calendario). Si su dirección de correo electrónico está registrada en sus preferencias de Nextcloud y configuró su cuenta con la aplicación móvil de Nextcloud, esto ya debería ser así.
+Introduzca su dirección de correo electrónico como nombre de la cuenta de DAVx⁵ (obligatorio si desea poder enviar invitaciones de calendario). Si su dirección de correo electrónico está registrada en sus preferencias de Nextcloud y configuró su cuenta con la aplicación móvil de {vendor}`Nextcloud`, esto ya debería ser así.
 :::
 
 :::{note}

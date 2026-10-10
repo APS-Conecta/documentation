@@ -26,7 +26,7 @@ La aplicación LDAP admite:
 
 - Compatibilidad con grupos de LDAP
 - Compartir archivos con usuarios y grupos de Nextcloud
-- Acceso mediante WebDAV y el cliente de escritorio de Nextcloud
+- Acceso mediante WebDAV y el cliente de escritorio de {vendor}`Nextcloud`
 - Control de versiones, almacenamiento externo y todas las demás funciones de Nextcloud
 - Conexión transparente con Active Directory, sin necesidad de configuración adicional
 - Compatibilidad con los grupos primarios de Active Directory

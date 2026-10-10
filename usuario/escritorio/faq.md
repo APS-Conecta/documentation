@@ -73,7 +73,7 @@ o de forma permanente, ajustando `/etc/sysctl.conf`.
 
 ### Quiero mover mi carpeta de sincronización local
 
-El cliente de escritorio de Nextcloud no ofrece una forma de cambiar el directorio de sincronización local. Sin embargo, puede hacerse, aunque de una manera algo poco ortodoxa. En concreto, hay que:
+El cliente de escritorio de {vendor}`Nextcloud` no ofrece una forma de cambiar el directorio de sincronización local. Sin embargo, puede hacerse, aunque de una manera algo poco ortodoxa. En concreto, hay que:
 
 1. Eliminar la conexión existente que sincroniza con el directorio equivocado
 2. Añadir una nueva conexión que sincronice con el directorio deseado
@@ -87,7 +87,7 @@ Luego, hacer clic de nuevo en el menú desplegable Cuenta y, esta vez, hacer cli
 Esto abre el asistente de conexión de Nextcloud, *pero* con una opción adicional. Esta opción permite: conservar los datos existentes (sincronizados por la conexión anterior) o iniciar una sincronización limpia (borrando los datos existentes).
 
 :::{important}
-Tener cuidado antes de elegir la opción «Iniciar una sincronización limpia». La carpeta de sincronización antigua *puede* contener una cantidad considerable de datos, del orden de gigabytes o terabytes. Si es así, después de que el cliente cree la nueva conexión, tendrá que descargar **toda** esa información de nuevo. En su lugar, primero mover o copiar la carpeta de sincronización local antigua, que contiene una copia de los archivos existentes, a la nueva ubicación. Después, al crear la nueva conexión, elegir en cambio «*conservar los datos existentes*». El cliente de Nextcloud comprobará los archivos de la carpeta de sincronización recién añadida, verá que coinciden con lo que hay en el servidor y no necesitará descargar nada.
+Tener cuidado antes de elegir la opción «Iniciar una sincronización limpia». La carpeta de sincronización antigua *puede* contener una cantidad considerable de datos, del orden de gigabytes o terabytes. Si es así, después de que el cliente cree la nueva conexión, tendrá que descargar **toda** esa información de nuevo. En su lugar, primero mover o copiar la carpeta de sincronización local antigua, que contiene una copia de los archivos existentes, a la nueva ubicación. Después, al crear la nueva conexión, elegir en cambio «*conservar los datos existentes*». El cliente de {vendor}`Nextcloud` comprobará los archivos de la carpeta de sincronización recién añadida, verá que coinciden con lo que hay en el servidor y no necesitará descargar nada.
 :::
 
 Elegir una opción y hacer clic en «**Conectar...**». Esto guiará por el asistente de conexión, igual que al configurar la conexión de sincronización anterior, pero dando la oportunidad de elegir un nuevo directorio de sincronización.
