@@ -15,3 +15,4 @@ Esta página registra los cambios de estadistica que ve una persona usuaria o ad
 | Versión | Fecha | Cambio |
 |---|---|---|
 | Próxima versión |  | Los botones de cada tarjeta del tablero anuncian a los lectores de pantalla el nombre de la tarjeta. |
+| Próxima versión |  | En Preguntas, los botones «Ver», «Ocultar», «Editar» y «Eliminar» anuncian a los lectores de pantalla el título de la pregunta, y el selector de ancho de cada tarjeta del tablero anuncia el nombre de la tarjeta. |
