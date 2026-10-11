@@ -14,3 +14,4 @@ Esta página registra los cambios de IntraVox que ve una persona usuaria o admin
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| Próxima versión |  | Inicio muestra en español «Páginas», «En esta página», «Escribir texto…» y los avisos de página bloqueada o modificada por otra persona, y el botón «Desbloquear» aparece solo a quien tiene permisos completos sobre Inicio. |

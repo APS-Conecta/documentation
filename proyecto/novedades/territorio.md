@@ -14,3 +14,4 @@ Esta página registra los cambios de territorio que ve una persona usuaria o adm
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| Próxima versión |  | Al crear una categoría en Capas, el botón para elegir su pictograma anuncia a los lectores de pantalla el nombre escrito. |
