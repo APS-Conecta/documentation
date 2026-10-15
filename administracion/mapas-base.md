@@ -1,7 +1,7 @@
 ---
 tipo: guia
 audiencia: administracion
-apps: [gestion, territorio]
+apps: [instalador, territorio]
 resumen: "Comprobar que la suite sirve el mapa base de Chile en PMTiles desde su mismo origen, y que su refresco mensual sigue activo."
 ---
 # Mapas base
@@ -48,7 +48,7 @@ Con la suite en marcha, el refresco termina leyendo el archivo nuevo por la ruta
 ## Requisitos
 
 - Un centro instalado con el instalador AIO, cuyo contenedor maestro se creó con `APS_TILES_DIR`.
-- Una consola de root en el servidor, en la copia de gestion de `/opt/aps-conecta/gestion`.
+- Una consola de root en el servidor, en la copia de la suite de `/opt/aps-conecta/instalador` (la copia antigua de gestion, en `/opt/aps-conecta/gestion`, queda inerte tras la mudanza; `aps/MIGRATION.md` de instalador describe el traspaso).
 - Docker en marcha.
 - Para la verificación, el `.env` de esa copia con `HTTP_PORT=443`.
 - Para el refresco, salida HTTPS hacia la compilación publicada de Protomaps, y el binario `pmtiles` 1.31.2, que la instalación del mapa descarga y verifica por su sha256.
@@ -82,12 +82,13 @@ Con la suite en marcha, el refresco termina leyendo el archivo nuevo por la ruta
 
 ## Verificación
 
-Ejecutar la prueba de humo desde la copia de gestion:
+Ejecutar la prueba de humo desde la copia de la suite:
 
 ```bash
-make smoke
+bash scripts/smoke.sh
 ```
 
+El objetivo `make smoke` del Makefile de gestion se retiró junto con su ciclo de etiquetas; el guion `scripts/smoke.sh` de la copia de la suite es el que corre la misma comprobación.
 Su comprobación 16 exige tres hechos a la vez: que `tile_url` sea exactamente la dirección de `overwrite.cli.url` seguida de `/tiles/chile.pmtiles`; que el directorio que `aps-conecta-apache` monta en `/aps-tiles` sea el mismo que nombra el `APS_TILES_DIR` del contenedor maestro; y que una lectura por rangos responda 206 con la marca `PMTiles` y sin `Content-Encoding`.
 Un 404 con el montaje presente es la única respuesta que no falla: la prueba imprime `NOTE: /tiles/chile.pmtiles is 404` y sigue en verde, salvo que el temporizador mensual esté habilitado.
 
@@ -96,9 +97,9 @@ Un 404 con el montaje presente es la única respuesta que no falla: la prueba im
 | Síntoma | Causa | Remedio |
 |---|---|---|
 | La revisión dice «la suite responde 404 en /tiles/chile.pmtiles» | El archivo no está en el directorio que monta la suite: el mapa no se construyó en este servidor | La misma línea de la revisión nombra el comando que lo construye. |
-| La revisión dice «la suite no monta la carpeta del mapa» | El contenedor maestro se creó sin `APS_TILES_DIR` | Volver a crear el contenedor maestro y `aps-conecta-apache`, como indica `docs/INSTALLER.md` §9 en el repositorio gestion; no se pierde nada, porque apache se reconstruye desde la configuración en cada inicio. |
-| `make smoke` dice que `aps-conecta-apache` monta un directorio distinto del que nombra `APS_TILES_DIR` | Se cambió el valor después de crear apache: la suite nunca vuelve a crear un contenedor que existe, y `/tiles/` sirve una carpeta que ya nadie nombra | El mismo remedio de la fila anterior, que incluye eliminar `aps-conecta-apache`. |
-| `make smoke` dice que `/tiles/chile.pmtiles` responde 404 con el temporizador mensual habilitado | La instalación anunció un mapa y la suite no sirve ninguno | Ejecutar la revisión del paso 1, que nombra el hecho que falla. |
-| `make smoke` dice que la respuesta llega comprimida con `Content-Encoding` | Una lectura por rangos recomprimida rompe el formato PMTiles | Ejecutar la revisión del paso 1; la ruta debe servir los bytes exactos del archivo. |
+| La revisión dice «la suite no monta la carpeta del mapa» | El contenedor maestro se creó sin `APS_TILES_DIR` | Volver a crear el contenedor maestro y `aps-conecta-apache`, como indica `aps/INSTALLER.md` §9 en el repositorio instalador; no se pierde nada, porque apache se reconstruye desde la configuración en cada inicio. |
+| La prueba de humo dice que `aps-conecta-apache` monta un directorio distinto del que nombra `APS_TILES_DIR` | Se cambió el valor después de crear apache: la suite nunca vuelve a crear un contenedor que existe, y `/tiles/` sirve una carpeta que ya nadie nombra | El mismo remedio de la fila anterior, que incluye eliminar `aps-conecta-apache`. |
+| La prueba de humo dice que `/tiles/chile.pmtiles` responde 404 con el temporizador mensual habilitado | La instalación anunció un mapa y la suite no sirve ninguno | Ejecutar la revisión del paso 1, que nombra el hecho que falla. |
+| La prueba de humo dice que la respuesta llega comprimida con `Content-Encoding` | Una lectura por rangos recomprimida rompe el formato PMTiles | Ejecutar la revisión del paso 1; la ruta debe servir los bytes exactos del archivo. |
 | `aps-conecta-tiles.service` aparece fallida | No hubo una compilación publicada en los últimos 10 días, el archivo nuevo no pasó una verificación, la ejecución superó los 5400 segundos, o la suite no sirve el archivo recién construido por `/tiles/` | Ejecutar la revisión del paso 1: si la ruta responde, el mapa servido sigue intacto y solo envejece hasta el siguiente refresco correcto; si no responde, la revisión nombra el hecho que falla. |
 | Sigue existiendo un contenedor `aps-conecta-tiles` | La instalación es anterior a que la suite sirviera el mapa; ese contenedor nginx lo servía en el puerto 8084 | La siguiente construcción del mapa lo elimina y lo registra. |

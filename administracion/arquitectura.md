@@ -1,7 +1,7 @@
 ---
 tipo: explicacion
 audiencia: administracion
-apps: [gestion]
+apps: [instalador, gestion]
 resumen: "Las dos formas de la instalación, la pila de desarrollo y la de un centro: contenedores, datos, red, dominios de fallo y dimensionamiento."
 ---
 # Arquitectura
@@ -9,7 +9,7 @@ resumen: "Las dos formas de la instalación, la pila de desarrollo y la de un ce
 ## Contexto
 
 La plataforma corre sobre la imagen oficial publicada por {vendor}`Nextcloud`, sin bifurcación del código fuente ni parches al núcleo.
-El repositorio gestion agrega solo personalización declarativa: configuración, el tema del servidor y el aprovisionamiento de grupos, carpetas y permisos.
+La instalación la arma el repositorio instalador: el fork del instalador y el paquete del host, que agregan solo personalización declarativa —configuración, el tema del servidor y el aprovisionamiento de grupos, carpetas y permisos—, mientras gestion conserva la definición de la suite: aplicaciones vendorizadas, registro de establecimientos, tema y datos, sin datos de producto ni secretos.
 Las aplicaciones de terceros que la suite modifica reciben parches versionados en el repositorio, que el {doc}`aprovisionamiento </administracion/aprovisionamiento>` vuelve a aplicar en cada siembra; el núcleo nunca se parchea.
 Las aplicaciones propias se instalan desde tarballs construidos a partir de etiquetas de su propio repositorio y llegan a la plataforma solo por las interfaces públicas `OCP\…`.
 La instancia en ejecución es una proyección de esa receta sobre la imagen oficial: reproducible y desechable.
@@ -19,8 +19,8 @@ La plataforma no está pensada para guardarlos, pero nada impide que el personal
 
 La instalación existe en dos formas que ejecutan las mismas fases de aprovisionamiento:
 
-- **La pila de desarrollo**: una pila de Docker Compose descrita en `compose.yaml`, desechable, que `make install` reconstruye en el equipo de quien desarrolla.
-- **La instalación de un centro**: el instalador {doc}`AIO </administracion/aio>` es dueño del conjunto de contenedores, y el paquete de host de gestion ejecuta las fases contra él por `docker exec`.
+- **La pila de desarrollo**: una pila de Docker Compose descrita en `compose.yaml`, desechable, que gestion levanta con `make up` y siembra con `bash scripts/install.sh` en el equipo de quien desarrolla.
+- **La instalación de un centro**: el instalador {doc}`AIO </administracion/aio>` es dueño del conjunto de contenedores, y el paquete del host de instalador ejecuta las fases contra él por `docker exec`.
 
 Todavía no existe una instancia de producción: ningún centro corre una versión publicada.
 
@@ -49,7 +49,7 @@ Un centro corre en un solo host Ubuntu o Debian x86-64, con Docker de API 1.44 o
 El contenedor `nextcloud-aio-mastercontainer` sirve el asistente en el puerto 8080 y administra los demás como un conjunto de 20 imágenes bajo `ghcr.io/aps-conecta/*` que se actualiza completo, nunca por partes.
 Los contenedores de la suite se llaman `aps-conecta-*`.
 
-| Contenedor | Función que gestion usa |
+| Contenedor | Función que la suite usa |
 |---|---|
 | `aps-conecta-apache` | Publica la suite en el puerto 443 y termina TLS; sirve el mapa base en `/tiles/` antes de pasar la petición al servidor de aplicaciones. |
 | `aps-conecta-nextcloud` | Servidor de aplicaciones; el aprovisionamiento ejecuta `occ` dentro de él. `cron.php` corre aquí, en un ciclo de cinco minutos, porque la instalación AIO no tiene contenedor `cron`. |
@@ -68,7 +68,7 @@ Las aplicaciones y el tema vienen incorporados en la imagen del servidor, con la
 | Documentos del establecimiento | El volumen de datos de la plataforma; nunca en git. |
 | Cuentas, grupos, carpetas de grupo, permisos, índice de archivos | PostgreSQL. |
 | Caché y bloqueos | Redis, efímero. |
-| Receta del estado deseado, tema, configuración | El repositorio gestion, sin datos de producto ni secretos. |
+| Receta del estado deseado y ejecutor de la instalación | El repositorio instalador, sin datos de producto ni secretos; la definición de la suite (aplicaciones vendorizadas, registro de establecimientos, tema y datos) queda en gestion. |
 | Secretos de la pila de desarrollo | `.env`, generado con modo 600 y fuera de git. |
 | Identidad, equipos, carpetas y matriz del establecimiento | `sites/<slug>/site.sh`, fuera de git. |
 | Hoja de credenciales sellada y registro del sitio de un centro | `/opt/aps-conecta`, dentro del alcance del respaldo. |

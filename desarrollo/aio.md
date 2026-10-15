@@ -1,20 +1,20 @@
 ---
 tipo: referencia
 audiencia: desarrollo
-apps: [AIO]
-resumen: "El repositorio AIO: la rama espejo, la cola de parches, la cadena Replay y sus compuertas, la publicación de imágenes y sus límites."
+apps: [instalador]
+resumen: "Cómo se mantiene el fork de nextcloud/all-in-one, hoy en instalador: rama espejo, cola de parches, cadena Replay, compuertas, publicación y límites."
 ---
 # AIO
 
 ## Resumen
 
-[APS-Conecta/AIO](https://github.com/APS-Conecta/AIO) es el fork de [nextcloud/all-in-one](https://github.com/nextcloud/all-in-one) desde el que se construyen las imágenes de cada instalación de la suite. Lo que los parches cambian en una instalación está en {doc}`/administracion/aio`; esta página describe cómo se mantiene el fork.
+El fork de [nextcloud/all-in-one](https://github.com/nextcloud/all-in-one) desde el que se construyen las imágenes de cada instalación de la suite vive hoy en el repositorio [APS-Conecta/instalador](https://github.com/APS-Conecta/instalador), que absorbió también el paquete del host y la cadena de publicación: el repositorio [APS-Conecta/AIO](https://github.com/APS-Conecta/AIO) fue su primera casa y quedó absorbido — su archivo como repositorio de solo lectura está planificado en `aps/MIGRATION.md` §11 de instalador, tras una serie de versiones verdes de instalador. Lo que los parches cambian en una instalación está en {doc}`/administracion/aio`; esta página describe cómo se mantiene el fork, y el repositorio que hoy lo contiene —bootstrap firmado, `VERSION` y cadena de publicación— tiene su propia referencia en {doc}`instalador </desarrollo/instalador>`.
 
 El fork sigue una regla única: todo cambio a un archivo que upstream distribuye viaja como un parche numerado. La rama `main` refleja upstream byte a byte, salvo las rutas propias del fork y el bloque de declaración de `readme.md`. La rama `aps/main` es la salida de la integración continua, la punta de upstream más la cola de parches, y de ella se construyen las imágenes. Un pull request que edita un archivo reflejado, en vez de agregar un parche, falla la paridad.
 
 Las rutas propias del fork viven en `main` porque GitHub ejecuta los flujos programados, manuales y reutilizables solo desde la rama por defecto, y `aps/main`, reescrita por la integración continua en cada ejecución, no sirve como rama por defecto.
 
-El fork conserva sin cambios el `LICENSE` de upstream (AGPL-3.0); su identificador SPDX está en la tabla de componentes del {doc}`/aviso`. La fuente correspondiente completa de cada imagen de la suite es este repositorio en la etiqueta de la suite: la historia de upstream en `main` más la cola de parches.
+El fork conserva sin cambios el `LICENSE` de upstream (AGPL-3.0); su identificador SPDX está en la tabla de componentes del {doc}`/aviso`. La fuente correspondiente completa de cada imagen de la suite es el repositorio instalador en la etiqueta de la suite: la historia de upstream en `main` más la cola de parches.
 
 ## Tabla
 
@@ -27,6 +27,7 @@ El fork conserva sin cambios el `LICENSE` de upstream (AGPL-3.0); su identificad
 | `patches/` | La cola: 29 parches `.patch` y 2 parches generados `.sh` | Pull request |
 | `scripts/` | El motor (`replay.sh`), las compuertas (`brand-gate.sh`, `acquisition-gate.sh`), el registro de imágenes (`retag.sh`), el horneado (`bake.sh`), los generadores (`rename-containers.py`, `lockup.py`) y la línea base de deriva (`wizard-drift-baseline`) | Pull request |
 | `.github/workflows/replay.yml`, `.github/workflows/images.yml` | La cadena Replay y la publicación de imágenes | Pull request |
+| `.github/workflows/release.yml`, `.github/workflows/ci.yml`, `.github/workflows/cleanboot.yml` | La cadena de publicación firmada, la compuerta local y el ensayo de instalación limpia que instalador agregó a las rutas propias | Pull request |
 | `.codespellrc` | La lista de 16 palabras correctas en español que codespell marcaría como errores | Pull request; el parche 060 lleva una copia idéntica |
 | `BUGS.md` | El registro de fallas corregidas de las herramientas del fork | Pull request |
 | `readme.md` | El único archivo de upstream modificado en `main`: la declaración del fork entre marcadores | Pull request; la paridad exige que, sin ese bloque, sea idéntico al de upstream |
@@ -98,11 +99,11 @@ Al regenerar el parche 060, la línea base de los textos del asistente (`scripts
 
 El parche 090 traduce la suite Playwright del asistente (`php/tests`) para que verifique el texto en español. Tres verificaciones quedan en inglés a propósito, como prueba de que la traducción nunca llegó al código PHP.
 
-El flujo Clean boot de gestion instala la etiqueta publicada del fork que fija `scripts/aio-testbed.sh` de gestion, con la misma instalación silenciosa que corre un establecimiento, por dominio y por la IP del ejecutor.
+El flujo Clean boot de instalador ensaya la instalación por el camino completo: pasa por el bootstrap real de una línea —descarga, suma sha256 y firma minisign— y recién entonces instala la etiqueta publicada con la misma instalación silenciosa que corre un establecimiento, por dominio y por la IP del ejecutor.
 
 ### Publicación de imágenes
 
-La publicación es una ejecución manual de Replay con `suite-tag`, que entrega al flujo Images con `build-ref` igual a `aps/main`. El trabajo de publicación necesita en verde el de reproducción: una reproducción o una compuerta en rojo nunca mueve imágenes.
+La publicación es la etiqueta de versión de instalador: su flujo `release.yml` llama a Replay y a Images con la etiqueta, espera las compuertas y las veinte imágenes, y arma, firma y comprueba el paquete compuesto que el bootstrap descarga. La etiqueta de la suite y la etiqueta de publicación son la misma — una identidad, no dos. El trabajo de publicación necesita en verde el de reproducción: una reproducción o una compuerta en rojo nunca mueve imágenes.
 
 Images copia 17 imágenes en el propio registro con `docker buildx imagetools create` y construye tres. Su matriz prueba que las 20 existen y que las 17 copiadas vienen de una misma instantánea de upstream; una prueba de arranque confirma que el asistente publicado se descarga y arranca. Las tres construcciones deben resolver el mismo commit de `build-ref`, y los resúmenes de una etiqueta publicada no cambian nunca.
 
@@ -119,7 +120,7 @@ Una falla de las herramientas del fork, ya corregida, se registra como una fila 
 ### Deuda técnica y límites
 
 - **Fallas sin aviso.** Desde el 25 de septiembre de 2026, cada reproducción falló durante 8 días sin que nadie lo viera, y las imágenes publicadas dejaron de seguir a upstream (A-013). El trabajo de vida falla solo después de 7 días sin una ejecución programada exitosa, y solo en el siguiente envío o pull request.
-- **Programación manual.** GitHub desactiva por defecto las programaciones de un fork: la ejecución diaria de Replay se activa una vez en la pestaña Actions. Los flujos programados de upstream se esperan desactivados.
+- **Programación manual.** GitHub exige activar una vez las programaciones en la pestaña Actions: la ejecución diaria de Replay se activa una sola vez en instalador y, ese mismo día, se desactiva la de AIO — sin esa ventana doble, dos cadenas publicarían la misma etiqueta. Los flujos programados de upstream se esperan desactivados.
 - **Deriva sin compuerta.** Un texto nuevo en inglés que upstream agrega a un archivo traducido pasa todos los centinelas; el informe de deriva lo anota, nunca falla, y una persona lo revisa a ojo.
 - **Higiene manual.** El conteo de omisiones seguidas de un parche es un conteo a ojo de las anotaciones diarias, sin registro entre ejecuciones.
 - **Límites de la instalación.** Los que ve un establecimiento, como los mensajes PHP en inglés o el código muerto de deSEC, están en {doc}`/administracion/aio`.
