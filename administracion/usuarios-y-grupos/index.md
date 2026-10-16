@@ -33,7 +33,7 @@ La autorización de la suite es solo por grupos. Toda concesión toma un id de g
 
 ### El registro de grupos
 
-La fase 20 de la provisión es el registro de grupos: los crea con id en inglés y nombre mostrado en español, y las concesiones nombran siempre el id. La lista de los 22 cargos compartidos vive solo en [`20-groups.sh`](https://github.com/APS-Conecta/gestion/blob/main/provisioning/phases/20-groups.sh); los cargos propios de un centro se declaran en `SITE_ROLES`, en el archivo del sitio.
+La fase 20 de la provisión es el registro de grupos: los crea con id en inglés y nombre mostrado en español, y las concesiones nombran siempre el id. La lista de los 22 cargos compartidos vive solo en [`20-groups.sh`](https://github.com/APS-Conecta/instalador/blob/main/provisioning/phases/20-groups.sh); los cargos propios de un centro se declaran en `SITE_ROLES`, en el archivo del sitio.
 
 | Grupo | Id | Quién lo integra | Quién lo declara |
 |---|---|---|---|
@@ -72,7 +72,7 @@ Las cuentas son locales de la plataforma: la provisión las crea con `occ user:a
 - **Personas.** La planilla de personal es un archivo UTF-8 con seis columnas separadas por punto y coma: `usuario;nombre;apellidos;correo;grupos;primer_admin`. No lleva contraseñas. La columna `grupos` nombra los sectores, programas y cargos; `all-staff` y la categoría de cada cargo se agregan solos. Exactamente una fila lleva `sí` en `primer_admin`, y esa persona entra al grupo `admin`, que no se escribe en `grupos`. Los cargos no van en la planilla: sus cuentas ya existen.
 - **Credenciales.** La provisión genera cada contraseña y la sella en `/opt/aps-conecta/credentials.txt`, con permiso 0600: una fila por persona y una por cuenta de cargo. El sellado es acumulativo: un usuario sellado conserva su contraseña para siempre, y uno que sale de la planilla y vuelve encuentra su fila intacta. El archivo se conserva, porque la re-provisión semanal lo lee para crear las cuentas que falten.
 
-La guía clínica, en [«La planilla de usuarios»](https://github.com/APS-Conecta/gestion/blob/main/docs/GUIA-CLINICA.md#5-la-planilla-de-usuarios) y [«Las credenciales»](https://github.com/APS-Conecta/gestion/blob/main/docs/GUIA-CLINICA.md#6-las-credenciales), da el formato completo y el ritual de entrega.
+La guía clínica, en [«La planilla de usuarios»](https://github.com/APS-Conecta/instalador/blob/main/aps/GUIA-CLINICA.md#5-la-planilla-de-usuarios) y [«Las credenciales»](https://github.com/APS-Conecta/instalador/blob/main/aps/GUIA-CLINICA.md#6-las-credenciales), da el formato completo y el ritual de entrega.
 
 ### Bajas y divergencia
 

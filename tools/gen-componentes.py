@@ -5,7 +5,8 @@ componentes.yml declares what only a person knows (origin, SPDX licence, what AP
 script adds what the code knows, at build time, from the sibling clones under APS_ORG_ROOT:
 
   version    image tag + digest (gestion compose.yaml); app version (gestion provisioning/apps/<id>/VENDOR)
-  modified   a vendored app with .patch files beside it is modified; the AIO fork's patch queue length
+  modified   a vendored app with .patch files beside it is modified; the fork's patch queue length
+             (the queue lives in instalador since it absorbed AIO)
   drift      every compose image, every vendored app and every distribution-fork catalog row has a
              row here, and every row here is still shipped — otherwise the build fails
 
@@ -153,7 +154,13 @@ def gather():
     catalog = yaml.safe_load((ROOT / "catalogo.yml").read_text(encoding="utf-8"))[
         "repos"
     ]
-    forks = {r["repo"] for r in catalog if r["kind"] == "distribution-fork"}
+    forks = {
+        r["repo"] for r in catalog
+        if r["kind"] == "distribution-fork"
+        # Un fork absorbido ya no distribuye: su estado en el catálogo es el registro
+        # del traspaso (AIO → instalador), no una segunda cola de parches.
+        and not str(r.get("status", "")).startswith("Absorbido")
+    }
     return rows, imgs, apps, forks
 
 
@@ -162,7 +169,7 @@ def main() -> int:
     problems = drift(rows, imgs, apps, forks)
     if problems:
         fail("components drift:\n  " + "\n  ".join(problems))
-    table = render(resolve(rows, imgs, apps, fork_patches(org() / "AIO")))
+    table = render(resolve(rows, imgs, apps, fork_patches(org() / "instalador")))
     out = ROOT / "_generated" / "componentes.md"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(table, encoding="utf-8")

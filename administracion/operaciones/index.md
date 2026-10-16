@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion, AIO]
+apps: [instalador]
 resumen: "Mantenimiento de la plataforma base y su forma en APS Conecta Gestión: copias de borg, actualización por conjunto, re-provisión semanal y verificaciones."
 ---
 # Operaciones
@@ -57,7 +57,7 @@ La suite se actualiza como un conjunto, con cada versión publicada, y nunca un 
 - La aplicación de avisos de actualización queda restringida al grupo `admin`, porque anuncia actualizaciones que no se pueden aplicar sobre una imagen fijada.
 - El asistente de la suite no ofrece actualizar su propio contenedor, y la casilla de actualización automática de su pantalla de copias se deja sin marcar.
 
-Cada versión nueva se instala primero en un servidor de ensayo, exactamente como lo haría un centro, y ese ensayo es el registro de aceptación. Después de actualizar un centro, la revalidación corre tres verificaciones de solo lectura —humo, oficina y divergencia— y las informa todas, aunque una falle: el resultado es el conjunto. La guía clínica, en [«Tras actualizar»](https://github.com/APS-Conecta/gestion/blob/main/docs/GUIA-CLINICA.md#7-tras-actualizar), da el comando, y su sección 10 lista ocho revisiones manuales para cada actualización mayor.
+Cada versión nueva se instala primero en un servidor de ensayo, exactamente como lo haría un centro, y ese ensayo es el registro de aceptación. Después de actualizar un centro, la revalidación corre tres verificaciones de solo lectura —humo, oficina y divergencia— y las informa todas, aunque una falle: el resultado es el conjunto. La guía clínica, en [«Tras actualizar»](https://github.com/APS-Conecta/instalador/blob/main/aps/GUIA-CLINICA.md#7-tras-actualizar), da el comando, y su sección 10 lista ocho revisiones manuales para cada actualización mayor.
 
 ### Re-provisión y estado
 
@@ -67,7 +67,7 @@ Cuando una ejecución encuentra deriva o no termina, cada integrante del grupo `
 
 ### Migración
 
-{doc}`migrating` describe el traslado de una instancia a otro servidor. En la suite, un centro que corre la versión anterior, sobre Docker Compose, pasa a AIO solo con la herramienta de [MIGRATION.md](https://github.com/APS-Conecta/gestion/blob/main/docs/MIGRATION.md), ensayada antes contra un servidor desechable. Una copia hecha por un Nextcloud AIO estándar no se restaura en la suite.
+{doc}`migrating` describe el traslado de una instancia a otro servidor. En la suite, un centro que corre la versión anterior, sobre Docker Compose, pasa a AIO solo con la herramienta de [MIGRATION.md](https://github.com/APS-Conecta/instalador/blob/main/aps/MIGRATION.md), ensayada antes contra un servidor desechable. Una copia hecha por un Nextcloud AIO estándar no se restaura en la suite.
 
 ### Compromisos y límites
 

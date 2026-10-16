@@ -14,7 +14,6 @@ repos:
     kind: suite
     role: "Suite Nextcloud 34 de operaciones internas para CESFAM chilenos — config-as-code (PostgreSQL, Redis, Euro-Office). Una instalación por establecimiento; sin datos de pacientes."
     manuals:
-      - administracion/instalacion/index.md
       - administracion/arquitectura.md
       - administracion/aprovisionamiento.md
       - administracion/usuarios-y-grupos/index.md
@@ -25,16 +24,26 @@ repos:
       - desarrollo/gestion.md
       - proyecto/novedades/gestion.md
     depends_on: [AIO, IntraVox, farmacia, estadistica, epidemiologia, territorio]
-    status: "Activa"
+    status: "Activa — el ritual de etiquetas se retiró; las versiones las publica instalador"
+  - repo: instalador
+    kind: distribution-fork
+    role: "Instalador firmado de la suite APS Conecta: el fork de Nextcloud AIO, el paquete del host, el Provisionador y la cadena de publicación de versiones."
+    manuals:
+      - administracion/aio.md
+      - administracion/instalacion/index.md
+      - desarrollo/aio.md
+      - desarrollo/instalador.md
+      - proyecto/novedades/instalador.md
+    depends_on: [gestion]
+    status: "Activo — absorbe al fork de AIO; primera versión en preparación"
+    version: "" # VERSION (v0.4.0) aún no publica: la clave de firma sigue siendo marcador de posición
   - repo: AIO
     kind: distribution-fork
     role: "Instalador all-in-one de Nextcloud adaptado por APS Conecta (fork de nextcloud/all-in-one)."
     manuals:
-      - administracion/aio.md
-      - desarrollo/aio.md
       - proyecto/novedades/aio.md
     depends_on: []
-    status: "Activo"
+    status: "Absorbido por instalador — archivo de solo lectura planificado (aps/MIGRATION.md §11)"
     version: "" # la única <version> del árbol es la app interna upstream (0.9.0), no una versión del repo
     readme: .github/README.md
   - repo: IntraVox

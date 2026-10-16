@@ -1,18 +1,18 @@
 ---
 tipo: explicacion
 audiencia: administracion
-apps: [AIO]
+apps: [instalador]
 resumen: "El instalador de la suite: el fork de Nextcloud AIO, su contenedor maestro, lo que cambian sus 31 parches y cómo respalda y actualiza."
 ---
 # AIO
 
 ## Contexto
 
-APS Conecta Gestión se instala con APS Conecta Gestión AIO, un fork de [Nextcloud All-in-One](https://github.com/nextcloud/all-in-one) que APS Conecta mantiene en [APS-Conecta/AIO](https://github.com/APS-Conecta/AIO) para los CESFAM y la red de atención primaria de Chile. Nextcloud GmbH no lo produce, no lo patrocina ni lo respalda.
+APS Conecta Gestión se instala con APS Conecta Gestión AIO, un fork de [Nextcloud All-in-One](https://github.com/nextcloud/all-in-one) que APS Conecta mantiene para los CESFAM y la red de atención primaria de Chile, junto con todo lo demás que instala un centro, en el repositorio [APS-Conecta/instalador](https://github.com/APS-Conecta/instalador) — el repositorio [APS-Conecta/AIO](https://github.com/APS-Conecta/AIO) fue su primera casa y quedó absorbido. Nextcloud GmbH no lo produce, no lo patrocina ni lo respalda.
 
-Las páginas de {doc}`instalación </administracion/instalacion/index>`, tejidas del manual de {vendor}`Nextcloud`, llevan el aviso «En APS Conecta Gestión esto difiere» y remiten a esta página. Un establecimiento instala una etiqueta publicada de la suite, nunca una rama: el asistente de esa etiqueta crea y administra todos los contenedores, y el Provisionador de gestion configura después el establecimiento con las fases de aprovisionamiento.
+Las páginas de {doc}`instalación </administracion/instalacion/index>`, tejidas del manual de {vendor}`Nextcloud`, llevan el aviso «En APS Conecta Gestión esto difiere» y remiten a esta página. Un establecimiento instala una etiqueta publicada de la suite, nunca una rama: el asistente de esa etiqueta crea y administra todos los contenedores, y el Provisionador del instalador configura después el establecimiento con las fases de aprovisionamiento.
 
-El procedimiento paso a paso está en el [manual del instalador](https://github.com/APS-Conecta/gestion/blob/main/docs/INSTALLER.md), en inglés, y en la [guía clínica](https://github.com/APS-Conecta/gestion/blob/main/docs/GUIA-CLINICA.md), en español. Esta página explica el diseño del instalador, lo que el fork cambia y sus límites.
+El procedimiento paso a paso está en el [manual del instalador](https://github.com/APS-Conecta/instalador/blob/main/aps/INSTALLER.md), en inglés, y en la [guía clínica](https://github.com/APS-Conecta/instalador/blob/main/aps/GUIA-CLINICA.md), en español, ambos en la carpeta `aps/` de instalador. Esta página explica el diseño del instalador, lo que el fork cambia y sus límites.
 
 Ninguna instancia de producción existe todavía: la vuelta de aceptación del instalador, una versión candidata instalada en tres equipos, sigue pendiente.
 
@@ -28,7 +28,7 @@ La verificación previa del paquete del host genera la orden `docker run` del as
 
 La configuración del asistente vive en el volumen `nextcloud_aio_mastercontainer` y sobrevive a la eliminación del contenedor. El contenedor web no guarda estado: el asistente lo reconstruye desde esa configuración en cada inicio.
 
-El asistente nunca vuelve a crear un contenedor que todavía existe. Por eso un directorio del host montado en un contenedor, como el del mapa base (`APS_TILES_DIR`) o el del certificado del instalador (`APS_TLS_DIR`), queda fijado al crear el contenedor: la configuración lo conserva, y cambiar la variable no mueve el montaje hasta recrear el asistente y el contenedor web, como indica la sección 9 del [manual del instalador](https://github.com/APS-Conecta/gestion/blob/main/docs/INSTALLER.md).
+El asistente nunca vuelve a crear un contenedor que todavía existe. Por eso un directorio del host montado en un contenedor, como el del mapa base (`APS_TILES_DIR`) o el del certificado del instalador (`APS_TLS_DIR`), queda fijado al crear el contenedor: la configuración lo conserva, y cambiar la variable no mueve el montaje hasta recrear el asistente y el contenedor web, como indica la sección 9 del [manual del instalador](https://github.com/APS-Conecta/instalador/blob/main/aps/INSTALLER.md).
 
 Mientras la suite está en ejecución, el inicio de sesión directo en el asistente queda bloqueado. El asistente muestra «El inicio de sesión está bloqueado porque la suite está en ejecución.» y remite al inicio de sesión automático desde la administración de APS Conecta Gestión.
 
@@ -38,11 +38,11 @@ Cada etiqueta de la suite publica 20 imágenes bajo `ghcr.io/aps-conecta/*`. Die
 
 El asistente deriva la etiqueta de cada contenedor hermano de la etiqueta de su propia imagen en ejecución. Una imagen ausente no apaga una sola función: las verificaciones de alcance del registro hacen fallar el inicio completo.
 
-Los resúmenes (digests) de una etiqueta publicada no cambian nunca. Volver a publicar sobre un conjunto completo se rechaza, salvo para reparar un conjunto que falló su verificación o una etiqueta de prueba. Las etiquetas de la suite se publican antes que la etiqueta de versión de gestion, cuyo flujo de publicación resuelve los resúmenes desde el registro al etiquetar.
+Los resúmenes (digests) de una etiqueta publicada no cambian nunca. Volver a publicar sobre un conjunto completo se rechaza, salvo para reparar un conjunto que falló su verificación o una etiqueta de prueba. La etiqueta de la suite es la etiqueta de versión de instalador: su flujo de publicación resuelve los resúmenes desde el registro al etiquetar, arma el paquete firmado que instala un centro y adjunta a la publicación el manifiesto de la versión.
 
 ### Lo que cambian los parches
 
-El fork no edita a mano ningún archivo de upstream: cada cambio es un parche numerado de [`patches/`](https://github.com/APS-Conecta/AIO/tree/main/patches), que la integración continua aplica sobre upstream para producir el árbol desde el que se construyen las imágenes. La lógica PHP cambia solo donde el fork lo declara; el resto son textos, recursos gráficos, plantillas y ajustes de Dockerfile. La tabla agrupa los 31 parches. Los componentes con su licencia están en la tabla de componentes del {doc}`/aviso` y el mantenimiento de la cola, en {doc}`/desarrollo/aio`.
+El fork no edita a mano ningún archivo de upstream: cada cambio es un parche numerado de [`patches/`](https://github.com/APS-Conecta/instalador/tree/main/patches), que la integración continua aplica sobre upstream para producir el árbol desde el que se construyen las imágenes. La lógica PHP cambia solo donde el fork lo declara; el resto son textos, recursos gráficos, plantillas y ajustes de Dockerfile. La tabla agrupa los 31 parches. Los componentes con su licencia están en la tabla de componentes del {doc}`/aviso` y el mantenimiento de la cola, en {doc}`/desarrollo/aio`.
 
 | Grupo | Parches | Qué cambia en la instalación | Por qué |
 |---|---|---|---|
@@ -65,13 +65,13 @@ La copia detiene los contenedores en ejecución mientras se crea: la suite queda
 
 La copia queda en el mismo disco que la instancia, por lo que debe copiarse fuera del servidor, a un disco externo u otro equipo. Los directorios adicionales se respaldan, pero nunca se restauran junto con la instancia: `/opt/aps-conecta` se recupera a mano con `borg extract`. El archivo del mapa base, de 1,04 GB, queda fuera de la copia a propósito, porque el temporizador mensual lo regenera.
 
-Una copia hecha por un Nextcloud AIO sin modificar no se restaura en la suite: un establecimiento existente se traslada solo con la herramienta de migración de gestion. Tras una reinstalación, el asistente nuevo no puede reutilizar el repositorio de copias anterior.
+Una copia hecha por un Nextcloud AIO sin modificar no se restaura en la suite: un establecimiento existente se traslada solo con la herramienta de migración de instalador (`aps/MIGRATION.md`). Tras una reinstalación, el asistente nuevo no puede reutilizar el repositorio de copias anterior.
 
 ### Actualizaciones
 
 La suite se actualiza como un conjunto, nunca un componente por separado. Antes de anunciar una etiqueta nueva, se instala en un equipo de ensayo limpio tal como lo hace un establecimiento, y ese ensayo es el registro de aceptación.
 
-En Nextcloud AIO, el asistente avisa cuando upstream publica imágenes nuevas en `latest` y se actualiza a sí mismo con un procedimiento propio. En la suite, el canal es la etiqueta que el operador ejecutó y el encabezado del asistente la muestra. La página posterior al arranque reemplaza el aviso de canal de upstream por «La suite se actualiza como un conjunto, con cada versión publicada», con un enlace a [«Tras actualizar»](https://github.com/APS-Conecta/gestion/blob/main/docs/GUIA-CLINICA.md#7-tras-actualizar) en la guía clínica, que describe la revalidación posterior a cada actualización.
+En Nextcloud AIO, el asistente avisa cuando upstream publica imágenes nuevas en `latest` y se actualiza a sí mismo con un procedimiento propio. En la suite, el canal es la etiqueta que el operador ejecutó y el encabezado del asistente la muestra. La página posterior al arranque reemplaza el aviso de canal de upstream por «La suite se actualiza como un conjunto, con cada versión publicada», con un enlace a [«Tras actualizar»](https://github.com/APS-Conecta/instalador/blob/main/aps/GUIA-CLINICA.md#7-tras-actualizar) en la guía clínica, que describe la revalidación posterior a cada actualización.
 
 Aunque un operador marque la actualización automática, la ejecución nocturna no cambia nada: los resúmenes de una etiqueta publicada no se mueven, y el conjunto cambia solo cuando el operador ejecuta una etiqueta nueva a propósito.
 
@@ -81,7 +81,7 @@ Una instalación de la v0.3.0 o anterior usa los nombres de contenedor de upstre
 
 El asistente termina donde empieza el paquete del host. Con los contenedores en marcha, la página posterior al arranque muestra «Suite en marcha» y devuelve al instalador web, que sigue con «Cargar equipos y personas» y «Revisar y ejecutar».
 
-Desde ahí, el Provisionador de gestion ejecuta las fases de aprovisionamiento con `docker exec` sobre la instancia en marcha: las mismas fases que levantan el entorno de desarrollo. En la suite, el punto de entrada de AIO escribe en cada arranque la URL pública del servidor de documentos y el secreto JWT; por eso el `.env` del establecimiento no lleva claves de oficina. El aprovisionamiento se describe en {doc}`/administracion/aprovisionamiento`.
+Desde ahí, el Provisionador del instalador ejecuta las fases de aprovisionamiento con `docker exec` sobre la instancia en marcha: las mismas fases que levantan el entorno de desarrollo. En la suite, el punto de entrada de AIO escribe en cada arranque la URL pública del servidor de documentos y el secreto JWT; por eso el `.env` del establecimiento no lleva claves de oficina. El aprovisionamiento se describe en {doc}`/administracion/aprovisionamiento`.
 
 ## Compromisos y límites
 
@@ -94,4 +94,4 @@ Desde ahí, el Provisionador de gestion ejecuta las fases de aprovisionamiento c
 - **Copias.** La copia diaria comparte disco con la instancia, detiene la suite mientras corre y se desplaza una hora con cada cambio de horario. Los directorios adicionales se restauran a mano.
 - **Panel de registros.** Tras una actualización, un navegador con la hoja de estilos anterior en caché muestra el panel de registros del asistente con la paleta previa hasta revalidarla, y un refresco forzado lo corrige: el PHP que fija la URL de su hoja de estilos no se modifica.
 - **Arquitectura.** Las imágenes construidas son solo x86-64.
-- **Documentación de upstream.** Los documentos de upstream que el fork conserva (`reverse-proxy.md`, `manual-install`, `multiple-instances.md`, entre otros) describen Nextcloud AIO, no la suite: la documentación de la instalación es el repositorio del fork y el manual del instalador de gestion. Su limpieza en el fork sigue pendiente.
+- **Documentación de upstream.** Los documentos de upstream que el fork conserva (`reverse-proxy.md`, `manual-install`, `multiple-instances.md`, entre otros) describen Nextcloud AIO, no la suite: la documentación de la instalación es el repositorio instalador y su manual en `aps/INSTALLER.md`. Su limpieza en el fork sigue pendiente.

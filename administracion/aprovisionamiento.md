@@ -1,7 +1,7 @@
 ---
 tipo: referencia
 audiencia: administracion
-apps: [gestion]
+apps: [instalador]
 resumen: "Las fases del aprovisionamiento en su orden fijo: qué escribe cada una en la instalación, por qué, y cómo converge sin borrar contenido."
 ---
 # Aprovisionamiento
@@ -15,9 +15,9 @@ Una fase ejecutada fuera del ejecutor se niega a correr, porque sin el archivo d
 
 El ejecutor tiene cuatro puertas de entrada:
 
-- `make install` en la pila de desarrollo: levanta la pila, ejecuta las fases con el registro completo en `.install.log`, comprueba la salud y termina con el informe de divergencia.
-- `make seed`: la misma secuencia de fases, con toda su salida en pantalla.
-- El Provisionador del instalador de un centro, que ejecuta `bash provisioning/seed.sh` contra la instancia de {doc}`AIO </administracion/aio>` por `docker exec`.
+- La pila de desarrollo de gestion: `make up` levanta la pila y `bash scripts/install.sh` ejecuta las fases con el registro completo en `.install.log`, comprueba la salud y termina con el informe de divergencia. Su envoltorio `make install` se retiró junto con el ciclo de etiquetas de gestion; los guiones de esa mitad quedan congelados en el repositorio.
+- La siembra explícita `bash provisioning/seed.sh`: la misma secuencia de fases, con toda su salida en pantalla.
+- El Provisionador del instalador de un centro, en el repositorio instalador, que ejecuta `bash provisioning/seed.sh` contra la instancia de {doc}`AIO </administracion/aio>` por `docker exec`.
 - El temporizador semanal `aps-conecta.timer`, que repite la provisión sin intervención los domingos a las 03:00 hora de Santiago; en una instancia convergida no escribe nada, y una deriva aparece como unidad fallida.
 
 Antes de la primera fase, el ejecutor exige cuatro condiciones y se detiene si falta alguna:
@@ -28,7 +28,7 @@ Antes de la primera fase, el ejecutor exige cuatro condiciones y se detiene si f
 - La instancia responde instalada a `occ status`.
 
 La convergencia es aditiva: aplica todo lo reversible y nunca borra carpetas de grupo, cuentas ni archivos.
-Lo que sigue vivo en la instancia sin estar declarado se informa al final de `make install` y con `make divergence`, con el objeto y el comando que lo eliminaría.
+Lo que sigue vivo en la instancia sin estar declarado se informa al final de la siembra y con `bash scripts/divergence.sh`, con el objeto y el comando que lo eliminaría.
 
 ## Tabla
 
@@ -58,8 +58,8 @@ Cada paso que escribe consulta antes el estado y solo escribe la diferencia, con
 `ensure_group`, `ensure_user` y `ensure_groupfolder` consultan la lista de la instancia antes de crear.
 `gf_grant` compara la máscara de permisos vigente y la reescribe cuando difiere, tanto para ampliar como para restringir.
 `theming_image_set` es el único ayudante que vuelve a escribir en cada ejecución.
-`make seed-idempotent` ejecuta una segunda siembra y falla si su registro contiene un verbo de escritura; las imágenes de marca son la única excepción, por nombre.
-La versión de gestion que produjo cada ejecución queda en la primera línea de la salida, tomada de `git describe`.
+`make seed-idempotent` ejecutaba una segunda siembra y fallaba si su registro contenía un verbo de escritura; el guion `scripts/seed-idempotent.sh` de la copia de la suite es el que corre esa comprobación hoy, con las imágenes de marca como única excepción, por nombre.
+La primera línea de la salida nombra la ejecución: la pila de gestion la toma de `git describe`; la versión de una instalación de centro la fija el archivo `VERSION` de instalador, que su CLI muestra en cada arranque.
 
 ### Estructura y datos de prueba
 
@@ -87,7 +87,7 @@ El ejecutor prueba el resultado de cada fase como un comando propio y no dentro 
 ### Deuda técnica y límites
 
 - El repositorio no tiene respaldo propio, y por eso la convergencia informa en lugar de borrar: un error de tipeo en el archivo del establecimiento no puede destruir documentos.
-- Quitar una aplicación de `APPS` no la desinstala: `make divergence` la informa hasta que alguien ejecuta `occ app:remove` a mano.
+- Quitar una aplicación de `APPS` no la desinstala: la verificación de divergencia la informa hasta que alguien ejecuta `occ app:remove` a mano.
 - Las reglas de página de un equipo nuevo se escriben una sola vez, junto con la página; si una ejecución muere entre la importación y las reglas, la página queda sin ellas y la siguiente ejecución no las repone.
 - `LÉEME — Convenciones.md` se crea solo si no existe: una versión editada de `docs/CONVENTIONS.md` no llega a una instancia que ya tiene el archivo, porque el personal pudo anotarlo.
 - Con el esqueleto vacío, una cuenta nueva no recibe carpeta de plantillas y la acción de crear no ofrece plantillas.

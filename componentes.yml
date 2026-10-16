@@ -5,7 +5,7 @@
 # licencia (SPDX, leída del propio componente) y, si APS lo modifica, qué cambia. Lo demás lo
 # calcula tools/gen-componentes.py en cada compilación: la versión (compose.yaml, VENDOR), si un
 # componente vendorizado está modificado (hay archivos .patch junto a él) y el largo de la cola
-# de parches del fork de AIO. La compilación falla si gestion distribuye algo que no figura aquí,
+# de parches del fork (la cola vive en instalador desde que absorbió a AIO). La compilación falla si gestion distribuye algo que no figura aquí,
 # o si aquí figura algo que gestion ya no distribuye.
 #
 # kind:
@@ -49,7 +49,7 @@ components:
   - {name: Inicio (IntraVox), kind: own-app, id: intravox, upstream: "https://github.com/nextcloud/IntraVox", fork: "https://github.com/APS-Conecta/IntraVox", licence: AGPL-3.0-or-later, changes: "Fork con funciones locales: muros y páginas protegidas, portada de bienvenida administrada, raíz de almacenamiento con nombre para el personal y el idioma español por defecto (IntraVox ADR-0001)."}
 
   # ---- Instalador
-  - {name: Nextcloud All-in-One (instalador), kind: fork, id: AIO, upstream: "https://github.com/nextcloud/all-in-one", fork: "https://github.com/APS-Conecta/AIO", licence: AGPL-3.0-only, changes: "Asistente en español de Chile con la marca y el nombre del producto, Euro-Office como única suite ofimática, tienda de aplicaciones, autoactualización y contenedores comunitarios desactivados, aplicaciones y tema horneados en la imagen, imágenes propias en el registro, valores por defecto de APS, certificado del instalador y la ruta del mapa base."}
+  - {name: Nextcloud All-in-One (instalador), kind: fork, id: instalador, upstream: "https://github.com/nextcloud/all-in-one", fork: "https://github.com/APS-Conecta/instalador", licence: AGPL-3.0-only, changes: "Asistente en español de Chile con la marca y el nombre del producto, Euro-Office como única suite ofimática, tienda de aplicaciones, autoactualización y contenedores comunitarios desactivados, aplicaciones y tema horneados en la imagen, imágenes propias en el registro, valores por defecto de APS, certificado del instalador y la ruta del mapa base."}
 
   # ---- Recursos del tema
   - {name: Tipografía Fraunces, kind: asset, id: themes/apsconecta/core/fonts, upstream: "https://github.com/undercasetype/Fraunces", licence: OFL-1.1, changes: "Servida en WOFF2; un subconjunto va incrustado en los logotipos SVG (versión modificada según la OFL, sin los nombres reservados)."}
