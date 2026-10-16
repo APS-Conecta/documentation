@@ -56,6 +56,15 @@ repos:
     depends_on: []
     status: "En la suite desde v3.1.0-aps1 (2026-09-25)"
     readme: .github/README.md
+  - repo: buscador-documental
+    kind: app-in-design
+    role: "Buscador Documental: busca por palabras o por significado, incluidos escaneos y fotografías, respetando los permisos de Nextcloud."
+    manuals:
+      - usuario/buscador-documental.md
+      - administracion/ia/buscador-documental.md
+      - desarrollo/buscador-documental.md
+    depends_on: [gestion]
+    status: "En diseño — aún no se distribuye"
   - repo: farmacia
     kind: nextcloud-app
     role: "Vademécum y arsenal farmacológico del CESFAM con importación CSV por etapas — app Nextcloud 34."
