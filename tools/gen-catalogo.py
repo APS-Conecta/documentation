@@ -2,11 +2,11 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 """Generador del catálogo: catalogo.yml (SSOT) → páginas generadas.
 
-Escribe `_generated/catalogo.md` (página de referencia, 16 filas, tabla de
+Escribe `_generated/catalogo.md` (página de referencia, 17 filas, tabla de
 dependencias) y `_generated/linkcheck-private.txt` (una URL raíz por fila
 privada — la semilla de `linkcheck_ignore` en conf.py).
 
-Valida: esquema de filas, nómina (16 filas), paridad con OWN_APPS (el pliegue
+Valida: esquema de filas, nómina (17 filas), paridad con OWN_APPS (el pliegue
 case-insensitive de repo-docs census.py: la mitad variable de cada entrada
 `nombre=url` de gestion `provisioning/phases/12-apps.sh` se pliega sobre los
 nombres canónicos del catálogo) y que cada `manuals` resuelva a un .md
@@ -48,6 +48,7 @@ KINDS = {
     "canon-engine",
     "agent-prompts",
     "laboratory-app",
+    "app-in-design",
     "artifacts-store",
     "org-defaults",
     "docs-site",
@@ -63,6 +64,7 @@ KIND_ES = {
     "canon-engine": "Motor del canon",
     "agent-prompts": "Prompts de agentes",
     "laboratory-app": "Aplicación de laboratorio",
+    "app-in-design": "Aplicación en diseño",
     "artifacts-store": "Almacén de artefactos",
     "org-defaults": "Valores por defecto de la organización",
     "docs-site": "Sitio de documentación",
@@ -80,7 +82,7 @@ SEMVER_RE = re.compile(r"^#{1,3}\s*\[?\s*v?(\d+(?:\.\d+){2}[0-9A-Za-z.+-]*)", re
 PINNED_REPOS = {
     "gestion", "instalador", "AIO", "IntraVox", "farmacia", "estadistica", "epidemiologia",
     "territorio", "aps-common", "Databases", "repo-docs", "agents",
-    "pi-sandbox", "rpiv-artifacts", ".github", "documentation",
+    "pi-sandbox", "rpiv-artifacts", ".github", "documentation", "buscador-documental",
 }
 PINNED_APPS = {"epidemiologia", "farmacia", "territorio", "IntraVox", "estadistica"}
 PINNED_VERSIONS = {
@@ -100,8 +102,9 @@ PINNED_VERSIONS = {
     "rpiv-artifacts": "",
     ".github": "",
     "documentation": "",
+    "buscador-documental": "",
 }
-PINNED_PUBLIC = {"gestion", "AIO", "IntraVox", "repo-docs", ".github", "documentation"}
+PINNED_PUBLIC = {"gestion", "AIO", "IntraVox", "repo-docs", ".github", "documentation", "buscador-documental"}
 
 
 def fail(msg: str) -> None:
@@ -147,8 +150,8 @@ def load_rows() -> list[dict]:
             for dep in row.get(key, []) or []:
                 if dep not in names:
                     fail(f"fila {row['repo']}: {key} apunta fuera de la nómina: {dep!r}")
-    if len(rows) != 16:
-        fail(f"esperaba 16 filas, hay {len(rows)}")
+    if len(rows) != 17:
+        fail(f"esperaba 17 filas, hay {len(rows)}")
     if len(set(names)) != len(names):
         fail("filas duplicadas en catalogo.yml")
     if doc.get("org") != ORG:
@@ -392,7 +395,7 @@ def main() -> int:
     versions, visibility = gather(rows, doc["out_of_scope"])
     out = write_outputs(rows, visibility, render(rows, versions, visibility))
     privadas = sum(1 for r in rows if visibility[r["repo"]])
-    note(f"16 filas; {out.relative_to(REPO_ROOT)} + "
+    note(f"17 filas; {out.relative_to(REPO_ROOT)} + "
          f"_generated/linkcheck-private.txt ({privadas} privadas)")
     return 0
 
@@ -434,7 +437,7 @@ def selftest() -> int:
         if not ln.startswith("|"):
             break
         main_rows.append(ln)
-    assert len(main_rows) == 16, len(main_rows)
+    assert len(main_rows) == 17, len(main_rows)
     tipo_cells = {ln.split("|")[2].strip() for ln in main_rows}
     assert tipo_cells <= set(KIND_ES.values()), tipo_cells - set(KIND_ES.values())
     for enum in KINDS - {"suite"}:  # «suite» es también common noun; cubierto por la columna

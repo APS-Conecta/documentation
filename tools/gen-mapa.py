@@ -58,7 +58,7 @@ MAP_KINDS = {
     "agent-prompts",
     "laboratory-app",
 }
-NON_MAP_KINDS = {"artifacts-store", "org-defaults", "docs-site"}
+NON_MAP_KINDS = {"artifacts-store", "org-defaults", "docs-site", "app-in-design"}
 
 # .graphifyignore canónico — mismo conjunto de líneas para cada scan root
 # (sintaxis gitignore; al existir .graphifyignore en un directorio, graphify
