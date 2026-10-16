@@ -48,7 +48,7 @@ NEXT_H2_RE = re.compile(r"^##\s")
 
 # Libro verificado contra la org viva (2026-10-07); clavijas de --selftest.
 PIN_INCLUDED = {"repo-docs"}
-PIN_MISSING_README = {"AIO", "IntraVox", "pi-sandbox", "rpiv-artifacts", ".github"}
+PIN_MISSING_README = {"AIO", "IntraVox", "rpiv-artifacts", ".github"}
 PIN_NO_HEADING = {
     "gestion",
     "farmacia",
@@ -57,7 +57,6 @@ PIN_NO_HEADING = {
     "territorio",
     "aps-common",
     "Databases",
-    "agents",
 }
 PIN_STEP_MARKERS = (
     "docs.py discover",
