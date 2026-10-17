@@ -9,7 +9,7 @@ resumen: "Buscar documentos por palabras o por significado, incluidos escaneos y
 
 ## Resumen
 
-El Buscador Documental le permitirá encontrar documentos por las palabras que contienen o por su significado, incluso si son escaneos o fotografías. Solo mostrará documentos que usted ya puede ver en Archivos. La aplicación está en diseño y aún no se distribuye con la suite; esta página se completará antes de su primera versión.
+El Buscador Documental le permitirá encontrar documentos por las palabras que contienen o por su significado, incluso si son escaneos o fotografías. Solo mostrará documentos que usted ya puede ver en Archivos, comprobado en cada búsqueda: si alguien deja de compartirle un documento, deja de aparecer; si se lo compartió sin permiso de descarga, aparecerá solo con su nombre. La aplicación está en diseño y aún no se distribuye con la suite; esta página se completará antes de su primera versión.
 
 ## Secciones previstas
 
