@@ -554,11 +554,11 @@ def selftest() -> int:
 
     print("[mapa][selftest] fixture sintético: correcto")
 
-    ps = org_root() / "pi-sandbox"
+    ps = org_root() / "aps-common"
     if ps.is_dir() and importlib.util.find_spec("graphify") is not None:
         with tempfile.TemporaryDirectory(prefix="mapa-selftest-") as td:
             out = Path(td) / "g"
-            status = run_graphify("pi-sandbox", ps, out)
+            status = run_graphify("aps-common", ps, out)
             assert status == "ok", status
             for name in ("graph.json", "manifest.json", ".graphify_root"):
                 assert (out / name).is_file(), name
@@ -569,9 +569,9 @@ def selftest() -> int:
                 sf = str(n.get("source_file") or "")
                 assert not sf.startswith("/"), f"ruta absoluta: {sf}"
                 assert "\\" not in sf, f"barra invertida: {sf}"
-            live = render_page("pi-sandbox", g)
+            live = render_page("aps-common", g)
             assert "## Resumen" in live and "/opt/" not in live
-        print("[mapa][selftest] micro-run en vivo de pi-sandbox: correcto")
+        print("[mapa][selftest] micro-run en vivo de aps-common: correcto")
     else:
         print("[mapa][selftest] micro-run en vivo omitido (sin checkout o sin graphify instalado)")
 

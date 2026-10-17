@@ -124,20 +124,6 @@ repos:
       - desarrollo/repo-docs.md
     depends_on: []
     status: "Activo"
-  - repo: agents
-    kind: agent-prompts
-    role: "Prompts de los agentes Jules programados y de las rutinas de Claude de APS-Conecta."
-    manuals:
-      - desarrollo/agents.md
-    depends_on: []
-    status: "Activo"
-  - repo: pi-sandbox
-    kind: laboratory-app
-    role: "Zona de pruebas del agente pi (@aps-pi)."
-    manuals:
-      - desarrollo/pi-sandbox.md
-    depends_on: []
-    status: "Laboratorio — nunca se distribuye"
   - repo: rpiv-artifacts
     kind: artifacts-store
     role: "Almacén de artefactos de APS Conecta: planes, diseños, validaciones y traspasos de rpiv."
