@@ -84,7 +84,7 @@ El flujo `docs` corre además la revisión del canon repo-docs, con `gitleaks` s
 python3 .github/repo-docs.py check . --offline
 ```
 
-Tres flujos más completan el repositorio: `about-sync` replica los roles de `catalogo.yml` en las descripciones de los repositorios cuando cambia el catálogo, `capturas` toma cada lunes las capturas de las cinco aplicaciones y abre un borrador de pull request solo si cambian, e `ia-check` comprueba cada lunes que ningún modelo ni bot escriba en los repositorios sin estar declarado en `ia.yml`. La rutina 📚 Scribe mantiene la prosa fiel al código, por carriles ({doc}`/desarrollo/agents`).
+Tres flujos más completan el repositorio: `about-sync` replica los roles de `catalogo.yml` en las descripciones de los repositorios cuando cambia el catálogo, `capturas` toma cada lunes las capturas de las cinco aplicaciones y abre un borrador de pull request solo si cambian, e `ia-check` comprueba cada lunes que ningún modelo ni bot escriba en los repositorios sin estar declarado en `ia.yml`. La rutina 📚 Scribe mantiene la prosa fiel al código, por carriles.
 
 ## Compromisos y límites
 

@@ -69,7 +69,7 @@ No hay publicación en Packagist (ADR-0001 del paquete). Cada aplicación declar
 
 La razón es la forma de instalar: una aplicación se instala desde un tarball de versión construido con `git archive` del árbol versionado, así que todo lo que el tarball debe llevar tiene que estar versionado en el repositorio de la aplicación. Una publicación en Packagist haría depender cada instalación de un servicio y de una resolución de versiones que la organización no opera. El piso es PHP `^8.1`, porque territorio fija `config.platform.php` en 8.1 y un piso mayor haría el paquete imposible de instalar ahí.
 
-Cada aplicación consumidora tiene dos objetivos de `make`: `aps-sync` copia el paquete (`src/` a `vendor/aps/common/src/`, el stub a `tests/stubs/` y `js/` a `src/aps/`) y `aps-drift` prueba que la copia versionada es igual al paquete. Son objetivos de los consumidores; el paquete no tiene ninguno de los dos. Tras cada fusión en aps-common, la rutina 🔗 Integrator abre una pull request `🔗 Adopt:` por aplicación que hace la resincronización ({doc}`/desarrollo/agents`).
+Cada aplicación consumidora tiene dos objetivos de `make`: `aps-sync` copia el paquete (`src/` a `vendor/aps/common/src/`, el stub a `tests/stubs/` y `js/` a `src/aps/`) y `aps-drift` prueba que la copia versionada es igual al paquete. Son objetivos de los consumidores; el paquete no tiene ninguno de los dos. Tras cada fusión en aps-common, la rutina 🔗 Integrator abre una pull request `🔗 Adopt:` por aplicación que hace la resincronización.
 
 ### Consumidores y cerco
 
