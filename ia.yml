@@ -35,11 +35,12 @@ tools:
     review: "Cada cambio entra por pull request con compuertas automáticas y la etiqueta ai-assisted."
   - tool: Rutinas de Claude (revisor, resumen diario, informe semanal, integrador, consejo, 📚 Scribe)
     provider: Anthropic
-    models: ["claude-opus-5-5"]
+    models: ["claude-opus-5-5", "Claude"]
     bots: []
     use: "Revisión de pull requests, resúmenes por correo, propuestas de integración y el mantenimiento diario de la documentación."
     since: "2026-10-02"
     review: "Las vías de prosa esperan la integración del responsable; las de listas y traducciones se integran solas con las comprobaciones deterministas en verde."
+    note: "«Claude» no nombra un modelo: es la identidad git con que la sesión en la nube firma sus commits, y la integración por squash de GitHub la agrega como coautora junto al modelo declarado."
   - tool: Pi con rpiv (rpiv-pi)
     provider: "Zhipu AI, vía OpenRouter hasta el 2026-10-04 y vía z.ai desde entonces"
     models: ["GLM-5.3"]
