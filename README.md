@@ -19,7 +19,7 @@ Las páginas de aviso legal, distribución derivada, marcas y licencias se publi
 
 ## Estado
 
-Estado al 2026-10-07: repositorio recién creado, en su segunda ronda de documentación. Hoy existen los archivos de gobernanza (canon repo-docs, plantillas de incidencia y de solicitud de extracción, flujo de revisión) y este README. El esqueleto de Sphinx, los árboles de contenido por audiencia y la publicación en GitHub Pages se construyen en la ronda actual de trabajo y todavía no están disponibles públicamente.
+Estado al 2026-10-18: el sitio está construido y se publica en [GitHub Pages](https://aps-conecta.github.io/documentation/) desde `main`; el flujo `build` lo regenera cada día y en cada fusión. Los cuatro árboles de contenido (usuario, administración, desarrollo y proyecto) tienen páginas, con una página de referencia por repositorio de la organización. Quedan páginas de borrador en el catálogo, entre ellas las de `buscador-documental`, cuyos textos completos viven todavía en ese repositorio.
 
 ## Inicio rápido de desarrollo
 

@@ -15,7 +15,7 @@ acierto cuando hay al menos uno; sin directiva toctree (un toctree vacío es
 fatal con -W) y con la frase de degradación cuando no hay ninguno.
 
 El README de registro es la clave opcional `readme` de cada fila (por
-defecto `README.md`; AIO/IntraVox registran `.github/README.md`), resuelto
+defecto `README.md`; IntraVox registra `.github/README.md`), resuelto
 bajo `${APS_ORG_ROOT:-/opt/aps-conecta-org}` — sin rutas alternativas: si
 no existe, el repositorio se omite con línea de bitácora. Fallos duros
 (exit 1, nombrando el repositorio): clon ausente, fila malformada o hub
@@ -48,7 +48,7 @@ NEXT_H2_RE = re.compile(r"^##\s")
 
 # Libro verificado contra la org viva (2026-10-07); clavijas de --selftest.
 PIN_INCLUDED = {"repo-docs"}
-PIN_MISSING_README = {"AIO", "IntraVox", "rpiv-artifacts", ".github"}
+PIN_MISSING_README = {"IntraVox", "rpiv-artifacts", ".github"}
 PIN_NO_HEADING = {
     "gestion",
     "farmacia",

@@ -214,8 +214,8 @@ def selftest() -> int:
     assert drift(rows[1:], imgs, apps, set()) == ["compose image nextcloud ships but has no componentes.yml row"]
     gone = rows + [{"name": "G", "kind": "image", "id": "gone", "upstream": "https://x", "licence": "MIT"}]
     assert drift(gone, imgs, apps, set()) == ["componentes.yml lists compose image gone, which no longer ships"]
-    assert drift(rows, imgs, apps, {"AIO"}) == [
-        "distribution fork AIO ships but has no componentes.yml row"
+    assert drift(rows, imgs, apps, {"instalador"}) == [
+        "distribution fork instalador ships but has no componentes.yml row"
     ]
     res = resolve(rows, imgs, apps, 31)
     assert [r["modified"] for r in res] == ["No", "No", "Sí (2 parches)"], res

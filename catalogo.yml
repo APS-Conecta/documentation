@@ -23,7 +23,7 @@ repos:
       - administracion/operaciones/index.md
       - desarrollo/gestion.md
       - proyecto/novedades/gestion.md
-    depends_on: [AIO, IntraVox, farmacia, estadistica, epidemiologia, territorio]
+    depends_on: [IntraVox, farmacia, estadistica, epidemiologia, territorio]
     status: "Activa — el ritual de etiquetas se retiró; las versiones las publica instalador"
   - repo: instalador
     kind: distribution-fork
@@ -35,17 +35,8 @@ repos:
       - desarrollo/instalador.md
       - proyecto/novedades/instalador.md
     depends_on: [gestion]
-    status: "Activo — absorbe al fork de AIO; primera versión en preparación"
+    status: "Activo — absorbió al fork de AIO, cuyo repositorio se eliminó; primera versión en preparación"
     version: "" # VERSION (v0.4.0) aún no publica: la clave de firma sigue siendo marcador de posición
-  - repo: AIO
-    kind: distribution-fork
-    role: "Instalador all-in-one de Nextcloud adaptado por APS Conecta (fork de nextcloud/all-in-one)."
-    manuals:
-      - proyecto/novedades/aio.md
-    depends_on: []
-    status: "Absorbido por instalador — archivo de solo lectura planificado (aps/MIGRATION.md §11)"
-    version: "" # la única <version> del árbol es la app interna upstream (0.9.0), no una versión del repo
-    readme: .github/README.md
   - repo: IntraVox
     kind: nextcloud-app
     role: "Intranet de la organización — fork propio de IntraVox (páginas colaborativas con editor visual de arrastre), aplicación Nextcloud 34 para el personal del CESFAM."

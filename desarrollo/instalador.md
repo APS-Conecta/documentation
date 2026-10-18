@@ -8,7 +8,7 @@ resumen: "El lugar único de la instalación de un centro: el fork de AIO, el pa
 
 ## Resumen
 
-instalador es el lugar único que posee la instalación de un centro: es el fork de [nextcloud/all-in-one](https://github.com/nextcloud/all-in-one) —un espejo `main` byte a byte más una lista de rutas propias— y, además, el paquete del host `aps-conecta`, el Provisionador del asistente, el ejecutor de aprovisionamiento, la cadena Replay/Images y la cadena de publicación firmada que lo reemplazó todo cuando absorbió al repositorio [APS-Conecta/AIO](https://github.com/APS-Conecta/AIO).
+instalador es el lugar único que posee la instalación de un centro: es el fork de [nextcloud/all-in-one](https://github.com/nextcloud/all-in-one) —un espejo `main` byte a byte más una lista de rutas propias— y, además, el paquete del host `aps-conecta`, el Provisionador del asistente, el ejecutor de aprovisionamiento, la cadena Replay/Images y la cadena de publicación firmada que lo reemplazó todo cuando absorbió al repositorio APS-Conecta/AIO, que se eliminó después; su historia de commits sigue completa aquí.
 Una etiqueta de instalador es la única identidad de una versión: publica las veinte imágenes bajo `ghcr.io/aps-conecta/*`, arma el paquete compuesto firmado que el bootstrap de una línea descarga y emite el manifiesto de la versión.
 La mitad de definición de la suite —aplicaciones vendorizadas con su `VENDOR`, registro DEIS de establecimientos, datos y tema— sigue en gestion; el empaquetado la congela en su referencia al armar cada versión, y el horneado de imágenes hace lo propio.
 El archivo `VERSION`, de una línea, es la etiqueta de la versión; `aps/CHANGELOG.md` lleva la entrada fechada, y el CLI lo lee primero.
