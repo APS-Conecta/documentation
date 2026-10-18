@@ -1,7 +1,7 @@
 ---
 tipo: explicacion
 audiencia: administracion
-apps: [gestion, AIO]
+apps: [gestion, instalador]
 resumen: "Almacenamiento externo en APS Conecta Gestión: la app queda desactivada, los documentos viven en carpetas de equipo y la copia diaria no cubre montajes."
 ---
 # Almacenamiento externo
