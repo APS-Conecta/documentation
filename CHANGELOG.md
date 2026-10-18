@@ -9,6 +9,7 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- `desarrollo/apis/`: the APIs section (index plus five pages: Geoportal de Chile CSW and GeoServer, health/education/bomberos layers, administrative boundaries, FONASA and ciclovías, platform and internal REST). `Databases/APIs/catalog.yaml` stays the owner of each service's status.
 - Catalogue row for `buscador-documental` (kind `app-in-design`: registered, not distributed with the suite, exempt from OWN_APPS parity and from the map scan) with three `esqueleto: borrador` placeholder pages (usuario, administracion/ia, desarrollo); `gen-catalogo.py` roster 16 → 17. The full Spanish drafts live in `APS-Conecta/buscador-documental`, `buscador/docs-site/`.
 - Initial Spanish documentation site for APS Conecta (docs-es R2): Sphinx +
   MyST-Parser + sphinx_rtd_theme with build-time brand transplant, the four
