@@ -18,6 +18,7 @@ APS Conecta Gestión instala Farmacia en cada establecimiento y la habilita para
 
 - Una cuenta en la plataforma del establecimiento. Farmacia no exige un grupo ni un rol.
 - Para importar, un archivo CSV con una fila de encabezado que tenga la columna «Código», de 8 MB como máximo.
+- Para importar sin el navegador, acceso a la línea de comandos `occ` de la instalación.
 
 ## Pasos
 
@@ -56,6 +57,8 @@ El código, el producto y la categoría terapéutica son obligatorios. Si falta 
 | Clínica | {guilabel}`Indicación`, {guilabel}`Dosificación`, {guilabel}`Precauciones`, {guilabel}`Observaciones` |
 | Seguridad | {guilabel}`Riesgo colinérgico en adulto mayor`, {guilabel}`Categoría FDA en embarazo`, {guilabel}`Ajuste renal (ERC)` |
 | Estado | La fecha de la última escritura: «Actualizado: …», o «Sin guardar todavía.» en una ficha nueva |
+
+Mientras la ficha se guarda, el botón {guilabel}`Guardar` cambia a «Guardando…». Si la aplicación rechaza el guardado (por ejemplo, una restricción que contiene «|»), la ficha muestra en rojo la frase que dice por qué; corregir y volver a guardar.
 
 Los números GES y las restricciones se agregan de a uno: se escribe el valor en {guilabel}`Agregar número GES` o en {guilabel}`Agregar restricción` y se presiona {guilabel}`Agregar`. {guilabel}`Quitar` elimina un valor de la lista.
 
@@ -125,7 +128,23 @@ Un lote en revisión sobrevive al cierre de la página: {guilabel}`Lotes recient
 2. Leer lo que lleva el archivo.
 3. Presionar {guilabel}`Descargar`.
 
-El archivo `farmacia-AAAA-MM-DD.csv` lleva el arsenal farmacológico completo, con todas las columnas y separado por punto y coma, listo para abrir en Excel o LibreOffice. Los medicamentos retirados no van. El archivo se puede reimportar: la revisión lo recibe fila por fila como cualquier planilla. Una celda que empieza con «=», «+», «-» o «@» sale con un apóstrofo delante, para que la hoja de cálculo no la ejecute como fórmula; la importación quita ese apóstrofo.
+El archivo `farmacia-AAAA-MM-DD.csv` lleva el arsenal farmacológico completo, con todas las columnas y separado por punto y coma, listo para abrir en Excel o LibreOffice. Los medicamentos retirados no van. {guilabel}`Cancelar` cierra el diálogo sin descargar. El archivo se puede reimportar: la revisión lo recibe fila por fila como cualquier planilla. Una celda que empieza con «=», «+», «-» o «@» sale con un apóstrofo delante, para que la hoja de cálculo no la ejecute como fórmula; la importación quita ese apóstrofo.
+
+### Importar sin el navegador
+
+La línea de comandos importa la misma planilla por el mismo camino que la pantalla {guilabel}`Importar planilla`, sin abrir el navegador. La ejecuta quien administra la instalación, desde el servidor.
+
+1. Ejecutar el comando con la ruta del archivo y el nombre de quien lo corre:
+
+   ```text
+   occ farmacia:import /ruta/a/la/planilla.csv --actor="quien la corre"
+   ```
+
+2. Leer el número de lote («Lote #N») que informa el comando.
+3. Abrir la aplicación {guilabel}`Farmacia`, presionar {guilabel}`Importar planilla` y abrir el lote desde {guilabel}`Lotes recientes`.
+4. Revisar las filas, tomar las decisiones pendientes y presionar {guilabel}`Aplicar`.
+
+Sin `--apply`, el archivo queda en revisión y las decisiones se toman en la aplicación. Con `--apply`, el lote se aplica de inmediato, pero solo si ninguna fila espera una decisión; si alguna la espera, el comando rechaza `--apply` y deja el lote en revisión, con el aviso de que las decisiones se toman en la pantalla. `--actor` registra quién corrió la importación y, si se omite, vale «occ». Las reglas del lote son las mismas que en la pantalla: una fila con problemas no impide que entren las demás, nada se aplica sin revisión y {guilabel}`Deshacer` queda disponible en {guilabel}`Lotes recientes`.
 
 ### Mantener las categorías y los canales
 
@@ -152,12 +171,14 @@ Una categoría o un canal no se puede quitar mientras algún medicamento, activo
 - Un medicamento retirado aparece en {guilabel}`Ver retirados` con la marca «Retirado».
 - Después de {guilabel}`Aplicar`, la página se recarga con el arsenal al día, y {guilabel}`Lotes recientes` muestra el lote como «aplicado».
 - Después de {guilabel}`Deshacer`, {guilabel}`Lotes recientes` muestra un lote nuevo que «deshace el lote #N».
+- Después de importar con `occ farmacia:import`, {guilabel}`Lotes recientes` muestra el lote con el número que informó el comando.
 - Después de {guilabel}`Descargar`, el navegador guarda el archivo `farmacia-AAAA-MM-DD.csv` con la fecha del día.
 
 ## Problemas frecuentes
 
 | Mensaje o síntoma | Qué hacer |
 |---|---|
+| «No se pudieron cargar los datos de la aplicación…» | La página no pudo leer sus datos iniciales. Recargar la página; si persiste, avisar a la administración de la plataforma. |
 | «Todavía no hay medicamentos» | Ningún medicamento activo entra en la lente elegida; con {guilabel}`Arsenal Farmacológico`, el arsenal está vacío. Elegir {guilabel}`Arsenal Farmacológico`; si sigue vacío, importar la planilla o agregar el primer medicamento. |
 | «Nada coincide con «…»» | La búsqueda no encontró el texto en producto, fármaco ni categoría. Probar con menos palabras o limpiar la búsqueda. |
 | «No hay medicamentos retirados» | No queda ningún medicamento retirado; la pantalla de recuperación está vacía. |
