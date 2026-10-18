@@ -2,7 +2,7 @@
 tipo: referencia
 audiencia: desarrollo
 apps: [Databases, territorio]
-resumen: "Establecimientos de salud, de educación y cuarteles de bomberos del Geoportal de Chile: servicios, capas, campos, fechas y la comparación con el servicio de ArcGIS del MINSAL."
+resumen: "Capas de salud, educación y bomberos del Geoportal de Chile: servicios, campos, fechas y comparación con el ArcGIS del MINSAL."
 ---
 # Salud, educación y bomberos
 

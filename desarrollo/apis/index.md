@@ -2,7 +2,7 @@
 tipo: explicacion
 audiencia: desarrollo
 apps: [Databases, territorio]
-resumen: "Mapa de las APIs que usa la suite: fuentes geoespaciales oficiales, servicios con acceso restringido y las interfaces de Nextcloud."
+resumen: "Mapa de las APIs que usa la suite: fuentes geoespaciales oficiales, servicios con acceso restringido y las interfaces de la plataforma."
 ---
 # APIs
 
@@ -17,5 +17,5 @@ Geoportal de Chile <geoportal-cl>
 Salud, educación y bomberos <salud-educacion-bomberos>
 Límites administrativos <limites-administrativos>
 FONASA y ciclovías <fonasa-y-ciclovias>
-Nextcloud y REST interno <nextcloud-y-rest-interno>
+Plataforma y REST interno <plataforma-y-rest-interno>
 ```
