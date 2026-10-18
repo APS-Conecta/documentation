@@ -55,7 +55,7 @@ repos:
       - administracion/ia/buscador-documental.md
       - desarrollo/buscador-documental.md
     depends_on: [gestion]
-    status: "En diseño — aún no se distribuye"
+    status: "Primera versión 0.1.0 construida — sin distribuir hasta registrar la compuerta legal"
   - repo: farmacia
     kind: nextcloud-app
     role: "Vademécum y arsenal farmacológico del CESFAM con importación CSV por etapas — app Nextcloud 34."
