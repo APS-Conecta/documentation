@@ -80,7 +80,7 @@ SEMVER_RE = re.compile(r"^#{1,3}\s*\[?\s*v?(\d+(?:\.\d+){2}[0-9A-Za-z.+-]*)", re
 
 # Clavijas de --selftest (deriva viva a 2026-10-15).
 PINNED_REPOS = {
-    "gestion", "instalador", "AIO", "IntraVox", "farmacia", "estadistica", "epidemiologia",
+    "gestion", "instalador", "IntraVox", "farmacia", "estadistica", "epidemiologia",
     "territorio", "aps-common", "Databases", "repo-docs",
     "rpiv-artifacts", ".github", "documentation", "buscador-documental",
 }
@@ -88,7 +88,6 @@ PINNED_APPS = {"epidemiologia", "farmacia", "territorio", "IntraVox", "estadisti
 PINNED_VERSIONS = {
     "gestion": "0.3.0",
     "instalador": "",
-    "AIO": "",
     "IntraVox": "3.1.7",
     "farmacia": "0.11.1",
     "estadistica": "0.1.0",
@@ -102,7 +101,7 @@ PINNED_VERSIONS = {
     "documentation": "",
     "buscador-documental": "",
 }
-PINNED_PUBLIC = {"gestion", "AIO", "IntraVox", "repo-docs", ".github", "documentation", "buscador-documental"}
+PINNED_PUBLIC = {"gestion", "IntraVox", "repo-docs", ".github", "documentation", "buscador-documental"}
 
 
 def fail(msg: str) -> None:
@@ -148,8 +147,8 @@ def load_rows() -> list[dict]:
             for dep in row.get(key, []) or []:
                 if dep not in names:
                     fail(f"fila {row['repo']}: {key} apunta fuera de la nómina: {dep!r}")
-    if len(rows) != 15:
-        fail(f"esperaba 15 filas, hay {len(rows)}")
+    if len(rows) != 14:
+        fail(f"esperaba 14 filas, hay {len(rows)}")
     if len(set(names)) != len(names):
         fail("filas duplicadas en catalogo.yml")
     if doc.get("org") != ORG:
@@ -246,7 +245,7 @@ def _changelog_version(repo_dir: Path) -> str:
 
 
 def version_for(row: dict) -> str:
-    if "version" in row:  # anulación explícita (AIO: la única <version> es la app interna upstream)
+    if "version" in row:  # anulación explícita (p. ej. instalador: aún sin versión publicada)
         return str(row["version"]).strip()
     repo_dir = ORG_ROOT / row["repo"]
     if not repo_dir.is_dir():
@@ -435,7 +434,7 @@ def selftest() -> int:
         if not ln.startswith("|"):
             break
         main_rows.append(ln)
-    assert len(main_rows) == 15, len(main_rows)
+    assert len(main_rows) == 14, len(main_rows)
     tipo_cells = {ln.split("|")[2].strip() for ln in main_rows}
     assert tipo_cells <= set(KIND_ES.values()), tipo_cells - set(KIND_ES.values())
     for enum in KINDS - {"suite"}:  # «suite» es también common noun; cubierto por la columna

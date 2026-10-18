@@ -1,7 +1,7 @@
 ---
 tipo: guia
 audiencia: desarrollo
-apps: [.github, gestion, repo-docs, documentation, AIO]
+apps: [.github, gestion, repo-docs, documentation, instalador]
 resumen: "La licencia del código de la organización, cómo se declara en cada repositorio, la reserva de las marcas y las compuertas que verifican todo eso."
 ---
 # Licencias

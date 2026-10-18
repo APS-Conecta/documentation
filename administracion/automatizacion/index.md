@@ -1,7 +1,7 @@
 ---
 tipo: referencia
 audiencia: administracion
-apps: [gestion, AIO]
+apps: [gestion, instalador]
 resumen: "Automatización en APS Conecta Gestión: el estado de los receptores de webhooks, de Windmill, de los trabajos en segundo plano y de las tareas periódicas."
 ---
 # Automatización

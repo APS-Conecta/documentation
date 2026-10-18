@@ -8,7 +8,7 @@ resumen: "Cómo se mantiene el fork de nextcloud/all-in-one, hoy en instalador: 
 
 ## Resumen
 
-El fork de [nextcloud/all-in-one](https://github.com/nextcloud/all-in-one) desde el que se construyen las imágenes de cada instalación de la suite vive hoy en el repositorio [APS-Conecta/instalador](https://github.com/APS-Conecta/instalador), que absorbió también el paquete del host y la cadena de publicación: el repositorio [APS-Conecta/AIO](https://github.com/APS-Conecta/AIO) fue su primera casa y quedó absorbido — su archivo como repositorio de solo lectura está planificado en `aps/MIGRATION.md` §11 de instalador, tras una serie de versiones verdes de instalador. Lo que los parches cambian en una instalación está en {doc}`/administracion/aio`; esta página describe cómo se mantiene el fork, y el repositorio que hoy lo contiene —bootstrap firmado, `VERSION` y cadena de publicación— tiene su propia referencia en {doc}`instalador </desarrollo/instalador>`.
+El fork de [nextcloud/all-in-one](https://github.com/nextcloud/all-in-one) desde el que se construyen las imágenes de cada instalación de la suite vive hoy en el repositorio [APS-Conecta/instalador](https://github.com/APS-Conecta/instalador), que absorbió también el paquete del host y la cadena de publicación: el repositorio APS-Conecta/AIO fue su primera casa y se eliminó una vez absorbido: su historia de commits sigue completa en instalador. Lo que los parches cambian en una instalación está en {doc}`/administracion/aio`; esta página describe cómo se mantiene el fork, y el repositorio que hoy lo contiene —bootstrap firmado, `VERSION` y cadena de publicación— tiene su propia referencia en {doc}`instalador </desarrollo/instalador>`.
 
 El fork sigue una regla única: todo cambio a un archivo que upstream distribuye viaja como un parche numerado. La rama `main` refleja upstream byte a byte, salvo las rutas propias del fork y el bloque de declaración de `readme.md`. La rama `aps/main` es la salida de la integración continua, la punta de upstream más la cola de parches, y de ella se construyen las imágenes. Un pull request que edita un archivo reflejado, en vez de agregar un parche, falla la paridad.
 
@@ -120,15 +120,7 @@ Una falla de las herramientas del fork, ya corregida, se registra como una fila 
 ### Deuda técnica y límites
 
 - **Fallas sin aviso.** Desde el 25 de septiembre de 2026, cada reproducción falló durante 8 días sin que nadie lo viera, y las imágenes publicadas dejaron de seguir a upstream (A-013). El trabajo de vida falla solo después de 7 días sin una ejecución programada exitosa, y solo en el siguiente envío o pull request.
-- **Programación manual.** GitHub exige activar una vez las programaciones en la pestaña Actions: la ejecución diaria de Replay se activa una sola vez en instalador y, ese mismo día, se desactiva la de AIO — sin esa ventana doble, dos cadenas publicarían la misma etiqueta. Los flujos programados de upstream se esperan desactivados.
+- **Programación manual.** GitHub exige activar una vez las programaciones en la pestaña Actions: la ejecución diaria de Replay se activa una sola vez en instalador; la de AIO desapareció con su repositorio, de modo que dos cadenas no pueden publicar la misma etiqueta. Los flujos programados de upstream se esperan desactivados.
 - **Deriva sin compuerta.** Un texto nuevo en inglés que upstream agrega a un archivo traducido pasa todos los centinelas; el informe de deriva lo anota, nunca falla, y una persona lo revisa a ojo.
 - **Higiene manual.** El conteo de omisiones seguidas de un parche es un conteo a ojo de las anotaciones diarias, sin registro entre ejecuciones.
 - **Límites de la instalación.** Los que ve un establecimiento, como los mensajes PHP en inglés o el código muerto de deSEC, están en {doc}`/administracion/aio`.
-
-El mapa de módulos del repositorio se extrae con graphify en cada compilación:
-
-```{toctree}
-:maxdepth: 1
-
-Mapa de módulos <../_generated/mapa/aio>
-```

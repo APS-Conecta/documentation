@@ -65,6 +65,8 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- `README.md` status brought current (site built and published on Pages, four audience trees populated).
+- APS-Conecta/AIO is gone from the catalogue (roster 15 → 14) and from the generators' pins; `desarrollo/aio.md`, `desarrollo/instalador.md` and `administracion/aio.md` now say the repository was deleted after instalador absorbed it, with its full commit history. The two `aio` pages stay: they document the fork, which instalador now holds.
 - Theme: `sphinx_rtd_theme` → Furo (scribe Q22); `catalogo.yml` paths follow the
   chapter folders.
 - `catalogo.yml` `manuals` accept nested pages (`<audience>/<dir>/<page>.md`).
@@ -74,3 +76,5 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 ### Fixed
 
 ### Removed
+
+- `proyecto/novedades/aio.md` (Scribe page of the deleted AIO repository).
