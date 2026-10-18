@@ -65,6 +65,7 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- `README.md` status brought current (site built and published on Pages, four audience trees populated); AIO marked as frozen in `catalogo.yml` and `desarrollo/aio.md` (Replay schedule removed in APS-Conecta/AIO#15; archive still gated by instalador `aps/MIGRATION.md` §11).
 - Theme: `sphinx_rtd_theme` → Furo (scribe Q22); `catalogo.yml` paths follow the
   chapter folders.
 - `catalogo.yml` `manuals` accept nested pages (`<audience>/<dir>/<page>.md`).
