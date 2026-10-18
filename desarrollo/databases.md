@@ -60,6 +60,14 @@ El índice generado no es alfabético (ADR-0003). La clave de orden es estándar
 2. **WAF según el User-Agent.** Algunos cortafuegos de aplicaciones responden 405 según el User-Agent; el sondeo reintenta, y en producción conviene recordarlo porque Nextcloud envía su propio User-Agent.
 3. **Un tiempo de espera aislado no es un diagnóstico.** Un host falla el saludo TLS con concurrencia y responde 200 en serie; sin el reintento, un tropiezo transitorio reescribía `live` como `geoblocked` en el catálogo.
 
+### Vistas generadas y evidencia fechada
+
+Cada hecho tiene un solo dueño, y lo que se deriva de él nunca se edita a mano. `APIs/exports/INDEX.md` y `feeds.opml` se regeneran desde `catalog.yaml`; `Legal/md/`, `Legal/json/` y `Legal/OBLIGACIONES.md`, desde los PDF y `obligaciones.yaml`. Generar dos veces seguidas no cambia nada, y el objetivo `docs` lo prueba con `cmp`. El objetivo `demo` agrupa las autocomprobaciones con `assert` de los seis módulos de `APIs/src/`.
+
+Los informes de `APIs/reports/` son evidencia en el tiempo: uno por ejecución del sondeo, congelados en su fecha y nunca reescritos. Los de agosto de 2026 están en español, el idioma que entonces emitía el generador; el de octubre de 2026 ya sale en inglés, y ninguno se traduce después. El texto literal de `Legal/md/` es español por su materia, porque traducir una cita la falsearía. La documentación propia del repositorio (`CONTEXT.md`, los ADR y los README por directorio) conserva el inglés con que se escribió.
+
+El objetivo `inventory` cosecha el catálogo de servicios (CSW) del geoportal nacional en `APIs/inventory/geoportal-cl.csv`: más de mil quinientas referencias a servicios y descargas que sirven de consulta, no de entradas del catálogo.
+
 ### Legal: la ley literal desde fuentes oficiales
 
 | Norma | Materia | Artículos | Versión vigente |
@@ -90,7 +98,7 @@ No hay esquema ni generador, por decisión y no por omisión. Los libros de `Ser
 
 ## Compromisos y límites
 
-- **Compuerta del catálogo en rojo.** El último sondeo es del 2026-08-02, así que el objetivo `verify` falla hasta que alguien vuelva a correr `probe`, desde Chile para que los hosts geobloqueados resuelvan. Es una acción de operación fuera del trabajo normal del repositorio: el catálogo envejece por diseño.
+- **La compuerta del catálogo vence sola.** El último sondeo es del 2026-10-18 y el objetivo `verify` está en verde, pero fallará desde el 2026-11-18 si nadie vuelve a correr `probe`, desde Chile para que los hosts geobloqueados resuelvan. Es una acción de operación fuera del trabajo normal del repositorio: el catálogo envejece por diseño, y el rojo que sigue a ese vencimiento no es una falla del código.
 - **El sondeo mira el código, no el contenido.** Un endpoint que responde 200 con un cuerpo vacío o cambiado pasa como sano.
 - **Sin guardia de cobertura.** Nada impide que una aplicación consuma una API y olvide catalogarla.
 - **Sin CI del corpus.** El único flujo de CI del repositorio es la compuerta de documentación; el objetivo `verify` y la verificación del corpus legal corren a mano.
