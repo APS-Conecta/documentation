@@ -120,15 +120,7 @@ Una falla de las herramientas del fork, ya corregida, se registra como una fila 
 ### Deuda técnica y límites
 
 - **Fallas sin aviso.** Desde el 25 de septiembre de 2026, cada reproducción falló durante 8 días sin que nadie lo viera, y las imágenes publicadas dejaron de seguir a upstream (A-013). El trabajo de vida falla solo después de 7 días sin una ejecución programada exitosa, y solo en el siguiente envío o pull request.
-- **Programación manual.** GitHub exige activar una vez las programaciones en la pestaña Actions: la ejecución diaria de Replay se activa una sola vez en instalador y, ese mismo día, se desactiva la de AIO — sin esa ventana doble, dos cadenas publicarían la misma etiqueta. Los flujos programados de upstream se esperan desactivados.
+- **Programación manual.** GitHub exige activar una vez las programaciones en la pestaña Actions: la ejecución diaria de Replay se activa una sola vez en instalador; la de AIO desapareció con su repositorio, de modo que dos cadenas no pueden publicar la misma etiqueta. Los flujos programados de upstream se esperan desactivados.
 - **Deriva sin compuerta.** Un texto nuevo en inglés que upstream agrega a un archivo traducido pasa todos los centinelas; el informe de deriva lo anota, nunca falla, y una persona lo revisa a ojo.
 - **Higiene manual.** El conteo de omisiones seguidas de un parche es un conteo a ojo de las anotaciones diarias, sin registro entre ejecuciones.
 - **Límites de la instalación.** Los que ve un establecimiento, como los mensajes PHP en inglés o el código muerto de deSEC, están en {doc}`/administracion/aio`.
-
-El mapa de módulos del repositorio se extrae con graphify en cada compilación:
-
-```{toctree}
-:maxdepth: 1
-
-Mapa de módulos <../_generated/mapa/aio>
-```
