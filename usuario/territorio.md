@@ -71,6 +71,7 @@ La búsqueda de calles acerca el mapa al nivel de la calle, no al número de una
    - Proporciona botones de acción directa: {guilabel}`Editar` (pasa al formulario editable) y {guilabel}`Centrar` (aproxima el mapa al activo). Si el registro tiene teléfono o correo, aparecen como enlaces ({guilabel}`📞` y {guilabel}`✉️`) que abren la aplicación de llamadas o de correo del dispositivo.
    - Detalla la dirección, el horario, la persona de contacto con su cargo, las notas y la fuente.
    - Al final, el {guilabel}`Historial` del registro muestra quién hizo cada cambio y cuándo.
+   - {guilabel}`← Volver a la lista`, arriba de la ficha, cierra el registro y devuelve el panel a la lista de activos.
 
 ### Registro y edición de un activo con escudo de duplicados
 
