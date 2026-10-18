@@ -14,4 +14,10 @@ Esta página registra los cambios de territorio que ve una persona usuaria o adm
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| Próxima versión |  | Rediseño completo de la interfaz según el patrón de escritorio de Google Maps: lienzo continuo al 100 %, panel lateral acoplable de 408 px plegable, cuadro de búsqueda unificada (Omnibox) de activos y calles, y eliminación de la barra lateral derecha. |
+| Próxima versión |  | Directorio de activos comunitarios en el panel lateral con ordenación por nombre, fecha o subcategoría, y ficha de doble modo (inspección de lectura con botones de centrado, llamada y correo, y modo de edición). |
+| Próxima versión |  | Escudo proactivo de duplicados en el formulario de activos, que advierte en tiempo real si existe un registro similar a menos de 50 metros en la comuna. |
+| Próxima versión |  | Selector de capas compacto `[ 🗂️ Tipo de Activo ▾ ]` con menú desplegable de selección múltiple, reemplazando el carrusel horizontal. |
+| Próxima versión |  | Botón dedicado `[ 📐 Dibujar Sector ]` para armar de inmediato la herramienta de trazado de polígonos con ajuste a las calles del catastro. |
+| Próxima versión |  | Configuración de taxonomía y capas en panel deslizante lateral (*drawer*), liberando espacio permanente en pantalla. |
 | Próxima versión |  | Al crear una categoría en Capas, el botón para elegir su pictograma anuncia a los lectores de pantalla el nombre escrito. |

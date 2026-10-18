@@ -98,6 +98,40 @@ La lista completa de rutas, ajustes y comandos `occ` es la referencia generada:
 ```{include} ../_generated/attach/territorio.md
 ```
 
+### Arquitectura de interfaz y componentes Vue
+
+La interfaz de Territorio se estructura bajo el patrón de escritorio de Google Maps: un lienzo cartográfico a pantalla completa (100 % ancho y alto) complementado por una barra de comandos flotante superior y un panel lateral acoplable de 408 px en el costado izquierdo.
+
+#### Componentes principales
+
+| Componente | Archivo | Responsabilidad |
+|---|---|---|
+| `OmniboxControl` | `src/components/OmniboxControl.vue` | Combobox accesible WAI-ARIA de 392 px × 48 px. Integra autocompletado unificado para activos comunitarios y vías del catastro comunal, junto con las pestañas de cambio de vista (`mapa`, `indice`, `analisis`, `duplicados`). |
+| `LayersDropdownButton` | `src/components/LayersDropdownButton.vue` | Botón único desplegable `[ 🗂️ Tipo de Activo ▾ ]` con casillas de verificación múltiple para categorías y subcategorías, reemplazando el desplazamiento horizontal por una lista compacta. |
+| `DrawSectorButton` | `src/components/DrawSectorButton.vue` | Botón de acción rápida `[ 📐 Dibujar Sector ]` que arma el modo de trazado de polígonos de Geoman y sincroniza su estado activo. |
+| `TaxonomyDrawer` | `src/components/TaxonomyDrawer.vue` | Panel lateral deslizante (*drawer*) que encapsula la gestión taxonómica (`CapasPanel.vue`), liberando 300 px de ancho en pantalla sin quebrar contratos de pruebas. |
+| `FeatureDetail` | `src/components/FeatureDetail.vue` | Ficha unificada de doble modo: **Modo Inspección** (tarjeta de lectura con acciones directas de centrado, llamada y correo) y **Modo Edición** (formulario con escudo de duplicados integrado). Aloja internamente a `BoundaryPicker`. |
+| `FeatureList` | `src/components/FeatureList.vue` | Directorio de activos comunitarios en el panel izquierdo con barra de ordenación (`sortAssets`) y filtro por sector clínico. |
+| `TerritorioMap` | `src/components/TerritorioMap.vue` | Envoltorio del mapa Leaflet y Geoman. Expone métodos imperativos seguros (`panToLocation`, `fitStreetBounds`, `toggleDrawPolygon`) y gestiona eventos de dibujo sin reactividad de Vue en los objetos del mapa. |
+| `AnalysisView` / `IndexView` | `src/components/AnalysisView.vue`, `src/components/IndexView.vue` | Vistas a pantalla completa para análisis estadístico e índice tabular. Mantienen compatibilidad hacia atrás mediante alias (`AnalisisView.vue`, `IndiceView.vue`). |
+
+#### Escudo proactivo de duplicados (Proactive Duplicate Shield)
+
+Para prevenir la duplicación inadvertida de activos comunitarios al momento del registro, el módulo puro `src/assets.js` implementa detección preventiva en el cliente sin requerir peticiones de red adicionales:
+
+1. **Distancia equirrectangular (`metresBetween`)**: calcula la distancia métrica local entre coordenadas geográficas, utilizando la constante exacta del backend `BoundingBox::METRES_PER_DEGREE = 111320.0` y la corrección trigonométrica por latitud:
+   $$\Delta x = (\lambda_1 - \lambda_2) \cdot 111320 \cdot \cos(\varphi_m), \quad \Delta y = (\varphi_1 - \varphi_2) \cdot 111320$$
+   $$d = \sqrt{\Delta x^2 + \Delta y^2}$$
+2. **Similitud textual (`nameLikeness` y `levenshteinDistance`)**: normaliza cadenas removiendo acentos, signos y espacios superfluos. Evalúa inclusión directa y distancia de edición Levenshtein.
+3. **Criterio de advertencia (`findDuplicateCandidate`)**: identifica como posible duplicado todo activo preexistente situado a menos de 50 metros cuyo nombre coincida o presente similitud superior al 70 %, desplegando una alerta preventiva en `FeatureDetail.vue`.
+
+#### Invariantes de ingeniería en el frontend
+
+- **Instancias Leaflet no reactivas**: los objetos `map`, capas, marcadores y manejadores de Geoman se asignan en `created()` directamente en `this` y nunca dentro del objeto `data()`, evitando que los Proxies profundos de Vue 3 degraden el rendimiento o produzcan bucles de eventos.
+- **Contraste accesible verificado (WCAG 1.4.11)**: la paleta de colores y el anillo oscuro de los marcadores (`2px #171717`) se auditan de forma automatizada mediante `tools/ramp-check.py`, garantizando un contraste superior a 3:1 sobre fondos claros y ortofotos.
+- **Protocolo de auditoría adversarial en 3 roles**: las modificaciones del frontend se someten al protocolo de Abogado (satisfacción de requerimientos de usuario), Escéptico (detección de regresiones y casos límite) y Juez (verificación rigurosa de contratos e invariantes).
+- **Código y pruebas en inglés**: la totalidad del código fuente, identificadores, componentes y pruebas unitarias se escribe en inglés técnico, mientras que el texto面向 al usuario final utiliza español formal chileno (registro «usted»/impersonal).
+
 ## Transiciones de estado
 
 ### Registro
