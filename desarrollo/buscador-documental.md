@@ -1,20 +1,149 @@
 ---
 tipo: referencia
-esqueleto: borrador
+esqueleto: contratos
 audiencia: desarrollo
 apps: [buscador-documental]
-resumen: "Buscador Documental: estado del diseño y decisiones de la etapa de mediciones."
+resumen: "Contratos del Buscador Documental: diseño por etapas, API de búsqueda y del proceso de lectura, modos de falla, pruebas y límites conocidos."
 ---
 # Buscador Documental
 
-## Resumen
+## Propósito y diseño
 
-Buscador Documental busca por palabras y por significado, incluidos escaneos y fotografías, respetando los permisos de Nextcloud. Está en diseño: PostgreSQL con pgvector guarda el estado, el texto y los vectores, y un proceso de trabajo externo hace la lectura y el reconocimiento de texto. Las decisiones y las mediciones de la etapa S0 están en el repositorio de la aplicación, en `buscador/`.
+Buscador Documental es la aplicación que busca por palabras y por significado, incluidos escaneos y fotografías, respetando los permisos de Nextcloud. El uso diario está en {doc}`/usuario/buscador-documental` y la configuración, en {doc}`/administracion/ia/buscador-documental`. El plan por etapas (S0 a S7), los criterios de aceptación y las decisiones (ADR) viven en el repositorio de la aplicación, en la carpeta `buscador/` de planificación.
 
-## Secciones previstas
+### Decisiones de la etapa S0 (mediciones)
 
-- Propósito y diseño
-- Decisiones de las etapas
-- Contrato del proceso de trabajo
-- Pruebas
-- Limitaciones
+La etapa S0 mide, con un arnés desechable, los números que condicionan el diseño y aporta las mediciones con que se confirma o se descarta la ADR-0001 (Postgres primero). Las cifras son indicativas: se obtuvieron con texto sintético en un servidor compartido de 8 núcleos, y las etapas S4 y S7 las repiten con el fragmentador y el modelo reales.
+
+- **ADR-0001, confirmada de forma condicional.** PostgreSQL se mantiene, pero la búsqueda exacta necesita un límite previo de candidatos para los términos muy frecuentes: sin él, el percentil 95 supera varios segundos. La etapa S4 debe comprobar con texto real que el límite no empeora la relevancia; si la empeora y no hay alternativa, la ADR se reabre y se evalúa OpenSearch.
+- **Búsqueda por significado.** El recorrido iterativo del índice vectorial (`hnsw.iterative_scan = relaxed_order`, con reordenación posterior) es obligatorio cuando la persona solo puede leer una parte pequeña de los archivos; sin él, la mayoría de las consultas devuelven menos resultados de los pedidos. Para quien puede leer muy pocos archivos, la búsqueda exacta es más rápida.
+- **Comprobación de permisos de 50 resultados.** En S0 no cumplía el límite de 300 ms (330 a 405 ms con una caché por solicitud). El resultado de S1 está en la sección siguiente.
+- **Límites propuestos** de tamaño, páginas, píxeles y tiempo por archivo: figuran en `02-performance.md` y se comprueban en la etapa S2.
+- **Reconocimiento de texto.** Una capa de texto falsa o corrupta se conserva si el procesamiento omite las páginas con texto; hay que rehacer el reconocimiento en esas páginas. Las fotografías necesitan enderezado y giro automáticos.
+
+Las cifras medidas (almacenamiento, tiempos de índice, latencias, reconocimiento, horas de carga inicial) están en la hoja de capacidad `capacity-sheet.md` del mismo repositorio de planificación.
+
+### Decisiones de la etapa S1 (esqueleto con canario de permisos)
+
+La etapa S1 entrega el recorrido completo mínimo: una aplicación de Nextcloud (`OCA\BuscadorDocumental`, identificador `buscador_documental`) con su esquema `aps_search` en PostgreSQL, un canal de trabajo con autenticación HMAC, un proceso de lectura en Python (OCR) y la consulta con verificación de permisos en vivo.
+
+- **El permiso lo decide la verificación en vivo.** Los permisos guardados en el índice (`u:` y `g:`) solo sirven de prefiltro. El conjunto de la persona que consulta incluye siempre `x:recheck` (que también se guarda en los archivos con acceso no modelado: círculos, Talk, Deck, correo, federados o carpetas de equipo con ACL avanzada), y cada resultado pasa por `Recheck` antes de mostrar el extracto. Un resultado que falla se descarta; si falla la comprobación de exclusión o el servicio de etiquetas, falla toda la consulta sin devolver resultados.
+- **Reglas de `Recheck`.** Cuenta como legible cualquier nodo legible por cualquier montaje; un recurso compartido vencido no cuenta; si el recurso compartido tiene la descarga desactivada, el resultado se devuelve solo con el título, sin encabezado, página ni extracto (ADR-0009).
+- **Etiqueta `rag-excluded`.** Se revisa en el archivo y en cada carpeta superior hasta la raíz del almacenamiento. Cuenta cualquier etiqueta con ese nombre, aunque esté duplicada. El borrado de lo ya leído deja cero filas en `page` y `chunk`.
+- **Consulta.** `websearch_to_tsquery` con la configuración `aps_search.spanish_unaccent`, un límite previo de 10 000 candidatos, el mejor fragmento por archivo, tiempo máximo de 5 s (si se agota, la respuesta pide afinar la búsqueda) y extractos con marcas aleatorias por solicitud y escape de HTML.
+- **Canal de trabajo.** El proceso de lectura no escribe directamente en las tablas: usa los puntos de acceso de la aplicación con firma HMAC, ventana de ±120 s y caché de nonces de 5 min (ADR-0007). `write_result` fuerza el archivo reclamado y un trabajador con el arrendamiento vencido no puede sobrescribir (prueba del trabajador zombi).
+- **A-PERF-3 no se cumple.** Con una sonda corregida (50 resultados, 3 personas, 30 repeticiones, 5 variantes intercaladas), la variante entregada tiene un percentil 95 de 377 ms en la persona más desfavorable y la mejor variante, 308,5 ms, frente a 300 ms, sin contar la preparación del sistema de archivos (105 a 176 ms). Las cinco variantes decidieron igual los 50 resultados en las 450 ejecuciones. La ADR-0010, aceptada el 17 de octubre de 2026, acepta el resultado con un presupuesto de 150 ms para unos 20 documentos.
+- **Búsqueda exacta en PostgreSQL 18.** Con el mismo flujo de texto de S0 (3 000 000 de fragmentos, solo texto) los resultados coinciden con los de PostgreSQL 17.11 dentro del ruido (p95 con límite previo: 205 frente a 179 ms en estrés), de modo que el límite previo sigue siendo obligatorio.
+- **Sin verificar.** La semántica de descarga con varios nodos (M7) no se puede comprobar en un solo nodo; queda para S3 y S5.
+
+### Decisiones de la etapa S2 (lectura, reconocimiento y fragmentación)
+
+- **Aislamiento (ADR-0011).** El análisis de archivos corre en un contenedor aparte (`parser`) sin red, sin secretos, con sistema de archivos de solo lectura, sin capacidades y con límites de procesos y memoria. Se descartó `unshare -n` dentro del proceso de trabajo porque falla con el perfil de seccomp predeterminado de Docker. El proceso de trabajo (con la base de datos y la clave HMAC) entrega el archivo por un volumen compartido en memoria y mata el grupo de procesos si se agota el tiempo. `make -C worker test-sandbox` comprueba nueve propiedades de aislamiento dentro del contenedor.
+- **Extractores.** Texto, Word, presentaciones, formato abierto, hojas de cálculo y PDF, con topes de tamaño, expansión de archivos comprimidos (100 a 1 y 1 GB), profundidad XML, entidades XML, píxeles (50 MP), páginas (300) y celdas (1 000 000). Todo rechazo termina en un motivo de omisión (`unsafe`, `corrupt`, `encrypted`, `too_large`).
+- **Reconocimiento (ADR-0012).** Cada página de un PDF se clasifica: texto nativo (se conserva), solo imagen (se lee) o texto no fiable (se descarta y se lee). Una página con una imagen del tamaño de un escaneo se lee siempre desde la imagen. Se guarda la confianza media de Tesseract de las páginas leídas.
+- **Fragmentación.** Los artículos y las secciones son las unidades; cada fragmento repite su encabezado; el solapamiento ocurre solo dentro de una unidad; las filas de tabla no se parten; un documento que no cabe se rechaza en lugar de truncarse.
+- **Criterio A-QUAL-1.** Con 406 páginas sintéticas: CER 0,25 %, WER 0,57 %. La primera política falló (CER 4,80 %) y se reemplazó; el motivo está en la ADR-0012. El corpus es sintético, por lo que el resultado es provisional hasta contar con documentos reales.
+
+### Decisiones de la etapa S3 (eventos, alcance y borrado)
+
+- **Eventos como pistas (ADR-0013).** Los oyentes solo guardan un identificador de archivo y un tipo en una bandeja de salida (`outbox`) sin duplicados; un procesador recalcula la verdad desde la caché de archivos, las etiquetas y las reglas de alcance. La pérdida, la repetición o el orden de los eventos no pueden corromper el índice. Los trabajos de Nextcloud son solo disparadores: el estado vive en PostgreSQL.
+- **Primero se quita, después se agrega.** Exclusión, salida del alcance, papelera y borrado se procesan antes de leer nada nuevo y no se detienen con la pausa.
+- **Alcance.** Reglas por identificador de archivo (carpeta con todo su contenido, o todas las carpetas de equipo); un único predicado sirve a los dos modos, y su forma masiva (consulta recursiva sobre el índice por padre) devuelve exactamente los mismos archivos. La papelera, las versiones y los almacenamientos externos nunca se leen.
+- **Borrado inmediato.** Una etiqueta `rag-excluded` en un archivo o carpeta, la papelera y la eliminación de una cuenta borran páginas, fragmentos, vectores y permisos (`erase_files`, una transacción por lote); la eliminación de una cuenta encuentra los archivos por el almacenamiento registrado, no por la caché de Nextcloud. La auditoría usa seudónimos aleatorios cuya correspondencia se elimina con la cuenta.
+- **Conciliación.** Conjunto elegible materializado una vez por pasada; ventanas por identificador con cursor reanudable; abandonada a las 36 horas o si cambian las reglas; la pasada inversa pone en cola en lugar de borrar.
+- **Cambios de permisos de carpetas de equipo** sin evento tipado: huella cada 15 minutos.
+- **Registros (A-SEC-5).** Ningún registro lleva texto de documentos ni consultas: los mensajes de error se reducen a la clase y el lugar; el detalle del proceso aislado solo se registra con `BD_DEBUG_PARSER=1`. Una prueba con centinelas recorre todo el flujo y busca en todos los registros, con una línea de control en cada uno.
+
+### Decisiones de la etapa S4 (perfiles de lectura por significado y búsqueda híbrida)
+
+- **Modelo de lectura por significado (ADR-0014).** El producto no incluye ningún modelo: un perfil del catálogo (`profiles.json`) nombra una etiqueta de Ollama (`bge-m3:567m`, `qwen3-embedding:0.6b`). `occ buscador:profile set` consulta el servidor, guarda el identificador del modelo y el tamaño del vector y crea una generación; el proceso de lectura se niega a escribir vectores si el identificador cambia.
+- **Esquema 3.** `embedding_profile`, una tabla `chunk_vec_<generación>` por generación (llave foránea con borrado en cascada hacia `chunk`: reindexar un archivo elimina sus vectores en la misma sentencia), `search_snapshot` (solo identificadores) y `file_meta.ancestors` para el filtro de carpeta. pgvector no se exige para instalar: `create_generation` indica la extensión que falta cuando se registra un perfil. `claim_job` y `fail_job` conocen los carriles `text` y `vec` (topes por carril, motivos propios, el abandono de un trabajo de vectores no toca `text_state`).
+- **Carril de vectores.** El proceso de lectura reclama trabajos `vec`, pide el texto de los fragmentos con `vec_chunks`, los envía a Ollama en lotes de 16 (`truncate:false`, contexto explícito, prefijos del perfil) y escribe con `write_vectors` (compare-and-set por trabajo, época y etag; rechaza dimensiones erróneas, valores no finitos y fragmentos ajenos al archivo). Ese contenedor no lee archivos de Nextcloud para este carril.
+- **Búsqueda.** `Searcher` construye en la primera página una lista ordenada de hasta 1 000 archivos (Exacta, Por significado o Mixta con fusión RRF a nivel de archivo, k = 60), la guarda como identificadores y recorre las páginas con un cursor firmado y atado al usuario. Cada página se vuelve a comprobar contra los permisos vigentes y se rellena desde posiciones posteriores si hay descartes. Desviación respecto del diseño original: el orden por fecha y por nombre se aplica a esa lista, no a todos los resultados, porque en los modos semánticos todo fragmento «coincide». En Mixta el tramo de palabras no relaja la consulta a OR: en la evaluación esa relajación bajó el recall@10 de 0,79 a 0,67.
+- **Siglas.** `tools/build_glossary.py` convierte el diccionario aportado (`buscador/data/aps-glosario-chile.md`, 999 entradas) en `glossary.json`; la expansión se hace al consultar, en ambos sentidos, sin reindexar, y las claves ambiguas no se expanden.
+- **Evaluación con un modelo real.** `make -C app eval-search` levanta un Ollama desechable, vectoriza un corpus sintético en español (27 temas, 108 consultas) con el mismo cliente del proceso de lectura y ejecuta el SQL, el glosario y la fusión del producto. Resultados en `spikes/s4/results-s4/`.
+
+### Decisiones de la etapa S6 (interfaz)
+
+- **Pila**: Vue 3 con `@nextcloud/vue` 9 por subrutas, construido con Vite 7 y `@nextcloud/vite-config` dentro de una imagen Node 24 fijada por huella; `js/` y `css/` se versionan y CI falla si difieren de lo que producen las fuentes (ADR-0016). Tres puntos de entrada: página de búsqueda, administración y pestaña de Archivos.
+- **Presupuesto**: la primera carga de la página pesa 162 KB comprimidos (límite 250 KB), medido en cada construcción.
+- **Esquema 5**: `file_meta.owner` (propiedad) y el filtro de lectura incierta (`page.ocr_conf` bajo el umbral, 60 por defecto). Los resultados de la página llevan ruta, fecha, propietario e indicador; la barra de Nextcloud conserva la forma corta.
+- **Páginas por cursor**: no hay botones numerados; los cursores firmados (primera, anterior, siguiente, última) mantienen un orden congelado sin repeticiones ni saltos.
+- **Enlace a la página de un PDF**: se probó en vivo (`spikes/s6`) y Nextcloud 34 no reenvía `#page=N` al visor; el resultado abre el documento e indica la página con palabras.
+- **Pestaña de Archivos**: elemento personalizado registrado con `getSidebar().registerTab`, sin Vue (estilos y accesibilidad más simples). El texto se muestra como texto y solo si el recurso permite descargar; «Volver a leer» es del propietario o un administrador, con límite de frecuencia.
+- **Administración**: rutas solo para administradores con CSRF; ninguna devuelve nombres ni texto salvo la lista de omitidos, que muestra el nombre únicamente de archivos que la persona puede abrir.
+- **Accesibilidad**: axe en Vitest (jsdom, con control negativo) y en un navegador real (contraste, 360 px, `prefers-contrast: more`, movimiento reducido, ruta solo con teclado).
+
+### Decisiones de la etapa S7 (endurecimiento y entrega)
+
+- **Revisión STRIDE** del canal del proceso de lectura, del rol de base de datos, del contenedor de lectura, del cliente de embeddings y del respaldo: `buscador/stride-worker-channel.md`. Sin hallazgos altos abiertos; cada hallazgo tiene prueba o una disposición explícita.
+- **Modos de falla**: tabla y pruebas en `buscador/failure-modes.md`; la suite viva `make -C app test-e2e-failures` cubre la base de datos que rechaza escrituras y la falta de la etiqueta de exclusión.
+- **Prueba de carga con un millón de páginas** (`spikes/s7/`): esquema real `aps_search` con 3 millones de fragmentos y vectores de 1 024 dimensiones, medida con el `CandidateQuery` del producto. Encontró un problema real (consultas de palabras poco comunes o de pocos archivos leíbles hasta 7 s) que se corrigió: el texto de la consulta va literal para que el planificador use sus estadísticas, el índice de palabras lidera cuando una palabra requerida es poco común, quien lee pocos archivos parte de sus archivos y las palabras muy comunes se omiten de la relajación OR.
+- **Entrega**: `make -C app release` genera `buscador_documental-<versión>.tar.gz` y su suma; `make -C app test-e2e-install` lo instala en un Nextcloud limpio (34, bloqueante; 35, no bloqueante en CI). La prueba encontró que al activar la aplicación no se creaba la etiqueta `rag-excluded`: corregido.
+- **Respaldo**: suma de control con clave (`.hmac`) obligatoria, rechazo de otra versión de esquema y de cadenas de conexión como destino.
+- **Compuerta legal**: registrada como **abierta** en el ADR-0006 (condiciones y responsables); no se puede cerrar con código.
+
+### Pruebas de la interfaz (S6)
+
+- `make -C app test-js`: Vitest + jsdom + axe (59 pruebas): estado de URL, extractos, formatos, página de búsqueda en todos sus estados, administración, pestaña de Archivos y reglas de las fuentes (sin importar todo `@nextcloud/vue`, sin colores fijos, sin servidores externos).
+- `make -C app build-js`: construye `js/` y `css/` y verifica el presupuesto; `make -C app check-js-drift` verifica que lo versionado coincide con las fuentes.
+- `make -C app test-e2e-ui`: Playwright 1.56.1 en imagen fijada contra la pila real (10 comprobaciones): teclado, URL, 360 px, movimiento reducido, contraste alto, axe real, barra de búsqueda de Nextcloud, pestaña de Archivos y administración (y 403 para quien no es administrador).
+
+### Pruebas
+
+Todo corre en Docker, en el proyecto de compose `bd-s1`, solo en `127.0.0.1`. Desde el directorio `app/`:
+
+| Objetivo | Qué comprueba |
+|---|---|
+| `make test-unit` | Escritura de permisos, autenticación HMAC, controladores, `Retrieve` y `Recheck` con dobles. |
+| `make test-contract` | El controlador PHP y el cliente Python frente a los ejemplos de `worker-v1.yaml`. |
+| `make test-db` | Privilegios del rol de trabajo y trabajador zombi. |
+| `make test-search` | Consulta contra el esquema real: prefiltro obsoleto, contador de descartes, resultado sin extracto con descarga desactivada. |
+| `make test-e2e-one` | Un PDF escaneado de punta a punta por la aplicación, el trabajador y el OCR. |
+| `make test-e2e-formats` | Seis formatos admitidos, una foto girada, una página con capa de texto falsa y cuatro archivos hostiles contra la instancia real; comprueba el estado final y que los originales no cambian ni un byte. |
+| `make -C worker test` | Extractores, política de reconocimiento, fragmentador (con propiedades de Hypothesis) y protocolo entre el proceso de trabajo y el contenedor aislado. `make -C worker test-sandbox`, `test-laws` y `eval-ocr` son comprobaciones aparte. |
+| `make test-e2e-events`, `test-e2e-erasure`, `test-e2e-reconcile`, `test-e2e-scope` | Eventos reales de Nextcloud (crear, editar, mover, etiquetar, compartir, papelera), borrado por etiqueta en carpeta y por eliminación de cuenta, conciliación con eventos perdidos y comandos de alcance. |
+| `make test-e2e-rbac`, `test-e2e-logs` | La matriz adversarial de permisos (equipos, ACL de carpetas de equipo, caducidad, movimiento, varias vías de acceso, propietario eliminado) y la prueba de centinelas en los registros. `make bench-reconcile` mide la conciliación con 300 000 archivos. |
+| `make test-e2e-vectors` | Perfil con el servidor de prueba de Ollama, vectores calculados por el proceso real, cobertura y paso a «lista», activación explícita, los tres modos, filtros, permisos, caída del modelo, borrado de vectores y higiene de registros con controles. |
+| `make -C worker test-glossary` | El constructor del diccionario de siglas y su ejemplo. |
+| `make -C app eval-search` | Evaluación con un modelo real (descarga el modelo la primera vez): recall@10, MRR, filtrado y latencia de la etapa SQL. |
+| `make test-canary` | Veinte comprobaciones con Nextcloud 34 y el trabajador reales: línea base, recurso revocado, descarga desactivada, grupo retirado, etiqueta en carpeta superior, etiqueta duplicada, borrado y rechazo al encolar. |
+
+La limpieza elimina únicamente los recursos del proyecto de pruebas `bd-s1`. Las pruebas de trabajo en Python se ejecutan con `make -C worker test`. La integración continua (`.github/workflows/ci.yml`) ejecuta los trabajos `php`, `worker`, `js`, `smoke`, `install` y `nc35` (este último no bloquea).
+
+### Repetir las mediciones
+
+El arnés está en el directorio `spikes/s0-harness/` del repositorio de la aplicación (mientras no se publique, en el directorio local indicado por quien lo mantiene). Requiere Docker con Compose v2, bash y Python 3 en el equipo anfitrión, 8 núcleos, 31 GB de RAM y 60 GB de disco libre, sin GPU. Todo corre en el proyecto de compose `bd-spike`, solo en `127.0.0.1` y con contraseñas de prueba; en un servidor compartido no se detiene ni se mata nada que no haya iniciado el propio arnés.
+
+1. `make up`: levanta PostgreSQL 17 con pgvector 0.8.7, Nextcloud 34 con la aplicación de carpetas de equipo y un contenedor de trabajo con Tesseract, OCRmyPDF y ONNX Runtime.
+2. `make seed`: crea 200 grupos, 100 carpetas de equipo, una persona con un solo grupo, otra en los 200 grupos, un árbol con reglas de acceso, una etiqueta que excluye archivos del índice (`rag-excluded`), un recurso compartido con descarga desactivada y un conjunto fijo de 50 resultados para medir los permisos.
+3. `make corpus`: genera un corpus sintético en español de 6 003 páginas (PDF nativos, escaneados, fotografías, mixtos y con capa de texto falsa), 200 consultas de referencia y las autocomprobaciones; con la misma semilla el resultado es idéntico.
+4. `make load`: carga 3 000 000 de fragmentos sintéticos con vectores aleatorios (equivalente a un millón de páginas), construye los índices y registra tamaños y volumen del registro de escritura (WAL).
+5. `make measure`: ejecuta las mediciones de búsqueda, reconocimiento de texto y permisos (varias horas); `make measure-cold` repite la búsqueda con la memoria compartida de Postgres vacía. `make report` resume los resultados en `results/summary.md`.
+6. La limpieza elimina únicamente el proyecto `bd-spike`.
+
+Cada medición guarda un JSON con la carga del servidor: la máquina es compartida, por lo que se repite y se informa la mediana y la dispersión.
+
+## Contratos de componentes y API
+
+- **Proceso de lectura ↔ Nextcloud** (`app/openapi/worker-v1.yaml`): `GET /worker/v1/files/{id}/meta` y `/content` con firma HMAC (método, ruta, consulta, `Range`, `If-Match`, identificador del proceso, huella del cuerpo, hora, nonce, trabajo y época), ventana de 120 s, un solo rango, solo para archivos con una asignación activa en la línea de texto. La base de datos se usa solo mediante las funciones `claim_job`, `heartbeat`, `write_result`, `fail_job`, `write_vectors`, `vec_chunks` y las de generaciones.
+- **Búsqueda** (`POST /apps/buscador_documental/search`, solo la sesión de quien consulta): `query`, `mode` (`exacta`, `significado`, `mixta`), `sort`, `page_size` (25, 50, 100), `cursor`, `filters` (`types`, `modified_from`, `modified_to`, `folder_id`, `owner`, `uncertain`). Respuesta: `status`, `notice`, `hits` (nombre, ruta, fecha, propietario, indicador de lectura incierta, extracto con `<mark>`), `page` y cuatro cursores firmados. Los extractos solo contienen `<mark>`; el resto está escapado.
+- **Texto reconocido** (`GET /file/{id}/text`, `POST /file/{id}/reread`): `indexed`, `pending`, `skipped`, `none`, `restricted`; para archivos no legibles, la respuesta es la misma que para los desconocidos.
+- **Administración** (solo administradores, con CSRF): resumen, pausa y reanudación, exclusión de una carpeta, reintento de omitidos, confirmación del aviso.
+- **Perfiles de significado** (`occ buscador:profile`): endpoint Ollama, resumen del modelo verificado y generaciones (`building`, `ready`, `active`, `retired`).
+
+## Dominios de fallo
+
+La tabla completa de modos de falla y las pruebas que los cubren está en `buscador/failure-modes.md` del repositorio. En resumen: si la base de datos rechaza escrituras la búsqueda responde «no disponible» y el proceso de lectura se detiene sin trazas ni texto; si falta la etiqueta de exclusión todo falla cerrado; un secreto rechazado detiene el proceso de lectura sin gastar intentos; una asignación vencida se reasigna y cinco vencimientos omiten el archivo con un motivo; un respaldo de otra versión de esquema, alterado o sin suma con clave se rechaza antes de crear nada. La revisión de seguridad (STRIDE) está en `buscador/stride-worker-channel.md`.
+
+## Deuda técnica y límites
+
+Texto sintético (los términos más frecuentes son más extremos que en español natural), vectores aleatorios para la latencia a escala, relevancia no medida (solo la exhaustividad del índice vectorial), generación de carga en el mismo servidor de la base de datos, memoria «fría» solo en Postgres y PostgreSQL 17 en lugar de 18. Las consultas de frase y de encabezado no encuentran nada en el texto sintético a escala.
+
+- **Compuerta legal (A-SEC-7)**: abierta y externa (ADR-0006); impide instalar sobre documentos reales.
+- **Prueba de carga con un millón de páginas** (ADR-0017): cumple los objetivos hasta 5 a 10 búsquedas simultáneas; a 20 no, y el criterio de recuperación filtrada A-QUAL-3 se exceptuó con las cifras medidas. El costo de la verificación de permisos por página se midió aparte (ADR-0010).
+- **Sin enlace directo a una página de un PDF**: Nextcloud 34 no lo reenvía al visor.
+- **Sin páginas numeradas**: los cursores firmados permiten primera, anterior, siguiente y última.
+- **Aviso de índice parcial** para usuarios: no existe; el avance lo ve la administración.
+- **El proceso de lectura necesita un volumen de trabajo propio por réplica** (ADR-0011) y secretos como archivos; el contenedor de lectura no tiene perfil seccomp propio ni imagen base fijada por huella.
+- **Respaldos**: la restauración de 1 millón de páginas tarda unos 44 minutos y necesita espacio libre equivalente al respaldo.
