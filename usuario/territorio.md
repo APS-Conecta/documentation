@@ -2,7 +2,7 @@
 tipo: guia
 audiencia: usuario
 apps: [territorio, gestion]
-resumen: "Recorrer el mapa del territorio del CESFAM: diseño Google Maps, panel lateral acoplable, activos comunitarios, capas, sectores, escudo de duplicados y exportación."
+resumen: "Recorrer el territorio del CESFAM: diseño Google Maps, panel de activos, capas, sectores, escudo de duplicados y exportación."
 ---
 # Territorio
 
