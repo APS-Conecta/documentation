@@ -16,6 +16,7 @@ Las cifras son las que el DEIS publica para todos los establecimientos del país
 Estadística guarda solo conteos agregados que publican el DEIS y FONASA: no contiene información de pacientes.
 Un archivo de FONASA que trae una columna de más, como un RUT o un nombre, se rechaza entero y no se guarda nada de él.
 La aplicación no llena ni valida la planilla REM, y no lee las series BS, BM ni D.
+Quien administra Estadística además carga y mantiene las cifras, la población de FONASA y los compromisos de las Metas Sanitarias desde **Administración → Estadística**.
 
 ## Requisitos
 
@@ -151,11 +152,80 @@ Para leer la tabla:
 - Las cifras **Nacional** y **Pares** suman a todos los establecimientos que informaron: es el mismo cálculo para todos, no la evaluación de la SEREMI.
 - Sin establecimiento configurado, la tabla no trae las columnas propias.
 
+### Administrar Estadística
+
+Esta parte es para quien administra Estadística: los administradores de la plataforma y los grupos a los que se delega la sección en **Administración → Privilegios de administración**.
+Todo está en **Administración → Estadística**.
+
+Arriba, la sección dice qué establecimiento sirve la instalación.
+Ese establecimiento se define en el instalador, no en esta pantalla.
+Si dice «Todavía no se ha configurado el establecimiento de esta instalación», avisar a quien instaló la suite.
+
+#### Años de historia nacional
+
+1. Elegir el **Primer año** de cifras nacionales que se guardan, hasta el año en curso.
+2. Leer cuánto ocupará en la base de datos y en cada respaldo.
+3. Presionar **Guardar**.
+
+Los años se cargan o se quitan en segundo plano.
+Si el nuevo primer año deja fuera años ya cargados, o un ZIP que espera cargarse, la pantalla lo avisa y pide confirmar antes de guardar.
+
+#### Cifras REM cargadas
+
+La tabla **Cifras REM cargadas** muestra cada año y serie con su origen (el DEIS o un archivo cargado a mano), su estado, su fecha de corte, sus filas, sus códigos «Sin descripción» y su último intento.
+La fecha de corte es hasta cuándo llegan las cifras de una fuente.
+Un año que el DEIS publicó cortado figura como incompleto: se cargan solo sus filas enteras, se muestra igual y el motivo queda escrito en esta tabla.
+
+La aplicación revisa el DEIS una vez al día y carga una serie por hora.
+Si una carga falla, sigue mostrándose la carga anterior y la tabla dice por qué falló.
+Más abajo se ve la Base de Establecimientos en uso.
+
+#### Población inscrita validada (FONASA)
+
+FONASA no publica su población inscrita en un archivo que se pueda descargar solo, así que se carga a mano.
+Hay dos caminos:
+
+- Cargar el CSV «Inscritos APS» que exporta el reporte de FONASA, con **Cargar un archivo a mano**.
+- Escribir en **Población de su establecimiento** las cifras del establecimiento por tramo de edad y sexo, para el corte al 31 de diciembre del año elegido, cuando FONASA todavía no las entrega o para corregirlas.
+
+Una casilla en blanco usa la cifra de FONASA, que se ve en gris.
+Lo escrito vale solo para el establecimiento propio: el país y los pares siguen con las cifras de FONASA.
+Un año sin corte propio usa el último corte anterior multiplicado por 1,03.
+
+#### Compromisos de las Metas Sanitarias
+
+1. Elegir el año en **Metas de**.
+2. Escribir la **Meta comprometida (%)** de cada meta.
+3. Escribir el **Denominador comprometido** de las metas que se cuentan sobre población, si se comprometió otro que la población de FONASA.
+4. Escribir el **Cumplimiento (%)** de las metas que se informan a mano, como la Meta VIII.
+5. Presionar **Guardar**.
+
+Una casilla en blanco no compromete nada.
+
+#### Cargar un archivo a mano
+
+Para lo que la instalación no descarga sola:
+
+1. Subir el archivo a **Archivos**.
+2. Elegirlo en **Cargar un archivo a mano**.
+
+El archivo se revisa al momento, y uno que no sea de los cuatro tipos siguientes se rechaza sin guardar nada.
+
+| Archivo | Cuándo queda en uso |
+|---|---|
+| El ZIP de cifras REM que publica el DEIS, por ejemplo `SERIE_REM_2024.zip` | En segundo plano, una serie por hora, igual que una descarga automática |
+| La Base de Establecimientos del DEIS (.xlsx) | De inmediato |
+| El CSV «Inscritos APS» de FONASA | De inmediato. Un archivo con columnas de más o de menos, por ejemplo un RUT o un nombre, se rechaza entero y dice cuáles sobran y cuáles faltan |
+| Un archivo de Metas Sanitarias (.json), como el que la aplicación trae para 2026 | De inmediato: crea o reemplaza las metas de su año, y lo comprometido para ese año se mantiene |
+
+Cada octubre, cuando el Ministerio publica las Orientaciones Técnicas del año siguiente, se carga así el archivo nuevo, sin actualizar la aplicación.
+
 ## Verificación
 
 - La consulta muestra la línea «Fuente: …» y, bajo el gráfico, la tabla con las mismas cifras.
 - Al guardar una pregunta, un aviso dice que «quedó guardada en Preguntas», y la pregunta aparece en la pestaña **Preguntas** con su autor.
 - La pestaña **Metas Sanitarias** muestra una tarjeta por meta, con su tabla mes a mes.
+- Tras cargar un archivo a mano, la tabla **Cifras REM cargadas** o la sección correspondiente de **Administración → Estadística** muestra lo cargado, o dice por qué se rechazó.
 
 ## Problemas frecuentes
 
