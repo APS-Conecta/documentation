@@ -35,8 +35,8 @@ repos:
       - desarrollo/instalador.md
       - proyecto/novedades/instalador.md
     depends_on: [gestion]
-    status: "Activo — absorbió al fork de AIO, cuyo repositorio se eliminó; primera versión en preparación"
-    version: "" # VERSION (v0.4.0) aún no publica: la clave de firma sigue siendo marcador de posición
+    status: "Activo — absorbió al fork de AIO (repositorio eliminado); v0.4.0 publicada"
+    version: v0.4.0 # publicada 2026-10-18: el canal de release funciona — paquete firmado con la clave real (installer.pub), verificable con signify (aps/RELEASING.md §6), cadena auto-referencial desde la siguiente versión
   - repo: IntraVox
     kind: nextcloud-app
     role: "Intranet de la organización — fork propio de IntraVox (páginas colaborativas con editor visual de arrastre), aplicación Nextcloud 34 para el personal del CESFAM."
