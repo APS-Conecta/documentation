@@ -55,7 +55,6 @@ components:
   - {name: Tipografía Fraunces, kind: asset, id: themes/apsconecta/core/fonts, upstream: "https://github.com/undercasetype/Fraunces", licence: OFL-1.1, changes: "Servida en WOFF2; un subconjunto va incrustado en los logotipos SVG (versión modificada según la OFL, sin los nombres reservados)."}
   - {name: Tipografía Nunito Sans, kind: asset, id: themes/apsconecta/core/fonts, upstream: "https://github.com/googlefonts/NunitoSans", licence: OFL-1.1, changes: "Servida en WOFF2; un subconjunto va incrustado en los logotipos SVG (versión modificada según la OFL, sin los nombres reservados)."}
   - {name: Leaflet, kind: asset, id: themes/apsconecta/core/mapa/leaflet.js, upstream: "https://github.com/Leaflet/Leaflet", licence: BSD-2-Clause, version: "1.9.4"}
-  - {name: protomaps-leaflet, kind: asset, id: themes/apsconecta/core/mapa/protomaps-leaflet.js, upstream: "https://github.com/protomaps/protomaps-leaflet", licence: BSD-3-Clause, version: "5.1.0"}
 
   # ---- Datos
   - {name: Registro de establecimientos (DEIS) con coordenadas del Geoportal de Chile, kind: data, id: sites, upstream: "https://deis.minsal.cl/", licence: "sin licencia declarada", note: "Datos públicos del MINSAL; crédito «Puntos: MINSAL/DEIS, Geoportal de Chile»."}

@@ -16,12 +16,15 @@ Esta guía recorre el diseño del mapa, el panel lateral de activos comunitarios
 
 APS Conecta Gestión instala Territorio como una de sus aplicaciones propias y no instala la aplicación de mapas personales de la plataforma: la geografía del establecimiento vive en un solo registro institucional.
 La suite escribe en la configuración de Territorio la comuna que atiende el establecimiento.
-El mapa base lo sirve la propia suite, en la misma dirección de la plataforma; {doc}`/administracion/mapas-base` describe ese servicio.
+El mapa base es el de OpenStreetMap, que cada navegador carga directamente: hace falta internet para verlo, y {doc}`/administracion/mapas-base` describe el servicio.
+El mapa abre sobre la parte de la comuna donde están los establecimientos de salud; si esa extensión no se conoce, sobre las unidades vecinales, luego sobre los registros y, por último, sobre el centro del país. El desplazamiento no tiene límites.
+Cada petición de teselas lleva a OpenStreetMap las coordenadas de la zona que se ve, con una precisión de unos 300 m en el zoom máximo, y la dirección de la instancia; ningún registro ni nombre.
 Las unidades vecinales y los establecimientos de salud de la comuna llegan en un paquete de datos que la administración importa cuando el establecimiento empieza a usar Territorio.
 
 ## Requisitos
 
 - Una cuenta de la plataforma. Toda persona que abre Territorio puede agregar, consultar, editar y retirar registros: el historial y el retiro reemplazan a los permisos.
+- Para ver el mapa base: una conexión a internet. Sin ella, los registros, el dibujo y las capas siguen funcionando sobre un fondo liso.
 - Para el control {guilabel}`¿Dónde estoy?`: una conexión HTTPS y el permiso del navegador para usar la ubicación.
 - Para buscar calles y trazar el límite de un sector a partir de ellas: las calles, canales y vías de la comuna, importados por la administración. Sin ellos, el sector se dibuja a mano.
 - Para exportar datos de contacto: la contraseña de la propia cuenta.
@@ -181,7 +184,8 @@ La administración consulta ese registro en la sección {guilabel}`Territorio` d
 
 ## Problemas frecuentes
 
-- **«No se pudo cargar el fondo de mapa. El mapa sigue disponible…»**: los registros, sectores y activos comunitarios continúan operativos sobre el plano vectorial; la administración puede revisar el estado del mapa base en {doc}`/administracion/mapas-base`.
+- **«No se pudo cargar el fondo de mapa. El mapa sigue disponible…»**: el navegador no llegó a las teselas de OpenStreetMap, por falta de internet o por un filtro de la red. Los registros, sectores y activos comunitarios continúan operativos sobre un fondo liso; {guilabel}`Ocultar` cierra el aviso, y la administración puede revisar la conexión según {doc}`/administracion/mapas-base`.
+- **El mapa muestra una imagen de «acceso bloqueado» y ningún aviso**: OpenStreetMap bloqueó el servicio y la aplicación no puede detectarlo. Informar a la administración: lo corrige una versión nueva de Territorio, y {doc}`/administracion/mapas-base` explica el caso.
 - **«No hay calles cargadas en este mapa.»**: las vías de la comuna no han sido importadas en el catastro; trace el sector a mano utilizando {guilabel}`Dibujar Sector`.
 - **«Las calles elegidas no cierran alrededor de ese punto…»**: seleccione tramos adicionales que completen un circuito cerrado, haga clic en otro punto dentro del sector o dibuje el sector directamente en el mapa.
 - **«Todavía no se conoce el trazado de todas las calles del límite…»**: acerque el mapa a esas calles para cargarlas, o dibuje el sector a mano.
