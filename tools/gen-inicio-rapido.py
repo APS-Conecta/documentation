@@ -46,17 +46,16 @@ EXCLUDED = "documentation"  # este sitio: su propio README no es contenido de de
 HEADING_RE = re.compile(r"^##\s+Inicio r[áa]pido de desarrollo\s*$")
 NEXT_H2_RE = re.compile(r"^##\s")
 
-# Libro verificado contra la org viva (2026-10-07); clavijas de --selftest.
-PIN_INCLUDED = {"repo-docs"}
-PIN_MISSING_README = {"IntraVox", "rpiv-artifacts", ".github"}
+# Libro verificado contra la org viva (2026-10-18, rama main de cada repo); clavijas de --selftest.
+# Incluyen su inicio rápido los repos con README en español (ADR 0006); instalador es un fork
+# cuyo README raíz se llama `readme.md`, de modo que el catálogo no lo encuentra.
+PIN_INCLUDED = {"repo-docs", "aps-common", "Databases", "epidemiologia", "estadistica", "farmacia"}
+PIN_MISSING_README = {"IntraVox", "instalador", ".github"}
 PIN_NO_HEADING = {
+    "buscador-documental",
     "gestion",
-    "farmacia",
-    "estadistica",
-    "epidemiologia",
+    "rpiv-artifacts",
     "territorio",
-    "aps-common",
-    "Databases",
 }
 PIN_STEP_MARKERS = (
     "docs.py discover",
@@ -221,7 +220,7 @@ def selftest() -> int:
             no_heading.add(row["repo"])
         else:
             included.add(row["repo"])
-            if row["repo"] in PIN_INCLUDED:
+            if row["repo"] == "repo-docs":
                 assert span is not None
                 heading_ln, end_ln = span
                 span_text = "\n".join(

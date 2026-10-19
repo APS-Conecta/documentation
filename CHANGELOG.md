@@ -65,6 +65,7 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- `tools/gen-inicio-rapido.py` pins (`--selftest`) re-verified against the live org (2026-10-18): six READMEs now carry the quickstart section (repo-docs, aps-common, Databases, epidemiologia, estadistica, farmacia); `instalador` replaces `rpiv-artifacts` among the repos without a root `README.md`.
 - `README.md` status brought current (site built and published on Pages, four audience trees populated).
 - APS-Conecta/AIO is gone from the catalogue (roster 15 → 14) and from the generators' pins; `desarrollo/aio.md`, `desarrollo/instalador.md` and `administracion/aio.md` now say the repository was deleted after instalador absorbed it, with its full commit history. The two `aio` pages stay: they document the fork, which instalador now holds.
 - Theme: `sphinx_rtd_theme` → Furo (scribe Q22); `catalogo.yml` paths follow the
