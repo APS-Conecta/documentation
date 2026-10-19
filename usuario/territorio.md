@@ -18,7 +18,7 @@ APS Conecta Gestión instala Territorio como una de sus aplicaciones propias y n
 La suite escribe en la configuración de Territorio la comuna que atiende el establecimiento.
 El mapa base es el de OpenStreetMap, que cada navegador carga directamente: hace falta internet para verlo, y {doc}`/administracion/mapas-base` describe el servicio.
 El mapa abre sobre la parte de la comuna donde están los establecimientos de salud; si esa extensión no se conoce, sobre las unidades vecinales, luego sobre los registros y, por último, sobre el centro del país. El desplazamiento no tiene límites.
-Cada petición de teselas lleva a OpenStreetMap las coordenadas de la zona que se ve, con una precisión de unos 300 m en el zoom máximo, y la dirección de la instancia; ningún registro ni nombre.
+Cada petición de teselas lleva a OpenStreetMap las coordenadas de la zona que se ve, con una precisión de unos 300 m en el zoom 17, y la dirección de la instancia; ningún registro ni nombre.
 Las unidades vecinales y los establecimientos de salud de la comuna llegan en un paquete de datos que la administración importa cuando el establecimiento empieza a usar Territorio.
 
 ## Requisitos

@@ -32,12 +32,12 @@ El mapa nunca limita el desplazamiento: la extensión solo decide dónde abre. A
 
 ### Privacidad
 
-Cada petición de teselas lleva a OpenStreetMap las coordenadas de la tesela, que ubican la pantalla con una precisión de unos 300 m en el zoom máximo, y la dirección de la instancia, como `Referer`. Ningún registro ni nombre llega a OpenStreetMap.
+Cada petición de teselas lleva a OpenStreetMap las coordenadas de la tesela, que ubican la pantalla con una precisión de unos 300 m en el zoom 17, y la dirección de la instancia, como `Referer`. Ningún registro ni nombre llega a OpenStreetMap.
 
 ### Si OpenStreetMap bloquea el servicio
 
 Un bloqueo no muestra ningún aviso. OpenStreetMap responde a un cliente bloqueado con una imagen válida, que el navegador carga sin error y que la aplicación no puede distinguir de una tesela normal. Se reconoce porque el mapa muestra una imagen de «acceso bloqueado» en lugar de calles, sin ningún aviso en pantalla.
-No hay ajuste que lo remedie: se corrige con una versión de Territorio que cambia esa constante. Para consultar o reportar el caso, el contacto de la política es el seguimiento de incidencias del repositorio, `github.com/APS-Conecta/territorio/issues`.
+No hay ajuste que lo remedie: se corrige con una versión de Territorio que cambia esa constante.
 
 ## Requisitos
 
@@ -56,15 +56,15 @@ No hay ajuste que lo remedie: se corrige con una versión de Territorio que camb
    sudo aps-conecta temporizadores
    ```
 
-   La orden deshabilita el temporizador mensual `aps-conecta-tiles.timer`. Nunca borra el archivo.
+   La orden deshabilita el temporizador mensual `aps-conecta-tiles.timer`, retira sus archivos de unidad y el contenedor `aps-conecta-tiles` si existen. Nunca borra el archivo del mapa.
 
-3. Comprobar que el temporizador mensual ya no está habilitado:
+3. Comprobar que el temporizador mensual ya no existe:
 
    ```bash
    systemctl is-enabled aps-conecta-tiles.timer
    ```
 
-   La respuesta no debe ser `enabled`.
+   Como la unidad ya no existe, el comando informa un error de unidad no encontrada: ese es el resultado esperado. No debe responder `enabled`.
 
 4. Con el mapa ya visible en el paso 1, liberar el disco: el archivo anterior ocupa unos 1,04 GB y permanece en el servidor hasta que el operador lo retira.
 
@@ -77,7 +77,7 @@ No hay ajuste que lo remedie: se corrige con una versión de Territorio que camb
 ## Verificación
 
 - El mapa de calles se dibuja en Territorio y la atribución de OpenStreetMap está visible.
-- `systemctl is-enabled aps-conecta-tiles.timer` no responde `enabled`.
+- `systemctl is-enabled aps-conecta-tiles.timer` informa un error de unidad no encontrada, y no responde `enabled`.
 - `/srv/aps-conecta/tiles` ya no existe: `ls /srv/aps-conecta/tiles` falla porque la carpeta no existe.
 
 La prueba de humo (`scripts/smoke.sh`) ya no comprueba el mapa base: sin `tile_url` ni ruta `/tiles/` no hay nada que verificar en el servidor.
@@ -86,7 +86,7 @@ La prueba de humo (`scripts/smoke.sh`) ya no comprueba el mapa base: sin `tile_u
 
 | Síntoma | Causa | Remedio |
 |---|---|---|
-| El mapa muestra una imagen de «acceso bloqueado» y ningún aviso | OpenStreetMap bloquea el servicio para esta aplicación o esta red | No hay ajuste: se corrige con una versión de Territorio que cambia la constante (ADR-0021). Abrir un caso en `github.com/APS-Conecta/territorio/issues`. |
+| El mapa muestra una imagen de «acceso bloqueado» y ningún aviso | OpenStreetMap bloquea el servicio para esta aplicación o esta red | No hay ajuste: se corrige con una versión de Territorio que cambia la constante (ADR-0021). |
 | Territorio avisa «No se pudo cargar el fondo de mapa. El mapa sigue disponible…» | El navegador no llega a `tile.openstreetmap.org`: no hay internet, o un filtro de la red lo corta | Revisar la salida HTTPS y la resolución de nombres de ese computador. Mientras tanto, los registros, el dibujo y las capas siguen funcionando. |
 | El mapa abre sobre el centro del país y no sobre la comuna | El CUT de la comuna no está en la tabla de Territorio o no está elegido, y tampoco hay unidades vecinales ni registros que lo guíen | Revisar la comuna en los ajustes de la administración de Territorio, o importar las unidades vecinales. |
 | `aps-conecta-tiles.timer` sigue habilitado | El instalador todavía no pasó por los temporizadores desde la actualización | Ejecutar `sudo aps-conecta temporizadores`. |
