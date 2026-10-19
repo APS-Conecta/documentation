@@ -65,6 +65,7 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- `tools/gen-catalogo.py` reads the `OWN_APPS` parity registry from `instalador` (`provisioning/phases/12-apps.sh`) instead of `gestion`, which is about to delete its frozen copy of the executor (gestion #245); the missing-registry error names the instalador path, and `--selftest` pins the lookup. `build.yml` needs no change: `instalador` is already a roster row, so it is cloned beside `gestion`. Prose in `tools/capturas/captura.py`, `desarrollo/documentation.md` and `desarrollo/repo-docs.md` follows.
 - `tools/gen-inicio-rapido.py` pins (`--selftest`) re-verified against the live org (2026-10-18): six READMEs now carry the quickstart section (repo-docs, aps-common, Databases, epidemiologia, estadistica, farmacia); `instalador` replaces `rpiv-artifacts` among the repos without a root `README.md`.
 - `README.md` status brought current (site built and published on Pages, four audience trees populated).
 - APS-Conecta/AIO is gone from the catalogue (roster 15 → 14) and from the generators' pins; `desarrollo/aio.md`, `desarrollo/instalador.md` and `administracion/aio.md` now say the repository was deleted after instalador absorbed it, with its full commit history. The two `aio` pages stay: they document the fork, which instalador now holds.

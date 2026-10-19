@@ -8,7 +8,7 @@ privada — la semilla de `linkcheck_ignore` en conf.py).
 
 Valida: esquema de filas, nómina (15 filas), paridad con OWN_APPS (el pliegue
 case-insensitive de repo-docs census.py: la mitad variable de cada entrada
-`nombre=url` de gestion `provisioning/phases/12-apps.sh` se pliega sobre los
+`nombre=url` de `provisioning/phases/12-apps.sh` del instalador se pliega sobre los
 nombres canónicos del catálogo) y que cada `manuals` resuelva a un .md
 comprometido del árbol. Versiona por cadena (`version:` explícita →
 `appinfo/info.xml <version>` → `composer.json`/`package.json` `.version` →
@@ -27,6 +27,7 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -37,7 +38,15 @@ CATALOGO = REPO_ROOT / "catalogo.yml"
 GENERATED = REPO_ROOT / "_generated"
 ORG = "APS-Conecta"
 ORG_ROOT = Path(os.environ.get("APS_ORG_ROOT", "/opt/aps-conecta-org"))
-REGISTRY = ORG_ROOT / "gestion" / "provisioning" / "phases" / "12-apps.sh"
+
+
+def registry_path(org_root: Path) -> Path:
+    """El registro OWN_APPS vive en el instalador (el ejecutor que instala las
+    aplicaciones propias), no en gestion."""
+    return org_root / "instalador" / "provisioning" / "phases" / "12-apps.sh"
+
+
+REGISTRY = registry_path(ORG_ROOT)
 
 KINDS = {
     "suite",
@@ -167,7 +176,9 @@ def own_apps(registry: Path) -> list[str]:
     try:
         text = registry.read_text(encoding="utf-8")
     except FileNotFoundError:
-        fail(f"registro ausente para la paridad: {registry}")
+        fail(f"registro ausente para la paridad: {registry} "
+             "(OWN_APPS vive en el instalador: clonar APS-Conecta/instalador "
+             "bajo APS_ORG_ROOT)")
     m = OWN_APPS_RE.search(text)
     if not m:
         fail(f"OWN_APPS no encontrado en {registry}")
@@ -397,7 +408,31 @@ def main() -> int:
     return 0
 
 
+def selftest_registro() -> None:
+    """El registro OWN_APPS se lee del instalador, nunca de gestion: una raíz
+    donde gestion NO tiene `12-apps.sh` e instalador SÍ, resuelve; sin el
+    archivo, el error nombra la ruta del instalador."""
+    rel = Path("provisioning") / "phases" / "12-apps.sh"
+    with tempfile.TemporaryDirectory() as td:
+        raiz = Path(td)
+        (raiz / "gestion" / rel.parent).mkdir(parents=True)
+        (raiz / "instalador" / rel.parent).mkdir(parents=True)
+        (raiz / "instalador" / rel).write_text(
+            'OWN_APPS="intravox=https://example.invalid/IntraVox.git '
+            'farmacia=https://example.invalid/farmacia.git"\n', encoding="utf-8")
+        assert registry_path(raiz) == raiz / "instalador" / rel, registry_path(raiz)
+        assert own_apps(registry_path(raiz)) == ["intravox", "farmacia"]
+        (raiz / "instalador" / rel).unlink()
+        try:
+            own_apps(registry_path(raiz))
+        except SystemExit:
+            pass
+        else:
+            raise AssertionError("sin 12-apps.sh en instalador la paridad debe fallar")
+
+
 def selftest() -> int:
+    selftest_registro()
     doc = yaml.safe_load(CATALOGO.read_text(encoding="utf-8"))
     rows = load_rows()
     assert {r["repo"] for r in rows} == PINNED_REPOS

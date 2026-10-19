@@ -60,7 +60,7 @@ El `GITHUB_TOKEN` de un workflow solo alcanza su propio repositorio, así que la
 | `selftest` | Solo en repo-docs, cuando cambian `scripts/`, `canon/`, `profiles/` o los workflows. | actionlint sobre el canon y los workflows generados, y los selftests de `scripts/docs.py` y `scripts/census.py`. |
 | `sweep` | Solo en repo-docs, cada lunes a las 05:43 UTC y a mano. | Clona el censo y corre `check --all --stamp-error`. Falla con hallazgos nuevos respecto de `baseline.json`, con un sello desactualizado o cuando un repositorio de la suite no tiene clave en `baseline.json`. |
 
-El censo del barrido es la unión de las claves de `baseline.json`, menos `.github` y el propio repo-docs, con las aplicaciones propias que gestion declara en `OWN_APPS` (`provisioning/phases/12-apps.sh`). Por eso una aplicación no se distribuye sin entrar al barrido. El `Makefile` de repo-docs reúne los dos selftests en un solo objetivo para correrlos en local.
+El censo del barrido es la unión de las claves de `baseline.json`, menos `.github` y el propio repo-docs, con las aplicaciones propias que el instalador declara en `OWN_APPS` (`provisioning/phases/12-apps.sh`). Por eso una aplicación no se distribuye sin entrar al barrido. El `Makefile` de repo-docs reúne los dos selftests en un solo objetivo para correrlos en local.
 
 ### Régimen en español y estructura de página
 
