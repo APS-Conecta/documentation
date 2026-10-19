@@ -37,7 +37,7 @@ jobs:
           python3 - <<'EOF'
           import os, yaml
           rows = yaml.safe_load(open('catalogo.yml', encoding='utf-8'))['repos']
-          assert len(rows) == 15, f'catalogo.yml: esperaba 15 filas, hay {len(rows)}'
+          assert len(rows) == 14, f'catalogo.yml: esperaba 14 filas, hay {len(rows)}'
           with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as out:
               out.write('repos=' + ','.join(r['repo'] for r in rows) + '\n')
           EOF
