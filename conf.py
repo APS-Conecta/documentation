@@ -84,6 +84,9 @@ templates_path = ['_templates']
 exclude_patterns = [
     'README.md',
     'CHANGELOG.md',
+    'AGENTS.md',          # reglas para agentes de IA: no son páginas del sitio
+    'CLAUDE.md',
+    'docs/agents',
     '.git',
     '.github',
     '.rpiv',
