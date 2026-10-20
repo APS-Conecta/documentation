@@ -42,7 +42,7 @@ Los resúmenes (digests) de una etiqueta publicada no cambian nunca. Volver a pu
 
 ### Lo que cambian los parches
 
-El fork no edita a mano ningún archivo de upstream: cada cambio es un parche numerado de [`patches/`](https://github.com/APS-Conecta/instalador/tree/main/patches), que la integración continua aplica sobre upstream para producir el árbol desde el que se construyen las imágenes. La lógica PHP cambia solo donde el fork lo declara; el resto son textos, recursos gráficos, plantillas y ajustes de Dockerfile. La tabla agrupa los 31 parches. Los componentes con su licencia están en la tabla de componentes del {doc}`/aviso` y el mantenimiento de la cola, en {doc}`/desarrollo/aio`.
+Los cambios del fork son archivos de `main`, desde los que se construyen las imágenes; la [declaración del fork](https://github.com/APS-Conecta/instalador/blob/main/readme.md) los enumera, y cada número identifica el cambio y la garantía que sostiene. La lógica PHP cambia solo donde el fork lo declara; el resto son textos, recursos gráficos, plantillas y ajustes de Dockerfile. La tabla agrupa los 31 parches. Los componentes con su licencia están en la tabla de componentes del {doc}`/aviso` y el mantenimiento de la cola, en {doc}`/desarrollo/aio`.
 
 | Grupo | Parches | Qué cambia en la instalación | Por qué |
 |---|---|---|---|

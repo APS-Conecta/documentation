@@ -22,18 +22,18 @@ APS Conecta Gestión es una distribución derivada de Nextcloud 34. El servidor 
 
 | Componente | Cómo se modifica | Dónde vive el cambio |
 |---|---|---|
-| Nextcloud All-in-One (instalador) | Fork con una cola numerada de parches que se reaplica sobre cada versión upstream | `APS-Conecta/instalador`, carpeta `patches/` |
+| Nextcloud All-in-One (instalador) | Fork propio de Nextcloud All-in-One; su declaración enumera los cambios | `APS-Conecta/instalador`, `readme.md` |
 | IntraVox (portada de la intranet, «Inicio») | Fork con funciones locales | `APS-Conecta/IntraVox`, ADR-0001 del fork |
 | Conector de Euro-Office y Escritorio (`desktop_workspace`) | Parches que el aprovisionamiento aplica sobre el paquete oficial durante la instalación; la imagen del servidor no se reconstruye | `APS-Conecta/gestion`, `provisioning/apps/<aplicación>/` |
 | Tipografías Fraunces y Nunito Sans | Un subconjunto de cada una va incrustado en los logotipos SVG, una versión modificada que la OFL permite | `APS-Conecta/gestion`, `themes/apsconecta/core/` |
 
-La tabla de componentes, al final de esta sección, cuenta los parches de cada componente en cada compilación del sitio y describe qué cambia en cada uno.
+La tabla de componentes, al final de esta sección, cuenta los parches de cada aplicación vendorizada en cada compilación del sitio y describe qué cambia en cada uno.
 
 ### Adaptaciones al sector de atención primaria
 
 | Adaptación | Problema que resuelve | Dónde vive |
 |---|---|---|
-| Instalación simplificada: asistente en español de Chile, establecimiento elegido del registro DEIS y confirmado en el mapa, personal cargado desde una planilla CSV, configuración completa por fases | Una instalación estándar exige un administrador de sistemas que el centro no tiene | `APS-Conecta/instalador` `patches/` y `provisioning/phases/` |
+| Instalación simplificada: asistente en español de Chile, establecimiento elegido del registro DEIS y confirmado en el mapa, personal cargado desde una planilla CSV, configuración completa por fases | Una instalación estándar exige un administrador de sistemas que el centro no tiene | `APS-Conecta/instalador` `provisioning/phases/` |
 | Árbol documental de cuatro áreas: Transversal, Programas, Unidades y Sectores, en carpetas de grupo propias de cada establecimiento | Cada centro archiva a su manera y nadie sabe dónde va un documento | `APS-Conecta/instalador` `provisioning/phases/30-folders.sh` |
 | Acceso por rol: 22 roles comunes a todos los establecimientos, según las familias de la Ley 19.378, más 4 categorías y los equipos propios de cada centro | El acceso ligado a personas se rompe con cada rotación de personal | `APS-Conecta/instalador` `provisioning/phases/20-groups.sh` |
 | Permisos que solo amplían, sin reglas de denegación; administrar incluye eliminar, con recuperación desde la papelera de la carpeta | Carpetas donde un archivo subido por error nunca se puede quitar | `APS-Conecta/instalador` `provisioning/phases/40-acl.sh` |

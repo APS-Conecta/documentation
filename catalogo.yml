@@ -35,8 +35,8 @@ repos:
       - desarrollo/instalador.md
       - proyecto/novedades/instalador.md
     depends_on: [gestion]
-    status: "Activo — primera versión en preparación"
-    version: "" # VERSION (v0.4.0) aún no publica: la clave de firma sigue siendo marcador de posición
+    status: "Activo"
+    version: "0.4.0"
   - repo: IntraVox
     kind: nextcloud-app
     role: "Intranet de la organización — fork propio de IntraVox (páginas colaborativas con editor visual de arrastre), aplicación Nextcloud 34 para el personal del CESFAM."

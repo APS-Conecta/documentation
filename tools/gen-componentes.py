@@ -5,8 +5,7 @@ componentes.yml declares what only a person knows (origin, SPDX licence, what AP
 script adds what the code knows, at build time, from the sibling clones under APS_ORG_ROOT:
 
   version    image tag + digest (gestion compose.yaml); app version (gestion provisioning/apps/<id>/VENDOR)
-  modified   a vendored app with .patch files beside it is modified; the fork's patch queue length
-             (the queue lives in instalador)
+  modified   a vendored app with .patch files beside it is modified
   drift      every compose image, every vendored app and every distribution-fork catalog row has a
              row here, and every row here is still shipped — otherwise the build fails
 
@@ -62,15 +61,6 @@ def vendored(apps_dir: Path) -> dict[str, dict]:
     return out
 
 
-def fork_patches(repo: Path) -> int:
-    queue = repo / "patches"
-    return (
-        len([p for p in queue.iterdir() if p.suffix in (".patch", ".sh")])
-        if queue.is_dir()
-        else 0
-    )
-
-
 def drift(rows: list[dict], imgs: dict, apps: dict, forks: set[str]) -> list[str]:
     out = []
     by_kind = lambda *k: {r["id"] for r in rows if r["kind"] in k}  # noqa: E731
@@ -90,7 +80,7 @@ def drift(rows: list[dict], imgs: dict, apps: dict, forks: set[str]) -> list[str
     return out
 
 
-def resolve(rows: list[dict], imgs: dict, apps: dict, aio_patches: int) -> list[dict]:
+def resolve(rows: list[dict], imgs: dict, apps: dict) -> list[dict]:
     out = []
     for r in rows:
         if r["kind"] not in KINDS:
@@ -112,9 +102,6 @@ def resolve(rows: list[dict], imgs: dict, apps: dict, aio_patches: int) -> list[
                     f"{r['name']}: {a['patches']} patch(es) beside the tarball but "
                     f"{'no' if a['patches'] else 'a'} `changes` line — declare what APS changes, or drop it"
                 )
-        elif r["kind"] == "fork":
-            row["version"] = f"cola de {aio_patches} parches"
-            row["modified"] = "Sí"
         else:
             row["version"] = r.get("version", "—")
             row["modified"] = "Sí" if r.get("changes") else "No"
@@ -163,7 +150,7 @@ def main() -> int:
     problems = drift(rows, imgs, apps, forks)
     if problems:
         fail("components drift:\n  " + "\n  ".join(problems))
-    table = render(resolve(rows, imgs, apps, fork_patches(org() / "instalador")))
+    table = render(resolve(rows, imgs, apps))
     out = ROOT / "_generated" / "componentes.md"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(table, encoding="utf-8")
@@ -211,14 +198,14 @@ def selftest() -> int:
     assert drift(rows, imgs, apps, {"instalador"}) == [
         "distribution fork instalador ships but has no componentes.yml row"
     ]
-    res = resolve(rows, imgs, apps, 31)
+    res = resolve(rows, imgs, apps)
     assert [r["modified"] for r in res] == ["No", "No", "Sí (2 parches)"], res
     assert (
         "| P | [x](https://x) | 11.0.5 | `AGPL-3.0-only` | Sí (2 parches) | Nombre. |"
         in render(res)
     )
     try:
-        resolve([dict(rows[2], changes="")], imgs, apps, 31)
+        resolve([dict(rows[2], changes="")], imgs, apps)
         raise AssertionError("a patched app without `changes` must fail")
     except SystemExit:
         pass
