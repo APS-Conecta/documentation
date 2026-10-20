@@ -8,7 +8,7 @@ enforced light theme, seeds a deterministic synthetic fixture, and captures one
 oxipng-normalized before diffing against HEAD; the byte-stability table lands
 in $GITHUB_STEP_SUMMARY when set, stdout otherwise.
 
-Idioms mirrored from gestion/provisioning (citations org-root-relative):
+Idioms mirrored from instalador/provisioning (citations org-root-relative):
   - tar-stream each app into custom_apps as www-data (provisioning/lib.sh's
     ensure_vendored_app unpack: files must land owned by www-data);
   - `occ app:enable` only, store off first — enable reads what is on disk and
@@ -94,7 +94,7 @@ def roster() -> list:
     """catalogo.yml -> the five kind: nextcloud-app rows, canonical repo names.
 
     The SSOT-side half of gen-catalogo.py's parity invariant: exactly five
-    nextcloud-app rows. The OWN_APPS fold against gestion stays owned by the
+    nextcloud-app rows. The OWN_APPS fold against the installer stays owned by the
     catalog generator — one invariant, one owner.
     """
     rows = yaml.safe_load(CATALOGO.read_text(encoding="utf-8"))["repos"]
