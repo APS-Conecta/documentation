@@ -1,4 +1,4 @@
-# Índice de búsqueda estático (iniciativa scribe, Q23). Lo genera `make html` tras sphinx-build.
+# Índice de búsqueda estático. Lo genera `make html` tras sphinx-build.
 # Solo el contenido de cada página (no la navegación), sin bloques de código ni líneas de
 # atribución; los filtros audiencia y apps salen de la portada YAML (_templates/page.html).
 site: _build/html

@@ -8,7 +8,7 @@ resumen: "El instalador de la suite: el fork de Nextcloud AIO, su contenedor mae
 
 ## Contexto
 
-APS Conecta Gestión se instala con APS Conecta Gestión AIO, un fork de [Nextcloud All-in-One](https://github.com/nextcloud/all-in-one) que APS Conecta mantiene para los CESFAM y la red de atención primaria de Chile, junto con todo lo demás que instala un centro, en el repositorio [APS-Conecta/instalador](https://github.com/APS-Conecta/instalador) — el repositorio APS-Conecta/AIO fue su primera casa y se eliminó una vez absorbido. Nextcloud GmbH no lo produce, no lo patrocina ni lo respalda.
+APS Conecta Gestión se instala con APS Conecta Gestión AIO, un fork de [Nextcloud All-in-One](https://github.com/nextcloud/all-in-one) que APS Conecta mantiene para los CESFAM y la red de atención primaria de Chile, junto con todo lo demás que instala un centro, en el repositorio [APS-Conecta/instalador](https://github.com/APS-Conecta/instalador). Nextcloud GmbH no lo produce, no lo patrocina ni lo respalda.
 
 Las páginas de {doc}`instalación </administracion/instalacion/index>`, tejidas del manual de {vendor}`Nextcloud`, llevan el aviso «En APS Conecta Gestión esto difiere» y remiten a esta página. Un establecimiento instala una etiqueta publicada de la suite, nunca una rama: el asistente de esa etiqueta crea y administra todos los contenedores, y el Provisionador del instalador configura después el establecimiento con las fases de aprovisionamiento.
 

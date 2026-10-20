@@ -62,12 +62,12 @@ check-site: html
 
 .PHONY: check-site
 
-# Phase 11 — weekly screenshots pipeline. Single entry point shared by CI and
-# local runs; tools/capturas/compose.yaml + captura.py own everything else.
-# --compare sizeclass is the r8 outcome (risk r8, OQ7): two fresh-stack local
+# Phase 11 — screenshots pipeline. Single entry point for local runs;
+# tools/capturas/compose.yaml + captura.py own everything else.
+# --compare sizeclass: two fresh-stack local
 # runs (2026-10-08) produced byte-different PNGs on all five apps (−5.8%…+2.9%)
-# — canvas chart/map timing noise — so the weekly gate is the pre-built 5%
-# size-class fallback, per the plan's recorded r8 branch. Byte equality stays
+# — canvas chart/map timing noise — so the gate is the pre-built 5%
+# size-class fallback. Byte equality stays
 # the driver default; flip back by dropping the flag.
 .PHONY: capturas
 capturas:

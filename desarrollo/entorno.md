@@ -34,7 +34,7 @@ Todos los servicios usan `restart: unless-stopped`: la pila vuelve tras un reini
 
 La depuración paso a paso usa una imagen derivada solo para desarrollo. `compose.dev.yaml` cambia únicamente de dónde sale la imagen del servicio `nextcloud` y hereda todo lo demás de `compose.yaml`; ni `compose.yaml` ni la imagen oficial se modifican.
 
-`Dockerfile.dev` parte del mismo digest que corre `compose.yaml` y solo agrega Xdebug 3 por PECL: una imagen de depuración sobre otra compilación depuraría algo distinto de lo que se despliega. `dev/xdebug.ini` activa el modo `debug`, inicia una sesión solo ante un disparador (`XDEBUG_TRIGGER` o `XDEBUG_SESSION`) y conecta hacia el editor en el anfitrión por `host.docker.internal`. La configuración de VS Code confirmada en `.vscode/launch.json`, «Listen for Xdebug (APS Conecta)», escucha en el puerto 9003 y mapea `/var/www/html/custom_apps` a `apps/`.
+`Dockerfile.dev` parte del mismo digest que corre `compose.yaml` y solo agrega Xdebug 3 por PECL: una imagen de depuración sobre otra compilación depuraría algo distinto de lo que se despliega. `dev/xdebug.ini` activa el modo `debug`, inicia una sesión solo ante un disparador (`XDEBUG_TRIGGER` o `XDEBUG_SESSION`) y conecta hacia el editor en el anfitrión por `host.docker.internal`. El editor debe escuchar en el puerto 9003 y mapear `/var/www/html/custom_apps` a `apps/`.
 
 ### Permisos de los montajes
 
@@ -53,7 +53,7 @@ En Linux, un montaje conserva el dueño del anfitrión, pero el usuario del serv
 3. Ejecutar el objetivo `install`. Levanta la pila, ejecuta las fases de provisión, guarda el detalle en `.install.log` y termina con un resumen del establecimiento.
 4. Repetir `install` después de editar `sites/<slug>/site.sh` o de un `git pull`: converge y omite en segundos lo ya aplicado.
 5. Para depurar paso a paso, ejecutar el objetivo `up-dev` en lugar de `up`.
-6. En VS Code, iniciar «Listen for Xdebug (APS Conecta)» y enviar una solicitud con el disparador de Xdebug.
+6. Poner el editor a escuchar Xdebug y enviar una solicitud con el disparador de Xdebug.
 7. Detener la pila con el objetivo `down`, que conserva los volúmenes. Para recuperar la memoria de Euro-Office sin detener el resto, ejecutar el objetivo `office-down`.
 
 ## Verificación

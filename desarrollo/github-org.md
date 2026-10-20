@@ -41,11 +41,11 @@ Salvo la portada, los archivos salen de {doc}`repo-docs`: la guía y la polític
 ### Compuertas
 
 - La regla `public-leak` de repo-docs falla cuando un archivo de un repositorio legible por cualquiera nombra un gestor de secretos, una dirección de enlace local, una ruta absoluta de host o una casilla de endurecimiento sin marcar, o cuando revela una debilidad de la infraestructura.
-- Ningún workflow corre en este repositorio, y el barrido semanal de repo-docs lo excluye del censo junto con el propio repo-docs: sus cambios no pasan por ninguna compuerta automática.
+- Ningún workflow corre en este repositorio: sus cambios no pasan por ninguna compuerta automática.
 
 ### Deuda y límites
 
-- `CONTRIBUTING.md`, `SECURITY.md` y la portada afirman que los repositorios de la organización son privados. El {doc}`catálogo </_generated/catalogo>` marca como públicos a gestion, AIO, IntraVox, repo-docs, documentation y este mismo repositorio. La iniciativa docs-es incluye la corrección de esa afirmación en su paso R4-k para `.github`, todavía pendiente.
+- `CONTRIBUTING.md`, `SECURITY.md` y la portada afirman que los repositorios de la organización son privados. El {doc}`catálogo </_generated/catalogo>` marca como públicos a gestion, instalador, IntraVox, repo-docs, documentation y este mismo repositorio. La iniciativa docs-es incluye la corrección de esa afirmación en su paso R4-k para `.github`, todavía pendiente.
 - `CONTRIBUTING.md`, `SECURITY.md`, la plantilla de pull request y el formulario técnico están en inglés; la portada y el formulario «Solicitud» son bilingües. El repositorio no lleva el marcador `.github/docs-es`, así que sigue en el régimen histórico en inglés que describe el [ADR 0006 de repo-docs](https://github.com/APS-Conecta/repo-docs/blob/main/docs/adr/0006-documentacion-en-espanol.md). La iniciativa docs-es prevé una portada solo en español y `CONTRIBUTING.md`, `SECURITY.md` y `CODE_OF_CONDUCT.md` en español.
 - `CODE_OF_CONDUCT.md` todavía no existe: la iniciativa docs-es lo prevé como el Contributor Covenant 2.1 en español.
 - `references/layout.md` de repo-docs describe el árbol de este repositorio sin `LICENSE`, mientras el ADR-0012 lo agregó y el repositorio lo lleva: la referencia contradice la decisión.

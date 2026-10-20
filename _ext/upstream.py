@@ -1,4 +1,4 @@
-"""The {upstream} directive and the nc-doc / nc-ref roles (iniciativa scribe, Q19–Q20).
+"""The {upstream} directive and the nc-doc / nc-ref roles.
 
 A woven block is upstream text — translated prose, verbatim code — placed inside an APS page:
 

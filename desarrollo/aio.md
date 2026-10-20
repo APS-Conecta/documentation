@@ -2,13 +2,13 @@
 tipo: referencia
 audiencia: desarrollo
 apps: [instalador]
-resumen: "Cómo se mantiene el fork de nextcloud/all-in-one, hoy en instalador: rama espejo, cola de parches, cadena Replay, compuertas, publicación y límites."
+resumen: "Cómo se mantiene el fork de nextcloud/all-in-one, en instalador: rama espejo, cola de parches, cadena Replay, compuertas, publicación y límites."
 ---
 # AIO
 
 ## Resumen
 
-El fork de [nextcloud/all-in-one](https://github.com/nextcloud/all-in-one) desde el que se construyen las imágenes de cada instalación de la suite vive hoy en el repositorio [APS-Conecta/instalador](https://github.com/APS-Conecta/instalador), que absorbió también el paquete del host y la cadena de publicación: el repositorio APS-Conecta/AIO fue su primera casa y se eliminó una vez absorbido: su historia de commits sigue completa en instalador. Lo que los parches cambian en una instalación está en {doc}`/administracion/aio`; esta página describe cómo se mantiene el fork, y el repositorio que hoy lo contiene —bootstrap firmado, `VERSION` y cadena de publicación— tiene su propia referencia en {doc}`instalador </desarrollo/instalador>`.
+El fork de [nextcloud/all-in-one](https://github.com/nextcloud/all-in-one) desde el que se construyen las imágenes de cada instalación de la suite vive en el repositorio [APS-Conecta/instalador](https://github.com/APS-Conecta/instalador), que contiene también el paquete del host y la cadena de publicación. Lo que los parches cambian en una instalación está en {doc}`/administracion/aio`; esta página describe cómo se mantiene el fork, y el repositorio que lo contiene —bootstrap firmado, `VERSION` y cadena de publicación— tiene su propia referencia en {doc}`instalador </desarrollo/instalador>`.
 
 El fork sigue una regla única: todo cambio a un archivo que upstream distribuye viaja como un parche numerado. La rama `main` refleja upstream byte a byte, salvo las rutas propias del fork y el bloque de declaración de `readme.md`. La rama `aps/main` es la salida de la integración continua, la punta de upstream más la cola de parches, y de ella se construyen las imágenes. Un pull request que edita un archivo reflejado, en vez de agregar un parche, falla la paridad.
 
@@ -50,12 +50,9 @@ El orden de los pasos del flujo Replay es el orden de las compuertas: ningún pa
 
 | Evento | Qué hace |
 |---|---|
-| Programado, cada día a las 04:23 UTC | Sincroniza el espejo si upstream se movió, reproduce la cola y corre las compuertas |
 | Envío a `main` | Una ruta propia cambió: regenera `aps/main` y vuelve a probar las compuertas |
 | Pull request | Paridad, cobertura, tres resultados, validadores y compuertas sobre el commit de fusión, sin tocar `aps/main` (`REPLAY_PUSH=0`); además, la prueba de que las compuertas pueden fallar |
 | Manual, con `suite-tag` | Reproduce, prueba y entrega al flujo Images con `build-ref` igual a `aps/main`; sin `suite-tag`, solo reproduce y prueba |
-
-En todos los eventos salvo el programado, el trabajo de vida (`liveness`) falla si la última ejecución programada exitosa tiene más de 7 días.
 
 ## Notas
 
@@ -66,7 +63,7 @@ Cada ejecución reconstruye el árbol desde la punta de upstream más la cola, n
 Para cada parche `.patch`:
 
 1. Si se aplica hacia adelante, se aplica.
-2. Si se aplica en reverso, upstream ya adoptó el cambio: la ejecución lo omite con una advertencia. Dos omisiones seguidas en ejecuciones programadas terminan en retirar el parche o en justificarlo de nuevo en su encabezado.
+2. Si se aplica en reverso, upstream ya adoptó el cambio: la ejecución lo omite con una advertencia.
 3. Si no se aplica en ningún sentido, upstream se movió: la ejecución se detiene, nombra el parche, y el parche se regenera.
 
 La herramienta es `git apply`, sin contexto aproximado: un parche que solo se aplica con aproximación es un parche que se degrada. Los parches se generan con `git diff`, con los prefijos `a/` y `b/`. La regla es la del [ADR-0002 de gestion](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0002-app-patches.md), llevada al fork. El margen de deriva es de 6 semanas como máximo detrás de upstream.
@@ -109,8 +106,6 @@ Images copia 17 imágenes en el propio registro con `docker buildx imagetools cr
 
 El horneado (`scripts/bake.sh`) corre en el ejecutor de Images, nunca en la imagen. Lee gestion en la referencia `gestion-ref` y, antes de que un byte entre en la construcción, vuelve a correr la verificación sha256 de `VENDOR` de gestion, exige que la versión del `info.xml` de cada tarball coincida con su pin, aplica los parches de marca blanca de eurooffice con la regla de los tres resultados y retira `signature.json` de las aplicaciones parchadas.
 
-El envío forzado a `aps/main` usa un token personal: desde el parche 090 la cola modifica `.github/workflows/`, y el `GITHUB_TOKEN` no puede enviar archivos de flujos. El token llega por `GIT_ASKPASS`, nunca en una URL ni en los argumentos de un proceso.
-
 ### Contribuir
 
 El `AGENTS.md` del repositorio es el de upstream, copiado byte a byte por la paridad. Prohíbe que un agente abra issues o pull requests por su cuenta, porque toda contribución la revisa y la envía una persona; exige el trailer `Assisted-by` en cada commit asistido y reserva el `Signed-off-by` a la persona. Los mensajes de commit siguen Conventional Commits, con el componente como ámbito.
@@ -119,8 +114,5 @@ Una falla de las herramientas del fork, ya corregida, se registra como una fila 
 
 ### Deuda técnica y límites
 
-- **Fallas sin aviso.** Desde el 25 de septiembre de 2026, cada reproducción falló durante 8 días sin que nadie lo viera, y las imágenes publicadas dejaron de seguir a upstream (A-013). El trabajo de vida falla solo después de 7 días sin una ejecución programada exitosa, y solo en el siguiente envío o pull request.
-- **Programación manual.** GitHub exige activar una vez las programaciones en la pestaña Actions: la ejecución diaria de Replay se activa una sola vez en instalador; la de AIO desapareció con su repositorio, de modo que dos cadenas no pueden publicar la misma etiqueta. Los flujos programados de upstream se esperan desactivados.
 - **Deriva sin compuerta.** Un texto nuevo en inglés que upstream agrega a un archivo traducido pasa todos los centinelas; el informe de deriva lo anota, nunca falla, y una persona lo revisa a ojo.
-- **Higiene manual.** El conteo de omisiones seguidas de un parche es un conteo a ojo de las anotaciones diarias, sin registro entre ejecuciones.
 - **Límites de la instalación.** Los que ve un establecimiento, como los mensajes PHP en inglés o el código muerto de deSEC, están en {doc}`/administracion/aio`.

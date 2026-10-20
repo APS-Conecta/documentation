@@ -1,4 +1,4 @@
-"""Tests for tools/weave.py batch planning (scribe W-runs).
+"""Tests for tools/weave.py batch planning.
 
 A woven page must land inside a toctree, so the batch that creates a folder's index page has to
 merge before the batches that fill the folder. These tests pin that order and the guard.

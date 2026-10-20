@@ -6,7 +6,7 @@ resumen: "Cambios visibles de cada aplicación de la suite, agrupados por versi�
 ---
 # Novedades
 
-Cada aplicación de la suite tiene su página de novedades: los cambios que ve una persona usuaria o administradora, agrupados por versión. El catálogo de repositorios decide qué aplicaciones tienen página, y 📚 Scribe las mantiene al día.
+Cada aplicación de la suite tiene su página de novedades: los cambios que ve una persona usuaria o administradora, agrupados por versión. El catálogo de repositorios decide qué aplicaciones tienen página.
 
 ```{toctree}
 :maxdepth: 1

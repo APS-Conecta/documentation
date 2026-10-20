@@ -1,11 +1,11 @@
-# Componentes que distribuye APS Conecta Gestión (iniciativa scribe, Q14). Claves en inglés y
+# Componentes que distribuye APS Conecta Gestión. Claves en inglés y
 # valores en español, como catalogo.yml.
 #
 # Una persona declara aquí lo que solo una persona sabe: de dónde viene cada componente, su
 # licencia (SPDX, leída del propio componente) y, si APS lo modifica, qué cambia. Lo demás lo
 # calcula tools/gen-componentes.py en cada compilación: la versión (compose.yaml, VENDOR), si un
 # componente vendorizado está modificado (hay archivos .patch junto a él) y el largo de la cola
-# de parches del fork (la cola vive en instalador desde que absorbió a AIO). La compilación falla si gestion distribuye algo que no figura aquí,
+# de parches del fork (la cola vive en instalador). La compilación falla si gestion distribuye algo que no figura aquí,
 # o si aquí figura algo que gestion ya no distribuye.
 #
 # kind:

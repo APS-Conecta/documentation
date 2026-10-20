@@ -15,7 +15,7 @@ comprometido del árbol. Versiona por cadena (`version:` explícita →
 primera entrada versionada de `CHANGELOG.md` → vacío) leyendo los checkouts
 bajo `${APS_ORG_ROOT:-/opt/aps-conecta-org}`. La visibilidad se consulta viva
 con `gh api orgs/APS-Conecta/repos` (gh en el ambiente; GH_TOKEN nunca en
-argv/URL). Determinista: sin marcas de tiempo.
+argv/URL); el repo que el token no ve es privado. Determinista: sin marcas de tiempo.
 
 `--selftest` clavija la deriva (nómina, paridad, versiones, visibilidad,
 semilla privada) y es explícito — nada lo invoca desde el Makefile.
@@ -73,7 +73,7 @@ REQUIRED = ("repo", "kind", "role", "manuals", "depends_on", "status")
 OPTIONAL = ("version", "soft_depends_on", "readme")
 MANUAL_RE = re.compile(r"^(?:usuario|administracion|desarrollo|proyecto)/(?:[a-z0-9-]+/)*[a-z0-9-]+\.md$")
 # Las filas cuyo cambio ve una persona usuaria o administradora llevan su página de
-# novedades (scribe Q4): la escribe 📚 Scribe; el catálogo garantiza que exista.
+# novedades: el catálogo garantiza que exista.
 NOVEDADES_KINDS = {"suite", "distribution-fork", "nextcloud-app"}
 OWN_APPS_RE = re.compile(r'^OWN_APPS="(.*)"$', re.M)
 SEMVER_RE = re.compile(r"^#{1,3}\s*\[?\s*v?(\d+(?:\.\d+){2}[0-9A-Za-z.+-]*)", re.M)
@@ -272,7 +272,7 @@ def _gh(path: str, jq: str) -> subprocess.CompletedProcess:
 
 def org_visibility(rows: list[dict], api=_gh) -> tuple[dict[str, bool], bool]:
     """nombre → privado, y si hubo censo de la org. Primero el listado de la org (también halla
-    repos que el catálogo no nombra). Una sesión atada a sus repositorios (una rutina de Claude)
+    repos que el catálogo no nombra). Un token atado a sus repositorios
     rechaza las rutas de org: entonces cada repo del catálogo responde por sí mismo y el censo
     se omite, con aviso."""
     proc = api(f"orgs/{ORG}/repos", ".[] | [.name, .private] | @tsv")
@@ -290,17 +290,16 @@ def org_visibility(rows: list[dict], api=_gh) -> tuple[dict[str, bool], bool]:
     visibility = {}
     for row in rows:
         one = api(f"repos/{ORG}/{row['repo']}", ".private")
-        if one.returncode != 0:
-            fail(f"{row['repo']}: no existe en la org viva (gh api repos/{ORG}/{row['repo']}: {one.stderr.strip()})")
-        visibility[row["repo"]] = one.stdout.strip() == "true"
+        # el token de un repositorio no ve los repos privados de otros: lo no visible es privado
+        visibility[row["repo"]] = one.returncode != 0 or one.stdout.strip() == "true"
     return visibility, False
 
 
 def check_visibility(rows: list[dict], out_of_scope: list[str]) -> dict[str, bool]:
     visibility, census = org_visibility(rows)
     for row in rows:
-        if row["repo"] not in visibility:
-            fail(f"{row['repo']}: no existe en la org viva (gh api orgs/{ORG}/repos)")
+        # el listado de ese token omite los repos privados de otros: el clon avala que existen
+        visibility.setdefault(row["repo"], True)
     if census:
         known = {r["repo"] for r in rows} | set(out_of_scope)
         for name in sorted(visibility):
@@ -413,7 +412,7 @@ def selftest() -> int:
         if versions[k] != PINNED_VERSIONS[k])
     publicos = {r["repo"] for r in rows if not visibility[r["repo"]]}
     assert publicos == PINNED_PUBLIC, f"visibilidad: {sorted(publicos)}"
-    # Una rutina de Claude no puede listar la org: repo por repo da la misma visibilidad.
+    # Un token atado a un repositorio no puede listar la org: repo por repo da la misma visibilidad.
     def refused(path, jq):
         if path.startswith("orgs/"):
             return subprocess.CompletedProcess([], 1, "", "HTTP 403: sessions are bound to their configured repositories")

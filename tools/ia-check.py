@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ia-check — no AI writes in the organisation's repositories without being declared in ia.yml.
 
-Walks the full history of every catalog repo cloned under APS_ORG_ROOT and keeps only commits
+Walks the history after CUTOFF of every catalog repo cloned under APS_ORG_ROOT and keeps only commits
 authored by an APS identity (`identities`), so the upstream history of the forks is out of scope.
 On those commits it fails when:
 
@@ -9,9 +9,9 @@ On those commits it fails when:
     a declared bot (`tools[].bots`), a person (`people`) nor deterministic automation;
   - the author is a bot that is neither a declared AI bot nor deterministic automation.
 
-The weekly ia-check workflow runs it; a new model therefore shows up within a week as a red job,
+The ia-check workflow runs it on demand; a new model therefore shows up as a red job,
 and the fix is one ia.yml line. AI use that leaves no trailer is invisible here — ia.yml, declared
-by a person, stays the source (debt 22 of the scribe plan).
+by a person, stays the source.
 
     python3 tools/ia-check.py            # the catalog repos under APS_ORG_ROOT
     python3 tools/ia-check.py --selftest
@@ -22,16 +22,18 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
+CUTOFF = "2026-10-20"  # earlier history is not checked
 FMT = "%an%x1f%(trailers:key=Co-Authored-By,valueonly,separator=%x1e)%x1d"
 
 
 def commits(repo: Path) -> list[tuple[str, list[str]]]:
-    out = subprocess.run(["git", "-C", str(repo), "log", "--all", f"--format={FMT}"],
+    out = subprocess.run(["git", "-C", str(repo), "log", "--all", f"--since={CUTOFF}", f"--format={FMT}"],
                          capture_output=True, text=True, check=True).stdout
     rows = []
     for rec in out.split("\x1d"):
@@ -82,15 +84,24 @@ def main() -> int:
 
 
 def selftest() -> int:
-    doc = {"identities": ["Dani", "google-labs-jules[bot]", "aps-conecta-bot[bot]", "ghost[bot]"],
-           "people": ["ddespinoza"], "automation": ["aps-conecta-bot[bot]"],
-           "tools": [{"models": ["Claude Opus 5.5"]}, {"models": ["x"], "bots": ["google-labs-jules[bot]"]}]}
-    ok = [("Dani", ["Claude Opus 5.5", "ddespinoza"]), ("google-labs-jules[bot]", []),
-          ("aps-conecta-bot[bot]", []), ("Upstream Dev", ["Claude Opus 4.6"])]
+    doc = {"identities": ["Dani", "bot-x[bot]", "dependabot[bot]", "ghost[bot]"],
+           "people": ["ddespinoza"], "automation": ["dependabot[bot]"],
+           "tools": [{"models": ["Claude Opus 5.5"]}, {"models": ["x"], "bots": ["bot-x[bot]"]}]}
+    ok = [("Dani", ["Claude Opus 5.5", "ddespinoza"]), ("bot-x[bot]", []),
+          ("dependabot[bot]", []), ("Upstream Dev", ["Claude Opus 4.6"])]
     assert problems("r", ok, doc) == [], problems("r", ok, doc)
     assert problems("r", [("Dani", ["Claude Opus 9"])], doc) == ["r: co-author 'Claude Opus 9' is not declared in ia.yml"]
     assert problems("r", [("ghost[bot]", [])], doc) == ["r: bot author 'ghost[bot]' is not declared in ia.yml"]
-    print("[ia-check] selftest OK (declared pass, unlisted model fails, unlisted bot fails, upstream ignored)")
+    with tempfile.TemporaryDirectory() as tmp:
+        def commit(msg: str, date: str) -> None:
+            env = {**os.environ, "GIT_AUTHOR_DATE": date, "GIT_COMMITTER_DATE": date}
+            subprocess.run(["git", "-C", tmp, "-c", "user.name=Dani", "-c", "user.email=d@x", "commit",
+                            "--allow-empty", "-q", "-m", msg], check=True, env=env)
+        subprocess.run(["git", "init", "-q", tmp], check=True)
+        commit("old\n\nCo-Authored-By: Old Model <o@x>", "2026-10-01T12:00:00Z")
+        commit("new\n\nCo-Authored-By: Claude Opus 5.5 <c@x>", "2026-10-21T12:00:00Z")
+        assert commits(Path(tmp)) == [("Dani", ["Claude Opus 5.5"])], commits(Path(tmp))
+    print("[ia-check] selftest OK (declared pass, unlisted model fails, unlisted bot fails, upstream and pre-cutoff ignored)")
     return 0
 
 

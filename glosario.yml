@@ -1,4 +1,4 @@
-# Glosario de la plataforma base (iniciativa scribe, Q24): el término de la interfaz en inglés,
+# Glosario de la plataforma base: el término de la interfaz en inglés,
 # el que la interfaz en español muestra, y el archivo de traducciones del servidor que lo dice.
 # Fuente: nextcloud/server rama stable34, <fuente>/l10n/es.json. Los traductores y revisores del
 # tejido lo usan; tools/gen-glosario.py lo publica en proyecto/glosario. Agregar un término

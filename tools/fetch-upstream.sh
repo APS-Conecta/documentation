@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# fetch-upstream — the nextcloud/documentation text the site weaves (iniciativa scribe).
+# fetch-upstream — the nextcloud/documentation text the site weaves.
 #
 # A partial clone: full commit history (so a block's SHA always resolves) but blobs only on
 # demand and a sparse checkout of text files, so images never download. The branch follows the

@@ -1,4 +1,4 @@
-"""Page metadata for search and sharing (iniciativa scribe, Q23–Q24).
+"""Page metadata for search and sharing.
 
 Turns each page's front matter into Pagefind filters (`audiencia`, one per `apps` entry) for
 _templates/page.html, and its `resumen` into the description meta tag.

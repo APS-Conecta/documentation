@@ -10,7 +10,7 @@ resumen: "Cómo se construye y se prueba gestion, el tronco de la suite: rama y 
 
 gestion es el tronco de desarrollo de APS Conecta Gestión: configuración como código sobre la imagen oficial publicada por {vendor}`Nextcloud`, sin bifurcar el servidor.
 Conserva la definición de la suite —aplicaciones vendorizadas con su `VENDOR`, registro DEIS de establecimientos, datos y tema del servidor—, la pila de desarrollo de Compose y las compuertas que prueban todo eso.
-El paquete de host que instala un centro, el ejecutor de aprovisionamiento y el Provisionador se mudaron al repositorio {doc}`instalador </desarrollo/instalador>`; las copias que quedan aquí están congeladas —no se mantienen— y su retiro definitivo es decisión de la organización (`aps/MIGRATION.md` de instalador).
+El paquete de host que instala un centro, el ejecutor de aprovisionamiento y el Provisionador se mudaron al repositorio {doc}`instalador </desarrollo/instalador>`; las copias que quedan aquí están congeladas y no se mantienen.
 `main` es el tronco; el ritual de etiquetas se retiró: la etiqueta que instala un centro es la etiqueta de versión de instalador, que arma el paquete firmado y publica las veinte imágenes.
 No hay archivo `VERSION`: su mitad congelada imprime `git describe --tags --always --dirty` en la primera línea de cada siembra, y la versión de una instalación de centro la fija el `VERSION` de instalador.
 
@@ -30,11 +30,10 @@ El código, los comentarios y la documentación del repositorio están en inglé
 |---|---|---|---|
 | Búsqueda de secretos | `gitleaks detect --redact --source "$GITHUB_WORKSPACE" --exit-code 1 --verbose` | Cada pull request y cada push a `main` (`ci.yml`) | Ningún secreto en todo el historial, no solo en la punta; el registro nunca imprime el hallazgo. |
 | Compuerta estática | `make test` | Cada pull request y cada push a `main`, después de `make setup` (`ci.yml`); también en local | Que Compose resuelva `compose.yaml` y `compose.dev.yaml`; `bash -n` sobre cada script, y que ningún `*.sh` versionado quede fuera de ese barrido; un tarball por aplicación, con el nombre y el sha256 de su `VENDOR`; que ninguna fase redirija la salida de un ayudante, que es lo que lee la compuerta de idempotencia; las autopruebas herméticas de `scripts/env.sh`, de `provisioning/usuarios.sh`, del Provisionador, del paquete de host, de `host/tiles.sh` y de la migración a AIO; la construcción del mapa base contra un `pmtiles` simulado; y las fijaciones de `desktop_workspace`. La prueba de humo y la de la oficina corren solo si hay una pila AIO en marcha. |
-| Deriva entre aplicaciones | `scripts/check-org-drift.sh apps` | Cada pull request y cada push a `main` (`ci.yml`) | Que territorio, farmacia y estadistica compartan byte a byte `phpunit.xml` y `phpunit.integration.xml`, conserven los objetivos comunes de su `Makefile` y las reglas fijas de ESLint, y que sus copias de aps-common sean iguales entre sí y al paquete. |
-| Instalación limpia | `cleanboot.yml` de instalador | En instalador: pull requests y programación; la copia de gestion quedó congelada con su mitad de instalación | Instala un centro desde cero por el bootstrap firmado, con la misma instalación silenciosa que usa un establecimiento, por dominio y por la IP del ejecutor, y termina con `make test` de instalador. |
+| Instalación limpia | `cleanboot.yml` de instalador | En instalador: pull requests; la copia de gestion quedó congelada con su mitad de instalación | Instala un centro desde cero por el bootstrap firmado, con la misma instalación silenciosa que usa un establecimiento, por dominio y por la IP del ejecutor, y termina con `make test` de instalador. |
 | Idempotencia | `scripts/seed-idempotent.sh` | La instalación limpia, en instalador | Que una segunda siembra no escriba nada. |
 | Divergencia | `bash scripts/divergence.sh --gate` | La instalación limpia, en instalador | Que la instancia coincida con su declaración, cuentas incluidas; sale con código 1 ante cualquier nota. |
-| Fijaciones | `bash scripts/image-digests.sh --validate`, `make images-check`, `make apps-check` | Los lunes a las 05:00 UTC, y en pull requests que tocan una fijación (`image-digests.yml`) | Que cada imagen esté fijada por resumen, e informa si una etiqueta o una aplicación de terceros tiene una versión más nueva. |
+| Fijaciones | `bash scripts/image-digests.sh --validate`, `make images-check`, `make apps-check` | Pull requests que tocan una fijación (`image-digests.yml`) | Que cada imagen esté fijada por resumen, e informa si una etiqueta o una aplicación de terceros tiene una versión más nueva. |
 | Documentación | `python3 .github/repo-docs.py check . --offline` | Pull requests y pushes a `main` que tocan `**/*.md`, `.github/**` o `.githooks/**` (`docs.yml`) | Las reglas de documentación de la organización. |
 | Manifiesto de versión | `bash scripts/release-manifest.sh --validate` | A demanda; su consumidor vivo es la cadena de publicación de instalador | El manifiesto de la versión: aplicaciones fijadas, registro completo y resúmenes de imágenes. El modo `--emit` y el flujo de etiquetas se retiraron con el ritual de gestion: la publicación es la de instalador, que arma el paquete firmado y firma el manifiesto. |
 
@@ -67,7 +66,6 @@ La instalación limpia de instalador elige un establecimiento del registro de fo
 ### Deuda técnica y límites
 
 - Los tarballs de las aplicaciones viven en git, que guarda una copia completa por cada actualización; Talk ocupa 52 MB, más que todas las demás juntas.
-- La compuerta de deriva todavía no compara epidemiologia, y omite la paridad con aps-common cuando no encuentra esa copia; los repositorios que compara son privados y necesitan el token `APS_BOT_PAT`.
 - La instalación limpia de instalador tarda unos 15 minutos con la descarga de imágenes y tiene un límite de 60 minutos.
 - La prueba de la oficina se omite en la pila Compose de desarrollo: responde solo por el servidor de documentos de AIO.
 

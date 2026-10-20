@@ -37,7 +37,7 @@ Todavía no existe una instancia de producción: ningún centro corre una versi�
 | `eurooffice` | `ghcr.io/euro-office/documentserver:latest` | Servidor de documentos de la oficina, con JWT. Publica `127.0.0.1:${OFFICE_PORT}`. |
 
 Cada imagen está fijada por su resumen `@sha256:`; la etiqueta queda solo para leerla.
-`make images` renueva los resúmenes y el flujo semanal `image-digests` informa cuando una etiqueta avanzó más allá de su resumen fijado.
+`make images` renueva los resúmenes y el flujo `image-digests` informa cuando una etiqueta avanzó más allá de su resumen fijado.
 `nextcloud` y `cron` comparten imagen y volúmenes por construcción, porque `cron.php` carga las aplicaciones y necesita `custom_apps` y `themes`.
 El servidor de documentos trae su propio PostgreSQL, Redis y RabbitMQ, y no se conecta a la base de datos ni a la caché del núcleo.
 `apps/` y `themes/` se montan desde el repositorio sobre `custom_apps` y `themes`, para editar sin reconstruir.

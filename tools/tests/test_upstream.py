@@ -1,4 +1,4 @@
-"""Tests for the upstream machinery: upstreamlib, upstream-fidelity, rebrand-check (scribe S2b).
+"""Tests for the upstream machinery: upstreamlib, upstream-fidelity, rebrand-check.
 
 Every fidelity rule has a passing fixture and a planted violation, so a rule that stops firing
 shows up here before it shows up as a wrong page on the site.

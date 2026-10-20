@@ -6,7 +6,7 @@ script adds what the code knows, at build time, from the sibling clones under AP
 
   version    image tag + digest (gestion compose.yaml); app version (gestion provisioning/apps/<id>/VENDOR)
   modified   a vendored app with .patch files beside it is modified; the fork's patch queue length
-             (the queue lives in instalador since it absorbed AIO)
+             (the queue lives in instalador)
   drift      every compose image, every vendored app and every distribution-fork catalog row has a
              row here, and every row here is still shipped — otherwise the build fails
 
@@ -154,13 +154,7 @@ def gather():
     catalog = yaml.safe_load((ROOT / "catalogo.yml").read_text(encoding="utf-8"))[
         "repos"
     ]
-    forks = {
-        r["repo"] for r in catalog
-        if r["kind"] == "distribution-fork"
-        # Un fork absorbido ya no distribuye: su estado en el catálogo es el registro
-        # del traspaso (AIO → instalador), no una segunda cola de parches.
-        and not str(r.get("status", "")).startswith("Absorbido")
-    }
+    forks = {r["repo"] for r in catalog if r["kind"] == "distribution-fork"}
     return rows, imgs, apps, forks
 
 

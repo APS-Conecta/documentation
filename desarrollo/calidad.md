@@ -16,8 +16,6 @@ Correr las compuertas de un repositorio antes de abrir un pull request y saber q
 | Pruebas, paquete y deriva de aps-common | Cada aplicación propia | Que el código pasa sus pruebas, que el paquete confirmado es la compilación de `src/` y que las copias de aps-common están al día |
 | Humo de la aplicación | farmacia y estadistica, contra una instancia desechable | El cableado real: cabeceras OCS, escrituras, rechazos, paquete y contrato |
 | Chequeos estáticos de gestion | Todo pull request de gestion | Que la receta de la suite es coherente sin levantar nada |
-| Deriva de la organización | CI de gestion | Que las aplicaciones comparten la forma de sus pruebas, sus objetivos, sus reglas de ESLint y su copia de aps-common |
-| Clean boot | Pull requests de gestion que tocan la instalación, y cada semana | Que un establecimiento se instala desde cero en AIO y converge |
 | Compilación del sitio | Este repositorio | Que el sitio compila sin advertencias, fiel a sus fuentes y con el nombre del producto |
 
 ## Requisitos
@@ -92,16 +90,12 @@ El `aps-drift` de cada aplicación prueba que su copia coincide con el paquete; 
 |---|---|---|
 | Secret scan | Todo pull request y cada push a `main` | gitleaks sobre todo el historial, con los hallazgos ocultos en el registro; un hallazgo falla el job |
 | Static gate | Todo pull request y cada push a `main` | Los objetivos `setup` y `test` sin ninguna pila: los chequeos estáticos |
-| Org drift | Todo pull request y cada push a `main` | `scripts/check-org-drift.sh` sobre territorio, farmacia y estadistica |
-| Clean boot | Pull requests que cambian lo que lee una instalación, cada lunes y a pedido | La instalación completa sobre un banco de pruebas AIO desechable |
 
 Los chequeos estáticos de `test` corren todos y suman los fallos, de modo que un fallo no oculta los demás. Entre ellos: que la configuración de Compose resuelve, que todo script rastreado pasa `bash -n`, que cada paquete vendorizado coincide con el sha256 de su `VENDOR`, que la tabla de licencias coincide con el `info.xml` de cada paquete, que las bibliotecas vendorizadas del mapa conservan sus bytes, que todo servicio vuelve tras un reinicio, que ningún `.env` lleva los secretos publicados de la plantilla, que cada SVG del tema se analiza como XML y que cada `url()` de `server.css` existe en disco. Varios chequeos incluyen su mitad negativa, que les da una entrada alterada y exige el fallo: una compuerta que no puede ponerse roja no es una compuerta.
 
 Con una pila AIO en marcha, `test` agrega chequeos contra las plantillas del contenedor —entre ellos, que las llamadas a `Template::printPage()` del núcleo sigan siendo las siete conocidas— y corre el humo y el humo de oficina. Sin esa pila, los informa como omitidos.
 
 El humo (`smoke`) prueba una instancia AIO en marcha: el contenedor y la instalación, PostgreSQL y Redis, `/status.php` con el nombre del producto, los trabajos de fondo por cron, el manifiesto web, la política de aplicaciones, que el inicio de sesión no ofrezca mantener la sesión, que ninguna aplicación parchada conserve su firma, que las pantallas heredadas sigan fuera del alcance HTTP —un host no confiable rebota con 302— y que el tema activo traiga `core/css/guest.css` y `defaults.php`, que la carpeta del administrador no traiga los archivos de ejemplo, que la tienda esté apagada, que la dirección del editor de oficina coincida con cómo se alcanza la instancia y que el mapa base se sirva en `/tiles/`. El humo de oficina prueba que Euro-Office responde por su ruta pública, que su versión es de la línea 9.3 emparejada con el conector 11.0.5 y que la imagen viene de uno de los dos orígenes que la suite acepta.
-
-La deriva de la organización compara territorio, farmacia y estadistica: `phpunit.xml` y `phpunit.integration.xml` byte a byte, los objetivos centrales del Makefile, las reglas fijadas de ESLint y que sus copias de aps-common sean iguales entre sí y al paquete. No compara `ci.yml`, que es propio de cada aplicación por diseño.
 
 Clean boot instala un establecimiento generado con el mismo comando silencioso que usa una clínica, y termina con el contrato de entrega: una segunda siembra que no escribe nada, la compuerta de divergencia en verde, un reinicio con la tienda apagada, una nueva siembra que converge y el objetivo `test` con el humo de oficina respondiendo. Una segunda siembra no debe escribir nada: el registro de la siembra es la aserción.
 

@@ -8,7 +8,7 @@ resumen: "Cambios de instalador visibles para usuarios y administradores, agrupa
 
 ## Resumen
 
-Esta página registra los cambios de instalador que ve una persona usuaria o administradora, agrupados por versión. 📚 Scribe la actualiza cada día a partir de los cambios fusionados en el repositorio; los cambios internos no figuran. Los cambios aún no publicados aparecen como «Próxima versión».
+Esta página registra los cambios de instalador que ve una persona usuaria o administradora, agrupados por versión. Se actualiza a partir de los cambios fusionados en el repositorio; los cambios internos no figuran. Los cambios aún no publicados aparecen como «Próxima versión».
 
 ## Tabla
 

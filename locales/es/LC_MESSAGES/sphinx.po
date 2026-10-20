@@ -1,4 +1,4 @@
-# Textos de la interfaz del tema Furo en español (iniciativa scribe, Q22). Furo no trae
+# Textos de la interfaz del tema Furo en español. Furo no trae
 # catálogo en español y el de Sphinx no cubre estas cadenas; Sphinx compila este archivo.
 msgid ""
 msgstr ""

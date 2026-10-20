@@ -26,7 +26,7 @@ def fail(msg: str) -> None:
 
 
 def gh(args: list[str]) -> str:
-    # GH_TOKEN va en el ambiente (lo acuña el workflow); jamás en argv o URL.
+    # GH_TOKEN va en el ambiente; jamás en argv o URL.
     proc = subprocess.run(["gh", *args], capture_output=True, text=True)
     if proc.returncode != 0:
         fail(f"gh api {args[1]}…: {proc.stderr.strip()}")

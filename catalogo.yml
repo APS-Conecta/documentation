@@ -35,7 +35,7 @@ repos:
       - desarrollo/instalador.md
       - proyecto/novedades/instalador.md
     depends_on: [gestion]
-    status: "Activo — absorbió al fork de AIO, cuyo repositorio se eliminó; primera versión en preparación"
+    status: "Activo — primera versión en preparación"
     version: "" # VERSION (v0.4.0) aún no publica: la clave de firma sigue siendo marcador de posición
   - repo: IntraVox
     kind: nextcloud-app
@@ -110,7 +110,7 @@ repos:
     status: "Activo"
   - repo: repo-docs
     kind: canon-engine
-    role: "Control de documentación de APS-Conecta — primero auditar, después construir; el motor del canon, los perfiles y el barrido semanal."
+    role: "Control de documentación de APS-Conecta — primero auditar, después construir; el motor del canon y los perfiles."
     manuals:
       - desarrollo/repo-docs.md
     depends_on: []

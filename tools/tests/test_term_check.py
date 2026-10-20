@@ -1,4 +1,4 @@
-"""term-check (scribe S5): one approved Spanish form per term, one register, no Spain-only forms."""
+"""term-check: one approved Spanish form per term, one register, no Spain-only forms."""
 
 import sys
 import unittest

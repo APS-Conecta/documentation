@@ -18,14 +18,14 @@ import sys as _sys
 _sys.path.insert(0, _os.path.join(_os.path.dirname(__file__), '_ext'))
 
 # upstream: los bloques tejidos de la documentación oficial de Nextcloud y sus referencias;
-# rebrand: el nombre del producto en todo el sitio (iniciativa scribe; regla en upstream.yml).
+# rebrand: el nombre del producto en todo el sitio.
 extensions = ['myst_parser', 'upstream', 'rebrand', 'pagefind_meta']
 
 # colon_fence: dentro de un bloque {upstream}, las directivas (avisos, tablas) usan «:::» y las
 # vallas de acentos graves quedan solo para código (tools/weave-contract.md).
 myst_enable_extensions = ['colon_fence']
 
-# Furo (iniciativa scribe, Q22): diseño pensado primero para pantallas angostas, índice
+# Furo: diseño pensado primero para pantallas angostas, índice
 # «En esta página» a la derecha y tipografía legible en capítulos largos. La marca entra por
 # las variables CSS del tema; solo modo claro (las variables oscuras repiten las claras y
 # _templates/base.html fija data-theme="light"); sin solicitudes a terceros.
@@ -158,7 +158,7 @@ linkcheck_anchors_ignore_for_url = [r'https://github\.com/.+']
 smartquotes = False
 
 # Un toctree con glob en una carpeta que el tejido aún no llena no es un error: la carpeta
-# existe para recibir páginas (iniciativa scribe). Sphinx 9 emite ese aviso sin `type`
+# existe para recibir páginas. Sphinx 9 emite ese aviso sin `type`
 # (sphinx/directives/other.py, subtype='empty_glob'), así que suppress_warnings no lo alcanza;
 # un filtro de logging descarta exactamente ese mensaje y deja intactos todos los demás.
 def setup(app):

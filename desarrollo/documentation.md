@@ -66,7 +66,7 @@ El objetivo `generate` del `Makefile` corre los generadores antes de cada compil
 
 ### Compuertas
 
-El flujo `build` corre en cada pull request, en cada push a `main` y a diario después de 📚 Scribe, para que las páginas generadas sigan la rama `main` de cada repositorio. Clona los repositorios de `catalogo.yml` con un token de GitHub App de solo lectura y envuelve cada compuerta en un objetivo de `make`, así que `-W --keep-going` vive en un solo lugar, el `Makefile`:
+El flujo `build` corre en cada pull request, en cada push a `main` y a mano; en `main` publica el sitio, así que una ejecución a mano pone las páginas generadas al día con la rama `main` de cada repositorio. Clona los repositorios de `catalogo.yml` —los privados, con una clave de despliegue de solo lectura cada uno— y envuelve cada compuerta en un objetivo de `make`, así que `-W --keep-going` vive en un solo lugar, el `Makefile`:
 
 | Compuerta | Qué prueba |
 | --- | --- |
@@ -84,13 +84,13 @@ El flujo `docs` corre además la revisión del canon repo-docs, con `gitleaks` s
 python3 .github/repo-docs.py check . --offline
 ```
 
-Tres flujos más completan el repositorio: `about-sync` replica los roles de `catalogo.yml` en las descripciones de los repositorios cuando cambia el catálogo, `capturas` toma cada lunes las capturas de las cinco aplicaciones y abre un borrador de pull request solo si cambian, e `ia-check` comprueba cada lunes que ningún modelo ni bot escriba en los repositorios sin estar declarado en `ia.yml`. La rutina 📚 Scribe mantiene la prosa fiel al código, por carriles.
+El flujo `ia-check`, que se lanza a mano, comprueba que, desde el 2026-10-20, ningún modelo ni bot escriba en los repositorios sin estar declarado en `ia.yml`.
 
 ## Compromisos y límites
 
 - **Enlaces que `linkcheck` omite.** Las URL que solo aparecen dentro de bloques tejidos no se comprueban: mantenerlas vivas es tarea del original. Tampoco se comprueban las URL de repositorios privados, las anclas de GitHub, que se arman con JavaScript, ni dos hosts que fallan de forma intermitente desde los runners de GitHub (deis.minsal.cl y gitnet.fr).
 - **Traducción mayoritariamente automática.** Los catálogos oficiales en español cubren cerca del 20 % del texto vigente; el resto lo traduce un flujo con inteligencia artificial, acotado por `upstream-fidelity`.
-- **Capturas comparadas por tamaño.** Dos ejecuciones locales sobre una pila nueva produjeron PNG distintos byte a byte en las cinco aplicaciones por el ruido de tiempo de gráficos y mapas en canvas, así que la compuerta semanal compara por clase de tamaño con un 5 % de tolerancia en lugar de exigir igualdad de bytes.
+- **Capturas comparadas por tamaño.** Dos ejecuciones locales sobre una pila nueva produjeron PNG distintos byte a byte en las cinco aplicaciones por el ruido de tiempo de gráficos y mapas en canvas, así que `make capturas` compara por clase de tamaño con un 5 % de tolerancia en lugar de exigir igualdad de bytes.
 - **Solo modo claro.** El tema fija el modo claro; las variables oscuras repiten las claras.
 - **Sin URL canónica.** `html_baseurl` falta a propósito: emitiría etiquetas canónicas con un host externo, que la regla de aislamiento del sitio prohíbe.
 - **La hoja de ruta fuera de CI.** `tools/hoja-de-ruta.sh` usa la sesión de GitHub del responsable, porque el token de CI no alcanza para crear ni actualizar el proyecto de la organización; por eso no es un objetivo de `make` ni corre en CI.

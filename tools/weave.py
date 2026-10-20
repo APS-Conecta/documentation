@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""weave — deterministic helper for weaving the Nextcloud manuals into the site (scribe W-runs).
+"""weave — deterministic helper for weaving the Nextcloud manuals into the site.
 
 The AI translator never decides WHAT to weave or WHERE: this script does, from upstream.yml.
 

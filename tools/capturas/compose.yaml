@@ -1,4 +1,4 @@
-# Throwaway lean stack for the weekly screenshots (driven by tools/capturas/captura.py).
+# Throwaway lean stack for the screenshots (driven by tools/capturas/captura.py).
 #
 # Faithful copy of farmacia/compose.dev.yaml with named deltas: name `capturas`,
 # loopback port 8095 (8083/8090/8092 are taken by the territorio/farmacia/

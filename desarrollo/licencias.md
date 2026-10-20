@@ -20,7 +20,7 @@ La tabla de componentes de terceros que distribuye la suite, con su origen, vers
 |---|---|---|
 | gestion, IntraVox, farmacia, estadistica, epidemiologia, territorio, aps-common, Databases, repo-docs, `.github` | `LICENSE` | El mismo texto de la GNU AGPL v3 en todos; la organización la declara AGPL-3.0-or-later |
 | documentation | `LICENSE` y `COPYING` | AGPL-3.0-or-later para las herramientas de compilación; CC BY 3.0 para el texto y las capturas del sitio |
-| AIO | `LICENSE` de upstream | AGPL v3 sin la cláusula «o posterior», es decir, AGPL-3.0-only |
+| instalador | `LICENSE` de upstream | AGPL v3 sin la cláusula «o posterior», es decir, AGPL-3.0-only |
 | rpiv-artifacts | Ninguno | Sin archivo de licencia |
 
 En este sitio, `REUSE.toml` asigna cada ruta: la prosa de las páginas es CC-BY-3.0; `conf.py`, el `Makefile`, `tools/` y `_templates/` son AGPL-3.0-or-later; y `_static/css/aps-brand.css`, el mapeo de la marca, está reservado.

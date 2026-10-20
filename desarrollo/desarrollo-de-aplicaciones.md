@@ -92,8 +92,6 @@ Después de activar la aplicación, `instance-up` reinicia el servidor web: los 
 
 La suite de integración corre dentro de la instancia contra su PostgreSQL real con el objetivo `integration`, después de `deps` e `instance-up`; ningún job de CI la corre.
 
-La compuerta de deriva de la organización, en el CI de gestion, exige que territorio, farmacia y estadistica conserven los objetivos `test`, `clean`, `instance-up`, `instance-occ`, `instance-down`, `instance-clean`, `aps-sync` y `aps-drift`. Compara además `phpunit.xml` y `phpunit.integration.xml` byte a byte y las reglas fijadas de `eslint.config.mjs`. Las compuertas de la plantilla están en {doc}`calidad`.
-
 ### 6. La entrada a la suite
 
 Mientras se desarrolla, la aplicación es una aplicación de laboratorio: un clon en `apps/<id>` de gestion, declarado en `dev/lab-apps.sh`, que nunca viaja en una versión. La provisión actúa sobre una entrada de laboratorio solo donde existe `apps/<id>/.git`, de modo que en un establecimiento el archivo no hace nada.
@@ -109,7 +107,7 @@ La provisión decide por un hecho, no por una bandera:
 
 Al promoverla, la aplicación entra en `OWN_APPS` de `provisioning/phases/12-apps.sh` y viaja como paquete: un único `.tar.gz` en `provisioning/apps/<id>/`, construido con `git archive` desde una etiqueta de su repositorio, junto a un archivo `VENDOR` con versión, sha256 y etiqueta de origen. Así una instalación no necesita red, git ni GitHub. El comando exacto de construcción vive en ese `VENDOR`; `gzip -n` deja la fecha fuera de la cabecera, de modo que reconstruir la misma etiqueta da los mismos bytes y el sha256 sigue comprobable.
 
-Una aplicación cortada de la plantilla, como estadistica, entra además en el clon del CI de gestion y en la compuerta de deriva al promoverse; toda aplicación promovida entra en la tabla de licencias de gestion. gestion fija la versión de una aplicación propia en un hito, no en cada etiqueta de la aplicación. Un establecimiento recibe la aplicación por gestion, nunca por la tienda de aplicaciones, que la suite mantiene apagada.
+Toda aplicación promovida entra en la tabla de licencias de gestion. gestion fija la versión de una aplicación propia en un hito, no en cada etiqueta de la aplicación. Un establecimiento recibe la aplicación por gestion, nunca por la tienda de aplicaciones, que la suite mantiene apagada.
 
 ## Resultado
 
@@ -117,7 +115,7 @@ La aplicación pasa sus compuertas, la provisión la instala desde un paquete fi
 
 ### Deuda y límites
 
-- La deriva entre aplicaciones se vigila solo en territorio, farmacia y estadistica; epidemiologia se suma por comprobación cuando su árbol llegue a la forma común, y `ci.yml` es propio de cada aplicación por diseño.
+- `ci.yml` es propio de cada aplicación por diseño.
 - El CI de epidemiologia no comprueba la deriva de aps-common.
 - La suite de integración no corre en CI.
 - El paquete que instala gestion queda atrás del `main` de la aplicación hasta el siguiente hito: farmacia lleva en `main` cambios no publicados sobre la etiqueta 0.11.1.

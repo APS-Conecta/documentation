@@ -1,5 +1,5 @@
 {# Página: filtros de búsqueda (Pagefind) desde la portada YAML de cada página, y el pie que
-   declara el origen del producto en todas las páginas (iniciativa scribe, Q21–Q23). #}
+   declara el origen del producto en todas las páginas. #}
 {% extends "!page.html" %}
 {% block content %}
 {%- for name, value in pagefind_filters|default([]) %}<span data-pagefind-filter="{{ name }}" hidden>{{ value }}</span>{% endfor -%}

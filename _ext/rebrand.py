@@ -1,4 +1,4 @@
-"""Site-wide rename: «Nextcloud» → «APS Conecta Gestión» (iniciativa scribe, Q21).
+"""Site-wide rename: «Nextcloud» → «APS Conecta Gestión».
 
 Runs on every page as it is read, before Sphinx collects titles, so page text, headings, the
 navigation and the search index all carry the product's name. The rule lives in upstream.yml

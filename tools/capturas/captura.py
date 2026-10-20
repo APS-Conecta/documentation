@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""captura — the screenshots driver (Phase 11, capturas.yml).
+"""captura — the screenshots driver (Phase 11).
 
 Brings up the throwaway lean stack (tools/capturas/compose.yaml), enables the
 five suite apps from clones (never `occ app:install`), pins es/es_CL + the
@@ -20,7 +20,7 @@ Idioms mirrored from gestion/provisioning (citations org-root-relative):
     (phases/60-fixtures.sh ensure_sample_file idiom).
 
 Env: APS_ORG_ROOT (default /opt/aps-conecta-org) — local clone root;
-     CAPTURAS_APPS — clone dir in CI (takes precedence over APS_ORG_ROOT);
+     CAPTURAS_APPS — clone dir (takes precedence over APS_ORG_ROOT);
      CAPTURAS_PORT (default 8095, mirrors the compose port default);
      OXIPNG_BIN (default `oxipng` on PATH) — the sha256-verified binary.
 
@@ -60,7 +60,7 @@ FIXTURE_NAME = "Bienvenida-captura.md"
 FIXTURE_BODY = """\
 # Bienvenida a APS Conecta (captura de pantalla)
 
-Este archivo **sintético** existe para que la captura semanal de pantallas
+Este archivo **sintético** existe para que la captura de pantallas
 muestre un estado determinista. No contiene datos reales.
 """
 
@@ -121,7 +121,7 @@ def resolve_roster() -> list:
         clone = apps_dir() / name
         if not (clone / "appinfo" / "info.xml").is_file():
             die(f"clone {clone} is missing its appinfo/info.xml — clone it first "
-                f"(APS_ORG_ROOT locally, CAPTURAS_APPS in CI)")
+                f"(under APS_ORG_ROOT, or CAPTURAS_APPS)")
         pairs.append((name, appid_of(clone)))
     return pairs
 
@@ -162,9 +162,8 @@ def stream_app_in(clone: Path, appid: str) -> None:
     node_modules excluded at staging time, then tar-stream it into custom_apps
     as www-data — lib.sh's unpack idiom: nothing is copied through the host, and
     files must land owned by www-data (uid 33) or the app cannot be used.
-    node_modules is a local build artifact (untracked in every clone, absent
-    from a CI shallow clone — and one local copy self-loops), so excluding it
-    makes the local staging byte-equal to CI's."""
+    node_modules is a local build artifact (untracked in every clone, and one
+    local copy self-loops), so excluding it keeps the staging reproducible."""
     with tempfile.TemporaryDirectory(prefix="capturas-stage-") as stage:
         shutil.copytree(clone, Path(stage) / appid,
                         ignore=shutil.ignore_patterns(".git", "node_modules"))
@@ -389,7 +388,7 @@ def cmd_selftest(_args) -> None:
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="weekly screenshots driver (Phase 11)")
+    ap = argparse.ArgumentParser(description="screenshots driver (Phase 11)")
     ap.add_argument("--selftest", action="store_true",
                     help="no docker: pin the roster fold + the appid map")
     sub = ap.add_subparsers(dest="cmd")

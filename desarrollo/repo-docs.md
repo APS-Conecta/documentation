@@ -2,7 +2,7 @@
 tipo: explicacion
 audiencia: desarrollo
 apps: [repo-docs]
-resumen: "repo-docs: el motor que audita la documentación de cada repositorio, su perfil, sus reglas, sus compuertas, el barrido semanal y sus límites."
+resumen: "repo-docs: el motor que audita la documentación de cada repositorio, su perfil, sus reglas, sus compuertas y sus límites."
 ---
 # repo-docs
 
@@ -58,9 +58,8 @@ El `GITHUB_TOKEN` de un workflow solo alcanza su propio repositorio, así que la
 |---|---|---|
 | `docs` | En cada repositorio gobernado, en cada pull request y en cada push a `main`. | `pr-gate`, que exige un título de pull request en inglés, y `check . --offline`, con gitleaks sobre el rango de commits del pull request. |
 | `selftest` | Solo en repo-docs, cuando cambian `scripts/`, `canon/`, `profiles/` o los workflows. | actionlint sobre el canon y los workflows generados, y los selftests de `scripts/docs.py` y `scripts/census.py`. |
-| `sweep` | Solo en repo-docs, cada lunes a las 05:43 UTC y a mano. | Clona el censo y corre `check --all --stamp-error`. Falla con hallazgos nuevos respecto de `baseline.json`, con un sello desactualizado o cuando un repositorio de la suite no tiene clave en `baseline.json`. |
 
-El censo del barrido es la unión de las claves de `baseline.json`, menos `.github` y el propio repo-docs, con las aplicaciones propias que gestion declara en `OWN_APPS` (`provisioning/phases/12-apps.sh`). Por eso una aplicación no se distribuye sin entrar al barrido. El `Makefile` de repo-docs reúne los dos selftests en un solo objetivo para correrlos en local.
+El `Makefile` de repo-docs reúne los dos selftests en un solo objetivo para correrlos en local.
 
 ### Régimen en español y estructura de página
 
@@ -80,7 +79,7 @@ Agregar una regla es una función y un decorador. Las reglas con alcance «organ
 | `licence-prose` | error | compuerta | Prosa que presenta como privativo el código de la organización cuando la postura del perfil es otra. |
 | `licence-inventory` | aviso | compuerta | Licencias de terceros que el documento de avisos no nombra, o componentes que ese documento nombra y ya no están. |
 | `canon-drift` | error | compuerta | Un archivo mecánico que difiere de `canon/`. |
-| `canon-stamp` | aviso; error en el barrido | compuerta | Una copia cuyo sello no corresponde al canon vigente. |
+| `canon-stamp` | aviso | compuerta | Una copia cuyo sello no corresponde al canon vigente. |
 | `secrets` | error | compuerta | Un secreto versionado. |
 | `public-leak` | error | compuerta | Datos internos en un repositorio legible por cualquiera. |
 | `broken-links` | error | compuerta | Un enlace relativo cuyo destino no existe. |
@@ -117,7 +116,4 @@ Mapa de módulos <../_generated/mapa/repo-docs>
 - La compuerta de cada pull request corre solo las reglas de alcance «compuerta»: el `GITHUB_TOKEN` no lee hechos de la organización.
 - La copia en cada repositorio cuesta un commit de mantenimiento cada vez que cambia el motor, y ya falló en silencio: hasta el 2026-08-08 no se había ejecutado nunca en ningún repositorio. Un perfil copiado puede derivar sin aviso entre refrescos; el sello registra qué motor tiene cada copia, pero sin `canon/` no se puede verificar ahí.
 - El ADR 0004, que decide la copia en cada repositorio, parte de que todos los repositorios de la organización son privados. Hoy el {doc}`catálogo </_generated/catalogo>` marca repo-docs como público, y el ADR sigue aceptado sin revisión.
-- `check --all` termina con código 1 ante cualquier error abierto, y la línea base registra errores conocidos. Por eso el veredicto del barrido es la búsqueda de hallazgos nuevos en su salida, con un marcador que impide que una caída del verificador pase por verde.
-- El barrido lee el PAT `APS_BOT_PAT` de la organización. La iniciativa docs-es prevé reemplazarlo por un token de una hora de una GitHub App y tomar el censo de `catalogo.yml`. Mientras tanto, un repositorio ausente de `baseline.json` y de `OWN_APPS` queda fuera del barrido: este sitio, por ejemplo, queda cubierto solo por sus propias compuertas.
-- El README registra una tarea pendiente: ensanchar el PAT del barrido para que el registro del censo vea lo mismo que el barrido.
 - El nivel `ultra` define la división de Diátaxis en carpetas, pero nada la exige. Es una omisión deliberada: ningún repositorio usa ese nivel.

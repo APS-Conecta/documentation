@@ -3,16 +3,14 @@
 # The workflow owns no repo list (the roster is catalogo.yml), invokes no generator
 # and no raw sphinx invocation — every gate wraps a make target, so -W --keep-going
 # lives in exactly one place, the Makefile. Token consumption is ambient GH_TOKEN
-# env, never argv or URL; the App token is minted read-scoped, roster-fed.
+# env, never argv or URL; private roster repos are cloned with read-only deploy keys.
 name: build
 
 on:
   push:
     branches: [main]     # main-only push: a PR is never checked twice
   pull_request:
-  workflow_dispatch:     # token-reach verification on any branch; deploy stays gated
-  schedule:
-    - cron: "30 9 * * *"  # daily, after 📚 Scribe (09:00 UTC): generated pages follow every repo's main
+  workflow_dispatch:     # clone-reach check on any branch; on main it also redeploys Pages
 
 permissions: {}          # GITHUB_TOKEN is never used for a write; build re-grants read
 
@@ -34,7 +32,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt pyyaml   # pyyaml for the roster parse; the site toolchain stays the four pins
-      - name: Roster (the 15, from catalogo.yml — the workflow owns no repo list)
+      - name: Roster (the 14, from catalogo.yml — the workflow owns no repo list)
         id: roster
         run: |
           python3 - <<'PY' >> "$GITHUB_OUTPUT"
@@ -44,23 +42,34 @@ jobs:
               print(row["repo"])
           print("REPOS")
           PY
-      - name: Mint App token (read-scoped, roster-fed)
-        id: token
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-        with:
-          app-id: ${{ vars.APS_BOT_APP_ID }}
-          private-key: ${{ secrets.APS_BOT_APP_KEY }}
-          permission-contents: read    # clones + gh api reads, nothing else
-          repositories: ${{ steps.roster.outputs.repos }}   # OQ5 sidestep; one-line fallback: drop this input
       - name: Clone the roster (RUNNER_TEMP boundary; a failed clone fails the job)
         env:
-          GH_TOKEN: ${{ steps.token.outputs.token }}   # gh reads it; never URL/argv
           ROSTER: ${{ steps.roster.outputs.repos }}
           APS_ORG_ROOT: ${{ runner.temp }}/org         # clones land outside the checkout
+          # one read-only deploy key per private roster repo: <REPO>_DEPLOY_KEY, upper snake case
+          APS_COMMON_DEPLOY_KEY: ${{ secrets.APS_COMMON_DEPLOY_KEY }}
+          DATABASES_DEPLOY_KEY: ${{ secrets.DATABASES_DEPLOY_KEY }}
+          EPIDEMIOLOGIA_DEPLOY_KEY: ${{ secrets.EPIDEMIOLOGIA_DEPLOY_KEY }}
+          ESTADISTICA_DEPLOY_KEY: ${{ secrets.ESTADISTICA_DEPLOY_KEY }}
+          FARMACIA_DEPLOY_KEY: ${{ secrets.FARMACIA_DEPLOY_KEY }}
+          RPIV_ARTIFACTS_DEPLOY_KEY: ${{ secrets.RPIV_ARTIFACTS_DEPLOY_KEY }}
+          TERRITORIO_DEPLOY_KEY: ${{ secrets.TERRITORIO_DEPLOY_KEY }}
         run: |
+          keys="$(mktemp -d)"
+          trap 'rm -rf "$keys"' EXIT
+          echo 'github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl' >"$keys/known_hosts"
           while IFS= read -r repo; do
             [ -n "$repo" ] || continue
-            gh repo clone "APS-Conecta/$repo" "${APS_ORG_ROOT}/$repo" -- --depth 1
+            name="${repo^^}"
+            name="${name//[-.]/_}_DEPLOY_KEY"
+            if [ -n "${!name:-}" ]; then
+              printf '%s\n' "${!name}" >"$keys/$repo"
+              chmod 600 "$keys/$repo"
+              GIT_SSH_COMMAND="ssh -i $keys/$repo -o IdentitiesOnly=yes -o UserKnownHostsFile=$keys/known_hosts -o StrictHostKeyChecking=yes" \
+                git clone --depth 1 "git@github.com:APS-Conecta/$repo.git" "${APS_ORG_ROOT}/$repo"
+            else
+              git clone --depth 1 "https://github.com/APS-Conecta/$repo.git" "${APS_ORG_ROOT}/$repo"
+            fi
           done <<< "$ROSTER"
       - name: Install actionlint 1.7.12
         run: |
@@ -77,7 +86,7 @@ jobs:
         run: actionlint .github/workflows/*.yml
       - name: "Site build (the make contract: -W --keep-going lives in the Makefile)"
         env:
-          GH_TOKEN: ${{ steps.token.outputs.token }}   # gen-catalogo.py live visibility
+          GH_TOKEN: ${{ github.token }}   # gen-catalogo.py live visibility
           APS_ORG_ROOT: ${{ runner.temp }}/org         # the generators' sibling-checkout contract
           GESTION_SRC: ${{ runner.temp }}/org/gestion  # fetch-brand.sh resolution branch 1
         run: make html
@@ -95,7 +104,7 @@ jobs:
         run: make rebrand-check
       - name: Linkcheck (ignore seed = _generated/linkcheck-private.txt via conf.py)
         env:
-          GH_TOKEN: ${{ steps.token.outputs.token }}
+          GH_TOKEN: ${{ github.token }}
           APS_ORG_ROOT: ${{ runner.temp }}/org         # the generate chain runs here too
         run: make linkcheck
       - name: Chromium (aps-conecta-web theme.yml shape)
@@ -104,19 +113,19 @@ jobs:
           playwright install --with-deps --only-shell chromium
       - name: Served-site gate
         env:
-          GH_TOKEN: ${{ steps.token.outputs.token }}   # gen-catalogo.py live visibility
+          GH_TOKEN: ${{ github.token }}   # gen-catalogo.py live visibility
           APS_ORG_ROOT: ${{ runner.temp }}/org         # the generate chain runs here too
           GESTION_SRC: ${{ runner.temp }}/org/gestion  # fetch-brand.sh resolution branch 1
         run: make check-site
       - name: Pages artifact (main only)
-        if: (github.event_name == 'push' || github.event_name == 'schedule') && github.ref == 'refs/heads/main'
+        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
         with:
           path: _build/html
 
   deploy:
     needs: build
-    if: (github.event_name == 'push' || github.event_name == 'schedule') && github.ref == 'refs/heads/main'
+    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
     permissions:
       pages: write
       id-token: write

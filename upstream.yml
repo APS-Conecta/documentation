@@ -1,5 +1,5 @@
 # Plataforma base — la documentación oficial de Nextcloud, tejida en los capítulos de APS
-# Conecta (iniciativa scribe, Q13–Q21). Claves en inglés y valores en español, como
+# Conecta. Claves en inglés y valores en español, como
 # catalogo.yml. Este archivo es el único dueño de tres hechos:
 #   source — de dónde sale el texto upstream y en qué rama;
 #   rename — cómo se nombra el producto en todo el sitio;

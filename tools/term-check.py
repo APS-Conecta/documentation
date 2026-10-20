@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""term-check — one Spanish across the site (iniciativa scribe, S5).
+"""term-check — one Spanish across the site.
 
 Fails on:
 - a variant glosario.yml lists under `evitar` (terms and tecnicos), anywhere in prose;

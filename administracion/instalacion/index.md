@@ -11,14 +11,6 @@ resumen: "Los recorridos de instalación de un nodo de la suite según cada situ
 
 La instalación de un nodo depende de la situación y cada situación tiene su propio recorrido: la puesta en marcha de un CESFAM productivo sigue el instalador de la suite, que vive en el repositorio [instalador](https://github.com/APS-Conecta/instalador) — una línea de consola descarga el paquete firmado de una etiqueta publicada, lo verifica por su suma sha256 y su firma minisign, y deja la suite lista para `sudo aps-conecta install`; el recorrido completo está en [`aps/INSTALLER.md`](https://github.com/APS-Conecta/instalador/blob/main/aps/INSTALLER.md), en inglés, y en la [guía clínica](https://github.com/APS-Conecta/instalador/blob/main/aps/GUIA-CLINICA.md), en español—. El entorno de desarrollo sigue el inicio rápido del repositorio y el ciclo diario de contenedores se opera por la interfaz de tareas del repositorio. Las Notas de versión acompañan cada entrega y la Configuración inicial del establecimiento.
 
-## Secciones previstas
-
-- Instalación productiva
-- Entorno de desarrollo
-- Notas de versión
-- Configuración inicial
-- Ciclo de contenedores
-
 ````{upstream} admin_manual/installation/index.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 :difiere: administracion/aio
 

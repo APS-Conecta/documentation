@@ -1027,7 +1027,7 @@ def prose(paragraph: str) -> str:
 
 
 def style_problems(paragraph: str, gl: dict | None = None) -> list[str]:
-    """One Spanish (scribe S5): no glosario.yml `evitar` variant, and the register is formal,
+    """One Spanish: no glosario.yml `evitar` variant, and the register is formal,
     direct and affirmative — «usted» or impersonal, never tuteo or vosotros (owner, 2026-10-10)."""
     text, gl = prose(paragraph), glossary() if gl is None else gl
     out = []
