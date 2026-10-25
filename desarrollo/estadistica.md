@@ -15,9 +15,9 @@ También sigue mes a mes las Metas Sanitarias de Atención Primaria.
 La versión 0.1.0 cierra el hito M1, el pilar REM.
 La guía de uso está en {doc}`/usuario/estadistica`.
 
-Un CESFAM recibe Estadística por gestion, no por la tienda de aplicaciones: la fase 12 desempaqueta el paquete fijado en `provisioning/apps/estadistica/`, construido desde una etiqueta del repositorio, y la fase 16 escribe el establecimiento.
-El paquete fijado es la versión 0.1.0 y contiene solo código: las cifras REM no viajan en él, y después de instalar, `RemJob` descarga la ventana del DEIS.
-gestion la instala en el conjunto `OWN_APPS` ({doc}`/administracion/aplicaciones`).
+Un CESFAM recibe Estadística como aplicación opcional del asistente, desactivada por omisión: quien la elige recibe la publicación firmada más nueva compatible con su Nextcloud, del repositorio propio de la aplicación, sin contactar la tienda de aplicaciones, y la fase 16 escribe el establecimiento.
+El paquete contiene solo código: las cifras REM no viajan en él y, después de instalar, `RemJob` descarga la ventana del DEIS.
+La versión instalada queda registrada en el candado del servidor ({doc}`/administracion/aplicaciones`).
 
 **Invariante: ningún identificador de persona entra en la aplicación.**
 Todo lo que guarda es un conteo agregado que publican el DEIS, FONASA o el MINSAL.

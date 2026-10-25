@@ -30,9 +30,9 @@ El repositorio se mantiene como fork con funciones locales ([ADR-0001](https://g
 | Plegado compartido | `slugifyHeading` pliega los títulos con la regla compartida de aps-common, copiada en `src/aps/` por el objetivo `aps-sync` del `Makefile` del fork; `scripts/check-aps-parity.mjs` fija los anclajes byte a byte, porque están guardados en las páginas y en los enlaces compartidos. | `Makefile`, `src/utils/headingAnchors.js` |
 | Documentación | Los enlaces `<documentation>` de `appinfo/info.xml` apuntan a la documentación del fork; el corpus en neerlandés y las comparaciones comerciales del upstream están retirados. | ADR-0001 |
 
-gestion instala el fork así:
+La suite instala el fork así:
 
-1. `OWN_APPS` incluye `intravox` desde `v3.1.0-aps1` (2026-09-25) (`provisioning/phases/12-apps.sh`). El tarball se construye desde la etiqueta del fork y su versión y sha256 quedan fijados en `provisioning/apps/intravox/VENDOR` (hoy 3.1.7, `v3.1.7-aps1`).
+1. El manifiesto de la suite declara el fork (`source: fork`): en el momento de instalar, la resolución descarga su publicación firmada más reciente compatible con la versión de Nextcloud, la verifica contra la clave de aplicaciones y registra la versión en el candado.
 2. La fase 15 fija `defaultapp` en `intravox`: un inicio de sesión aterriza en la intranet ([ADR-0010](https://github.com/APS-Conecta/instalador/blob/main/docs/adr/0010-intravox-is-the-default-landing-app.md)).
 3. La política de apps fija `intravox:telemetry_enabled:false`: la telemetría del motor viene activada por defecto y la suite la apaga con el literal `'false'` (`provisioning/app-policy.sh`).
 4. La fase 41 (`provisioning/phases/41-intravox.sh`) escribe `groupfolder_name` antes de `occ intravox:setup --skip-demo`, asigna los grupos del registro a los del motor, renderiza el árbol que el establecimiento declara y lo importa por sección, y escribe las ACL de las páginas de equipo. La guía de la portada —qué se siembra, el flujo editorial, el presupuesto de páginas y la recuperación— vive en esta página y en {doc}`/usuario/inicio`.

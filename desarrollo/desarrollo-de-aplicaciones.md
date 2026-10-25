@@ -98,18 +98,18 @@ La compuerta de deriva de la organización, en el CI de gestion, exige que terri
 
 Mientras se desarrolla, la aplicación es una aplicación de laboratorio: un clon en `apps/<id>` de gestion, declarado en `dev/lab-apps.sh`, que nunca viaja en una versión. La provisión actúa sobre una entrada de laboratorio solo donde existe `apps/<id>/.git`, de modo que en un establecimiento el archivo no hace nada.
 
-Para trabajar dentro de la suite, clonar la aplicación en `apps/<id>` de gestion y converger con los objetivos `fix-mount-perms` y `seed` de su Makefile. Con el directorio presente, la provisión deja el clon intacto en vez de desempaquetar el paquete encima.
+Para trabajar dentro de la suite, clonar la aplicación en `apps/<id>` de gestion y converger con los objetivos `fix-mount-perms` y `seed` de su Makefile. Con el directorio presente, la provisión deja el clon intacto en vez de instalar la versión registrada encima.
 
 La provisión decide por un hecho, no por una bandera:
 
 | `apps/<id>/.git` | Qué hace la provisión | Por qué |
 |---|---|---|
-| Ausente: un servidor | Desempaqueta el paquete fijado, comprueba su sha256 y reconcilia el esquema | La misma siembra produce la misma instancia |
+| Ausente: un servidor | Instala la versión del candado —la publicación ya verificada— y reconcilia el esquema | La misma siembra produce la misma instancia |
 | Presente: un desarrollador | Comprueba la versión, corre `occ upgrade` si cambió y nunca sobrescribe | Una siembra nunca descarta trabajo en curso |
 
-Al promoverla, la aplicación entra en `OWN_APPS` de `provisioning/phases/12-apps.sh` y viaja como paquete: un único `.tar.gz` en `provisioning/apps/<id>/`, construido con `git archive` desde una etiqueta de su repositorio, junto a un archivo `VENDOR` con versión, sha256 y etiqueta de origen. Así una instalación no necesita red, git ni GitHub. El comando exacto de construcción vive en ese `VENDOR`; `gzip -n` deja la fecha fuera de la cabecera, de modo que reconstruir la misma etiqueta da los mismos bytes y el sha256 sigue comprobable.
+Al promoverla, la aplicación publica versiones firmadas desde su propio repositorio con el flujo compartido de la organización, y su fila del manifiesto de la suite (`apps.json`, en instalador) la declara: la instalación la resuelve y verifica en el momento de instalar, y el candado fija la versión que quedó. Un establecimiento la recibe así, nunca por la tienda de aplicaciones, que la suite mantiene cerrada.
 
-Una aplicación cortada de la plantilla, como estadistica, entra además en el clon del CI de gestion y en la compuerta de deriva al promoverse; toda aplicación promovida entra en la tabla de licencias de gestion. gestion fija la versión de una aplicación propia en un hito, no en cada etiqueta de la aplicación. Un establecimiento recibe la aplicación por gestion, nunca por la tienda de aplicaciones, que la suite mantiene apagada.
+Una aplicación cortada de la plantilla, como estadistica, entra además en el clon del CI de gestion y en la compuerta de deriva al promoverse; toda aplicación promovida se declara en `componentes.yml` de este sitio.
 
 ## Resultado
 

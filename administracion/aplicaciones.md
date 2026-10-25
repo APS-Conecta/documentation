@@ -176,11 +176,14 @@ Ejemplo: si `categories.json` está disponible en `https://apps.nextcloud.com/ap
 
 ## En APS Conecta Gestión
 
-En APS Conecta Gestión la tienda de aplicaciones está desactivada: el contenedor del servidor recibe `NC_appstoreenabled` con el valor `"0"`, porque cada `occ upgrade` volvería a descargar de la tienda todas las aplicaciones activas y anularía las versiones fijadas. La provisión instala dos conjuntos fijos:
+En APS Conecta Gestión la tienda de aplicaciones está cerrada: la imagen del servidor fija `NC_appstoreenabled` en `"0"`, de modo que ninguna vía —`occ`, las tareas de fondo o esta página— descarga de la tienda sin que alguien lo haya decidido. La puerta se abre solo para el comando que instala o actualiza una aplicación de la tienda, una a una, y se cierra con él. Ninguna imagen lleva una aplicación: cada una llega en su momento, por el canal que declara el manifiesto de la suite (`apps.json`, en el repositorio instalador):
 
-| Conjunto | Aplicaciones | Origen |
+| Canal | Aplicaciones | Cómo llegan |
 |---|---|---|
-| `APPS` | groupfolders, side_menu, eurooffice, calendar, contacts, spreed, desktop_workspace | Paquetes fijados en `provisioning/apps/<app>/`, cada uno con su archivo `VENDOR` |
-| `OWN_APPS` | epidemiologia, farmacia, territorio, intravox, estadistica | Repositorios de la organización APS-Conecta |
+| Publicación propia | Territorio, Epidemiología, IntraVox, Euro-Office, el escritorio y el menú lateral | La publicación firmada más reciente del repositorio de cada aplicación, la compatible con la versión de Nextcloud en marcha, verificada contra la clave de aplicaciones de la suite antes de desempacar |
+| Tienda | Calendario, Contactos, las carpetas de grupo, el servidor de notificaciones y Talk | La tienda, abierta solo para el comando que las instala |
+| Opcionales | Farmacia, Estadística y Tótem | Solo cuando el establecimiento las elige en el paso 6 del instalador; sin la elección, no se instalan ni se descargan |
 
-La política de aplicaciones desactiva `survey_client`, `nextcloud_announcements` y `office` (la vista general de oficina; el editor de documentos es `eurooffice`). Agregar o quitar una aplicación es un cambio en la provisión, no una acción en la página **Aplicaciones**.
+La versión instalada de cada aplicación queda registrada en el candado (`/opt/aps-conecta/apps.lock.json`): una provisión repetida no descarga nada y una reparación nunca se convierte en una actualización. Las aplicaciones se mueven solo con `sudo aps-conecta actualizar`, que respalda primero, aplica una aplicación a la vez y mueve el candado solo si todo resultó ({doc}`AIO </administracion/aio>`). El botón **Actualizar** de esta página no es el camino: con la tienda cerrada no descarga nada.
+
+La política de aplicaciones restringe al grupo `admin` las aplicaciones de soporte y diagnóstico que trae el servidor, desactiva `survey_client`, `nextcloud_announcements` y `office` (la vista general de oficina; el editor de documentos es `eurooffice`) y apaga la telemetría de IntraVox. Agregar o quitar una aplicación es un cambio en el manifiesto de la suite, no una acción en la página **Aplicaciones**; lo que la instancia tiene sin estar declarado lo informa el registro de divergencia.

@@ -36,7 +36,7 @@ En este sitio, `REUSE.toml` asigna cada ruta: la prosa de las páginas es CC-BY-
 1. Mantener en el repositorio un `LICENSE` idéntico al de la organización.
 2. Declarar el mismo identificador, `AGPL-3.0-or-later`, en `appinfo/info.xml`, `composer.json` y `package.json`, donde existan.
 3. Dejar fuera de la licencia las marcas: el logotipo, el logotipo monocromo, el logotipo con nombre y el favicon están reservados según la sección 7(e) de la AGPL. Las fichas de color siguen bajo la AGPL, como el código.
-4. Al vendorizar o parchar una aplicación de terceros en gestion, dejar en `provisioning/apps/<id>/` el paquete, su archivo `VENDOR` y sus parches, y agregar la aplicación a la tabla de `docs/LICENSING.md`, que debe listar cada entrada de `APPS` y de `OWN_APPS`.
+4. Al adoptar una aplicación de terceros, mantener el fork en un repositorio propio de la organización, con los cambios como commits y versiones monótonas, y declarar la aplicación en el manifiesto de la suite.
 5. Declarar el componente en `componentes.yml` de este repositorio, con su licencia SPDX leída del propio componente y, si APS lo modifica, qué cambia.
 6. Atribuir en `THIRD-PARTY-NOTICES.md` los paquetes de terceros que compila una aplicación.
 7. En un repositorio con documentación en español, enlazar el {doc}`aviso legal </aviso>` de este sitio desde la sección «Licencia» del `README.md`.
@@ -56,7 +56,7 @@ python3 .github/repo-docs.py check . --offline
 | `licence-prose` | Error | La prosa presenta el código de la organización como cerrado, contra la licencia declarada |
 | `licence-inventory` | Aviso | Una familia de licencias que usa una dependencia falta en el documento de avisos |
 
-En gestion, el objetivo `test` del Makefile compara la tabla de `docs/LICENSING.md` con el `info.xml` de cada paquete vendorizado, sin red, y falla también si la tabla no describe ninguna aplicación. En este sitio, `make html` falla si gestion distribuye un componente que `componentes.yml` no declara, o si declara uno que ya no distribuye.
+En este sitio, `make html` falla si la suite distribuye un componente que `componentes.yml` no declara, o si declara uno que ya no distribuye.
 
 ## Problemas frecuentes
 

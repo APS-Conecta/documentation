@@ -2,125 +2,63 @@
 tipo: referencia
 audiencia: desarrollo
 apps: [instalador]
-resumen: "Cómo se mantiene el fork de nextcloud/all-in-one, hoy en instalador: rama espejo, cola de parches, cadena Replay, compuertas, publicación y límites."
+resumen: "Cómo se mantiene el fork de nextcloud/all-in-one, hoy en instalador: un solo árbol, la declaración, las compuertas y la fusión de upstream."
 ---
 # AIO
 
 ## Resumen
 
-El fork de [nextcloud/all-in-one](https://github.com/nextcloud/all-in-one) desde el que se construyen las imágenes de cada instalación de la suite vive hoy en el repositorio [APS-Conecta/instalador](https://github.com/APS-Conecta/instalador), que absorbió también el paquete del host y la cadena de publicación: el repositorio APS-Conecta/AIO fue su primera casa y se eliminó una vez absorbido: su historia de commits sigue completa en instalador. Lo que los parches cambian en una instalación está en {doc}`/administracion/aio`; esta página describe cómo se mantiene el fork, y el repositorio que hoy lo contiene —bootstrap firmado, `VERSION` y cadena de publicación— tiene su propia referencia en {doc}`instalador </desarrollo/instalador>`.
+El fork de [nextcloud/all-in-one](https://github.com/nextcloud/all-in-one) desde el que se construyen las imágenes de cada instalación de la suite vive en el repositorio [APS-Conecta/instalador](https://github.com/APS-Conecta/instalador), que absorbió también el paquete del host y la cadena de publicación: el repositorio APS-Conecta/AIO fue su primera casa y se eliminó una vez absorbido; su historia de commits sigue completa en instalador. Lo que los cambios del fork hacen en una instalación está en {doc}`/administracion/aio`; esta página describe cómo se mantiene el fork, y el repositorio que hoy lo contiene —bootstrap firmado, `VERSION` y cadena de publicación— tiene su propia referencia en {doc}`instalador </desarrollo/instalador>`.
 
-El fork sigue una regla única: todo cambio a un archivo que upstream distribuye viaja como un parche numerado. La rama `main` refleja upstream byte a byte, salvo las rutas propias del fork y el bloque de declaración de `readme.md`. La rama `aps/main` es la salida de la integración continua, la punta de upstream más la cola de parches, y de ella se construyen las imágenes. Un pull request que edita un archivo reflejado, en vez de agregar un parche, falla la paridad.
+El fork sigue una regla única: `main` es **un solo árbol** —la historia de upstream más los cambios del fork como bytes confirmados, de primera clase—. Los cambios no viajan como archivos aparte ni por ramas de integración: cada cambio es un commit del propio árbol, y una versión de upstream llega como llega cualquier cambio, con una fusión deliberada en `main`, y después una versión corriente. Los números que la [declaración del fork](https://github.com/APS-Conecta/instalador/blob/main/readme.md) asigna a cada cambio son atribución —qué cambio debe qué garantía—, no archivos aparte.
 
-Las rutas propias del fork viven en `main` porque GitHub ejecuta los flujos programados, manuales y reutilizables solo desde la rama por defecto, y `aps/main`, reescrita por la integración continua en cada ejecución, no sirve como rama por defecto.
+`main` nunca recibe envíos forzados: es de solo anexo y un retroceso es un revert. Cambiar un archivo que upstream distribuye es editar el archivo, con la declaración y las compuertas sosteniendo cada garantía.
 
-El fork conserva sin cambios el `LICENSE` de upstream (AGPL-3.0); su identificador SPDX está en la tabla de componentes del {doc}`/aviso`. La fuente correspondiente completa de cada imagen de la suite es el repositorio instalador en la etiqueta de la suite: la historia de upstream en `main` más la cola de parches.
+El fork conserva sin cambios el `LICENSE` de upstream (AGPL-3.0); su identificador SPDX está en la tabla de componentes del {doc}`/aviso`. La fuente correspondiente completa de cada imagen de la suite es el repositorio instalador en la etiqueta de la suite: el árbol de la etiqueta es toda ella.
 
 ## Tabla
 
-### Ramas y rutas
+### El árbol y sus piezas
 
-| Rama o ruta | Contenido | Quién la escribe |
+| Ruta | Contenido | Quién la escribe |
 |---|---|---|
-| `main` | Espejo de upstream byte a byte, más las rutas propias del fork | La sincronización, con una fusión de `upstream/main` que nunca se fuerza; las rutas propias, por pull request |
-| `aps/main` | Un solo commit de reproducción sobre la punta de upstream | El flujo Replay, con envío forzado |
-| `patches/` | La cola: 29 parches `.patch` y 2 parches generados `.sh` | Pull request |
-| `scripts/` | El motor (`replay.sh`), las compuertas (`brand-gate.sh`, `acquisition-gate.sh`), el registro de imágenes (`retag.sh`), el horneado (`bake.sh`), los generadores (`rename-containers.py`, `lockup.py`) y la línea base de deriva (`wizard-drift-baseline`) | Pull request |
-| `.github/workflows/replay.yml`, `.github/workflows/images.yml` | La cadena Replay y la publicación de imágenes | Pull request |
-| `.github/workflows/release.yml`, `.github/workflows/ci.yml`, `.github/workflows/cleanboot.yml` | La cadena de publicación firmada, la compuerta local y el ensayo de instalación limpia que instalador agregó a las rutas propias | Pull request |
-| `.codespellrc` | La lista de 16 palabras correctas en español que codespell marcaría como errores | Pull request; el parche 060 lleva una copia idéntica |
+| `main` | La historia de upstream más los cambios del fork como bytes confirmados | La fusión deliberada de upstream, y los cambios propios por pull request |
+| `readme.md` | La declaración del fork, entre marcadores: cada cambio con su número, su texto y la garantía que sostiene | Pull request; la compuerta de marca exige que cada texto declarado exista byte a byte en el árbol |
+| `php/` | El asistente —el contenedor maestro— tal como se construye, con su suite Playwright traducida | Pull request |
+| `Containers/`, `themes/` | Las cuatro imágenes construidas y el tema del servidor | Pull request |
+| `scripts/` | Las compuertas (`brand-gate.sh`, `acquisition-gate.sh`), los validadores de upstream (`validate.sh`), el registro (`retag.sh`) y los renombrados (`rename-containers.py`) | Pull request |
+| `.github/workflows/` | `ci.yml`, `images.yml`, `release.yml`, `cleanboot.yml` y los validadores de upstream | Pull request |
 | `BUGS.md` | El registro de fallas corregidas de las herramientas del fork | Pull request |
-| `readme.md` | El único archivo de upstream modificado en `main`: la declaración del fork entre marcadores | Pull request; la paridad exige que, sin ese bloque, sea idéntico al de upstream |
-
-### La cadena Replay
-
-El orden de los pasos del flujo Replay es el orden de las compuertas: ningún paso posterior corre si uno anterior falla.
-
-| Paso | Orden que ejecuta la integración continua | Qué prueba | Al fallar |
-|---|---|---|---|
-| Sincronizar el espejo | `bash scripts/replay.sh sync` | Fusiona `upstream/main` en `main`; no hace nada si upstream no se movió | Se detiene ante un conflicto; `main` nunca se fuerza |
-| Paridad | `bash scripts/replay.sh parity` | Ningún archivo de upstream falta ni cambia en `main`, salvo la declaración, y todo lo que `main` agrega está en la lista de rutas propias | Rojo, con los archivos fuera de regla |
-| Reproducir la cola | `bash scripts/replay.sh replay` | La regla de cobertura y la regla de los tres resultados, parche por parche, sobre un árbol de trabajo nuevo | Rojo, con el nombre del parche, antes de cualquier envío |
-| Validadores de upstream | `bash scripts/replay.sh validate .aps-replay-tree` y `composer run lint:twig` | codespell, hadolint, json-spec y twig-lint sobre el árbol reproducido | Rojo: la publicación no corre |
-| Compuerta de marca | `bash scripts/brand-gate.sh .aps-replay-tree` | La identidad de APS en cada superficie que la cola dice cambiar | Rojo, con la fila que falló |
-| Compuerta de adquisición | `bash scripts/acquisition-gate.sh .aps-replay-tree` | La instalación no llega a ninguna fuente ajena a APS Conecta | Rojo, con la fila que falló |
-| Informe de deriva | `bash scripts/replay.sh drift-report` | Las líneas que upstream agregó a los archivos traducidos desde la línea base fijada | Nunca falla: anota advertencias |
-
-### Disparadores
-
-| Evento | Qué hace |
-|---|---|
-| Programado, cada día a las 04:23 UTC | Sincroniza el espejo si upstream se movió, reproduce la cola y corre las compuertas |
-| Envío a `main` | Una ruta propia cambió: regenera `aps/main` y vuelve a probar las compuertas |
-| Pull request | Paridad, cobertura, tres resultados, validadores y compuertas sobre el commit de fusión, sin tocar `aps/main` (`REPLAY_PUSH=0`); además, la prueba de que las compuertas pueden fallar |
-| Manual, con `suite-tag` | Reproduce, prueba y entrega al flujo Images con `build-ref` igual a `aps/main`; sin `suite-tag`, solo reproduce y prueba |
-
-En todos los eventos salvo el programado, el trabajo de vida (`liveness`) falla si la última ejecución programada exitosa tiene más de 7 días.
-
-## Notas
-
-### La regla de los tres resultados
-
-Cada ejecución reconstruye el árbol desde la punta de upstream más la cola, nunca desde `aps/main`: esa rama es salida de la integración continua, y reproducir sobre ella dejaría que los restos de una ejecución respondieran por la siguiente. Los parches se aplican en orden léxico de su prefijo de tres dígitos.
-
-Para cada parche `.patch`:
-
-1. Si se aplica hacia adelante, se aplica.
-2. Si se aplica en reverso, upstream ya adoptó el cambio: la ejecución lo omite con una advertencia. Dos omisiones seguidas en ejecuciones programadas terminan en retirar el parche o en justificarlo de nuevo en su encabezado.
-3. Si no se aplica en ningún sentido, upstream se movió: la ejecución se detiene, nombra el parche, y el parche se regenera.
-
-La herramienta es `git apply`, sin contexto aproximado: un parche que solo se aplica con aproximación es un parche que se degrada. Los parches se generan con `git diff`, con los prefijos `a/` y `b/`. La regla es la de la [declaración del fork](https://github.com/APS-Conecta/instalador/blob/main/readme.md), que enumera cada cambio y la garantía que sostiene. El margen de deriva es de 6 semanas como máximo detrás de upstream.
-
-Los parches `.sh` son el canal generado: el 010 llama a `scripts/retag.sh` para cambiar el registro en `php/containers.json`, y el 240, que corre al final, llama a `scripts/rename-containers.py` para renombrar los contenedores. Corren dentro del árbol reproducido con `APS_TOOLS_ROOT` apuntando a `main`, son idempotentes, y su propia verificación es el resultado: se corrige el generador, nunca el árbol.
-
-### La regla de cobertura
-
-Antes de mover nada, cada parche de la cola debe tener una fila `row <id>` en `scripts/brand-gate.sh` o en `scripts/acquisition-gate.sh`; si no, la reproducción se detiene. Un parche que cambia el árbol distribuido sin nada que lo mida queda sin auditar. Una fila se activa solo cuando su parche está en la cola, y una fila omitida se imprime a la vista.
-
-En cada pull request, el trabajo que prueba las compuertas inyecta dos regresiones conocidas en un árbol reproducido, un centinela revertido del parche 060 y una referencia al registro de upstream en `php/containers.json`, y exige que la compuerta de marca salga con código 1 en cada una. Existe porque `BUGS.md` registra cuatro fallas que pasaron en verde (A-005, A-006, A-010, A-011): dos en la compuerta de marca, una en el horneado y una en el script que redacta el parche 090.
 
 ### Las compuertas
 
-Los cuatro validadores de upstream corren sobre el árbol reproducido porque `aps/main` recibe envíos forzados de la integración continua y los flujos de upstream nunca se disparan sobre ella.
+| Compuerta | Qué prueba | Al fallar |
+|---|---|---|
+| Marca (`scripts/brand-gate.sh`) | La identidad y el español de Chile en cada superficie que la declaración nombra, fila por fila | Rojo, con la fila que falló |
+| Adquisición (`scripts/acquisition-gate.sh`) | Que la instalación no llega a ninguna fuente ajena a APS Conecta, y que la tienda de aplicaciones abre solo por sus comandos acotados | Rojo, con la fila que falló |
+| Enrojecimiento (`gate-red-proof`, en `ci.yml`) | Que las compuertas pueden fallar: regresiones conocidas inyectadas en el árbol del pull request deben ponerlas en rojo | Rojo: una compuerta que no puede fallar no prueba nada |
+| Validadores de upstream (`scripts/validate.sh`) | codespell, docker-lint y json-spec, los mismos de upstream, sobre el árbol | Rojo: la publicación no corre |
 
-La compuerta de marca tiene filas para 22 parches: las referencias al registro (010 en `php/containers.json`, 080 en `php/src`), las superficies de otros proveedores de oficina (050), la aplicación `office` desactivada (100), los pares centinela del español de Chile (060), la identidad visual (070), con la igualdad de textos entre la declaración del `readme.md` y el árbol, el mecanismo del horneado (030), la suite Playwright traducida (090), las demás superficies del asistente (110 a 180), el reinicio del entorno de pruebas (237), la red y los certificados (233, 235, 238, 239) y los nombres de los contenedores (240).
+Las filas de las compuertas se nombran por número —010 a 270— como atribución: qué cambio debe qué garantía. Nunca son una condición: toda fila corre en cada envío, en cada pull request y en cada publicación, y una fila nueva llega con el cambio que sostiene.
 
-La compuerta de adquisición tiene dos clases de verificación. Las incondicionales valen ya para el árbol de upstream: ningún `git clone` en los scripts que ejecutan los contenedores distribuidos, y el punto de entrada sigue respetando la marca `skip.update`. Las filas se activan con su parche: el par certificado de Euro-Office (015), la tienda apagada (020), el horneado (030), la autoactualización opcional (040), la ausencia de deSEC (051), la ausencia de contenedores comunitarios (190), la oficina única (200), las opciones que parten desactivadas (210) y el primer arranque silencioso (220, 230).
+## Notas
 
-### Fusiones de upstream y regeneración
+### La fusión de upstream
 
-La sincronización fusiona `upstream/main` en `main`. Un conflicto la detiene: upstream tocó una ruta propia del fork o las historias divergieron, y se resuelve a mano, sin forzar nunca `main`. Una edición del lado de `main` viaja por pull request, cuyo trabajo de reproducción prueba la paridad.
+Una versión de upstream llega como una fusión deliberada en `main`, resuelta a mano cuando hace falta, nunca un envío forzado. La fusión puede reintroducir identificadores de upstream; las herramientas de reemplazo del momento de fusionar los devuelven: `scripts/retag.sh sed` repone las referencias al registro propio y `scripts/rename-containers.py`, los nombres de contenedor de la suite. Después, una versión corriente publica el conjunto (`aps/RELEASING.md`).
 
-Cuando varios parches dejan de aplicarse, `BUGS.md` (A-014) registra el método: una cadena de commits, uno por parche, construida sobre la última base verde, se rebasa sobre `upstream/main`, se resuelven los conflictos reales y cada parche se regenera como `git diff --binary` entre commits consecutivos de la cadena. `git apply --3way` no sirve aquí, porque las preimágenes de los parches son estados intermedios que nunca se confirmaron.
+Nada fusiona upstream ni publica imágenes por su cuenta: las programaciones del repositorio son de prueba, y esa disciplina la prueba cada versión con sus propias compuertas, antes de construir o firmar nada.
 
-Al regenerar el parche 060, la línea base de los textos del asistente (`scripts/wizard-drift-baseline`) se vuelve a fijar en la punta de upstream, para que el informe de deriva mida desde el nuevo corte. Toda sustitución del script que redacta un parche verifica su número de apariciones (A-011).
+### La suite Playwright del asistente
 
-### Pruebas fuera de la cadena
-
-El parche 090 traduce la suite Playwright del asistente (`php/tests`) para que verifique el texto en español. Tres verificaciones quedan en inglés a propósito, como prueba de que la traducción nunca llegó al código PHP.
-
-El flujo Clean boot de instalador ensaya la instalación por el camino completo: pasa por el bootstrap real de una línea —descarga, suma sha256 y firma minisign— y recién entonces instala la etiqueta publicada con la misma instalación silenciosa que corre un establecimiento, por dominio y por la IP del ejecutor.
-
-### Publicación de imágenes
-
-La publicación es la etiqueta de versión de instalador: su flujo `release.yml` llama a Replay y a Images con la etiqueta, espera las compuertas y las veinte imágenes, y arma, firma y comprueba el paquete compuesto que el bootstrap descarga. La etiqueta de la suite y la etiqueta de publicación son la misma — una identidad, no dos. El trabajo de publicación necesita en verde el de reproducción: una reproducción o una compuerta en rojo nunca mueve imágenes.
-
-Images copia 17 imágenes en el propio registro con `docker buildx imagetools create` y construye tres. Su matriz prueba que las 20 existen y que las 17 copiadas vienen de una misma instantánea de upstream; una prueba de arranque confirma que el asistente publicado se descarga y arranca. Las tres construcciones deben resolver el mismo commit de `build-ref`, y los resúmenes de una etiqueta publicada no cambian nunca.
-
-El horneado (`scripts/bake.sh`) corre en el ejecutor de Images, nunca en la imagen. Lee gestion en la referencia `gestion-ref` y, antes de que un byte entre en la construcción, vuelve a correr la verificación sha256 de `VENDOR` de gestion, exige que la versión del `info.xml` de cada tarball coincida con su pin, aplica los parches de marca blanca de eurooffice con la regla de los tres resultados y retira `signature.json` de las aplicaciones parchadas.
-
-El envío forzado a `aps/main` usa un token personal: desde el parche 090 la cola modifica `.github/workflows/`, y el `GITHUB_TOKEN` no puede enviar archivos de flujos. El token llega por `GIT_ASKPASS`, nunca en una URL ni en los argumentos de un proceso.
+La suite Playwright del asistente (`php/tests`) está traducida y verifica el texto en español. Tres verificaciones quedan en inglés a propósito, como prueba de que la traducción nunca llegó al código PHP: los mensajes que nacen en PHP siguen en inglés, y la declaración del fork lleva la lista completa, por archivo.
 
 ### Contribuir
 
-El `AGENTS.md` del repositorio es el de upstream, copiado byte a byte por la paridad. Prohíbe que un agente abra issues o pull requests por su cuenta, porque toda contribución la revisa y la envía una persona; exige el trailer `Assisted-by` en cada commit asistido y reserva el `Signed-off-by` a la persona. Los mensajes de commit siguen Conventional Commits, con el componente como ámbito.
-
-Una falla de las herramientas del fork, ya corregida, se registra como una fila de `BUGS.md`: el razonamiento va en un comentario junto al código, y la compuerta que impide que vuelva, en `scripts/brand-gate.sh`, `scripts/acquisition-gate.sh` o `scripts/replay.sh`. Los problemas abiertos viven en el gestor de issues; {doc}`/proyecto/errores-conocidos` reúne los de la suite.
+El `AGENTS.md` del repositorio lleva las reglas del fork: commits convencionales con el ámbito `instalador`, el tráiler `Assisted-by` en cada commit asistido, y los textos del asistente solo con la declaración leída —una redacción que se mueve sin mover su fila enrojece la compuerta—. Una falla de las herramientas del fork, ya corregida, se registra como una fila de `BUGS.md`: el razonamiento junto al código y la compuerta que impide que vuelva, en `scripts/brand-gate.sh` o `scripts/acquisition-gate.sh`. Los problemas abiertos viven en el gestor de issues; {doc}`/proyecto/errores-conocidos` reúne los de la suite.
 
 ### Deuda técnica y límites
 
-- **Fallas sin aviso.** Desde el 25 de septiembre de 2026, cada reproducción falló durante 8 días sin que nadie lo viera, y las imágenes publicadas dejaron de seguir a upstream (A-013). El trabajo de vida falla solo después de 7 días sin una ejecución programada exitosa, y solo en el siguiente envío o pull request.
-- **Programación manual.** GitHub exige activar una vez las programaciones en la pestaña Actions: la ejecución diaria de Replay se activa una sola vez en instalador; la de AIO desapareció con su repositorio, de modo que dos cadenas no pueden publicar la misma etiqueta. Los flujos programados de upstream se esperan desactivados.
-- **Deriva sin compuerta.** Un texto nuevo en inglés que upstream agrega a un archivo traducido pasa todos los centinelas; el informe de deriva lo anota, nunca falla, y una persona lo revisa a ojo.
-- **Higiene manual.** El conteo de omisiones seguidas de un parche es un conteo a ojo de las anotaciones diarias, sin registro entre ejecuciones.
-- **Límites de la instalación.** Los que ve un establecimiento, como los mensajes PHP en inglés o el código muerto de deSEC, están en {doc}`/administracion/aio`.
+- **La fusión es manual y deliberada.** Nadie automatiza la llegada de upstream: si publica una corrección, la organización decide la fusión y la versión que la lleva.
+- **Textos nuevos de upstream.** Una fusión que agrega textos del asistente en inglés los deja en inglés: la compuerta exige los declarados, no traduce los nuevos; la lista de mensajes en inglés de la declaración crece con ellos.
+- **Límites de la instalación.** Los que ve un establecimiento, como los mensajes PHP en inglés o el código muerto de deSEC, están en {doc}`AIO </administracion/aio>`.
