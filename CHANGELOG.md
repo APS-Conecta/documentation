@@ -10,9 +10,10 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 - Catalogue rows for the fork apps (`side_menu`, `eurooffice`, `desktop_workspace`) and `totem`
-  (instalador #51), with `desarrollo/` reference pages and `proyecto/novedades/` pages for the
-  three shipped forks; `componentes.yml` now reads base images from the suite's containers and
-  app versions from each app's own repo checkout.
+  (instalador #51): the forks publish from their own repos; totem rides instalador #41 — an
+  optional wizard app, off by default, first signed release v0.3.0 — with `desarrollo/` and
+  `proyecto/novedades/` pages; `componentes.yml` now reads base images from the suite's
+  containers and app versions from each app's own repo checkout.
 - The «Idioma y registro» section of `desarrollo/documentation` (docs-SSOT D1): the org-wide
   Spanish/English split, its first statement of Conventional Commits, and the README shape every
   repo keeps.

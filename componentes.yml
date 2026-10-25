@@ -64,6 +64,7 @@ components:
   - {name: Farmacia, kind: own-app, id: farmacia, upstream: "https://github.com/APS-Conecta/farmacia", licence: AGPL-3.0-or-later}
   - {name: Territorio, kind: own-app, id: territorio, upstream: "https://github.com/APS-Conecta/territorio", licence: AGPL-3.0-or-later}
   - {name: Estadística, kind: own-app, id: estadistica, upstream: "https://github.com/APS-Conecta/estadistica", licence: AGPL-3.0-or-later}
+  - {name: Tótem, kind: own-app, id: totem, upstream: "https://github.com/APS-Conecta/totem", licence: AGPL-3.0-or-later}
   - {name: Inicio (IntraVox), kind: own-app, id: intravox, upstream: "https://github.com/nextcloud/IntraVox", fork: "https://github.com/APS-Conecta/IntraVox", licence: AGPL-3.0-or-later, changes: "Fork con funciones locales: muros y páginas protegidas, portada de bienvenida administrada, raíz de almacenamiento con nombre para el personal y el idioma español por defecto (IntraVox ADR-0001)."}
 
   # ---- Instalador

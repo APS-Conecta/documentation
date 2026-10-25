@@ -12,6 +12,8 @@ Contribuir bajo la licencia de la organización y mantener coherente su declarac
 
 La obligación se hereda, no se elige: las aplicaciones compilan `@nextcloud/vue` (AGPL-3.0-or-later) en los paquetes que sirven al personal, junto a otras bibliotecas de Nextcloud bajo GPL-3.0-or-later, como `@nextcloud/initial-state`. La cláusula de red de la AGPL, la sección 13, hace la obligación real aunque nada se publique: quien usa la intranet tiene derecho a pedir el código fuente.
 
+La composición de la suite es otra cosa: una agregación, no una obra derivada. Los componentes copyleft corren como servicios de red separados, desde imágenes oficiales sin modificar —el fork de AIO publica sus propias imágenes, pero los componentes que la suite combina no los reconstruye—, y el código propio de la organización solo los alcanza a través de fronteras de proceso o de red (`occ`, HTTP, WOPI). Bajo esa lectura, la AGPL de la plataforma no obliga al código propio: es AGPL por elección, no por obligación. Lo que la rompería: modificar el código fuente de un componente AGPL y distribuir el resultado, o empaquetar y ofrecer a terceros una versión parchada de uno de ellos. Es un análisis propio, pendiente de validación legal.
+
 La tabla de componentes de terceros que distribuye la suite, con su origen, versión, licencia y lo que APS cambia en cada uno, se genera en cada compilación de este sitio: {doc}`/_generated/componentes`.
 
 ### La licencia de cada repositorio
@@ -27,7 +29,7 @@ En este sitio, `REUSE.toml` asigna cada ruta: la prosa de las páginas es CC-BY-
 
 ## Requisitos
 
-- Saber quién es dueño de cada hecho: esta página fija la regla de la organización; el [ADR de AGPL en toda la organización](https://github.com/APS-Conecta/instalador/blob/main/docs/adr/0006-agpl-across-the-org.md) registra la decisión; la tabla de componentes de este sitio lleva el inventario de terceros y el análisis de agregación; y `componentes.yml` alimenta la tabla publicada.
+- Saber quién es dueño de cada hecho: esta página fija la regla de la organización y el análisis de agregación; el [ADR de AGPL en toda la organización](https://github.com/APS-Conecta/instalador/blob/main/docs/adr/0006-agpl-across-the-org.md) registra la decisión; la tabla de componentes lleva el inventario de terceros; y `componentes.yml` alimenta la tabla publicada.
 
 ## Pasos
 

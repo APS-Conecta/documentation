@@ -23,6 +23,7 @@ Lo que un atacante busca es una cuenta del personal, un enlace público sin cont
 | `trusted_domains` | `.env` y fase `14-office` en Compose; entrypoint del asistente en AIO | La plataforma rechaza un host no declarado. En Compose, la fase agrega `nextcloud` para que el servidor de documentos descargue archivos por la red interna; en AIO, `trusted_domains` pertenece al entrypoint del asistente, que escribe el dominio de la instalación. |
 | `remember_login_cookie_lifetime` en `0` | Fase `05-security` | El formulario de inicio de sesión deja de ofrecer recordar la sesión, el servidor la descarta aunque se envíe, y la sesión del navegador termina con la ventana. Los clientes de escritorio y móviles de {vendor}`Nextcloud` conservan sus tokens permanentes, que barre la retención de tokens. |
 | Tareas de fondo por `cron` | Fase `06-jobs` | El barrido de tokens vencidos corre desde las tareas de fondo; sin `cron`, la postura de sesiones dejaría filas muertas. |
+| `admin_audit` habilitada | Fase `05-security` | Las acciones de administración quedan registradas; los accesos a archivos y las comparticiones no se registran (la plataforma no lo trae de serie). |
 | `lookup_server` vacío | Fase `05-security` | La exclusión del servidor público de búsqueda de {vendor}`Nextcloud` queda declarada; con los valores por defecto la plataforma ya no lo consultaba, y la clave evita que eso dependa de un descuido. |
 | `enforceHaveIBeenPwned` en `0` | `provisioning/app-policy.sh` | Ni siquiera el prefijo del hash de una contraseña nueva sale del servidor hacia `api.pwnedpasswords.com`. |
 | `survey_client` con `never_again` y deshabilitada; `nextcloud_announcements` deshabilitada | `provisioning/app-policy.sh` | La primera enviaría datos de uso cada 28 días desde el servidor, la vea quien la vea; la segunda empuja la publicidad del fabricante a la campana de notificaciones de cada cuenta. |
@@ -37,7 +38,6 @@ Estas medidas quedan en el valor por defecto de la imagen fijada, y cada una es 
 
 - **{doc}`Autenticación de dos factores </administracion/usuarios-y-grupos/two-factor-auth>`**: ningún proveedor está habilitado y no se exige al personal ni a quienes administran.
 - **{doc}`Política de contraseñas </administracion/usuarios-y-grupos/user-password-policy>`**: solo está fijado el chequeo de contraseñas filtradas, y está apagado; una contraseña conocida como filtrada ya no se rechaza. Largo, contraseñas comunes y caducidad quedan por defecto.
-- **Auditoría**: `admin_audit` no está habilitada, así que no hay registro de accesos a archivos ni de comparticiones.
 - **{doc}`Compartición </administracion/archivos/file-sharing-configuration>`**: nada fija contraseña ni caducidad de los enlaces públicos, ni límites a la compartición por correo.
 - **{doc}`Cifrado en reposo </administracion/archivos/encryption-configuration>`**: el cifrado del lado del servidor no está habilitado.
 - **{doc}`Fuerza bruta </administracion/servidor/bruteforce-configuration>`**: rige la limitación integrada de la plataforma, sin configuración propia.

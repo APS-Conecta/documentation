@@ -102,7 +102,7 @@ Sin MetaVox, o sin campos de fecha configurados, solo existen `draft` y `publish
 
 ### Muro
 
-Un muro es estructura fija, no contenido congelado. Al declarar una sección `wall`, la siembra marca con `"protected": true` su estructura: el centro de la sección, cada página sembrada que tiene subpáginas —los «Avisos» de noticias, que la lista de avisos de la portada lee— y, en `equipos`, el centro más cada página de equipo. El motor rechaza eliminar o mover una página así: el menú de la página y el árbol no la ofrecen, y una petición directa responde `PAGE_PROTECTED`. Un muro sigue siendo editable, título incluido; lo que no se puede es sacarlo del sitio por accidente. La marca la escriben solo el renderizador y `occ intravox:protect`; ningún cliente puede activarla, y las herramientas que operan por debajo de la API de páginas —la app Archivos, una importación ZIP con sobrescritura, el reinicio limpio de la administración— no la respetan (véase «Dominios de fallo»).
+Un muro es estructura fija, no contenido congelado. Al declarar una sección `wall`, la siembra marca con `"protected": true` su estructura: el centro de la sección, cada página sembrada que tiene subpáginas —los «Avisos» de noticias, que la lista de avisos de la portada lee— y, en `equipos`, el centro más cada página de equipo. El motor rechaza eliminar o mover una página así: el menú de la página y el árbol no la ofrecen, y una petición directa responde `PAGE_PROTECTED`. Un muro sigue siendo editable, título incluido; lo que no se puede es sacarlo del sitio por accidente. La carpeta de un muro tampoco se puede renombrar —el enlace del sitio y los avisos de la portada encuentran una sección por su carpeta— y restaurar una versión anterior conserva el muro. Las publicaciones de ejemplo sembradas («Aviso de ejemplo», «Bienvenida», «Cómo publicar») no son muros: como toda publicación del personal, son páginas comunes que un editor puede borrar. La marca es por página, nunca una regla de carpeta: una regla de la carpeta de grupo heredaría sobre todas las publicaciones de `noticias`, y bajo las ACL sembradas solo la administración puede eliminar de todos modos. Retirar un muro son dos pasos deliberados de la administración: `occ intravox:protect <uniqueId> --off --user admin` (se guarda una versión primero) y después eliminar o mover la página; `--on` lo restablece y `--status` muestra el estado. Una instancia sembrada antes de que existieran los muros no lleva la marca en sus páginas —la siembra nunca reescribe una página existente— y se alza con `occ intravox:protect <uniqueId> --on --user admin`. La marca vive en el JSON de la página, así que las herramientas de administración que trabajan por debajo de la API de páginas la ignoran: la app Archivos (un administrador de la carpeta de grupo puede eliminar la carpeta —el procedimiento de recuperación se apoya justo en eso—), una importación ZIP con sobrescritura y el reinicio limpio.
 
 **Siembra por sección.** En cada siembra, la fase 41 compara la declaración `SITE_WELCOME` con la carpeta de grupo. El marcador de una sección es su página principal, `es/<sección>/<sección>.json`; el de una página de equipo, `es/equipos/<gid>/<gid>.json`; el de los archivos base, `es/navigation.json`.
 
@@ -112,6 +112,22 @@ Un muro es estructura fija, no contenido congelado. Al declarar una sección `wa
 | Declarada y presente | No se toca y se registra `exists`; lo que el personal borró dentro de ella sigue borrado |
 | Presente y no declarada | `scripts/divergence.sh` la informa; nunca se elimina |
 | Archivos base (`home.json`, `navigation.json`, `footer.json`) | Se renderizan solo en la primera siembra; después son datos del personal |
+
+### Declarar el árbol
+
+`sites/<slug>/site.sh` lleva una fila por sección, en el orden en que aparecen en el menú:
+
+```bash
+SITE_WELCOME=(
+  'noticias|wall'      # sección|bandera — wall = estructura fija, vacío = editable
+  'vida-cesfam|'
+  'documentos|wall'
+)
+```
+
+`scripts/deis.py` escribe este bloque por omisión para un sitio nuevo y nunca reescribe un archivo de sitio existente: un archivo anterior al bloque detiene la siembra con `FATAL: sites/<slug>/site.sh must set SITE_WELCOME` y el bloque se agrega a mano. Las secciones son carpetas de la biblioteca bajo `provisioning/intravox/es/sections/`; `equipos` es la única que se genera en vez de copiarse: declarada como `'equipos|wall'`, la siembra renderiza la página «Guía de equipos» más una página por fila de `SITE_TEAMS`, cada una enlazando la carpeta propia del equipo y legible por ese equipo y por las jefaturas. Una página restringida a un cargo (OIRS, Estadística REM) es una fila de equipo que se agrega a mano, por ejemplo `'role-oirs|OIRS'`: su página enlaza la única carpeta declarada que lleva su nombre (`Unidades/OIRS`), y un equipo cuya carpeta el sitio no declara detiene la siembra. La página de Documentos enlaza exactamente `SITE_SUBFOLDERS`; el menú y el pie listan las secciones declaradas y nada más, y la fila de accesos rápidos de la portada son tres fichas fijas —Recepción y admisión → la carpeta Transversal, Gestión y turnos, Teléfonos y anexos— seguidas de una ficha por sección declarada. Una fila que la biblioteca no conoce, una bandera desconocida o una página que enlazaría una carpeta que el sitio no tiene detienen la siembra con una línea `FATAL` antes de importar nada.
+
+**Agregar una sección después:** agregar la fila y sembrar. La siembra registra `welcome: section <nombre> created — add its menu entry and home tile by hand`: el menú y la portada ya son datos del personal para entonces, así que la siembra no los toca; agregar la entrada en el editor de menús de la administración. **Quitar una fila** no cambia nada en la instancia: `make divergence` lista la sección como viva pero no declarada, y una persona elimina la carpeta si eso es lo previsto.
 
 ## Taxonomía de errores
 

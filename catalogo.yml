@@ -55,13 +55,13 @@ repos:
     depends_on: [gestion]
     status: "Construida — fuera de la suite"
   - repo: totem
-    kind: app-in-design
-    role: "Turnos de atención para CESFAM, CECOSF y SAPU (Nextcloud app)."
+    kind: nextcloud-app
+    role: "Turnos de atención para CESFAM, CECOSF y SAPU: la persona retira su número en el tótem, la pantalla de sala lo anuncia con voz en español y la ventanilla avanza la fila."
     manuals:
       - desarrollo/totem.md
+      - proyecto/novedades/totem.md
     depends_on: [aps-common]
-    status: "Sin publicar — fuera de la suite"
-    version: ""
+    status: "Opcional del asistente desde v0.3.0 — desactivada por omisión"
   - repo: farmacia
     kind: nextcloud-app
     role: "Vademécum y arsenal farmacológico del CESFAM con importación CSV por etapas — app Nextcloud 34."

@@ -116,4 +116,4 @@ El navegador recorre dos tramos propios: la URL pública del editor (`DocumentSe
 - **El tema del servidor** se apoya en un mecanismo sin documentación oficial y se vuelve a verificar en cada versión mayor.
 - **El servidor de documentos no publica etiquetas de versión**: su imagen se fija por resumen sobre `latest`.
 - **El flujo de actividad** puede mostrar nombres de elementos ocultos por permisos; los nombres sensibles no van en subcarpetas restringidas.
-- **En Compose, el registro** está en `data/nextcloud.log`, dentro del volumen `nextcloud_data`, y rota a los 100 MiB por el valor heredado de la imagen.
+- **En Compose, el registro** está en `data/nextcloud.log`, dentro del volumen `nextcloud_data`, y rota a los 100 MiB por el valor heredado de la imagen. Crece despacio —del orden de decenas de kilobytes por semana en un centro tranquilo—, así que no se fija un límite propio; y un contador de errores distinto de cero tras una semana cargada es historia, no una falla: cada línea nombra su causa.

@@ -96,7 +96,7 @@ PINNED_REPOS = {
     "side_menu", "eurooffice", "desktop_workspace", "totem",
 }
 PINNED_APPS = {"epidemiologia", "farmacia", "territorio", "IntraVox", "estadistica",
-               "side_menu", "eurooffice", "desktop_workspace"}
+               "side_menu", "eurooffice", "desktop_workspace", "totem"}
 PINNED_VERSIONS = {
     "gestion": "0.3.0",
     "instalador": "0.4.0",
@@ -115,7 +115,7 @@ PINNED_VERSIONS = {
     "side_menu": "6.0.1",
     "eurooffice": "11.0.7",
     "desktop_workspace": "0.19.0",
-    "totem": "",
+    "totem": "0.3.0",
 }
 PINNED_PUBLIC = {"gestion", "instalador", "IntraVox", "repo-docs", ".github", "documentation",
                  "buscador-documental", "epidemiologia", "farmacia", "estadistica",
