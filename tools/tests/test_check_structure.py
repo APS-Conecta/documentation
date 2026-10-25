@@ -38,29 +38,29 @@ class CheckStructureTest(unittest.TestCase):
 
     def test_a_161_character_resumen_fails(self):
         text = page("guia", "administracion", "[gestion]", "x" * 161, GUIA_BODY)
-        self.assertIn("resumen is 161 chars (max 160)", self.problems("administracion/x.md", text))
+        self.assertIn("resumen de 161 caracteres (máximo 160)", self.problems("administracion/x.md", text))
 
     def test_apps_naming_a_repo_outside_the_catalog_fails(self):
         text = page("guia", "administracion", "[AIO]", "Corta.", GUIA_BODY)
-        self.assertIn("apps names 'AIO', not in the catalog", self.problems("administracion/x.md", text))
+        self.assertIn("apps nombra 'AIO', que no está en el catálogo", self.problems("administracion/x.md", text))
 
     def test_a_guia_without_verificacion_fails(self):
         body = "## Objetivo\n\nUno.\n\n## Requisitos\n\nDos.\n\n## Pasos\n\nTres.\n"
         self.assertIn(
-            "H2 skeleton for guia: missing 'Verificación'",
+            "esqueleto H2 de guia: falta 'Verificación'",
             self.problems("administracion/x.md", page("guia", "administracion", "[gestion]", "Corta.", body)),
         )
 
     def test_an_out_of_order_h2_fails(self):
         body = "## Requisitos\n\nDos.\n\n## Objetivo\n\nUno.\n\n## Pasos\n\nTres.\n\n## Verificación\n\nCuatro.\n"
         self.assertIn(
-            "H2 'Objetivo' is out of order for guia (Objetivo, Requisitos, Pasos, Verificación, Problemas frecuentes)",
+            "H2 'Objetivo' está desordenado para guia (Objetivo, Requisitos, Pasos, Verificación, Problemas frecuentes)",
             self.problems("administracion/x.md", page("guia", "administracion", "[gestion]", "Corta.", body)),
         )
 
     def test_an_audiencia_different_from_the_directory_fails(self):
         self.assertIn(
-            "audiencia 'usuario' does not match the directory 'administracion'",
+            "audiencia 'usuario' no coincide con el directorio 'administracion'",
             self.problems("administracion/x.md", page("guia", "usuario", "[gestion]", "Corta.", GUIA_BODY)),
         )
 
@@ -77,7 +77,7 @@ class CheckStructureTest(unittest.TestCase):
         self.assertEqual(self.problems("administracion/x.md", page("guia", "administracion", "[gestion]", "Corta.", body)), [])
 
     def test_no_front_matter_fails(self):
-        self.assertEqual(self.problems("administracion/x.md", "# Título\n\nProsa.\n"), ["no front matter"])
+        self.assertEqual(self.problems("administracion/x.md", "# Título\n\nProsa.\n"), ["sin encabezado"])
 
     def test_the_esqueleto_override_replaces_the_skeleton(self):
         body = "## Propósito y diseño\n\nUno.\n\n## Deuda técnica y límites\n\nDos.\n"
@@ -88,7 +88,7 @@ class CheckStructureTest(unittest.TestCase):
 
     def test_an_unknown_esqueleto_fails(self):
         self.assertIn(
-            "esqueleto 'x' is not one of plataforma, borrador, contratos",
+            "esqueleto 'x' no es uno de plataforma, borrador, contratos",
             self.problems("desarrollo/x.md", page("referencia", "desarrollo", "[territorio]", "Corta.", "", esqueleto="x")),
         )
 

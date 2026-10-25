@@ -11,7 +11,7 @@ its `esqueleto` override — in order, required ones present, nothing beside the
 index.md pages owe the front matter only; headings inside fences are examples or
 a woven block's own structure, never the page's.
 
-Prints `ERROR <file>: <msg>` per finding and exits 1 with any. The shapes live
+Imprime `ERROR <archivo>: <mensaje>` por hallazgo y sale 1 con cualquiera. The shapes live
 in SITE_STRUCTURE (the profile constant); the craft that reads them lives here.
 
     python3 tools/check-structure.py [page.md …]
@@ -122,29 +122,29 @@ def problems(rel: str, text: str, catalog: list) -> list:
     cfg = SITE_STRUCTURE
     m = FRONT_MATTER.match(text)
     if not m:
-        return ["no front matter"]
+        return ["sin encabezado"]
     fm = dict(FM_LINE.findall(m.group(1)))
     missing = [k for k in cfg["keys"] if not fm.get(k)]
     if missing:
-        return [f"front matter lacks {', '.join(missing)}"]
+        return [f"al encabezado le falta {", ".join(missing)}"]
     out = []
     if fm["tipo"] not in cfg["tipos"]:
-        out.append(f"tipo '{fm['tipo']}' is not one of {', '.join(cfg['tipos'])}")
+        out.append(f"tipo '{fm['tipo']}' no es uno de {', '.join(cfg['tipos'])}")
     top = rel.split("/", 1)[0]
     if fm["audiencia"] != top:
-        out.append(f"audiencia '{fm['audiencia']}' does not match the directory '{top}'")
+        out.append(f"audiencia '{fm['audiencia']}' no coincide con el directorio '{top}'")
     if not (fm["apps"].startswith("[") and fm["apps"].endswith("]")):
-        out.append("apps must be a [list]")
+        out.append("apps debe ser una [lista]")
     elif catalog:
         apps = [a.strip() for a in fm["apps"][1:-1].split(",") if a.strip()]
-        out += [f"apps names '{a}', not in the catalog" for a in apps if a not in catalog]
+        out += [f"apps nombra '{a}', que no está en el catálogo" for a in apps if a not in catalog]
     if len(fm["resumen"]) > cfg["resumen_max"]:
-        out.append(f"resumen is {len(fm['resumen'])} chars (max {cfg['resumen_max']})")
+        out.append(f"resumen de {len(fm['resumen'])} caracteres (máximo {cfg['resumen_max']})")
     if rel.rsplit("/", 1)[-1] in cfg["skeleton_exempt"]:
         return out
     if "esqueleto" in fm:
         if fm["esqueleto"] not in cfg["overrides"]:
-            return out + [f"esqueleto '{fm['esqueleto']}' is not one of {', '.join(cfg['overrides'])}"]
+            return out + [f"esqueleto '{fm['esqueleto']}' no es uno de {', '.join(cfg['overrides'])}"]
         name, shape = fm["esqueleto"], cfg["overrides"][fm["esqueleto"]]
     elif fm["tipo"] in cfg["skeletons"]:
         name, shape = fm["tipo"], cfg["skeletons"][fm["tipo"]]
@@ -156,14 +156,14 @@ def problems(rel: str, text: str, catalog: list) -> list:
     pos = -1
     for h in got:
         if _fold(h) not in folded:
-            out.append(f"H2 '{h}' is not in the {name} skeleton")
+            out.append(f"H2 '{h}' no pertenece al esqueleto {name}")
             continue
         i = folded.index(_fold(h))
         if i < pos:
-            out.append(f"H2 '{h}' is out of order for {name} ({', '.join(names)})")
+            out.append(f"H2 '{h}' está desordenado para {name} ({', '.join(names)})")
         pos = max(pos, i)
     have = {_fold(h) for h in got}
-    out += [f"H2 skeleton for {name}: missing '{n}'"
+    out += [f"esqueleto H2 de {name}: falta '{n}'"
             for n, raw in zip(names, shape) if not raw.startswith("?") and _fold(n) not in have]
     return out
 
@@ -186,7 +186,7 @@ def main(argv: list[str]) -> int:
         for msg in problems(rel, text, catalog):
             print(f"ERROR {rel}: {msg}")
             n += 1
-    print(f"[check-structure] {len(files)} page(s); {n} problem(s)")
+    print(f"[check-structure] {len(files)} página(s); {n} problema(s)")
     return 1 if n else 0
 
 

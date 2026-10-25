@@ -87,7 +87,7 @@ def main(argv: list[str]) -> int:
         for problem in check_english(path.read_text(encoding="utf-8")):
             print(f"ERROR {path.relative_to(u.ROOT) if path.is_absolute() else path}: {problem}")
             n += 1
-    print(f"[term-check] {len(paths)} page(s), {len(lang_paths)} de idioma; {n} problem(s)")
+    print(f"[term-check] {len(paths)} página(s), {len(lang_paths)} de idioma; {n} problema(s)")
     return 1 if n else 0
 
 
