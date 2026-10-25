@@ -18,6 +18,7 @@ import posixpath
 import re
 import string
 import subprocess
+import sys
 import textwrap
 from functools import lru_cache
 from pathlib import Path
@@ -869,7 +870,15 @@ def ui_strings() -> dict[str, set[str]]:
             f = repo / "l10n" / "es.json"
             if not f.is_file():
                 continue
-            for en, es in json.loads(f.read_text(encoding="utf-8")).get("translations", {}).items():
+            try:
+                translations = json.loads(f.read_text(encoding="utf-8"))["translations"]
+            except (json.JSONDecodeError, UnicodeDecodeError, KeyError) as exc:
+                # a repo can push a broken l10n file; the vocabulary degrades (that repo
+                # contributes nothing this build) instead of failing it — loudly, not silently
+                print(f"[upstreamlib] l10n/es.json ilegible en {repo}: {exc} (se omite)",
+                      file=sys.stderr)
+                continue
+            for en, es in translations.items():
                 if isinstance(es, str) and es.strip():
                     out.setdefault(en, set()).add(es)
         _UI = out

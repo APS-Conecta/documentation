@@ -1365,6 +1365,23 @@ class StoreUiStringsTest(unittest.TestCase):
         self.assertNotIn("desktop_workspace", apps)
         self.assertNotIn("side_menu", apps)
 
+    def test_a_malformed_l10n_file_degrades_to_a_note_not_a_crash(self):
+        """A roster repo can push a broken l10n/es.json; the site's vocabulary degrades
+        (that repo contributes nothing) instead of failing the whole build."""
+        import os, tempfile
+        from unittest import mock
+
+        with tempfile.TemporaryDirectory() as d:
+            f = Path(d) / "spreed" / "l10n" / "es.json"
+            f.parent.mkdir(parents=True)
+            f.write_text('{"translations": {"Shared items": "Elementos compartidos"},}', encoding="utf-8")
+            with mock.patch.dict(os.environ, {"APPS_DIR": d, "APS_ORG_ROOT": "/nonexistent"}), \
+                    mock.patch.object(u, "_UI", None), \
+                    mock.patch("sys.stderr") as err:
+                ui = u.ui_strings()
+        self.assertNotIn("Shared items", ui)
+        self.assertTrue(err.write.called)   # the omission is reported, never silent
+
     def test_a_store_app_l10n_file_is_a_ui_string_source(self):
         import json, os, tempfile
         from unittest import mock
