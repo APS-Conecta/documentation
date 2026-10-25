@@ -26,8 +26,8 @@ El lector de la PIV de FONASA (`lib/Piv/PivReader.php`) tiene el encabezado bloq
 Ese bloqueo rechaza sobre todo un archivo que agrega un RUT o un nombre.
 Las personas sin tramo de edad se cuentan y se informan al importar, pero no se guardan.
 
-**Invariante: el establecimiento es configuración de la instancia** ([gestion ADR-0013](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0013-the-establishment-is-instance-configuration.md)).
-La aplicación lee tres claves de configuración y no tiene un método que las escriba: el único escritor es la [fase 16 de gestion](https://github.com/APS-Conecta/gestion/blob/main/provisioning/phases/16-app-policy.sh), y `scripts/divergence.sh` de gestion las compara con el archivo del sitio.
+**Invariante: el establecimiento es configuración de la instancia** ([ADR-0009](https://github.com/APS-Conecta/instalador/blob/main/docs/adr/0009-the-establishment-is-instance-configuration.md)).
+La aplicación lee tres claves de configuración y no tiene un método que las escriba: el único escritor es la [fase 16 de la provisión](https://github.com/APS-Conecta/instalador/blob/main/provisioning/phases/16-app-policy.sh), y `scripts/divergence.sh` de gestion las compara con el archivo del sitio.
 Un `deis_code` que no tenga seis dígitos se lee como ausencia de establecimiento, y la fase 16 se detiene antes de escribir un valor así.
 Ninguna pantalla de la aplicación elige otro establecimiento como propio.
 
@@ -61,8 +61,7 @@ Las decisiones están en los ADR del repositorio, en `docs/adr/`:
 La API es OCS, bajo `/ocs/v2.php/apps/estadistica/api/v1/`, y cada llamada envía la cabecera `OCS-APIRequest: true`, que también es la protección CSRF ({doc}`/desarrollo/plataforma/client-apis/ocs/ocs-api-overview`).
 Todas las rutas son `#[NoAdminRequired]`: cualquier cuenta lee todo lo publicado y cualquier cuenta guarda preguntas y tableros.
 Cada ruta lleva un `#[UserRateLimit]` por persona: 120 lecturas y 20 escrituras por cada 60 s.
-El contrato es `openapi.json`, que un script del repositorio genera desde el controlador y que nunca se edita a mano; la prueba de humo que corre CI falla si el archivo generado difiere del guardado.
-El [`docs/CONTRACTS.md` de gestion](https://github.com/APS-Conecta/gestion/blob/main/docs/CONTRACTS.md) lo registra junto a los contratos de las demás aplicaciones.
+El contrato es `openapi.json`, que un script del repositorio genera desde el controlador y que nunca se edita a mano; la prueba de humo que corre CI falla si el archivo generado difiere del guardado, y su estabilidad es de diseño ([ADR-0006 del repositorio](https://github.com/APS-Conecta/estadistica/blob/main/docs/adr/0006-one-consulta-spec-compiled-to-bound-sql.md): la respuesta solo se extiende, nunca se reformula).
 
 | Recurso | Verbos | Respuestas |
 |---|---|---|

@@ -18,7 +18,6 @@ import posixpath
 import re
 import string
 import subprocess
-import tarfile
 import textwrap
 from functools import lru_cache
 from pathlib import Path
@@ -63,6 +62,28 @@ def upstream_dir() -> Path:
 def server_dir() -> Path:
     """The sparse clone of nextcloud/server's Spanish l10n that tools/fetch-upstream.sh maintains."""
     return Path(os.environ.get("SERVER_DIR", ROOT / "_generated" / "server"))
+
+
+def apps_dir() -> Path:
+    """The per-app sparse clones of the store apps' Spanish l10n (one directory per app id)
+    that tools/fetch-upstream.sh maintains: the suite installs them from the app store, so
+    their Spanish lives in their own upstream repositories."""
+    return Path(os.environ.get("APPS_DIR", ROOT / "_generated" / "apps"))
+
+
+@lru_cache(maxsize=1)
+def store_apps() -> tuple[tuple[str, str], ...]:
+    """(id, GitHub slug) of every app the suite installs from the app store — the componentes.yml
+    `kind: app` rows without a `fork:` field (an APS fork ships from the organization checkout
+    instead; gen-componentes validates the set against the suite manifest)."""
+    out = []
+    for row in yaml.safe_load((ROOT / "componentes.yml").read_text(encoding="utf-8"))["components"]:
+        if row.get("kind") != "app" or "fork" in row:
+            continue
+        m = re.match(r"https://github\.com/([^/]+/[^/]+?)(?:\.git)?/?$", row.get("upstream", ""))
+        if m:
+            out.append((row["id"], m.group(1)))
+    return tuple(out)
 
 
 def major(cfg: dict | None = None) -> str:
@@ -823,9 +844,11 @@ _UI: dict | None = None
 
 def ui_strings() -> dict[str, set[str]]:
     """English UI string → the Spanish the interface shows: glosario.yml (server strings) and the
-    l10n/es.json of every app the suite ships, read from the exact tarballs gestion installs
-    (provisioning/apps/*/*.tar.gz), and of the server and every app it bundles (server_dir()).
-    Without those checkouts, the glossary alone."""
+    l10n/es.json of the server and every app it bundles (server_dir()); of every own or fork app
+    the suite ships (the nextcloud-app rows of catalogo.yml, read from each repository's checkout
+    — they publish from their own releases, so no vendored tarball is read here); and of every
+    store app the manifest installs (their upstream repositories, under apps_dir()). Without
+    those checkouts, the glossary alone."""
     global _UI
     if _UI is None:
         out: dict[str, set[str]] = {}
@@ -836,14 +859,19 @@ def ui_strings() -> dict[str, set[str]]:
             for en, es in json.loads(f.read_text(encoding="utf-8")).get("translations", {}).items():
                 if isinstance(es, str) and es.strip():
                     out.setdefault(en, set()).add(es)
-        for tgz in sorted((org_root() / "gestion" / "provisioning" / "apps").glob("*/*.tar.gz")):
-            with tarfile.open(tgz) as tf:
-                for m in tf.getmembers():
-                    if m.name.endswith("/l10n/es.json") and m.name.count("/") == 2:
-                        data = json.load(tf.extractfile(m)).get("translations", {})
-                        for en, es in data.items():
-                            if isinstance(es, str) and es.strip():
-                                out.setdefault(en, set()).add(es)
+        # Suite apps publish from their own repositories: their Spanish comes from each
+        # repository's checkout (the catalogue's nextcloud-app rows); app-store apps come
+        # from each upstream's checkout (apps_dir). No vendored tarball is ever read.
+        catalog = yaml.safe_load((ROOT / "catalogo.yml").read_text(encoding="utf-8"))["repos"]
+        l10n_roots = [org_root() / row["repo"] for row in catalog if row["kind"] == "nextcloud-app"]
+        l10n_roots += [apps_dir() / app for app, _ in store_apps()]
+        for repo in l10n_roots:
+            f = repo / "l10n" / "es.json"
+            if not f.is_file():
+                continue
+            for en, es in json.loads(f.read_text(encoding="utf-8")).get("translations", {}).items():
+                if isinstance(es, str) and es.strip():
+                    out.setdefault(en, set()).add(es)
         _UI = out
     return _UI
 

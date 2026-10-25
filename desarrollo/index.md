@@ -6,7 +6,7 @@ resumen: "Desarrollo sobre la suite: invariantes de diseño, entorno, construcci
 ---
 # Desarrollo
 
-Introducción al desarrollo sobre la suite para la organización. El desarrollo parte de los invariantes de diseño: plataforma vanilla sin bifurcar el núcleo, configuración declarativa como código, solo APIs públicas para las aplicaciones propias y cero datos de pacientes. La contribución se rige por el código de conducta de la organización, la divulgación responsable de seguridad y el reporte de errores como incidencias tipadas. Esta sección cubre el entorno y la construcción de aplicaciones, y referencia cada repositorio del catálogo.
+Introducción al desarrollo sobre la suite para la organización. El desarrollo parte de los invariantes de diseño: plataforma vanilla sin bifurcar el núcleo, configuración declarativa como código, solo APIs públicas para las aplicaciones propias y cero datos de pacientes. La contribución se rige por la divulgación responsable de seguridad y el reporte de errores como incidencias tipadas. Esta sección cubre el entorno y la construcción de aplicaciones, y referencia cada repositorio del catálogo.
 
 ```{toctree}
 :maxdepth: 1

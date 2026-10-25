@@ -31,7 +31,7 @@ Esta página explica cómo añadir en los ajustes de iOS una cuenta CalDAV para 
 El calendario ahora estará visible en la aplicación Calendario.
 
 :::{note}
-Si aparece un mensaje de error relacionado con SSL, se puede intentar lo siguiente: asegurarse de especificar en el campo `Server` o bien tanto el protocolo (`https://`) como el puerto (normalmente `443`), es decir, `https://example.com:443/remote.php/dav/principals/users/username/`, o bien ninguno de los dos, como en la guía paso a paso anterior. En ambos casos, la aplicación intenta usar SSL automáticamente, lo que se puede confirmar en “Ajustes avanzados” de la cuenta después de guardarla.
+Si aparece un mensaje de error relacionado con SSL, se puede intentar lo siguiente: asegurarse de especificar en el campo {guilabel}`Servidor` o bien tanto el protocolo (`https://`) como el puerto (normalmente `443`), es decir, `https://example.com:443/remote.php/dav/principals/users/username/`, o bien ninguno de los dos, como en la guía paso a paso anterior. En ambos casos, la aplicación intenta usar SSL automáticamente, lo que se puede confirmar en “Ajustes avanzados” de la cuenta después de guardarla.
 :::
 
 :::{note}

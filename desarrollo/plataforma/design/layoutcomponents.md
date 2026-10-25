@@ -40,7 +40,7 @@ En la mayoría de las apps, el primer elemento de la navegación es el botón de
 - Correo tiene un botón «Nuevo mensaje» para redactar un correo nuevo
 - Contactos tiene un botón «Nuevo contacto»
 - en Talk, se puede crear una conversación nueva
-- en Calendario hay un botón «New event»
+- en Calendario hay un botón «Nuevo evento»
 - Formularios tiene una acción «New form»
 
 #### Entradas de navegación

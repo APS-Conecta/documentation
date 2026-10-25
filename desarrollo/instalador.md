@@ -21,7 +21,7 @@ Cómo se mantiene la cola de parches del fork está en {doc}`AIO </desarrollo/ai
 | Compuerta | Comando | Cuándo corre | Qué prueba |
 |---|---|---|---|
 | Búsqueda de secretos | `gitleaks detect` | Cada pull request y cada push a `main` (`ci.yml`) | Ningún secreto en el historial; los hallazgos del primer arranque se fijan en un `.gitleaksignore` propio. |
-| Compuerta local | `bash scripts/test.sh` | Cada pull request y cada push a `main` (`ci.yml`); también en local | El barrido estático sobre `scripts/`, `provisioning/`, `host/`, `patches/` e `install.sh`; las autopruebas herméticas del Provisionador, del paquete del host, de los tiles, del bootstrap, del empaquetado de versiones y de la migración a AIO; y las fijaciones de canal: ninguna URL de gestion en los archivos de entrada, la clave de `installer.pub` de acuerdo con la del bootstrap, y los runbooks en su casa `aps/`. |
+| Compuerta local | `bash scripts/test.sh` | Cada pull request y cada push a `main` (`ci.yml`); también en local | El barrido estático sobre `scripts/`, `provisioning/`, `host/`, `patches/` e `install.sh`; las autopruebas herméticas del Provisionador, del paquete del host, del bootstrap, del empaquetado de versiones y de la migración a AIO; y las fijaciones de canal: ninguna URL de gestion en los archivos de entrada, la clave de `installer.pub` de acuerdo con la del bootstrap, y los runbooks en su casa `aps/`. |
 | Paridad del espejo | `bash scripts/replay.sh parity` | En la cadena Replay | `main` refleja upstream byte a byte salvo las rutas propias y la declaración de `readme.md`. |
 | Reproducción y compuertas | `bash scripts/replay.sh replay`, `brand-gate.sh`, `acquisition-gate.sh` | Cadena Replay, diaria | La cola completa sobre la punta de upstream, con la regla de cobertura y la regla de los tres resultados. |
 | Instalación limpia | `cleanboot.yml` | Pull requests y programación | Una instalación desde cero por el bootstrap real —suma y firma verificadas—, con los pisos de recursos rebajados y los datos comunales omitidos para el ensayo; publica el artefacto `uso.json` del servidor de ensayo. |
@@ -45,7 +45,7 @@ El empaquetado es determinista: dos corridas sobre la misma etiqueta producen el
 
 ### La corrección de red con consentimiento
 
-Cuando la publicación del dominio en el paso 7 del asistente falla porque el servidor no alcanza su propio dominio, la tarjeta «La red del servidor» ofrece «Sí, corregir»: un consentimiento explícito ejecuta `sudo aps-conecta red --dominio D --arreglar`, que instala dnsmasq con DNS dividido, escribe `daemon.json` y reinicia Docker una sola vez; la preparación se repite sola después, y ejecutar la corrección de nuevo no cambia nada.
+Cuando la publicación del dominio en el paso 6 del asistente falla porque el servidor no alcanza su propio dominio, la tarjeta «La red del servidor» ofrece «Sí, corregir»: un consentimiento explícito ejecuta `sudo aps-conecta red --dominio D --arreglar`, que instala dnsmasq con DNS dividido, escribe `daemon.json` y reinicia Docker una sola vez; la preparación se repite sola después, y ejecutar la corrección de nuevo no cambia nada.
 
 ### Pisos de recursos y datos comunales
 

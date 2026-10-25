@@ -7,7 +7,10 @@ Fails on:
   its approved form `es` (`re`, when given, is how the English term is matched);
 - tuteo or vosotros: the register is formal, direct and affirmative, «usted» or impersonal, on
   every paragraph, an official Transifex msgstr included (owner, 2026-10-10; upstream-fidelity
-  then stops demanding that msgstr verbatim).
+  then stops demanding that msgstr verbatim);
+- a page paragraph that reads as English (upstreamlib.reads_english): the site is Spanish, so a
+  paragraph of usuario/, administracion/, desarrollo/, proyecto/, aviso.md or README.md that an
+  English paragraph displaced fails the build — dated history (proyecto/novedades) is excluded.
 Prose excludes code, roles ({guilabel} is the interface's own wording), URLs and «quoted» text
 (a message or an example someone types): upstreamlib.prose / style_problems.
 
@@ -45,6 +48,16 @@ def check_page(text: str, gl: dict, source_of) -> list[str]:
     return found
 
 
+def check_english(text: str) -> list[str]:
+    """Paragraphs that read as English: this site is Spanish, and a paragraph displaced by
+    its English original is a regression. «quoted» text and italics stay excluded (prose)."""
+    return [
+        f"párrafo en inglés: «{para.strip().splitlines()[0][:120]}»"
+        for para in u.myst_paragraphs(text)
+        if u.reads_english(para)
+    ]
+
+
 def main(argv: list[str]) -> int:
     gl = yaml.safe_load((u.ROOT / "glosario.yml").read_text(encoding="utf-8"))
     updir, cfg = u.upstream_dir(), u.config()
@@ -57,12 +70,24 @@ def main(argv: list[str]) -> int:
         return u.rst_section(source, block["anchor"]), u.catalog(updir, block["doc"], cfg)
 
     paths = [Path(a) for a in argv] or sorted(p for a in AUDIENCES for p in (u.ROOT / a).rglob("*.md"))
+    # La pasada de idioma cubre también proyecto/ (los novedades, historia fechada, quedan fuera)
+    # y los dos archivos raíz que se publican: aviso.md y README.md.
+    lang_paths = paths if argv else sorted(
+        set(paths)
+        | set((u.ROOT / "proyecto").rglob("*.md"))
+        | {u.ROOT / "aviso.md", u.ROOT / "README.md"}
+    )
+    lang_paths = [p for p in lang_paths if "proyecto/novedades" not in p.as_posix() and p.is_file()]
     n = 0
     for path in paths:
         for problem in check_page(path.read_text(encoding="utf-8"), gl, source_of):
             print(f"ERROR {path.relative_to(u.ROOT) if path.is_absolute() else path}: {problem}")
             n += 1
-    print(f"[term-check] {len(paths)} page(s); {n} problem(s)")
+    for path in lang_paths:
+        for problem in check_english(path.read_text(encoding="utf-8")):
+            print(f"ERROR {path.relative_to(u.ROOT) if path.is_absolute() else path}: {problem}")
+            n += 1
+    print(f"[term-check] {len(paths)} page(s), {len(lang_paths)} de idioma; {n} problem(s)")
     return 1 if n else 0
 
 

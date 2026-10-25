@@ -1,12 +1,10 @@
-# Catálogo SSOT de los repositorios de APS-Conecta.
+# Catálogo de los repositorios que documenta el sitio.
 # Claves en inglés, valores legibles en español; la enumeración machine de
 # `kind` es un enum EN (vocabulario de la compuerta de paridad y del generador
 # de mapas) y se traduce en la página generada — ver KIND_ES en
 # tools/gen-catalogo.py, que garantiza que ningún valor EN del enum llega a la
 # superficie renderizada.
-# `role`: descripciones vivas de GitHub a 2026-10-07 — las españolas verbatim,
-# las inglesas traducidas, e IntraVox (sin descripción) con rol de fork
-# redactado para esta SSOT. tools/about-sync.py las replica en la org.
+# `role`: tools/about-sync.py lo replica en la descripción del repositorio en GitHub.
 org: APS-Conecta
 out_of_scope: [aps-conecta-web, calculadora-ecicep]
 repos:
@@ -15,12 +13,9 @@ repos:
     role: "Suite Nextcloud 34 de operaciones internas para CESFAM chilenos — config-as-code (PostgreSQL, Redis, Euro-Office). Una instalación por establecimiento; sin datos de pacientes."
     manuals:
       - administracion/arquitectura.md
-      - administracion/aprovisionamiento.md
       - administracion/usuarios-y-grupos/index.md
       - administracion/oficina/index.md
-      - administracion/mapas-base.md
       - administracion/seguridad.md
-      - administracion/operaciones/index.md
       - desarrollo/gestion.md
       - proyecto/novedades/gestion.md
     depends_on: [IntraVox, farmacia, estadistica, epidemiologia, territorio]
@@ -31,6 +26,9 @@ repos:
     manuals:
       - administracion/aio.md
       - administracion/instalacion/index.md
+      - administracion/aprovisionamiento.md
+      - administracion/mapas-base.md
+      - administracion/operaciones/index.md
       - desarrollo/aio.md
       - desarrollo/instalador.md
       - proyecto/novedades/instalador.md
@@ -44,7 +42,7 @@ repos:
       - usuario/inicio.md
       - desarrollo/intravox.md
       - proyecto/novedades/intravox.md
-    depends_on: []
+    depends_on: [aps-common]
     status: "En la suite desde v3.1.0-aps1 (2026-09-25)"
     readme: .github/README.md
   - repo: buscador-documental
@@ -55,7 +53,15 @@ repos:
       - administracion/ia/buscador-documental.md
       - desarrollo/buscador-documental.md
     depends_on: [gestion]
-    status: "Primera versión 0.1.0 construida — sin distribuir hasta registrar la compuerta legal"
+    status: "Construida — fuera de la suite"
+  - repo: totem
+    kind: app-in-design
+    role: "Turnos de atención para CESFAM, CECOSF y SAPU (Nextcloud app)."
+    manuals:
+      - desarrollo/totem.md
+    depends_on: [aps-common]
+    status: "Sin publicar — fuera de la suite"
+    version: ""
   - repo: farmacia
     kind: nextcloud-app
     role: "Vademécum y arsenal farmacológico del CESFAM con importación CSV por etapas — app Nextcloud 34."
@@ -93,6 +99,31 @@ repos:
       - proyecto/novedades/territorio.md
     depends_on: [aps-common]
     status: "En la suite desde v0.74.0 (2026-09)"
+  - repo: side_menu
+    kind: nextcloud-app
+    role: "Menú lateral personalizado — Custom menu de Simon Vieille (AGPL 6.0.1), mantenido como fork propio porque su fuente, gitnet.fr, está inaccesible."
+    manuals:
+      - desarrollo/side_menu.md
+      - proyecto/novedades/side_menu.md
+    depends_on: []
+    status: "En la suite desde 6.0.1 (2026-10-24)"
+  - repo: eurooffice
+    kind: nextcloud-app
+    role: "Conector de Euro-Office para Nextcloud: edición en línea de documentos, planillas y presentaciones; fork propio del upstream."
+    manuals:
+      - administracion/oficina/index.md
+      - desarrollo/eurooffice.md
+      - proyecto/novedades/eurooffice.md
+    depends_on: []
+    status: "Fork recién creado; entra a la suite con su primera release"
+  - repo: desktop_workspace
+    kind: nextcloud-app
+    role: "Espacio de escritorio para Nextcloud — fork propio del upstream, con los cambios de la suite como commits separados."
+    manuals:
+      - desarrollo/desktop_workspace.md
+      - proyecto/novedades/desktop_workspace.md
+    depends_on: []
+    status: "Fork recién creado; entra a la suite con su primera release"
   - repo: aps-common
     kind: shared-library
     role: "Reglas de texto compartidas por las aplicaciones propias de APS Conecta: dialecto CSV, familia fold/slug, postura de rechazo y forma del error de cliente (PHP + JS)."
@@ -135,4 +166,4 @@ repos:
     manuals:
       - desarrollo/documentation.md
     depends_on: []
-    status: "En construcción (R2 del sitio)"
+    status: "Publicado"

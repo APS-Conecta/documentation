@@ -98,7 +98,7 @@ Aquí se puede configurar la descripción, el acceso de invitados, si la convers
 
 Para ayudar a mantener las discusiones seguras y bajo control, los moderadores pueden vetar a participantes de las conversaciones. Esto se aplica por igual a usuarios internos e invitados; en el caso de los invitados, también se veta su dirección IP.
 
-En la lista de participantes, seleccionar al usuario o invitado y hacer clic en {guilabel}`Eliminar participante`.
+En la lista de participantes, seleccionar al usuario o invitado y hacer clic en {guilabel}`Quitar participante`.
 
 Ahí, marcar la casilla {guilabel}`También bloquear de esta conversación` e indicar un motivo para el veto. El usuario vetado se elimina de la conversación y no puede volver a unirse.
 

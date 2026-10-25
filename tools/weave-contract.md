@@ -2,8 +2,8 @@
 
 The rules every weave agent follows: the bulk-weave workflow (scribe W-runs) and the 📚 Scribe
 `upstream` lane. Deterministic gates enforce what they can (`tools/upstream-fidelity.py`,
-repo-docs `site-structure` and `doc-language-es`, `sphinx-build -W`, `tools/rebrand-check.py`);
-the reviewer agent checks the rest.
+`tools/check-structure.py`, `tools/term-check.py`, `sphinx-build -W`,
+`tools/rebrand-check.py`); the reviewer agent checks the rest.
 
 ## 1. Inputs
 
@@ -113,7 +113,8 @@ Run these in the worktree you were given, and fix until they pass:
 
 ```bash
 python3 tools/upstream-fidelity.py <every page you wrote>
-python3 .github/repo-docs.py check . --offline
+python3 tools/check-structure.py
+python3 tools/term-check.py <pages you wrote>
 sphinx-build -q -W --keep-going -b html . _build/html
 ```
 

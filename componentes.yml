@@ -3,41 +3,60 @@
 #
 # Una persona declara aquí lo que solo una persona sabe: de dónde viene cada componente, su
 # licencia (SPDX, leída del propio componente) y, si APS lo modifica, qué cambia. Lo demás lo
-# calcula tools/gen-componentes.py en cada compilación: la versión (compose.yaml, VENDOR), si un
-# componente vendorizado está modificado (hay archivos .patch junto a él). La compilación falla si gestion distribuye algo que no figura aquí,
-# o si aquí figura algo que gestion ya no distribuye.
+# calcula tools/gen-componentes.py en cada compilación desde el repositorio de la suite
+# (instalador): la versión de cada aplicación (el checkout de su propio repositorio; «—» cuando
+# el instalador la resuelve al instalar) y la de cada imagen base (el FROM del contenedor que la
+# suite distribuye, php/containers.json → Containers/). La compilación falla si la suite
+# distribuye algo que no figura aquí, o si aquí figura algo que la suite ya no distribuye.
 #
 # kind:
-#   image    imagen de contenedor de gestion compose.yaml; `id` = nombre de la imagen
-#   app      aplicación Nextcloud vendorizada en gestion provisioning/apps/<id>/
-#   own-app  aplicación propia de APS (repositorio de la organización), vendorizada igual
+#   image    imagen base de un contenedor que la suite distribuye (el FROM de su Dockerfile),
+#            o el servidor Nextcloud que el contenedor nextcloud empaqueta (id nextcloud)
+#   app      aplicación Nextcloud de terceros que el manifiesto de la suite (apps.json) instala
+#   own-app  aplicación propia de APS (repositorio de la organización) o fork propio de un upstream
 #   fork     repositorio de la organización que bifurca un proyecto upstream; `id` = repositorio
-#   asset    archivo de terceros que sirve el tema; `id` = ruta en gestion
-#   data     datos de terceros que distribuye la suite; `id` = ruta en gestion
+#   asset    archivo de terceros que sirve el tema; `id` = ruta en el instalador
+#   data     datos de terceros que distribuye la suite; `id` = ruta en el instalador
 #
 # AIO: el LICENSE upstream es la AGPL v3 sin cláusula «o posterior» (GitHub la detecta como AGPL-3.0,
 # que en SPDX equivale a AGPL-3.0-only). Upstreams de eurooffice e IntraVox leídos del info.xml del
-# tarball y del padre del fork en GitHub (2026-10-09).
+# paquete y del padre del fork en GitHub (2026-10-09); licencias de las imágenes base leídas del
+# propio upstream el 2026-10-24.
 #
-# Fuente de las licencias: gestion docs/LICENSING.md §3 (verificadas contra cada proyecto el
-# 2026-07-19 y 2026-07-30, y contra el info.xml de cada tarball) hasta que docs-es R4-k retire ese
-# archivo; desde entonces, este.
+# Fuente de las licencias: esta tabla es el inventario de terceros de la organización (las
+# licencias se verificaron contra cada proyecto el 2026-07-19 y 2026-07-30, contra el info.xml de
+# cada paquete y contra cada upstream de imagen el 2026-10-24).
 
 components:
-  # ---- Servicios (imágenes oficiales, sin modificar)
+  # ---- Servicios (imágenes base de los contenedores que la suite distribuye)
   - {name: Servidor Nextcloud, kind: image, id: nextcloud, upstream: "https://github.com/nextcloud/server", licence: AGPL-3.0-or-later}
   - {name: PostgreSQL, kind: image, id: postgres, upstream: "https://www.postgresql.org/", licence: PostgreSQL}
   - {name: Redis, kind: image, id: redis, upstream: "https://github.com/redis/redis", licence: AGPL-3.0-or-later, note: "Redis 8 ofrece tres licencias; APS Conecta elige la AGPL v3."}
   - {name: Euro-Office (servidor de documentos), kind: image, id: ghcr.io/euro-office/documentserver, upstream: "https://github.com/Euro-Office/DocumentServer", licence: AGPL-3.0-only}
+  - {name: Alpine (base), kind: image, id: alpine, upstream: "https://github.com/alpinelinux/docker-alpine", licence: BSD-3-Clause, note: "La licencia de cada paquete es la del paquete; la base, BSD-3-Clause."}
+  - {name: PHP (base del servidor), kind: image, id: php, upstream: "https://github.com/php/php-src", licence: PHP-3.01}
+  - {name: Apache HTTP Server (base), kind: image, id: httpd, upstream: "https://github.com/apache/httpd", licence: Apache-2.0}
+  - {name: Caddy (base de Apache & Caddy), kind: image, id: caddy, upstream: "https://github.com/caddyserver/caddy", licence: Apache-2.0}
+  - {name: Go (base de compilación), kind: image, id: golang, upstream: "https://github.com/golang/go", licence: BSD-3-Clause}
+  - {name: Python (base), kind: image, id: python, upstream: "https://github.com/python/cpython", licence: PSF-2.0}
+  - {name: HAProxy (base del proxy del socket), kind: image, id: haproxy, upstream: "https://github.com/haproxy/haproxy", licence: GPL-2.0-or-later}
+  - {name: Elasticsearch (búsqueda de texto completo), kind: image, id: elasticsearch, upstream: "https://github.com/elastic/elasticsearch", licence: "Elastic-2.0 OR SSPL-1.0", note: "Licencia dual, ninguna aprobada por la OSI; contenedor opcional de la suite."}
+  - {name: ONLYOFFICE Document Server, kind: image, id: onlyoffice/documentserver, upstream: "https://github.com/ONLYOFFICE/DocumentServer", licence: AGPL-3.0, note: "Contenedor opcional de la suite."}
+  - {name: Collabora Online, kind: image, id: collabora/code, upstream: "https://github.com/CollaboraOnline/online", licence: MPL-2.0, note: "Contenedor opcional de la suite."}
+  - {name: NATS Server (base de Talk), kind: image, id: nats, upstream: "https://github.com/nats-io/nats-server", licence: Apache-2.0}
+  - {name: eturnal (TURN de Talk), kind: image, id: eturnal/eturnal, upstream: "https://github.com/processone/eturnal", licence: Apache-2.0}
+  - {name: Señalización de Talk, kind: image, id: strukturag/nextcloud-spreed-signaling, upstream: "https://github.com/strukturag/nextcloud-spreed-signaling", licence: AGPL-3.0}
+  - {name: Pizarra (whiteboard), kind: image, id: ghcr.io/nextcloud-releases/whiteboard, upstream: "https://github.com/nextcloud/whiteboard", licence: AGPL-3.0, note: "Contenedor opcional de la suite."}
+  - {name: HaRP (proxy de AppAPI), kind: image, id: ghcr.io/nextcloud/nextcloud-appapi-harp, upstream: "https://github.com/nextcloud/HaRP", licence: AGPL-3.0, note: "Contenedor opcional de la suite."}
 
-  # ---- Aplicaciones Nextcloud de terceros (tarball vendorizado)
+  # ---- Aplicaciones Nextcloud de terceros (las instala el manifiesto de la suite)
   - {name: Carpetas de grupo, kind: app, id: groupfolders, upstream: "https://github.com/nextcloud/groupfolders", licence: AGPL-3.0-or-later}
-  - {name: Conector de Euro-Office, kind: app, id: eurooffice, upstream: "https://github.com/Euro-Office/eurooffice-nextcloud", licence: AGPL-3.0-only, changes: "Nombre de la sección de administración y nombre visible de la aplicación."}
-  - {name: Menú lateral, kind: app, id: side_menu, upstream: "https://gitnet.fr/deblan/side_menu", licence: AGPL-3.0-or-later}
+  - {name: Conector de Euro-Office, kind: app, id: eurooffice, upstream: "https://github.com/Euro-Office/eurooffice-nextcloud", fork: "https://github.com/APS-Conecta/eurooffice", licence: AGPL-3.0-only, changes: "Nombre de la sección de administración y nombre visible de la aplicación."}
+  - {name: Menú lateral, kind: own-app, id: side_menu, upstream: "https://gitnet.fr/deblan/side_menu", fork: "https://github.com/APS-Conecta/side_menu", licence: AGPL-3.0-or-later, changes: "Mantenimiento propio: la fuente original está inaccesible; la suite publica y firma sus versiones."}
   - {name: Calendario, kind: app, id: calendar, upstream: "https://github.com/nextcloud/calendar", licence: AGPL-3.0-or-later}
   - {name: Contactos, kind: app, id: contacts, upstream: "https://github.com/nextcloud/contacts", licence: AGPL-3.0-or-later}
   - {name: Talk (conversación), kind: app, id: spreed, upstream: "https://github.com/nextcloud/spreed", licence: AGPL-3.0-or-later}
-  - {name: Escritorio (desktop_workspace), kind: app, id: desktop_workspace, upstream: "https://github.com/canisdata/desktop_workspace", licence: AGPL-3.0-or-later, changes: "Ruta del registro en los ajustes, errores que ya no se silencian, política de contenido sin HTTP, límites de tamaño de carga útil, documentación de la administración, pruebas fijadas, división del shell, del observador y del controlador, y código muerto eliminado."}
+  - {name: Escritorio (desktop_workspace), kind: app, id: desktop_workspace, upstream: "https://github.com/canisdata/desktop_workspace", fork: "https://github.com/APS-Conecta/desktop_workspace", licence: AGPL-3.0-or-later, changes: "Ruta del registro en los ajustes, errores que ya no se silencian, política de contenido sin HTTP, límites de tamaño de carga útil, documentación de la administración, pruebas fijadas, división del shell, del observador y del controlador, y código muerto eliminado."}
   - {name: Notify Push, kind: app, id: notify_push, upstream: "https://github.com/nextcloud/notify_push", licence: AGPL-3.0-or-later}
 
   # ---- Aplicaciones propias de APS Conecta
@@ -48,13 +67,12 @@ components:
   - {name: Inicio (IntraVox), kind: own-app, id: intravox, upstream: "https://github.com/nextcloud/IntraVox", fork: "https://github.com/APS-Conecta/IntraVox", licence: AGPL-3.0-or-later, changes: "Fork con funciones locales: muros y páginas protegidas, portada de bienvenida administrada, raíz de almacenamiento con nombre para el personal y el idioma español por defecto (IntraVox ADR-0001)."}
 
   # ---- Instalador
-  - {name: Nextcloud All-in-One (instalador), kind: fork, id: instalador, upstream: "https://github.com/nextcloud/all-in-one", fork: "https://github.com/APS-Conecta/instalador", licence: AGPL-3.0-only, changes: "Asistente en español de Chile con la marca y el nombre del producto, Euro-Office como única suite ofimática, tienda de aplicaciones, autoactualización y contenedores comunitarios desactivados, aplicaciones y tema horneados en la imagen, imágenes propias en el registro, valores por defecto de APS, certificado del instalador y la ruta del mapa base."}
+  - {name: Nextcloud All-in-One (instalador), kind: fork, id: instalador, upstream: "https://github.com/nextcloud/all-in-one", fork: "https://github.com/APS-Conecta/instalador", licence: AGPL-3.0-only, changes: "Asistente en español de Chile con la marca y el nombre del producto, Euro-Office como única suite ofimática, tienda de aplicaciones, autoactualización y contenedores comunitarios desactivados, aplicaciones y tema horneados en la imagen, imágenes propias en el registro, valores por defecto de APS, certificado del instalador y la ruta del mapa base (parche 239, sin uso desde la versión que retira el paso del mapa; se elimina en una publicación posterior de las imágenes)."}
 
   # ---- Recursos del tema
   - {name: Tipografía Fraunces, kind: asset, id: themes/apsconecta/core/fonts, upstream: "https://github.com/undercasetype/Fraunces", licence: OFL-1.1, changes: "Servida en WOFF2; un subconjunto va incrustado en los logotipos SVG (versión modificada según la OFL, sin los nombres reservados)."}
   - {name: Tipografía Nunito Sans, kind: asset, id: themes/apsconecta/core/fonts, upstream: "https://github.com/googlefonts/NunitoSans", licence: OFL-1.1, changes: "Servida en WOFF2; un subconjunto va incrustado en los logotipos SVG (versión modificada según la OFL, sin los nombres reservados)."}
   - {name: Leaflet, kind: asset, id: themes/apsconecta/core/mapa/leaflet.js, upstream: "https://github.com/Leaflet/Leaflet", licence: BSD-2-Clause, version: "1.9.4"}
-  - {name: protomaps-leaflet, kind: asset, id: themes/apsconecta/core/mapa/protomaps-leaflet.js, upstream: "https://github.com/protomaps/protomaps-leaflet", licence: BSD-3-Clause, version: "5.1.0"}
 
   # ---- Datos
   - {name: Registro de establecimientos (DEIS) con coordenadas del Geoportal de Chile, kind: data, id: sites, upstream: "https://deis.minsal.cl/", licence: "sin licencia declarada", note: "Datos públicos del MINSAL; crédito «Puntos: MINSAL/DEIS, Geoportal de Chile»."}

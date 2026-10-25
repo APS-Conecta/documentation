@@ -21,9 +21,9 @@ no existe, el repositorio se omite con línea de bitácora. Fallos duros
 (exit 1, nombrando el repositorio): clon ausente, fila malformada o hub
 `desarrollo/<slug>.md` ausente. Determinista: sin marcas de tiempo.
 
-`--selftest` clavija el libro verificado contra la org viva (incluidos
-{repo-docs}; omitidos 5 «no existe» + 8 «sin sección») y afirma los cuatro
-marcadores de paso y la ausencia de «Licencia» en el tramo extraído —
+`--selftest` clavija el libro verificado contra la org viva y afirma los cuatro
+marcadores de paso, la ausencia de «Licencia» y el español del tramo
+extraído —
 explícito, nada lo invoca desde el Makefile.
 """
 from __future__ import annotations
@@ -35,6 +35,8 @@ import sys
 from pathlib import Path
 
 import yaml
+
+import upstreamlib as u
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 CATALOGO = REPO_ROOT / "catalogo.yml"
@@ -50,12 +52,20 @@ NEXT_H2_RE = re.compile(r"^##\s")
 # Incluyen su inicio rápido los repos con README en español (ADR 0006); instalador es un fork
 # cuyo README raíz se llama `readme.md`, de modo que el catálogo no lo encuentra.
 PIN_INCLUDED = {"repo-docs", "aps-common", "Databases", "epidemiologia", "estadistica", "farmacia"}
+# Repositorios cuya sección de inicio rápido el sitio no puede perder: si un README
+# la retira o la traduce, la compilación falla (la página es la puerta de entrada
+# de quien desarrolla sobre ese repositorio).
+REQUIRED = {"aps-common", "Databases", "epidemiologia", "estadistica", "farmacia"}
 PIN_MISSING_README = {"IntraVox", "instalador", ".github"}
 PIN_NO_HEADING = {
     "buscador-documental",
     "gestion",
     "rpiv-artifacts",
     "territorio",
+    "side_menu",
+    "eurooffice",
+    "desktop_workspace",
+    "totem",
 }
 PIN_STEP_MARKERS = (
     "docs.py discover",
@@ -137,6 +147,17 @@ def classify(row: dict) -> tuple[str, Path, tuple[int, int] | None]:
     return "hit", readme, span
 
 
+def span_reads_english(span_text: str) -> str | None:
+    """El primer párrafo del tramo que se lee como inglés, o None. Un inicio
+    rápido publicado en español que un README reescribe en inglés rompe la
+    página que lo incluye: se detecta antes de emitir."""
+    for paragraph in u.myst_paragraphs(span_text):
+        if u.reads_english(paragraph):
+            first = paragraph.strip().splitlines()[0]
+            return first[:120]
+    return None
+
+
 def emit_page(repo: str, readme: Path, span: tuple[int, int]) -> None:
     """Página por acierto: front matter, H1 sintetizado y el tramo incluido."""
     heading_ln, end_ln = span
@@ -198,9 +219,19 @@ def main() -> int:
             note(f"omitido {row['repo']}: {row['readme']} sin sección «Inicio rápido de desarrollo»")
         else:
             assert span is not None
+            heading_ln, end_ln = span
+            span_text = "\n".join(
+                readme.read_text(encoding="utf-8").splitlines()[heading_ln - 1 : end_ln - 1])
+            english = span_reads_english(span_text)
+            if english is not None:
+                fail(f"{row['repo']}: un párrafo del inicio rápido se lee como inglés: «{english}»")
             emit_page(row["repo"], readme, span)
             note(f"incluido {row['repo']}: {row['readme']}:{span[0]}-{span[1] - 1}")
             hits.append(row["repo"])
+    perdidos = REQUIRED - set(hits)
+    if perdidos:
+        fail(f"inicio rápido ausente en {sorted(perdidos)}: su README perdió la sección "
+             "«Inicio rápido de desarrollo» o el clon está ausente bajo APS_ORG_ROOT")
     emit_index(hits)
     note(f"{len(hits)}/{len(roster)} incluyen; {len(roster) - len(hits)} omitidos")
     return 0
@@ -239,6 +270,10 @@ def selftest() -> int:
         for marker in PIN_STEP_MARKERS:
             if marker not in span_text:
                 problems.append(f"repo-docs: marcador ausente en el tramo: {marker!r}")
+        if span_reads_english(span_text) is not None:
+            problems.append("repo-docs: el tramo se lee como inglés")
+        assert span_reads_english("Run the tests before you open a pull request.") is not None
+        assert span_reads_english("Ejecutar las pruebas antes de abrir una pull request.") is None
         if "Licencia" in span_text:
             problems.append("repo-docs: el tramo extraído contiene «Licencia»")
     if problems:

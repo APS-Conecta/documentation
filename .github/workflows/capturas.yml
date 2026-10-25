@@ -6,8 +6,7 @@
 # bytes actually change. Schedule implies main-only (writes-on-main doctrine).
 # GITHUB_TOKEN is never used for writes: two step-scoped App-token mints —
 # mint A clones the roster repos (contents: read), mint B authors the PR
-# (contents + pull_requests write, this repo only). The PR is App-authored
-# precisely so the canon docs.yml pr-gate runs on it.
+# (contents + pull_requests write, this repo only).
 name: capturas
 
 on:

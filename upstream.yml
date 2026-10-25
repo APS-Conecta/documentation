@@ -9,11 +9,12 @@
 
 source:
   repo: nextcloud/documentation
-  # La rama sigue a la suite: el mayor sale de la imagen del servidor en gestion compose.yaml.
+  # La rama sigue a la suite: el mayor sale del servidor que empaqueta el instalador
+  # (Containers/nextcloud, upstreamlib).
   branch: "stable{major}"
   major_from:
-    file: gestion/compose.yaml
-    pattern: 'image:\s*nextcloud:(\d+)'
+    file: instalador/Containers/nextcloud/Dockerfile
+    pattern: 'ENV NEXTCLOUD_VERSION=(\d+)'
   manuals: [user_manual, admin_manual, developer_manual]
   # Cada manual es un proyecto Sphinx propio: una etiqueta es única solo dentro de él. El de
   # desarrollo comparte tres con los otros (critical-changes, contents, unified-search), así que

@@ -113,7 +113,7 @@ Una aplicación cortada de la plantilla, como estadistica, entra además en el c
 
 ## Resultado
 
-La aplicación pasa sus compuertas, la provisión la instala desde un paquete fijado y sin red, y su contrato OCS figura en el índice de contratos de la organización, `docs/CONTRACTS.md` de gestion.
+La aplicación pasa sus compuertas, la suite la instala desde su propia release firmada, y su contrato OCS vive en el `openapi.json` del repositorio de cada aplicación.
 
 ### Deuda y límites
 

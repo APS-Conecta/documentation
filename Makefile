@@ -7,7 +7,7 @@
 # `generate` es el gancho que las fases de generadores van poblando
 # (catálogo, referencia, mapas, inicio rápido); hoy es un no-op.
 
-.PHONY: html linkcheck brand upstream generate fidelity rebrand-check test clean
+.PHONY: html linkcheck brand upstream generate fidelity rebrand-check test clean structure term-check
 
 html: brand upstream generate
 	sphinx-build -W --keep-going -b html . _build/html
@@ -35,6 +35,11 @@ generate:
 # Cada bloque tejido dice lo que dice su fuente upstream (estructura, código, enlaces, texto oficial).
 fidelity: upstream
 	python3 tools/upstream-fidelity.py --require-coverage
+
+# La estructura del sitio: cada página bajo usuario/…/proyecto/ lleva su encabezado tipado
+# y el esqueleto H2 de su tipo (el puerto del canon site-structure, ya sin marcador).
+structure:
+	python3 tools/check-structure.py
 
 # Un solo español: formas aprobadas de glosario.yml, registro «usted»/impersonal, sin formas de España.
 term-check: upstream
