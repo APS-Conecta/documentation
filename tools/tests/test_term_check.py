@@ -67,6 +67,11 @@ class TermCheckTest(unittest.TestCase):
                    "Ejemplo: «¿Puedes resumir tu correo?»", "El sistema elige un servidor y recuerda la elección."):
             self.assertEqual(self.check(ok + "\n"), [], ok)
 
+    def test_an_english_paragraph_is_reported_and_a_spanish_one_is_not(self):
+        self.assertEqual(len(tc.check_english("Run the tests before you open a pull request.\n")), 1)
+        self.assertEqual(tc.check_english("Ejecutar las pruebas antes de abrir una pull request.\n"), [])
+        self.assertEqual(tc.check_english("El comando `run the tests` y «close the door» quedan fuera.\n"), [])
+
 
 if __name__ == "__main__":
     unittest.main()

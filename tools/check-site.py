@@ -38,7 +38,7 @@ from urllib.parse import urljoin, urlparse
 
 from playwright.sync_api import sync_playwright
 
-# The 11 brand assets (gestion themes/apsconecta/core — the fetch-brand contract):
+# The 11 brand assets (instalador themes/apsconecta/core — the fetch-brand contract):
 # 4 variable woff2 faces + the 3 logo SVGs + the 4 favicon files.
 BRAND_ASSETS = (
     "fonts/Fraunces.woff2",

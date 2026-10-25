@@ -864,9 +864,10 @@ class RenderTest(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmp:
             src = Path(tmp)
-            # the unwoven link's fallback URL names the major: a fixture org, not this box's gestion
-            (src / "org" / "gestion").mkdir(parents=True)
-            (src / "org" / "gestion" / "compose.yaml").write_text("image: nextcloud:34\n", encoding="utf-8")
+            # the unwoven link's fallback URL names the major: a fixture org, not this box's instalador
+            (src / "org" / "instalador" / "Containers" / "nextcloud").mkdir(parents=True)
+            (src / "org" / "instalador" / "Containers" / "nextcloud" / "Dockerfile").write_text(
+                "ENV NEXTCLOUD_VERSION=34\n", encoding="utf-8")
             env = mock.patch.dict(os.environ, {"APS_ORG_ROOT": str(src / "org")})
             env.start()
             self.addCleanup(env.stop)
@@ -1037,8 +1038,9 @@ class BareRefTitleTest(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmp:
             src = Path(tmp)
-            (src / "org" / "gestion").mkdir(parents=True)
-            (src / "org" / "gestion" / "compose.yaml").write_text("image: nextcloud:34\n", encoding="utf-8")
+            (src / "org" / "instalador" / "Containers" / "nextcloud").mkdir(parents=True)
+            (src / "org" / "instalador" / "Containers" / "nextcloud" / "Dockerfile").write_text(
+                "ENV NEXTCLOUD_VERSION=34\n", encoding="utf-8")
             env = mock.patch.dict(os.environ, {"APS_ORG_ROOT": str(src / "org")})
             env.start()
             self.addCleanup(env.stop)
@@ -1104,8 +1106,9 @@ class LabelScopeTest(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmp:
             src = Path(tmp)
-            (src / "org" / "gestion").mkdir(parents=True)
-            (src / "org" / "gestion" / "compose.yaml").write_text("image: nextcloud:34\n", encoding="utf-8")
+            (src / "org" / "instalador" / "Containers" / "nextcloud").mkdir(parents=True)
+            (src / "org" / "instalador" / "Containers" / "nextcloud" / "Dockerfile").write_text(
+                "ENV NEXTCLOUD_VERSION=34\n", encoding="utf-8")
             env = mock.patch.dict(os.environ, {"APS_ORG_ROOT": str(src / "org")})
             env.start()
             self.addCleanup(env.stop)
@@ -1141,8 +1144,9 @@ class DifiereLinkTest(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmp:
             src = Path(tmp)
-            (src / "org" / "gestion").mkdir(parents=True)
-            (src / "org" / "gestion" / "compose.yaml").write_text("image: nextcloud:34\n", encoding="utf-8")
+            (src / "org" / "instalador" / "Containers" / "nextcloud").mkdir(parents=True)
+            (src / "org" / "instalador" / "Containers" / "nextcloud" / "Dockerfile").write_text(
+                "ENV NEXTCLOUD_VERSION=34\n", encoding="utf-8")
             env = mock.patch.dict(os.environ, {"APS_ORG_ROOT": str(src / "org")})
             env.start()
             self.addCleanup(env.stop)
@@ -1196,8 +1200,9 @@ class W9GateTest(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmp:
             src = Path(tmp)
-            (src / "org" / "gestion").mkdir(parents=True)
-            (src / "org" / "gestion" / "compose.yaml").write_text("image: nextcloud:34\n", encoding="utf-8")
+            (src / "org" / "instalador" / "Containers" / "nextcloud").mkdir(parents=True)
+            (src / "org" / "instalador" / "Containers" / "nextcloud" / "Dockerfile").write_text(
+                "ENV NEXTCLOUD_VERSION=34\n", encoding="utf-8")
             env = mock.patch.dict(os.environ, {"APS_ORG_ROOT": str(src / "org")})
             env.start()
             self.addCleanup(env.stop)
@@ -1343,6 +1348,53 @@ class ServerUiStringsTest(unittest.TestCase):
                 ui = u.ui_strings()
         self.assertEqual(ui["Test Configuration"], {"Probar configuración"})
         self.assertEqual(ui["Log in"], {"Iniciar sesión"})
+
+
+class StoreUiStringsTest(unittest.TestCase):
+    """The suite's store apps (spreed, calendar…) are not APS repositories: their Spanish UI
+    strings come from their own upstream l10n, fetched next to the server's (never from the old
+    gestion's retired vendored tarballs). Only upstream-fidelity reads them."""
+
+    def test_the_manifest_store_apps_resolve_to_upstream_repos(self):
+        # componentes.yml `kind: app` without a `fork:` field is the app-store set: each row
+        # carries the upstream repo its l10n comes from (a fork ships its own Spanish)
+        apps = dict(u.store_apps())
+        self.assertEqual(apps["spreed"], "nextcloud/spreed")
+        self.assertEqual(apps["groupfolders"], "nextcloud/groupfolders")
+        self.assertNotIn("eurooffice", apps)          # APS fork — its checkout is read
+        self.assertNotIn("desktop_workspace", apps)
+        self.assertNotIn("side_menu", apps)
+
+    def test_a_malformed_l10n_file_degrades_to_a_note_not_a_crash(self):
+        """A roster repo can push a broken l10n/es.json; the site's vocabulary degrades
+        (that repo contributes nothing) instead of failing the whole build."""
+        import os, tempfile
+        from unittest import mock
+
+        with tempfile.TemporaryDirectory() as d:
+            f = Path(d) / "spreed" / "l10n" / "es.json"
+            f.parent.mkdir(parents=True)
+            f.write_text('{"translations": {"Shared items": "Elementos compartidos"},}', encoding="utf-8")
+            with mock.patch.dict(os.environ, {"APPS_DIR": d, "APS_ORG_ROOT": "/nonexistent"}), \
+                    mock.patch.object(u, "_UI", None), \
+                    mock.patch("sys.stderr") as err:
+                ui = u.ui_strings()
+        self.assertNotIn("Shared items", ui)
+        self.assertTrue(err.write.called)   # the omission is reported, never silent
+
+    def test_a_store_app_l10n_file_is_a_ui_string_source(self):
+        import json, os, tempfile
+        from unittest import mock
+
+        with tempfile.TemporaryDirectory() as d:
+            f = Path(d) / "spreed" / "l10n" / "es.json"
+            f.parent.mkdir(parents=True)
+            f.write_text(json.dumps({"translations": {"Shared items": "Elementos compartidos"}}),
+                         encoding="utf-8")
+            with mock.patch.dict(os.environ, {"APPS_DIR": d, "APS_ORG_ROOT": "/nonexistent"}), \
+                    mock.patch.object(u, "_UI", None):
+                ui = u.ui_strings()
+        self.assertEqual(ui["Shared items"], {"Elementos compartidos"})
 
 
 class EnglishWordTest(unittest.TestCase):

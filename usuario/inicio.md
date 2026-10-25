@@ -14,6 +14,8 @@ La intranet es la aplicación IntraVox: páginas que se construyen con un editor
 
 APS Conecta Gestión abre Inicio después de iniciar sesión, en lugar del Dashboard: la intranet es la superficie común del personal, que usa computadores compartidos en sesiones cortas. En la barra superior, la aplicación conserva el nombre «IntraVox».
 
+Quién publica: los equipos de comunicaciones crean las noticias y los avisos en borrador, y Dirección o la oficina de OIRS los revisan antes de publicarlos; cada semana conviene repasar los avisos vigentes y devolver a borrador los que ya no correspondan. En «Vida CESFAM», las fotografías de personas requieren su autorización —los placeholders sembrados se reemplazan solo con fotos consentidas— y nunca se publican fotografías de pacientes.
+
 ## Requisitos
 
 - Una cuenta del establecimiento. Toda cuenta del personal pertenece al grupo de lectores de la intranet y puede leer Inicio.

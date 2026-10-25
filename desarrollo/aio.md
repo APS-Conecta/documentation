@@ -69,7 +69,7 @@ Para cada parche `.patch`:
 2. Si se aplica en reverso, upstream ya adoptó el cambio: la ejecución lo omite con una advertencia. Dos omisiones seguidas en ejecuciones programadas terminan en retirar el parche o en justificarlo de nuevo en su encabezado.
 3. Si no se aplica en ningún sentido, upstream se movió: la ejecución se detiene, nombra el parche, y el parche se regenera.
 
-La herramienta es `git apply`, sin contexto aproximado: un parche que solo se aplica con aproximación es un parche que se degrada. Los parches se generan con `git diff`, con los prefijos `a/` y `b/`. La regla es la del [ADR-0002 de gestion](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0002-app-patches.md), llevada al fork. El margen de deriva es de 6 semanas como máximo detrás de upstream.
+La herramienta es `git apply`, sin contexto aproximado: un parche que solo se aplica con aproximación es un parche que se degrada. Los parches se generan con `git diff`, con los prefijos `a/` y `b/`. La regla es la de la [declaración del fork](https://github.com/APS-Conecta/instalador/blob/main/readme.md), que enumera cada cambio y la garantía que sostiene. El margen de deriva es de 6 semanas como máximo detrás de upstream.
 
 Los parches `.sh` son el canal generado: el 010 llama a `scripts/retag.sh` para cambiar el registro en `php/containers.json`, y el 240, que corre al final, llama a `scripts/rename-containers.py` para renombrar los contenedores. Corren dentro del árbol reproducido con `APS_TOOLS_ROOT` apuntando a `main`, son idempotentes, y su propia verificación es el resultado: se corrige el generador, nunca el árbol.
 

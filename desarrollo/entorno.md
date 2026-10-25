@@ -49,12 +49,13 @@ En Linux, un montaje conserva el dueño del anfitrión, pero el usuario del serv
 ## Pasos
 
 1. Ejecutar el objetivo `setup` del Makefile. Genera los cuatro secretos en `.env` con modo 600 y se niega a correr si `.env` ya existe.
-2. Fijar `SITE` en `.env` con el establecimiento elegido.
-3. Ejecutar el objetivo `install`. Levanta la pila, ejecuta las fases de provisión, guarda el detalle en `.install.log` y termina con un resumen del establecimiento.
-4. Repetir `install` después de editar `sites/<slug>/site.sh` o de un `git pull`: converge y omite en segundos lo ya aplicado.
-5. Para depurar paso a paso, ejecutar el objetivo `up-dev` en lugar de `up`.
-6. En VS Code, iniciar «Listen for Xdebug (APS Conecta)» y enviar una solicitud con el disparador de Xdebug.
-7. Detener la pila con el objetivo `down`, que conserva los volúmenes. Para recuperar la memoria de Euro-Office sin detener el resto, ejecutar el objetivo `office-down`.
+2. Configurar una sola vez la guardia de secretos del clon: `git config core.hooksPath .githooks`. El hook vive en el repositorio y no se activa solo; este paso lo enciende para cada clon.
+3. Fijar `SITE` en `.env` con el establecimiento elegido.
+4. Ejecutar el objetivo `install`. Levanta la pila, ejecuta las fases de provisión, guarda el detalle en `.install.log` y termina con un resumen del establecimiento.
+5. Repetir `install` después de editar `sites/<slug>/site.sh` o de un `git pull`: converge y omite en segundos lo ya aplicado.
+6. Para depurar paso a paso, ejecutar el objetivo `up-dev` en lugar de `up`.
+7. En VS Code, iniciar «Listen for Xdebug (APS Conecta)» y enviar una solicitud con el disparador de Xdebug.
+8. Detener la pila con el objetivo `down`, que conserva los volúmenes. Para recuperar la memoria de Euro-Office sin detener el resto, ejecutar el objetivo `office-down`.
 
 ## Verificación
 
@@ -75,4 +76,4 @@ En Linux, un montaje conserva el dueño del anfitrión, pero el usuario del serv
 - **La pila Compose y el banco AIO corren a la vez.** La provisión elige el contenedor AIO. Para provisionar la pila Compose, fijar `NC_CONTAINER` en `.env`.
 - **Xdebug no escribe registro.** Es deliberado: Xdebug se niega a abrir un registro que no le pertenece en un directorio que todos pueden escribir, como `/tmp` (B-006).
 - **El editor de documentos no carga desde otro equipo.** `localhost:9980` es el loopback del navegador, no el del servidor, y el editor lo informa como un problema de token. Fijar `OFFICE_PUBLIC_URL` en `.env` con una dirección que el navegador alcance, en https si el servidor usa https. El humo de oficina no detecta este error porque corre en el mismo anfitrión.
-- **Una contraseña cambiada en `.env` no cambia el inicio de sesión.** El servidor lee la contraseña de administración solo al instalarse: primero se restablece en el servidor y después se actualiza `.env`.
+- **Una contraseña cambiada en `.env` no cambia el inicio de sesión.** El servidor lee la contraseña de administración solo al instalarse: primero se restablece en el servidor —{doc}`user:resetpassword </administracion/occ/usuarios>` lo hace con `--password-from-env`— y después se actualiza `.env`.

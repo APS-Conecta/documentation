@@ -23,7 +23,7 @@ La geometría se guarda como texto GeoJSON con su caja envolvente al lado, porqu
 | 0001 | Aplicación propia y no una capa de la app Maps, que modela geografía personal. | La suite no instala `maps`. |
 | 0002 | Colaboración por sondeo de un cursor de cambios cada cinco segundos, no por push. | Toda mutación de un registro avanza el cursor. |
 | 0003 | Una edición local de un registro catastral prevalece sobre la reimportación. | El valor oficial entrante se guarda junto a la edición. |
-| 0004 | OpenStreetMap aporta solo el mapa base y fuentes de importación fuera de línea. | La aplicación no consulta Overpass ni escribe en OpenStreetMap. |
+| 0004 | OpenStreetMap aporta solo el mapa base y fuentes de importación fuera de línea. El ADR 0021 lo enmienda en un punto: la dirección de las teselas ya no es un ajuste. | La aplicación no consulta Overpass ni escribe en OpenStreetMap, y el navegador necesita internet para ver el mapa base. |
 | 0005 | Toda persona usuaria edita; el historial y el retiro reemplazan a los permisos. | No existe `DELETE` físico de un registro. |
 | 0006, 0012 | Exportar datos de contacto exige confirmar la contraseña y se anota en `territorio_export`. | La exportación no toma revisión. |
 | 0007 | El límite de un sector se construye eligiendo líneas reales y se ajusta a mano. | Dibujar a mano sigue siendo un camino completo. |
@@ -35,13 +35,14 @@ La geometría se guarda como texto GeoJSON con su caja envolvente al lado, porqu
 | 0015 | Una división territorial se dibuja como división, no como categoría. | La unidad vecinal va con línea discontinua y sin relleno. |
 | 0016 | Quitar una categoría se rechaza mientras tenga registros. | «División territorial» y «Sin clasificar · Otro» no se pueden quitar. |
 | 0018 | La procedencia del límite de un sector se lee del historial. | No existe una columna de procedencia. |
-| 0019 | El mapa base es un archivo PMTiles autoalojado. | {doc}`/administracion/mapas-base` describe el servicio. |
+| 0019 | El mapa base es un archivo PMTiles autoalojado. Reemplazado por el ADR 0021. | Retirado: la suite ya no aloja ni sirve el mapa base. |
+| 0021 | El mapa base es el servicio de teselas de OpenStreetMap, que el navegador de cada persona carga directamente bajo su política de uso; reemplaza al ADR 0019. | La dirección es una constante del código, sin ajuste: un bloqueo de OpenStreetMap se corrige con una versión nueva. {doc}`/administracion/mapas-base` describe la operación. |
 
 ### En APS Conecta Gestión
 
 APS Conecta Gestión instala Territorio desde un paquete construido con una etiqueta de versión del repositorio, como el resto de sus aplicaciones propias, sin red ni git en la instalación.
 La fase 16 del aprovisionamiento escribe `comuna_cut` y `comuna_name` desde el archivo del establecimiento, y se detiene si falta el código CUT: un `comuna_cut` vacío se lee como «sin elegir» y desarma el rechazo de archivos de otra comuna.
-La misma fase escribe `tile_url` con la dirección de la instancia seguida de `/tiles/chile.pmtiles`. Si no puede leer `overwrite.cli.url`, deja el valor anterior y lo anota en el registro. En la pila de desarrollo, que no corre bajo AIO, escribe el valor vacío y la aplicación vuelve a las teselas raster de OpenStreetMap.
+El mapa base no se configura: Territorio carga las teselas de OpenStreetMap directamente y deriva la vista inicial del código CUT que esta fase escribe.
 Las unidades vecinales y los establecimientos DEIS de la comuna se importan desde un paquete que se recorta de los maestros nacionales fijados por suma de verificación en `provisioning/data/packages.json`.
 {doc}`/administracion/aprovisionamiento` describe las fases.
 
@@ -89,7 +90,7 @@ Un cambio de forma regenera la especificación, y su diff versionado es el cambi
 
 ### Rutas de la aplicación
 
-Una ruta sin `#[NoAdminRequired]` queda solo para la administración: así están `GET /export/history`, `PUT /settings/basemap` y `PUT /settings/comuna`.
+Una ruta sin `#[NoAdminRequired]` queda solo para la administración: así están `GET /export/history` y `PUT /settings/comuna`.
 Las demás rutas, escrituras incluidas, están abiertas a toda persona usuaria autenticada; solo la página `GET /` omite la verificación CSRF.
 La exportación tiene dos rutas para una sola operación: `POST /export/contacts` lleva `#[PasswordConfirmationRequired(strict: true)]` y es la única que puede llevar datos de contacto, mientras que `POST /export` no puede llevarlos.
 Las categorías y subcategorías se direccionan por slug, que es lo que un cambio de nombre conserva; el slug de una subcategoría es único solo dentro de su categoría.
@@ -207,8 +208,8 @@ Una reversión falla registro a registro: deja como está cada registro que no p
 
 ## Dominios de fallo
 
-- **Mapa base.** Si el mapa base no carga, el mapa sigue usable con todos los registros y sus formas, y muestra un aviso. El archivo PMTiles se verifica una vez leyendo sus primeros siete bytes, porque `protomaps-leaflet` no informa errores de tesela.
-- **`tile_url` rechazado.** Un valor que no es ni archivo PMTiles ni plantilla `{z}/{x}/{y}` se guarda pero no se sirve: el mapa vuelve a las teselas de OpenStreetMap y la página de ajustes lo indica.
+- **Mapa base.** Si el mapa base no carga, por falta de internet o porque OpenStreetMap no responde, el mapa sigue usable con todos los registros y sus formas sobre un fondo liso, y muestra un aviso. Un bloqueo de OpenStreetMap es la excepción: llega como una imagen válida («acceso bloqueado»), el navegador no informa error y no hay aviso; se corrige con una versión que cambia la constante de la dirección (ADR 0021).
+- **Ajustes de mapa retirados.** Al actualizar, un paso de reparación registra los valores de `tile_url` y `tile_attribution` que la instalación tuviera y los elimina; no hay ajuste que los reemplace.
 - **Sin líneas de límite.** Sin el conjunto de calles, canales y vías importado, la búsqueda de calles queda vacía y no se puede generar un polígono; dibujar un sector a mano sigue funcionando.
 - **Cambio de versión.** Subir la versión en `appinfo/info.xml` deja toda la instancia en «requiere actualización», con 503 en todas las páginas y no solo en esta aplicación, hasta que corre `occ upgrade`.
 - **APCu.** La caché local es por proceso: un ajuste escrito con `occ config:app:set` no llega al proceso web hasta su reinicio. Un ajuste guardado desde la interfaz no tiene ese retraso.

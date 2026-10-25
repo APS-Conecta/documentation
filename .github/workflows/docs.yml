@@ -1,16 +1,11 @@
-# Documentation gate. Offline rules only — GITHUB_TOKEN is repo-scoped and cannot read
-# org facts (2FA, member list), so those rules run locally under your own gh auth.
-# Why the checker is vendored at .github/repo-docs.py, and how it fails: repo-docs ADR-0004
-# https://github.com/APS-Conecta/repo-docs/blob/main/docs/adr/0004-the-checker-is-vendored-into-every-repo.md
-#
-# No paths filter: the gate runs on every PR and every push to the default branch. Every
-# PR title must read as English — the pr-gate subcommand reads the event payload;
-# gitleaks scans the PR commit range, not history.
+# Documentation gate: the site's own structure check, plus the secret scan the
+# repository still owes inline — GitHub secret scanning is off here, so gitleaks
+# covers the PR or push range until native scanning replaces it (docs-SSOT T02's
+# fallback; the org ruleset requires this job's id and name: `docs`).
 name: docs
 
 on:
   pull_request:
-    types: [opened, edited, synchronize, reopened]
   push:
     branches: [main]
 
@@ -21,13 +16,17 @@ jobs:
   docs:
     name: docs
     runs-on: ubuntu-latest
+    # job level: a step's own `env:` is not visible to that step's `if`, so the
+    # range the scan guards on lives here, where every step can read it
+    env:
+      # two-dot: git log A..B is one-sided (the PR's own commits); three-dot would
+      # sweep base-side merges once main advances. Push scans the pushed commits
+      # only — a full-source scan would fire on history the repos cannot rewrite.
+      RANGE: ${{ github.event_name == 'pull_request' && format('{0}..{1}', github.event.pull_request.base.sha, github.event.pull_request.head.sha) || github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000' && format('{0}..{1}', github.event.before, github.event.after) || '' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           fetch-depth: 0          # the PR range scan needs the base commit's ancestry
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
       - name: Install gitleaks 8.30.1
         run: |
           curl -sSfL -o /tmp/gitleaks_8.30.1_linux_x64.tar.gz \
@@ -39,16 +38,8 @@ jobs:
           cd /tmp && sha256sum --check --ignore-missing checksums.txt
           sudo tar -xzf gitleaks_8.30.1_linux_x64.tar.gz -C /usr/local/bin gitleaks
           gitleaks version
-      - name: PR gate (English title)
-        if: github.event_name == 'pull_request'
-        env:
-          REPO_DOCS_ORG: APS-Conecta
-        run: python3 .github/repo-docs.py pr-gate
-      - name: Check documentation
-        env:
-          REPO_DOCS_ORG: APS-Conecta
-          # two-dot: git log A..B is one-sided (the PR's own commits); three-dot would
-          # sweep base-side merges once main advances. Push scans the pushed commits
-          # only — a full-source scan would fire on history the repos cannot rewrite.
-          REPO_DOCS_PR_RANGE: ${{ github.event_name == 'pull_request' && format('{0}..{1}', github.event.pull_request.base.sha, github.event.pull_request.head.sha) || github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000' && format('{0}..{1}', github.event.before, github.event.after) || '' }}
-        run: python3 .github/repo-docs.py check . --offline
+      - name: Secret scan (the range, never history)
+        if: env.RANGE != ''
+        run: gitleaks detect --no-banner --redact --source . --log-opts "$RANGE"
+      - name: Site structure (front matter and H2 skeletons, the make contract)
+        run: make structure

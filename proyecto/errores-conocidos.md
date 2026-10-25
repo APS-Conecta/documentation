@@ -21,4 +21,4 @@ Cada error se registra como issue en el repositorio de la pieza afectada: gestio
 ## Notas
 
 - Quien no es miembro de la organización ve solo los issues de los repositorios públicos. Los repositorios privados los muestran a sus miembros.
-- Las vulnerabilidades de seguridad nunca se reportan como issues públicos. Se canalizan por el aviso privado «Report a vulnerability» de GitHub (Security → Advisories) del repositorio afectado, según la política de seguridad de la organización.
+- Las vulnerabilidades de seguridad nunca se reportan como issues públicos: la ruta es la [`SECURITY.md`](https://github.com/APS-Conecta/.github/blob/main/SECURITY.md) de la organización.

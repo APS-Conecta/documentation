@@ -2,104 +2,93 @@
 tipo: guia
 audiencia: administracion
 apps: [instalador, territorio]
-resumen: "Comprobar que la suite sirve el mapa base de Chile en PMTiles desde su mismo origen, y que su refresco mensual sigue activo."
+resumen: "Comprobar que Territorio carga el mapa base de OpenStreetMap en cada navegador, qué hacer si falla y cómo retirar el archivo PMTiles anterior."
 ---
 # Mapas base
 
 ## Objetivo
 
-Esta guía comprueba que un centro sirve el mapa base de territorio y que el refresco mensual del archivo sigue activo.
+Esta guía comprueba que un centro muestra el mapa base de Territorio y, si la instalación venía de una versión anterior, retira el archivo de mapa que esa versión construyó.
 
-El mapa base es un solo archivo PMTiles con todo Chile, construido desde la compilación de Protomaps derivada de OpenStreetMap.
-El navegador lo lee directamente con peticiones HTTP Range y descarga solo los rangos que contienen las teselas que dibuja: entre 0,5 y 1 MB por pantalla, no el archivo.
-No hay servidor de teselas: `aps-conecta-apache` sirve el archivo en `/tiles/chile.pmtiles`, en el mismo origen que la página, así que no hay CORS que configurar ni una segunda dirección que mantener.
-La suite aloja su propio mapa porque el servicio público de teselas de OpenStreetMap respondió 403 desde la red de un centro: es un servicio de mejor esfuerzo, y su propia respuesta a una aplicación bloqueada es operar un servidor propio.
-La fase `16-app-policy` del {doc}`aprovisionamiento </administracion/aprovisionamiento>` escribe el `tile_url` de territorio a partir de la dirección por la que se llega a la instancia (`overwrite.cli.url`), así que el mapa funciona por dominio y por IP en cuanto el archivo existe.
-En la pila de desarrollo esa clave queda vacía, y territorio vuelve al mapa ráster de OpenStreetMap.
-El paso 6 del instalador, «Elegir el centro», lee el mismo archivo por el puerto del instalador, así que su mapa es el mismo que sirve la suite.
+El mapa base es el servicio estándar de teselas de OpenStreetMap, `https://tile.openstreetmap.org/{z}/{x}/{y}.png`, que el navegador de cada persona carga directamente, bajo la Política de uso de teselas de la Fundación OpenStreetMap (`https://operations.osmfoundation.org/policies/tiles/`).
+La dirección es una constante del código de Territorio (ADR-0021, `docs/adr/0021-the-basemap-is-openstreetmaps-tile-service-used-as-its-policy-asks.md` en el repositorio de Territorio): no hay un ajuste que la cambie, ni un servidor de mapas en la suite.
 
-| Propiedad | Valor |
-|---|---|
-| Archivo | `/srv/aps-conecta/tiles/chile.pmtiles`, de unos 1,04 GB |
-| Cobertura | `-110.0,-56.0,-66.4,-17.5`: todo Chile, con Isla de Pascua y Juan Fernández, que tienen establecimientos de salud |
-| Zoom | Hasta 15; las teselas vectoriales se vuelven a dibujar en los niveles superiores sin descargar más |
-| Montaje | `APS_TILES_DIR=/srv/aps-conecta/tiles` en el contenedor maestro; `aps-conecta-apache` monta ese directorio en solo lectura en `/aps-tiles` |
-| Respaldo | Fuera del respaldo a propósito: el archivo se regenera desde la compilación publicada |
-| Atribución | «© OpenStreetMap contributors», obligatoria: el mapa es una obra derivada bajo ODbL, y el valor por defecto de `tile_attribution` en territorio la muestra |
+La suite ya no aloja su propio mapa. No existen el archivo PMTiles de todo Chile, el temporizador mensual que lo renovaba, la ruta `/tiles/` ni el ajuste `tile_url`; el instalador ya no construye el mapa, por lo que desaparece el paso «Construir el mapa» y el asistente tiene 8 pasos, en los que «Elegir el centro» es el paso 5.
 
-### El refresco mensual
+### Por qué se dejó de alojar el mapa
 
-Protomaps publica compilaciones fechadas y elimina las antiguas, así que el archivo no puede apuntar a una URL fija: se vuelve a extraer cada mes.
-El temporizador `aps-conecta-tiles.timer` dispara el refresco el día 4 de cada mes a las 05:00 de Santiago, con hasta dos horas de retraso aleatorio, y recupera al arranque una ejecución perdida.
-El valor `monthly` de systemd caería el día 1 a medianoche, a la misma hora en todos los centros; el día 4 a las 05:00, con el retraso aleatorio, reparte los centros fuera de ese agrupamiento.
-La unidad `aps-conecta-tiles.service` limita cada ejecución a 5400 segundos.
-El refresco busca la compilación publicada más reciente de los últimos 10 días, extrae la cobertura de Chile y verifica el resultado antes de reemplazar el archivo servido:
+La suite alojó su propio mapa porque el servicio público de OpenStreetMap respondió 403 desde la red de un centro. La causa estaba en la aplicación: las peticiones de teselas salían del navegador sin cabecera `Referer`. Territorio ya la envía (`referrerPolicy: 'origin'`), y la causa quedó corregida.
+Con la causa corregida, el archivo propio solo costaba: 1,04 GB que no podían volver a descargarse de una dirección fija (Protomaps elimina sus compilaciones antiguas), un temporizador mensual, una ruta del servidor web y una segunda forma de dibujar el mapa. La decisión quedó en el ADR-0021, que reemplaza al ADR-0019.
 
-1. El archivo empieza con la marca `PMTiles`.
-2. Su cabecera declara un zoom máximo de 15.
-3. Sus límites contienen Santiago, Hanga Roa y Punta Arenas.
-4. La tesela de referencia de Santiago en el nivel 12 trae más de 1000 bytes.
-5. El archivo supera los 500 MB.
+### Qué necesita un centro
 
-Solo entonces lo mueve a su lugar en el mismo sistema de archivos, de forma atómica, con permisos 644.
-Un refresco que falla deja intacto el archivo servido: un mapa desactualizado es una calle que falta; uno roto sería un mapa en blanco.
-Con la suite en marcha, el refresco termina leyendo el archivo nuevo por la ruta de la suite.
+Un centro necesita internet para ver el mapa. No hay modo sin conexión.
+Sin internet, Territorio sigue funcionando: los registros, el dibujo de sectores y todas las capas se muestran sobre un fondo liso, con el aviso «No se pudo cargar el fondo de mapa».
+
+### Dónde abre el mapa
+
+El mapa abre sobre la extensión de la comuna, que Territorio deriva del código CUT de la comuna que el instalador guarda: una tabla dentro de la aplicación da, para cada CUT, la parte de la comuna donde están sus establecimientos de salud. Si el CUT no está en la tabla, abre sobre las unidades vecinales; si no hay, sobre donde están los registros; y si tampoco hay registros, sobre el centro del país.
+El mapa nunca limita el desplazamiento: la extensión solo decide dónde abre. Al cambiar la comuna en la administración, la vista inicial la sigue de inmediato.
+
+### Privacidad
+
+Cada petición de teselas lleva a OpenStreetMap las coordenadas de la tesela, que ubican la pantalla con una precisión de unos 300 m en el zoom 17, y la dirección de la instancia, como `Referer`. Ningún registro ni nombre llega a OpenStreetMap.
+
+### Si OpenStreetMap bloquea el servicio
+
+Un bloqueo no muestra ningún aviso. OpenStreetMap responde a un cliente bloqueado con una imagen válida, que el navegador carga sin error y que la aplicación no puede distinguir de una tesela normal. Se reconoce porque el mapa muestra una imagen de «acceso bloqueado» en lugar de calles, sin ningún aviso en pantalla.
+No hay ajuste que lo remedie: se corrige con una versión de Territorio que cambia esa constante.
 
 ## Requisitos
 
-- Un centro instalado con el instalador AIO, cuyo contenedor maestro se creó con `APS_TILES_DIR`.
-- Una consola de root en el servidor, en la copia de la suite de `/opt/aps-conecta/instalador` (la copia antigua de gestion, en `/opt/aps-conecta/gestion`, queda inerte tras la mudanza; `aps/MIGRATION.md` de instalador describe el traspaso).
-- Docker en marcha.
-- Para la verificación, el `.env` de esa copia con `HTTP_PORT=443`.
-- Para el refresco, salida HTTPS hacia la compilación publicada de Protomaps, y el binario `pmtiles` 1.31.2, que la instalación del mapa descarga y verifica por su sha256.
+- Una cuenta de la plataforma con acceso a Territorio.
+- Un computador del centro cuya red permita la salida HTTPS (puerto 443) hacia `tile.openstreetmap.org`.
+- Para retirar el archivo anterior, si la instalación lo tenía: una consola de root en el servidor y la copia de la suite en `/opt/aps-conecta/instalador`.
 
 ## Pasos
 
-1. Ejecutar la revisión del mapa:
+1. Abrir Territorio desde un computador del centro y esperar a que se dibuje el mapa de calles.
+   El mapa abre sobre la comuna del centro. En la esquina inferior derecha figura la atribución «© OpenStreetMap contributors», con enlace.
+
+2. Si la instalación se actualizó desde una versión que alojaba el mapa, ejecutar en el servidor la orden de los temporizadores del instalador:
 
    ```bash
-   sudo bash host/tiles.sh check
+   sudo aps-conecta temporizadores
    ```
 
-   La revisión comprueba tres hechos y termina con `MAPA: ✓` o `MAPA: ✗`: que el archivo existe, que `aps-conecta-apache` monta su directorio en solo lectura, y que una lectura por rangos a través de la red interna de la suite responde HTTP 206 con exactamente los 1024 bytes pedidos y la marca `PMTiles`.
-   La misma lectura responde por una instalación por dominio y por IP, porque no pasa por DNS ni por la autoridad de certificados.
+   La orden deshabilita el temporizador mensual `aps-conecta-tiles.timer`, retira sus archivos de unidad y el contenedor `aps-conecta-tiles` si existen. Nunca borra el archivo del mapa.
 
-2. Confirmar que el temporizador mensual está habilitado:
+3. Comprobar que el temporizador mensual ya no existe:
 
    ```bash
    systemctl is-enabled aps-conecta-tiles.timer
    ```
 
-   La instalación habilita este temporizador solo cuando el archivo ya existe.
+   Como la unidad ya no existe, el comando informa un error de unidad no encontrada: ese es el resultado esperado. No debe responder `enabled`.
 
-3. Confirmar su calendario:
+4. Con el mapa ya visible en el paso 1, liberar el disco: el archivo anterior ocupa unos 1,04 GB y permanece en el servidor hasta que el operador lo retira.
 
    ```bash
-   systemctl show aps-conecta-tiles.timer -p TimersCalendar
+   sudo rm -rf /srv/aps-conecta/tiles
    ```
 
-   La salida contiene `*-*-04 05:00:00 America/Santiago`.
+   El comando elimina la carpeta entera y no se puede deshacer. Protomaps elimina sus compilaciones antiguas, así que el archivo no puede reconstruirse con fiabilidad.
 
 ## Verificación
 
-Ejecutar la prueba de humo desde la copia de la suite:
+- El mapa de calles se dibuja en Territorio y la atribución de OpenStreetMap está visible.
+- `systemctl is-enabled aps-conecta-tiles.timer` informa un error de unidad no encontrada, y no responde `enabled`.
+- `/srv/aps-conecta/tiles` ya no existe: `ls /srv/aps-conecta/tiles` falla porque la carpeta no existe.
 
-```bash
-bash scripts/smoke.sh
-```
-
-El objetivo `make smoke` del Makefile de gestion se retiró junto con su ciclo de etiquetas; el guion `scripts/smoke.sh` de la copia de la suite es el que corre la misma comprobación.
-Su comprobación 16 exige tres hechos a la vez: que `tile_url` sea exactamente la dirección de `overwrite.cli.url` seguida de `/tiles/chile.pmtiles`; que el directorio que `aps-conecta-apache` monta en `/aps-tiles` sea el mismo que nombra el `APS_TILES_DIR` del contenedor maestro; y que una lectura por rangos responda 206 con la marca `PMTiles` y sin `Content-Encoding`.
-Un 404 con el montaje presente es la única respuesta que no falla: la prueba imprime `NOTE: /tiles/chile.pmtiles is 404` y sigue en verde, salvo que el temporizador mensual esté habilitado.
+La prueba de humo (`scripts/smoke.sh`) ya no comprueba el mapa base: sin `tile_url` ni ruta `/tiles/` no hay nada que verificar en el servidor.
 
 ## Problemas frecuentes
 
 | Síntoma | Causa | Remedio |
 |---|---|---|
-| La revisión dice «la suite responde 404 en /tiles/chile.pmtiles» | El archivo no está en el directorio que monta la suite: el mapa no se construyó en este servidor | La misma línea de la revisión nombra el comando que lo construye. |
-| La revisión dice «la suite no monta la carpeta del mapa» | El contenedor maestro se creó sin `APS_TILES_DIR` | Volver a crear el contenedor maestro y `aps-conecta-apache`, como indica `aps/INSTALLER.md` §9 en el repositorio instalador; no se pierde nada, porque apache se reconstruye desde la configuración en cada inicio. |
-| La prueba de humo dice que `aps-conecta-apache` monta un directorio distinto del que nombra `APS_TILES_DIR` | Se cambió el valor después de crear apache: la suite nunca vuelve a crear un contenedor que existe, y `/tiles/` sirve una carpeta que ya nadie nombra | El mismo remedio de la fila anterior, que incluye eliminar `aps-conecta-apache`. |
-| La prueba de humo dice que `/tiles/chile.pmtiles` responde 404 con el temporizador mensual habilitado | La instalación anunció un mapa y la suite no sirve ninguno | Ejecutar la revisión del paso 1, que nombra el hecho que falla. |
-| La prueba de humo dice que la respuesta llega comprimida con `Content-Encoding` | Una lectura por rangos recomprimida rompe el formato PMTiles | Ejecutar la revisión del paso 1; la ruta debe servir los bytes exactos del archivo. |
-| `aps-conecta-tiles.service` aparece fallida | No hubo una compilación publicada en los últimos 10 días, el archivo nuevo no pasó una verificación, la ejecución superó los 5400 segundos, o la suite no sirve el archivo recién construido por `/tiles/` | Ejecutar la revisión del paso 1: si la ruta responde, el mapa servido sigue intacto y solo envejece hasta el siguiente refresco correcto; si no responde, la revisión nombra el hecho que falla. |
-| Sigue existiendo un contenedor `aps-conecta-tiles` | La instalación es anterior a que la suite sirviera el mapa; ese contenedor nginx lo servía en el puerto 8084 | La siguiente construcción del mapa lo elimina y lo registra. |
+| El mapa muestra una imagen de «acceso bloqueado» y ningún aviso | OpenStreetMap bloquea el servicio para esta aplicación o esta red | No hay ajuste: se corrige con una versión de Territorio que cambia la constante (ADR-0021). |
+| Territorio avisa «No se pudo cargar el fondo de mapa. El mapa sigue disponible…» | El navegador no llega a `tile.openstreetmap.org`: no hay internet, o un filtro de la red lo corta | Revisar la salida HTTPS y la resolución de nombres de ese computador. Mientras tanto, los registros, el dibujo y las capas siguen funcionando. |
+| El mapa abre sobre el centro del país y no sobre la comuna | El CUT de la comuna no está en la tabla de Territorio o no está elegido, y tampoco hay unidades vecinales ni registros que lo guíen | Revisar la comuna en los ajustes de la administración de Territorio, o importar las unidades vecinales. |
+| `aps-conecta-tiles.timer` sigue habilitado | El instalador todavía no pasó por los temporizadores desde la actualización | Ejecutar `sudo aps-conecta temporizadores`. |
+| Sigue existiendo `/srv/aps-conecta/tiles` | El instalador nunca borra el archivo | Retirarlo a mano con `sudo rm -rf /srv/aps-conecta/tiles`. |
+| Sigue existiendo un contenedor `aps-conecta-tiles` | La instalación es anterior a que la suite sirviera el mapa; ese contenedor nginx lo servía en el puerto 8084 | La siguiente ejecución de `sudo aps-conecta temporizadores` lo elimina. |

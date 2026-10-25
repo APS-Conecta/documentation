@@ -3,7 +3,7 @@
 #
 # A partial clone: full commit history (so a block's SHA always resolves) but blobs only on
 # demand and a sparse checkout of text files, so images never download. The branch follows the
-# suite: stable<major>, with the major read from gestion compose.yaml (upstreamlib).
+# suite: stable<major>, with the major read from instalador's server container (upstreamlib).
 # Idempotent: an existing clone is fetched and moved to the branch tip.
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -28,3 +28,25 @@ fi
 git -C "$srv" fetch --quiet --depth 1 origin "$branch"
 git -C "$srv" checkout --quiet --detach FETCH_HEAD
 echo "[fetch-upstream] nextcloud/server $branch l10n @ $(git -C "$srv" rev-parse --short HEAD)"
+
+# The store apps the suite installs (calendar, spreed…) are not organization repositories: their
+# Spanish UI strings come from their own upstream repositories, same shape as the server's. The
+# branch is the suite's stable<major> when the app maintains one, else its default branch.
+apps="${APPS_DIR:-_generated/apps}"
+while read -r id slug; do
+  dst="$apps/$id"
+  url="https://github.com/$slug.git"
+  if git ls-remote --heads --quiet "$url" "refs/heads/$branch" | grep -q .; then
+    app_branch="$branch"
+  else
+    app_branch="$(git ls-remote --symref --quiet "$url" HEAD | awk 'NR==1 {sub("refs/heads/", "", $2); print $2}')"
+  fi
+  if [ ! -d "$dst/.git" ]; then
+    mkdir -p "$apps"
+    git clone --quiet --filter=blob:none --no-checkout --depth 1 --branch "$app_branch" "$url" "$dst"
+    git -C "$dst" sparse-checkout set --no-cone 'l10n/es.json'
+  fi
+  git -C "$dst" fetch --quiet --depth 1 origin "$app_branch"
+  git -C "$dst" checkout --quiet --detach FETCH_HEAD
+  echo "[fetch-upstream] $slug $app_branch l10n @ $(git -C "$dst" rev-parse --short HEAD)"
+done < <(python3 -c 'import sys; sys.path.insert(0, "tools"); import upstreamlib as u; [print(f"{i} {s}") for i, s in u.store_apps()]')

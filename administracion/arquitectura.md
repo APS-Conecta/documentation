@@ -51,7 +51,7 @@ Los contenedores de la suite se llaman `aps-conecta-*`.
 
 | Contenedor | Función que la suite usa |
 |---|---|
-| `aps-conecta-apache` | Publica la suite en el puerto 443 y termina TLS; sirve el mapa base en `/tiles/` antes de pasar la petición al servidor de aplicaciones. |
+| `aps-conecta-apache` | Publica la suite en el puerto 443 y termina TLS, y pasa la petición al servidor de aplicaciones. |
 | `aps-conecta-nextcloud` | Servidor de aplicaciones; el aprovisionamiento ejecuta `occ` dentro de él. `cron.php` corre aquí, en un ciclo de cinco minutos, porque la instalación AIO no tiene contenedor `cron`. |
 | `aps-conecta-database` | PostgreSQL. |
 | `aps-conecta-redis` | Redis, con contraseña. |
@@ -72,13 +72,13 @@ Las aplicaciones y el tema vienen incorporados en la imagen del servidor, con la
 | Secretos de la pila de desarrollo | `.env`, generado con modo 600 y fuera de git. |
 | Identidad, equipos, carpetas y matriz del establecimiento | `sites/<slug>/site.sh`, fuera de git. |
 | Hoja de credenciales sellada y registro del sitio de un centro | `/opt/aps-conecta`, dentro del alcance del respaldo. |
-| Mapa base | `/srv/aps-conecta/tiles/chile.pmtiles`, fuera del respaldo a propósito: se regenera. |
+| Mapa base | Ninguno en el servidor: el navegador de cada persona carga las teselas de OpenStreetMap, y la suite no guarda ninguna copia. |
 
 ### Red
 
 ```text
-Navegador ──▶ aps-conecta-apache :443 ──┬─ /tiles/  ──▶ /aps-tiles (solo lectura)
-                                        └─ resto    ──▶ aps-conecta-nextcloud
+Navegador ──▶ aps-conecta-apache :443 ──▶ aps-conecta-nextcloud
+Navegador ──▶ tile.openstreetmap.org   (teselas del mapa base, sin pasar por la suite)
 aps-conecta-nextcloud ◀──▶ aps-conecta-database · aps-conecta-redis · aps-conecta-eurooffice
 ```
 
@@ -86,15 +86,15 @@ Entre contenedores, el tráfico va por nombre de servicio y nunca por `localhost
 En Compose, el conector usa `http://eurooffice/` para llegar al servidor de documentos, y el servidor de documentos usa `http://nextcloud/` para descargar el archivo; por eso `14-office` agrega `nextcloud` a `trusted_domains`, ya que la plataforma responde HTTP 400 a un host no confiable.
 `host.docker.internal` queda reservado para el sentido contenedor a host, y en Linux requiere la asociación `host-gateway`.
 La pila de desarrollo publica sus dos puertos solo en `127.0.0.1` y no se expone a la red local; cuando un proxy los publica hacia afuera, `OFFICE_PUBLIC_URL` lleva la URL pública del editor.
-En un centro, el puerto interno 23973 de `aps-conecta-apache` es el tramo que usan, dentro de la red de la suite, la revisión del mapa base y, en una instalación por IP, el servidor de documentos.
-El navegador recorre dos tramos propios: la URL pública del editor (`DocumentServerUrl`) y el archivo del mapa base, en el mismo origen que la página.
+En un centro, el puerto interno 23973 de `aps-conecta-apache` es el tramo que usa, dentro de la red de la suite, el servidor de documentos en una instalación por IP.
+El navegador recorre dos tramos propios: la URL pública del editor (`DocumentServerUrl`) y el servicio de teselas de OpenStreetMap, `tile.openstreetmap.org`, al que llega directamente.
 
 ### Dominios de fallo
 
 - **Una fase de aprovisionamiento**: detiene la siembra con su nombre, sin ejecutar las fases siguientes; la misma orden la reintenta y salta lo ya aplicado.
 - **Base de datos o caché**: en Compose, `nextcloud` y `cron` no arrancan hasta que `db` y `redis` responden sanos.
 - **Servidor de documentos**: su caída deja sin edición de documentos y no toca el resto; `make office-down` lo detiene solo, a propósito, en la pila de desarrollo.
-- **Mapa base**: sin el archivo, `/tiles/` responde 404 sin llegar al servidor de aplicaciones, y la suite sigue sana: nada depende del archivo.
+- **Mapa base**: sin internet, o si OpenStreetMap no responde, Territorio muestra un fondo liso y un aviso, y la suite sigue sana: los registros, el dibujo y las capas no dependen del mapa. Un bloqueo de OpenStreetMap no muestra aviso; {doc}`/administracion/mapas-base` explica cómo se reconoce y se corrige.
 - **Programador de tareas**: sin `cron`, las tareas vuelven a depender de las visitas y la limpieza se detiene cuando nadie navega.
 - **Red externa**: al arrancar con una imagen nueva, un centro sin conexión espera en la consulta a la tienda de aplicaciones hasta que esa consulta vence o la red vuelve.
 - **Deriva**: la re-provisión semanal falla como unidad de systemd, notifica al grupo `admin` en su siguiente inicio de sesión y deja el veredicto en `aps-conecta estado`.
@@ -104,16 +104,16 @@ El navegador recorre dos tramos propios: la URL pública del editor (`DocumentSe
 - El servidor de documentos ocupa unos 2,5 GB y recomienda cerca de 8 GB de RAM para uso multiusuario; como forma parte de la pila, ese piso rige para todo host de centro y todo equipo de desarrollo.
 - La revisión del host antes de instalar exige 8 GiB de RAM y 40 GB de disco libre.
 - La integración continua mide la suite en reposo en cerca de 1,1 GiB.
-- El archivo del mapa base ocupa 1,04 GB.
+- El mapa base no ocupa disco en el servidor. Una instalación anterior puede conservar un archivo de 1,04 GB hasta que se retire ({doc}`/administracion/mapas-base`).
 - El instalador ajusta Talk a la memoria y los núcleos del servidor.
 
 ## Compromisos y límites
 
-- **El repositorio no tiene respaldo propio.** El de un centro es el borg del instalador: el paso 7 lo programa diario a las 04:00 de Santiago, pero el asistente guarda la hora en UTC, así que después de cada cambio de horario corre a las 03:00 o a las 05:00; vive en `/srv/aps-conecta/respaldos`, en el mismo disco, y hay que copiarlo fuera del servidor. Los directorios adicionales se respaldan, pero no se restauran con la instancia.
+- **El repositorio no tiene respaldo propio.** El de un centro es el borg del instalador: el paso 6 lo programa diario a las 04:00 de Santiago, pero el asistente guarda la hora en UTC, así que después de cada cambio de horario corre a las 03:00 o a las 05:00; vive en `/srv/aps-conecta/respaldos`, en el mismo disco, y hay que copiarlo fuera del servidor. Los directorios adicionales se respaldan, pero no se restauran con la instancia.
 - **Quedan diferidos**, hasta que exista un host de destino: el proxy inverso con TLS y lista de acceso para el servidor de documentos, los objetivos de recuperación, el dimensionamiento y la alta disponibilidad, y la observabilidad de producción (#75).
 - **El servidor de documentos usa un secreto JWT compartido** con el conector.
 - **En la pila de desarrollo, Talk** consulta un servidor STUN externo por defecto, y como esa pila no ejecuta un servidor de señalización de alto rendimiento, las llamadas grupales dejan de ser usables con unas cuatro personas.
 - **El tema del servidor** se apoya en un mecanismo sin documentación oficial y se vuelve a verificar en cada versión mayor.
 - **El servidor de documentos no publica etiquetas de versión**: su imagen se fija por resumen sobre `latest`.
 - **El flujo de actividad** puede mostrar nombres de elementos ocultos por permisos; los nombres sensibles no van en subcarpetas restringidas.
-- **En Compose, el registro** está en `data/nextcloud.log`, dentro del volumen `nextcloud_data`, y rota a los 100 MiB por el valor heredado de la imagen.
+- **En Compose, el registro** está en `data/nextcloud.log`, dentro del volumen `nextcloud_data`, y rota a los 100 MiB por el valor heredado de la imagen. Crece despacio —del orden de decenas de kilobytes por semana en un centro tranquilo—, así que no se fija un límite propio; y un contador de errores distinto de cero tras una semana cargada es historia, no una falla: cada línea nombra su causa.

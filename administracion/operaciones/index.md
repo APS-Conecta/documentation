@@ -35,19 +35,18 @@ Estas son las tareas periódicas que la suite programa o configura; las horas so
 | Copia de seguridad de la instancia | Todos los días a las 04:00 | El asistente de AIO (borg) |
 | Trabajos diarios pesados de la plataforma | Sin ventana efectiva: la fase 06 fija las 5 UTC (01:00 en hora estándar de Chile), pero el valor dura solo hasta la copia diaria siguiente | La fase 06 y el entrypoint de AIO |
 | Re-provisión | Domingos a las 03:00, con hasta 30 minutos de retraso aleatorio | El temporizador `aps-conecta.timer` de systemd |
-| Refresco del mapa base | Día 4 de cada mes a las 05:00, con hasta 2 horas de retraso aleatorio | El temporizador `aps-conecta-tiles.timer` de systemd |
 
-Los dos temporizadores son persistentes: un servidor apagado a la hora programada ejecuta la tarea pendiente al arrancar. Los trabajos en segundo plano corren por cron, no por ajax, porque con ajax solo corren cuando alguien carga una página; {doc}`/administracion/servidor/background-jobs-configuration` describe ambos modos. La ventana de los trabajos diarios tiene dos escritores: la fase 06 la fija en las 5 UTC, y el entrypoint de AIO escribe la misma clave, `maintenance_window_start`, con el valor 100, que equivale a no tener ventana, en cada arranque del contenedor. La copia diaria detiene los contenedores y los vuelve a arrancar, así que el valor de la fase rige solo desde la re-provisión del domingo hasta la copia siguiente; el resto de la semana, los trabajos pesados corren a cualquier hora, y cada re-provisión semanal vuelve a escribir esa clave.
+El temporizador es persistente: un servidor apagado a la hora programada ejecuta la tarea pendiente al arrancar. Los trabajos en segundo plano corren por cron, no por ajax, porque con ajax solo corren cuando alguien carga una página; {doc}`/administracion/servidor/background-jobs-configuration` describe ambos modos. La ventana de los trabajos diarios tiene dos escritores: la fase 06 la fija en las 5 UTC, y el entrypoint de AIO escribe la misma clave, `maintenance_window_start`, con el valor 100, que equivale a no tener ventana, en cada arranque del contenedor. La copia diaria detiene los contenedores y los vuelve a arrancar, así que el valor de la fase rige solo desde la re-provisión del domingo hasta la copia siguiente; el resto de la semana, los trabajos pesados corren a cualquier hora, y cada re-provisión semanal vuelve a escribir esa clave.
 
 ### Copias de seguridad
 
 La copia de la instancia es la de borg que trae el asistente; {doc}`backup` y {doc}`restore` describen la copia manual de la plataforma base, que la suite no usa.
 
-- **Alcance.** El paso 7 del instalador programa la copia diaria en `/srv/aps-conecta/respaldos` y suma `/opt/aps-conecta`, con las credenciales selladas y el registro del sitio, a su alcance. La copia de borg es incremental, comprimida y cifrada.
+- **Alcance.** El paso 6 del instalador programa la copia diaria en `/srv/aps-conecta/respaldos` y suma `/opt/aps-conecta`, con las credenciales selladas y el registro del sitio, a su alcance. La copia de borg es incremental, comprimida y cifrada.
 - **La clave.** El asistente muestra la clave de cifrado de las copias. Sin ella, ninguna copia se restaura: guardarla en un lugar seguro.
 - **El disco.** La carpeta de las copias está en el mismo disco que la instancia. Copiarla fuera del servidor, a un disco externo u otra máquina, es lo que protege ante la falla de ese disco.
 - **La restauración.** Borg restaura la instancia desde el asistente. Los directorios adicionales se respaldan pero no se restauran con ella: `/opt/aps-conecta` se recupera a mano desde el archivo de borg, con la receta de la [documentación de AIO](https://github.com/nextcloud/all-in-one#pro-tip-backup-archives-access).
-- **El mapa base.** El archivo del mapa, de 1,04 GB, queda fuera de la copia a propósito: el temporizador mensual lo regenera, y un gigabyte regenerable no debe viajar en cada copia.
+- **El mapa base.** No hay nada que respaldar: el navegador carga las teselas de OpenStreetMap y la suite no guarda ninguna copia. Una instalación anterior puede conservar un archivo de 1,04 GB, fuera de la copia, hasta que se retire ({doc}`/administracion/mapas-base`).
 
 ### Actualizaciones
 

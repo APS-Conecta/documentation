@@ -17,7 +17,7 @@ Esta sección reúne, para quienes administran el servidor, las páginas de la p
 | Receptores de webhooks (`webhook_listeners`) | La provisión no activa ni desactiva la app y no registra ningún webhook: la política de aplicaciones la deja intacta, reservada para integraciones de la hoja de ruta. | {doc}`webhooks` |
 | Flujos de trabajo de Windmill | No disponible: la plataforma base pide una instancia independiente de Windmill y la app de integración de la tienda de aplicaciones; la suite no instala Windmill, la tienda está desactivada y la integración no está entre las aplicaciones de la suite. | {doc}`windmill` |
 | Trabajos en segundo plano | Corren por cron, no por ajax, para que no dependan de que alguien cargue una página. | {doc}`/administracion/servidor/background-jobs-configuration` |
-| Tareas periódicas de la suite | La re-provisión semanal y el refresco mensual del mapa base corren con temporizadores de systemd en el servidor. | {doc}`/administracion/operaciones/index` |
+| Tareas periódicas de la suite | La re-provisión semanal corre con un temporizador de systemd en el servidor. | {doc}`/administracion/operaciones/index` |
 
 ## Notas
 

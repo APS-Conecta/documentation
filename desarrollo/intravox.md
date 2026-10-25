@@ -16,15 +16,15 @@ Decisiones de diseño:
 - **Una página es una carpeta.** La página `<pageId>/` contiene `<pageId>.json` (widgets y diseño) y `_media/`, dentro de una carpeta de grupo. La página hereda de la carpeta todo lo que Nextcloud da a una carpeta —compartir, ACL, versiones, papelera— e IntraVox no reimplementa nada de eso.
 - **La identidad es el `uniqueId`, nunca la carpeta.** El nombre de la carpeta se deriva del título y solo es único entre hermanas (una colisión recibe el sufijo `-2`, `-3`); renombrar o sufijar una carpeta no rompe enlaces, compartidos ni grupos de traducción.
 - **Doce widgets.** Texto, título, imagen, enlaces, separador, vídeo, noticias, personas, calendario, fuente, historia fotográfica e historia de archivos (`ALLOWED_WIDGET_TYPES` en `lib/Service/Sanitize/PageShapeSanitizer.php`); el saneador descarta cualquier otro tipo y admite como máximo cinco columnas.
-- **Comunicación de la organización, no productividad personal.** IntraVox publica para un público amplio; el Dashboard es la vista personal de cada cuenta. En la suite, la capa personal se queda en páginas de equipo con ACL, porque el personal usa computadores compartidos en sesiones cortas ([gestion ADR-0016](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0016-personal-layer-stays-page-level.md)).
+- **Comunicación de la organización, no productividad personal.** IntraVox publica para un público amplio; el Dashboard es la vista personal de cada cuenta. En la suite, la capa personal se queda en páginas de equipo con ACL, porque el personal usa computadores compartidos en sesiones cortas ([ADR-0012](https://github.com/APS-Conecta/instalador/blob/main/docs/adr/0012-personal-layer-stays-page-level.md)).
 
 El repositorio se mantiene como fork con funciones locales ([ADR-0001](https://github.com/APS-Conecta/IntraVox/blob/main/docs/adr/0001-fork-with-local-features.md)): el upstream es el motor y se incorpora; las diferencias del fork son pocas y quedan registradas. Una incorporación desde el upstream que toca una de ellas vuelve a leer ese ADR antes de fusionarse.
 
 | Diferencia del fork | Qué hace | Registro |
 |---|---|---|
-| Idiomas | El valor por defecto de idiomas habilitados es `['es', 'en']` con `es` como principal (`lib/Service/LanguageService.php`); gestion ya no escribe la clave. | [gestion ADR-0018](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0018-language-reality-is-the-engines-es-only-default.md) |
-| Raíz de almacenamiento | El nombre de la carpeta de grupo es un valor de la app, `groupfolder_name` (por defecto `IntraVox`), leído por una sola clase, `MountName`, que usan todas las resoluciones de rutas, el único recortador de rutas y los enlaces a Archivos. | [gestion ADR-0020](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0020-the-storage-root-is-named-for-staff.md) |
-| Siembra gestionada | `occ intravox:import --skip-existing` (`ManagedTreeImporter`) nunca sobrescribe una página, un archivo ni una imagen existente. | [gestion ADR-0019](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0019-the-welcome-tree-is-declared-and-converged-per-section.md) |
+| Idiomas | El valor por defecto de idiomas habilitados es `['es', 'en']` con `es` como principal (`lib/Service/LanguageService.php`); gestion ya no escribe la clave. | [ADR-0014](https://github.com/APS-Conecta/instalador/blob/main/docs/adr/0014-language-reality-is-the-engines-es-only-default.md) |
+| Raíz de almacenamiento | El nombre de la carpeta de grupo es un valor de la app, `groupfolder_name` (por defecto `IntraVox`), leído por una sola clase, `MountName`, que usan todas las resoluciones de rutas, el único recortador de rutas y los enlaces a Archivos. | [ADR-0016](https://github.com/APS-Conecta/instalador/blob/main/docs/adr/0016-the-storage-root-is-named-for-staff.md) |
+| Siembra gestionada | `occ intravox:import --skip-existing` (`ManagedTreeImporter`) nunca sobrescribe una página, un archivo ni una imagen existente. | [ADR-0015](https://github.com/APS-Conecta/instalador/blob/main/docs/adr/0015-the-welcome-tree-is-declared-and-converged-per-section.md) |
 | Muros | Una página con `"protected": true` rechaza eliminarse y moverse en el servidor; se edita, título incluido. | `CHANGELOG.md`, `[Unreleased]` |
 | Datos de demostración | Sin descarga remota: la única fuente es `demo-data/<lang>/` empaquetado, y el paso de reparación posterior a la migración solo converge la carpeta de grupo, los grupos y los permisos, sin contenido. | `CHANGELOG.md`, `[Unreleased]` |
 | Plegado compartido | `slugifyHeading` pliega los títulos con la regla compartida de aps-common, copiada en `src/aps/` por el objetivo `aps-sync` del `Makefile` del fork; `scripts/check-aps-parity.mjs` fija los anclajes byte a byte, porque están guardados en las páginas y en los enlaces compartidos. | `Makefile`, `src/utils/headingAnchors.js` |
@@ -33,9 +33,9 @@ El repositorio se mantiene como fork con funciones locales ([ADR-0001](https://g
 gestion instala el fork así:
 
 1. `OWN_APPS` incluye `intravox` desde `v3.1.0-aps1` (2026-09-25) (`provisioning/phases/12-apps.sh`). El tarball se construye desde la etiqueta del fork y su versión y sha256 quedan fijados en `provisioning/apps/intravox/VENDOR` (hoy 3.1.7, `v3.1.7-aps1`).
-2. La fase 15 fija `defaultapp` en `intravox`: un inicio de sesión aterriza en la intranet ([gestion ADR-0014](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0014-intravox-is-the-default-landing-app.md)).
+2. La fase 15 fija `defaultapp` en `intravox`: un inicio de sesión aterriza en la intranet ([ADR-0010](https://github.com/APS-Conecta/instalador/blob/main/docs/adr/0010-intravox-is-the-default-landing-app.md)).
 3. La política de apps fija `intravox:telemetry_enabled:false`: la telemetría del motor viene activada por defecto y la suite la apaga con el literal `'false'` (`provisioning/app-policy.sh`).
-4. La fase 41 (`provisioning/phases/41-intravox.sh`) escribe `groupfolder_name` antes de `occ intravox:setup --skip-demo`, asigna los grupos del registro a los del motor, renderiza el árbol que el establecimiento declara y lo importa por sección, y escribe las ACL de las páginas de equipo. La guía del operador es [`docs/WELCOME-SCREEN.md`](https://github.com/APS-Conecta/gestion/blob/main/docs/WELCOME-SCREEN.md) de gestion.
+4. La fase 41 (`provisioning/phases/41-intravox.sh`) escribe `groupfolder_name` antes de `occ intravox:setup --skip-demo`, asigna los grupos del registro a los del motor, renderiza el árbol que el establecimiento declara y lo importa por sección, y escribe las ACL de las páginas de equipo. La guía de la portada —qué se siembra, el flujo editorial, el presupuesto de páginas y la recuperación— vive en esta página y en {doc}`/usuario/inicio`.
 
 ## Contratos de componentes y API
 
@@ -85,7 +85,7 @@ Mapa de módulos <../_generated/mapa/intravox>
 | `scheduled` | Fecha de publicación futura | Quienes pueden escribir en la página |
 | `expired` | Fecha de vencimiento pasada | Quienes pueden escribir en la página |
 
-Sin MetaVox, o sin campos de fecha configurados, solo existen `draft` y `published`. gestion no instala MetaVox ([gestion ADR-0017](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0017-metavox-deferred-alert-expiry-is-editorial.md)): en la suite, un aviso vence cuando un editor lo devuelve a borrador.
+Sin MetaVox, o sin campos de fecha configurados, solo existen `draft` y `published`. gestion no instala MetaVox ([ADR-0013](https://github.com/APS-Conecta/instalador/blob/main/docs/adr/0013-metavox-deferred-alert-expiry-is-editorial.md)): en la suite, un aviso vence cuando un editor lo devuelve a borrador.
 
 **Bloqueo de edición.** `PageLockService` es un bloqueo pesimista por página en la tabla `intravox_page_locks`:
 
@@ -100,6 +100,10 @@ Sin MetaVox, o sin campos de fecha configurados, solo existen `draft` y `publish
 
 **Muro.** Una página pasa de normal a muro solo por el renderizador de gestion, al declarar una sección `wall`, o por el comando `intravox:protect` de la administración; retirarlo es el paso deliberado antes de eliminar o mover un muro. El cambio es idempotente: una página que ya está en el estado pedido no se reescribe; si cambia, primero se guarda una versión, de modo que el historial de la página lo revierte.
 
+### Muro
+
+Un muro es estructura fija, no contenido congelado. Al declarar una sección `wall`, la siembra marca con `"protected": true` su estructura: el centro de la sección, cada página sembrada que tiene subpáginas —los «Avisos» de noticias, que la lista de avisos de la portada lee— y, en `equipos`, el centro más cada página de equipo. El motor rechaza eliminar o mover una página así: el menú de la página y el árbol no la ofrecen, y una petición directa responde `PAGE_PROTECTED`. Un muro sigue siendo editable, título incluido; lo que no se puede es sacarlo del sitio por accidente. La carpeta de un muro tampoco se puede renombrar —el enlace del sitio y los avisos de la portada encuentran una sección por su carpeta— y restaurar una versión anterior conserva el muro. Las publicaciones de ejemplo sembradas («Aviso de ejemplo», «Bienvenida», «Cómo publicar») no son muros: como toda publicación del personal, son páginas comunes que un editor puede borrar. La marca es por página, nunca una regla de carpeta: una regla de la carpeta de grupo heredaría sobre todas las publicaciones de `noticias`, y bajo las ACL sembradas solo la administración puede eliminar de todos modos. Retirar un muro son dos pasos deliberados de la administración: `occ intravox:protect <uniqueId> --off --user admin` (se guarda una versión primero) y después eliminar o mover la página; `--on` lo restablece y `--status` muestra el estado. Una instancia sembrada antes de que existieran los muros no lleva la marca en sus páginas —la siembra nunca reescribe una página existente— y se alza con `occ intravox:protect <uniqueId> --on --user admin`. La marca vive en el JSON de la página, así que las herramientas de administración que trabajan por debajo de la API de páginas la ignoran: la app Archivos (un administrador de la carpeta de grupo puede eliminar la carpeta —el procedimiento de recuperación se apoya justo en eso—), una importación ZIP con sobrescritura y el reinicio limpio.
+
 **Siembra por sección.** En cada siembra, la fase 41 compara la declaración `SITE_WELCOME` con la carpeta de grupo. El marcador de una sección es su página principal, `es/<sección>/<sección>.json`; el de una página de equipo, `es/equipos/<gid>/<gid>.json`; el de los archivos base, `es/navigation.json`.
 
 | Situación | Resultado |
@@ -109,11 +113,27 @@ Sin MetaVox, o sin campos de fecha configurados, solo existen `draft` y `publish
 | Presente y no declarada | `scripts/divergence.sh` la informa; nunca se elimina |
 | Archivos base (`home.json`, `navigation.json`, `footer.json`) | Se renderizan solo en la primera siembra; después son datos del personal |
 
+### Declarar el árbol
+
+`sites/<slug>/site.sh` lleva una fila por sección, en el orden en que aparecen en el menú:
+
+```bash
+SITE_WELCOME=(
+  'noticias|wall'      # sección|bandera — wall = estructura fija, vacío = editable
+  'vida-cesfam|'
+  'documentos|wall'
+)
+```
+
+`scripts/deis.py` escribe este bloque por omisión para un sitio nuevo y nunca reescribe un archivo de sitio existente: un archivo anterior al bloque detiene la siembra con `FATAL: sites/<slug>/site.sh must set SITE_WELCOME` y el bloque se agrega a mano. Las secciones son carpetas de la biblioteca bajo `provisioning/intravox/es/sections/`; `equipos` es la única que se genera en vez de copiarse: declarada como `'equipos|wall'`, la siembra renderiza la página «Guía de equipos» más una página por fila de `SITE_TEAMS`, cada una enlazando la carpeta propia del equipo y legible por ese equipo y por las jefaturas. Una página restringida a un cargo (OIRS, Estadística REM) es una fila de equipo que se agrega a mano, por ejemplo `'role-oirs|OIRS'`: su página enlaza la única carpeta declarada que lleva su nombre (`Unidades/OIRS`), y un equipo cuya carpeta el sitio no declara detiene la siembra. La página de Documentos enlaza exactamente `SITE_SUBFOLDERS`; el menú y el pie listan las secciones declaradas y nada más, y la fila de accesos rápidos de la portada son tres fichas fijas —Recepción y admisión → la carpeta Transversal, Gestión y turnos, Teléfonos y anexos— seguidas de una ficha por sección declarada. Una fila que la biblioteca no conoce, una bandera desconocida o una página que enlazaría una carpeta que el sitio no tiene detienen la siembra con una línea `FATAL` antes de importar nada.
+
+**Agregar una sección después:** agregar la fila y sembrar. La siembra registra `welcome: section <nombre> created — add its menu entry and home tile by hand`: el menú y la portada ya son datos del personal para entonces, así que la siembra no los toca; agregar la entrada en el editor de menús de la administración. **Quitar una fila** no cambia nada en la instancia: `make divergence` lista la sección como viva pero no declarada, y una persona elimina la carpeta si eso es lo previsto.
+
 ## Taxonomía de errores
 
 | Código o excepción | HTTP | Significado | Reintento | Remedio del cliente |
 |---|---|---|---|---|
-| `PAGE_PROTECTED` | 400 | Eliminar o mover un muro | No | Retirar el muro primero, un paso deliberado de la administración descrito en «Walls» de [`docs/WELCOME-SCREEN.md`](https://github.com/APS-Conecta/gestion/blob/main/docs/WELCOME-SCREEN.md) de gestion, y repetir |
+| `PAGE_PROTECTED` | 400 | Eliminar o mover un muro | No | Retirar el muro primero —un paso deliberado de la administración, descrito en «Muro» de esta página— y repetir |
 | `HOMEPAGE_PROTECTED` | 400 | Eliminar o mover la página de inicio configurada | No | Asignar otra página de inicio primero |
 | `ForbiddenException` | 403 | Escritura sobre una página o carpeta en la que la cuenta solo lee | No | Pedir permiso de escritura en la carpeta de grupo |
 | `PageNotFoundException` | 404 | Ningún idioma contiene ese `uniqueId` ni ese identificador antiguo | No | Corregir el identificador |
@@ -142,6 +162,18 @@ Un `PageNotFoundException` o un `ForbiddenException` nunca se convierte en 400: 
 - **La siembra interrumpida.** El renderizador falla cerrado antes de importar nada. Una siembra que muere entre la importación y las reglas deja una página de equipo sin sus ACL, y la siguiente siembra no las reescribe: se reponen a mano con `occ groupfolders:permissions`, o se elimina la carpeta de esa página y se vuelve a sembrar.
 - **Contenido de demostración.** Si la marca `demo_data_imported` existe, la fase 41 se detiene: el contenido de demostración desplazaría a la portada sembrada.
 
+
+### Renombrar la carpeta de almacenamiento de una instalación existente
+
+Una instalación nueva recibe el nombre de la carpeta de `IV_MOUNT` (`scripts/env.sh`, por omisión «Intranet»): la fase 41 lo escribe en el motor antes de `intravox:setup`, cada «Abrir en Archivos» y el enlace de ubicación de la barra lateral abren la carpeta con ese nombre, y las páginas sembradas que dicen dónde vive el contenido lo nombran. Una instalación sembrada antes de que esto existiera lleva el valor por omisión del motor, `IntraVox`, y la siembra se niega a correr sobre ella (`FATAL`), porque crearía una segunda carpeta vacía; la misma negativa aplica cuando `IV_MOUNT` cambia y la carpeta ya lleva el nombre anterior, o ante un valor que el motor rechazaría (vacío o con `/`). Renombrar es manual, una sola vez y en este orden, sin `make seed` en medio; los comandos corren en el contenedor de Nextcloud como `www-data`:
+
+0. Antes de todo: `occ intravox:reindex --user admin --dry-run` y anotar la N de `Would index N of M page file(s)…`.
+1. `occ config:app:set intravox groupfolder_name --value Intranet`. Desde este momento el motor busca «Intranet», así que las páginas pueden responder *IntraVox folder not found* hasta el paso 2: hacerlo de inmediato.
+2. `occ groupfolders:list` para anotar el id de la carpeta montada como `IntraVox`; luego `occ groupfolders:rename <id> Intranet` (silencioso al triunfar). Por unos segundos el servidor web puede responder todavía con el nombre anterior —recargar; no hace falta reiniciar—.
+3. `occ intravox:reindex --user admin`. Debe indexar la misma N del paso 0: las filas del índice escritas bajo el nombre anterior se retiran. Corrido justo tras el paso 2 puede fallar una vez con *IntraVox folder not found* (el montaje renombrado aún no llega a la caché): esperar unos segundos y repetir; la corrida fallada no cambia nada.
+4. `make seed`: espera `welcome: section … exists` por cada fila, sin crear nada.
+
+La reversión es los mismos tres comandos con `IntraVox`, más `IV_MOUNT=IntraVox` en `.env` para que la siembra coincida. El personal ve el nombre nuevo en Archivos de inmediato; los enlaces de las páginas siguen el nombre configurado sin vaciar cachés. (Ensayado en el laboratorio Compose el 2026-09-29, IntraVox 3.1.7: 30 páginas, el árbol y los 97 archivos idénticos antes y después.)
 ## Deuda técnica y límites
 
 - **Presupuesto de páginas.** gestion presupuesta 50 páginas como máximo; los borradores cuentan y la papelera no. El motor declara un límite gratuito de 50 páginas por idioma (`LicenseService.php`), que en el código actual solo se informa en las Configuraciones de administración: `checkPageLimit()` tiene un único llamador, `getStats()`.

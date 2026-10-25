@@ -1,7 +1,7 @@
 # Documentación APS-Conecta — configuración de Sphinx.
 #
 # La marca se transplanta, no se vuelve a dibujar: paleta y tipografía provienen
-# del tema de gestión (APS-Conecta/gestion, themes/apsconecta) y se citan en
+# del tema de la suite (APS-Conecta/instalador, themes/apsconecta) y se citan en
 # _static/css/aps-brand.css. Los activos binarios (fuentes, logotipos, favicons)
 # nunca se versionan: los obtiene `make brand` en _generated/brand/ (ignorado).
 #

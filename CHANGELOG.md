@@ -9,6 +9,39 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Catalogue rows for the fork apps (`side_menu`, `eurooffice`, `desktop_workspace`) and `totem`
+  (instalador #51): the forks publish from their own repos; totem rides instalador #41 — an
+  optional wizard app, off by default, first signed release v0.3.0 — with `desarrollo/` and
+  `proyecto/novedades/` pages; `componentes.yml` now reads base images from the suite's
+  containers and app versions from each app's own repo checkout.
+- The «Idioma y registro» section of `desarrollo/documentation` (docs-SSOT D1): the org-wide
+  Spanish/English split, its first statement of Conventional Commits, and the README shape every
+  repo keeps.
+- `tools/check-structure.py` (`make structure`): a stdlib port of the retired repo-docs
+  `site-structure` rule, with tests; the `docs` workflow now runs it plus a range-scoped gitleaks
+  scan (job-level `RANGE`).
+- Store apps' Spanish UI strings (`spreed`, `calendar`, `contacts`, `groupfolders`, `notify_push`)
+  fetched from their own upstream repositories into `_generated/apps/` (`fetch-upstream.sh`),
+  replacing the retired gestion tarballs as the source `upstream-fidelity` swaps labels against.
+  A roster repo that pushes a broken `l10n/es.json` degrades to a stderr note instead of
+  failing the build (IntraVox and estadistica did, mid-run).
+- OSM-only basemap pages: `administracion/mapas-base` and its dependents describe the
+  OpenStreetMap tile service directly and the retired PMTiles file (redo of the closed #190).
+- gestion's `LICENSING.md` §3.2/§3.4 (OFL fonts, Geoportal coordinates), `WELCOME-SCREEN.md`
+  (storage-folder rename, walls) and `ARCHITECTURE.md` access model merged into `licencias`,
+  `intravox` and `usuarios-y-grupos`.
+
+### Changed
+
+- The tooling reads the suite repo (`instalador`) instead of the old gestion: `fetch-brand.sh`,
+  `upstream.yml` (Nextcloud major from `Containers/nextcloud`), `gen-catalogo.py` (parity against
+  `apps.json`, the single app manifest), `gen-componentes.py`, `build.yml` (`SUITE_SRC`).
+- Site pages that linked gestion ADRs or docs repointed at the suite repo's renumbered ADRs or
+  at this site (instalador #51); the wizard step renumbering and the retired `/tiles/` route
+  followed the OSM basemap change through `aio`, `calidad`, `arquitectura`, `operaciones`.
+- `.github/`: the vendored `repo-docs.py`, profiles, issue/PR templates, `CODEOWNERS` and canon
+  markers removed (org defaults and this repo's own gates cover them).
+
 - `desarrollo/apis/`: the APIs section (index plus five pages: Geoportal de Chile CSW and GeoServer, health/education/bomberos layers, administrative boundaries, FONASA and ciclovías, platform and internal REST). `Databases/APIs/catalog.yaml` stays the owner of each service's status.
 - Catalogue row for `buscador-documental` (kind `app-in-design`: registered, not distributed with the suite, exempt from OWN_APPS parity and from the map scan) with three `esqueleto: borrador` placeholder pages (usuario, administracion/ia, desarrollo); `gen-catalogo.py` roster 16 → 17. The full Spanish drafts live in `APS-Conecta/buscador-documental`, `buscador/docs-site/`.
 - Initial Spanish documentation site for APS Conecta (docs-es R2): Sphinx +

@@ -9,10 +9,8 @@ stopwords) and a body carrying the byte-stability table. Never force-pushes,
 never merges, never touches the default branch.
 
 The PR is App-authored (mint B in capturas.yml), NOT GITHUB_TOKEN-authored,
-precisely so the canon docs.yml pr-gate runs on it — GITHUB_TOKEN-originated
-events trigger no workflows. PNG-only paths owe no `Docs:` trailer: the gate's
-docs_line_paths watch l10n/, src/, templates/, appinfo/, lib/Command/,
-lib/Settings/ — no capturas/ path matches.
+so the repo's own workflows run on it — GITHUB_TOKEN-originated events trigger
+no workflows.
 
 Env: GH_TOKEN (mint B). The push authenticates via a one-shot git credential
 helper reading $GH_TOKEN from the environment — the token never reaches argv,

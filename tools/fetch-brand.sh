@@ -2,9 +2,9 @@
 # fetch-brand.sh — repopulate _generated/brand/ with the APS-Conecta brand assets.
 #
 # Source resolution (first hit wins):
-#   1. $GESTION_SRC                  — explicit path (CI points it at the clone)
-#   2. /opt/aps-conecta-org/gestion  — the org checkout, when present
-#   3. shallow clone of APS-Conecta/gestion at main — gh if GH_TOKEN is set,
+#   1. $SUITE_SRC                   — explicit path (CI points it at the clone)
+#   2. /opt/aps-conecta-org/instalador — the org checkout, when present
+#   3. shallow clone of APS-Conecta/instalador at main — gh if GH_TOKEN is set,
 #      else git. Credentials arrive ambient (gh reads GH_TOKEN itself, git its
 #      own configuration); never on the URL, never on argv.
 #
@@ -43,22 +43,22 @@ cleanup() {
 trap cleanup EXIT
 
 resolve_src() {
-  if [[ -n "${GESTION_SRC:-}" ]]; then
-    printf '%s\n' "$GESTION_SRC"
+  if [[ -n "${SUITE_SRC:-}" ]]; then
+    printf '%s\n' "$SUITE_SRC"
     return
   fi
-  if [[ -d /opt/aps-conecta-org/gestion ]]; then
-    printf '%s\n' /opt/aps-conecta-org/gestion
+  if [[ -d /opt/aps-conecta-org/instalador ]]; then
+    printf '%s\n' /opt/aps-conecta-org/instalador
     return
   fi
   local tmp clone
   tmp="$(mktemp -d)"
   CLONE_TMP="$tmp"
-  clone="$tmp/gestion"
+  clone="$tmp/instalador"
   if [[ -n "${GH_TOKEN:-}" ]]; then
-    gh repo clone APS-Conecta/gestion "$clone" -- --depth 1 --branch main 1>&2
+    gh repo clone APS-Conecta/instalador "$clone" -- --depth 1 --branch main 1>&2
   else
-    git clone --depth 1 --branch main https://github.com/APS-Conecta/gestion.git "$clone" 1>&2
+    git clone --depth 1 --branch main https://github.com/APS-Conecta/instalador.git "$clone" 1>&2
   fi
   printf '%s\n' "$clone"
 }

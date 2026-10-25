@@ -24,7 +24,23 @@ El sitio se compila con Sphinx y MyST, con el tema Furo y el idioma `es`, y se p
 | `proyecto/` | Seguimiento público | El catálogo de repositorios, las novedades, el glosario, los errores conocidos, los pendientes y la hoja de ruta |
 | `_generated/` | — | Lo que escriben los generadores y los scripts de obtención en cada compilación; nunca se versiona (`.gitignore`) |
 
-Cada página declara en su encabezado `tipo`, `audiencia`, `apps` y `resumen`, y lleva el esqueleto de secciones H2 de su `tipo`; la regla `site-structure` del canon repo-docs lo exige con nivel de error. La extensión `_ext/pagefind_meta.py` convierte `audiencia` y `apps` en filtros de la búsqueda Pagefind, y `resumen` en la descripción de la página.
+Cada página declara en su encabezado `tipo`, `audiencia`, `apps` y `resumen`, y lleva el esqueleto de secciones H2 de su `tipo`; `tools/check-structure.py` (`make structure`) lo exige con nivel de error. La extensión `_ext/pagefind_meta.py` convierte `audiencia` y `apps` en filtros de la búsqueda Pagefind, y `resumen` en la descripción de la página.
+
+### Idioma y registro
+
+La organización escribe en español lo que su personal lee y en inglés lo que solo una máquina o quien desarrolla lee. Un solo reparto, sin lista de repositorios:
+
+- **En español:** este sitio; el `README` de cada repositorio —los forks usan `.github/README.md`, con enlaces absolutos—; los archivos comunitarios de `.github`; los títulos de las incidencias; y lo que el producto muestra a una persona: interfaz, mensajes y archivos sembrados. Los manuales viven solo en este sitio.
+- **En inglés:** el código, los identificadores, los comentarios, los commits y los títulos de pull request —en inglés y con Conventional Commits—; `AGENTS.md`, `CLAUDE.md`, `CONTEXT.md` y `docs/agents`; los `README` de carpeta; los ADR; los modelos de amenazas; y el registro de cambios.
+- **Quedan como están:** el texto de upstream, el `readme.md` del instalador, los anclajes de encabezados ya publicados y la historia fechada. Los ADR existentes y las entradas de registro de cambios pasadas no se traducen.
+
+El registro es formal y directo: «usted» o impersonal, pasos en infinitivo, hechos verificados en afirmativo. El por qué es simple: quien lee este sitio y sus manuales es personal de salud que lee español.
+
+Las decisiones que afectan a toda la organización viven como ADR en `docs/adr/` del repositorio de la suite ([ADR-0007](https://github.com/APS-Conecta/instalador/blob/main/docs/adr/0007-org-wide-decisions-live-in-this-repository.md)); una decisión propia de un producto vive en el repositorio de ese producto. Un ADR no se borra ni se reescribe: solo cambia su estado, que enlaza a su reemplazo cuando lo hay, o se le agrega una línea de enmienda fechada.
+
+Junto al código, cada repositorio conserva: `README`, `LICENSE`/`LICENSES`, `THIRD-PARTY-NOTICES` donde se empaqueta código, el registro de cambios, `AGENTS.md` y el `CLAUDE.md` que ya exista —no se agregan ni se quitan—, `CONTEXT.md`, `docs/adr/`, `docs/agents/` y, en repositorios privados, el modelo de amenazas; además de los `README` de carpeta que declaran el contrato de su carpeta. Todo en inglés salvo el `README`. La prosa dirigida a personas que no va con el código —manuales, guías de operación, notas de diseño, `CONTRIBUTING`— vive en este sitio: el hecho que falta aterriza aquí primero y después el repositorio borra su copia.
+
+El `README` sigue este orden: título H1, una oración tomada del `role` del catálogo, una línea «Documentación: … · Catálogo: …» con los enlaces a su página de este sitio y al catálogo, la sección «Inicio rápido de desarrollo» y la sección «Licencia». El inicio rápido lleva pasos numerados en infinitivo con los comandos en código; sin enlaces, imágenes ni subtítulos; se omite solo cuando nada se construye ni corre. La sección de licencia declara el identificador SPDX y enlaza el {doc}`aviso legal </aviso>`. Un archivo que el código, una prueba, CI, el empaquetado o un artefacto publicado lee o enlaza se mueve solo en el pull request que repunta a ese lector; los enlaces públicos dentro de artefactos publicados dejan un ancla que siga resolviendo.
 
 ### Archivos fuente únicos
 
@@ -38,7 +54,7 @@ Cada página declara en su encabezado `tipo`, `audiencia`, `apps` y `resumen`, y
 
 ### El tejido de la plataforma base
 
-Las páginas de la plataforma base tejen los manuales oficiales que publica {vendor}`Nextcloud` (`nextcloud/documentation`). La rama sigue a la suite: `stable<mayor>`, con el mayor leído de la imagen del servidor en `compose.yaml` de gestion. `tools/fetch-upstream.sh` hace un clon parcial en `_generated/upstream`, con el historial completo para que el SHA de cada bloque resuelva y solo los archivos de texto, sin descargar imágenes.
+Las páginas de la plataforma base tejen los manuales oficiales que publica {vendor}`Nextcloud` (`nextcloud/documentation`). La rama sigue a la suite: `stable<mayor>`, con el mayor leído de la versión del servidor que empaqueta el instalador (`Containers/nextcloud`). `tools/fetch-upstream.sh` hace un clon parcial en `_generated/upstream`, con el historial completo para que el SHA de cada bloque resuelva y solo los archivos de texto, sin descargar imágenes.
 
 Un bloque tejido es la directiva `{upstream}`, que actúa a la vez como marcador, atribución y contexto de lectura: muestra una línea «Fuente» y, con `:difiere:`, un aviso de que APS Conecta Gestión se aparta del original. Sus referencias cruzadas conservan los destinos originales y resuelven a la página de APS donde ese documento está tejido o, mientras no lo está, al sitio de documentación del fabricante, así que un sitio a medio tejer nunca tiene un enlace muerto.
 
@@ -56,7 +72,7 @@ El objetivo `generate` del `Makefile` corre los generadores antes de cada compil
 
 | Generador | Escribe |
 | --- | --- |
-| `tools/gen-catalogo.py` | El catálogo de repositorios, con la tabla de dependencias y la semilla de URL privadas que `linkcheck` omite. Valida la nómina, la paridad con las aplicaciones propias que instala el aprovisionamiento del instalador (`OWN_APPS` en su `provisioning/phases/12-apps.sh`) y que cada manual declarado exista. |
+| `tools/gen-catalogo.py` | El catálogo de repositorios, con la tabla de dependencias y la semilla de URL privadas que `linkcheck` omite. Valida la nómina, la paridad con la lista de aplicaciones de la suite (`apps.json` del instalador), y que cada manual declarado exista y lleve su repositorio en `apps`. |
 | `tools/gen-referencia.py` | La referencia de cada aplicación (comandos `occ`, ajustes y rutas) desde `appinfo/info.xml` y `appinfo/routes.php`. Degrada, nunca omite: una superficie vacía se declara con una frase «Sin …», y una entrada que no se puede interpretar corta la compilación. |
 | `tools/gen-mapa.py` | El mapa de módulos de cada repositorio, extraído con graphify, salvo el almacén de artefactos, los valores por defecto de la organización y este sitio. |
 | `tools/gen-inicio-rapido.py` | La sección «Inicio rápido de desarrollo» del README de cada repositorio, incluida en {doc}`/_generated/inicio-rapido/index`. |
@@ -73,18 +89,14 @@ El flujo `build` corre en cada pull request, en cada push a `main` y a diario de
 | `make html` | Obtiene la marca y el texto original, corre los generadores, compila con advertencias como errores y construye el índice de Pagefind. |
 | `make test` | Las pruebas unitarias de `tools/tests` y las autopruebas de `gen-componentes` e `ia-check`. |
 | `make fidelity` | La fidelidad de cada bloque tejido y la cobertura de todos los documentos mapeados. |
-| `make term-check` | Las formas aprobadas de `glosario.yml` y el registro formal, «usted» o impersonal, sin tuteo. |
+| `make term-check` | Las formas aprobadas de `glosario.yml`, el registro formal, «usted» o impersonal, sin tuteo, y ningún párrafo del sitio que se lea como inglés. |
 | `make rebrand-check` | Ninguna mención del nombre de la plataforma base fuera de los lugares que la regla de nombre deja intactos. |
 | `make linkcheck` | Los enlaces de la prosa de APS. |
 | `make check-site` | El sitio servido bajo `/documentation/`, con Playwright: idioma, marca, fuentes, tema claro, diseño angosto, búsqueda y ausencia de solicitudes a terceros. |
 
-El flujo `docs` corre además la revisión del canon repo-docs, con `gitleaks` sobre los commits de la pull request y la exigencia de un título de pull request en inglés:
+El flujo `docs` corre `make structure` —la estructura de las páginas: encabezado tipado y esqueleto de secciones— y, mientras el escaneo nativo de secretos de GitHub no esté activado en este repositorio, el barrido `gitleaks` del rango de commits del pull request. El título del pull request, en inglés, es regla de esta página: la sección «Idioma y registro» la fija.
 
-```console
-python3 .github/repo-docs.py check . --offline
-```
-
-Tres flujos más completan el repositorio: `about-sync` replica los roles de `catalogo.yml` en las descripciones de los repositorios cuando cambia el catálogo, `capturas` toma cada lunes las capturas de las cinco aplicaciones y abre un borrador de pull request solo si cambian, e `ia-check` comprueba cada lunes que ningún modelo ni bot escriba en los repositorios sin estar declarado en `ia.yml`. La rutina 📚 Scribe mantiene la prosa fiel al código, por carriles.
+Tres flujos más completan el repositorio: `about-sync` replica los roles de `catalogo.yml` en las descripciones de los repositorios cuando cambia el catálogo, `capturas` toma cada lunes las capturas de las cinco aplicaciones y abre un borrador de pull request solo si cambian, e `ia-check` comprueba cada lunes que ningún modelo ni bot escriba en los repositorios sin estar declarado en `ia.yml`.
 
 ## Compromisos y límites
 

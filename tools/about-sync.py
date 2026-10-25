@@ -37,8 +37,6 @@ def main() -> int:
     dry = "--dry-run" in sys.argv[1:]
     doc = yaml.safe_load((REPO_ROOT / "catalogo.yml").read_text(encoding="utf-8"))
     rows = doc["repos"]
-    if len(rows) != 14:
-        fail(f"catalogo.yml: esperaba 14 filas, hay {len(rows)}")
     cambios = 0
     for row in rows:
         repo, role = row["repo"], row["role"]
