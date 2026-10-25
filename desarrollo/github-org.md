@@ -25,7 +25,7 @@ Además de los archivos comunitarios, el repositorio lleva el flujo de trabajo c
 | `.github/ISSUE_TEMPLATE/error.yml` | Formulario «Error» (tipo *Bug*): qué ocurrió y pasos para reproducirlo. |
 | `.github/ISSUE_TEMPLATE/tarea.yml` | Formulario «Tarea» (tipo *Task*): qué hay que hacer y cómo sabremos que está listo. |
 | `LICENSE` | El texto de la GNU Affero General Public License v3.0, el mismo archivo que llevan los repositorios de código. |
-| `.github/workflows/ci.yml` | La CI propia del repositorio: `shellcheck` y la autoprueba del empaquetador, más `actionlint` y `zizmor` sobre los flujos. |
+| `.github/workflows/ci.yml` | La CI propia del repositorio: `shellcheck` y las autopruebas del empaquetador y de los archivos de comunidad —los presupuestos de líneas de T06, las palabras vetadas y los tipos de los formularios—, más `actionlint` y `zizmor` sobre los flujos. |
 | `.github/workflows/app-release.yml` | El flujo compartido de publicación de aplicaciones: en un pull request solo construye; en una etiqueta `v*` comprueba que la etiqueta coincide con la versión declarada, empaqueta de forma determinista, firma contra la clave de aplicaciones y publica los cuatro recursos de nombre fijo, con la aprobación del entorno `release`. |
 | `scripts/pack-app.sh` | El empaquetador determinista que usa el flujo: nombres ordenados, fecha de commit, propietario numérico, `gzip -n`. |
 
