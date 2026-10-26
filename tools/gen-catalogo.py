@@ -268,7 +268,7 @@ def org_visibility(rows: list[dict], api=_gh) -> tuple[dict[str, bool], bool]:
     repos que el catálogo no nombra). Una sesión atada a sus repositorios (una rutina de Claude)
     rechaza las rutas de org: entonces cada repo del catálogo responde por sí mismo y el censo
     se omite, con aviso."""
-    proc = api(f"orgs/{ORG}/repos", ".[] | [.name, .private] | @tsv")
+    proc = api(f"orgs/{ORG}/repos", '.[] | select(.archived | not) | [.name, .private] | @tsv')
     if proc.returncode == 0:
         visibility: dict[str, bool] = {}
         for line in proc.stdout.splitlines():

@@ -20,8 +20,6 @@ bajo `${APS_ORG_ROOT:-/opt/aps-conecta-org}` — sin rutas alternativas: si
 no existe, el repositorio se omite con línea de bitácora. Fallos duros
 (exit 1, nombrando el repositorio): clon ausente, fila malformada o hub
 `desarrollo/<slug>.md` ausente. Determinista: sin marcas de tiempo.
-
-Determinista: sin marcas de tiempo.
 """
 from __future__ import annotations
 
@@ -211,7 +209,6 @@ def main() -> int:
     emit_index(hits)
     note(f"{len(hits)}/{len(roster)} incluyen; {len(roster) - len(hits)} omitidos")
     return 0
-
 
 
 

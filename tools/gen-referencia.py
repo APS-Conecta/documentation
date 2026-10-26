@@ -35,7 +35,6 @@ SLOT_ES = {
 ROUTE_KEYS = {"name", "url", "verb", "requirements"}
 TOP_KEYS = {"routes", "ocs"}
 
-# Pines de deriva, verificados contra los clones el 2026-10-07
 # (rutas, con requisitos, ocs, comandos occ, ajustes, trabajos, enlaces FQCN).
 
 

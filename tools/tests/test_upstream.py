@@ -1359,11 +1359,11 @@ class StoreUiStringsTest(unittest.TestCase):
         # componentes.yml `kind: app` without a `fork:` field is the app-store set: each row
         # carries the upstream repo its l10n comes from (a fork ships its own Spanish)
         apps = dict(u.store_apps())
-        self.assertEqual(apps["spreed"], "nextcloud/spreed")
         self.assertEqual(apps["groupfolders"], "nextcloud/groupfolders")
         self.assertNotIn("eurooffice", apps)          # APS fork — its checkout is read
         self.assertNotIn("desktop_workspace", apps)
         self.assertNotIn("side_menu", apps)
+        self.assertNotIn("spreed", apps)              # a fork since ADR-0020 — its checkout is read
 
     def test_a_malformed_l10n_file_degrades_to_a_note_not_a_crash(self):
         """A roster repo can push a broken l10n/es.json; the site's vocabulary degrades
@@ -1372,7 +1372,7 @@ class StoreUiStringsTest(unittest.TestCase):
         from unittest import mock
 
         with tempfile.TemporaryDirectory() as d:
-            f = Path(d) / "spreed" / "l10n" / "es.json"
+            f = Path(d) / "groupfolders" / "l10n" / "es.json"
             f.parent.mkdir(parents=True)
             f.write_text('{"translations": {"Shared items": "Elementos compartidos"},}', encoding="utf-8")
             with mock.patch.dict(os.environ, {"APPS_DIR": d, "APS_ORG_ROOT": "/nonexistent"}), \
@@ -1387,7 +1387,7 @@ class StoreUiStringsTest(unittest.TestCase):
         from unittest import mock
 
         with tempfile.TemporaryDirectory() as d:
-            f = Path(d) / "spreed" / "l10n" / "es.json"
+            f = Path(d) / "groupfolders" / "l10n" / "es.json"
             f.parent.mkdir(parents=True)
             f.write_text(json.dumps({"translations": {"Shared items": "Elementos compartidos"}}),
                          encoding="utf-8")
