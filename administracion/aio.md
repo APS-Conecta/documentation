@@ -1,18 +1,18 @@
 ---
 tipo: explicacion
 audiencia: administracion
-apps: [instalador]
+apps: [gestion]
 resumen: "El instalador de la suite: el arranque de una línea, el asistente, las aplicaciones desde sus publicaciones firmadas, el candado de versiones y actualizar."
 ---
 # AIO
 
 ## Contexto
 
-APS Conecta Gestión se instala con APS Conecta Gestión AIO, un fork de [Nextcloud All-in-One](https://github.com/nextcloud/all-in-one) que APS Conecta mantiene para los CESFAM y la red de atención primaria de Chile, junto con el paquete del host, el Provisionador y el manifiesto de la suite, en el repositorio [APS-Conecta/instalador](https://github.com/APS-Conecta/instalador) — el repositorio APS-Conecta/AIO fue su primera casa y se eliminó una vez absorbido. Nextcloud GmbH no lo produce, no lo patrocina ni lo respalda.
+APS Conecta Gestión se instala con APS Conecta Gestión AIO, un fork de [Nextcloud All-in-One](https://github.com/nextcloud/all-in-one) que APS Conecta mantiene para los CESFAM y la red de atención primaria de Chile, junto con el paquete del host, el Provisionador y el manifiesto de la suite, en el repositorio [APS-Conecta/gestion](https://github.com/APS-Conecta/gestion) — el repositorio APS-Conecta/AIO fue su primera casa y se eliminó una vez absorbido. Nextcloud GmbH no lo produce, no lo patrocina ni lo respalda.
 
 Las páginas de {doc}`instalación </administracion/instalacion/index>`, tejidas del manual de {vendor}`Nextcloud`, llevan el aviso «En APS Conecta Gestión esto difiere» y remiten a esta página. Un establecimiento instala una etiqueta publicada de la suite, nunca una rama: el asistente de esa etiqueta crea y administra todos los contenedores, y el Provisionador del instalador configura después el establecimiento con las fases de aprovisionamiento.
 
-La instalación completa es una línea en el servidor y ocho pasos — cuatro del servidor y cuatro del navegador —, descritos paso a paso en el [manual del instalador](https://github.com/APS-Conecta/instalador/blob/main/aps/INSTALLER.md), en inglés, y en la [guía clínica](https://github.com/APS-Conecta/instalador/blob/main/aps/GUIA-CLINICA.md), en español, ambos en la carpeta `aps/` de instalador. Esta página explica el diseño del instalador, lo que cambia y sus límites.
+La instalación completa es una línea en el servidor y ocho pasos — cuatro del servidor y cuatro del navegador —, descritos paso a paso en el [manual del instalador](https://github.com/APS-Conecta/gestion/blob/main/aps/INSTALLER.md), en inglés, y en la [guía clínica](https://github.com/APS-Conecta/gestion/blob/main/aps/GUIA-CLINICA.md), en español, ambos en la carpeta `aps/` de instalador. Esta página explica el diseño del instalador, lo que cambia y sus límites.
 
 Ninguna instancia de producción existe todavía: la vuelta de aceptación del instalador, una versión candidata instalada en tres equipos, sigue pendiente.
 
@@ -21,7 +21,7 @@ Ninguna instancia de producción existe todavía: la vuelta de aceptación del i
 ### El arranque de una línea
 
 ```console
-curl -fsSL https://github.com/APS-Conecta/instalador/releases/download/vX.Y.Z/apsconecta-vX.Y.Z-install.sh | sudo bash
+curl -fsSL https://github.com/APS-Conecta/gestion/releases/download/vX.Y.Z/apsconecta-vX.Y.Z-install.sh | sudo bash
 ```
 
 El ancla de confianza es la URL de la versión —fijada a la etiqueta— más TLS: el instalador lleva dentro la suma sha256 del paquete y la clave pública de la firma del proyecto. La descarga se verifica antes de desempacar nada; un servidor que ya tiene `signify` comprueba además la firma, y uno que no la tiene instala la herramienta en el paso «preparar» y comprueba el paquete guardado desde la corrida siguiente. El desempaque es atómico y la suite queda en `/opt/aps-conecta/instalador`, con el paquete guardado —tarball, sumas y firma— en `/opt/aps-conecta/paquete`, para que la revisión previa vuelva a verificarlo sin red. La copia del repositorio no instala: lleva su suma vacía a propósito, y solo el activo de la publicación ejecuta.
@@ -38,7 +38,7 @@ La revisión previa genera la orden `docker run` del asistente, que no se escrib
 
 La configuración del asistente vive en el volumen `nextcloud_aio_mastercontainer` y sobrevive a la eliminación del contenedor. El contenedor web no guarda estado: el asistente lo reconstruye desde esa configuración en cada inicio.
 
-El asistente nunca vuelve a crear un contenedor que todavía existe. Por eso un directorio del host montado en un contenedor, como el del certificado del instalador (`APS_TLS_DIR`), queda fijado al crear el contenedor: la configuración lo conserva, y cambiar la variable no mueve el montaje hasta recrear el asistente y el contenedor web, como indica la sección 9 del [manual del instalador](https://github.com/APS-Conecta/instalador/blob/main/aps/INSTALLER.md).
+El asistente nunca vuelve a crear un contenedor que todavía existe. Por eso un directorio del host montado en un contenedor, como el del certificado del instalador (`APS_TLS_DIR`), queda fijado al crear el contenedor: la configuración lo conserva, y cambiar la variable no mueve el montaje hasta recrear el asistente y el contenedor web, como indica la sección 9 del [manual del instalador](https://github.com/APS-Conecta/gestion/blob/main/aps/INSTALLER.md).
 
 Mientras la suite está en ejecución, el inicio de sesión directo en el asistente queda bloqueado. El asistente muestra «El inicio de sesión está bloqueado porque la suite está en ejecución.» y remite al inicio de sesión automático desde la administración de APS Conecta Gestión.
 
@@ -52,7 +52,7 @@ Los resúmenes (digests) de una etiqueta publicada no cambian nunca. Volver a pu
 
 ### Lo que cambia el fork
 
-Los cambios del fork son bytes confirmados en `main` —un solo árbol, de primera clase—, y de ese árbol se construyen las imágenes. La [declaración del fork](https://github.com/APS-Conecta/instalador/blob/main/readme.md) enumera cada cambio con su número y la garantía que sostiene, y las compuertas de marca y de adquisición verifican esas garantías en cada envío, fila por fila. La lógica PHP cambia solo donde el fork lo declara; el resto son textos, recursos gráficos, plantillas y ajustes de Dockerfile. Los componentes con su licencia están en la tabla de componentes del {doc}`/aviso`.
+Los cambios del fork son bytes confirmados en `main` —un solo árbol, de primera clase—, y de ese árbol se construyen las imágenes. La [declaración del fork](https://github.com/APS-Conecta/gestion/blob/main/readme.md) enumera cada cambio con su número y la garantía que sostiene, y las compuertas de marca y de adquisición verifican esas garantías en cada envío, fila por fila. La lógica PHP cambia solo donde el fork lo declara; el resto son textos, recursos gráficos, plantillas y ajustes de Dockerfile. Los componentes con su licencia están en la tabla de componentes del {doc}`/aviso`.
 
 | Grupo | Cambios | Qué cambia en la instalación | Por qué |
 |---|---|---|---|
@@ -105,7 +105,7 @@ sudo aps-conecta actualizar
 
 Si algo falla, el candado queda como estaba, se nombra la aplicación que falló y se imprime el comando para restaurar: el asistente, «Restaurar la copia de seguridad seleccionada», con la copia más reciente. Un salto de versión mayor de Nextcloud se rechaza mientras una aplicación predeterminada no tenga una versión compatible.
 
-Tras actualizar la suite a una etiqueta nueva, `aps-conecta revalidate` corre las tres verificaciones y las reporta todas, y la [guía clínica](https://github.com/APS-Conecta/instalador/blob/main/aps/GUIA-CLINICA.md#7-tras-actualizar) describe la revalidación y las revisiones manuales de cada actualización. Una instalación de la v0.3.0 o anterior usa los nombres de contenedor de upstream; la suite no los migra, y esa instalación se reinstala.
+Tras actualizar la suite a una etiqueta nueva, `aps-conecta revalidate` corre las tres verificaciones y las reporta todas, y la [guía clínica](https://github.com/APS-Conecta/gestion/blob/main/aps/GUIA-CLINICA.md#7-tras-actualizar) describe la revalidación y las revisiones manuales de cada actualización. Una instalación de la v0.3.0 o anterior usa los nombres de contenedor de upstream; la suite no los migra, y esa instalación se reinstala.
 
 ### La frontera con el aprovisionamiento
 

@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion, instalador, eurooffice]
+apps: [gestion, eurooffice]
 resumen: "Nextcloud Office en la plataforma base y la oficina de APS Conecta Gestión: Euro-Office, quién escribe cada clave del conector y qué se verifica."
 ---
 # Oficina
@@ -51,7 +51,7 @@ Bajo AIO, la conexión con el servidor de documentos tiene dos dueños, y el arc
 
 Las razones de cada valor:
 
-- **Instalación por dominio.** Las URL internas quedan sin valor, así que las dos conexiones entre servidores recorren también la dirección pública. Por eso el servidor debe alcanzar su propio dominio: [INSTALLER §7](https://github.com/APS-Conecta/instalador/blob/main/aps/INSTALLER.md#7-dns-the-host-must-reach-its-own-domain-d10) da las tres formas de resolverlo.
+- **Instalación por dominio.** Las URL internas quedan sin valor, así que las dos conexiones entre servidores recorren también la dirección pública. Por eso el servidor debe alcanzar su propio dominio: [INSTALLER §7](https://github.com/APS-Conecta/gestion/blob/main/aps/INSTALLER.md#7-dns-the-host-must-reach-its-own-domain-d10) da las tres formas de resolverlo.
 - **Instalación por IP.** La suite se publica con un certificado firmado por la CA del instalador, en el que el servidor de documentos no confía, y en una dirección privada desde la que se niega a leer. La fase 14 lleva entonces las dos conexiones entre servidores por dentro de la red del asistente.
 - **`sameTab`.** Cada documento se abre en una ventana nueva. Con el valor predeterminado, el editor reemplaza lo que la persona estaba mirando, incluida la carpeta desde la que lo abrió.
 - **`customizationTheme`.** El valor predeterminado sigue el tema del sistema operativo de cada equipo. La suite fija el tema claro en toda la interfaz para que un ajuste personal no cambie lo que ve el personal, y el editor era la última superficie fuera de esa decisión.

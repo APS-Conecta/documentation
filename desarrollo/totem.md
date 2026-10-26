@@ -20,7 +20,7 @@ Sus cuatro superficies:
 | Ventanilla | `/apps/totem/box` | Con sesión: un botón guiado por estado — llamar siguiente, iniciar atención, finalizar atención |
 | Estadísticas | `/apps/totem/estadisticas` | Con sesión: conteos absolutos de tickets por día, semana o mes, por sector, unidad y preferente, con descarga CSV |
 
-Tótem es una aplicación opcional de la suite: el asistente de instalación la ofrece desactivada por omisión y, cuando un centro la elige, el instalador la descarga de la release firmada de su propio repositorio ([ADR-0017 de la suite](https://github.com/APS-Conecta/instalador/blob/main/docs/adr/0017-apps-install-from-their-own-releases.md)); su versión queda registrada en el archivo de bloqueo del servidor. Los cambios visibles de cada versión se registran en {doc}`/proyecto/novedades/totem`.
+Tótem es una aplicación opcional de la suite: el asistente de instalación la ofrece desactivada por omisión y, cuando un centro la elige, el instalador la descarga de la release firmada de su propio repositorio ([ADR-0017 de la suite](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0017-apps-install-from-their-own-releases.md)); su versión queda registrada en el archivo de bloqueo del servidor. Los cambios visibles de cada versión se registran en {doc}`/proyecto/novedades/totem`.
 
 ## Deuda técnica y límites
 

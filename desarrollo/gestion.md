@@ -31,7 +31,6 @@ El código, los comentarios y la documentación del repositorio están en inglé
 | Idempotencia | `scripts/seed-idempotent.sh` | La instalación limpia, en instalador | Que una segunda siembra no escriba nada. |
 | Divergencia | `bash scripts/divergence.sh --gate` | La instalación limpia, en instalador | Que la instancia coincida con su declaración, cuentas incluidas; sale con código 1 ante cualquier nota. |
 | Fijaciones | `bash scripts/image-digests.sh --validate`, `make images-check`, `make apps-check` | Los lunes a las 05:00 UTC, y en pull requests que tocan una fijación (`image-digests.yml`) | Que cada imagen esté fijada por resumen, e informa si una etiqueta o una aplicación de terceros tiene una versión más nueva. |
-| Documentación | `python3 .github/repo-docs.py check . --offline` | Pull requests y pushes a `main` que tocan `**/*.md`, `.github/**` o `.githooks/**` (`docs.yml`) | Las reglas de documentación de la organización. |
 | Manifiesto de versión | `bash scripts/release-manifest.sh --validate` | A demanda, sobre la copia congelada | El manifiesto de la versión que esa copia armaba. La publicación es hoy la de instalador, que arma el paquete firmado desde su propio árbol y firma su propio manifiesto. |
 
 ## Notas

@@ -1,7 +1,7 @@
 ---
 tipo: referencia
 audiencia: proyecto
-apps: [instalador]
+apps: [gestion]
 resumen: "Cambios de instalador visibles para usuarios y administradores, agrupados por versión."
 ---
 # Novedades de instalador

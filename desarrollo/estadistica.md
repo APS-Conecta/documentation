@@ -26,8 +26,8 @@ El lector de la PIV de FONASA (`lib/Piv/PivReader.php`) tiene el encabezado bloq
 Ese bloqueo rechaza sobre todo un archivo que agrega un RUT o un nombre.
 Las personas sin tramo de edad se cuentan y se informan al importar, pero no se guardan.
 
-**Invariante: el establecimiento es configuración de la instancia** ([ADR-0009](https://github.com/APS-Conecta/instalador/blob/main/docs/adr/0009-the-establishment-is-instance-configuration.md)).
-La aplicación lee tres claves de configuración y no tiene un método que las escriba: el único escritor es la [fase 16 de la provisión](https://github.com/APS-Conecta/instalador/blob/main/provisioning/phases/16-app-policy.sh), y `scripts/divergence.sh` de gestion las compara con el archivo del sitio.
+**Invariante: el establecimiento es configuración de la instancia** ([ADR-0009](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0009-the-establishment-is-instance-configuration.md)).
+La aplicación lee tres claves de configuración y no tiene un método que las escriba: el único escritor es la [fase 16 de la provisión](https://github.com/APS-Conecta/gestion/blob/main/provisioning/phases/16-app-policy.sh), y `scripts/divergence.sh` de gestion las compara con el archivo del sitio.
 Un `deis_code` que no tenga seis dígitos se lee como ausencia de establecimiento, y la fase 16 se detiene antes de escribir un valor así.
 Ninguna pantalla de la aplicación elige otro establecimiento como propio.
 

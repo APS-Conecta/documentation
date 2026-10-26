@@ -27,7 +27,6 @@ territorio <territorio>
 aps-common <aps-common>
 Databases <databases>
 APIs <apis/index>
-repo-docs <repo-docs>
 rpiv-artifacts <rpiv-artifacts>
 .github <github-org>
 documentation <documentation>

@@ -185,4 +185,4 @@ Los scripts personalizados pueden hacer solicitudes a cualquier endpoint de la
 
 ## En APS Conecta Gestión
 
-APS Conecta Gestión no instala Windmill. Windmill corre como aplicación externa (ExApp) de AppAPI, y una ExApp necesita un daemon de despliegue: la provisión no registra ninguno y el contenedor opcional HaRP de AIO viene desactivado. AppAPI queda instalada sin cambios porque la hoja de ruta la usa; la postura de producción del daemon sigue abierta en [gestion#75](https://github.com/APS-Conecta/gestion/issues/75).
+APS Conecta Gestión no instala Windmill. Windmill corre como aplicación externa (ExApp) de AppAPI, y una ExApp necesita un daemon de despliegue: la provisión no registra ninguno y el contenedor opcional HaRP de AIO viene desactivado. AppAPI queda instalada sin cambios porque la hoja de ruta la usa; la postura de producción del daemon sigue abierta.

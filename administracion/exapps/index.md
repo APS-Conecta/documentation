@@ -24,7 +24,7 @@ Esta página agrupa, para quienes administran el servidor, los temas de la gesti
 
 ## En APS Conecta Gestión
 
-APS Conecta Gestión no ejecuta aplicaciones externas (ExApps). AppAPI queda instalada sin cambios porque la hoja de ruta la usa, pero la provisión no registra ningún daemon de despliegue y el contenedor opcional HaRP del AIO viene desactivado. La postura de producción del daemon sigue abierta en [gestion#75](https://github.com/APS-Conecta/gestion/issues/75).
+APS Conecta Gestión no ejecuta aplicaciones externas (ExApps). AppAPI queda instalada sin cambios porque la hoja de ruta la usa, pero la provisión no registra ningún daemon de despliegue y el contenedor opcional HaRP del AIO viene desactivado. La postura de producción del daemon sigue abierta.
 
 ```{toctree}
 :maxdepth: 1

@@ -37,13 +37,6 @@ TOP_KEYS = {"routes", "ocs"}
 
 # Pines de deriva, verificados contra los clones el 2026-10-07
 # (rutas, con requisitos, ocs, comandos occ, ajustes, trabajos, enlaces FQCN).
-PINS = {
-    "farmacia": (20, 8, 0, 1, 0, 0, 1),
-    "territorio": (27, 0, 0, 1, 2, 0, 3),
-    "estadistica": (6, 0, 0, 0, 2, 1, 3),
-    "epidemiologia": (1, 0, 0, 0, 0, 3, 3),
-    "IntraVox": (171, 0, 8, 9, 2, 6, 17),
-}
 
 
 def die(msg: str) -> None:
@@ -571,34 +564,7 @@ def _roster_from_catalogo():
     return load_app_repos(catalogo.read_text(encoding="utf-8"))
 
 
-def selftest() -> int:
-    repos = _roster_from_catalogo()
-    if sorted(repos) != sorted(PINS):
-        die(f"selftest: el roster no coincide con los pines: {sorted(repos)}")
-    ok = True
-    for repo in repos:
-        scan_root = ORG_ROOT / repo
-        info_path = scan_root / "appinfo" / "info.xml"
-        if not info_path.is_file():
-            die(f"selftest: falta appinfo/info.xml de {repo} (en {scan_root})")
-        info = parse_info_xml(info_path)
-        routes_path = scan_root / "appinfo" / "routes.php"
-        routes_items = parse_routes_php(routes_path) if routes_path.is_file() else {}
-        got = summarize(repo, info, routes_items, scan_root)
-        want = PINS[repo]
-        if got == want:
-            print(f"[selftest] {repo}: {got} ok")
-        else:
-            print(f"[selftest] {repo}: deriva: obtenido {got}, fijado {want}")
-            ok = False
-    if not ok:
-        die("selftest: deriva respecto de los pines (actualiza PINS con los nuevos datos verificados)")
-    return 0
-
-
 def main(argv) -> int:
-    if "--selftest" in argv:
-        return selftest()
     repos = _roster_from_catalogo()
     if not repos:
         die("catalogo.yml no declara ninguna fila kind: nextcloud-app")

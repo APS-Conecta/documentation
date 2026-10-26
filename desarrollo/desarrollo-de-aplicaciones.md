@@ -35,6 +35,8 @@ Una aplicación propia depende de Nextcloud solo a través de las API públicas 
 | `openapi.json` | El contrato OCS, generado desde `ApiController` |
 | `Makefile`, `Dockerfile.test`, `compose.dev.yaml` | Los dos arneses de prueba (paso 5) |
 
+Cada aplicación publica lo que otras aplicaciones pueden leer solo como rutas REST versionadas en su `openapi.json`; ninguna llama a los servicios internos de otra.
+
 Los datos iniciales se siembran en un paso de reparación registrado para `install` y para `post-migration`, no en el hook `postSchemaChange` de la migración: ese hook no corre en la primera instalación de solo esquema, que es justo lo que ejecuta `occ app:enable`. El mecanismo está en {doc}`/desarrollo/plataforma/digging-deeper/repair`.
 
 Las rutas y los comandos `occ` de cada aplicación se publican como referencia generada a partir de `appinfo/info.xml` y `appinfo/routes.php`; la de farmacia es {doc}`/_generated/referencia/farmacia`.

@@ -1,7 +1,7 @@
 ---
 tipo: guia
 audiencia: desarrollo
-apps: [.github, gestion, repo-docs, documentation, instalador]
+apps: [.github, gestion, documentation]
 resumen: "La licencia del código de la organización, cómo se declara en cada repositorio, la reserva de las marcas y las compuertas que verifican todo eso."
 ---
 # Licencias
@@ -20,7 +20,7 @@ La tabla de componentes de terceros que distribuye la suite, con su origen, vers
 
 | Repositorio | Archivo | Licencia |
 |---|---|---|
-| gestion, IntraVox, farmacia, estadistica, epidemiologia, territorio, aps-common, Databases, repo-docs, `.github` | `LICENSE` | El mismo texto de la GNU AGPL v3 en todos; la organización la declara AGPL-3.0-or-later |
+| gestion, IntraVox, farmacia, estadistica, epidemiologia, territorio, aps-common, Databases, `.github` | `LICENSE` | El mismo texto de la GNU AGPL v3 en todos; la organización la declara AGPL-3.0-or-later |
 | documentation | `LICENSE` y `COPYING` | AGPL-3.0-or-later para las herramientas de compilación; CC BY 3.0 para el texto y las capturas del sitio |
 | AIO | `LICENSE` de upstream | AGPL v3 sin la cláusula «o posterior», es decir, AGPL-3.0-only |
 | rpiv-artifacts | Ninguno | Sin archivo de licencia |
@@ -29,7 +29,7 @@ En este sitio, `REUSE.toml` asigna cada ruta: la prosa de las páginas es CC-BY-
 
 ## Requisitos
 
-- Saber quién es dueño de cada hecho: esta página fija la regla de la organización y el análisis de agregación; el [ADR de AGPL en toda la organización](https://github.com/APS-Conecta/instalador/blob/main/docs/adr/0006-agpl-across-the-org.md) registra la decisión; la tabla de componentes lleva el inventario de terceros; y `componentes.yml` alimenta la tabla publicada.
+- Saber quién es dueño de cada hecho: esta página fija la regla de la organización y el análisis de agregación; el [ADR de AGPL en toda la organización](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0006-agpl-across-the-org.md) registra la decisión; la tabla de componentes lleva el inventario de terceros; y `componentes.yml` alimenta la tabla publicada.
 
 ## Pasos
 
@@ -43,11 +43,7 @@ En este sitio, `REUSE.toml` asigna cada ruta: la prosa de las páginas es CC-BY-
 
 ## Verificación
 
-El verificador de documentación de cada repositorio aplica cuatro reglas de licencia:
-
-```bash
-python3 .github/repo-docs.py check . --offline
-```
+La comprobación de estructura del sitio (`make structure`) y la revisión de enlaces (`make linkcheck`) aplican lo anterior sobre las páginas; la tabla de componentes de terceros se genera desde `componentes.yml`:
 
 | Regla | Severidad | Falla cuando |
 |---|---|---|

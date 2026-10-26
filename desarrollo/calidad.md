@@ -1,7 +1,7 @@
 ---
 tipo: guia
 audiencia: desarrollo
-apps: [gestion, farmacia, estadistica, territorio, epidemiologia, IntraVox, aps-common, repo-docs, documentation]
+apps: [gestion, farmacia, estadistica, territorio, epidemiologia, IntraVox, aps-common, documentation]
 resumen: "Las compuertas que corre cada repositorio antes de fusionar —documentación, pruebas, paquete, deriva, humo y arranque limpio— y qué prueba cada una."
 ---
 # Calidad
@@ -12,7 +12,7 @@ Correr las compuertas de un repositorio antes de abrir un pull request y saber q
 
 | Compuerta | Dónde corre | Qué prueba |
 |---|---|---|
-| Documentación (`docs`) | Repositorios con el workflow canónico de repo-docs | Las reglas de documentación de la organización, el título del pull request en inglés y los secretos de sus commits |
+| Documentación (`docs`) | Este sitio, en cada pull request y push | La estructura de cada página (`make structure`) y el barrido de secretos del rango; el idioma y el registro, en {doc}`/desarrollo/documentation` |
 | Pruebas, paquete y deriva de aps-common | Cada aplicación propia | Que el código pasa sus pruebas, que el paquete confirmado es la compilación de `src/` y que las copias de aps-common están al día |
 | Humo de la aplicación | farmacia y estadistica, contra una instancia desechable | El cableado real: cabeceras OCS, escrituras, rechazos, paquete y contrato |
 | Chequeos estáticos de gestion | Todo pull request de gestion | Que la receta de la suite es coherente sin levantar nada |
@@ -29,17 +29,17 @@ Correr las compuertas de un repositorio antes de abrir un pull request y saber q
 
 ## Pasos
 
-### En todo repositorio: la compuerta de documentación
+### En este sitio: la compuerta de documentación
 
-1. Ejecutar el verificador desde la raíz del repositorio:
+1. Ejecutar la comprobación de estructura desde la raíz del sitio:
 
    ```bash
-   python3 .github/repo-docs.py check . --offline
+   make structure
    ```
 
-2. Leer el código de salida: 0 significa sin errores y 1, al menos uno. Los avisos nunca fallan la corrida.
+2. Leer el código de salida: 0 significa sin errores.
 
-El verificador vive copiado en cada repositorio como `.github/repo-docs.py`; la regla `canon-drift` mantiene las copias idénticas al motor de repo-docs, el único lugar donde se edita. En CI, el workflow `docs` corre además `pr-gate`, que exige un título de pull request en inglés, y la regla de secretos revisa con gitleaks solo los commits del pull request. Sus reglas cubren, entre otras, la licencia declarada, los enlaces rotos, los secretos, los comandos documentados que no existen y, en este sitio, la estructura de cada página. El motor está en {doc}`/desarrollo/repo-docs`.
+El verificador canon de la era del gestor (repo-docs) se retiró con el corte: su motor, sus perfiles y las copias vendorizadas ya no existen en ningún repositorio. La compuerta `docs` de este sitio quedó en la estructura de cada página (`tools/check-structure.py`, con pruebas) más el barrido de secretos con gitleaks sobre el rango del pull request; el idioma y el registro de títulos y commits se fijan en {doc}`/desarrollo/documentation`, y los enlaces rotos los revisa `make linkcheck` en cada compilación completa.
 
 ### En una aplicación propia (plantilla farmacia)
 

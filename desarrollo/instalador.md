@@ -1,7 +1,7 @@
 ---
 tipo: referencia
 audiencia: desarrollo
-apps: [instalador]
+apps: [gestion]
 resumen: "El repositorio de la suite: el fork de AIO en un solo árbol, el paquete del host, el Provisionador, el manifiesto de aplicaciones y la publicación firmada."
 ---
 # instalador
@@ -34,7 +34,7 @@ Cómo se mantiene el fork de AIO está en {doc}`AIO </desarrollo/aio>`; lo que l
 ### El arranque de una línea
 
 ```console
-curl -fsSL https://github.com/APS-Conecta/instalador/releases/download/vX.Y.Z/apsconecta-vX.Y.Z-install.sh | sudo bash
+curl -fsSL https://github.com/APS-Conecta/gestion/releases/download/vX.Y.Z/apsconecta-vX.Y.Z-install.sh | sudo bash
 ```
 
 El ancla de confianza es la URL de la versión, más TLS: el archivo lleva dentro la suma sha256 del paquete y la clave pública de la firma, y un archivo truncado es un error de sintaxis, nunca una media instalación.
@@ -66,5 +66,4 @@ Una clínica instalada desde un clon de gestion sigue funcionando sin cambios: e
 ```{toctree}
 :maxdepth: 1
 
-Mapa de módulos <../_generated/mapa/instalador>
 ```

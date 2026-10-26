@@ -7,6 +7,20 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+
+- Talk (`spreed`) joins the catalogue and the third-party inventory as a fork app with signed
+  releases (ADR-0020): its hub page, its news page and the parity the manifest demands.
+- The cutover (instalador #53): the catalogue keeps one row for the suite repository, `gestion` —
+  the renamed instalador that absorbed the old gestion — and drops the old-gestion and repo-docs
+  rows; the site's URLs name the new repository everywhere.
+- The repo-docs canon retires from the site (D2): the page, the catalogue row, the
+  `docs`-gate descriptions in `calidad` and `licencias` leave; the `docs` check of this site is
+  `make structure` plus the range's gitleaks sweep.
+- The generators read the suite checkout at its new name (`gestion`): manifest, components,
+  brand fetch, upstream major, map and catalogue; the drift pins and selftests that froze the
+  pre-cutover roster are deleted (the registro selftest stays, re-pinned to gestion).
+
 ### Added
 
 - Catalogue rows for the fork apps (`side_menu`, `eurooffice`, `desktop_workspace`) and `totem`

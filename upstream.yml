@@ -9,11 +9,11 @@
 
 source:
   repo: nextcloud/documentation
-  # La rama sigue a la suite: el mayor sale del servidor que empaqueta el instalador
+  # La rama sigue a la suite: el mayor sale del servidor que empaqueta la suite
   # (Containers/nextcloud, upstreamlib).
   branch: "stable{major}"
   major_from:
-    file: instalador/Containers/nextcloud/Dockerfile
+    file: gestion/Containers/nextcloud/Dockerfile
     pattern: 'ENV NEXTCLOUD_VERSION=(\d+)'
   manuals: [user_manual, admin_manual, developer_manual]
   # Cada manual es un proyecto Sphinx propio: una etiqueta es única solo dentro de él. El de

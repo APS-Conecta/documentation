@@ -54,7 +54,6 @@ MAP_KINDS = {
     "nextcloud-app",
     "shared-library",
     "data-corpus",
-    "canon-engine",
     "agent-prompts",
     "laboratory-app",
 }

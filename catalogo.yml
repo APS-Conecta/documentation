@@ -9,32 +9,26 @@ org: APS-Conecta
 out_of_scope: [aps-conecta-web, calculadora-ecicep]
 repos:
   - repo: gestion
-    kind: suite
-    role: "Suite Nextcloud 34 de operaciones internas para CESFAM chilenos — config-as-code (PostgreSQL, Redis, Euro-Office). Una instalación por establecimiento; sin datos de pacientes."
+    kind: distribution-fork
+    role: "La suite APS Conecta Gestión en un repositorio: el instalador firmado (fork de Nextcloud AIO), el tema, los datos nacionales, las decisiones y la cadena de publicación de versiones. Una instalación por establecimiento; sin datos de pacientes."
     manuals:
       - administracion/arquitectura.md
       - administracion/usuarios-y-grupos/index.md
       - administracion/oficina/index.md
       - administracion/seguridad.md
-      - desarrollo/gestion.md
-      - proyecto/novedades/gestion.md
-    depends_on: [IntraVox, farmacia, estadistica, epidemiologia, territorio]
-    status: "Activa — el ritual de etiquetas se retiró; las versiones las publica instalador"
-  - repo: instalador
-    kind: distribution-fork
-    role: "Instalador firmado de la suite APS Conecta: el fork de Nextcloud AIO, el paquete del host, el Provisionador y la cadena de publicación de versiones."
-    manuals:
       - administracion/aio.md
       - administracion/instalacion/index.md
       - administracion/aprovisionamiento.md
       - administracion/mapas-base.md
       - administracion/operaciones/index.md
+      - desarrollo/gestion.md
       - desarrollo/aio.md
       - desarrollo/instalador.md
+      - proyecto/novedades/gestion.md
       - proyecto/novedades/instalador.md
-    depends_on: [gestion]
-    status: "Activo"
-    version: "0.4.0"
+    depends_on: [IntraVox, farmacia, estadistica, epidemiologia, territorio]
+    status: "Activa — el repositorio de la suite desde el corte: absorbió al gestion antiguo y tomó su nombre (#53)"
+    version: "0.5.0"
   - repo: IntraVox
     kind: nextcloud-app
     role: "Intranet de la organización — fork propio de IntraVox (páginas colaborativas con editor visual de arrastre), aplicación Nextcloud 34 para el personal del CESFAM."
@@ -107,6 +101,14 @@ repos:
       - proyecto/novedades/side_menu.md
     depends_on: []
     status: "En la suite desde 6.0.1 (2026-10-24)"
+  - repo: spreed
+    kind: nextcloud-app
+    role: "Talk de la suite — fork propio de spreed con releases firmadas: el chat y las videollamadas internas del establecimiento, sin salir a servicios de terceros."
+    manuals:
+      - proyecto/novedades/spreed.md
+    depends_on: [gestion]
+    status: "Activo"
+    version: "24.0.6"
   - repo: eurooffice
     kind: nextcloud-app
     role: "Conector de Euro-Office para Nextcloud: edición en línea de documentos, planillas y presentaciones; fork propio del upstream."
@@ -137,13 +139,6 @@ repos:
     role: "Corpus textual de normativa sanitaria chilena, catálogo de APIs de fuentes oficiales e inventario REM (compuertas de sondeo y verificación)."
     manuals:
       - desarrollo/databases.md
-    depends_on: []
-    status: "Activo"
-  - repo: repo-docs
-    kind: canon-engine
-    role: "Control de documentación de APS-Conecta — primero auditar, después construir; el motor del canon, los perfiles y el barrido semanal."
-    manuals:
-      - desarrollo/repo-docs.md
     depends_on: []
     status: "Activo"
   - repo: rpiv-artifacts

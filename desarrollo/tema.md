@@ -12,7 +12,7 @@ Cambiar la apariencia de la suite sin editar el núcleo ni una aplicación de te
 
 La suite fija la misma apariencia en cada establecimiento: el nombre y el lema del producto, los colores de APS Conecta, los logotipos, el tema claro como único tema, el nombre corto del establecimiento en la barra superior y la marca también en las pantallas de mantenimiento, actualización y error. Una pantalla tiene la marca cuando cumple cuatro condiciones: lleva el logotipo, el fondo, los colores y las fuentes de la suite; ningún texto visible nombra al fabricante; no ofrece publicidad ni enlaces del fabricante; y su texto cumple el contraste AA.
 
-La página {doc}`/administracion/servidor/theming` describe la app Theming de la plataforma. En la suite nadie la configura a mano: la fase [`15-branding`](https://github.com/APS-Conecta/instalador/blob/main/provisioning/phases/15-branding.sh) de la provisión es la única que escribe sus claves.
+La página {doc}`/administracion/servidor/theming` describe la app Theming de la plataforma. En la suite nadie la configura a mano: la fase [`15-branding`](https://github.com/APS-Conecta/gestion/blob/main/provisioning/phases/15-branding.sh) de la provisión es la única que escribe sus claves.
 
 ### Las cuatro capas
 
