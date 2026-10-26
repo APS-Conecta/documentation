@@ -284,7 +284,7 @@ Nada oculta la falla: la advertencia lleva el error de transporte, así que el c
 
 ## Deuda técnica y límites
 
-- **Los establecimientos reciben la versión que resuelve el instalador.** La suite instala epidemiologia desde la release más nueva compatible con su Nextcloud, publicada y firmada en el repositorio propio de la aplicación ([ADR-0017 de la suite](https://github.com/APS-Conecta/instalador/blob/main/docs/adr/0017-apps-install-from-their-own-releases.md)); la versión queda registrada en el archivo de bloqueo del servidor. Esta página describe la versión de `main`.
+- **Los establecimientos reciben la versión que resuelve el instalador.** La suite instala epidemiologia desde la release más nueva compatible con su Nextcloud, publicada y firmada en el repositorio propio de la aplicación ([ADR-0017 de la suite](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0017-apps-install-from-their-own-releases.md)); la versión queda registrada en el archivo de bloqueo del servidor. Esta página describe la versión de `main`.
 - **Una actualización de `<version>` deja la instancia en «requiere actualización»** hasta que corre `occ upgrade`; `occ app:enable` sobre una aplicación ya activa no registra los trabajos.
 - **La migración de la versión 0.11.0 reescribe la clave primaria** de `epidemiologia_alert` a `(fuente, url)`, y Nextcloud no tiene migraciones de retroceso: el único retroceso es restaurar un respaldo de la base de datos tomado antes y reinstalar la versión 0.10.0.
 - **El certificado del ISP fija un emisor.** El certificado hoja vence el 23 de noviembre de 2026 y nada detecta un cambio de emisor; si cambia, las cuatro fuentes del ISP fallan con `cURL error 60` hasta reemplazar el archivo de `certs/`.

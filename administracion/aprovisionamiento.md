@@ -1,7 +1,7 @@
 ---
 tipo: referencia
 audiencia: administracion
-apps: [instalador]
+apps: [gestion]
 resumen: "Las fases del aprovisionamiento en su orden fijo: qué escribe cada una en la instalación, por qué, y cómo converge sin borrar contenido."
 ---
 # Aprovisionamiento

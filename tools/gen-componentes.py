@@ -3,7 +3,7 @@
 
 componentes.yml declares what only a person knows (origin, SPDX licence, what APS changes). This
 script adds what the code knows, at build time, from the suite checkout under APS_ORG_ROOT
-(APS-Conecta/instalador — the suite repo, never the retired gestion):
+(APS-Conecta/gestion — the suite repository, renamed from instalador at the cutover):
 
   version    app release version (the roster checkout of the app's own repo); "—" for store apps,
              whose version the installer resolves at install time; image tag (the FROM base of the
@@ -183,14 +183,14 @@ def gather():
     rows = yaml.safe_load((ROOT / "componentes.yml").read_text(encoding="utf-8"))[
         "components"
     ]
-    instalador = org() / "instalador"
-    if not instalador.is_dir():
-        fail(f"checkout del instalador ausente: {instalador} (clonar la nómina bajo APS_ORG_ROOT)")
-    shipped = shipped_images((instalador / "php" / "containers.json").read_text(encoding="utf-8"))
-    imgs = base_images(instalador / "Containers", shipped)
+    suite = org() / "gestion"
+    if not suite.is_dir():
+        fail(f"checkout de gestion ausente: {suite} (clonar la nómina bajo APS_ORG_ROOT)")
+    shipped = shipped_images((suite / "php" / "containers.json").read_text(encoding="utf-8"))
+    imgs = base_images(suite / "Containers", shipped)
     nc_version = nc_server_version(
-        (instalador / "Containers" / "nextcloud" / "Dockerfile").read_text(encoding="utf-8"))
-    apps = manifest_apps((instalador / "apps.json").read_text(encoding="utf-8"))
+        (suite / "Containers" / "nextcloud" / "Dockerfile").read_text(encoding="utf-8"))
+    apps = manifest_apps((suite / "apps.json").read_text(encoding="utf-8"))
     catalog_rows = yaml.safe_load((ROOT / "catalogo.yml").read_text(encoding="utf-8"))[
         "repos"
     ]
@@ -198,7 +198,7 @@ def gather():
         r["repo"] for r in catalog_rows
         if r["kind"] == "distribution-fork"
         # An absorbed fork no longer ships: its catalogue status is the record of the
-        # transfer (AIO → instalador), not a second patch queue to track.
+        # transfer (AIO → the suite repository), not a second patch queue to track.
         and not str(r.get("status", "")).startswith("Absorbido")
     }
     return rows, imgs, nc_version, apps, forks, catalog_rows
@@ -275,8 +275,8 @@ def selftest() -> int:
     assert drift(gone, dict(imgs, php="x"), apps, set()) == [
         "componentes.yml lists base image gone, which no longer ships"
     ]
-    assert drift(rows, dict(imgs, php="x"), apps, {"instalador"}) == [
-        "distribution fork instalador ships but has no componentes.yml row"
+    assert drift(rows, dict(imgs, php="x"), apps, {"gestion"}) == [
+        "distribution fork gestion ships but has no componentes.yml row"
     ]
     res = resolve(rows, imgs, "34.0.5", {"eurooffice": "11.0.7"})
     assert [r["version"] for r in res] == ["34.0.5", "8.10.2-alpine", "8.4.26-fpm-alpine3.24", "—", "11.0.7"], res

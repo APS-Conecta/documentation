@@ -1,4 +1,4 @@
-"""gen-catalogo: la lista de aplicaciones se lee del manifiesto del instalador."""
+"""gen-catalogo: la lista de aplicaciones se lee del manifiesto del repositorio de la suite (gestion)."""
 
 import sys
 import unittest
@@ -11,13 +11,13 @@ gc = load("gen-catalogo")
 
 
 class RegistroTest(unittest.TestCase):
-    def test_el_manifiesto_vive_en_instalador(self):
+    def test_el_manifiesto_vive_en_gestion(self):
         raiz = Path("/org")
         self.assertEqual(
             gc.manifest_path(raiz),
-            raiz / "instalador" / "apps.json")
+            raiz / "gestion" / "apps.json")
 
-    def test_gestion_sin_manifiesto_e_instalador_con_manifiesto(self):
+    def test_gestion_sin_manifiesto_falla(self):
         gc.selftest_registro()
 
 

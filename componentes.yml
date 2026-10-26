@@ -4,8 +4,8 @@
 # Una persona declara aquí lo que solo una persona sabe: de dónde viene cada componente, su
 # licencia (SPDX, leída del propio componente) y, si APS lo modifica, qué cambia. Lo demás lo
 # calcula tools/gen-componentes.py en cada compilación desde el repositorio de la suite
-# (instalador): la versión de cada aplicación (el checkout de su propio repositorio; «—» cuando
-# el instalador la resuelve al instalar) y la de cada imagen base (el FROM del contenedor que la
+# (gestion): la versión de cada aplicación (el checkout de su propio repositorio; «—» cuando
+# la suite la resuelve al instalar) y la de cada imagen base (el FROM del contenedor que la
 # suite distribuye, php/containers.json → Containers/). La compilación falla si la suite
 # distribuye algo que no figura aquí, o si aquí figura algo que la suite ya no distribuye.
 #
@@ -15,8 +15,8 @@
 #   app      aplicación Nextcloud de terceros que el manifiesto de la suite (apps.json) instala
 #   own-app  aplicación propia de APS (repositorio de la organización) o fork propio de un upstream
 #   fork     repositorio de la organización que bifurca un proyecto upstream; `id` = repositorio
-#   asset    archivo de terceros que sirve el tema; `id` = ruta en el instalador
-#   data     datos de terceros que distribuye la suite; `id` = ruta en el instalador
+#   asset    archivo de terceros que sirve el tema; `id` = ruta en gestion
+#   data     datos de terceros que distribuye la suite; `id` = ruta en gestion
 #
 # AIO: el LICENSE upstream es la AGPL v3 sin cláusula «o posterior» (GitHub la detecta como AGPL-3.0,
 # que en SPDX equivale a AGPL-3.0-only). Upstreams de eurooffice e IntraVox leídos del info.xml del
@@ -53,6 +53,7 @@ components:
   - {name: Carpetas de grupo, kind: app, id: groupfolders, upstream: "https://github.com/nextcloud/groupfolders", licence: AGPL-3.0-or-later}
   - {name: Conector de Euro-Office, kind: app, id: eurooffice, upstream: "https://github.com/Euro-Office/eurooffice-nextcloud", fork: "https://github.com/APS-Conecta/eurooffice", licence: AGPL-3.0-only, changes: "Nombre de la sección de administración y nombre visible de la aplicación."}
   - {name: Menú lateral, kind: own-app, id: side_menu, upstream: "https://gitnet.fr/deblan/side_menu", fork: "https://github.com/APS-Conecta/side_menu", licence: AGPL-3.0-or-later, changes: "Mantenimiento propio: la fuente original está inaccesible; la suite publica y firma sus versiones."}
+  - {name: Talk, kind: app, id: spreed, upstream: "https://github.com/nextcloud/spreed", fork: "https://github.com/APS-Conecta/spreed", licence: AGPL-3.0-or-later, changes: "Fork propio con releases firmadas por la suite (ADR-0020): el chat y las videollamadas del establecimiento llegan desde su propio repositorio."}
   - {name: Calendario, kind: app, id: calendar, upstream: "https://github.com/nextcloud/calendar", licence: AGPL-3.0-or-later}
   - {name: Contactos, kind: app, id: contacts, upstream: "https://github.com/nextcloud/contacts", licence: AGPL-3.0-or-later}
   - {name: Talk (conversación), kind: app, id: spreed, upstream: "https://github.com/nextcloud/spreed", licence: AGPL-3.0-or-later}
@@ -68,7 +69,7 @@ components:
   - {name: Inicio (IntraVox), kind: own-app, id: intravox, upstream: "https://github.com/nextcloud/IntraVox", fork: "https://github.com/APS-Conecta/IntraVox", licence: AGPL-3.0-or-later, changes: "Fork con funciones locales: muros y páginas protegidas, portada de bienvenida administrada, raíz de almacenamiento con nombre para el personal y el idioma español por defecto (IntraVox ADR-0001)."}
 
   # ---- Instalador
-  - {name: Nextcloud All-in-One (instalador), kind: fork, id: instalador, upstream: "https://github.com/nextcloud/all-in-one", fork: "https://github.com/APS-Conecta/instalador", licence: AGPL-3.0-only, changes: "Asistente en español de Chile con la marca y el nombre del producto, Euro-Office como única suite ofimática, tienda de aplicaciones cerrada que abre solo para sus comandos acotados, autoactualización y contenedores comunitarios desactivados, aplicaciones desde sus publicaciones firmadas y solo el tema en la imagen, imágenes propias en el registro, valores por defecto de APS, certificado del instalador y base de datos única con pgvector."}
+  - {name: Nextcloud All-in-One (gestion), kind: fork, id: gestion, upstream: "https://github.com/nextcloud/all-in-one", fork: "https://github.com/APS-Conecta/gestion", licence: AGPL-3.0-only, changes: "Asistente en español de Chile con la marca y el nombre del producto, Euro-Office como única suite ofimática, tienda de aplicaciones cerrada que abre solo para sus comandos acotados, autoactualización y contenedores comunitarios desactivados, aplicaciones desde sus publicaciones firmadas y solo el tema en la imagen, imágenes propias en el registro, valores por defecto de APS, certificado del instalador y base de datos única con pgvector."}
 
   # ---- Recursos del tema
   - {name: Tipografía Fraunces, kind: asset, id: themes/apsconecta/core/fonts, upstream: "https://github.com/undercasetype/Fraunces", licence: OFL-1.1, changes: "Servida en WOFF2; un subconjunto va incrustado en los logotipos SVG (versión modificada según la OFL, sin los nombres reservados)."}

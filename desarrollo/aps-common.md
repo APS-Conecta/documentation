@@ -14,7 +14,7 @@ El paquete existe porque, sin él, dos aplicaciones copiarían y adaptarían el 
 
 Es una biblioteca de Composer, no una aplicación: no tiene `appinfo`, rutas ni base de datos, y no depende de ninguna clase OCP salvo un trait deliberadamente ligado a OCP, que la batería de pruebas del propio paquete nunca carga. Su estado es estable, `composer.json` declara la versión 1.0.0 y la consumen las cuatro aplicaciones propias.
 
-La licencia es AGPL-3.0-or-later ([ADR-0006](https://github.com/APS-Conecta/instalador/blob/main/docs/adr/0006-agpl-across-the-org.md)): la obligación viene de lo que enlazan las aplicaciones, no de una elección del paquete. El paquete no tiene dependencias de ejecución más allá de PHP `^8.1`, así que no hay terceros que atribuir.
+La licencia es AGPL-3.0-or-later ([ADR-0006](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0006-agpl-across-the-org.md)): la obligación viene de lo que enlazan las aplicaciones, no de una elección del paquete. El paquete no tiene dependencias de ejecución más allá de PHP `^8.1`, así que no hay terceros que atribuir.
 
 Una regla pertenece aquí cuando dos o más aplicaciones deben coincidir en su comportamiento y una divergencia rompe en silencio búsquedas o viajes de ida y vuelta: el dialecto CSV de es-CL, el plegado de acentos, los slugs, la neutralización de fórmulas y la forma del mensaje de error. Las formas propias de cada aplicación no se mueven: la exportación con pérdida de territorio y la planilla de ida y vuelta de farmacia son distintas a propósito.
 

@@ -1,7 +1,7 @@
 ---
 tipo: guia
 audiencia: administracion
-apps: [instalador, territorio]
+apps: [gestion, territorio]
 resumen: "Comprobar que Territorio carga el mapa base de OpenStreetMap en cada navegador, dónde abre el mapa y qué hacer si el fondo no aparece."
 ---
 # Mapas base

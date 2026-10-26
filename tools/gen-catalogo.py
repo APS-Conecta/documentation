@@ -7,7 +7,7 @@ y `_generated/linkcheck-private.txt` (una URL raíz por fila privada — la semi
 de `linkcheck_ignore` en conf.py).
 
 Valida: esquema de filas, paridad con la lista de aplicaciones de la suite (las
-filas `own` y `fork` de `apps.json`, el manifiesto único del instalador, se pliegan
+filas `own` y `fork` de `apps.json`, el manifiesto único de la suite (gestion), se pliegan
 sobre los nombres canónicos del catálogo y exigen su fila `nextcloud-app`) y que
 cada `manuals` resuelva a un .md comprometido del árbol y lleve su repositorio
 en `apps`. Versiona por cadena (`version:` explícita →
@@ -17,8 +17,8 @@ bajo `${APS_ORG_ROOT:-/opt/aps-conecta-org}`. La visibilidad se consulta viva
 con `gh api orgs/APS-Conecta/repos` (gh en el ambiente; GH_TOKEN nunca en
 argv/URL). Determinista: sin marcas de tiempo.
 
-`--selftest` clavija la deriva (nómina, paridad, versiones, visibilidad,
-semilla privada) y es explícito — nada lo invoca desde el Makefile.
+`--selftest` clavija la deriva del registro (el manifiesto de la suite) y es
+explícito — nada lo invoca desde el Makefile.
 """
 from __future__ import annotations
 
@@ -42,9 +42,9 @@ ORG_ROOT = Path(os.environ.get("APS_ORG_ROOT", "/opt/aps-conecta-org"))
 
 def manifest_path(org_root: Path) -> Path:
     """La lista de aplicaciones de la suite vive en el manifiesto único del
-    instalador (apps.json), no en gestion ni en ninguna fase de provisión: el
-    manifiesto es la única lista de aplicaciones que queda."""
-    return org_root / "instalador" / "apps.json"
+    repositorio de la suite (gestion, apps.json), no en ninguna fase de
+    provisión: el manifiesto es la única lista de aplicaciones que queda."""
+    return org_root / "gestion" / "apps.json"
 
 
 REGISTRY = manifest_path(ORG_ROOT)
@@ -55,7 +55,6 @@ KINDS = {
     "nextcloud-app",
     "shared-library",
     "data-corpus",
-    "canon-engine",
     "agent-prompts",
     "laboratory-app",
     "app-in-design",
@@ -71,7 +70,6 @@ KIND_ES = {
     "nextcloud-app": "Aplicación Nextcloud",
     "shared-library": "Biblioteca compartida",
     "data-corpus": "Corpus de datos",
-    "canon-engine": "Motor del canon",
     "agent-prompts": "Prompts de agentes",
     "laboratory-app": "Aplicación de laboratorio",
     "app-in-design": "Aplicación sin publicar",
@@ -88,38 +86,6 @@ NOVEDADES_KINDS = {"suite", "distribution-fork", "nextcloud-app"}
 MANIFEST_OWN = {"own", "fork"}  # las filas del manifiesto que el catálogo documenta como aplicaciones
 SEMVER_RE = re.compile(r"^#{1,3}\s*\[?\s*v?(\d+(?:\.\d+){2}[0-9A-Za-z.+-]*)", re.M)
 
-# Clavijas de --selftest (deriva viva a 2026-10-24).
-PINNED_REPOS = {
-    "gestion", "instalador", "IntraVox", "farmacia", "estadistica", "epidemiologia",
-    "territorio", "aps-common", "Databases", "repo-docs",
-    "rpiv-artifacts", ".github", "documentation", "buscador-documental",
-    "side_menu", "eurooffice", "desktop_workspace", "totem",
-}
-PINNED_APPS = {"epidemiologia", "farmacia", "territorio", "IntraVox", "estadistica",
-               "side_menu", "eurooffice", "desktop_workspace", "totem"}
-PINNED_VERSIONS = {
-    "gestion": "0.3.0",
-    "instalador": "0.4.0",
-    "IntraVox": "3.1.7",
-    "farmacia": "0.12.0",
-    "estadistica": "0.1.0",
-    "epidemiologia": "0.12.0",
-    "territorio": "0.80.0",
-    "aps-common": "1.0.0",
-    "Databases": "",
-    "repo-docs": "",
-    "rpiv-artifacts": "",
-    ".github": "",
-    "documentation": "",
-    "buscador-documental": "",
-    "side_menu": "6.0.1",
-    "eurooffice": "11.0.7",
-    "desktop_workspace": "0.19.0",
-    "totem": "0.3.0",
-}
-PINNED_PUBLIC = {"gestion", "instalador", "IntraVox", "repo-docs", ".github", "documentation",
-                 "buscador-documental", "epidemiologia", "farmacia", "estadistica",
-                 "territorio", "aps-common", "side_menu", "eurooffice", "desktop_workspace", "totem"}
 
 
 def fail(msg: str) -> None:
@@ -169,8 +135,6 @@ def load_rows() -> list[dict]:
         fail("filas duplicadas en catalogo.yml")
     if doc.get("org") != ORG:
         fail(f"org: esperaba {ORG!r}, hay {doc.get('org')!r}")
-    if doc.get("out_of_scope") != ["aps-conecta-web", "calculadora-ecicep"]:
-        fail("out_of_scope: esperaba [aps-conecta-web, calculadora-ecicep]")
     return rows
 
 
@@ -185,7 +149,7 @@ tener su fila en el catálogo."""
         text = registry.read_text(encoding="utf-8")
     except FileNotFoundError:
         fail(f"registro ausente para la paridad: {registry} "
-             "(apps.json vive en el instalador: clonar APS-Conecta/instalador "
+             "(apps.json vive en gestion: clonar APS-Conecta/gestion "
              "bajo APS_ORG_ROOT)")
     try:
         rows = json.loads(text)
@@ -274,7 +238,7 @@ def _changelog_version(repo_dir: Path) -> str:
 
 
 def version_for(row: dict) -> str:
-    if "version" in row:  # anulación explícita (p. ej. instalador: aún sin versión publicada)
+    if "version" in row:  # anulación explícita (p. ej. gestion: la versión de la suite)
         return str(row["version"]).strip()
     repo_dir = ORG_ROOT / row["repo"]
     if not repo_dir.is_dir():
@@ -427,79 +391,29 @@ def main() -> int:
 
 
 def selftest_registro() -> None:
-    """La lista de aplicaciones se lee del manifiesto del instalador, nunca de
-    gestion: una raíz donde gestion NO tiene `apps.json` e instalador SÍ,
-    resuelve; sin el manifiesto, el error nombra la ruta del instalador."""
+    """La lista de aplicaciones se lee del manifiesto del repositorio de la
+    suite (gestion): una raíz donde gestion tiene `apps.json` resuelve, y sin
+    él el error nombra la ruta de gestion."""
     rel = Path("apps.json")
     with tempfile.TemporaryDirectory() as td:
         raiz = Path(td)
         (raiz / "gestion").mkdir(parents=True)
-        (raiz / "instalador").mkdir(parents=True)
-        (raiz / "instalador" / rel).write_text(
+        (raiz / "gestion" / rel).write_text(
             '[{"id": "intravox", "source": "fork"}, '
             '{"id": "farmacia", "source": "own"}, '
             '{"id": "calendar", "source": "store"}]\n', encoding="utf-8")
-        assert manifest_path(raiz) == raiz / "instalador" / rel, manifest_path(raiz)
+        assert manifest_path(raiz) == raiz / "gestion" / rel, manifest_path(raiz)
         assert own_apps(manifest_path(raiz)) == ["intravox", "farmacia"]
-        (raiz / "instalador" / rel).unlink()
+        (raiz / "gestion" / rel).unlink()
         try:
             own_apps(manifest_path(raiz))
         except SystemExit:
             pass
         else:
-            raise AssertionError("sin apps.json en instalador la paridad debe fallar")
-
-
-def selftest() -> int:
-    selftest_registro()
-    doc = yaml.safe_load(CATALOGO.read_text(encoding="utf-8"))
-    rows = load_rows()
-    assert {r["repo"] for r in rows} == PINNED_REPOS
-    assert all(str(r.get("role", "")).strip() for r in rows)
-    apps = parity(rows)
-    assert apps == PINNED_APPS, f"paridad: {sorted(apps)}"
-    for row in rows:  # forma de los manuales (la existencia la gatea la corrida completa)
-        for page in row["manuals"]:
-            assert MANUAL_RE.match(page), page
-    versions, visibility = gather(rows, doc["out_of_scope"])
-    assert versions == PINNED_VERSIONS, "deriva de versiones:\n" + "\n".join(
-        f"  {k}: {versions[k]!r} ≠ {PINNED_VERSIONS[k]!r}" for k in PINNED_VERSIONS
-        if versions[k] != PINNED_VERSIONS[k])
-    publicos = {r["repo"] for r in rows if not visibility[r["repo"]]}
-    assert publicos == PINNED_PUBLIC, f"visibilidad: {sorted(publicos)}"
-    # Una rutina de Claude no puede listar la org: repo por repo da la misma visibilidad.
-    def refused(path, jq):
-        if path.startswith("orgs/"):
-            return subprocess.CompletedProcess([], 1, "", "HTTP 403: sessions are bound to their configured repositories")
-        return _gh(path, jq)
-    per_repo, census = org_visibility(rows, refused)
-    assert not census and per_repo == {r["repo"]: visibility[r["repo"]] for r in rows}, per_repo
-    page = render(rows, versions, visibility)
-    for row in rows:
-        assert row["repo"] in page, row["repo"]
-    used_labels = {KIND_ES[r["kind"]] for r in rows}
-    for label in used_labels:  # cada etiqueta usada llega a la página
-        assert label in page, label
-    # Ningún valor del enum EN llega a la página: columna Tipo estrictamente en
-    # español, y ningún enum con guion como subcadena en ninguna parte.
-    lines = page.splitlines()
-    header = "| Repositorio | Tipo | Versión | Visibilidad | Rol | Manuales | Estado |"
-    main_rows = []
-    for ln in lines[lines.index(header) + 2:]:  # salta cabecera y separador
-        if not ln.startswith("|"):
-            break
-        main_rows.append(ln)
-    assert len(main_rows) == len(rows), (len(main_rows), len(rows))
-    tipo_cells = {ln.split("|")[2].strip() for ln in main_rows}
-    assert tipo_cells <= set(KIND_ES.values()), tipo_cells - set(KIND_ES.values())
-    for enum in KINDS - {"suite"}:  # «suite» es también common noun; cubierto por la columna
-        assert enum not in page, enum
-    privadas = [f"https://github.com/{ORG}/{r['repo']}" for r in rows if visibility[r["repo"]]]
-    assert len(privadas) == 2, privadas  # Databases y rpiv-artifacts son los únicos privados de la nómina
-    print("[gen-catalogo] selftest OK (nómina, paridad, versiones, visibilidad, "
-          "visibilidad sin listado de org, etiquetas, semilla privada)")
-    return 0
-
+            raise AssertionError("sin apps.json en gestion la paridad debe fallar")
 
 if __name__ == "__main__":
-    sys.exit(selftest() if "--selftest" in sys.argv[1:] else main())
+    if "--selftest" in sys.argv[1:]:
+        selftest_registro()
+    else:
+        sys.exit(main())

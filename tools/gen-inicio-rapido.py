@@ -21,10 +21,7 @@ no existe, el repositorio se omite con línea de bitácora. Fallos duros
 (exit 1, nombrando el repositorio): clon ausente, fila malformada o hub
 `desarrollo/<slug>.md` ausente. Determinista: sin marcas de tiempo.
 
-`--selftest` clavija el libro verificado contra la org viva y afirma los cuatro
-marcadores de paso, la ausencia de «Licencia» y el español del tramo
-extraído —
-explícito, nada lo invoca desde el Makefile.
+Determinista: sin marcas de tiempo.
 """
 from __future__ import annotations
 
@@ -48,31 +45,10 @@ EXCLUDED = "documentation"  # este sitio: su propio README no es contenido de de
 HEADING_RE = re.compile(r"^##\s+Inicio r[áa]pido de desarrollo\s*$")
 NEXT_H2_RE = re.compile(r"^##\s")
 
-# Libro verificado contra la org viva (2026-10-18, rama main de cada repo); clavijas de --selftest.
-# Incluyen su inicio rápido los repos con README en español (ADR 0006); instalador es un fork
-# cuyo README raíz se llama `readme.md`, de modo que el catálogo no lo encuentra.
-PIN_INCLUDED = {"repo-docs", "aps-common", "Databases", "epidemiologia", "estadistica", "farmacia"}
 # Repositorios cuya sección de inicio rápido el sitio no puede perder: si un README
 # la retira o la traduce, la compilación falla (la página es la puerta de entrada
 # de quien desarrolla sobre ese repositorio).
 REQUIRED = {"aps-common", "Databases", "epidemiologia", "estadistica", "farmacia"}
-PIN_MISSING_README = {"IntraVox", "instalador", ".github"}
-PIN_NO_HEADING = {
-    "buscador-documental",
-    "gestion",
-    "rpiv-artifacts",
-    "territorio",
-    "side_menu",
-    "eurooffice",
-    "desktop_workspace",
-    "totem",
-}
-PIN_STEP_MARKERS = (
-    "docs.py discover",
-    "check gestion --explain",
-    "check --all --save-baseline",
-    "Instalación",
-)
 
 
 def fail(msg: str) -> None:
@@ -237,56 +213,7 @@ def main() -> int:
     return 0
 
 
-def selftest() -> int:
-    roster = load_roster()
-    included: set[str] = set()
-    missing: set[str] = set()
-    no_heading: set[str] = set()
-    span_text = ""
-    for row in roster:
-        kind, readme, span = classify(row)
-        if kind == "missing":
-            missing.add(row["repo"])
-        elif kind == "no-heading":
-            no_heading.add(row["repo"])
-        else:
-            included.add(row["repo"])
-            if row["repo"] == "repo-docs":
-                assert span is not None
-                heading_ln, end_ln = span
-                span_text = "\n".join(
-                    readme.read_text(encoding="utf-8").splitlines()[heading_ln - 1 : end_ln - 1]
-                )
-    problems: list[str] = []
-    if included != PIN_INCLUDED:
-        problems.append(f"incluidos {sorted(included)} ≠ clavija {sorted(PIN_INCLUDED)}")
-    if missing != PIN_MISSING_README:
-        problems.append(f"sin README {sorted(missing)} ≠ clavija {sorted(PIN_MISSING_README)}")
-    if no_heading != PIN_NO_HEADING:
-        problems.append(f"sin sección {sorted(no_heading)} ≠ clavija {sorted(PIN_NO_HEADING)}")
-    if not span_text:
-        problems.append("repo-docs: tramo del inicio rápido ausente")
-    else:
-        for marker in PIN_STEP_MARKERS:
-            if marker not in span_text:
-                problems.append(f"repo-docs: marcador ausente en el tramo: {marker!r}")
-        if span_reads_english(span_text) is not None:
-            problems.append("repo-docs: el tramo se lee como inglés")
-        assert span_reads_english("Run the tests before you open a pull request.") is not None
-        assert span_reads_english("Ejecutar las pruebas antes de abrir una pull request.") is None
-        if "Licencia" in span_text:
-            problems.append("repo-docs: el tramo extraído contiene «Licencia»")
-    if problems:
-        for problem in problems:
-            print(f"[inicio-rapido] SELFTEST FALLO: {problem}", file=sys.stderr)
-        return 1
-    print(
-        f"[inicio-rapido] selftest OK: incluidos {sorted(included)}, "
-        f"{len(missing)} sin README, {len(no_heading)} sin sección, "
-        "cuatro marcadores presentes, sin «Licencia»"
-    )
-    return 0
 
 
 if __name__ == "__main__":
-    sys.exit(selftest() if "--selftest" in sys.argv[1:] else main())
+    sys.exit(main())

@@ -1,16 +1,16 @@
 ---
 tipo: referencia
 audiencia: desarrollo
-apps: [instalador]
+apps: [gestion]
 resumen: "Cómo se mantiene el fork de nextcloud/all-in-one, hoy en instalador: un solo árbol, la declaración, las compuertas y la fusión de upstream."
 ---
 # AIO
 
 ## Resumen
 
-El fork de [nextcloud/all-in-one](https://github.com/nextcloud/all-in-one) desde el que se construyen las imágenes de cada instalación de la suite vive en el repositorio [APS-Conecta/instalador](https://github.com/APS-Conecta/instalador), que absorbió también el paquete del host y la cadena de publicación: el repositorio APS-Conecta/AIO fue su primera casa y se eliminó una vez absorbido; su historia de commits sigue completa en instalador. Lo que los cambios del fork hacen en una instalación está en {doc}`/administracion/aio`; esta página describe cómo se mantiene el fork, y el repositorio que hoy lo contiene —bootstrap firmado, `VERSION` y cadena de publicación— tiene su propia referencia en {doc}`instalador </desarrollo/instalador>`.
+El fork de [nextcloud/all-in-one](https://github.com/nextcloud/all-in-one) desde el que se construyen las imágenes de cada instalación de la suite vive en el repositorio [APS-Conecta/gestion](https://github.com/APS-Conecta/gestion), que absorbió también el paquete del host y la cadena de publicación: el repositorio APS-Conecta/AIO fue su primera casa y se eliminó una vez absorbido; su historia de commits sigue completa en instalador. Lo que los cambios del fork hacen en una instalación está en {doc}`/administracion/aio`; esta página describe cómo se mantiene el fork, y el repositorio que hoy lo contiene —bootstrap firmado, `VERSION` y cadena de publicación— tiene su propia referencia en {doc}`instalador </desarrollo/instalador>`.
 
-El fork sigue una regla única: `main` es **un solo árbol** —la historia de upstream más los cambios del fork como bytes confirmados, de primera clase—. Los cambios no viajan como archivos aparte ni por ramas de integración: cada cambio es un commit del propio árbol, y una versión de upstream llega como llega cualquier cambio, con una fusión deliberada en `main`, y después una versión corriente. Los números que la [declaración del fork](https://github.com/APS-Conecta/instalador/blob/main/readme.md) asigna a cada cambio son atribución —qué cambio debe qué garantía—, no archivos aparte.
+El fork sigue una regla única: `main` es **un solo árbol** —la historia de upstream más los cambios del fork como bytes confirmados, de primera clase—. Los cambios no viajan como archivos aparte ni por ramas de integración: cada cambio es un commit del propio árbol, y una versión de upstream llega como llega cualquier cambio, con una fusión deliberada en `main`, y después una versión corriente. Los números que la [declaración del fork](https://github.com/APS-Conecta/gestion/blob/main/readme.md) asigna a cada cambio son atribución —qué cambio debe qué garantía—, no archivos aparte.
 
 `main` nunca recibe envíos forzados: es de solo anexo y un retroceso es un revert. Cambiar un archivo que upstream distribuye es editar el archivo, con la declaración y las compuertas sosteniendo cada garantía.
 
@@ -29,6 +29,7 @@ El fork conserva sin cambios el `LICENSE` de upstream (AGPL-3.0); su identificad
 | `scripts/` | Las compuertas (`brand-gate.sh`, `acquisition-gate.sh`), los validadores de upstream (`validate.sh`), el registro (`retag.sh`) y los renombrados (`rename-containers.py`) | Pull request |
 | `.github/workflows/` | `ci.yml`, `images.yml`, `release.yml`, `cleanboot.yml` y los validadores de upstream | Pull request |
 | `BUGS.md` | El registro de fallas corregidas de las herramientas del fork | Pull request |
+
 
 ### Las compuertas
 

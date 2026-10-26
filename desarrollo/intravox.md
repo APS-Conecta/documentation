@@ -16,15 +16,15 @@ Decisiones de diseño:
 - **Una página es una carpeta.** La página `<pageId>/` contiene `<pageId>.json` (widgets y diseño) y `_media/`, dentro de una carpeta de grupo. La página hereda de la carpeta todo lo que Nextcloud da a una carpeta —compartir, ACL, versiones, papelera— e IntraVox no reimplementa nada de eso.
 - **La identidad es el `uniqueId`, nunca la carpeta.** El nombre de la carpeta se deriva del título y solo es único entre hermanas (una colisión recibe el sufijo `-2`, `-3`); renombrar o sufijar una carpeta no rompe enlaces, compartidos ni grupos de traducción.
 - **Doce widgets.** Texto, título, imagen, enlaces, separador, vídeo, noticias, personas, calendario, fuente, historia fotográfica e historia de archivos (`ALLOWED_WIDGET_TYPES` en `lib/Service/Sanitize/PageShapeSanitizer.php`); el saneador descarta cualquier otro tipo y admite como máximo cinco columnas.
-- **Comunicación de la organización, no productividad personal.** IntraVox publica para un público amplio; el Dashboard es la vista personal de cada cuenta. En la suite, la capa personal se queda en páginas de equipo con ACL, porque el personal usa computadores compartidos en sesiones cortas ([ADR-0012](https://github.com/APS-Conecta/instalador/blob/main/docs/adr/0012-personal-layer-stays-page-level.md)).
+- **Comunicación de la organización, no productividad personal.** IntraVox publica para un público amplio; el Dashboard es la vista personal de cada cuenta. En la suite, la capa personal se queda en páginas de equipo con ACL, porque el personal usa computadores compartidos en sesiones cortas ([ADR-0012](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0012-personal-layer-stays-page-level.md)).
 
 El repositorio se mantiene como fork con funciones locales ([ADR-0001](https://github.com/APS-Conecta/IntraVox/blob/main/docs/adr/0001-fork-with-local-features.md)): el upstream es el motor y se incorpora; las diferencias del fork son pocas y quedan registradas. Una incorporación desde el upstream que toca una de ellas vuelve a leer ese ADR antes de fusionarse.
 
 | Diferencia del fork | Qué hace | Registro |
 |---|---|---|
-| Idiomas | El valor por defecto de idiomas habilitados es `['es', 'en']` con `es` como principal (`lib/Service/LanguageService.php`); gestion ya no escribe la clave. | [ADR-0014](https://github.com/APS-Conecta/instalador/blob/main/docs/adr/0014-language-reality-is-the-engines-es-only-default.md) |
-| Raíz de almacenamiento | El nombre de la carpeta de grupo es un valor de la app, `groupfolder_name` (por defecto `IntraVox`), leído por una sola clase, `MountName`, que usan todas las resoluciones de rutas, el único recortador de rutas y los enlaces a Archivos. | [ADR-0016](https://github.com/APS-Conecta/instalador/blob/main/docs/adr/0016-the-storage-root-is-named-for-staff.md) |
-| Siembra gestionada | `occ intravox:import --skip-existing` (`ManagedTreeImporter`) nunca sobrescribe una página, un archivo ni una imagen existente. | [ADR-0015](https://github.com/APS-Conecta/instalador/blob/main/docs/adr/0015-the-welcome-tree-is-declared-and-converged-per-section.md) |
+| Idiomas | El valor por defecto de idiomas habilitados es `['es', 'en']` con `es` como principal (`lib/Service/LanguageService.php`); gestion ya no escribe la clave. | [ADR-0014](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0014-language-reality-is-the-engines-es-only-default.md) |
+| Raíz de almacenamiento | El nombre de la carpeta de grupo es un valor de la app, `groupfolder_name` (por defecto `IntraVox`), leído por una sola clase, `MountName`, que usan todas las resoluciones de rutas, el único recortador de rutas y los enlaces a Archivos. | [ADR-0016](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0016-the-storage-root-is-named-for-staff.md) |
+| Siembra gestionada | `occ intravox:import --skip-existing` (`ManagedTreeImporter`) nunca sobrescribe una página, un archivo ni una imagen existente. | [ADR-0015](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0015-the-welcome-tree-is-declared-and-converged-per-section.md) |
 | Muros | Una página con `"protected": true` rechaza eliminarse y moverse en el servidor; se edita, título incluido. | `CHANGELOG.md`, `[Unreleased]` |
 | Datos de demostración | Sin descarga remota: la única fuente es `demo-data/<lang>/` empaquetado, y el paso de reparación posterior a la migración solo converge la carpeta de grupo, los grupos y los permisos, sin contenido. | `CHANGELOG.md`, `[Unreleased]` |
 | Plegado compartido | `slugifyHeading` pliega los títulos con la regla compartida de aps-common, copiada en `src/aps/` por el objetivo `aps-sync` del `Makefile` del fork; `scripts/check-aps-parity.mjs` fija los anclajes byte a byte, porque están guardados en las páginas y en los enlaces compartidos. | `Makefile`, `src/utils/headingAnchors.js` |
@@ -33,7 +33,7 @@ El repositorio se mantiene como fork con funciones locales ([ADR-0001](https://g
 La suite instala el fork así:
 
 1. El manifiesto de la suite declara el fork (`source: fork`): en el momento de instalar, la resolución descarga su publicación firmada más reciente compatible con la versión de Nextcloud, la verifica contra la clave de aplicaciones y registra la versión en el candado.
-2. La fase 15 fija `defaultapp` en `intravox`: un inicio de sesión aterriza en la intranet ([ADR-0010](https://github.com/APS-Conecta/instalador/blob/main/docs/adr/0010-intravox-is-the-default-landing-app.md)).
+2. La fase 15 fija `defaultapp` en `intravox`: un inicio de sesión aterriza en la intranet ([ADR-0010](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0010-intravox-is-the-default-landing-app.md)).
 3. La política de apps fija `intravox:telemetry_enabled:false`: la telemetría del motor viene activada por defecto y la suite la apaga con el literal `'false'` (`provisioning/app-policy.sh`).
 4. La fase 41 (`provisioning/phases/41-intravox.sh`) escribe `groupfolder_name` antes de `occ intravox:setup --skip-demo`, asigna los grupos del registro a los del motor, renderiza el árbol que el establecimiento declara y lo importa por sección, y escribe las ACL de las páginas de equipo. La guía de la portada —qué se siembra, el flujo editorial, el presupuesto de páginas y la recuperación— vive en esta página y en {doc}`/usuario/inicio`.
 
@@ -85,7 +85,7 @@ Mapa de módulos <../_generated/mapa/intravox>
 | `scheduled` | Fecha de publicación futura | Quienes pueden escribir en la página |
 | `expired` | Fecha de vencimiento pasada | Quienes pueden escribir en la página |
 
-Sin MetaVox, o sin campos de fecha configurados, solo existen `draft` y `published`. gestion no instala MetaVox ([ADR-0013](https://github.com/APS-Conecta/instalador/blob/main/docs/adr/0013-metavox-deferred-alert-expiry-is-editorial.md)): en la suite, un aviso vence cuando un editor lo devuelve a borrador.
+Sin MetaVox, o sin campos de fecha configurados, solo existen `draft` y `published`. gestion no instala MetaVox ([ADR-0013](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0013-metavox-deferred-alert-expiry-is-editorial.md)): en la suite, un aviso vence cuando un editor lo devuelve a borrador.
 
 **Bloqueo de edición.** `PageLockService` es un bloqueo pesimista por página en la tabla `intravox_page_locks`:
 

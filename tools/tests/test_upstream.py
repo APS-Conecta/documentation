@@ -864,9 +864,9 @@ class RenderTest(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmp:
             src = Path(tmp)
-            # the unwoven link's fallback URL names the major: a fixture org, not this box's instalador
-            (src / "org" / "instalador" / "Containers" / "nextcloud").mkdir(parents=True)
-            (src / "org" / "instalador" / "Containers" / "nextcloud" / "Dockerfile").write_text(
+            # the unwoven link's fallback URL names the major: a fixture org, not this box's suite repo
+            (src / "org" / "gestion" / "Containers" / "nextcloud").mkdir(parents=True)
+            (src / "org" / "gestion" / "Containers" / "nextcloud" / "Dockerfile").write_text(
                 "ENV NEXTCLOUD_VERSION=34\n", encoding="utf-8")
             env = mock.patch.dict(os.environ, {"APS_ORG_ROOT": str(src / "org")})
             env.start()
@@ -1038,8 +1038,8 @@ class BareRefTitleTest(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmp:
             src = Path(tmp)
-            (src / "org" / "instalador" / "Containers" / "nextcloud").mkdir(parents=True)
-            (src / "org" / "instalador" / "Containers" / "nextcloud" / "Dockerfile").write_text(
+            (src / "org" / "gestion" / "Containers" / "nextcloud").mkdir(parents=True)
+            (src / "org" / "gestion" / "Containers" / "nextcloud" / "Dockerfile").write_text(
                 "ENV NEXTCLOUD_VERSION=34\n", encoding="utf-8")
             env = mock.patch.dict(os.environ, {"APS_ORG_ROOT": str(src / "org")})
             env.start()
@@ -1106,8 +1106,8 @@ class LabelScopeTest(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmp:
             src = Path(tmp)
-            (src / "org" / "instalador" / "Containers" / "nextcloud").mkdir(parents=True)
-            (src / "org" / "instalador" / "Containers" / "nextcloud" / "Dockerfile").write_text(
+            (src / "org" / "gestion" / "Containers" / "nextcloud").mkdir(parents=True)
+            (src / "org" / "gestion" / "Containers" / "nextcloud" / "Dockerfile").write_text(
                 "ENV NEXTCLOUD_VERSION=34\n", encoding="utf-8")
             env = mock.patch.dict(os.environ, {"APS_ORG_ROOT": str(src / "org")})
             env.start()
@@ -1144,8 +1144,8 @@ class DifiereLinkTest(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmp:
             src = Path(tmp)
-            (src / "org" / "instalador" / "Containers" / "nextcloud").mkdir(parents=True)
-            (src / "org" / "instalador" / "Containers" / "nextcloud" / "Dockerfile").write_text(
+            (src / "org" / "gestion" / "Containers" / "nextcloud").mkdir(parents=True)
+            (src / "org" / "gestion" / "Containers" / "nextcloud" / "Dockerfile").write_text(
                 "ENV NEXTCLOUD_VERSION=34\n", encoding="utf-8")
             env = mock.patch.dict(os.environ, {"APS_ORG_ROOT": str(src / "org")})
             env.start()
@@ -1200,8 +1200,8 @@ class W9GateTest(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmp:
             src = Path(tmp)
-            (src / "org" / "instalador" / "Containers" / "nextcloud").mkdir(parents=True)
-            (src / "org" / "instalador" / "Containers" / "nextcloud" / "Dockerfile").write_text(
+            (src / "org" / "gestion" / "Containers" / "nextcloud").mkdir(parents=True)
+            (src / "org" / "gestion" / "Containers" / "nextcloud" / "Dockerfile").write_text(
                 "ENV NEXTCLOUD_VERSION=34\n", encoding="utf-8")
             env = mock.patch.dict(os.environ, {"APS_ORG_ROOT": str(src / "org")})
             env.start()
