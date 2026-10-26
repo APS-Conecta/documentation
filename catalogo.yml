@@ -141,13 +141,6 @@ repos:
       - desarrollo/databases.md
     depends_on: []
     status: "Activo"
-  - repo: rpiv-artifacts
-    kind: artifacts-store
-    role: "Almacén de artefactos de APS Conecta: planes, diseños, validaciones y traspasos de rpiv."
-    manuals:
-      - desarrollo/rpiv-artifacts.md
-    depends_on: []
-    status: "Activo"
   - repo: .github
     kind: org-defaults
     role: "Valores por defecto a nivel de organización: perfil, guía de contribución, seguridad y plantillas de incidencia servidas a cada repositorio de APS-Conecta."

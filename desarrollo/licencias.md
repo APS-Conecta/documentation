@@ -23,7 +23,6 @@ La tabla de componentes de terceros que distribuye la suite, con su origen, vers
 | gestion, IntraVox, farmacia, estadistica, epidemiologia, territorio, aps-common, Databases, `.github` | `LICENSE` | El mismo texto de la GNU AGPL v3 en todos; la organización la declara AGPL-3.0-or-later |
 | documentation | `LICENSE` y `COPYING` | AGPL-3.0-or-later para las herramientas de compilación; CC BY 3.0 para el texto y las capturas del sitio |
 | AIO | `LICENSE` de upstream | AGPL v3 sin la cláusula «o posterior», es decir, AGPL-3.0-only |
-| rpiv-artifacts | Ninguno | Sin archivo de licencia |
 
 En este sitio, `REUSE.toml` asigna cada ruta: la prosa de las páginas es CC-BY-3.0; `conf.py`, el `Makefile`, `tools/` y `_templates/` son AGPL-3.0-or-later; y `_static/css/aps-brand.css`, el mapeo de la marca, está reservado.
 
@@ -55,6 +54,5 @@ Lo que hoy comprueba el sitio: `make structure` sobre las páginas, `make linkch
 
 ### Deuda y pendientes
 
-- rpiv-artifacts no tiene `LICENSE`, contra la regla de un `LICENSE` idéntico en cada repositorio, y no corre el workflow de documentación que lo detectaría.
 - La reserva de las marcas se mantiene a mano: un SVG nuevo en `mu-plugins/assets/brand/` del repositorio aps-conecta-web queda bajo la AGPL hasta que alguien lo agregue a la lista de su `LICENSE` de marcas.
 - Esta página y la tabla de componentes marcan los puntos que requieren revisión legal: el titular de los derechos es una persona natural mientras no exista una entidad legal, la disputa pública sobre los términos de la sección 7 que afecta a Euro-Office, y los términos de uso de las coordenadas del Geoportal de Chile.
