@@ -26,7 +26,7 @@ Cada imagen está fijada por digest; la etiqueta queda solo para leerla. El obje
 
 `nextcloud` y `cron` corren la misma imagen sobre los mismos volúmenes: `cron.php` carga las aplicaciones, así que también necesita `custom_apps` y `themes`. Un ancla de YAML hace que esa igualdad sea estructural. Los directorios `apps/` y `themes/` del repositorio se montan sobre `custom_apps` y `themes` del contenedor: el código propio se edita en vivo, sin reconstruir la imagen.
 
-La tienda de aplicaciones está apagada por variable de entorno, `NC_appstoreenabled` en `"0"`, en `nextcloud` y en `cron`: el `occ upgrade` que corre el entrypoint ante un cambio de imagen volvería a descargar de la tienda cada aplicación activa y anularía los paquetes fijados.
+La tienda de aplicaciones está apagada por variable de entorno, `NC_appstoreenabled` en `"0"`, en `nextcloud` y en `cron`, la misma postura que la suite: con la tienda abierta, el `occ upgrade` que corre el entrypoint ante un cambio de imagen volvería a descargar de la tienda cada aplicación activa, y la suite abre la tienda solo para el comando que instala o actualiza una aplicación de la tienda.
 
 Todos los servicios usan `restart: unless-stopped`: la pila vuelve tras un reinicio del anfitrión, y una pila detenida a propósito sigue detenida. El costo aceptado es que un computador de desarrollo levanta la pila completa al encender, Euro-Office incluido; el objetivo `down` es la salida.
 

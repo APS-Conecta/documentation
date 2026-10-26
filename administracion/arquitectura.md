@@ -8,10 +8,10 @@ resumen: "Las dos formas de la instalación, la pila de desarrollo y la de un ce
 
 ## Contexto
 
-La plataforma corre sobre la imagen oficial publicada por {vendor}`Nextcloud`, sin bifurcación del código fuente ni parches al núcleo.
-La instalación la arma el repositorio instalador: el fork del instalador y el paquete del host, que agregan solo personalización declarativa —configuración, el tema del servidor y el aprovisionamiento de grupos, carpetas y permisos—, mientras gestion conserva la definición de la suite: aplicaciones vendorizadas, registro de establecimientos, tema y datos, sin datos de producto ni secretos.
-Las aplicaciones de terceros que la suite modifica reciben parches versionados en el repositorio, que el {doc}`aprovisionamiento </administracion/aprovisionamiento>` vuelve a aplicar en cada siembra; el núcleo nunca se parchea.
-Las aplicaciones propias se instalan desde tarballs construidos a partir de etiquetas de su propio repositorio y llegan a la plataforma solo por las interfaces públicas `OCP\…`.
+La plataforma corre sobre la imagen oficial publicada por {vendor}`Nextcloud`, sin bifurcación del código fuente del núcleo.
+La instalación la arma el repositorio instalador: el fork del instalador, el paquete del host y la definición de la suite —manifiesto de aplicaciones, registro de establecimientos, tema y datos—, que agregan solo personalización declarativa —configuración, el tema del servidor y el aprovisionamiento de grupos, carpetas y permisos—, sin datos de producto ni secretos.
+Las aplicaciones de terceros que la suite modifica viven como forks en repositorios propios de la organización, con los cambios como commits; el núcleo nunca se modifica.
+Las aplicaciones propias y los forks se instalan desde la publicación firmada de su propio repositorio, verificada contra la clave de aplicaciones de la suite, y las de tienda llegan de la tienda con la puerta acotada; unas y otras llegan a la plataforma solo por las interfaces públicas `OCP\…`.
 La instancia en ejecución es una proyección de esa receta sobre la imagen oficial: reproducible y desechable.
 
 Cada instalación sirve a un solo establecimiento, y el repositorio no contiene datos de pacientes.
