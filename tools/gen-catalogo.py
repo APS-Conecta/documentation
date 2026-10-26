@@ -58,7 +58,6 @@ KINDS = {
     "agent-prompts",
     "laboratory-app",
     "app-in-design",
-    "artifacts-store",
     "org-defaults",
     "docs-site",
 }
@@ -73,7 +72,6 @@ KIND_ES = {
     "agent-prompts": "Prompts de agentes",
     "laboratory-app": "Aplicación de laboratorio",
     "app-in-design": "Aplicación sin publicar",
-    "artifacts-store": "Almacén de artefactos",
     "org-defaults": "Valores por defecto de la organización",
     "docs-site": "Sitio de documentación",
 }
