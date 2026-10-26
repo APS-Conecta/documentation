@@ -17,6 +17,9 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 - The repo-docs canon retires from the site (D2): the page, the catalogue row, the
   `docs`-gate descriptions in `calidad` and `licencias` leave; the `docs` check of this site is
   `make structure` plus the range's gitleaks sweep.
+- rpiv-artifacts retires from the site ahead of its deletion (gestion #55): its page, the
+  toctree entry, the catalogue row and the license-table rows leave; the retirement prose in
+  `calidad` and the code-provenance comments are the only mentions that stay.
 - The generators read the suite checkout at its new name (`gestion`): manifest, components,
   brand fetch, upstream major, map and catalogue; the drift pins and selftests that froze the
   pre-cutover roster are deleted (the registro selftest stays, re-pinned to gestion).
