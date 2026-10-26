@@ -36,4 +36,4 @@ Un plan de iniciativa nombra su ejecutor y lo que aprueba el responsable de la o
 - `initiatives/` no figura en la lista blanca: un archivo nuevo ahí queda ignorado hasta que se agrega de forma explícita.
 - El tejido masivo terminó el 2026-10-10 con la cobertura completa de los documentos de {vendor}`Nextcloud`; desde entonces el carril `upstream` de 📚 Scribe sigue cada cambio, y `initiatives/scribe-tools/` queda para las auditorías de omisión y como registro de cómo corrió el tejido.
 - La cadena tiene huecos: los dos diseños apuntan con `parent` a investigaciones que este repositorio no guarda.
-- Los enlaces relativos de un artefacto apuntan al repositorio donde se escribió, así que aquí no resuelven; se registran como hallazgos abiertos del barrido semanal que corría el canon retirado.
+- Los enlaces relativos de un artefacto apuntan al repositorio donde se escribió, así que aquí no resuelven.

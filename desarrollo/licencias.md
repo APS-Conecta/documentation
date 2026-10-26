@@ -43,20 +43,11 @@ En este sitio, `REUSE.toml` asigna cada ruta: la prosa de las páginas es CC-BY-
 
 ## Verificación
 
-La comprobación de estructura del sitio (`make structure`) y la revisión de enlaces (`make linkcheck`) aplican lo anterior sobre las páginas; la tabla de componentes de terceros se genera desde `componentes.yml`:
-
-| Regla | Severidad | Falla cuando |
-|---|---|---|
-| `license-posture` | Error | Falta `LICENSE` —una licencia no se hereda del repositorio `.github` de la organización— o la licencia no es la AGPL |
-| `licence-declaration` | Error | `LICENSE`, `appinfo/info.xml`, `composer.json` y `package.json` declaran licencias distintas, o hay una declaración sin `LICENSE` |
-| `licence-prose` | Error | La prosa presenta el código de la organización como cerrado, contra la licencia declarada |
-| `licence-inventory` | Aviso | Una familia de licencias que usa una dependencia falta en el documento de avisos |
-
-En este sitio, `make html` falla si la suite distribuye un componente que `componentes.yml` no declara, o si declara uno que ya no distribuye.
+Lo que hoy comprueba el sitio: `make structure` sobre las páginas, `make linkcheck` sobre los enlaces, y `make html` — que falla si la suite distribuye un componente que `componentes.yml` no declara, o si declara uno que ya no distribuye. Las reglas `license-posture`, `licence-declaration`, `licence-prose` y `licence-inventory` eran las del verificador retirado y ya no corren: la declaración de licencias se revisa al compilar la tabla, y su palabra en español es esta página.
 
 ## Problemas frecuentes
 
-- **Un `info.xml` declara `agpl`.** No es un error: el esquema de aplicaciones acepta desde siempre esa cadena como AGPL v3 o posterior, y la compuerta de gestion la normaliza.
+- **Un `info.xml` declara `agpl`.** No es un error: el esquema de aplicaciones acepta desde siempre esa cadena como AGPL v3 o posterior.
 - **Un componente es AGPL-3.0-only.** El conector `eurooffice`, el servidor de documentos Euro-Office y el instalador AIO de upstream no tienen la cláusula «o posterior».
 - **Redis 8 ofrece tres licencias.** APS Conecta elige la AGPL v3, la única de las tres aprobada por la OSI.
 - **Las tipografías de la marca viajan dos veces bajo la OFL-1.1.** Servidas como `.woff2` —conversión de formato del `.ttf` original: la versión original en otro contenedor, sin más requisitos— e incrustadas como subconjunto dentro de los logotipos SVG (`tools/embed-fonts.py` del instalador). Un subconjunto es una versión modificada bajo la OFL, permitido porque las fuentes no se venden solas y viajan con su licencia; los nombres reservados no se usan para las copias modificadas: los subconjuntos van incrustados, nunca distribuidos como archivos instalables bajo los nombres originales.

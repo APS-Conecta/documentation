@@ -8,7 +8,7 @@ resumen: "Talk de la suite: el fork propio de spreed, instalado desde su release
 
 ## Resumen
 
-[spreed](https://github.com/APS-Conecta/spreed) es Talk, el chat y las videollamadas de la suite: un fork propio de la aplicación de Nextcloud, mantenido como repositorio de la organización para publicar sus versiones firmadas ([ADR-0020 de la suite](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0020-spreed-is-a-fork-app-with-signed-releases.md)). La suite lo instala como aplicación predeterminada desde su propia release firmada, como al resto de las aplicaciones propias y fork, y su contenedor de grabación (`aps-conecta-talk`) es opcional.
+[spreed](https://github.com/APS-Conecta/spreed) es Talk, el chat y las videollamadas de la suite: un fork propio de la aplicación de Nextcloud, mantenido como repositorio de la organización para publicar sus versiones firmadas ([ADR-0020 de la suite](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0020-spreed-is-a-fork-app-with-signed-releases.md)). La suite lo instala como aplicación predeterminada desde su propia release firmada, como al resto de las aplicaciones propias y fork; su contenedor (`aps-conecta-talk`) es parte de la suite.
 
 El uso que hace el personal está en la sección de conversación del manual de usuario; esta página es el registro del lado del desarrollo.
 
