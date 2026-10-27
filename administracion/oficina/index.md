@@ -32,7 +32,7 @@ Gracias a la asociación de {vendor}`Nextcloud` con Collabora, {vendor}`Nextclou
 
 ## En APS Conecta Gestión
 
-La oficina de APS Conecta Gestión es Euro-Office: un servidor de documentos en su propio contenedor y la aplicación conectora `eurooffice`. Nextcloud Office no forma parte de la suite. El asistente de instalación de la suite quita las tarjetas de Collabora y OnlyOffice, rechaza cualquier oficina distinta de Euro-Office y rechaza también la petición de cambiarla o desactivarla. El asistente fija además el par certificado: DocumentServer 9.3.4 con el conector 11.0.5.
+La oficina de APS Conecta Gestión es Euro-Office: un servidor de documentos en su propio contenedor y la aplicación conectora `eurooffice`. Nextcloud Office no forma parte de la suite. El asistente de instalación de la suite quita las tarjetas de Collabora y OnlyOffice, rechaza cualquier oficina distinta de Euro-Office y rechaza también la petición de cambiarla o desactivarla. El servidor de documentos es DocumentServer 9.3.4.
 
 La aplicación `office` de la plataforma, una vista general que no edita documentos ni está conectada al editor, queda desactivada por la política de aplicaciones: una superficie sin función y con un nombre confuso es peor que ninguna.
 
@@ -64,7 +64,7 @@ La verificación de oficina, `scripts/office-smoke.sh`, forma parte de la revali
 1. El conector `eurooffice` está activado.
 2. `/eurooffice/healthcheck` responde por la ruta pública, a través de apache: es el tramo que se corta con NAT de horquilla o DNS dividido mientras el contenedor sigue sano.
 3. La comprobación del propio conector prueba de una vez el healthcheck, el JWT, la versión mínima y una conversión real de un documento `docx` a través de `StorageUrl`.
-4. La versión del servidor de documentos está en la línea 9.3.x: la versión mínima del conector es más antigua y dejaría pasar otra generación sin aviso.
+4. La versión del servidor de documentos es la fijada por la suite (9.3.4): la versión mínima del conector es más antigua y dejaría pasar otra versión sin aviso.
 5. La imagen del servidor de documentos es la de AIO o la del canal de la suite; cualquier otra, incluidas las de Collabora y OnlyOffice, falla.
 
 Ninguna verificación automática cubre la presentación en el navegador, la coedición, la fidelidad al abrir y guardar, ni la edición por formato. Una verificación en verde tampoco prueba que una persona en otro equipo pueda abrir un documento: esa comprobación es manual, abriendo un documento desde otro equipo de la red, y la guía clínica la pide después de la mudanza desde la suite anterior.
