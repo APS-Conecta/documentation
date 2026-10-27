@@ -9,7 +9,7 @@ resumen: "Cómo entrar a la plataforma desde el navegador y orientarse en la int
 
 ## Resumen
 
-El acceso a la plataforma se hace por navegador web, con la cuenta y la contraseña que entrega la administración del centro. Esta página describe la interfaz web y la accesibilidad que ofrece y, al final, lo que la suite fija en ella para el establecimiento: la pantalla de inicio, el idioma, la apariencia y el modo escritorio.
+El acceso a la plataforma se hace por navegador web, con la cuenta y la contraseña que entrega la administración del centro. Esta página describe la interfaz web y la accesibilidad que ofrece y, al final, lo que la suite fija en ella para el establecimiento: la pantalla de inicio, el idioma y la apariencia.
 
 ### La interfaz web de Nextcloud
 
@@ -159,7 +159,6 @@ APS Conecta Gestión configura la interfaz igual para todo el personal del estab
 - **Apariencia.** La suite fija el tema claro con los colores de APS Conecta. El tema oscuro, el de alto contraste y los fondos o colores personales que describe la sección «Acceso universal» no están disponibles.
 - **Aplicaciones.** El conjunto de aplicaciones es fijo y la tienda de aplicaciones está desactivada: ninguna aplicación se agrega desde la interfaz.
 - **Archivos de una cuenta nueva.** Una cuenta nueva empieza con su carpeta personal vacía, sin archivos ni carpetas de ejemplo; el trabajo del centro está en las carpetas de equipo. Por la misma razón, la cuenta no recibe plantillas para crear documentos nuevos.
-- **Modo escritorio.** La aplicación **Escritorio** abre las aplicaciones en ventanas dentro de una sola pestaña, con una **Barra de tareas**. Su propio aviso la declara una versión alfa, una prueba de concepto que puede contener errores.
 
 Para entrar por primera vez:
 

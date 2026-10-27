@@ -118,14 +118,6 @@ repos:
       - proyecto/novedades/eurooffice.md
     depends_on: []
     status: "Fork recién creado; entra a la suite con su primera release"
-  - repo: desktop_workspace
-    kind: nextcloud-app
-    role: "Espacio de escritorio para Nextcloud — fork propio del upstream, con los cambios de la suite como commits separados."
-    manuals:
-      - desarrollo/desktop_workspace.md
-      - proyecto/novedades/desktop_workspace.md
-    depends_on: []
-    status: "Fork recién creado; entra a la suite con su primera release"
   - repo: aps-common
     kind: shared-library
     role: "Reglas de texto compartidas por las aplicaciones propias de APS Conecta: dialecto CSV, familia fold/slug, postura de rechazo y forma del error de cliente (PHP + JS)."
