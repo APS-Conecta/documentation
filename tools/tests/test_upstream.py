@@ -1361,7 +1361,6 @@ class StoreUiStringsTest(unittest.TestCase):
         apps = dict(u.store_apps())
         self.assertEqual(apps["groupfolders"], "nextcloud/groupfolders")
         self.assertNotIn("eurooffice", apps)          # APS fork — its checkout is read
-        self.assertNotIn("desktop_workspace", apps)
         self.assertNotIn("side_menu", apps)
         self.assertNotIn("spreed", apps)              # a fork since ADR-0020 — its checkout is read
 

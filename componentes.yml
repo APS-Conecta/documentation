@@ -56,7 +56,6 @@ components:
   - {name: Talk, kind: own-app, id: spreed, upstream: "https://github.com/nextcloud/spreed", fork: "https://github.com/APS-Conecta/spreed", licence: AGPL-3.0-or-later, changes: "Fork propio con releases firmadas por la suite (ADR-0020): el chat y las videollamadas del establecimiento llegan desde su propio repositorio."}
   - {name: Calendario, kind: app, id: calendar, upstream: "https://github.com/nextcloud/calendar", licence: AGPL-3.0-or-later}
   - {name: Contactos, kind: app, id: contacts, upstream: "https://github.com/nextcloud/contacts", licence: AGPL-3.0-or-later}
-  - {name: Escritorio (desktop_workspace), kind: app, id: desktop_workspace, upstream: "https://github.com/canisdata/desktop_workspace", fork: "https://github.com/APS-Conecta/desktop_workspace", licence: AGPL-3.0-or-later, changes: "Ruta del registro en los ajustes, errores que ya no se silencian, política de contenido sin HTTP, límites de tamaño de carga útil, documentación de la administración, pruebas fijadas, división del shell, del observador y del controlador, y código muerto eliminado."}
   - {name: Notify Push, kind: app, id: notify_push, upstream: "https://github.com/nextcloud/notify_push", licence: AGPL-3.0-or-later}
 
   # ---- Aplicaciones propias de APS Conecta

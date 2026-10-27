@@ -37,11 +37,11 @@ Para editar un documento existente:
 
 Varias personas pueden editar el mismo documento a la vez: un cursor de color marca la posición y la identidad de cada una. Los comentarios admiten respuestas y se pueden marcar como resueltos. El control de cambios marca cada cambio con el nombre de quien lo hizo, de modo que una jefatura puede aceptar o rechazar cada cambio antes de publicar un protocolo.
 
-El editor se muestra siempre claro, aunque el sistema operativo use el modo oscuro. En el modo **Escritorio**, el documento se abre dentro de la ventana del escritorio, no en una pestaña nueva del navegador.
+El editor se muestra siempre claro, aunque el sistema operativo use el modo oscuro.
 
 ## Verificación
 
-1. Comprobar que el documento se abrió en una pestaña nueva, o en la ventana del escritorio en el modo **Escritorio**, y que **Archivos** sigue abierta.
+1. Comprobar que el documento se abrió en una pestaña nueva y que **Archivos** sigue abierta.
 2. Volver a abrir el documento desde **Archivos**.
 3. Comprobar que el documento muestra los cambios.
 4. Abrir **Detalles** del documento.

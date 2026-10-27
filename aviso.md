@@ -25,7 +25,6 @@ APS Conecta Gestión es una distribución derivada de Nextcloud 34. El servidor 
 | Nextcloud All-in-One (gestion) | Fork propio de Nextcloud All-in-One; su declaración enumera los cambios | `APS-Conecta/gestion`, `readme.md` |
 | IntraVox (portada de la intranet, «Inicio») | Fork con funciones locales | `APS-Conecta/IntraVox`, ADR-0001 del fork |
 | Conector de Euro-Office (`eurooffice`) | Fork propio del conector upstream, con los cambios de la suite como commits | `APS-Conecta/eurooffice` |
-| Escritorio (`desktop_workspace`) | Fork propio del upstream, con los cambios de la suite como commits | `APS-Conecta/desktop_workspace` |
 | Menú lateral (`side_menu`) | Fork propio mantenido por la organización desde el tarball AGPL 6.0.1 de upstream | `APS-Conecta/side_menu` |
 | Tipografías Fraunces y Nunito Sans | Un subconjunto de cada una va incrustado en los logotipos SVG, una versión modificada que la OFL permite | `APS-Conecta/gestion`, `themes/apsconecta/core/` |
 
