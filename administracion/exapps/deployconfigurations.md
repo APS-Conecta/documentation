@@ -31,7 +31,7 @@ Estos esquemas son solo ejemplos de configuraciones posibles.
 
 Para el daemon de despliegue Docker (HaRP) se requiere [AppAPI HaRP](https://github.com/nextcloud/harp).
 
-Para el daemon de despliegue Docker (Docker Socket Proxy), se recomienda usar el contenedor [AppAPI Docker Socket Proxy](https://github.com/nextcloud/docker-socket-proxy) o, para Nextcloud AIO, el contenedor [AIO Docker Socket Proxy](#nc-nextcloud-in-docker-aio-all-in-one).
+Para el daemon de despliegue Docker (Docker Socket Proxy), se recomienda usar el contenedor [AppAPI Docker Socket Proxy](https://github.com/nextcloud/docker-socket-proxy).
 :::
 
 Hay varias configuraciones del daemon de despliegue Docker (esquemas de ejemplo):
@@ -39,7 +39,6 @@ Hay varias configuraciones del daemon de despliegue Docker (esquemas de ejemplo)
 - Nextcloud y Docker en el **mismo host** (mediante socket, DockerSocketProxy o HaRP)
 - Nextcloud en el host y Docker en un host **remoto** (mediante DockerSocketProxy con HTTPS, o HaRP)
 - Nextcloud y las **ExApps** en la **misma red Docker** (mediante DockerSocketProxy o HaRP)
-- Nextcloud en Docker AIO y las **ExApps** en la **misma red Docker** (mediante AIO DockerSocketProxy)
 
 (nc-ai-app_api_ddd-harp)=
 ### Daemon de despliegue Docker (HaRP)
@@ -336,40 +335,6 @@ La red **no debe ser la bridge predeterminada de Docker**, ya que esta no admite
 Esto significa que los contenedores de **Docker Socket Proxy**, **Nextcloud** y las **ExApps** deben estar todos en la misma red Docker, distinta de la **bridge** predeterminada.
 :::
 
-(nc-nextcloud-in-docker-aio-all-in-one)=
-#### Nextcloud en Docker AIO (todo en uno)
-
-En el caso de AppAPI en una instalación de Docker AIO (instalada en el contenedor de Nextcloud).
-
-:::{note}
-El contenedor AIO Docker Socket Proxy debe estar activado.
-:::
-
-En el host, el contenedor maestro de Nextcloud AIO y Docker Socket Proxy acceden a {file}`/var/run/docker.sock`; el contenedor maestro gestiona el contenedor de Nextcloud, donde está instalada AppAPI, y Nextcloud se conecta a Docker Socket Proxy, que conecta con ExApp1, ExApp2 y ExApp3.
-
-AppAPI crea automáticamente el DaemonConfig predeterminado para AIO Docker Socket Proxy, para usarlo como orquestador al crear los contenedores de las ExApps.
-
-:::{note}
-El DaemonConfig predeterminado solo se crea si no hay ya un DaemonConfig predeterminado registrado.
-:::
-
-##### Daemon de despliegue AIO predeterminado (Docker Socket Proxy)
-
-Nextcloud AIO tiene un contenedor Docker Socket Proxy creado específicamente para usarse como daemon de despliegue en AppAPI. Tiene [parámetros fijos][AIODockerActions]:
-
-- Nombre: `docker_aio`
-- Nombre para mostrar: `AIO Docker Socket Proxy`
-- Acepta el ID de despliegue: `docker-install`
-- Protocolo: `http`
-- Servidor: `nextcloud-aio-docker-socket-proxy:2375`
-- Dispositivo de cómputo: `CPU`
-- Red: `nextcloud-aio`
-- URL de Nextcloud (que se pasa a las ExApps): `https://$NC_DOMAIN`
-
-##### Seguridad de Docker Socket Proxy
-
-AIO Docker Socket Proxy tiene un acceso estrictamente limitado a las API de Docker, descrito en la [configuración de HAProxy](https://github.com/nextcloud/all-in-one/blob/main/Containers/docker-socket-proxy/haproxy.cfg).
-
 ### Comunicación de NC con las ExApps
 
 La comunicación entre Nextcloud y las ExApps se realiza a través de AppAPI. Con Docker Socket Proxy, las solicitudes se envían directamente al contenedor de la ExApp. Con HaRP, la comunicación pasa por el proxy principal de Nextcloud y por el contenedor HaRP.
@@ -496,6 +461,4 @@ En todos los demás casos, la ExApp debe estar disponible por su nombre: p. ej.,
 NC --> *http* --> `app_container_name:ex_app_port`
 
 Estos tres tipos distintos de comunicación cubren las configuraciones más habituales.
-
-[AIODockerActions]: <https://github.com/nextcloud/app_api/blob/main/lib/DeployActions/AIODockerActions.php#L52-L74)>
 ````
