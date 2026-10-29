@@ -15,10 +15,12 @@ Sus cuatro superficies:
 
 | Superficie | Ruta | Quién la usa |
 |---|---|---|
-| Tótem | `/apps/totem/totem` (y `/apps/totem/totem/<nombre>` por tótem configurado) | Anónima, táctil: dos toques, unidad y preferente, y el ticket imprime |
+| Tótem | `/apps/totem/totem` (y `/apps/totem/totem/<slug>` por tótem configurado) | Anónima, táctil: dos toques, unidad y preferente, y el ticket imprime |
 | Pantalla de sala | `/apps/totem/display/<pantalla>` | Anónima: el llamado, los llamados recientes, campanillas y la voz en español |
 | Ventanilla | `/apps/totem/box` | Con sesión: un botón guiado por estado — llamar siguiente, iniciar atención, finalizar atención |
 | Estadísticas | `/apps/totem/estadisticas` | Con sesión: conteos absolutos de tickets por día, semana o mes, por sector, unidad y preferente, con descarga CSV |
+
+La dirección de un tótem o de una pantalla sale de su nombre cuando se crea el registro y no cambia aunque se renombre; si otro registro renombrado todavía ocupa esa dirección, la nueva lleva `-2`, `-3` y así sucesivamente. Dos tótems, o dos pantallas, no pueden llevar el mismo nombre, ni al crearlos ni al renombrarlos; las tildes, las mayúsculas, los espacios y la puntuación no cuentan.
 
 Tótem es una aplicación opcional de la suite: el asistente de instalación la ofrece desactivada por omisión y, cuando un centro la elige, el instalador la descarga de la release firmada de su propio repositorio ([ADR-0017 de la suite](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0017-apps-install-from-their-own-releases.md)); su versión queda registrada en el archivo de bloqueo del servidor. Los cambios visibles de cada versión se registran en {doc}`/proyecto/novedades/totem`.
 
