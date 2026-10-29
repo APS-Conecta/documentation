@@ -163,14 +163,14 @@ Para quitar una palabra:
 1. Presionar {guilabel}`Quitar` junto al nombre.
 2. Confirmar con {guilabel}`Quitar`.
 
-Una categoría o un canal no se puede quitar mientras algún medicamento, activo o retirado, lo use. Los nombres no pueden quedar vacíos, ni pasar de 128 caracteres, ni contener «|». Al agregar, un nombre que coincide con otro sin contar acentos, mayúsculas ni signos se rechaza con «Ya existe una categoría con ese nombre.» o «Ya existe un canal con ese nombre.». Renombrar cambia solo el nombre visible: la palabra conserva el identificador interno que se derivó del nombre con que se creó. Una planilla que traiga ese nombre original la sigue reconociendo; una planilla exportada después del cambio trae el nombre nuevo, y si este difiere del original en algo más que acentos, mayúsculas o signos, la revisión pide decidir esa palabra.
+Una categoría o un canal no se puede quitar mientras algún medicamento, activo o retirado, lo use. Los nombres no pueden quedar vacíos, ni pasar de 128 caracteres, ni contener «|». Al agregar o al renombrar, un nombre que coincide, sin contar acentos, mayúsculas ni signos, con el de otra palabra o con el nombre con que esa palabra se creó se rechaza con «Ya existe una categoría con ese nombre.» o «Ya existe un canal con ese nombre.». Renombrar cambia solo el nombre visible: la palabra conserva el identificador interno que se derivó del nombre con que se creó. Una planilla que traiga ese nombre original la sigue reconociendo; una planilla exportada después del cambio trae el nombre nuevo, y si este difiere del original en algo más que acentos, mayúsculas o signos, la revisión pide decidir esa palabra.
 
 ## Verificación
 
 - Después de {guilabel}`Guardar`, la sección Estado de la ficha muestra «Actualizado:» con la fecha y la hora de la escritura.
 - Un medicamento retirado aparece en {guilabel}`Ver retirados` con la marca «Retirado».
 - Después de {guilabel}`Aplicar`, la página se recarga con el arsenal al día, y {guilabel}`Lotes recientes` muestra el lote como «aplicado».
-- Después de {guilabel}`Deshacer`, {guilabel}`Lotes recientes` muestra un lote nuevo que «deshace el lote #N».
+- Después de {guilabel}`Deshacer`, el diálogo sigue abierto y {guilabel}`Lotes recientes` muestra un lote nuevo que «deshace el lote #N», con cuántos medicamentos deshizo («N deshechos») y, si dejó alguno como estaba, cuántos y por qué («N sin deshacer: cambiaron después del lote o su categoría o canal ya no existe»). Al cerrar el diálogo, la página se recarga con el arsenal al día.
 - Después de importar con `occ farmacia:import`, {guilabel}`Lotes recientes` muestra el lote con el número que informó el comando.
 - Después de {guilabel}`Descargar`, el navegador guarda el archivo `farmacia-AAAA-MM-DD.csv` con la fecha del día.
 
