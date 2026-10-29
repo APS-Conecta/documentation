@@ -102,6 +102,8 @@ Ejecutar `occ files:scan` tras una copia manual. Leer [la guía](https://example
 #### Detalles
 
 Puede acceder a sus archivos en Nextcloud con la interfaz web de Nextcloud.
+
+La barra lateral muestra los detalles.
 """
 
 
@@ -371,6 +373,14 @@ class FidelityTest(unittest.TestCase):
         self.assertTrue(
             any("official Spanish not used verbatim" in f for f in found), found
         )
+
+    def test_an_uncut_block_keeps_its_official_wording(self):
+        # a re-translation is no cut, however far it strays from the msgstr
+        official = CATALOG["You can access your Nextcloud files with the Nextcloud Web interface."]
+        for rewrite in ("Con la interfaz web de Nextcloud se accede a los archivos de Nextcloud.",
+                        "La interfaz web permite entrar a todo lo guardado."):
+            found, _ = self.check(GOOD.replace(official, rewrite))
+            self.assertTrue(any("official Spanish not used verbatim" in f for f in found), (rewrite, found))
 
     def test_an_official_msgstr_off_register_is_adapted_not_copied(self):
         # owner 2026-10-10: formal, direct, affirmative; a tuteo msgstr is no longer copied verbatim
@@ -657,8 +667,18 @@ class UiLabelTest(unittest.TestCase):
     def test_a_ui_literal_may_become_its_spanish_label(self):
         ok = "Hacer clic en {guilabel}`Comenzar llamada`, luego en {guilabel}`Ajustes` → {guilabel}`Actualizaciones` y `occ`.\n"
         self.assertEqual(self.check(ok), [])
-        bad = "Hacer clic en `Empezar`, luego en `Settings -> Updates` y `occ`.\n"
+        bad = "Hacer clic en {guilabel}`Empezar`, luego en `Settings -> Updates` y `occ`.\n"
         self.assertTrue(any("inline literals" in f for f in self.check(bad)))
+        # a label the interface does not back is no cut of the literal it replaces
+        bad = ok.replace("`occ`", "{guilabel}`Borrar todo`")
+        self.assertTrue(any("inline literals" in f for f in self.check(bad)), self.check(bad))
+
+    def test_an_upstream_ui_role_may_become_its_spanish_label(self):
+        # the block cuts ``occ``: its labels are upstream's, so nothing replaced it
+        up = "Title\n=====\n\nOpen :menuselection:`Settings --> Updates`, then :guilabel:`Start call` and ``occ``.\n"
+        page = "Abrir {guilabel}`Ajustes` → {guilabel}`Actualizaciones` y luego {guilabel}`Comenzar llamada`.\n"
+        blk = block(page, "user_manual/files/x.rst@3ad9158")
+        self.assertEqual(fidelity.check_block(blk, "usuario/archivos/x.md", up, {}, CFG, ui=self.UI)[0], [])
 
     def test_an_official_lead_in_may_end_in_a_period(self):
         # user-root audit: «Simplemente introduzca su código:» introduced a dropped screenshot
@@ -831,9 +851,11 @@ class MaintenanceDocTest(unittest.TestCase):
 
     def test_a_decorated_ui_literal_may_become_its_label(self):
         # admin external_storage_gui: ``Folder name.`` (stray period), files: ``+ New`` (icon prefix)
+        from collections import Counter
         ui = {"New": {"Nuevo"}, "Folder name": {"Nombre de la carpeta"}}
-        warns = fidelity.warnings("Usar `+ New` y `Folder name.`.\n", "Use ``+ New`` and ``Folder name.``.\n", ui)
-        self.assertEqual(len([w for w in warns if "write {guilabel}" in w]), 2, warns)
+        swapped = fidelity._ui_swaps(Counter({"+ New": 1, "Folder name.": 1}),
+                                     Counter({"Nuevo": 1, "Nombre de la carpeta": 1}), ui)
+        self.assertEqual(swapped, Counter({"+ New": 1, "Folder name.": 1}))
 
 
 class RenderTest(unittest.TestCase):
