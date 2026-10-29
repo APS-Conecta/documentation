@@ -24,7 +24,6 @@ Coverage (every mapped document has a block somewhere) is reported always and en
 
 from __future__ import annotations
 
-import difflib
 import fnmatch
 import re
 import sys
@@ -89,7 +88,8 @@ def check_block(
         if catalog.get(para):
             want -= Counter(u.rst_inline_literals(para))
             want += Counter(u.rst_inline_literals(catalog[para]))
-    added = Counter(u.myst_inline_literals(content)) - want
+    have = Counter(u.myst_inline_literals(content))
+    added = have - want
     if added:
         out.append(
             f"{doc}: inline literals are not upstream's (added or altered: {sorted(added)[:3]})"
@@ -103,6 +103,18 @@ def check_block(
                 for a, b in zip(en, es):
                     if a != b:
                         ui[a] = set(ui.get(a, ())) | {b}
+    # a missing literal is a cut, unless the block shows a {guilabel} that may have replaced it:
+    # one neither the interface's Spanish of a swapped literal (each swap spends its labels) nor
+    # of a step of an upstream :guilabel: or :menuselection:
+    labels = Counter(u.myst_guilabels(content))
+    cut = want - have - _ui_swaps(want - have, labels, ui)
+    steps = {es for role in re.findall(r":(?:guilabel|menuselection):`([^`]+)`", section)
+             for step in re.split(r"\s*-->\s*", " ".join(role.split()))
+             for es in ui.get(step) or ui.get(_bare_label(step), ())}
+    unbacked = sorted(es for es in +labels if es not in steps)
+    if cut and unbacked:
+        out.append(f"{doc}: inline literals are not upstream's (missing {sorted(cut)[:3]}; "
+                   f"{{guilabel}} the interface does not back: {unbacked[:3]})")
 
     added = u.myst_links(content) - u.rst_links(section, doc, cfg)
     if added:
@@ -132,18 +144,18 @@ def check_block(
     mine = [u.plain(p).rstrip(":.") for p in u.myst_paragraphs(content)] + [
         u.plain(t).rstrip(":.") for _, t in u.myst_headings(content)
     ]
-    ai = 0
-    for para in u.rst_paragraphs(section):
+    ai, missing, up_paras = 0, [], u.rst_paragraphs(section)
+    for para in up_paras:
         official = catalog.get(para, "")
         if official and not u.style_problems(official):  # an off-register msgstr is adapted, not copied
-            want = u.plain(official).rstrip(":.")
-            # a cut paragraph is gone; one the block keeps close to the msgstr was altered
-            if want not in mine and difflib.get_close_matches(want, mine, n=1):
-                out.append(
-                    f"{doc}: official Spanish not used verbatim: «{u.plain(official)[:70]}…»"
-                )
+            if u.plain(official).rstrip(":.") not in mine:
+                missing.append(official)
         else:
             ai += 1
+    # a cut takes its paragraphs: as many official ones may be missing as the block has fewer
+    # paragraphs than upstream; any more were re-translated
+    if len(missing) > len(up_paras) - len(mine):
+        out += [f"{doc}: official Spanish not used verbatim: «{u.plain(o)[:70]}…»" for o in missing]
     msgstrs = {" ".join(u.plain(v).split()) for v in catalog.values()}  # translators' words, verbatim
     for para in u.myst_paragraphs(content):
         if u.reads_english(para) and " ".join(u.plain(para).split()) not in msgstrs:
@@ -204,6 +216,23 @@ def _myst_prose(part: str) -> list[str]:
 def _bare_label(text: str) -> str:
     """A UI literal without its decoration: an icon prefix («+ New») or a stray period («Folder name.»)."""
     return re.sub(r"^[+•›»]\s*", "", text).rstrip(" .:…")
+
+
+def _ui_swaps(missing: Counter, labels: Counter, ui: dict) -> Counter:
+    """The upstream UI literals the page wrote as {guilabel} with the interface's own Spanish
+    (a menu path `A -> B` as one label per step). Only a swap the catalog backs counts."""
+    swapped = Counter()
+    for lit, n in missing.items():
+        parts = re.split(r"\s*(?:->|→)\s*", lit)
+        for _ in range(n):
+            picks = [next((es for es in sorted(ui.get(p) or ui.get(_bare_label(p), ())) if labels[es] > 0), None)
+                     for p in parts]
+            if None in picks:
+                break
+            for es in picks:
+                labels[es] -= 1
+            swapped[lit] += 1
+    return swapped
 
 
 def _kept(mine: list, up: list) -> bool:
