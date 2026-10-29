@@ -45,6 +45,8 @@ components:
   - {name: NATS Server (base de Talk), kind: image, id: nats, upstream: "https://github.com/nats-io/nats-server", licence: Apache-2.0}
   - {name: eturnal (TURN de Talk), kind: image, id: eturnal/eturnal, upstream: "https://github.com/processone/eturnal", licence: Apache-2.0}
   - {name: Señalización de Talk, kind: image, id: strukturag/nextcloud-spreed-signaling, upstream: "https://github.com/strukturag/nextcloud-spreed-signaling", licence: AGPL-3.0}
+  - {name: Pizarra (whiteboard), kind: image, id: ghcr.io/nextcloud-releases/whiteboard, upstream: "https://github.com/nextcloud/whiteboard", licence: AGPL-3.0, note: "Contenedor opcional de la suite."}
+  - {name: HAProxy (base del proxy del socket), kind: image, id: haproxy, upstream: "https://github.com/haproxy/haproxy", licence: GPL-2.0-or-later}
   - {name: HaRP (proxy de AppAPI), kind: image, id: ghcr.io/nextcloud/nextcloud-appapi-harp, upstream: "https://github.com/nextcloud/HaRP", licence: AGPL-3.0, note: "Contenedor opcional de la suite."}
 
   # ---- Aplicaciones Nextcloud de terceros (las instala el manifiesto de la suite)
