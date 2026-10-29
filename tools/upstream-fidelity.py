@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 """upstream-fidelity — every woven {upstream} block says what its upstream source says.
 
-The weave (an AI translator) may change the words, never the facts a reader acts on. For each
-block, against the upstream document section at the block's own SHA:
+The weave (an AI translator) may change the words, never the facts a reader acts on. A block
+may cut upstream content (owner, 2026-10-29); what it keeps is upstream's. For each block,
+against the upstream document section at the block's own SHA:
 
-  structure   heading count, order and relative level are upstream's
-  literals    code blocks and inline literals are byte-identical, in order
+  structure   the headings keep upstream's order and relative level
+  literals    code blocks and inline literals are upstream's, byte-identical; code in order
   links       external URLs and :doc:/:ref: targets are upstream's (as {nc-doc}/{nc-ref})
-  labels      every upstream `.. _label:` in the section exists as `(nc-label)=`
-  wording     user manual: a paragraph whose source still matches an official catalog msgid
-              with a msgstr IS that msgstr (markup-normalised); every other paragraph is
+  labels      every `(nc-label)=` is an upstream `.. _label:` in the section
+  wording     user manual: a kept paragraph whose source still matches an official catalog
+              msgid with a msgstr IS that msgstr (markup-normalised); every other paragraph is
               AI-translated and only counted
   language    no paragraph reads as English
   marker      the SHA resolves upstream, the docname is mapped, the block sits on its mapped
@@ -23,6 +24,7 @@ Coverage (every mapped document has a block somewhere) is reported always and en
 
 from __future__ import annotations
 
+import difflib
 import fnmatch
 import re
 import sys
@@ -66,9 +68,9 @@ def check_block(
         [lv for lv, _, _ in u.rst_headings(section, u.rst_styles(source))]
     )
     my_levels = u.relative_levels([lv for lv, _ in u.myst_headings(content)])
-    if up_levels != my_levels:
+    if not _kept(my_levels, up_levels):
         out.append(
-            f"{doc}: headings {my_levels} differ from upstream's {up_levels} (count, order, level)"
+            f"{doc}: headings {my_levels} are not upstream's {up_levels} with cuts (order, level)"
         )
 
     directive_fences = [ln.strip() for ln in content.split("\n")
@@ -76,11 +78,10 @@ def check_block(
     if directive_fences:
         out.append(f"{doc}: directive in a backtick fence ({directive_fences[0][:40]}); use a colon fence :::{{…}}")
     up_code, my_code = u.rst_code_blocks(section), u.myst_code_blocks(content)
-    if up_code != my_code:
-        missing = [c.split("\n")[0][:60] for c in up_code if c not in my_code]
+    if not _kept(my_code, up_code):
+        extra = [c.split("\n")[0][:60] for c in my_code if c not in up_code]
         out.append(
-            f"{doc}: code blocks differ from upstream ({len(my_code)} vs {len(up_code)}; "
-            f"first not byte-identical: {missing[:1] or '(order)'})"
+            f"{doc}: code blocks differ from upstream (first not byte-identical: {extra[:1] or '(order)'})"
         )
     # an official paragraph's literals are its msgstr's: the Transifex string may translate one
     want = Counter(u.rst_inline_literals(section))
@@ -88,7 +89,11 @@ def check_block(
         if catalog.get(para):
             want -= Counter(u.rst_inline_literals(para))
             want += Counter(u.rst_inline_literals(catalog[para]))
-    have = Counter(u.myst_inline_literals(content))
+    added = Counter(u.myst_inline_literals(content)) - want
+    if added:
+        out.append(
+            f"{doc}: inline literals are not upstream's (added or altered: {sorted(added)[:3]})"
+        )
     ui = dict(u.ui_strings() if ui is None else ui)
     # a literal this doc's own official msgstr translates is shown that way by the interface
     for para in u.rst_paragraphs(section):
@@ -98,25 +103,13 @@ def check_block(
                 for a, b in zip(en, es):
                     if a != b:
                         ui[a] = set(ui.get(a, ())) | {b}
-    swapped = _ui_swaps(want - have, Counter(u.myst_guilabels(content)), ui)
-    want -= swapped
-    if want != have:
-        diff = want - have
-        out.append(
-            f"{doc}: inline literals differ from upstream (missing or altered: {sorted(diff)[:3]})"
-        )
 
-    up_links = u.rst_links(section, doc, cfg)
-    if up_links != u.myst_links(content):
-        out.append(
-            f"{doc}: external links differ: missing {sorted(up_links - u.myst_links(content))[:3]}, "
-            f"extra {sorted(u.myst_links(content) - up_links)[:3]}"
-        )
-    if Counter(u.rst_xrefs(section, doc)) != Counter(u.myst_xrefs(content)):
-        out.append(
-            f"{doc}: cross-references differ: missing "
-            f"{sorted(Counter(u.rst_xrefs(section, doc)) - Counter(u.myst_xrefs(content)))[:3]}"
-        )
+    added = u.myst_links(content) - u.rst_links(section, doc, cfg)
+    if added:
+        out.append(f"{doc}: external links are not upstream's (added or altered: {sorted(added)[:3]})")
+    added = Counter(u.myst_xrefs(content)) - Counter(u.rst_xrefs(section, doc))
+    if added:
+        out.append(f"{doc}: cross-references are not upstream's (added or altered: {sorted(added)[:3]})")
     # quoted labels of other software (WinSCP, Finder, Thunderbird…) are not Nextcloud's strings
     third_party = any(fnmatch.fnmatch(doc, pat) for pat in cfg.get("ui_third_party", []))
     for quoted in re.findall(r"«([^»\n]+)»|\"([^\"\n]+)\"|“([^”\n]+)”", re.sub(r"`[^`\n]*`", "", u._without_fences(content))):
@@ -128,9 +121,10 @@ def check_block(
     if bare:
         out.append(f"{doc}: bare URL renders as plain text, write it as <url>: {bare[:2]}")
     labels_up = {u.label_prefix(doc, cfg) + lab for lab, _ in u.rst_labels(section)}
-    if not labels_up <= set(u.myst_labels(content)):
+    added = set(u.myst_labels(content)) - labels_up
+    if added:
         out.append(
-            f"{doc}: labels missing as (nc-{u.label_prefix(doc, cfg)}label)=: {sorted(labels_up - set(u.myst_labels(content)))[:3]}"
+            f"{doc}: labels are not upstream's as (nc-{u.label_prefix(doc, cfg)}label)=: {sorted(added)[:3]}"
         )
 
     # section titles are msgids too; on the page they are headings
@@ -142,7 +136,9 @@ def check_block(
     for para in u.rst_paragraphs(section):
         official = catalog.get(para, "")
         if official and not u.style_problems(official):  # an off-register msgstr is adapted, not copied
-            if u.plain(official).rstrip(":.") not in mine:
+            want = u.plain(official).rstrip(":.")
+            # a cut paragraph is gone; one the block keeps close to the msgstr was altered
+            if want not in mine and difflib.get_close_matches(want, mine, n=1):
                 out.append(
                     f"{doc}: official Spanish not used verbatim: «{u.plain(official)[:70]}…»"
                 )
@@ -210,21 +206,10 @@ def _bare_label(text: str) -> str:
     return re.sub(r"^[+•›»]\s*", "", text).rstrip(" .:…")
 
 
-def _ui_swaps(missing: Counter, labels: Counter, ui: dict) -> Counter:
-    """The upstream UI literals the page wrote as {guilabel} with the interface's own Spanish
-    (a menu path `A -> B` as one label per step). Only a swap the catalog backs counts."""
-    swapped = Counter()
-    for lit, n in missing.items():
-        parts = re.split(r"\s*(?:->|→)\s*", lit)
-        for _ in range(n):
-            picks = [next((es for es in sorted(ui.get(p) or ui.get(_bare_label(p), ())) if labels[es] > 0), None)
-                     for p in parts]
-            if None in picks:
-                break
-            for es in picks:
-                labels[es] -= 1
-            swapped[lit] += 1
-    return swapped
+def _kept(mine: list, up: list) -> bool:
+    """Every item of mine is upstream's, in upstream's order: upstream with items cut."""
+    rest = iter(up)
+    return all(item in rest for item in mine)
 
 
 def warnings(content: str, section: str, ui: dict | None = None) -> list[str]:

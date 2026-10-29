@@ -5,6 +5,7 @@ audiencia: desarrollo
 apps: [gestion]
 resumen: "Cómo preparar el entorno de desarrollo de ExApps: instalar AppAPI desde el código fuente, tipos de daemon de despliegue y comandos make para Docker."
 ---
+(nc-dev-dev-setup)=
 # Configuración del entorno de desarrollo
 
 ## Resumen
@@ -12,7 +13,6 @@ resumen: "Cómo preparar el entorno de desarrollo de ExApps: instalar AppAPI des
 Esta página explica cómo preparar un entorno para desarrollar ExApps: el entorno de desarrollo recomendado, la instalación de AppAPI desde el código fuente, los dos tipos de daemon de despliegue y los comandos make que registran sus configuraciones para Docker. Está dirigida a quienes desarrollan ExApps.
 
 ````{upstream} developer_manual/exapp_development/DevSetup.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
-(nc-dev-dev-setup)=
 El desarrollo con AppAPI requiere configurar un entorno de desarrollo de Nextcloud.
 Para ello se recomienda encarecidamente usar la configuración [nextcloud-docker-dev](https://github.com/nextcloud/nextcloud-docker-dev) (desarrollada originalmente por Julius Knorr).
 Para un entorno alternativo que no use Docker, consultar las instrucciones de configuración en {nc-doc}`Primeros pasos <developer_manual/getting_started/devenv>`.
