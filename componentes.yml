@@ -40,13 +40,9 @@ components:
   - {name: Go (base de compilación), kind: image, id: golang, upstream: "https://github.com/golang/go", licence: BSD-3-Clause}
   - {name: Python (base), kind: image, id: python, upstream: "https://github.com/python/cpython", licence: PSF-2.0}
   - {name: Elasticsearch (búsqueda de texto completo), kind: image, id: elasticsearch, upstream: "https://github.com/elastic/elasticsearch", licence: "Elastic-2.0 OR SSPL-1.0", note: "Licencia dual, ninguna aprobada por la OSI; contenedor opcional de la suite."}
-  - {name: ONLYOFFICE Document Server, kind: image, id: onlyoffice/documentserver, upstream: "https://github.com/ONLYOFFICE/DocumentServer", licence: AGPL-3.0, note: "Contenedor opcional de la suite."}
-  - {name: Collabora Online, kind: image, id: collabora/code, upstream: "https://github.com/CollaboraOnline/online", licence: MPL-2.0, note: "Contenedor opcional de la suite."}
   - {name: NATS Server (base de Talk), kind: image, id: nats, upstream: "https://github.com/nats-io/nats-server", licence: Apache-2.0}
   - {name: eturnal (TURN de Talk), kind: image, id: eturnal/eturnal, upstream: "https://github.com/processone/eturnal", licence: Apache-2.0}
   - {name: Señalización de Talk, kind: image, id: strukturag/nextcloud-spreed-signaling, upstream: "https://github.com/strukturag/nextcloud-spreed-signaling", licence: AGPL-3.0}
-  - {name: Pizarra (whiteboard), kind: image, id: ghcr.io/nextcloud-releases/whiteboard, upstream: "https://github.com/nextcloud/whiteboard", licence: AGPL-3.0, note: "Contenedor opcional de la suite."}
-  - {name: HAProxy (base del proxy del socket), kind: image, id: haproxy, upstream: "https://github.com/haproxy/haproxy", licence: GPL-2.0-or-later}
   - {name: HaRP (proxy de AppAPI), kind: image, id: ghcr.io/nextcloud/nextcloud-appapi-harp, upstream: "https://github.com/nextcloud/HaRP", licence: AGPL-3.0, note: "Contenedor opcional de la suite."}
 
   # ---- Aplicaciones Nextcloud de terceros (las instala el manifiesto de la suite)
