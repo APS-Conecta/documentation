@@ -58,6 +58,12 @@ El activo de instalación de cada versión lleva la suma del paquete y la clave 
 
 Antes de instalar la carpeta del paquete, ejecuta la comprobación de instalación existente del módulo del anfitrión incluido en el paquete verificado. Las comprobaciones de arquitectura, FUSE, Docker, disco y puertos se comparten entre la revisión previa, la preparación y el inicio desde el navegador. Las autopruebas del anfitrión y del arranque cubren los rechazos con comandos simulados; Clean boot instala el paquete antes de crear los contenedores.
 
+### Proxy de salida
+
+El anfitrión valida y carga un perfil de variables fijo, con permisos privados y lectura literal. El arranque firmado delega su guardado al módulo del paquete verificado. Docker utiliza un archivo de entorno mediante una configuración de systemd; el comando de arranque contiene su ruta. La aplicación correcta se registra después del reinicio del servicio y una falla conserva el intento pendiente.
+
+El asistente transmite el entorno normalizado al contenedor de la plataforma. Su configuración de proxy existente aplica las exclusiones y marca la dirección como sensible en los listados ordinarios. Las llamadas al socket Docker permanecen directas. Las autopruebas del anfitrión cubren persistencia, propagación, exclusiones y recuperación; Clean boot verifica solicitudes autenticadas al registro y GitHub mediante un proxy local.
+
 ### La corrección de red con consentimiento
 
 La tarjeta «La red del servidor» ofrece «Sí, corregir» cuando el servidor necesita DNS dividido para alcanzar su dominio. La corrección requiere consentimiento explícito y reinicia Docker una vez.
