@@ -74,6 +74,14 @@ Las cuentas son locales de la plataforma: la provisión las crea con `occ user:a
 
 La guía clínica, en [«La planilla de usuarios»](https://github.com/APS-Conecta/gestion/blob/main/aps/GUIA-CLINICA.md#5-la-planilla-de-usuarios) y [«Las credenciales»](https://github.com/APS-Conecta/gestion/blob/main/aps/GUIA-CLINICA.md#6-las-credenciales), da el formato completo y el ritual de entrega.
 
+### Preparar la planilla
+
+Descargar la {download}`plantilla en blanco </recursos/plantilla-usuarios.csv>` y el {download}`ejemplo con datos ficticios </recursos/ejemplo-usuarios.csv>`.
+
+Completar desde la segunda fila y conservar los seis encabezados. Usar un identificador único en minúsculas para cada persona; el correo es opcional. Separar los códigos de `grupos` con espacios y marcar exactamente un `sí` en `primer_admin`; las demás filas llevan `no`. Las contraseñas se generan durante la carga.
+
+Guardar como CSV UTF-8 con separador `;` y cargar el archivo en «Cargar equipos y personas». Los grupos corresponden a «Grupos válidos» del establecimiento. El botón «Descargar plantilla» del Provisionador genera un ejemplo con los equipos guardados para ese centro. Sustituir los datos ficticios por las personas del establecimiento antes de cargar.
+
 ### Bajas y divergencia
 
 La provisión nunca elimina una cuenta. La verificación de divergencia compara las cuentas vivas con las declaradas —la planilla, las cuentas de cargo y la administración de la instalación—, y una cuenta viva sin declarar la hace fallar: el informe nombra la orden que la eliminaría y recuerda que eliminar una cuenta elimina sus archivos. Con la verificación en rojo, la re-provisión semanal queda fallida; {doc}`/administracion/operaciones/index` describe cómo llega el aviso. Un grupo vivo sin declarar también aparece, con la advertencia de revisar que no sea el único con acceso a una carpeta antes de eliminarlo.

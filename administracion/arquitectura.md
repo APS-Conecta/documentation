@@ -46,7 +46,7 @@ Todos los servicios usan `restart: unless-stopped`: la pila vuelve sola después
 ### La instalación de un centro
 
 Un centro corre en un solo host Ubuntu o Debian x86-64, con Docker de API 1.44 o superior.
-El contenedor `nextcloud-aio-mastercontainer` sirve el asistente en el puerto 8080 y administra los demás como un conjunto de 20 imágenes bajo `ghcr.io/aps-conecta/*` que se actualiza completo, nunca por partes.
+El contenedor `nextcloud-aio-mastercontainer` sirve el asistente en el puerto 8080 y administra los demás mediante el conjunto de imágenes definido por el inventario de la suite bajo `ghcr.io/aps-conecta/*` que se actualiza completo, nunca por partes.
 Los contenedores de la suite se llaman `aps-conecta-*`.
 
 | Contenedor | Función que la suite usa |
@@ -105,7 +105,7 @@ El navegador recorre dos tramos propios: la URL pública del editor (`DocumentSe
 - La revisión del host antes de instalar exige 8 GiB de RAM y 40 GB de disco libre.
 - La integración continua mide la suite en reposo en cerca de 1,1 GiB.
 - El mapa base no ocupa disco en el servidor. Una instalación anterior puede conservar un archivo de 1,04 GB hasta que se retire ({doc}`/administracion/mapas-base`).
-- El instalador ajusta Talk a la memoria y los núcleos del servidor.
+- La próxima versión incluye Talk en el conjunto fijo. El perfil de recursos y la habilitación de grabaciones se validan en el plan de actualización.
 
 ## Compromisos y límites
 

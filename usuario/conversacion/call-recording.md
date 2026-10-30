@@ -45,3 +45,7 @@ Esta sección informa a los participantes de que la llamada puede grabarse. Para
 
 Una vez terminada la llamada, la grabación se procesa y se guarda en el chat como archivo compartido. Los participantes pueden reproducirla directamente desde el chat o descargarla desde los elementos compartidos de la conversación.
 ````
+
+## En APS Conecta Gestión
+
+La disponibilidad de grabaciones depende de la validación del perfil de recursos de la suite. La administración del establecimiento informará su disponibilidad. Consulte {doc}`/proyecto/novedades/instalador` antes de seguir el procedimiento de esta página.

@@ -8,6 +8,11 @@ resumen: "Cómo se mantiene el fork de nextcloud/all-in-one, hoy en instalador: 
 
 ## Resumen
 
+```{note}
+Los cambios del plan de actualización corresponden a la próxima versión. Consulte su estado en {doc}`/proyecto/novedades/instalador` y seleccione una versión publicada para instalar.
+```
+
+
 El fork de [nextcloud/all-in-one](https://github.com/nextcloud/all-in-one) desde el que se construyen las imágenes de cada instalación de la suite vive en el repositorio [APS-Conecta/gestion](https://github.com/APS-Conecta/gestion), que absorbió también el paquete del host y la cadena de publicación: el repositorio APS-Conecta/AIO fue su primera casa y se eliminó una vez absorbido; su historia de commits sigue completa en instalador. Lo que los cambios del fork hacen en una instalación está en {doc}`/administracion/aio`; esta página describe cómo se mantiene el fork, y el repositorio que hoy lo contiene —bootstrap firmado, `VERSION` y cadena de publicación— tiene su propia referencia en {doc}`instalador </desarrollo/instalador>`.
 
 El fork sigue una regla única: `main` es **un solo árbol** —la historia de upstream más los cambios del fork como bytes confirmados, de primera clase—. Los cambios no viajan como archivos aparte ni por ramas de integración: cada cambio es un commit del propio árbol, y una versión de upstream llega como llega cualquier cambio, con una fusión deliberada en `main`, y después una versión corriente. Los números que la [declaración del fork](https://github.com/APS-Conecta/gestion/blob/main/readme.md) asigna a cada cambio son atribución —qué cambio debe qué garantía—, no archivos aparte.
@@ -25,8 +30,8 @@ El fork conserva sin cambios el `LICENSE` de upstream (AGPL-3.0); su identificad
 | `main` | La historia de upstream más los cambios del fork como bytes confirmados | La fusión deliberada de upstream, y los cambios propios por pull request |
 | `readme.md` | La declaración del fork, entre marcadores: cada cambio con su número, su texto y la garantía que sostiene | Pull request; la compuerta de marca exige que cada texto declarado exista byte a byte en el árbol |
 | `php/` | El asistente —el contenedor maestro— tal como se construye, con su suite Playwright traducida | Pull request |
-| `Containers/`, `themes/` | Las cuatro imágenes construidas y el tema del servidor | Pull request |
-| `scripts/` | Las compuertas (`brand-gate.sh`, `acquisition-gate.sh`), los validadores de upstream (`validate.sh`), el registro (`retag.sh`) y los renombrados (`rename-containers.py`) | Pull request |
+| `Containers/`, `themes/` | Los Dockerfiles de todos los servicios y el tema del servidor | Pull request |
+| `scripts/` | Las compuertas (`brand-gate.sh`, `acquisition-gate.sh`), los validadores de upstream (`validate.sh`), el inventario y registro (`images.py`) y los renombrados (`rename-containers.py`) | Pull request |
 | `.github/workflows/` | `ci.yml`, `images.yml`, `release.yml`, `cleanboot.yml` y los validadores de upstream | Pull request |
 | `BUGS.md` | El registro de fallas corregidas de las herramientas del fork | Pull request |
 
@@ -46,7 +51,7 @@ Las filas de las compuertas se nombran por número —010 a 270— como atribuci
 
 ### La fusión de upstream
 
-Una versión de upstream llega como una fusión deliberada en `main`, resuelta a mano cuando hace falta, nunca un envío forzado. La fusión puede reintroducir identificadores de upstream; las herramientas de reemplazo del momento de fusionar los devuelven: `scripts/retag.sh sed` repone las referencias al registro propio y `scripts/rename-containers.py`, los nombres de contenedor de la suite. Después, una versión corriente publica el conjunto (`aps/RELEASING.md`).
+Una versión de upstream llega como una fusión deliberada en `main`, resuelta a mano cuando hace falta, nunca un envío forzado. La fusión puede reintroducir identificadores de upstream; las herramientas de reemplazo del momento de fusionar los devuelven: `python3 scripts/images.py rewrite-registry php/containers.json` repone las referencias al registro propio y `scripts/rename-containers.py`, los nombres de contenedor de la suite. Después, una versión corriente publica el conjunto (`aps/RELEASING.md`).
 
 Nada fusiona upstream ni publica imágenes por su cuenta: las programaciones del repositorio son de prueba, y esa disciplina la prueba cada versión con sus propias compuertas, antes de construir o firmar nada.
 
@@ -62,4 +67,4 @@ El `AGENTS.md` del repositorio lleva las reglas del fork: commits convencionales
 
 - **La fusión es manual y deliberada.** Nadie automatiza la llegada de upstream: si publica una corrección, la organización decide la fusión y la versión que la lleva.
 - **Textos nuevos de upstream.** Una fusión que agrega textos del asistente en inglés los deja en inglés: la compuerta exige los declarados, no traduce los nuevos; la lista de mensajes en inglés de la declaración crece con ellos.
-- **Límites de la instalación.** Los que ve un establecimiento, como los mensajes PHP en inglés o el código muerto de deSEC, están en {doc}`AIO </administracion/aio>`.
+- **Límites de la instalación.** Los que ve un establecimiento, como los mensajes PHP en inglés, están en {doc}`AIO </administracion/aio>`.

@@ -12,6 +12,10 @@ Editar un documento, una hoja de cálculo o una presentación del establecimient
 
 Euro-Office corre como servidor de documentos dentro de la propia instalación del establecimiento: el contenido de los documentos no pasa por servicios de oficina externos. Es el único editor de oficina que la suite admite. No tiene un ícono propio entre las aplicaciones: se abre al hacer clic en un documento en **Archivos**.
 
+```{note}
+Las mejoras de recuperación corresponden a la próxima versión; {doc}`/proyecto/novedades/instalador` indica su estado.
+```
+
 ## Requisitos
 
 - Una cuenta con permiso de gestión sobre la carpeta del documento. {doc}`/usuario/archivos/index` muestra quién gestiona cada carpeta.
@@ -50,6 +54,8 @@ El editor se muestra siempre claro, aunque el sistema operativo use el modo oscu
 ## Problemas frecuentes
 
 **El documento no se abre.** El navegador bloqueó la ventana emergente del editor. Permitir las ventanas emergentes para la dirección de la plataforma y volver a hacer clic en el documento.
+
+**El servicio tarda en responder.** Avisar a la administración del establecimiento. La aplicación permanece habilitada y completa su configuración en el siguiente inicio de la suite.
 
 **El documento no se puede editar.** La carpeta da solo lectura a la cuenta, como **Transversal** a quien no pertenece a las Jefaturas. Pedir el cambio de permisos a la administración del centro.
 

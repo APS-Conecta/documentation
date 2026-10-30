@@ -176,12 +176,17 @@ Ejemplo: si `categories.json` está disponible en `https://apps.nextcloud.com/ap
 
 ## En APS Conecta Gestión
 
+```{note}
+Los cambios del plan de actualización corresponden a la próxima versión. Consulte su estado en {doc}`/proyecto/novedades/instalador` y seleccione una versión publicada para instalar.
+```
+
+
 En APS Conecta Gestión la tienda de aplicaciones está cerrada: la imagen del servidor fija `NC_appstoreenabled` en `"0"`, de modo que ninguna vía —`occ`, las tareas de fondo o esta página— descarga de la tienda sin que alguien lo haya decidido. La puerta se abre solo para el comando que instala o actualiza una aplicación de la tienda, una a una, y se cierra con él. Ninguna imagen lleva una aplicación: cada una llega en su momento, por el canal que declara el manifiesto de la suite (`apps.json`, en el repositorio instalador):
 
 | Canal | Aplicaciones | Cómo llegan |
 |---|---|---|
-| Publicación propia | Territorio, Epidemiología, IntraVox, Euro-Office y el menú lateral | La publicación firmada más reciente del repositorio de cada aplicación, la compatible con la versión de Nextcloud en marcha, verificada contra la clave de aplicaciones de la suite antes de desempacar |
-| Tienda | Calendario, Contactos, las carpetas de grupo, el servidor de notificaciones y Talk | La tienda, abierta solo para el comando que las instala |
+| Publicación firmada | Territorio, Epidemiología, IntraVox, Euro-Office, Talk y el menú lateral | La publicación firmada más reciente del repositorio de cada aplicación, la compatible con la versión de Nextcloud en marcha, verificada contra la clave de aplicaciones de la suite antes de desempacar |
+| Tienda | Calendario, Contactos, las carpetas de grupo y el servidor de notificaciones | La tienda, abierta solo para el comando que las instala |
 | Opcionales | Farmacia, Estadística y Tótem | Solo cuando el establecimiento las elige en el paso 6 del instalador; sin la elección, no se instalan ni se descargan |
 
 La versión instalada de cada aplicación queda registrada en el candado (`/opt/aps-conecta/apps.lock.json`): una provisión repetida no descarga nada y una reparación nunca se convierte en una actualización. Las aplicaciones se mueven solo con `sudo aps-conecta actualizar`, que respalda primero, aplica una aplicación a la vez, desinstala al final cada aplicación publicada que salió del manifiesto y mueve el candado solo si todo resultó ({doc}`AIO </administracion/aio>`). El botón **Actualizar** de esta página no es el camino: con la tienda cerrada no descarga nada.
