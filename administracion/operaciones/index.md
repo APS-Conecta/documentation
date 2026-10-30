@@ -64,6 +64,12 @@ La re-provisión semanal vuelve a ejecutar la provisión sin intervención. Sobr
 
 Cuando una ejecución encuentra deriva o no termina, cada integrante del grupo `admin` recibe un aviso al iniciar sesión, uno por semana que reemplaza al anterior, y `aps-conecta estado`, sin sudo, muestra el último veredicto con cada hallazgo y su arreglo. La misma ejecución semanal renueva, 30 días antes de su vencimiento, el certificado de una instalación por IP.
 
+### Red y cortafuegos
+
+En la próxima versión, las indicaciones del cortafuegos usan las subredes reales de `nextcloud-aio`, obtenidas mediante `docker network inspect nextcloud-aio`. La corrección de DNS abre el puerto 53 a esas subredes cuando UFW está activo y conserva las reglas de entrada existentes.
+
+Si el asistente todavía no ha creado la red, la corrección queda pendiente. Una vez creada, repita `sudo aps-conecta red --dominio DOMINIO --arreglar` con el dominio del establecimiento y revise el resultado de `sudo aps-conecta preflight --dominio DOMINIO`.
+
 ### Migración
 
 {doc}`migrating` describe el traslado de una instancia a otro servidor. En la suite, un centro que corre la versión anterior, sobre Docker Compose, pasa a AIO solo con la herramienta de [MIGRATION.md](https://github.com/APS-Conecta/gestion/blob/main/aps/MIGRATION.md), ensayada antes contra un servidor desechable. Una copia hecha por un Nextcloud AIO estándar no se restaura en la suite.

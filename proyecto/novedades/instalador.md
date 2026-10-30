@@ -25,6 +25,7 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 | Próxima versión |  | La publicación ejecuta las compuertas completas, verifica el contenido firmado y protege las credenciales en el entorno `Release`. |
 | Próxima versión |  | Las actualizaciones siguen el procedimiento de la suite y el establecimiento aporta su dominio o IP. |
 | Próxima versión |  | El banco de pruebas y la aceptación del ciclo de vida usan la instalación HTTPS por IP, con el certificado y el comando del instalador. La revisión de puertos considera TCP y UDP y admite el puerto 80 ocupado. |
+| Próxima versión |  | La revisión previa exige x86-64, FUSE y Docker Engine compatible, mide el disco de datos real y detecta contenedores sin su carpeta de instalación. Las indicaciones del cortafuegos usan las subredes reales de la suite. |
 
 ## Notas
 
