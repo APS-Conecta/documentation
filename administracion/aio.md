@@ -26,7 +26,7 @@ Los cambios del plan de actualización corresponden a la próxima versión. Cons
 curl -fsSL https://github.com/APS-Conecta/gestion/releases/download/vX.Y.Z/apsconecta-vX.Y.Z-install.sh | sudo bash
 ```
 
-El ancla de confianza es la URL de la versión —fijada a la etiqueta— más TLS: el instalador lleva dentro la suma sha256 del paquete y la clave pública de la firma del proyecto. La descarga se verifica antes de desempacar nada; un servidor que ya tiene `signify` comprueba además la firma, y uno que no la tiene instala la herramienta en el paso «preparar» y comprueba el paquete guardado desde la corrida siguiente. El desempaque es atómico y la suite queda en `/opt/aps-conecta/instalador`, con el paquete guardado —tarball, sumas y firma— en `/opt/aps-conecta/paquete`, para que la revisión previa vuelva a verificarlo sin red. La copia del repositorio no instala: lleva su suma vacía a propósito, y solo el activo de la publicación ejecuta.
+El ancla de confianza es la URL de la versión —fijada a la etiqueta— más TLS: el instalador lleva dentro la suma sha256 del paquete y la clave pública de la firma del proyecto. La descarga se verifica antes de desempacar nada; un servidor que ya tiene `signify` comprueba además la firma, y el paso «preparar» incorpora el verificador cuando está disponible en el repositorio de paquetes. Las siguientes revisiones comprueban la firma del paquete guardado cuando disponen del verificador. El desempaque es atómico y la suite queda en `/opt/aps-conecta/instalador`, con el paquete guardado —tarball, sumas y firma— en `/opt/aps-conecta/paquete`, para que la revisión previa vuelva a verificarlo sin red. La copia del repositorio no instala: lleva su suma vacía a propósito, y solo el activo de la publicación ejecuta.
 
 Después, `sudo aps-conecta install` enlaza el comando `aps-conecta` y recorre los ocho pasos: «Revisar el servidor», «Preparar el servidor», «Descargar APS Conecta» y «Abrir el instalador web» en el servidor; «Elegir el centro», «Iniciar la suite», «Cargar equipos y personas» y «Revisar y ejecutar» en el navegador. Quien audita puede verificar a mano, con `signify-openbsd` y `sha256sum -c` contra la clave `installer.pub` del repositorio, como enseña el manual.
 
@@ -44,6 +44,10 @@ La próxima versión comprueba los requisitos del servidor antes de preparar pro
 | Instalación existente | Los contenedores de APS requieren su carpeta `/opt/aps-conecta/instalador`. Recupere la carpeta y sus respaldos antes de continuar. Conserve los contenedores y volúmenes. |
 
 El arranque de una línea comprueba la instalación existente antes de instalar la carpeta del paquete. La preparación y el inicio desde el navegador reutilizan las comprobaciones del anfitrión.
+
+En la próxima versión, la preparación instala las herramientas requeridas por separado de `signify-openbsd`. Si el verificador está pendiente, la instalación conserva las herramientas disponibles y lo informa. En Ubuntu, habilite el repositorio con `sudo add-apt-repository universe`, ejecute `sudo apt-get update` y repita `sudo aps-conecta preparar`. La firma se comprueba cuando el verificador está disponible; la suma del paquete se verifica desde la descarga.
+
+La corrección de DNS dividido se aplica con `sudo aps-conecta red --dominio <dominio> --arreglar`, con consentimiento. El DNS local admite una interfaz LAN que se activa después del servicio. Docker conserva la dirección LAN primero y los servidores DNS válidos configurados previamente y obtenidos del anfitrión, sin duplicados ni bucles locales.
 
 ### Proxy institucional
 

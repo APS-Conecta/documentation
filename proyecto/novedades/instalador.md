@@ -14,6 +14,7 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| Próxima versión |  | La preparación conserva los servidores DNS del anfitrión y admite una interfaz LAN tardía. Las herramientas requeridas se instalan por separado del verificador de firma opcional. |
 | Próxima versión |  | Una línea de consola instala la suite: descarga el paquete de la versión, verifica su suma sha256 y su firma, y deja lista la orden `sudo aps-conecta install`. |
 | Próxima versión |  | La instalación silenciosa termina importando los datos comunales del centro; importar de nuevo no crea nada («0 creados»). |
 | Próxima versión |  | El paso 7 del asistente ofrece, con consentimiento explícito («Sí, corregir»), arreglar la red del servidor cuando el dominio no responde desde el propio servidor. |
