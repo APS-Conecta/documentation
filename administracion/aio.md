@@ -45,6 +45,23 @@ La próxima versión comprueba los requisitos del servidor antes de preparar pro
 
 El arranque de una línea comprueba la instalación existente antes de instalar la carpeta del paquete. La preparación y el inicio desde el navegador reutilizan las comprobaciones del anfitrión.
 
+### Proxy institucional
+
+En la próxima versión, la instalación admite un proxy HTTP(S) con autenticación básica. Su dirección debe ser accesible desde el servidor y sus contenedores. Ingrésela mediante lectura oculta; codifique los caracteres especiales del usuario y la contraseña en la URL.
+
+```bash
+read -r -s -p 'Dirección del proxy: ' HTTPS_PROXY; echo
+export HTTPS_PROXY
+curl -fsSL https://github.com/APS-Conecta/gestion/releases/download/vX.Y.Z/apsconecta-vX.Y.Z-install.sh \
+  | sudo --preserve-env=HTTPS_PROXY,HTTP_PROXY,NO_PROXY,https_proxy,http_proxy,no_proxy bash
+```
+
+Sustituya `vX.Y.Z` por la versión elegida. La descarga inicial conserva únicamente las variables indicadas al pasar a `sudo`. El paquete verificado guarda el perfil privado en `/opt/aps-conecta/proxy.env`; los comandos posteriores lo cargan automáticamente.
+
+La preparación configura el servicio Docker y comprueba su reinicio. Un intento fallido queda pendiente para la siguiente ejecución. Docker, el asistente y la plataforma utilizan el perfil; las exclusiones incluyen localhost, la dirección del establecimiento, los nombres de servicios y las subredes reales de la suite. Las exclusiones adicionales se ingresan en `NO_PROXY`, separadas por comas.
+
+La revisión detecta configuraciones de Docker o contenedores existentes que contradigan el perfil. Aplique la corrección indicada y conserve sus volúmenes. Incluya el perfil en el respaldo cifrado de `/opt/aps-conecta`. Los comandos locales de ayuda y estado funcionan sin leer las credenciales del proxy.
+
 ### El contenedor maestro
 
 Nextcloud AIO administra Docker hablando directamente con su socket: un solo contenedor, iniciado con un solo comando, crea y administra todos los contenedores de la instalación.
