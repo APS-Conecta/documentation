@@ -30,6 +30,21 @@ El ancla de confianza es la URL de la versión —fijada a la etiqueta— más T
 
 Después, `sudo aps-conecta install` enlaza el comando `aps-conecta` y recorre los ocho pasos: «Revisar el servidor», «Preparar el servidor», «Descargar APS Conecta» y «Abrir el instalador web» en el servidor; «Elegir el centro», «Iniciar la suite», «Cargar equipos y personas» y «Revisar y ejecutar» en el navegador. Quien audita puede verificar a mano, con `signify-openbsd` y `sha256sum -c` contra la clave `installer.pub` del repositorio, como enseña el manual.
 
+### Revisión del servidor
+
+La próxima versión comprueba los requisitos del servidor antes de preparar programas o iniciar la suite. Use `sudo aps-conecta preflight` para ver cada resultado y su corrección.
+
+| Requisito | Comprobación y corrección |
+|---|---|
+| Arquitectura | Servidor x86-64. Las imágenes se publican para esa arquitectura. |
+| Respaldos | `/dev/fuse` debe ser un dispositivo de caracteres. Ejecute `sudo modprobe fuse` y compruebe su disponibilidad en el anfitrión. |
+| Docker | Docker Engine compatible, instalado sin Snap. Use el repositorio oficial para instalarlo; para sustituir Snap, respalde primero sus datos. |
+| Disco | Espacio disponible en el directorio de datos que informa Docker. Revise su ubicación con `sudo docker info --format '{{.DockerRootDir}}'`. |
+| Puertos | TCP/UDP 443, TCP 8080 y TCP/UDP 3478 disponibles para la suite. |
+| Instalación existente | Los contenedores de APS requieren su carpeta `/opt/aps-conecta/instalador`. Recupere la carpeta y sus respaldos antes de continuar. Conserve los contenedores y volúmenes. |
+
+El arranque de una línea comprueba la instalación existente antes de instalar la carpeta del paquete. La preparación y el inicio desde el navegador reutilizan las comprobaciones del anfitrión.
+
 ### El contenedor maestro
 
 Nextcloud AIO administra Docker hablando directamente con su socket: un solo contenedor, iniciado con un solo comando, crea y administra todos los contenedores de la instalación.
