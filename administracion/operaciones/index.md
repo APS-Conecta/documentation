@@ -24,7 +24,7 @@ Esta sección reúne, para quienes administran el servidor, las páginas de la p
 
 ## En APS Conecta Gestión
 
-Un centro corre la suite sobre APS Conecta Gestión AIO. El asistente de instalación es dueño de los contenedores, un conjunto de 20 imágenes que avanza junto, y el paquete del servidor, `aps-conecta`, ejecuta las fases de provisión sobre la instancia en marcha. Por eso el mantenimiento que describen las páginas de esta sección toma en la suite la forma que sigue.
+Un centro corre la suite sobre APS Conecta Gestión AIO. El asistente de instalación es dueño de los contenedores, un conjunto de imágenes versionadas que avanza junto, y el paquete del servidor, `aps-conecta`, ejecuta las fases de provisión sobre la instancia en marcha. Por eso el mantenimiento que describen las páginas de esta sección toma en la suite la forma que sigue.
 
 ### Calendario
 
