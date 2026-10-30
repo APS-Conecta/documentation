@@ -28,6 +28,7 @@ Los clientes de escritorio y móviles se descargan desde [nextcloud.com/install]
 
 ## En APS Conecta Gestión
 
+(como-se-conectan-las-llamadas)=
 ### Disponibilidad
 
 En la próxima versión, Talk se incluye en el conjunto fijo de la suite. La administración confirma la disponibilidad de las llamadas en la versión instalada. Consulte {doc}`/proyecto/novedades/instalador`.
