@@ -52,6 +52,10 @@ Los trabajos de comprobación declaran permisos de lectura. El workflow reutiliz
 
 El plan vigente está en [gestion #175](https://github.com/APS-Conecta/gestion/issues/175). La documentación acompaña cada entrega en sus manuales de uso, administración y desarrollo.
 
+El flujo de inicio termina con un resultado explícito dentro de su respuesta HTML. La consola valida ese resultado y comparte el mismo inicio con la actualización. Los avances de capas y bytes se distinguen de las señales periódicas de conexión; los estados repetidos y los reinicios cíclicos conservan el límite de 20 minutos de inactividad, medido con reloj monotónico.
+
+Las autopruebas del anfitrión simulan errores con HTTP 200, una descarga de 70 minutos con avances, una descarga detenida y la recuperación de sesión. Una respuesta de autenticación permite un reingreso; una interrupción ambigua exige revisar el estado antes de repetir el inicio.
+
 ### El arranque de una línea
 
 El activo de instalación de cada versión lleva la suma del paquete y la clave pública. Desempaca la suite en `/opt/aps-conecta/instalador` y conserva el paquete en `/opt/aps-conecta/paquete` para verificarlo sin red. El procedimiento está en {doc}`/administracion/aio`.

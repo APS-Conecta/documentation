@@ -80,6 +80,10 @@ El asistente nunca vuelve a crear un contenedor que todavía existe. Por eso un 
 
 Mientras la suite está en ejecución, el inicio de sesión directo en el asistente queda bloqueado. El asistente muestra «El inicio de sesión está bloqueado porque la suite está en ejecución.» y remite al inicio de sesión automático desde la administración de APS Conecta Gestión.
 
+La consola confirma el resultado final del asistente antes de informar que inició la suite. Una descarga lenta continúa mientras avance; la espera se detiene tras 20 minutos sin avances de descarga ni cambios nuevos de estado de los contenedores. El instalador recupera una sesión vencida una vez.
+
+Si la conexión se interrumpe, revise el estado en el asistente antes de iniciar otra vez: la operación puede continuar en el servidor. La consola conserva la causa del fallo cuando recibe un resultado final de error.
+
 (una-etiqueta-veinte-imagenes)=
 ### Imágenes de una versión
 
