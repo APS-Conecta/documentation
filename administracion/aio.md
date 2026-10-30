@@ -51,7 +51,7 @@ En la próxima versión, la instalación admite un proxy HTTP(S) con autenticaci
 
 ```bash
 read -r -s -p 'Dirección del proxy: ' HTTPS_PROXY; echo
-export HTTPS_PROXY
+export HTTPS_PROXY HTTP_PROXY="$HTTPS_PROXY" https_proxy="$HTTPS_PROXY" http_proxy="$HTTPS_PROXY"
 curl -fsSL https://github.com/APS-Conecta/gestion/releases/download/vX.Y.Z/apsconecta-vX.Y.Z-install.sh \
   | sudo --preserve-env=HTTPS_PROXY,HTTP_PROXY,NO_PROXY,https_proxy,http_proxy,no_proxy bash
 ```
