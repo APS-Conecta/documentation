@@ -68,6 +68,10 @@ El asistente transmite el entorno normalizado al contenedor de la plataforma. Su
 
 La tarjeta «La red del servidor» ofrece «Sí, corregir» cuando el servidor necesita DNS dividido para alcanzar su dominio. La corrección requiere consentimiento explícito y reinicia Docker una vez.
 
+`dnsmasq` utiliza `bind-dynamic` con escucha en loopback y la dirección LAN. El escritor JSON existente combina el DNS de Docker con los servidores obtenidos de `resolvectl dns` y `resolv.conf`; conserva las otras opciones y excluye direcciones locales que producen bucles y direcciones IPv6 que requieren la interfaz del anfitrión. Las autopruebas cubren ambas fuentes y la repetición sin cambios.
+
+La preparación separa la instalación de herramientas requeridas y del verificador opcional. Su ausencia mantiene la firma pendiente e informa cómo habilitar universe en Ubuntu.
+
 ### Pisos de recursos y datos comunales
 
 La revisión previa informa recursos mínimos y recomendados. La instalación silenciosa importa los datos comunales; la repetición conserva los datos existentes.
