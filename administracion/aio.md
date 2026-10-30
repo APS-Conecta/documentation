@@ -43,7 +43,7 @@ La próxima versión comprueba los requisitos del servidor antes de preparar pro
 | Puertos | TCP/UDP 443, TCP 8080 y TCP/UDP 3478 disponibles para la suite. |
 | Instalación existente | Los contenedores de APS requieren su carpeta `/opt/aps-conecta/instalador`. Recupere la carpeta y sus respaldos antes de continuar. Conserve los contenedores y volúmenes. |
 
-El arranque de una línea comprueba la instalación existente antes de reemplazar la carpeta del paquete. La preparación y el inicio desde el navegador reutilizan las comprobaciones del anfitrión.
+El arranque de una línea comprueba la instalación existente antes de instalar la carpeta del paquete. La preparación y el inicio desde el navegador reutilizan las comprobaciones del anfitrión.
 
 ### El contenedor maestro
 
