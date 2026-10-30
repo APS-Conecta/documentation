@@ -25,6 +25,8 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 | Próxima versión |  | La publicación ejecuta las compuertas completas, verifica el contenido firmado y protege las credenciales en el entorno `Release`. |
 | Próxima versión |  | Las actualizaciones siguen el procedimiento de la suite y el establecimiento aporta su dominio o IP. |
 
+| Próxima versión |  | El banco de pruebas y la aceptación del ciclo de vida usan la instalación HTTPS por IP, con el certificado y el comando del instalador. La revisión de puertos considera TCP y UDP y admite el puerto 80 ocupado. |
+
 ## Notas
 
 El [plan de gestion #175](https://github.com/APS-Conecta/gestion/issues/175) registra la implementación y sus verificaciones. Las integraciones de antivirus, búsqueda y AppAPI, la configuración de Talk durante el aprovisionamiento y el perfil de grabación continúan en etapas posteriores.

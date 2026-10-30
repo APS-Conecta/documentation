@@ -103,6 +103,8 @@ El humo (`smoke`) prueba una instancia AIO en marcha: el contenedor y la instala
 
 La deriva de la organización compara territorio, farmacia y estadistica: `phpunit.xml` y `phpunit.integration.xml` byte a byte, los objetivos centrales del Makefile, las reglas fijadas de ESLint y que sus copias de aps-common sean iguales entre sí y al paquete. No compara `ci.yml`, que es propio de cada aplicación por diseño.
 
+En la próxima versión, ambos trabajos de Clean boot usan HTTPS por IP en 443 y la autoridad certificadora de la suite. Uno comprueba la instalación nueva y el otro recorre su ciclo de vida. El banco reutiliza la revisión previa, el certificado y el comando del instalador.
+
 Clean boot instala un establecimiento generado con el mismo comando silencioso que usa una clínica, y termina con el contrato de entrega: una segunda siembra que no escribe nada, la compuerta de divergencia en verde, un reinicio con la tienda apagada, una nueva siembra que converge y el objetivo `test` con el humo de oficina respondiendo. Una segunda siembra no debe escribir nada: el registro de la siembra es la aserción.
 
 ### En este sitio de documentación

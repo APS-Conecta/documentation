@@ -58,6 +58,8 @@ La próxima versión instala un conjunto fijo: Euro-Office, Talk, búsqueda de t
 
 El establecimiento aporta su dominio o dirección IP. La administración aplica las actualizaciones mediante la versión de la suite y conserva el control de la instalación.
 
+El conjunto utiliza TCP/UDP 443, TCP 8080 y TCP/UDP 3478. El puerto 80 queda disponible para otro servicio. La revisión previa identifica el puerto y el protocolo cuando encuentra un conflicto.
+
 ### Las aplicaciones, desde sus publicaciones
 
 Ninguna imagen lleva una aplicación: las propias y los forks llegan de la publicación firmada de cada repositorio, y las de la tienda, de la tienda de {vendor}`Nextcloud` con la puerta acotada. El manifiesto de la suite (`apps.json`, en el repositorio Gestión) es la única lista de aplicaciones, y cada fila nombra su propio canal.
