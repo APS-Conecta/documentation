@@ -141,4 +141,4 @@ make check-site
 - **El clon de aps-common falla con «could not read Username».** aps-common es privado. En CI se clona con una llave de despliegue; sin ella, el paso falla a la vista.
 - **Las rutas de una instancia nueva responden 404.** Los procesos web guardan en caché las rutas y el estado de las aplicaciones; `instance-up` reinicia el servidor después de activar la aplicación.
 - **El `test` de gestion informa «skipped: no running AIO stack».** Es la compuerta solo estática: no hay una pila AIO en marcha.
-- **Clean boot no corre en un pull request.** El workflow filtra rutas: documentación, tema y `apps/` no cambian lo que instala una clínica, así que no lo disparan.
+- **Clean boot no corre en un pull request.** El workflow filtra rutas: el tema y los archivos de instalación sí lo disparan. Revise las rutas declaradas en `cleanboot.yml`.

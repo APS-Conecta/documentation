@@ -12,7 +12,7 @@ APS Conecta Gestión se instala con APS Conecta Gestión AIO, un fork de [Nextcl
 
 Las páginas de {doc}`instalación </administracion/instalacion/index>`, tejidas del manual de {vendor}`Nextcloud`, llevan el aviso «En APS Conecta Gestión esto difiere» y remiten a esta página. Un establecimiento instala una etiqueta publicada de la suite, nunca una rama: el asistente de esa etiqueta crea y administra todos los contenedores, y el Provisionador del instalador configura después el establecimiento con las fases de aprovisionamiento.
 
-La instalación completa es una línea en el servidor y ocho pasos — cuatro del servidor y cuatro del navegador —, descritos paso a paso en el [manual del instalador](https://github.com/APS-Conecta/gestion/blob/main/aps/INSTALLER.md), en inglés, y en la [guía clínica](https://github.com/APS-Conecta/gestion/blob/main/aps/GUIA-CLINICA.md), en español, ambos en la carpeta `aps/` de instalador. Esta página explica el diseño del instalador, lo que cambia y sus límites.
+La instalación completa es una línea en el servidor y ocho pasos — cuatro del servidor y cuatro del navegador —, descritos paso a paso en el [manual del instalador](https://github.com/APS-Conecta/gestion/blob/main/aps/INSTALLER.md), en inglés, y en la [guía clínica](https://github.com/APS-Conecta/gestion/blob/main/aps/GUIA-CLINICA.md), en español, ambos en la carpeta `aps/` de Gestión. Esta página explica el diseño del instalador, lo que cambia y sus límites.
 
 ```{note}
 Los cambios del plan de actualización corresponden a la próxima versión. Consulte su estado en {doc}`/proyecto/novedades/instalador` y seleccione una versión publicada para instalar.
@@ -58,11 +58,11 @@ El establecimiento aporta su dominio o dirección IP. La administración aplica 
 
 ### Las aplicaciones, desde sus publicaciones
 
-Ninguna imagen lleva una aplicación: las propias y los forks llegan de la publicación firmada de cada repositorio, y las de la tienda, de la tienda de {vendor}`Nextcloud` con la puerta acotada. El manifiesto de la suite (`apps.json`, en el repositorio instalador) es la única lista de aplicaciones, y cada fila nombra su propio canal.
+Ninguna imagen lleva una aplicación: las propias y los forks llegan de la publicación firmada de cada repositorio, y las de la tienda, de la tienda de {vendor}`Nextcloud` con la puerta acotada. El manifiesto de la suite (`apps.json`, en el repositorio Gestión) es la única lista de aplicaciones, y cada fila nombra su propio canal.
 
-- **Propias y forks** — Territorio, Epidemiología, IntraVox, Euro-Office y el menú lateral se instalan sin pregunta en el momento de ejecutar: la resolución descarga, sin cuenta ni token de GitHub, la publicación firmada más reciente de la aplicación compatible con la versión de Nextcloud en marcha, y la verifica contra la clave de aplicaciones de la suite (`apps.pub`: la firma de las sumas, el hash del paquete y de `info.xml`, el directorio raíz igual al identificador, sin `appinfo/signature.json`) antes de desempacar nada.
-- **De tienda** — Calendario, Contactos y las carpetas de grupo llegan de la tienda de aplicaciones, que la suite mantiene cerrada: se abre solo para el comando que instala cada una y vuelve a cerrarse. El punto de entrada del contenedor instala por esa misma puerta acotada `notify_push` y Talk cuando faltan: el hermano de notificaciones parte junto con los contenedores, antes de cualquier provisión.
-- **Opcionales** — La tarjeta «Aplicaciones opcionales» del paso 6 lista, del manifiesto, las aplicaciones que el establecimiento elige (hoy Farmacia, Estadística y Tótem), todas desmarcadas. Una no elegida no se instala: ni se descarga ni ocupa disco, y sus datos extra —la base DEIS de Estadística, por ejemplo— llegan solo con la elección. Talk lo decide el interruptor del asistente, según la memoria y los núcleos del servidor.
+- **Propias y forks** — Territorio, Epidemiología, IntraVox, Euro-Office, Talk y el menú lateral se instalan sin pregunta en el momento de ejecutar: la resolución descarga, sin cuenta ni token de GitHub, la publicación firmada más reciente de la aplicación compatible con la versión de Nextcloud en marcha, y la verifica contra la clave de aplicaciones de la suite (`apps.pub`: la firma de las sumas, el hash del paquete y de `info.xml`, el directorio raíz igual al identificador, sin `appinfo/signature.json`) antes de desempacar nada.
+- **De tienda** — Calendario, Contactos y las carpetas de grupo llegan de la tienda de aplicaciones, que la suite mantiene cerrada: se abre solo para el comando que instala cada una y vuelve a cerrarse. El punto de entrada del contenedor instala por esa misma puerta acotada `notify_push` cuando falta: el hermano de notificaciones parte junto con los contenedores, antes de cualquier provisión.
+- **Opcionales** — La tarjeta «Aplicaciones opcionales» del paso 6 lista, del manifiesto, las aplicaciones que el establecimiento elige (hoy Farmacia, Estadística y Tótem), todas desmarcadas. Una no elegida no se instala: ni se descarga ni ocupa disco, y sus datos extra —la base DEIS de Estadística, por ejemplo— llegan solo con la elección.
 
 El **candado** —el registro de versiones, `/opt/aps-conecta/apps.lock.json`— anota la versión de Nextcloud y, por aplicación, su canal, etiqueta, versión y suma. Lo escribe la resolución al instalar, está dentro del alcance del respaldo y lo mueve solo `aps-conecta actualizar`. Una provisión repetida respeta el candado y no descarga nada, y una reparación nunca se convierte en una actualización: la {doc}`gestión de apps </administracion/aplicaciones>` de la interfaz no es el camino.
 
@@ -80,7 +80,7 @@ Una copia hecha por un Nextcloud AIO sin modificar no se restaura en la suite. T
 
 ### Actualizaciones
 
-La suite se actualiza como un conjunto, nunca un componente por separado. Antes de anunciar una etiqueta nueva, se instala en un equipo de ensayo limpio tal como lo hace un establecimiento, y ese ensayo es el registro de aceptación. El conjunto de imágenes cambia solo cuando el operador instala la etiqueta nueva a propósito; aunque marque la actualización automática, la ejecución nocturna no cambia nada: los resúmenes de una etiqueta publicada no se mueven, y el canal es siempre la etiqueta que el operador ejecutó.
+La suite se actualiza como un conjunto, nunca un componente por separado. Antes de anunciar una etiqueta nueva, se instala en un equipo de ensayo limpio tal como lo hace un establecimiento, y ese ensayo es el registro de aceptación. El conjunto de imágenes cambia cuando el administrador instala una versión nueva. Las actualizaciones automáticas quedan retiradas; cada versión publicada conserva sus resúmenes.
 
 Las **aplicaciones** se mueven solo cuando el administrador lo decide, con:
 
@@ -116,4 +116,4 @@ La integración de antivirus, búsqueda y AppAPI, la configuración inicial de l
 - **Copias.** La copia diaria comparte disco con la instancia, detiene la suite mientras corre y se desplaza una hora con cada cambio de horario. Los directorios adicionales se restauran a mano.
 - **Panel de registros.** Tras una actualización, un navegador con la hoja de estilos anterior en caché muestra el panel de registros del asistente con la paleta previa hasta revalidarla, y un refresco forzado lo corrige: el PHP que fija la URL de su hoja de estilos no se modifica.
 - **Arquitectura.** Las imágenes construidas son solo x86-64.
-- **Documentación.** La de la instalación y la actualización es el repositorio instalador y su carpeta `aps/`; la de Nextcloud AIO upstream vive en su propio repositorio.
+- **Documentación.** La de la instalación y la actualización está en el repositorio Gestión y su carpeta `aps/`; la de Nextcloud AIO upstream vive en su propio repositorio.
