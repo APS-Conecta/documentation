@@ -8,6 +8,11 @@ resumen: "Cómo se mantiene el fork de nextcloud/all-in-one, hoy en instalador: 
 
 ## Resumen
 
+```{note}
+Los cambios del plan de actualización corresponden a la próxima versión. Consulte su estado en {doc}`/proyecto/novedades/instalador` y seleccione una versión publicada para instalar.
+```
+
+
 El fork de [nextcloud/all-in-one](https://github.com/nextcloud/all-in-one) desde el que se construyen las imágenes de cada instalación de la suite vive en el repositorio [APS-Conecta/gestion](https://github.com/APS-Conecta/gestion), que absorbió también el paquete del host y la cadena de publicación: el repositorio APS-Conecta/AIO fue su primera casa y se eliminó una vez absorbido; su historia de commits sigue completa en instalador. Lo que los cambios del fork hacen en una instalación está en {doc}`/administracion/aio`; esta página describe cómo se mantiene el fork, y el repositorio que hoy lo contiene —bootstrap firmado, `VERSION` y cadena de publicación— tiene su propia referencia en {doc}`instalador </desarrollo/instalador>`.
 
 El fork sigue una regla única: `main` es **un solo árbol** —la historia de upstream más los cambios del fork como bytes confirmados, de primera clase—. Los cambios no viajan como archivos aparte ni por ramas de integración: cada cambio es un commit del propio árbol, y una versión de upstream llega como llega cualquier cambio, con una fusión deliberada en `main`, y después una versión corriente. Los números que la [declaración del fork](https://github.com/APS-Conecta/gestion/blob/main/readme.md) asigna a cada cambio son atribución —qué cambio debe qué garantía—, no archivos aparte.
@@ -62,4 +67,4 @@ El `AGENTS.md` del repositorio lleva las reglas del fork: commits convencionales
 
 - **La fusión es manual y deliberada.** Nadie automatiza la llegada de upstream: si publica una corrección, la organización decide la fusión y la versión que la lleva.
 - **Textos nuevos de upstream.** Una fusión que agrega textos del asistente en inglés los deja en inglés: la compuerta exige los declarados, no traduce los nuevos; la lista de mensajes en inglés de la declaración crece con ellos.
-- **Límites de la instalación.** Los que ve un establecimiento, como los mensajes PHP en inglés o el código muerto de deSEC, están en {doc}`AIO </administracion/aio>`.
+- **Límites de la instalación.** Los que ve un establecimiento, como los mensajes PHP en inglés, están en {doc}`AIO </administracion/aio>`.

@@ -42,8 +42,8 @@ Bajo AIO, la conexión con el servidor de documentos tiene dos dueños, y el arc
 
 | Clave de `eurooffice` | Dueño | Valor |
 |---|---|---|
-| `DocumentServerUrl` | El entrypoint de AIO, en cada arranque | La dirección pública `https://<dominio o IP>/eurooffice`, desde la que el navegador carga el editor |
-| `jwt_secret` | El entrypoint de AIO, en cada arranque | El secreto de su propio servidor de documentos |
+| `DocumentServerUrl` | Rutina compartida del arranque y la fase 14 | La dirección pública `https://<dominio o IP>/eurooffice`, desde la que el navegador carga el editor |
+| `jwt_secret` | Rutina compartida del arranque y la fase 14 | El secreto de su propio servidor de documentos |
 | `DocumentServerInternalUrl`, `StorageUrl` | La fase 14, solo en una instalación por IP | El servidor de documentos por su contenedor y la plataforma por el listener interno de apache |
 | `sameTab` | La fase 14 | `false` |
 | `customizationTheme` | La fase 14 | `default-light` |
@@ -57,12 +57,16 @@ Las razones de cada valor:
 - **`customizationTheme`.** El valor predeterminado sigue el tema del sistema operativo de cada equipo. La suite fija el tema claro en toda la interfaz para que un ajuste personal no cambie lo que ve el personal, y el editor era la última superficie fuera de esa decisión.
 - **Formatos ODF.** El conector declara ODF como edición con pérdida. Por decisión del responsable, los documentos `odt`, `ods` y `odp` se editan mediante conversión a OOXML, con la pérdida de formato que eso implica; `editFormats` activa la edición y `defFormats` hace que un clic en **Archivos** los abra en el editor.
 
+### Recuperación del servicio
+
+La aplicación permanece habilitada cuando el servidor de documentos tarda en iniciar. La configuración se aplaza para ese arranque y se aplica en el siguiente inicio, una vez disponible el servicio. La fase 14 utiliza la misma rutina después de instalar el conector.
+
 ### Verificación
 
 La verificación de oficina, `scripts/office-smoke.sh`, forma parte de la revalidación posterior a cada actualización y falla ante el primer tramo roto:
 
 1. El conector `eurooffice` está activado.
-2. `/eurooffice/healthcheck` responde por la ruta pública, a través de apache: es el tramo que se corta con NAT de horquilla o DNS dividido mientras el contenedor sigue sano.
+2. `/eurooffice/healthcheck` responde correctamente y devuelve `true` por la ruta pública, a través de apache: es el tramo que se corta con NAT de horquilla o DNS dividido mientras el contenedor sigue sano.
 3. La comprobación del propio conector prueba de una vez el healthcheck, el JWT, la versión mínima y una conversión real de un documento `docx` a través de `StorageUrl`.
 4. La versión del servidor de documentos es la fijada por la suite (9.3.4): la versión mínima del conector es más antigua y dejaría pasar otra versión sin aviso.
 5. La imagen del servidor de documentos es la de AIO o la del canal de la suite; cualquier otra, incluidas las de Collabora y OnlyOffice, falla.

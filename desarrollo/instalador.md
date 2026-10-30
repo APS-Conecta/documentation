@@ -4,66 +4,48 @@ audiencia: desarrollo
 apps: [gestion]
 resumen: "El repositorio de la suite: el fork de AIO en un solo árbol, el paquete del host, el Provisionador, el manifiesto de aplicaciones y la publicación firmada."
 ---
-# instalador
+# Instalador de APS Conecta Gestión
 
 ## Resumen
 
-instalador es el repositorio de la suite APS Conecta Gestión: el fork de [nextcloud/all-in-one](https://github.com/nextcloud/all-in-one) —un solo árbol, con los cambios del fork como bytes confirmados en `main`—, el paquete del host `aps-conecta`, el Provisionador que instala un centro, el ejecutor de aprovisionamiento, el manifiesto de aplicaciones de la suite y la cadena de publicación firmada. Absorbió al repositorio APS-Conecta/AIO, que se eliminó después; su historia de commits sigue completa aquí.
+El repositorio [APS-Conecta/gestion](https://github.com/APS-Conecta/gestion) reúne el fork de AIO, el paquete del anfitrión, el Provisionador y el manifiesto de aplicaciones. El desarrollo avanza en un solo árbol sobre `main`.
 
-Una etiqueta de instalador es la única identidad de una versión: publica las veinte imágenes bajo `ghcr.io/aps-conecta/*`, arma el paquete firmado que el arranque de una línea descarga y adjunta el manifiesto de la versión. El paquete es el árbol de la etiqueta —tema, datos, registro de establecimientos y manifiesto— y no lleva bytes de ninguna aplicación: cada una llega de su propia publicación firmada o de la tienda con la puerta acotada.
+```{note}
+Los cambios del plan de actualización corresponden a la próxima versión. Consulte su estado en {doc}`/proyecto/novedades/instalador` y seleccione una versión publicada para instalar.
+```
 
-El archivo `VERSION`, de una línea, es la etiqueta de la versión; `aps/CHANGELOG.md` lleva la entrada fechada, y el CLI lo lee primero. Los runbooks viven en `aps/`: `INSTALLER.md`, en inglés, y `GUIA-CLINICA.md`, en español, para quien instala; `RELEASING.md`, el ritual de publicación y el ciclo de la clave de firma.
-
-Cómo se mantiene el fork de AIO está en {doc}`AIO </desarrollo/aio>`; lo que los cambios del fork hacen en una instalación, en {doc}`AIO </administracion/aio>`.
+Cada versión vincula un commit, las imágenes y el paquete firmado. Las aplicaciones adicionales llegan por el canal declarado en `apps.json`: publicación firmada o instalación acotada desde la tienda.
 
 ## Tabla
 
-| Compuerta | Comando | Cuándo corre | Qué prueba |
-|---|---|---|---|
-| Búsqueda de secretos | `gitleaks detect` | Cada pull request y cada push a `main` (`ci.yml`) | Ningún secreto en el historial; los hallazgos del primer arranque se fijan en un `.gitleaksignore` propio. |
-| Compuerta local | `bash scripts/test.sh` | Cada pull request y cada push a `main` (`ci.yml`); también en local | El barrido estático sobre `scripts/`, `provisioning/`, `host/` e `install.sh`; las autopruebas herméticas del Provisionador, del paquete del host, del arranque de una línea, del empaquetado de versiones, del resolvedor de publicaciones y de las fases de provisión; y las fijaciones de canal. |
-| Compuerta de marca | `bash scripts/brand-gate.sh .` | Cada pull request, cada push y cada etiqueta (`ci.yml` y la cadena de publicación) | Que el árbol cumple la declaración del fork: la identidad y el español de Chile en cada superficie declarada, fila por fila. |
-| Compuerta de adquisición | `bash scripts/acquisition-gate.sh .` | Cada pull request, cada push y cada etiqueta (`ci.yml` y la cadena de publicación) | Que la instalación no llega a ninguna fuente ajena a APS Conecta y que la tienda de aplicaciones abre solo por sus comandos acotados. |
-| Enrojecimiento | `gate-red-proof` | Cada pull request (`ci.yml`) | Que las compuertas pueden fallar: inyecta regresiones conocidas —un centinela revertido, una referencia al registro de upstream, un permiso retirado— y exige que la compuerta correspondiente salga en rojo en cada una. |
-| Conjunto construido | `bash scripts/lockstep.sh` | El trabajo de manifiesto del flujo Images, antes del anuncio | Que el conjunto de imágenes anunciado proviene de un solo árbol: cada construcción resuelve el mismo commit, y una nueva imagen es una entrada en la lista única. |
-| Instalación limpia | `cleanboot.yml` | Pull requests y programación | Una instalación desde cero por el arranque real —suma y firma verificadas—, por dominio y por la IP del ejecutor, con los brazos de la actualización: una normal desde un candado viejo, una firma alterada que no mueve nada y `--revisar` que no escribe. |
-| Publicación | `release.yml` | Cada etiqueta `v*` | Compuertas verdes, las veinte imágenes en la etiqueta, el paquete armado, firmado con minisign y comprobado contra la clave pública; la publicación lleva los cinco activos: el paquete, sus sumas, su firma, el instalador de una línea y el manifiesto. |
+| Verificación | Entrada | Resultado esperado |
+|---|---|---|
+| Compuerta local | `bash scripts/test.sh` | Pruebas estáticas y autopruebas completas |
+| Marca y adquisición | `bash scripts/brand-gate.sh .` y `bash scripts/acquisition-gate.sh .` | Identidad, funciones admitidas y canales de instalación coherentes |
+| Validadores | `bash scripts/validate.sh .` | Ortografía, Dockerfiles y definiciones válidas |
+| Inventario de construcción | `python3 scripts/images.py build-matrix` | Todos los Dockerfiles de ejecución, derivados del inventario |
+| Imágenes publicadas | `python3 scripts/images.py verify VERSION --sha COMMIT` | Resúmenes y etiquetas de origen correspondientes al commit fijado |
+| Instalación limpia | `cleanboot.yml` | Instalación, reinicio, provisión repetida, recuperación y actualización verificadas |
+| Publicación | `release.yml` | Compuertas completas, procedencia, firmas y contenido comprobados |
 
 ## Notas
 
-### El arranque de una línea
+### Construcción y procedencia
 
-```console
-curl -fsSL https://github.com/APS-Conecta/gestion/releases/download/vX.Y.Z/apsconecta-vX.Y.Z-install.sh | sudo bash
-```
+`images.yml` fija un commit y construye todas las imágenes de ejecución desde ese árbol. PostgreSQL se prueba antes de publicar; la comprobación confirma que las capas publicadas son las probadas. El manifiesto registra el origen y el resumen de cada imagen.
 
-El ancla de confianza es la URL de la versión, más TLS: el archivo lleva dentro la suma sha256 del paquete y la clave pública de la firma, y un archivo truncado es un error de sintaxis, nunca una media instalación.
-Desempaca la suite en `/opt/aps-conecta/instalador` y guarda el paquete en `/opt/aps-conecta/paquete`, donde la revisión previa lo vuelve a verificar —suma y firma— sin red, y la guía clínica enseña la verificación a mano con `signify-openbsd` y `sha256sum -c`.
+Una versión publicada conserva sus resúmenes. La opción `--force` corresponde a conjuntos todavía inéditos. El paquete se obtiene con `git archive` del commit fijado.
 
-### El paquete es el árbol de la etiqueta
+### Firma y credenciales
 
-El paquete compuesto sale de `git archive` de la etiqueta, nunca de un árbol de trabajo, y es ese árbol —tema, datos, registro de establecimientos y manifiesto— sin bytes de ninguna aplicación.
-El empaquetado es determinista: dos corridas sobre la misma etiqueta producen el mismo sha256, y una `VERSION` que no coincide con la etiqueta, o una clave pública distinta de la publicada, cortan la publicación en rojo.
+El entorno `Release` contiene `MINISIGN_SECRET_KEY`, `MINISIGN_KEY_PASSWORD` y `SPREED_REFRESH_TOKEN`. Cada paso recibe únicamente la credencial que consume. Conserve `installer.pub` en el repositorio como clave pública de verificación.
 
-### La corrección de red con consentimiento
+La cadena comprueba la firma y el contenido de las publicaciones de Talk. Las etiquetas de ensayo `v0.0.0-ci.N` se publican como preliminares y conservan la versión estable marcada como más reciente. El procedimiento está en [RELEASING.md](https://github.com/APS-Conecta/gestion/blob/main/aps/RELEASING.md).
 
-Cuando la publicación del dominio en el paso 6 del asistente falla porque el servidor no alcanza su propio dominio, la tarjeta «La red del servidor» ofrece «Sí, corregir»: un consentimiento explícito ejecuta `sudo aps-conecta red --dominio D --arreglar`, que instala dnsmasq con DNS dividido, escribe `daemon.json` y reinicia Docker una sola vez; la preparación se repite sola después, y ejecutar la corrección de nuevo no cambia nada.
+### Desarrollo y verificación
 
-### Pisos de recursos y datos comunales
+Trabaje en una rama por tarea. Ejecute las verificaciones en un árbol de trabajo aislado y registre los resultados en el pull request. Los cambios de imágenes se validan con un conjunto reconstruido y una instalación limpia.
 
-La revisión previa informa dos niveles para memoria y disco —mínimo, la línea roja, y recomendado—, anulables por entorno para los ensayos.
-La instalación silenciosa termina importando los datos comunales del centro (`territorio:import --actor instalador`), e importar de nuevo termina en «0 creados» por archivo.
+El permiso predeterminado de los workflows es de lectura. Los trabajos declaran los permisos de escritura necesarios y los checkouts usan `persist-credentials: false`.
 
-### Instalaciones previas
-
-Una clínica instalada desde un clon de gestion sigue funcionando sin cambios: el instalador no la lee ni la sigue, sirve instalaciones limpias solamente, y la migración se retiró con la doctrina de la v0.5.0.
-
-### Deuda técnica y límites
-
-- Ninguna instancia de producción existe todavía: la primera versión publicada es el hito que abre la vuelta de aceptación.
-- Los límites que ve un establecimiento —los mensajes PHP en inglés, el código muerto de deSEC— están en {doc}`AIO </administracion/aio>`.
-
-```{toctree}
-:maxdepth: 1
-
-```
+El plan vigente está en [gestion #175](https://github.com/APS-Conecta/gestion/issues/175). La documentación acompaña cada entrega en sus manuales de uso, administración y desarrollo.

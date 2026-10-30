@@ -30,13 +30,9 @@ Los clientes de escritorio y móviles se descargan desde [nextcloud.com/install]
 
 ### Disponibilidad
 
-Talk es una opción de la instalación: la administración decide al instalar la suite si el establecimiento la incluye, y el instalador la deja apagada salvo que se active. Si **Talk** no aparece entre las aplicaciones, la instalación del establecimiento no la incluye.
+En la próxima versión, Talk se incluye en el conjunto fijo de la suite. La administración confirma la disponibilidad de las llamadas en la versión instalada. Consulte {doc}`/proyecto/novedades/instalador`.
 
-La grabación de llamadas es una segunda opción de la instalación. Solo existe con Talk activado y también parte apagada; {doc}`/usuario/conversacion/call-recording` describe su uso.
-
-### Cómo se conectan las llamadas
-
-Con Talk activado, la instalación configura su propio servidor de señalización, el backend de alto rendimiento de Talk, y su propio servidor TURN y STUN. También retira el servidor STUN externo que Talk trae por omisión, así que las llamadas no consultan servidores ajenos a la instalación para conectarse.
+La habilitación de grabaciones dependerá de un perfil de recursos validado. {doc}`/usuario/conversacion/call-recording` describe su uso cuando la función esté disponible.
 
 ### Uso en el establecimiento
 
