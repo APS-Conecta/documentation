@@ -38,7 +38,7 @@ La próxima versión comprueba los requisitos del servidor antes de preparar pro
 |---|---|
 | Arquitectura | Servidor x86-64. Las imágenes se publican para esa arquitectura. |
 | Respaldos | `/dev/fuse` debe ser un dispositivo de caracteres. Ejecute `sudo modprobe fuse` y compruebe su disponibilidad en el anfitrión. |
-| Docker | Docker Engine desde su repositorio oficial. Para sustituir una instalación mediante Snap, respalde primero sus datos. |
+| Docker | Docker Engine compatible, instalado sin Snap. Use el repositorio oficial para instalarlo; para sustituir Snap, respalde primero sus datos. |
 | Disco | Espacio disponible en el directorio de datos que informa Docker. Revise su ubicación con `sudo docker info --format '{{.DockerRootDir}}'`. |
 | Puertos | TCP/UDP 443, TCP 8080 y TCP/UDP 3478 disponibles para la suite. |
 | Instalación existente | Los contenedores de APS requieren su carpeta `/opt/aps-conecta/instalador`. Recupere la carpeta y sus respaldos antes de continuar. Conserve los contenedores y volúmenes. |
