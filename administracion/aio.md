@@ -44,12 +44,14 @@ El asistente nunca vuelve a crear un contenedor que todavía existe. Por eso un 
 
 Mientras la suite está en ejecución, el inicio de sesión directo en el asistente queda bloqueado. El asistente muestra «El inicio de sesión está bloqueado porque la suite está en ejecución.» y remite al inicio de sesión automático desde la administración de APS Conecta Gestión.
 
+(una-etiqueta-veinte-imagenes)=
 ### Imágenes de una versión
 
 La construcción obtiene el conjunto completo desde `php/containers.json` y los Dockerfiles de ejecución. Todas las imágenes se construyen desde un mismo commit y el manifiesto registra sus resúmenes. PostgreSQL se prueba antes de publicarse.
 
 El asistente usa la etiqueta de su propia imagen para seleccionar las imágenes de los demás servicios. La publicación verifica el conjunto completo y conserva los resúmenes de las versiones publicadas.
 
+(lo-que-cambia-el-fork)=
 ### Servicios incluidos
 
 La próxima versión instala un conjunto fijo: Euro-Office, Talk, búsqueda de texto completo, vistas previas, antivirus y AppAPI mediante HaRP. Farmacia, Estadística y Tótem conservan su selección independiente. La habilitación de grabaciones dependerá del perfil de recursos validado.

@@ -8,7 +8,11 @@ resumen: "Las fases del aprovisionamiento en su orden fijo: qué escribe cada un
 
 ## Resumen
 
-El ejecutor `provisioning/seed.sh` es el único escritor del estado declarado de la instancia: ningún procedimiento la modifica desde la interfaz de administración ni con comandos `occ` sueltos. Las cuentas del personal llegan aparte, con la carga de la planilla, y en AIO el entrypoint del asistente escribe en cada arranque la URL pública del editor, el secreto JWT y `trusted_domains`.
+```{note}
+Los cambios del plan de actualización corresponden a la próxima versión. Consulte su estado en {doc}`/proyecto/novedades/instalador` y seleccione una versión publicada para instalar.
+```
+
+El ejecutor `provisioning/seed.sh` es el único escritor del estado declarado de la instancia: ningún procedimiento la modifica desde la interfaz de administración ni con comandos `occ` sueltos. Las cuentas del personal llegan aparte, con la carga de la planilla, y en AIO la inicialización del contenedor de Nextcloud y la fase 14 comparten la configuración de Oficina. La inicialización también configura `trusted_domains`.
 Carga los archivos de fase numerados de `provisioning/phases/` en orden fijo y ejecuta cada uno en una subshell propia con `set -e`.
 Una fase que falla detiene la ejecución con `FATAL: phase <archivo> failed`, y ninguna fase traspasa variables de shell a la siguiente: el estado entre fases pasa por la instancia y las guardias lo vuelven a consultar.
 Una fase ejecutada fuera del ejecutor se niega a correr, porque sin el archivo del establecimiento recorrería arreglos vacíos y terminaría en verde sin escribir nada.

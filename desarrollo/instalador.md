@@ -4,6 +4,7 @@ audiencia: desarrollo
 apps: [gestion]
 resumen: "El repositorio de la suite: el fork de AIO en un solo árbol, el paquete del host, el Provisionador, el manifiesto de aplicaciones y la publicación firmada."
 ---
+(instalador)=
 # Instalador de APS Conecta Gestión
 
 ## Resumen
@@ -30,6 +31,7 @@ Cada versión vincula un commit, las imágenes y el paquete firmado. Las aplicac
 
 ## Notas
 
+(el-paquete-es-el-arbol-de-la-etiqueta)=
 ### Construcción y procedencia
 
 `images.yml` fija un commit y construye todas las imágenes de ejecución desde ese árbol. PostgreSQL se prueba antes de publicar; la comprobación confirma que las capas publicadas son las probadas. El manifiesto registra el origen y el resumen de cada imagen.
@@ -46,6 +48,27 @@ La cadena comprueba la firma y el contenido de las publicaciones de Talk. Las et
 
 Trabaje en una rama por tarea. Ejecute las verificaciones en un árbol de trabajo aislado y registre los resultados en el pull request. Los cambios de imágenes se validan con un conjunto reconstruido y una instalación limpia.
 
-El permiso predeterminado de los workflows es de lectura. Los trabajos declaran los permisos de escritura necesarios y los checkouts usan `persist-credentials: false`.
+Los trabajos de comprobación declaran permisos de lectura. El workflow reutilizable de imágenes admite `packages: write` para publicar y reduce los trabajos de comprobación a lectura. Los checkouts usan `persist-credentials: false`.
 
 El plan vigente está en [gestion #175](https://github.com/APS-Conecta/gestion/issues/175). La documentación acompaña cada entrega en sus manuales de uso, administración y desarrollo.
+
+### El arranque de una línea
+
+El activo de instalación de cada versión lleva la suma del paquete y la clave pública. Desempaca la suite en `/opt/aps-conecta/instalador` y conserva el paquete en `/opt/aps-conecta/paquete` para verificarlo sin red. El procedimiento está en {doc}`/administracion/aio`.
+
+### La corrección de red con consentimiento
+
+La tarjeta «La red del servidor» ofrece «Sí, corregir» cuando el servidor necesita DNS dividido para alcanzar su dominio. La corrección requiere consentimiento explícito y reinicia Docker una vez.
+
+### Pisos de recursos y datos comunales
+
+La revisión previa informa recursos mínimos y recomendados. La instalación silenciosa importa los datos comunales; la repetición conserva los datos existentes.
+
+### Instalaciones previas
+
+El instalador sirve instalaciones limpias. El procedimiento de actualización y los límites de instalaciones anteriores están en {doc}`/administracion/aio`.
+
+(deuda-tecnica-y-limites)=
+### Límites
+
+Las integraciones pendientes y la versión que las incorpora se registran en {doc}`/proyecto/novedades/instalador`.

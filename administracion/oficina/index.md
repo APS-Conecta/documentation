@@ -32,6 +32,10 @@ Gracias a la asociación de {vendor}`Nextcloud` con Collabora, {vendor}`Nextclou
 
 ## En APS Conecta Gestión
 
+```{note}
+Los cambios del plan de actualización corresponden a la próxima versión. Consulte su estado en {doc}`/proyecto/novedades/instalador` y seleccione una versión publicada para instalar.
+```
+
 La oficina de APS Conecta Gestión es Euro-Office: un servidor de documentos en su propio contenedor y la aplicación conectora `eurooffice`. Nextcloud Office no forma parte de la suite. El asistente de instalación de la suite quita las tarjetas de Collabora y OnlyOffice, rechaza cualquier oficina distinta de Euro-Office y rechaza también la petición de cambiarla o desactivarla. El servidor de documentos es DocumentServer 9.3.4.
 
 La aplicación `office` de la plataforma, una vista general que no edita documentos ni está conectada al editor, queda desactivada por la política de aplicaciones: una superficie sin función y con un nombre confuso es peor que ninguna.
