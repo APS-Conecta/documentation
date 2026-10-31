@@ -123,7 +123,7 @@ repos:
     role: "Protección de cargas para Nextcloud 34: conserva el archivo anterior cuando una carga es rechazada y verifica una ubicación temporal segura."
     manuals:
       - administracion/aio.md
-      - desarrollo/instalador.md
+      - desarrollo/files-upload-guard.md
       - usuario/archivos/index.md
       - proyecto/novedades/files-upload-guard.md
     depends_on: [gestion]
