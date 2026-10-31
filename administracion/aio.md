@@ -100,7 +100,7 @@ La próxima versión instala un conjunto fijo: Euro-Office, Talk, búsqueda de t
 
 El mínimo medido y el umbral de grabación permanecen pendientes en [#189](https://github.com/APS-Conecta/gestion/issues/189). El ensayo acordado utiliza diez cuentas ficticias, dos sesiones activas de Office y una llamada de cuatro participantes a 720p y 30 cuadros por segundo. Cada configuración contempla quince minutos de calentamiento y treinta de medición, con tres repeticiones. El entorno de ensayo y los equipos que ejecutan los navegadores se miden por separado.
 
-El entorno puede utilizar una VPS exclusiva o un contenedor de sistema LXD sin privilegios. LXD comparte el núcleo del anfitrión; la medición distingue los límites del contenedor y el consumo del servidor. La prueba inicial de Docker, seccomp y FUSE prepara el ensayo de la suite completa.
+Los valores mínimos y recomendados de hardware se publican con referencias oficiales de Nextcloud y resultados del ensayo de la suite completa. Cada resultado identifica la versión, los servicios, la carga y el margen observado.
 
 El establecimiento aporta su dominio o dirección IP. La administración aplica las actualizaciones mediante la versión de la suite y conserva el control de la instalación.
 
