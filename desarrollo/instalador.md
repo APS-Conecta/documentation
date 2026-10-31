@@ -86,6 +86,10 @@ La compuerta conserva los ajustes de conexión. El diagnóstico nativo puede ini
 
 El [experimento por IP](https://github.com/APS-Conecta/gestion/actions/runs/41211391805/job/124567070362) confirmó STUN, la asignación TURN autenticada y el intercambio bidireccional con el par privado permitido de Talk. El destino privado de LAN sin permiso recibió un rechazo 403 autenticado y ningún dato. La política de pares se conserva. Este resultado corresponde al relé; la llamada entre navegadores se valida en la aceptación de cada instalación.
 
+Después de revalidar, Clean boot por IP repite `talk-smoke.sh` antes del ensayo de mensajes. Usa `POST v4/room` con `roomType` y `roomName`, `POST v1/chat/{token}` y `GET` del mismo historial. Una cuenta ordinaria crea y envía; otra lee el texto exacto junto con la identidad, el identificador y la conversación correspondientes. La comprobación admite los mensajes del sistema.
+
+El creador elimina únicamente la conversación del ensayo. Cada escritura se ejecuta una vez y un fallo de limpieza conserva el fallo original. Las credenciales permanecen en el registro privado y en memoria; el cliente verifica el certificado de la suite y rechaza redirecciones. La política de grabación se mide por separado en [#189](https://github.com/APS-Conecta/gestion/issues/189).
+
 ### El arranque de una línea
 
 El activo de instalación de cada versión lleva la suma del paquete y la clave pública. Desempaca la suite en `/opt/aps-conecta/instalador` y conserva el paquete en `/opt/aps-conecta/paquete` para verificarlo sin red. El procedimiento está en {doc}`/administracion/aio`.
