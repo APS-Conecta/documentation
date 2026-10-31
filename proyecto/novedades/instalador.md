@@ -25,6 +25,7 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 | Próxima versión |  | La revisión previa instala lo que falte —Docker, signify, gdal—, verifica el paquete guardado sin red y nombra lo que corrigió. |
 | Próxima versión |  | La suite usa Euro-Office como único editor y mantiene sus aplicaciones habilitadas durante una demora del servicio. La configuración se completa en el siguiente inicio. |
 | Próxima versión |  | El conjunto fijo incluye Talk, búsqueda, vistas previas, antivirus y AppAPI mediante HaRP. Farmacia, Estadística y Tótem conservan su selección. |
+| Próxima versión |  | La instalación configura la búsqueda dentro de documentos, incorpora sus tres aplicaciones y prepara los ajustes de memoria del servidor. La aceptación busca el contenido de un archivo cargado por una cuenta sin privilegios. |
 | Próxima versión |  | Cada construcción produce el conjunto completo de imágenes desde un commit y verifica su procedencia y resúmenes. |
 | Próxima versión |  | La publicación ejecuta las compuertas completas, verifica el contenido firmado y protege las credenciales en el entorno `Release`. |
 | Próxima versión |  | Las actualizaciones siguen el procedimiento de la suite y el establecimiento aporta su dominio o IP. |
@@ -35,6 +36,6 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 
 ## Notas
 
-El [plan de gestion #175](https://github.com/APS-Conecta/gestion/issues/175) registra la implementación y sus verificaciones. Las integraciones de búsqueda y AppAPI, la configuración de Talk durante el aprovisionamiento y el perfil de grabación continúan en etapas posteriores.
+El [plan de gestion #175](https://github.com/APS-Conecta/gestion/issues/175) registra la implementación y sus verificaciones. La integración de AppAPI, la configuración de Talk durante el aprovisionamiento y el perfil de grabación continúan en etapas posteriores.
 
 Estas entradas describen la próxima versión. Para instalar, seleccione una versión estable en [Publicaciones de la suite](https://github.com/APS-Conecta/gestion/releases).

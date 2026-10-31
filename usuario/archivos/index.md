@@ -27,6 +27,10 @@ En la próxima versión, el antivirus analiza cada archivo antes de guardarlo. E
 
 Si se rechaza una sustitución, el archivo anterior se conserva. Ante un error de carga, revise Archivos antes de repetirla.
 
+### Buscar en el contenido
+
+En la próxima versión, la búsqueda de la plataforma encuentra palabras dentro de los documentos indexados. Abra la búsqueda, escriba una palabra del contenido y seleccione el documento entre los resultados. La indexación puede tardar después de una carga. Si un documento reciente todavía no aparece, espere y repita la búsqueda.
+
 ### Las cuatro áreas
 
 Los documentos del establecimiento viven en carpetas de equipo, no en la carpeta personal de cada cuenta. La suite crea esas carpetas en cuatro áreas:

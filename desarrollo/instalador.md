@@ -78,6 +78,14 @@ El servidor web conserva HTTP 500 y entrega orientación en español para errore
 
 La compuerta local comprueba unidades y valores inválidos. Clean boot verifica contenido limpio, EICAR, archivos ensamblados, límites, comprimidos, fallas y recuperación mediante WebDAV. También comprueba sustituciones, permisos de carpetas compartidas y respuestas del servidor web. La importación programada del DEIS se comprueba antes de los reinicios controlados. Registre los resultados junto con la procedencia de las imágenes en el pull request.
 
+### Búsqueda de contenido
+
+`apps.json` declara `fulltextsearch`, `fulltextsearch_elasticsearch` y `files_fulltextsearch` como aplicaciones de tienda. La fase `14-fulltextsearch` ejecuta el destino `fulltextsearch` de `configure-apps.sh` después de su instalación. El arranque usa la misma rutina; una aplicación ausente queda pendiente para la fase 12. La configuración conserva las aplicaciones habilitadas durante una demora del servicio.
+
+El módulo del anfitrión administra juntos los ajustes de memoria del núcleo. Su autoprueba comprueba el archivo persistente, la aplicación y la conservación de un límite de mapas superior. `ConfigurationManager::fulltextsearchJavaOptions` define el valor Java predeterminado y conserva las opciones del establecimiento.
+
+La aceptación por IP carga un archivo mediante WebDAV con una cuenta sin privilegios y un identificador con punto. Indexa ese archivo y busca una palabra exclusiva de su contenido. El resultado debe coincidir con el proveedor, el identificador público del archivo, su ruta y su tipo. La prueba elimina el documento al terminar.
+
 ### Proxy de salida
 
 El anfitrión valida y carga un perfil de variables fijo, con permisos privados y lectura literal. El arranque firmado delega su guardado al módulo del paquete verificado. Docker utiliza un archivo de entorno mediante una configuración de systemd; el comando de arranque contiene su ruta. La aplicación correcta se registra después del reinicio del servicio y una falla conserva el intento pendiente.
