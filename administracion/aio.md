@@ -98,19 +98,23 @@ El asistente usa la etiqueta de su propia imagen para seleccionar las imágenes 
 
 La próxima versión instala un conjunto fijo: Euro-Office, Talk, búsqueda de texto completo, vistas previas, antivirus y AppAPI mediante HaRP. Farmacia, Estadística y Tótem conservan su selección independiente. La habilitación de grabaciones dependerá del perfil de recursos validado.
 
+El mínimo medido y el umbral de grabación permanecen pendientes en [#189](https://github.com/APS-Conecta/gestion/issues/189). El ensayo acordado utiliza diez cuentas ficticias, dos sesiones activas de Office y una llamada de cuatro participantes a 720p y 30 cuadros por segundo. Cada configuración contempla quince minutos de calentamiento y treinta de medición, con tres repeticiones. El entorno de ensayo y los equipos que ejecutan los navegadores se miden por separado.
+
+Los valores mínimos y recomendados de hardware se publican con referencias oficiales de Nextcloud y resultados del ensayo de la suite completa. Cada resultado identifica la versión, los servicios, la carga y el margen observado.
+
 El establecimiento aporta su dominio o dirección IP. La administración aplica las actualizaciones mediante la versión de la suite y conserva el control de la instalación.
 
 El conjunto utiliza TCP/UDP 443, TCP 8080 y TCP/UDP 3478. El puerto 80 queda disponible para otro servicio. La revisión previa identifica el puerto y el protocolo cuando encuentra un conflicto.
 
 ### Las aplicaciones, desde sus publicaciones
 
-Ninguna imagen lleva una aplicación: las propias y los forks llegan de la publicación firmada de cada repositorio, y las de la tienda, de la tienda de {vendor}`Nextcloud` con la puerta acotada. El manifiesto de la suite (`apps.json`, en el repositorio Gestión) es la única lista de aplicaciones, y cada fila nombra su propio canal.
+Las aplicaciones propias y los forks llegan de la publicación firmada de cada repositorio. Las aplicaciones oficiales llegan de la tienda de {vendor}`Nextcloud` mediante un comando de instalación acotado. El manifiesto de la suite (`apps.json`, en el repositorio Gestión) es la única lista de aplicaciones, y cada fila nombra su propio canal.
 
-- **Propias y forks** — Territorio, Epidemiología, IntraVox, Euro-Office, Talk y el menú lateral se instalan sin pregunta en el momento de ejecutar: la resolución descarga, sin cuenta ni token de GitHub, la publicación firmada más reciente de la aplicación compatible con la versión de Nextcloud en marcha, y la verifica contra la clave de aplicaciones de la suite (`apps.pub`: la firma de las sumas, el hash del paquete y de `info.xml`, el directorio raíz igual al identificador, sin `appinfo/signature.json`) antes de desempacar nada.
-- **De tienda** — Calendario, Contactos y las carpetas de grupo llegan de la tienda de aplicaciones, que la suite mantiene cerrada: se abre solo para el comando que instala cada una y vuelve a cerrarse. El punto de entrada del contenedor instala por esa misma puerta acotada `notify_push` cuando falta: el hermano de notificaciones parte junto con los contenedores, antes de cualquier provisión.
+- **Propias y forks** — Territorio, Epidemiología e IntraVox se instalan sin pregunta en el momento de ejecutar: la resolución descarga, sin cuenta ni token de GitHub, la publicación firmada más reciente de la aplicación compatible con la versión de Nextcloud en marcha, y la verifica contra la clave de aplicaciones de la suite (`apps.pub`: la firma de las sumas, el hash del paquete y de `info.xml`, el directorio raíz igual al identificador, sin `appinfo/signature.json`) antes de desempacar nada.
+- **De tienda** — Euro-Office, Talk, Custom Menu, Calendario, Contactos y las carpetas de grupo llegan de la tienda de aplicaciones, que la suite mantiene cerrada: se abre solo para el comando que instala cada una y vuelve a cerrarse. El punto de entrada del contenedor instala por esa misma puerta acotada `notify_push` cuando falta: el hermano de notificaciones parte junto con los contenedores, antes de cualquier provisión.
 - **Opcionales** — La tarjeta «Aplicaciones opcionales» del paso 6 lista, del manifiesto, las aplicaciones que el establecimiento elige (hoy Farmacia, Estadística y Tótem), todas desmarcadas. Una no elegida no se instala: ni se descarga ni ocupa disco, y sus datos extra —la base DEIS de Estadística, por ejemplo— llegan solo con la elección.
 
-El **candado** —el registro de versiones, `/opt/aps-conecta/apps.lock.json`— anota la versión de Nextcloud y, por aplicación, su canal, etiqueta, versión y suma. Lo escribe la resolución al instalar, está dentro del alcance del respaldo y lo mueve solo `aps-conecta actualizar`. Una provisión repetida respeta el candado y no descarga nada, y una reparación nunca se convierte en una actualización: la {doc}`gestión de apps </administracion/aplicaciones>` de la interfaz no es el camino.
+El **candado de aplicaciones propias y forks** —el registro de versiones, `/opt/aps-conecta/apps.lock.json`— anota la versión de Nextcloud y, por aplicación, su canal, etiqueta, versión y suma. Lo escribe la resolución al instalar, está dentro del alcance del respaldo y lo mueve solo `aps-conecta actualizar`. Una provisión repetida respeta el candado y no descarga nada, y una reparación nunca se convierte en una actualización: la {doc}`gestión de apps </administracion/aplicaciones>` de la interfaz no es el camino.
 
 ### Copias de seguridad
 

@@ -9,6 +9,8 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- Office, Talk and Custom Menu use official packages; manuals, attribution and UI string sources follow their upstream repositories.
+
 - `upstream-fidelity` allows cuts (owner ruling, gestion#178): a block may omit upstream
   content, and what it keeps (headings, code, literals, links, cross-references, labels,
   official wording) must still be upstream's.

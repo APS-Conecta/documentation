@@ -14,9 +14,10 @@ En un centro de salud familiar (CESFAM) los documentos no tienen una versión co
 
 APS Conecta Gestión existe para **simplificar la instalación de una plataforma de colaboración en un centro de atención primaria de Chile, con código propio**. Un instalador en español de Chile y un conjunto de fases de aprovisionamiento dejan configurado el establecimiento completo —árbol documental, roles, permisos, suite ofimática, tema, intranet y aplicaciones del sector— a partir de su identidad en el registro de establecimientos del DEIS y de una planilla con el personal. La instalación no exige administrar Nextcloud a mano. APS Conecta Gestión no es un sistema de registro clínico: no guarda datos de pacientes.
 
-### Base sin modificar
+(base-sin-modificar)=
+### Plataforma base
 
-APS Conecta Gestión es una distribución derivada de Nextcloud 34. El servidor es la imagen oficial `nextcloud:34-apache`, fijada por su digest y sin modificar: el proyecto no bifurca el núcleo. PostgreSQL, Redis y el servidor de documentos Euro-Office corren también como imágenes oficiales sin modificar. Las aplicaciones Nextcloud de terceros se instalan desde sus paquetes publicados, guardados en el repositorio de la suite; la tabla de componentes indica cuáles se usan tal cual.
+APS Conecta Gestión utiliza Nextcloud 34 y conserva su núcleo oficial. La suite construye sus imágenes a partir de los componentes declarados en el inventario, incluido Euro-Office DocumentServer oficial. Las aplicaciones llegan de sus publicaciones firmadas o de la tienda de Nextcloud, según el manifiesto de la suite.
 
 ### Lo que APS Conecta modifica
 
@@ -24,8 +25,6 @@ APS Conecta Gestión es una distribución derivada de Nextcloud 34. El servidor 
 |---|---|---|
 | Nextcloud All-in-One (gestion) | Fork propio de Nextcloud All-in-One; su declaración enumera los cambios | `APS-Conecta/gestion`, `readme.md` |
 | IntraVox (portada de la intranet, «Inicio») | Fork con funciones locales | `APS-Conecta/IntraVox`, ADR-0001 del fork |
-| Conector de Euro-Office (`eurooffice`) | Fork propio del conector upstream, con los cambios de la suite como commits | `APS-Conecta/eurooffice` |
-| Menú lateral (`side_menu`) | Fork propio mantenido por la organización desde el tarball AGPL 6.0.1 de upstream | `APS-Conecta/side_menu` |
 | Tipografías Fraunces y Nunito Sans | Un subconjunto de cada una va incrustado en los logotipos SVG, una versión modificada que la OFL permite | `APS-Conecta/gestion`, `themes/apsconecta/core/` |
 
 La tabla de componentes, al final de esta sección, lista cada componente de terceros que la suite distribuye en cada compilación del sitio y describe qué cambia en cada uno.

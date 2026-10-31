@@ -40,11 +40,15 @@ Una versión publicada conserva sus resúmenes. La opción `--force` corresponde
 
 La consulta al registro admite manifiestos Docker y OCI y sus índices. La compuerta local comprueba el método nativo con ambos formatos y con un registro inaccesible.
 
+### Aplicaciones oficiales
+
+Euro-Office, Talk y Custom Menu utilizan sus paquetes oficiales de tienda y conservan la firma del proveedor. APS Conecta configura la integración y comprueba su funcionamiento. El proveedor de búsqueda mantiene la corrección temporal de identidad de la ADR-0023 hasta su publicación oficial. IntraVox aporta el montaje configurable y la importación que conserva el contenido del personal.
+
 ### Firma y credenciales
 
-El entorno `Release` contiene `MINISIGN_SECRET_KEY`, `MINISIGN_KEY_PASSWORD` y `SPREED_REFRESH_TOKEN`. Cada paso recibe únicamente la credencial que consume. Conserve `installer.pub` en el repositorio como clave pública de verificación.
+El entorno `Release` contiene `MINISIGN_SECRET_KEY` y `MINISIGN_KEY_PASSWORD`. Cada paso recibe únicamente la credencial que consume. Conserve `installer.pub` en el repositorio como clave pública de verificación.
 
-La cadena comprueba la firma y el contenido de las publicaciones de Talk. Las etiquetas de ensayo `v0.0.0-ci.N` se publican como preliminares y conservan la versión estable marcada como más reciente. El procedimiento está en [RELEASING.md](https://github.com/APS-Conecta/gestion/blob/main/aps/RELEASING.md).
+Nextcloud verifica la firma del paquete oficial de Talk al instalarlo. Las etiquetas de ensayo `v0.0.0-ci.N` se publican como preliminares y conservan la versión estable marcada como más reciente. El procedimiento está en [RELEASING.md](https://github.com/APS-Conecta/gestion/blob/main/aps/RELEASING.md).
 
 ### Desarrollo y verificación
 
@@ -137,6 +141,10 @@ La preparación separa la instalación de herramientas requeridas y del verifica
 ### Pisos de recursos y datos comunales
 
 La revisión previa informa recursos mínimos y recomendados. La instalación silenciosa importa los datos comunales; la repetición conserva los datos existentes.
+
+La preparación de [#189](https://github.com/APS-Conecta/gestion/issues/189) incorpora `scripts/usage.py` en ambos trabajos de Clean boot. Conserva series JSONL acotadas de memoria, CPU, intercambio y OOM del anfitrión, junto con métricas de los contenedores. Cada muestra identifica su arranque y sus unidades; el cierre vincula el PID y la cantidad de muestras. Las métricas de Docker ausentes se registran como no disponibles. Una captura incompleta o una interrupción durante la carga estable invalida esa repetición.
+
+El [protocolo de medición](https://github.com/APS-Conecta/gestion/blob/072f3a9a929b4b8b15fe9589320612d09e022616/aps/RESOURCE-MEASUREMENTS.md) establece procedencia, carga y límites de interpretación. Los umbrales compartidos del instalador y del Provisionador se fijan después de medir operaciones reales de Office, Talk, cargas y búsqueda, con la grabación evaluada por separado. Los mínimos y recomendaciones deben incluir la referencia oficial de Nextcloud y la evidencia del ensayo. Los valores de memoria por proceso se interpretan dentro de ese alcance.
 
 ### Instalaciones previas
 

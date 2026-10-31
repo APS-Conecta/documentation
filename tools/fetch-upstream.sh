@@ -33,9 +33,9 @@ echo "[fetch-upstream] nextcloud/server $branch l10n @ $(git -C "$srv" rev-parse
 # Spanish UI strings come from their own upstream repositories, same shape as the server's. The
 # branch is the suite's stable<major> when the app maintains one, else its default branch.
 apps="${APPS_DIR:-_generated/apps}"
-while read -r id slug; do
+while read -r id url; do
   dst="$apps/$id"
-  url="https://github.com/$slug.git"
+  url="$url.git"
   if git ls-remote --heads --quiet "$url" "refs/heads/$branch" | grep -q .; then
     app_branch="$branch"
   else
@@ -48,5 +48,5 @@ while read -r id slug; do
   fi
   git -C "$dst" fetch --quiet --depth 1 origin "$app_branch"
   git -C "$dst" checkout --quiet --detach FETCH_HEAD
-  echo "[fetch-upstream] $slug $app_branch l10n @ $(git -C "$dst" rev-parse --short HEAD)"
+  echo "[fetch-upstream] $id $app_branch l10n @ $(git -C "$dst" rev-parse --short HEAD)"
 done < <(python3 -c 'import sys; sys.path.insert(0, "tools"); import upstreamlib as u; [print(f"{i} {s}") for i, s in u.store_apps()]')

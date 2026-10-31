@@ -74,16 +74,16 @@ def apps_dir() -> Path:
 
 @lru_cache(maxsize=1)
 def store_apps() -> tuple[tuple[str, str], ...]:
-    """(id, GitHub slug) of every app the suite installs from the app store — the componentes.yml
+    """(id, repository URL) of every app the suite installs from the app store — the componentes.yml
     `kind: app` rows without a `fork:` field (an APS fork ships from the organization checkout
     instead; gen-componentes validates the set against the suite manifest)."""
     out = []
     for row in yaml.safe_load((ROOT / "componentes.yml").read_text(encoding="utf-8"))["components"]:
         if row.get("kind") != "app" or "fork" in row:
             continue
-        m = re.match(r"https://github\.com/([^/]+/[^/]+?)(?:\.git)?/?$", row.get("upstream", ""))
-        if m:
-            out.append((row["id"], m.group(1)))
+        url = row.get("upstream", "")
+        if re.fullmatch(r"https://(?:github\.com|gitnet\.fr)/[^/]+/[^/]+/?", url):
+            out.append((row["id"], url.rstrip("/")))
     return tuple(out)
 
 

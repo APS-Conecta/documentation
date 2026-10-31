@@ -61,4 +61,4 @@ El editor se muestra siempre claro, aunque el sistema operativo use el modo oscu
 
 **Aparece «Se ha producido un error en el servicio de documentos».** El mensaje viene del servidor de documentos. Avisar a la administración del centro.
 
-**Un mensaje nombra «Nextcloud Office».** Es el mismo editor: la suite cambia el nombre de la aplicación a Euro-Office, pero algunos mensajes del conector conservan su nombre de origen.
+**Un mensaje nombra «Nextcloud Office».** Es el nombre del conector oficial que abre los documentos con Euro-Office.

@@ -1395,10 +1395,10 @@ class StoreUiStringsTest(unittest.TestCase):
         # componentes.yml `kind: app` without a `fork:` field is the app-store set: each row
         # carries the upstream repo its l10n comes from (a fork ships its own Spanish)
         apps = dict(u.store_apps())
-        self.assertEqual(apps["groupfolders"], "nextcloud/groupfolders")
-        self.assertNotIn("eurooffice", apps)          # APS fork — its checkout is read
-        self.assertNotIn("side_menu", apps)
-        self.assertNotIn("spreed", apps)              # a fork since ADR-0020 — its checkout is read
+        self.assertEqual(apps["groupfolders"], "https://github.com/nextcloud/groupfolders")
+        self.assertEqual(apps["eurooffice"], "https://github.com/Euro-Office/eurooffice-nextcloud")
+        self.assertEqual(apps["side_menu"], "https://gitnet.fr/deblan/side_menu")
+        self.assertEqual(apps["spreed"], "https://github.com/nextcloud/spreed")
 
     def test_a_malformed_l10n_file_degrades_to_a_note_not_a_crash(self):
         """A roster repo can push a broken l10n/es.json; the site's vocabulary degrades
