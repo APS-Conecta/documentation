@@ -138,11 +138,11 @@ sudo aps-conecta actualizar
 2. Imprime el plan —la versión instalada y la candidata de cada aplicación—. Con `sudo aps-conecta actualizar --revisar` imprime el plan y no escribe nada: es la forma de ver qué se movería antes de mover nada.
 3. Toma un respaldo completo primero, por la API del propio asistente, y se detiene si el respaldo falla.
 4. Descarga y verifica las candidatas en un candado nuevo y aplica una aplicación a la vez —las de tienda con un comando de actualización acotado, uno por aplicación—, y al final desinstala cada aplicación publicada que salió del manifiesto y quita su fila del candado; el candado viejo se reemplaza solo si todo resultó.
-5. Revalida: humo, oficina y divergencia.
+5. Revalida el estado de la suite. La próxima versión comprueba humo, oficina, AppAPI y divergencia.
 
 Si algo falla, el candado queda como estaba, se nombra la aplicación que falló y se imprime el comando para restaurar: el asistente, «Restaurar la copia de seguridad seleccionada», con la copia más reciente. Un salto de versión mayor de Nextcloud se rechaza mientras una aplicación predeterminada no tenga una versión compatible.
 
-Tras actualizar la suite a una etiqueta nueva, `aps-conecta revalidate` corre las tres verificaciones y las reporta todas, y la [guía clínica](https://github.com/APS-Conecta/gestion/blob/main/aps/GUIA-CLINICA.md#7-tras-actualizar) describe la revalidación y las revisiones manuales de cada actualización. Una instalación de la v0.3.0 o anterior usa los nombres de contenedor de upstream; la suite no los migra, y esa instalación se reinstala.
+Tras actualizar la suite a una etiqueta nueva, `aps-conecta revalidate` ejecuta las verificaciones de la versión instalada e informa todos los resultados. La [guía clínica](https://github.com/APS-Conecta/gestion/blob/main/aps/GUIA-CLINICA.md#7-tras-actualizar) describe la revalidación y las revisiones manuales de cada actualización. Una instalación de la v0.3.0 o anterior usa los nombres de contenedor de upstream; la suite no los migra, y esa instalación se reinstala.
 
 ### La frontera con el aprovisionamiento
 
@@ -166,9 +166,23 @@ La fase 14 configura las aplicaciones con el servicio Elasticsearch y activa la 
 
 La preparación guarda `vm.overcommit_memory=1` y `vm.max_map_count=1048576` en `/etc/sysctl.d/90-aps-conecta.conf`. Conserva un valor activo de `vm.max_map_count` superior y aplica ambos ajustes desde ese archivo. El valor sigue la [recomendación de Elasticsearch para Docker](https://www.elastic.co/docs/deploy-manage/deploy/self-managed/install-elasticsearch-docker-prod). Si la consola informa una aplicación pendiente, aplique el ajuste en el anfitrión según la instrucción mostrada.
 
+### Aplicaciones externas mediante AppAPI
+
+En la próxima versión, AppAPI conserva un servicio de despliegue HaRP predeterminado en la red interna de la suite. La instalación verifica su conexión y la comunicación HTTPS de HaRP con Nextcloud.
+
+En una instalación por IP, HaRP recibe el certificado público de la autoridad del instalador en modo de solo lectura. Su agente conserva los certificados del sistema e incorpora esa autoridad antes de iniciar.
+
+Para revisar ambas conexiones, ejecute:
+
+```console
+sudo aps-conecta revalidate
+```
+
+El resultado de AppAPI se informa junto con las demás verificaciones. Si falla, compruebe el estado de `aps-conecta-harp`, la red interna y el certificado del establecimiento. La selección de aplicaciones externas corresponde a la administración.
+
 ## Compromisos y límites
 
-La integración de AppAPI, la configuración inicial de llamadas y el perfil de grabación continúan en las etapas del {doc}`plan de cambios </proyecto/novedades/instalador>`. La presencia de un contenedor acredita su ejecución; cada función tiene además su verificación de integración.
+La configuración inicial de llamadas y el perfil de grabación continúan en las etapas del {doc}`plan de cambios </proyecto/novedades/instalador>`. La presencia de un contenedor acredita su ejecución; cada función tiene además su verificación de integración.
 
 - **Mensajes en inglés.** El asistente muestra 68 mensajes que nacen en código PHP que el fork no traduce: los cambios PHP declarados son de comportamiento, no de textos. La declaración del fork lleva la lista completa, por archivo.
 - **Sin red al actualizar.** En los arranques que cambian de imagen, un establecimiento sin conexión espera la sonda de la tienda de aplicaciones (`apps.nextcloud.com`) hasta que vence o vuelve la red. Es un comportamiento de upstream que el fork no modifica.
