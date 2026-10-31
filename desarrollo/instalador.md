@@ -76,7 +76,7 @@ La fase 12 instala `files_upload_guard` desde su publicación firmada. Esta comp
 
 El servidor web conserva HTTP 500 y entrega orientación en español para errores de carga WebDAV. La persona revisa Archivos antes de repetir una operación cuyo resultado requiere comprobación.
 
-La compuerta local comprueba unidades y valores inválidos. Clean boot verifica contenido limpio, EICAR, archivos ensamblados, límites, comprimidos, fallas y recuperación mediante WebDAV. También comprueba sustituciones, permisos de carpetas compartidas y respuestas del servidor web. Registre los resultados junto con la procedencia de las imágenes en el pull request.
+La compuerta local comprueba unidades y valores inválidos. Clean boot verifica contenido limpio, EICAR, archivos ensamblados, límites, comprimidos, fallas y recuperación mediante WebDAV. También comprueba sustituciones, permisos de carpetas compartidas y respuestas del servidor web. La importación programada del DEIS se comprueba antes de los reinicios controlados. Registre los resultados junto con la procedencia de las imágenes en el pull request.
 
 ### Proxy de salida
 
