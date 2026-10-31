@@ -1,7 +1,7 @@
 ---
 tipo: referencia
 audiencia: proyecto
-apps: [gestion]
+apps: [gestion, files-upload-guard]
 resumen: "Cambios de instalador visibles para usuarios y administradores, agrupados por versión."
 ---
 # Novedades de instalador

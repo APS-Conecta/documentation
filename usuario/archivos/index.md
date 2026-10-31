@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion, files-upload-guard]
 resumen: "Las cuatro áreas de carpetas de equipo del establecimiento, quién lee y quién gestiona cada una, y la regla de una sola copia viva."
 ---
 # Archivos
