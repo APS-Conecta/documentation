@@ -14,4 +14,5 @@ Esta página registra los cambios de la protección de cargas para Nextcloud 34.
 
 | Versión | Fecha | Cambio |
 | --- | --- | --- |
+| 0.1.1 | 2026-10-31 | Conserva la preparación nativa de los fragmentos temporales y protege la sustitución al ensamblar el archivo completo. |
 | 0.1.0 | 2026-10-31 | Prepara las cargas en una ubicación temporal segura y conserva el archivo anterior cuando una sustitución se rechaza. La aplicación utiliza publicaciones firmadas y mantiene las comprobaciones de permisos. |

@@ -18,6 +18,7 @@ resumen: "Protección de cargas WebDAV para Nextcloud 34: preparación temporal,
 | Compatibilidad | Nextcloud 34 |
 | Registro | Evento público `BeforeFileSystemSetupEvent` y `IStorageFactory` |
 | Preparación temporal | Ruta nueva con permiso CREATE en su carpeta; una ubicación insegura rechaza la carga |
+| Cargas por fragmentos | Nextcloud gestiona los PUT temporales; el MOVE final conserva la protección del archivo de destino |
 | Permisos del destino | Nextcloud conserva la comprobación UPDATE |
 | Publicación | Flujo compartido con `php-only: true` y firma contra `apps.pub` |
 | Pruebas | Trece comprobaciones de almacenamiento nativo y las pruebas WebDAV de instalación de la suite |

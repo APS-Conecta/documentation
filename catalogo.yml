@@ -127,7 +127,7 @@ repos:
       - usuario/archivos/index.md
       - proyecto/novedades/files-upload-guard.md
     depends_on: [gestion]
-    status: "Publicada en v0.1.0; integración en la próxima versión de la suite"
+    status: "Publicada en v0.1.1; integración en la próxima versión de la suite"
   - repo: aps-common
     kind: shared-library
     role: "Reglas de texto compartidas por las aplicaciones propias de APS Conecta: dialecto CSV, familia fold/slug, postura de rechazo y forma del error de cliente (PHP + JS)."
