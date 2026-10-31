@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion, eurooffice]
+apps: [gestion]
 resumen: "Nextcloud Office en la plataforma base y la oficina de APS Conecta Gestión: Euro-Office, quién escribe cada clave del conector y qué se verifica."
 ---
 # Oficina

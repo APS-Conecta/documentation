@@ -1,7 +1,7 @@
 ---
 tipo: referencia
 audiencia: desarrollo
-apps: [eurooffice]
+apps: [gestion]
 resumen: "Edición de documentos, planillas y presentaciones con el conector oficial y DocumentServer oficial."
 ---
 # eurooffice

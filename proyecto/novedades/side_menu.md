@@ -1,7 +1,7 @@
 ---
 tipo: referencia
 audiencia: proyecto
-apps: [side_menu]
+apps: [gestion]
 resumen: "Cambios de side_menu visibles para usuarios y administradores, agrupados por versión."
 ---
 # Novedades de side_menu

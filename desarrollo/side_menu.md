@@ -1,7 +1,7 @@
 ---
 tipo: referencia
 audiencia: desarrollo
-apps: [side_menu]
+apps: [gestion]
 resumen: "Menú lateral oficial con los colores de APS Conecta."
 ---
 # side_menu

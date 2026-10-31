@@ -1,7 +1,7 @@
 ---
 tipo: referencia
 audiencia: proyecto
-apps: [eurooffice]
+apps: [gestion]
 resumen: "Cambios de eurooffice visibles para usuarios y administradores, agrupados por versión."
 ---
 # Novedades de eurooffice

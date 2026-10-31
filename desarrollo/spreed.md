@@ -1,7 +1,7 @@
 ---
 tipo: referencia
 audiencia: desarrollo
-apps: [spreed]
+apps: [gestion]
 resumen: "Chat y videollamadas con la aplicación oficial de Nextcloud Talk."
 ---
 # spreed

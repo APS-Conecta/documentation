@@ -1,7 +1,7 @@
 ---
 tipo: referencia
 audiencia: proyecto
-apps: [spreed]
+apps: [gestion]
 resumen: "Cambios de Talk visibles para usuarios y administradores, agrupados por versión."
 ---
 # Novedades de Talk
