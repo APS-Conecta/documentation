@@ -70,6 +70,8 @@ La fase 12 instala `files_antivirus` desde el canal de tienda declarado en `apps
 
 `Containers/antivirus-limit.sh` convierte el límite de carga a bytes y lo acota a 2.147.483.645. Nextcloud y ClamAV usan el mismo cálculo. La aplicación utiliza ICAP; el contenedor de ClamAV incluye c-icap con revisiones y sumas fijadas, y entrega el archivo completo al motor existente. El análisis de archivos comprimidos activa las alertas de cifrado y límites. Los mensajes en español pertenecen al tema; el inicio actualiza sus archivos y conserva `site.css`, generado para el establecimiento.
 
+`av_max_file_size=-1` mantiene todas las cargas elegibles para revisión: un valor positivo omite el análisis de archivos ensamblados que lo superan. El límite de aceptación se aplica en ICAP y ClamAV con la misma entrada del instalador.
+
 La compuerta local comprueba unidades y valores inválidos. Clean boot verifica cargas mediante WebDAV con una cuenta sintética, contenido limpio y EICAR, además del límite de análisis. Registre las pruebas de falla y recuperación junto con la procedencia de las imágenes en el pull request.
 
 ### Proxy de salida
