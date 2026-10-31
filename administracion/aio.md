@@ -188,6 +188,10 @@ En la próxima versión, el aprovisionamiento configura Talk después de instala
 
 La revisión conserva la configuración de conexión. El diagnóstico nativo administra sus claves internas y registra las capacidades del servicio. La validación de una llamada entre personas forma parte de la aceptación de cada instalación.
 
+El servidor oficial puede informar la advertencia conocida por la optimización opcional `changed-users`. La revalidación admite únicamente ese resultado con la caché Redis verificada y mantiene el aviso visible. Otras advertencias o errores de señalización producen un fallo.
+
+La política TURN controla los destinos del relé y conserva las excepciones internas de Talk. La administración valida las llamadas desde cada red del establecimiento.
+
 ## Compromisos y límites
 
 El perfil de grabación continúa en las etapas del {doc}`plan de cambios </proyecto/novedades/instalador>`. La presencia de un contenedor acredita su ejecución; cada función tiene además su verificación de integración.

@@ -78,9 +78,13 @@ La fase 12 ejecuta `configure-apps.sh talk` después de instalar o comprobar la 
 
 El módulo compara los ajustes nativos e importa solo las claves modificadas con `occ config:import` por la entrada estándar. Las credenciales permanecen en el entorno del contenedor y en esa entrada; la repetición conserva los valores sin escrituras adicionales.
 
-`scripts/talk-smoke.sh` exige la URL pública de señalización, TURN y STUN en el puerto 3478, y una respuesta HTTP 200 válida de `/standalone-signaling/api/v1/welcome`, con verificación del certificado de la suite. También exige `success` en `talk` → `OCA\Talk\SetupCheck\HighPerformanceBackend` de `occ setupchecks --output=json`; otras advertencias conservan su resultado independiente.
+`scripts/talk-smoke.sh` exige la URL pública de señalización, TURN y STUN en el puerto 3478, y una respuesta HTTP 200 válida de `/standalone-signaling/api/v1/welcome`, con verificación del certificado de la suite. Evalúa `talk` → `OCA\Talk\SetupCheck\HighPerformanceBackend` de `occ setupchecks --output=json`.
+
+Admite `success` o el mensaje nativo completo cuya única característica opcional ausente sea `changed-users`, en inglés o español. Esa advertencia conserva su aviso y exige además `success` en `system` → `OCA\Settings\SetupChecks\MemcacheConfigured` y el ajuste distribuido `\OC\Memcache\Redis`. Cualquier otra advertencia o error de señalización falla. [ADR-0024](https://github.com/APS-Conecta/gestion/blob/336e57547dfb4fd553af11ead545ca51418ab2cc/docs/adr/0024-supported-talk-compatibility-warning.md) delimita esta compatibilidad con el servidor oficial y su condición de retiro.
 
 La compuerta conserva los ajustes de conexión. El diagnóstico nativo puede inicializar claves de señalización y registrar capacidades del servicio. Clean boot comprueba el primer aprovisionamiento, el reinicio y la repetición. Su experimento TURN distingue la asignación autenticada, los permisos para cada dirección y el intercambio real de datos; una asignación aislada acredita solo esa operación.
+
+El [experimento por IP](https://github.com/APS-Conecta/gestion/actions/runs/41211391805/job/124567070362) confirmó STUN, la asignación TURN autenticada y el intercambio bidireccional con el par privado permitido de Talk. El destino privado de LAN sin permiso recibió un rechazo 403 autenticado y ningún dato. La política de pares se conserva. Este resultado corresponde al relé; la llamada entre navegadores se valida en la aceptación de cada instalación.
 
 ### El arranque de una línea
 
