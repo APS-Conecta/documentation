@@ -14,6 +14,7 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| Próxima versión |  | La aceptación de la versión verifica el texto de los mensajes de Talk entre dos cuentas ordinarias y elimina la conversación de prueba. |
 | Próxima versión |  | La instalación configura las llamadas de Talk durante el aprovisionamiento. La revalidación comprueba TURN, STUN, la ruta HTTPS pública y el diagnóstico nativo; conserva la advertencia opcional conocida del servidor oficial y verifica la caché Redis. |
 | Próxima versión |  | La instalación reconoce manifiestos Docker y OCI al consultar las imágenes publicadas de la suite. |
 | Próxima versión |  | AppAPI verifica su servicio HaRP predeterminado y su comunicación HTTPS con la suite por IP. La revalidación incluye ambas conexiones después de reiniciar o repetir el aprovisionamiento. |

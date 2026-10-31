@@ -192,6 +192,8 @@ El servidor oficial puede informar la advertencia conocida por la optimización 
 
 La política TURN controla los destinos del relé y conserva las excepciones internas de Talk. La administración valida las llamadas desde cada red del establecimiento.
 
+La aceptación de la versión comprueba el envío y la lectura del mismo texto entre dos cuentas ordinarias, por HTTPS, en la instalación de prueba por IP. El ensayo elimina su conversación temporal.
+
 ## Compromisos y límites
 
 El perfil de grabación continúa en las etapas del {doc}`plan de cambios </proyecto/novedades/instalador>`. La presencia de un contenedor acredita su ejecución; cada función tiene además su verificación de integración.

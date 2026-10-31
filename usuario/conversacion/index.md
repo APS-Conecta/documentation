@@ -35,6 +35,8 @@ En la próxima versión, Talk se incluye en el conjunto fijo de la suite y la in
 
 Si una llamada presenta un problema, indique a la administración la hora, si afectó al audio o al video y si ocurrió dentro o fuera de la red del establecimiento. Esa información permite revisar la conexión correspondiente.
 
+Ante un error al enviar un mensaje, revise el historial antes de repetirlo. Informe a la administración la hora y el nombre de la conversación si el problema continúa.
+
 La habilitación de grabaciones dependerá de un perfil de recursos validado. {doc}`/usuario/conversacion/call-recording` describe su uso cuando la función esté disponible.
 
 ### Uso en el establecimiento
