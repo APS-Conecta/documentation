@@ -138,7 +138,7 @@ sudo aps-conecta actualizar
 2. Imprime el plan —la versión instalada y la candidata de cada aplicación—. Con `sudo aps-conecta actualizar --revisar` imprime el plan y no escribe nada: es la forma de ver qué se movería antes de mover nada.
 3. Toma un respaldo completo primero, por la API del propio asistente, y se detiene si el respaldo falla.
 4. Descarga y verifica las candidatas en un candado nuevo y aplica una aplicación a la vez —las de tienda con un comando de actualización acotado, uno por aplicación—, y al final desinstala cada aplicación publicada que salió del manifiesto y quita su fila del candado; el candado viejo se reemplaza solo si todo resultó.
-5. Revalida el estado de la suite. La próxima versión comprueba humo, oficina, AppAPI y divergencia.
+5. Revalida el estado de la suite. La próxima versión comprueba humo, oficina, AppAPI, llamadas y divergencia.
 
 Si algo falla, el candado queda como estaba, se nombra la aplicación que falló y se imprime el comando para restaurar: el asistente, «Restaurar la copia de seguridad seleccionada», con la copia más reciente. Un salto de versión mayor de Nextcloud se rechaza mientras una aplicación predeterminada no tenga una versión compatible.
 
@@ -180,9 +180,21 @@ sudo aps-conecta revalidate
 
 El resultado de AppAPI se informa junto con las demás verificaciones. Si falla, compruebe el estado de `aps-conecta-harp`, la red interna y el certificado del establecimiento. La selección de aplicaciones externas corresponde a la administración.
 
+### Configuración y revisión de llamadas
+
+En la próxima versión, el aprovisionamiento configura Talk después de instalar su publicación firmada. El inicio reutiliza la misma rutina. TURN y STUN usan la dirección del servidor en el puerto 3478; la señalización utiliza la ruta pública `/standalone-signaling/`.
+
+`sudo aps-conecta revalidate` comprueba esos ajustes, la respuesta HTTPS pública con el certificado de la suite y el diagnóstico nativo de señalización. Si falla, revise el resultado de llamadas, el estado de `aps-conecta-talk`, el certificado y el acceso al servidor desde la red afectada.
+
+La revisión conserva la configuración de conexión. El diagnóstico nativo administra sus claves internas y registra las capacidades del servicio. La validación de una llamada entre personas forma parte de la aceptación de cada instalación.
+
+El servidor oficial puede informar la advertencia conocida por la optimización opcional `changed-users`. La revalidación admite únicamente ese resultado con la caché Redis verificada y mantiene el aviso visible. Otras advertencias o errores de señalización producen un fallo.
+
+La política TURN controla los destinos del relé y conserva las excepciones internas de Talk. La administración valida las llamadas desde cada red del establecimiento.
+
 ## Compromisos y límites
 
-La configuración inicial de llamadas y el perfil de grabación continúan en las etapas del {doc}`plan de cambios </proyecto/novedades/instalador>`. La presencia de un contenedor acredita su ejecución; cada función tiene además su verificación de integración.
+El perfil de grabación continúa en las etapas del {doc}`plan de cambios </proyecto/novedades/instalador>`. La presencia de un contenedor acredita su ejecución; cada función tiene además su verificación de integración.
 
 - **Mensajes en inglés.** El asistente muestra 68 mensajes que nacen en código PHP que el fork no traduce: los cambios PHP declarados son de comportamiento, no de textos. La declaración del fork lleva la lista completa, por archivo.
 - **Sin red al actualizar.** En los arranques que cambian de imagen, un establecimiento sin conexión espera la sonda de la tienda de aplicaciones (`apps.nextcloud.com`) hasta que vence o vuelve la red. Es un comportamiento de upstream que el fork no modifica.

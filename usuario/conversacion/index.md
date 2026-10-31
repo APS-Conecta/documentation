@@ -31,7 +31,9 @@ Los clientes de escritorio y móviles se descargan desde [nextcloud.com/install]
 (como-se-conectan-las-llamadas)=
 ### Disponibilidad
 
-En la próxima versión, Talk se incluye en el conjunto fijo de la suite. La administración confirma la disponibilidad de las llamadas en la versión instalada. Consulte {doc}`/proyecto/novedades/instalador`.
+En la próxima versión, Talk se incluye en el conjunto fijo de la suite y la instalación prepara la conexión de llamadas durante el aprovisionamiento. La administración confirma la disponibilidad en la versión instalada. Consulte {doc}`/proyecto/novedades/instalador`.
+
+Si una llamada presenta un problema, indique a la administración la hora, si afectó al audio o al video y si ocurrió dentro o fuera de la red del establecimiento. Esa información permite revisar la conexión correspondiente.
 
 La habilitación de grabaciones dependerá de un perfil de recursos validado. {doc}`/usuario/conversacion/call-recording` describe su uso cuando la función esté disponible.
 
