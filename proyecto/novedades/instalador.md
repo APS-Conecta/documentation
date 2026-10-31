@@ -31,6 +31,7 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 | Próxima versión |  | El banco de pruebas y la aceptación del ciclo de vida usan la instalación HTTPS por IP, con el certificado y el comando del instalador. La revisión de puertos considera TCP y UDP y admite el puerto 80 ocupado. |
 | Próxima versión |  | La revisión previa exige x86-64, FUSE y Docker Engine compatible, mide el disco de datos real y detecta contenedores sin su carpeta de instalación. Las indicaciones del cortafuegos usan las subredes reales de la suite. |
 | Próxima versión |  | La instalación conserva el proxy institucional para las descargas, Docker, el asistente y la plataforma. El perfil mantiene sus credenciales privadas y excluye la comunicación interna. |
+| Próxima versión |  | El aprovisionamiento aplica el nombre del establecimiento en el tema en uso y lo conserva al reiniciar. |
 
 ## Notas
 
