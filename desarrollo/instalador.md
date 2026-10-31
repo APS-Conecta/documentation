@@ -138,7 +138,7 @@ La preparación separa la instalación de herramientas requeridas y del verifica
 
 La revisión previa informa recursos mínimos y recomendados. La instalación silenciosa importa los datos comunales; la repetición conserva los datos existentes.
 
-La preparación de [#189](https://github.com/APS-Conecta/gestion/issues/189) incorpora `scripts/usage.py` en ambos trabajos de Clean boot. Conserva series JSONL acotadas de memoria, CPU, intercambio y OOM del anfitrión, junto con métricas de los contenedores. Cada muestra identifica su arranque y sus unidades; el cierre vincula el PID y la cantidad de muestras. Una lectura ausente queda explícita y una interrupción durante la carga estable invalida esa repetición.
+La preparación de [#189](https://github.com/APS-Conecta/gestion/issues/189) incorpora `scripts/usage.py` en ambos trabajos de Clean boot. Conserva series JSONL acotadas de memoria, CPU, intercambio y OOM del anfitrión, junto con métricas de los contenedores. Cada muestra identifica su arranque y sus unidades; el cierre vincula el PID y la cantidad de muestras. Las métricas de Docker ausentes se registran como no disponibles. Una captura incompleta o una interrupción durante la carga estable invalida esa repetición.
 
 El [protocolo de medición](https://github.com/APS-Conecta/gestion/blob/10baf47023ca6304dc717d4965aebe302171efbe/aps/RESOURCE-MEASUREMENTS.md) establece procedencia, carga y límites de interpretación. Los umbrales compartidos del instalador y del Provisionador se fijan después de medir operaciones reales de Office, Talk, cargas y búsqueda, con la grabación evaluada por separado.
 
