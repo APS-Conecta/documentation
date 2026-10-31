@@ -32,7 +32,7 @@ Todas las ExApps requieren como dependencia la app de Nextcloud [AppAPI](https:/
 Un daemon de despliegue es el medio por el que Nextcloud instala las ExApps, se comunica con ellas y las controla.
 
 :::{note}
-Si se usa Nextcloud AIO con el contenedor «HaRP» o «Docker Socket Proxy» activado, se crea automáticamente un daemon de despliegue configurado para funcionar desde el primer momento. En caso contrario, seguir los pasos siguientes para configurar un daemon de despliegue desde las configuraciones de administración de AppAPI.
+Si se usa Nextcloud AIO con el contenedor «HaRP» activado, se crea automáticamente un daemon de despliegue configurado para funcionar desde el primer momento. En caso contrario, seguir los pasos siguientes para configurar un daemon de despliegue desde las configuraciones de administración de AppAPI.
 :::
 
 :::{tip}

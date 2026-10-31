@@ -114,7 +114,6 @@ En las apps que lo consumen, como Context Chat y el asistente, los usuarios pued
 - [Text](https://apps.nextcloud.com/apps/text) para ofrecer una interfaz gráfica integrada en el texto para las distintas tareas
 - [Collectives](https://apps.nextcloud.com/apps/collectives), que integra el asistente mediante el selector inteligente para ofrecer una interfaz gráfica para las distintas tareas
 - [Notes](https://apps.nextcloud.com/apps/notes), que integra el asistente mediante el selector inteligente para ofrecer una interfaz gráfica para las distintas tareas
-- [Whiteboard](https://apps.nextcloud.com/apps/whiteboard), que integra el asistente mediante el selector inteligente para ofrecer una interfaz gráfica para las distintas tareas
 - [Deck](https://apps.nextcloud.com/apps/deck), que integra el asistente mediante el selector inteligente para ofrecer una interfaz gráfica para las distintas tareas
 - [Nextcloud Office](https://apps.nextcloud.com/apps/richdocuments), que integra el asistente mediante el selector inteligente para ofrecer una interfaz gráfica para las distintas tareas en los documentos
 - [Clientes de escritorio](https://docs.nextcloud.com/server/latest/user_manual/en/desktop/index.html) para un «Chat with AI» sencillo
@@ -140,7 +139,6 @@ En las apps que la consumen, como la app Text, los usuarios pueden usar la funci
 - *Text* para ofrecer el menú de traducción
 - [Notes](https://apps.nextcloud.com/apps/notes) para ofrecer una interfaz de traducción en el contenido de las notas
 - [Collectives](https://apps.nextcloud.com/apps/collectives) para ofrecer una interfaz de traducción en el contenido de las páginas
-- [Whiteboard](https://apps.nextcloud.com/apps/whiteboard) para ofrecer una interfaz de traducción mediante el asistente
 - [Nextcloud Office](https://apps.nextcloud.com/apps/richdocuments) para ofrecer una interfaz de traducción en el contenido de los documentos
 
 ##### Apps de backend
@@ -176,7 +174,6 @@ Como se ve en la tabla anterior, hay varias apps que ofrecen capacidades de gene
 - *Text* para insertar imágenes con el asistente y el selector inteligente
 - [Notes](https://apps.nextcloud.com/apps/notes) para insertar imágenes con el asistente y el selector inteligente
 - [Collectives](https://apps.nextcloud.com/apps/collectives) para insertar imágenes con el asistente y el selector inteligente
-- [Whiteboard](https://apps.nextcloud.com/apps/whiteboard) para insertar imágenes con el asistente y el selector inteligente, y para generar diagramas y diagramas de flujo con Mermaid
 - [Nextcloud Office](https://apps.nextcloud.com/apps/richdocuments) para insertar imágenes con el asistente y el selector inteligente
 
 ##### Apps de backend

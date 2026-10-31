@@ -65,10 +65,12 @@ En Linux, un montaje conserva el dueño del anfitrión, pero el usuario del serv
 - El humo completo corre en el workflow Clean boot de gestion, sobre un banco de pruebas AIO desechable, después de instalar un establecimiento generado:
 
   ```bash
-  bash scripts/aio-testbed.sh up
+  sudo bash scripts/aio-testbed.sh up
   ```
 
-  El banco necesita un anfitrión Ubuntu con Docker y al menos 3,5 GiB disponibles; nunca ocupa los puertos 80 ni 443 del anfitrión. Las compuertas están en {doc}`calidad`.
+  En la próxima versión, el banco usa la instalación por IP del instalador: HTTPS en 443 con su propia autoridad certificadora. Ejecutarlo en una máquina desechable con Docker y los puertos TCP/UDP 443, TCP 8080 y TCP/UDP 3478 disponibles. El puerto 80 puede estar ocupado.
+
+  El certificado público de la autoridad queda en `/opt/aps-conecta/certificados/ca/aps-conecta-ca.crt`. Las solicitudes de comprobación lo usan con `curl --cacert`; el tema procede de la imagen de la versión. Para retirar los contenedores, los volúmenes y el estado del banco, ejecutar `sudo bash scripts/aio-testbed.sh down`. Las compuertas están en {doc}`calidad`.
 
 ## Problemas frecuentes
 

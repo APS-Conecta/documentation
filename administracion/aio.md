@@ -1,7 +1,7 @@
 ---
 tipo: explicacion
 audiencia: administracion
-apps: [gestion]
+apps: [gestion, files-upload-guard, files-fulltextsearch]
 resumen: "El instalador de la suite: el arranque de una línea, el asistente, las aplicaciones desde sus publicaciones firmadas, el candado de versiones y actualizar."
 ---
 # AIO
@@ -12,9 +12,11 @@ APS Conecta Gestión se instala con APS Conecta Gestión AIO, un fork de [Nextcl
 
 Las páginas de {doc}`instalación </administracion/instalacion/index>`, tejidas del manual de {vendor}`Nextcloud`, llevan el aviso «En APS Conecta Gestión esto difiere» y remiten a esta página. Un establecimiento instala una etiqueta publicada de la suite, nunca una rama: el asistente de esa etiqueta crea y administra todos los contenedores, y el Provisionador del instalador configura después el establecimiento con las fases de aprovisionamiento.
 
-La instalación completa es una línea en el servidor y ocho pasos — cuatro del servidor y cuatro del navegador —, descritos paso a paso en el [manual del instalador](https://github.com/APS-Conecta/gestion/blob/main/aps/INSTALLER.md), en inglés, y en la [guía clínica](https://github.com/APS-Conecta/gestion/blob/main/aps/GUIA-CLINICA.md), en español, ambos en la carpeta `aps/` de instalador. Esta página explica el diseño del instalador, lo que cambia y sus límites.
+La instalación completa es una línea en el servidor y ocho pasos — cuatro del servidor y cuatro del navegador —, descritos paso a paso en el [manual del instalador](https://github.com/APS-Conecta/gestion/blob/main/aps/INSTALLER.md), en inglés, y en la [guía clínica](https://github.com/APS-Conecta/gestion/blob/main/aps/GUIA-CLINICA.md), en español, ambos en la carpeta `aps/` de Gestión. Esta página explica el diseño del instalador, lo que cambia y sus límites.
 
-Ninguna instancia de producción existe todavía: la vuelta de aceptación del instalador, una versión candidata instalada en tres equipos, sigue pendiente.
+```{note}
+Los cambios del plan de actualización corresponden a la próxima versión. Consulte su estado en {doc}`/proyecto/novedades/instalador` y seleccione una versión publicada para instalar.
+```
 
 ## Diseño
 
@@ -24,15 +26,53 @@ Ninguna instancia de producción existe todavía: la vuelta de aceptación del i
 curl -fsSL https://github.com/APS-Conecta/gestion/releases/download/vX.Y.Z/apsconecta-vX.Y.Z-install.sh | sudo bash
 ```
 
-El ancla de confianza es la URL de la versión —fijada a la etiqueta— más TLS: el instalador lleva dentro la suma sha256 del paquete y la clave pública de la firma del proyecto. La descarga se verifica antes de desempacar nada; un servidor que ya tiene `signify` comprueba además la firma, y uno que no la tiene instala la herramienta en el paso «preparar» y comprueba el paquete guardado desde la corrida siguiente. El desempaque es atómico y la suite queda en `/opt/aps-conecta/instalador`, con el paquete guardado —tarball, sumas y firma— en `/opt/aps-conecta/paquete`, para que la revisión previa vuelva a verificarlo sin red. La copia del repositorio no instala: lleva su suma vacía a propósito, y solo el activo de la publicación ejecuta.
+El ancla de confianza es la URL de la versión —fijada a la etiqueta— más TLS: el instalador lleva dentro la suma sha256 del paquete y la clave pública de la firma del proyecto. La descarga se verifica antes de desempacar nada; un servidor que ya tiene `signify` comprueba además la firma, y el paso «preparar» incorpora el verificador cuando está disponible en el repositorio de paquetes. Las siguientes revisiones comprueban la firma del paquete guardado cuando disponen del verificador. El desempaque es atómico y la suite queda en `/opt/aps-conecta/instalador`, con el paquete guardado —tarball, sumas y firma— en `/opt/aps-conecta/paquete`, para que la revisión previa vuelva a verificarlo sin red. La copia del repositorio no instala: lleva su suma vacía a propósito, y solo el activo de la publicación ejecuta.
 
 Después, `sudo aps-conecta install` enlaza el comando `aps-conecta` y recorre los ocho pasos: «Revisar el servidor», «Preparar el servidor», «Descargar APS Conecta» y «Abrir el instalador web» en el servidor; «Elegir el centro», «Iniciar la suite», «Cargar equipos y personas» y «Revisar y ejecutar» en el navegador. Quien audita puede verificar a mano, con `signify-openbsd` y `sha256sum -c` contra la clave `installer.pub` del repositorio, como enseña el manual.
+
+### Revisión del servidor
+
+La próxima versión comprueba los requisitos del servidor antes de preparar programas o iniciar la suite. Use `sudo aps-conecta preflight` para ver cada resultado y su corrección.
+
+| Requisito | Comprobación y corrección |
+|---|---|
+| Arquitectura | Servidor x86-64. Las imágenes se publican para esa arquitectura. |
+| Respaldos | `/dev/fuse` debe ser un dispositivo de caracteres. Ejecute `sudo modprobe fuse` y compruebe su disponibilidad en el anfitrión. |
+| Docker | Docker Engine compatible, instalado sin Snap. Use el repositorio oficial para instalarlo; para sustituir Snap, respalde primero sus datos. |
+| Disco | Espacio disponible en el directorio de datos que informa Docker. Revise su ubicación con `sudo docker info --format '{{.DockerRootDir}}'`. |
+| Puertos | TCP/UDP 443, TCP 8080 y TCP/UDP 3478 disponibles para la suite. |
+| Instalación existente | Los contenedores de APS requieren su carpeta `/opt/aps-conecta/instalador`. Recupere la carpeta y sus respaldos antes de continuar. Conserve los contenedores y volúmenes. |
+
+El arranque de una línea comprueba la instalación existente antes de instalar la carpeta del paquete. La preparación y el inicio desde el navegador reutilizan las comprobaciones del anfitrión.
+
+En la próxima versión, la preparación instala las herramientas requeridas por separado de `signify-openbsd`. Si el verificador está pendiente, la instalación conserva las herramientas disponibles y lo informa. En Ubuntu, habilite el repositorio con `sudo add-apt-repository universe`, ejecute `sudo apt-get update` y repita `sudo aps-conecta preparar`. La firma se comprueba cuando el verificador está disponible; la suma del paquete se verifica desde la descarga.
+
+La corrección de DNS dividido se aplica con `sudo aps-conecta red --dominio <dominio> --arreglar`, con consentimiento. El DNS local admite una interfaz LAN que se activa después del servicio. Docker conserva la dirección LAN primero y los servidores DNS válidos configurados previamente y obtenidos del anfitrión, sin duplicados ni bucles locales.
+
+En la próxima versión, Nextcloud y el servidor web calculan la subred IPv4 interna real para validar las direcciones reenviadas. Los clientes de la LAN conservan su propia dirección en los registros y la protección de acceso. El inicio requiere una coincidencia única entre la dirección del servicio y su interfaz; ante una detección pendiente, revise la resolución del nombre y la red del contenedor antes de reiniciar.
+
+### Proxy institucional
+
+En la próxima versión, la instalación admite un proxy HTTP(S) con autenticación básica. Su dirección debe ser accesible desde el servidor y sus contenedores. Ingrésela mediante lectura oculta; codifique los caracteres especiales del usuario y la contraseña en la URL.
+
+```bash
+read -r -s -p 'Dirección del proxy: ' HTTPS_PROXY; echo
+export HTTPS_PROXY HTTP_PROXY="$HTTPS_PROXY" https_proxy="$HTTPS_PROXY" http_proxy="$HTTPS_PROXY"
+curl -fsSL https://github.com/APS-Conecta/gestion/releases/download/vX.Y.Z/apsconecta-vX.Y.Z-install.sh \
+  | sudo --preserve-env=HTTPS_PROXY,HTTP_PROXY,NO_PROXY,https_proxy,http_proxy,no_proxy bash
+```
+
+Sustituya `vX.Y.Z` por la versión elegida. La descarga inicial conserva únicamente las variables indicadas al pasar a `sudo`. El paquete verificado guarda el perfil privado en `/opt/aps-conecta/proxy.env`; los comandos posteriores lo cargan automáticamente.
+
+La preparación configura el servicio Docker y comprueba su reinicio. Un intento fallido queda pendiente para la siguiente ejecución. Docker, el asistente y la plataforma utilizan el perfil; las exclusiones incluyen localhost, la dirección del establecimiento, los nombres de servicios y las subredes reales de la suite. Las exclusiones adicionales se ingresan en `NO_PROXY`, separadas por comas.
+
+La revisión detecta configuraciones de Docker o contenedores existentes que contradigan el perfil. Aplique la corrección indicada y conserve sus volúmenes. Incluya el perfil en el respaldo cifrado de `/opt/aps-conecta`. Los comandos locales de ayuda y estado funcionan sin leer las credenciales del proxy.
 
 ### El contenedor maestro
 
 Nextcloud AIO administra Docker hablando directamente con su socket: un solo contenedor, iniciado con un solo comando, crea y administra todos los contenedores de la instalación.
 
-En la suite ese contenedor es `nextcloud-aio-mastercontainer`, que la interfaz llama «el asistente» («Registros del asistente»). Sirve su interfaz web en el puerto 8080 y administra los demás contenedores como un conjunto de 20 imágenes de `ghcr.io/aps-conecta/*`. Conserva el nombre de upstream porque la orden de arranque y la restauración de AIO lo nombran; los contenedores que crea se llaman `aps-conecta-*`.
+En la suite ese contenedor es `nextcloud-aio-mastercontainer`, que la interfaz llama «el asistente» («Registros del asistente»). Sirve su interfaz web en el puerto 8080 y administra los demás contenedores mediante las imágenes versionadas de `ghcr.io/aps-conecta/*`. Conserva el nombre de upstream porque la orden de arranque y la restauración de AIO lo nombran; los contenedores que crea se llaman `aps-conecta-*`.
 
 La revisión previa genera la orden `docker run` del asistente, que no se escribe a mano. Difiere de la de upstream en la imagen, `ghcr.io/aps-conecta/all-in-one:<etiqueta de la suite>` en lugar de `ghcr.io/nextcloud-releases/all-in-one:latest`; en los puertos, porque publica solo el 8080, sin el 80 ni el 8443, y fija `APACHE_PORT=443`; y en `NEXTCLOUD_STARTUP_APPS` vacío: ninguna imagen lleva una aplicación, y una instalación al arrancar solo agregaría ruido.
 
@@ -42,36 +82,33 @@ El asistente nunca vuelve a crear un contenedor que todavía existe. Por eso un 
 
 Mientras la suite está en ejecución, el inicio de sesión directo en el asistente queda bloqueado. El asistente muestra «El inicio de sesión está bloqueado porque la suite está en ejecución.» y remite al inicio de sesión automático desde la administración de APS Conecta Gestión.
 
-### Una etiqueta, veinte imágenes
+La consola confirma el resultado final del asistente antes de informar que inició la suite. Una descarga lenta continúa mientras avance; la espera se detiene tras 20 minutos sin avances de descarga ni cambios nuevos de estado de los contenedores. El instalador recupera una sesión vencida una vez.
 
-Cada etiqueta de la suite publica 20 imágenes bajo `ghcr.io/aps-conecta/*`. Dieciséis son copias hechas en el propio registro, siempre desde el conjunto completo de la etiqueta anterior de la suite; cuatro se construyen desde el árbol del fork: `aio-nextcloud` (que de la suite lleva solo el tema `apsconecta`), `aio-postgresql` (con pgvector y los roles de Buscador Documental), `aio-apache` (el certificado del instalador) y `all-in-one` (el asistente con la identidad de APS). Las construcciones son solo para x86-64, el requisito de servidor de la suite.
+Si la conexión se interrumpe, revise el estado en el asistente antes de iniciar otra vez: la operación puede continuar en el servidor. La consola conserva la causa del fallo cuando recibe un resultado final de error.
 
-El asistente deriva la etiqueta de cada contenedor hermano de la etiqueta de su propia imagen en ejecución. Una imagen ausente no apaga una sola función: las verificaciones de alcance del registro hacen fallar el inicio completo.
+(una-etiqueta-veinte-imagenes)=
+### Imágenes de una versión
 
-Los resúmenes (digests) de una etiqueta publicada no cambian nunca. Volver a publicar sobre un conjunto completo se rechaza, salvo para reparar un conjunto que falló su verificación o una etiqueta de prueba. La etiqueta de la suite es la etiqueta de versión de instalador: su flujo de publicación resuelve los resúmenes desde el registro al etiquetar, arma el paquete firmado que instala un centro y publica cinco activos: el paquete, sus sumas, su firma, el instalador de una línea y el manifiesto de la versión.
+La construcción obtiene el conjunto completo desde `php/containers.json` y los Dockerfiles de ejecución. Todas las imágenes se construyen desde un mismo commit y el manifiesto registra sus resúmenes. PostgreSQL se prueba antes de publicarse.
 
-### Lo que cambia el fork
+El asistente usa la etiqueta de su propia imagen para seleccionar las imágenes de los demás servicios. La publicación verifica el conjunto completo y conserva los resúmenes de las versiones publicadas.
 
-Los cambios del fork son bytes confirmados en `main` —un solo árbol, de primera clase—, y de ese árbol se construyen las imágenes. La [declaración del fork](https://github.com/APS-Conecta/gestion/blob/main/readme.md) enumera cada cambio con su número y la garantía que sostiene, y las compuertas de marca y de adquisición verifican esas garantías en cada envío, fila por fila. La lógica PHP cambia solo donde el fork lo declara; el resto son textos, recursos gráficos, plantillas y ajustes de Dockerfile. Los componentes con su licencia están en la tabla de componentes del {doc}`/aviso`.
+(lo-que-cambia-el-fork)=
+### Servicios incluidos
 
-| Grupo | Cambios | Qué cambia en la instalación | Por qué |
-|---|---|---|---|
-| Imágenes y nombres | 010, 080, 240 | Las imágenes apuntan al registro del fork, `ghcr.io/aps-conecta/*`. Los contenedores de la suite se llaman `aps-conecta-*`; el asistente conserva `nextcloud-aio-mastercontainer`. | La instalación no consulta ninguna fuente ajena a APS Conecta. El nombre nuevo rige solo para instalaciones nuevas. |
-| Oficina | 015, 050, 100, 200, 237 | Euro-Office es la única oficina: DocumentServer fijado en 9.3.4; las tarjetas de Collabora y OnlyOffice, retiradas; cualquier otra elección, rechazada con «La oficina de la suite es Euro-Office: no se puede cambiar ni desactivar.»; la aplicación de resumen `office` que trae el servidor, desactivada. | Una sola superficie de oficina por instalación. |
-| Actualizaciones | 040 | El asistente ya no ofrece el formulario que lo actualizaba a sí mismo, y la casilla «Actualizar automáticamente todos los contenedores, el asistente y, los sábados, sus aplicaciones» viene desmarcada. | La suite se actualiza como un conjunto, y las aplicaciones solo con `aps-conecta actualizar`. |
-| Idioma e identidad | 060, 070, 090, 110, 120, 130, 140, 180 | El asistente habla español de Chile con trato de usted, lleva la identidad visual de APS Conecta y el nombre «APS Conecta Gestión AIO», carga sus propias fuentes, dibuja el logotipo como trazos, enlaza a la documentación de la suite y se adapta a un teléfono de 360 px. La suite Playwright del asistente verifica el texto en español. | Quien instala es el equipo informático de un CESFAM chileno. |
-| Opciones de la página | 051, 150, 160, 170, 190, 210 | Valores de APS precargados: America/Santiago, la ubicación de respaldo `/srv/aps-conecta/respaldos`, `/opt/aps-conecta` como directorio adicional sugerido y el dominio de ejemplo `gestion.su-establecimiento.cl`. Sin flujo DNS de deSEC, sin contenedores comunitarios y sin proxies de aplicaciones externas. Talk e Imaginary parten desactivados. La página posterior al arranque muestra «Suite en marcha». | La página ofrece solo lo que la suite distribuye. |
-| Primer arranque | 220, 230 | Una instalación nueva no consulta el canal de anuncios y omite la sonda de las tablas antiguas de circles. | Una instalación nueva no llama a nada que no necesita, y su registro no muestra el error de `oc_circle_circles`. |
-| Red y certificados | 233, 235, 238, 250 | Una dirección IP se acepta como dominio cuando la validación de dominio está omitida. El contenedor web sirve el certificado del instalador cuando hay uno montado (`APS_TLS_DIR`); si no, usa ACME como upstream. El servidor push llega a Nextcloud por la escucha HTTP interna. TLS 1.2 y 1.3 como piso en cada punto de entrada. | Un establecimiento sin dominio se instala por la IP del servidor sobre HTTPS, y nada negoció un TLS antiguo. |
-| Base de datos | 260 | La imagen de PostgreSQL se construye con pgvector, y en cada arranque —también antes de restaurar un volcado— aplica, de forma idempotente, los roles y extensiones de Buscador Documental. | La base de datos única de la suite nace lista para el buscador, y una restauración no la deja a medias. |
+La próxima versión instala un conjunto fijo: Euro-Office, Talk, búsqueda de texto completo, vistas previas, antivirus y AppAPI mediante HaRP. Farmacia, Estadística y Tótem conservan su selección independiente. La habilitación de grabaciones dependerá del perfil de recursos validado.
+
+El establecimiento aporta su dominio o dirección IP. La administración aplica las actualizaciones mediante la versión de la suite y conserva el control de la instalación.
+
+El conjunto utiliza TCP/UDP 443, TCP 8080 y TCP/UDP 3478. El puerto 80 queda disponible para otro servicio. La revisión previa identifica el puerto y el protocolo cuando encuentra un conflicto.
 
 ### Las aplicaciones, desde sus publicaciones
 
-Ninguna imagen lleva una aplicación: las propias y los forks llegan de la publicación firmada de cada repositorio, y las de la tienda, de la tienda de {vendor}`Nextcloud` con la puerta acotada. El manifiesto de la suite (`apps.json`, en el repositorio instalador) es la única lista de aplicaciones, y cada fila nombra su propio canal.
+Ninguna imagen lleva una aplicación: las propias y los forks llegan de la publicación firmada de cada repositorio, y las de la tienda, de la tienda de {vendor}`Nextcloud` con la puerta acotada. El manifiesto de la suite (`apps.json`, en el repositorio Gestión) es la única lista de aplicaciones, y cada fila nombra su propio canal.
 
-- **Propias y forks** — Territorio, Epidemiología, IntraVox, Euro-Office y el menú lateral se instalan sin pregunta en el momento de ejecutar: la resolución descarga, sin cuenta ni token de GitHub, la publicación firmada más reciente de la aplicación compatible con la versión de Nextcloud en marcha, y la verifica contra la clave de aplicaciones de la suite (`apps.pub`: la firma de las sumas, el hash del paquete y de `info.xml`, el directorio raíz igual al identificador, sin `appinfo/signature.json`) antes de desempacar nada.
-- **De tienda** — Calendario, Contactos y las carpetas de grupo llegan de la tienda de aplicaciones, que la suite mantiene cerrada: se abre solo para el comando que instala cada una y vuelve a cerrarse. El punto de entrada del contenedor instala por esa misma puerta acotada `notify_push` y Talk cuando faltan: el hermano de notificaciones parte junto con los contenedores, antes de cualquier provisión.
-- **Opcionales** — La tarjeta «Aplicaciones opcionales» del paso 6 lista, del manifiesto, las aplicaciones que el establecimiento elige (hoy Farmacia, Estadística y Tótem), todas desmarcadas. Una no elegida no se instala: ni se descarga ni ocupa disco, y sus datos extra —la base DEIS de Estadística, por ejemplo— llegan solo con la elección. Talk lo decide el interruptor del asistente, según la memoria y los núcleos del servidor.
+- **Propias y forks** — Territorio, Epidemiología, IntraVox, Euro-Office, Talk y el menú lateral se instalan sin pregunta en el momento de ejecutar: la resolución descarga, sin cuenta ni token de GitHub, la publicación firmada más reciente de la aplicación compatible con la versión de Nextcloud en marcha, y la verifica contra la clave de aplicaciones de la suite (`apps.pub`: la firma de las sumas, el hash del paquete y de `info.xml`, el directorio raíz igual al identificador, sin `appinfo/signature.json`) antes de desempacar nada.
+- **De tienda** — Calendario, Contactos y las carpetas de grupo llegan de la tienda de aplicaciones, que la suite mantiene cerrada: se abre solo para el comando que instala cada una y vuelve a cerrarse. El punto de entrada del contenedor instala por esa misma puerta acotada `notify_push` cuando falta: el hermano de notificaciones parte junto con los contenedores, antes de cualquier provisión.
+- **Opcionales** — La tarjeta «Aplicaciones opcionales» del paso 6 lista, del manifiesto, las aplicaciones que el establecimiento elige (hoy Farmacia, Estadística y Tótem), todas desmarcadas. Una no elegida no se instala: ni se descarga ni ocupa disco, y sus datos extra —la base DEIS de Estadística, por ejemplo— llegan solo con la elección.
 
 El **candado** —el registro de versiones, `/opt/aps-conecta/apps.lock.json`— anota la versión de Nextcloud y, por aplicación, su canal, etiqueta, versión y suma. Lo escribe la resolución al instalar, está dentro del alcance del respaldo y lo mueve solo `aps-conecta actualizar`. Una provisión repetida respeta el candado y no descarga nada, y una reparación nunca se convierte en una actualización: la {doc}`gestión de apps </administracion/aplicaciones>` de la interfaz no es el camino.
 
@@ -89,7 +126,7 @@ Una copia hecha por un Nextcloud AIO sin modificar no se restaura en la suite. T
 
 ### Actualizaciones
 
-La suite se actualiza como un conjunto, nunca un componente por separado. Antes de anunciar una etiqueta nueva, se instala en un equipo de ensayo limpio tal como lo hace un establecimiento, y ese ensayo es el registro de aceptación. El conjunto de imágenes cambia solo cuando el operador instala la etiqueta nueva a propósito; aunque marque la actualización automática, la ejecución nocturna no cambia nada: los resúmenes de una etiqueta publicada no se mueven, y el canal es siempre la etiqueta que el operador ejecutó.
+La suite se actualiza como un conjunto, nunca un componente por separado. Antes de anunciar una etiqueta nueva, se instala en un equipo de ensayo limpio tal como lo hace un establecimiento, y ese ensayo es el registro de aceptación. El conjunto de imágenes cambia cuando el administrador instala una versión nueva. Las actualizaciones automáticas quedan retiradas; cada versión publicada conserva sus resúmenes.
 
 Las **aplicaciones** se mueven solo cuando el administrador lo decide, con:
 
@@ -101,22 +138,53 @@ sudo aps-conecta actualizar
 2. Imprime el plan —la versión instalada y la candidata de cada aplicación—. Con `sudo aps-conecta actualizar --revisar` imprime el plan y no escribe nada: es la forma de ver qué se movería antes de mover nada.
 3. Toma un respaldo completo primero, por la API del propio asistente, y se detiene si el respaldo falla.
 4. Descarga y verifica las candidatas en un candado nuevo y aplica una aplicación a la vez —las de tienda con un comando de actualización acotado, uno por aplicación—, y al final desinstala cada aplicación publicada que salió del manifiesto y quita su fila del candado; el candado viejo se reemplaza solo si todo resultó.
-5. Revalida: humo, oficina y divergencia.
+5. Revalida el estado de la suite. La próxima versión comprueba humo, oficina, AppAPI y divergencia.
 
 Si algo falla, el candado queda como estaba, se nombra la aplicación que falló y se imprime el comando para restaurar: el asistente, «Restaurar la copia de seguridad seleccionada», con la copia más reciente. Un salto de versión mayor de Nextcloud se rechaza mientras una aplicación predeterminada no tenga una versión compatible.
 
-Tras actualizar la suite a una etiqueta nueva, `aps-conecta revalidate` corre las tres verificaciones y las reporta todas, y la [guía clínica](https://github.com/APS-Conecta/gestion/blob/main/aps/GUIA-CLINICA.md#7-tras-actualizar) describe la revalidación y las revisiones manuales de cada actualización. Una instalación de la v0.3.0 o anterior usa los nombres de contenedor de upstream; la suite no los migra, y esa instalación se reinstala.
+Tras actualizar la suite a una etiqueta nueva, `aps-conecta revalidate` ejecuta las verificaciones de la versión instalada e informa todos los resultados. La [guía clínica](https://github.com/APS-Conecta/gestion/blob/main/aps/GUIA-CLINICA.md#7-tras-actualizar) describe la revalidación y las revisiones manuales de cada actualización. Una instalación de la v0.3.0 o anterior usa los nombres de contenedor de upstream; la suite no los migra, y esa instalación se reinstala.
 
 ### La frontera con el aprovisionamiento
 
 El asistente termina donde empieza el paquete del host. Con los contenedores en marcha, la página posterior al arranque muestra «Suite en marcha» y devuelve al instalador web, que sigue con «Cargar equipos y personas» y «Revisar y ejecutar».
 
-Desde ahí, el Provisionador del instalador ejecuta las fases de aprovisionamiento con `docker exec` sobre la instancia en marcha: las mismas fases que levantan el entorno de desarrollo. En la suite, el punto de entrada de AIO escribe en cada arranque la URL pública del servidor de documentos y el secreto JWT; por eso el `.env` del establecimiento no lleva claves de oficina. El aprovisionamiento se describe en {doc}`/administracion/aprovisionamiento`.
+Desde ahí, el Provisionador del instalador ejecuta las fases de aprovisionamiento con `docker exec` sobre la instancia en marcha: las mismas fases que levantan el entorno de desarrollo. La inicialización y la fase 14 comparten la rutina que configura la URL pública del servidor de documentos y el secreto JWT; por eso el `.env` del establecimiento no lleva claves de oficina. El aprovisionamiento se describe en {doc}`/administracion/aprovisionamiento`.
+
+### Antivirus de archivos
+
+En la próxima versión, el aprovisionamiento instala y configura el antivirus desde la tienda mediante el canal acotado de la suite. Cada carga se analiza antes de aceptarse. El límite se obtiene de `NEXTCLOUD_UPLOAD_LIMIT` y se aplica también a ClamAV; el valor predeterminado es `1G` (1 GiB). El máximo admitido por el analizador es 2.147.483.645 bytes.
+
+Las cargas fragmentadas conservan el límite del archivo completo. El analizador rechaza los archivos infectados y los resultados que indican límites de análisis o archivos comprimidos cifrados. Ante una indisponibilidad, revise los registros en el servidor con `sudo docker logs --tail 100 aps-conecta-clamav`. Restablezca el servicio y repita la carga. Para un rechazo de contenido, revise el archivo y su tamaño.
+
+La protección de cargas se instala desde una publicación firmada y conserva el archivo anterior cuando una sustitución se rechaza. La carga requiere una ubicación temporal con permiso de creación; revise ese permiso si una carpeta compartida permite actualizar archivos y rechaza la operación. Ante un error HTTP 500, compruebe el resultado en Archivos antes de repetir la carga.
+
+### Búsqueda en documentos
+
+En la próxima versión, la fase 12 instala la aplicación de búsqueda y su conector desde la tienda. El proveedor de archivos llega de una publicación firmada de APS Conecta con la corrección para identificadores de usuario que contienen puntos. Su versión se gestiona mediante `sudo aps-conecta actualizar`, junto con las demás aplicaciones de la suite.
+
+La fase 14 configura las aplicaciones con el servicio Elasticsearch y activa la extracción de PDF y documentos de oficina. El inicio del contenedor reutiliza esa configuración. Si el servicio está temporalmente indisponible, la configuración se completa en el siguiente inicio.
+
+La preparación guarda `vm.overcommit_memory=1` y `vm.max_map_count=1048576` en `/etc/sysctl.d/90-aps-conecta.conf`. Conserva un valor activo de `vm.max_map_count` superior y aplica ambos ajustes desde ese archivo. El valor sigue la [recomendación de Elasticsearch para Docker](https://www.elastic.co/docs/deploy-manage/deploy/self-managed/install-elasticsearch-docker-prod). Si la consola informa una aplicación pendiente, aplique el ajuste en el anfitrión según la instrucción mostrada.
+
+### Aplicaciones externas mediante AppAPI
+
+En la próxima versión, AppAPI conserva un servicio de despliegue HaRP predeterminado en la red interna de la suite. La instalación verifica su conexión y la comunicación HTTPS de HaRP con Nextcloud.
+
+En una instalación por IP, HaRP recibe el certificado público de la autoridad del instalador en modo de solo lectura. Su agente conserva los certificados del sistema e incorpora esa autoridad antes de iniciar.
+
+Para revisar ambas conexiones, ejecute:
+
+```console
+sudo aps-conecta revalidate
+```
+
+El resultado de AppAPI se informa junto con las demás verificaciones. Si falla, compruebe el estado de `aps-conecta-harp`, la red interna y el certificado del establecimiento. La selección de aplicaciones externas corresponde a la administración.
 
 ## Compromisos y límites
 
+La configuración inicial de llamadas y el perfil de grabación continúan en las etapas del {doc}`plan de cambios </proyecto/novedades/instalador>`. La presencia de un contenedor acredita su ejecución; cada función tiene además su verificación de integración.
+
 - **Mensajes en inglés.** El asistente muestra 68 mensajes que nacen en código PHP que el fork no traduce: los cambios PHP declarados son de comportamiento, no de textos. La declaración del fork lleva la lista completa, por archivo.
-- **Código muerto de deSEC.** Las rutas PHP de deSEC siguen en el árbol, inalcanzables: el cambio 051 borra la interfaz que llegaba a ellas.
 - **Sin red al actualizar.** En los arranques que cambian de imagen, un establecimiento sin conexión espera la sonda de la tienda de aplicaciones (`apps.nextcloud.com`) hasta que vence o vuelve la red. Es un comportamiento de upstream que el fork no modifica.
 - **Nombres de contenedor.** El nombre `aps-conecta-*` rige solo para instalaciones nuevas; una instalación con los nombres de upstream se reinstala, nunca se migra.
 - **Montajes fijados.** Un directorio del host montado en un contenedor cambia solo al recrear ese contenedor.
@@ -124,4 +192,4 @@ Desde ahí, el Provisionador del instalador ejecuta las fases de aprovisionamien
 - **Copias.** La copia diaria comparte disco con la instancia, detiene la suite mientras corre y se desplaza una hora con cada cambio de horario. Los directorios adicionales se restauran a mano.
 - **Panel de registros.** Tras una actualización, un navegador con la hoja de estilos anterior en caché muestra el panel de registros del asistente con la paleta previa hasta revalidarla, y un refresco forzado lo corrige: el PHP que fija la URL de su hoja de estilos no se modifica.
 - **Arquitectura.** Las imágenes construidas son solo x86-64.
-- **Documentación.** La de la instalación y la actualización es el repositorio instalador y su carpeta `aps/`; la de Nextcloud AIO upstream vive en su propio repositorio.
+- **Documentación.** La de la instalación y la actualización está en el repositorio Gestión y su carpeta `aps/`; la de Nextcloud AIO upstream vive en su propio repositorio.

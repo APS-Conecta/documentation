@@ -139,10 +139,8 @@ def load_rows() -> list[dict]:
 # -------------------------------------------------------------------- paridad
 
 
-def own_apps(registry: Path) -> list[str]:
-    """Los `id` de las filas `own` y `fork` del manifiesto de la suite (apps.json):
-    las aplicaciones cuyo repositorio es de la organización y que por tanto deben
-tener su fila en el catálogo."""
+def own_app_repos(registry: Path) -> list[str]:
+    """Repository names of the suite's own and fork apps; app IDs may differ."""
     try:
         text = registry.read_text(encoding="utf-8")
     except FileNotFoundError:
@@ -153,7 +151,7 @@ tener su fila en el catálogo."""
         rows = json.loads(text)
     except json.JSONDecodeError as exc:
         fail(f"apps.json ilegal ({registry}): {exc}")
-    return [r["id"] for r in rows if r.get("source") in MANIFEST_OWN]
+    return [r["repo"].rsplit("/", 1)[-1] for r in rows if r.get("source") in MANIFEST_OWN]
 
 
 def resolve(name: str, canonical: list[str]) -> str:
@@ -168,7 +166,7 @@ def resolve(name: str, canonical: list[str]) -> str:
 
 def parity(rows: list[dict]) -> set[str]:
     names = [r["repo"] for r in rows]
-    folded = {resolve(n, names) for n in own_apps(REGISTRY)}
+    folded = {resolve(n, names) for n in own_app_repos(REGISTRY)}
     apps = {r["repo"] for r in rows if r["kind"] == "nextcloud-app"}
     if folded - apps:
         fail(
@@ -397,14 +395,15 @@ def selftest_registro() -> None:
         raiz = Path(td)
         (raiz / "gestion").mkdir(parents=True)
         (raiz / "gestion" / rel).write_text(
-            '[{"id": "intravox", "source": "fork"}, '
-            '{"id": "farmacia", "source": "own"}, '
+            '[{"id": "intravox", "source": "fork", "repo": "APS-Conecta/IntraVox"}, '
+            '{"id": "farmacia", "source": "own", "repo": "APS-Conecta/farmacia"}, '
+            '{"id": "files_upload_guard", "source": "own", "repo": "APS-Conecta/files-upload-guard"}, '
             '{"id": "calendar", "source": "store"}]\n', encoding="utf-8")
         assert manifest_path(raiz) == raiz / "gestion" / rel, manifest_path(raiz)
-        assert own_apps(manifest_path(raiz)) == ["intravox", "farmacia"]
+        assert own_app_repos(manifest_path(raiz)) == ["IntraVox", "farmacia", "files-upload-guard"]
         (raiz / "gestion" / rel).unlink()
         try:
-            own_apps(manifest_path(raiz))
+            own_app_repos(manifest_path(raiz))
         except SystemExit:
             pass
         else:

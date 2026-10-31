@@ -51,11 +51,11 @@ Gestión beyond what the :difiere: notice points to.>
 
 | Upstream | In the block |
 |---|---|
-| Prose | Spanish. Meaning complete and exact: no additions, omissions or summaries. |
+| Prose | Spanish. Meaning exact: no additions or summaries. A passage may be cut (owner, 2026-10-29: a suite removal cuts what it removes); what stays is complete. |
 | A paragraph or section title listed under «Official Spanish» | That `msgstr`, word for word, literals included: where the `msgstr` translates a literal (``` ``Files`` ``` → ``` ``Archivos`` ```), the `msgstr` wins. Only whitespace may change. Exception: a `msgstr` in tuteo or with a `glosario.yml` `evitar` form is adapted to the register below, changing only those words; the gates then stop demanding it verbatim. |
 | Register | Formal, direct and affirmative (owner, 2026-10-10): «usted» or impersonal/infinitive, never tuteo or vosotros; neutral Spanish, no Spain-only forms (`glosario.yml` `evitar`: ordenador, fichero). Say what to do («infórmelo»), not what not to hesitate to do. `make term-check` enforces it on every paragraph. |
 | Administration and developer prose | No official Spanish exists: translate every paragraph, in neutral impersonal Spanish. UI labels are the shipped interface's Spanish (`{guilabel}`, backed by the catalog the gate reads). |
-| Section titles | Spanish. Same count, order and relative depth as upstream. The body's first level is `###` on a single-document page. |
+| Section titles | Spanish. Same order and relative depth as upstream; a cut section takes its title with it. The body's first level is `###` on a single-document page. |
 | `.. _label:` | `(nc-label)=` on its own line, right before the heading it labels (label lower-case, verbatim). In `developer_manual` docs, `(nc-dev-label)=`: each upstream manual is its own project and the developer manual shares labels with the others (`upstream.yml` `label_prefix`). An `{nc-ref}` keeps upstream's bare label; the build resolves it in the block's own manual. |
 | A `.. _label:` above the doc's title (line 1 of the file) | `(nc-label)=` on its own line right before the page's `#` title, outside the block (`(nc-dev-label)=` in `developer_manual`). It names the whole doc: other docs' `{nc-ref}` land on it, and the gate requires it on the page. |
 | `:doc:\`x\`` / `:ref:\`x\`` | `{nc-doc}\`<absolute docname>\`` / `{nc-ref}\`<label>\``, with Spanish link text when upstream gives text: `{nc-ref}\`Texto <label>\``. A bare `:doc:` or `:ref:` stays bare: the build writes the target page's or section's Spanish title. |
@@ -125,7 +125,7 @@ sphinx-build -q -W --keep-going -b html . _build/html
 The reviewer reads each block against its upstream source and returns findings only; it never
 edits. It looks for:
 
-- meaning drift: anything added, omitted, softened or changed in a technical sense;
+- meaning drift: anything added, softened or changed in a technical sense;
 - a wrong or untranslated paragraph, wrong register, or a UI term that contradicts `glosario.yml`;
 - a hand rename of «Nextcloud», or a lost `:difiere:`;
 - a `resumen` or `Resumen` that claims more than the page says;

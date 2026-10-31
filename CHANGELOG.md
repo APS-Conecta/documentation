@@ -9,6 +9,9 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- `upstream-fidelity` allows cuts (owner ruling, gestion#178): a block may omit upstream
+  content, and what it keeps (headings, code, literals, links, cross-references, labels,
+  official wording) must still be upstream's.
 - Talk (`spreed`) joins the catalogue and the third-party inventory as a fork app with signed
   releases (ADR-0020): its hub page, its news page and the parity the manifest demands.
 - The cutover (instalador #53): the catalogue keeps one row for the suite repository, `gestion` —

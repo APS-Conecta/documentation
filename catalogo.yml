@@ -118,6 +118,27 @@ repos:
       - proyecto/novedades/eurooffice.md
     depends_on: []
     status: "Fork recién creado; entra a la suite con su primera release"
+  - repo: files-upload-guard
+    kind: nextcloud-app
+    role: "Protección de cargas para Nextcloud 34: conserva el archivo anterior cuando una carga es rechazada y verifica una ubicación temporal segura."
+    manuals:
+      - administracion/aio.md
+      - desarrollo/files-upload-guard.md
+      - usuario/archivos/index.md
+      - proyecto/novedades/files-upload-guard.md
+    depends_on: [gestion]
+    status: "Publicada en v0.1.1; integración en la próxima versión de la suite"
+  - repo: files-fulltextsearch
+    kind: nextcloud-app
+    role: "Proveedor de búsqueda en archivos para Nextcloud 34: conserva el identificador real del usuario al completar los resultados y se distribuye mediante una publicación firmada."
+    manuals:
+      - administracion/aio.md
+      - desarrollo/files-fulltextsearch.md
+      - usuario/archivos/index.md
+      - proyecto/novedades/files-fulltextsearch.md
+    depends_on: [gestion]
+    status: "Publicada en v34.0.3; integración en la próxima versión de la suite"
+    readme: .github/README.md
   - repo: aps-common
     kind: shared-library
     role: "Reglas de texto compartidas por las aplicaciones propias de APS Conecta: dialecto CSV, familia fold/slug, postura de rechazo y forma del error de cliente (PHP + JS)."

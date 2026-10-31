@@ -24,7 +24,7 @@ Esta sección reúne, para quienes administran el servidor, las páginas de la p
 
 ## En APS Conecta Gestión
 
-Un centro corre la suite sobre APS Conecta Gestión AIO. El asistente de instalación es dueño de los contenedores, un conjunto de 20 imágenes que avanza junto, y el paquete del servidor, `aps-conecta`, ejecuta las fases de provisión sobre la instancia en marcha. Por eso el mantenimiento que describen las páginas de esta sección toma en la suite la forma que sigue.
+Un centro corre la suite sobre APS Conecta Gestión AIO. El asistente de instalación es dueño de los contenedores, un conjunto de imágenes versionadas que avanza junto, y el paquete del servidor, `aps-conecta`, ejecuta las fases de provisión sobre la instancia en marcha. Por eso el mantenimiento que describen las páginas de esta sección toma en la suite la forma que sigue.
 
 ### Calendario
 
@@ -63,6 +63,12 @@ Cada versión nueva se instala primero en un servidor de ensayo, exactamente com
 La re-provisión semanal vuelve a ejecutar la provisión sin intervención. Sobre una instancia convergida no escribe nada salvo la ventana de los trabajos diarios, que el contenedor reescribe en cada arranque, y su resultado es el de la verificación de divergencia: una instancia que se apartó de su declaración aparece como una unidad fallida en `systemctl --failed`. La convergencia nunca borra carpetas de equipo, grupos, cuentas ni archivos; sí retira los permisos que el archivo del sitio ya no declara, porque retirar un permiso no pierde nada. Lo que está vivo sin estar declarado queda en el informe de divergencia, junto con la orden que lo eliminaría.
 
 Cuando una ejecución encuentra deriva o no termina, cada integrante del grupo `admin` recibe un aviso al iniciar sesión, uno por semana que reemplaza al anterior, y `aps-conecta estado`, sin sudo, muestra el último veredicto con cada hallazgo y su arreglo. La misma ejecución semanal renueva, 30 días antes de su vencimiento, el certificado de una instalación por IP.
+
+### Red y cortafuegos
+
+En la próxima versión, las indicaciones del cortafuegos usan las subredes reales de `nextcloud-aio`, obtenidas mediante `docker network inspect nextcloud-aio`. La corrección de DNS abre el puerto 53 a esas subredes cuando UFW está activo y conserva las reglas de entrada existentes.
+
+Si el asistente todavía no ha creado la red, la corrección queda pendiente. Una vez creada, repita `sudo aps-conecta red --dominio DOMINIO --arreglar` con el dominio del establecimiento y revise el resultado de `sudo aps-conecta preflight --dominio DOMINIO`.
 
 ### Migración
 

@@ -60,7 +60,7 @@ Un bloque tejido es la directiva `{upstream}`, que actúa a la vez como marcador
 
 `tools/weave.py` decide qué se teje y dónde, a partir de `upstream.yml`; el traductor con inteligencia artificial nunca lo decide. El contrato de traducción es [`tools/weave-contract.md`](https://github.com/APS-Conecta/documentation/blob/main/tools/weave-contract.md): solo se traduce la prosa, y el código, los comandos, las claves de configuración, las rutas y las URL quedan byte a byte. Los catálogos oficiales en español del manual de usuario cubren cerca del 20 % del texto vigente y se usan textuales donde el original todavía coincide.
 
-`tools/upstream-fidelity.py` contrasta cada bloque con la sección original en el SHA del propio bloque: estructura de títulos, literales, enlaces, etiquetas, redacción oficial donde existe, idioma y marcador. La traducción puede cambiar las palabras, nunca los hechos sobre los que actúa quien lee.
+`tools/upstream-fidelity.py` contrasta cada bloque con la sección original en el SHA del propio bloque: estructura de títulos, literales, enlaces, etiquetas, redacción oficial donde existe, idioma y marcador. La traducción puede cambiar las palabras, nunca los hechos sobre los que actúa quien lee. Un bloque puede recortar pasajes del original, como los que describen algo que la suite retira; lo que conserva debe coincidir con el original.
 
 ### El nombre del producto
 

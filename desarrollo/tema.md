@@ -88,7 +88,7 @@ Los SVG de los logotipos incrustan su propio subconjunto de fuentes: un SVG serv
 
 Sobre 601 px de ancho, la barra superior muestra tres casillas: la marca `logo-mark.svg`, el icono de inicio y el nombre corto del establecimiento. Bajo ese ancho, las dos casillas generadas se retiran y vuelve la casilla de fábrica con la misma marca. Las reglas apuntan a `a#nextcloud`, no a `#nextcloud`: el encabezado de un enlace público usa el mismo id en un `<div>` y recibía el relleno de la barra (B-012).
 
-El nombre del establecimiento viene de `core/css/site.css`, que la fase `15-branding` genera en cada instalación a partir de `SITE_NOMBRE_CORTO`. Es el único contenido del tema que cambia por instalación, no se confirma en git, y mientras falta, `server.css` muestra el nombre del producto.
+En la próxima versión, la fase `15-branding` genera `core/css/site.css` a partir de `SITE_NOMBRE_CORTO` y sincroniza sus cambios con el volumen de Nextcloud. El inicio conserva este archivo al actualizar los recursos del tema. Su contenido identifica al establecimiento y queda fuera del control de versiones.
 
 ### El indicador de carga de las aplicaciones
 

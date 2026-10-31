@@ -1,0 +1,3 @@
+﻿usuario;nombre;apellidos;correo;grupos;primer_admin
+ana.rojas;Ana María;Rojas Fuentes;ana.rojas@example.org;role-enfermeria;sí
+pedro.munoz;Pedro;Muñoz Tapia;pedro.munoz@example.org;role-medico;no

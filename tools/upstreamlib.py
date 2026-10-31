@@ -285,7 +285,7 @@ def leftovers(text: str, cfg: dict | None = None) -> list[str]:
 # ------------------------------------------------------------------- RST, the upstream side
 
 ADORN = re.compile(r"^([!-/:-@\[-`{-~])\1{2,}\s*$")  # docutils: any non-alphanumeric printable ASCII
-LABEL = re.compile(r"^\.\.\s+_([^:`]+):\s*$")
+LABEL = re.compile(r"^\s*\.\.\s+_([^:`]+):\s*$")  # an indented target labels too
 RST_CODE_DIRECTIVE = re.compile(r"^(\s*)\.\.\s+(?:code-block|code|sourcecode)\s*::.*$")  # docutils allows «code-block ::»
 # may wrap a line, never a paragraph; it closes on a «``» no backtick follows, as docutils does
 RST_INLINE_LITERAL = re.compile(r"``((?:[^\n]|\n(?!\s*\n))+?)``(?!`)")

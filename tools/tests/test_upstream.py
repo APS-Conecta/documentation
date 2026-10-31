@@ -102,6 +102,8 @@ Ejecutar `occ files:scan` tras una copia manual. Leer [la guía](https://example
 #### Detalles
 
 Puede acceder a sus archivos en Nextcloud con la interfaz web de Nextcloud.
+
+La barra lateral muestra los detalles.
 """
 
 
@@ -361,7 +363,7 @@ class FidelityTest(unittest.TestCase):
             GOOD.replace("https://example.org/g", "https://example.org/otra")
         )
         self.assertTrue(any("external links" in f for f in found), found)
-        found, _ = self.check(GOOD.replace("{nc-ref}`quota`", "la cuota"))
+        found, _ = self.check(GOOD.replace("{nc-ref}`quota`", "{nc-ref}`cuota`"))
         self.assertTrue(any("cross-references" in f for f in found), found)
 
     def test_official_wording_is_verbatim(self):
@@ -371,6 +373,14 @@ class FidelityTest(unittest.TestCase):
         self.assertTrue(
             any("official Spanish not used verbatim" in f for f in found), found
         )
+
+    def test_an_uncut_block_keeps_its_official_wording(self):
+        # a re-translation is no cut, however far it strays from the msgstr
+        official = CATALOG["You can access your Nextcloud files with the Nextcloud Web interface."]
+        for rewrite in ("Con la interfaz web de Nextcloud se accede a los archivos de Nextcloud.",
+                        "La interfaz web permite entrar a todo lo guardado."):
+            found, _ = self.check(GOOD.replace(official, rewrite))
+            self.assertTrue(any("official Spanish not used verbatim" in f for f in found), (rewrite, found))
 
     def test_an_official_msgstr_off_register_is_adapted_not_copied(self):
         # owner 2026-10-10: formal, direct, affirmative; a tuteo msgstr is no longer copied verbatim
@@ -392,22 +402,38 @@ class FidelityTest(unittest.TestCase):
         ok, _ = self.check(GOOD + "\n:::{note}\nUna nota.\n:::\n")
         self.assertEqual(ok, [])
 
-    def test_labels_kept(self):
+    def test_labels_are_upstreams(self):
         up = UPSTREAM.replace(
             "Details\n~~~~~~~", ".. _details-label:\n\nDetails\n~~~~~~~"
         )
-        found, _ = fidelity.check_block(
-            block(GOOD), "usuario/interfaz-web.md", up, CATALOG, CFG
-        )
-        self.assertTrue(any("labels missing" in f for f in found), found)
-        ok, _ = fidelity.check_block(
-            block(GOOD.replace("#### Detalles", "(nc-details-label)=\n#### Detalles")),
-            "usuario/interfaz-web.md",
-            up,
-            CATALOG,
-            CFG,
-        )
-        self.assertEqual(ok, [])
+
+        def check(content, up=up):
+            return fidelity.check_block(block(content), "usuario/interfaz-web.md", up, CATALOG, CFG)[0]
+
+        labelled = GOOD.replace("#### Detalles", "(nc-details-label)=\n#### Detalles")
+        self.assertEqual(check(labelled), [])
+        # ManagingExApps indents its `.. _advanced_deploy_options_cli:` target
+        self.assertEqual(check(labelled, up.replace(".. _details", " .. _details")), [])
+        found = check(GOOD.replace("#### Detalles", "(nc-detalles)=\n#### Detalles"))
+        self.assertTrue(any("labels" in f for f in found), found)
+
+    def test_a_cut_passes(self):
+        # owner 2026-10-29 (gestion#178): a suite removal may cut upstream lines
+        self.assertEqual(self.check(GOOD.replace(" Leer [la guía](https://example.org/g).", ""))[0], [])
+        kept = "### Navegar\n\nHacer clic en el nombre de una carpeta de la lista para abrirla.\n"
+        self.assertEqual(self.check(kept)[0], [])
+
+    def test_an_addition_fails(self):
+        for added, rule in (
+            ("Ver [otra](https://example.org/otra).", "external links"),
+            ("Ver {nc-ref}`otra`.", "cross-references"),
+            ("Ejecutar `occ extra`.", "inline literals"),
+            ("```bash\nrm -rf x\n```", "code blocks"),
+            ("#### Más\n\nOtro texto.", "headings"),
+            ("(nc-otra)=", "labels"),
+        ):
+            found, _ = self.check(GOOD.replace("#### Detalles", f"{added}\n\n#### Detalles"))
+            self.assertTrue(any(rule in f for f in found), (added, found))
 
 
 SHARING = """\
@@ -643,6 +669,16 @@ class UiLabelTest(unittest.TestCase):
         self.assertEqual(self.check(ok), [])
         bad = "Hacer clic en {guilabel}`Empezar`, luego en `Settings -> Updates` y `occ`.\n"
         self.assertTrue(any("inline literals" in f for f in self.check(bad)))
+        # a label the interface does not back is no cut of the literal it replaces
+        bad = ok.replace("`occ`", "{guilabel}`Borrar todo`")
+        self.assertTrue(any("inline literals" in f for f in self.check(bad)), self.check(bad))
+
+    def test_an_upstream_ui_role_may_become_its_spanish_label(self):
+        # the block cuts ``occ``: its labels are upstream's, so nothing replaced it
+        up = "Title\n=====\n\nOpen :menuselection:`Settings --> Updates`, then :guilabel:`Start call` and ``occ``.\n"
+        page = "Abrir {guilabel}`Ajustes` → {guilabel}`Actualizaciones` y luego {guilabel}`Comenzar llamada`.\n"
+        blk = block(page, "user_manual/files/x.rst@3ad9158")
+        self.assertEqual(fidelity.check_block(blk, "usuario/archivos/x.md", up, {}, CFG, ui=self.UI)[0], [])
 
     def test_an_official_lead_in_may_end_in_a_period(self):
         # user-root audit: «Simplemente introduzca su código:» introduced a dropped screenshot
@@ -1088,7 +1124,7 @@ class LabelScopeTest(unittest.TestCase):
         source = "Title\n=====\n\nIntro.\n\n.. _sec-a:\n\nSection A\n---------\n\nText.\n"
         page = "Introducción.\n\n({label})=\n#### Sección A\n\nTexto.\n"
         found, _ = fidelity.check_block(block(page.format(label="nc-sec-a")), "usuario/interfaz-web.md", source, {}, cfg)
-        self.assertTrue(any("labels missing" in f for f in found), found)
+        self.assertTrue(any("labels" in f for f in found), found)
         found, _ = fidelity.check_block(block(page.format(label="nc-u-sec-a")), "usuario/interfaz-web.md", source, {}, cfg)
         self.assertFalse(any("labels" in f for f in found), found)
 

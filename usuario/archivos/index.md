@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion, files-upload-guard, files-fulltextsearch]
 resumen: "Las cuatro áreas de carpetas de equipo del establecimiento, quién lee y quién gestiona cada una, y la regla de una sola copia viva."
 ---
 # Archivos
@@ -20,6 +20,16 @@ La aplicación **Archivos** guarda los documentos del establecimiento. Esta secc
 ````
 
 ## En APS Conecta Gestión
+
+### Cargar archivos
+
+En la próxima versión, el antivirus analiza cada archivo antes de guardarlo. El límite corresponde al archivo completo, incluso cuando se carga por partes. Si recibe un rechazo, revise el contenido y el tamaño. Para un archivo comprimido cifrado, prepare una copia que el analizador pueda revisar. Si el servicio está temporalmente indisponible, espere y repita la carga; si el problema continúa, contacte a la administración.
+
+Si se rechaza una sustitución, el archivo anterior se conserva. Ante un error de carga, revise Archivos antes de repetirla.
+
+### Buscar en el contenido
+
+En la próxima versión, la búsqueda de la plataforma encuentra palabras dentro de los documentos indexados. Abra la búsqueda, escriba una palabra del contenido y seleccione el documento entre los resultados. La indexación puede tardar después de una carga. Si un documento reciente todavía no aparece, espere y repita la búsqueda.
 
 ### Las cuatro áreas
 
