@@ -14,6 +14,7 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| Próxima versión |  | Nextcloud y el servidor web validan las direcciones reenviadas mediante la subred interna real. Los registros y la protección de acceso conservan la dirección del cliente de la LAN. |
 | Próxima versión |  | La instalación informa el resultado final del asistente, continúa mientras existan avances y recupera una sesión vencida una vez. Una interrupción de conexión indica revisar el estado antes de iniciar otra vez. |
 | Próxima versión |  | La preparación conserva los servidores DNS del anfitrión y admite una interfaz LAN tardía. Las herramientas requeridas se instalan por separado del verificador de firma opcional. |
 | Próxima versión |  | Una línea de consola instala la suite: descarga el paquete de la versión, verifica su suma sha256 y su firma, y deja lista la orden `sudo aps-conecta install`. |

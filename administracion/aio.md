@@ -49,6 +49,8 @@ En la próxima versión, la preparación instala las herramientas requeridas por
 
 La corrección de DNS dividido se aplica con `sudo aps-conecta red --dominio <dominio> --arreglar`, con consentimiento. El DNS local admite una interfaz LAN que se activa después del servicio. Docker conserva la dirección LAN primero y los servidores DNS válidos configurados previamente y obtenidos del anfitrión, sin duplicados ni bucles locales.
 
+En la próxima versión, Nextcloud y el servidor web calculan la subred IPv4 interna real para validar las direcciones reenviadas. Los clientes de la LAN conservan su propia dirección en los registros y la protección de acceso. El inicio requiere una coincidencia única entre la dirección del servicio y su interfaz; ante una detección pendiente, revise la resolución del nombre y la red del contenedor antes de reiniciar.
+
 ### Proxy institucional
 
 En la próxima versión, la instalación admite un proxy HTTP(S) con autenticación básica. Su dirección debe ser accesible desde el servidor y sus contenedores. Ingrésela mediante lectura oculta; codifique los caracteres especiales del usuario y la contraseña en la URL.
