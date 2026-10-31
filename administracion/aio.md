@@ -154,7 +154,7 @@ Desde ahí, el Provisionador del instalador ejecuta las fases de aprovisionamien
 
 En la próxima versión, el aprovisionamiento instala y configura el antivirus desde la tienda mediante el canal acotado de la suite. Cada carga se analiza antes de aceptarse. El límite se obtiene de `NEXTCLOUD_UPLOAD_LIMIT` y se aplica también a ClamAV; el valor predeterminado es `1G` (1 GiB). El máximo admitido por el analizador es 2.147.483.645 bytes.
 
-Las cargas fragmentadas conservan el límite del archivo completo. El analizador rechaza los archivos infectados y los resultados que indican límites de análisis o archivos comprimidos cifrados. Ante una indisponibilidad, espere la recuperación del servicio y vuelva a cargar el archivo. Si el rechazo continúa, revise el contenido y el tamaño; contacte a la administración para comprobar el servicio.
+Las cargas fragmentadas conservan el límite del archivo completo. El analizador rechaza los archivos infectados y los resultados que indican límites de análisis o archivos comprimidos cifrados. Ante una indisponibilidad, revise los registros en el servidor con `sudo docker logs --tail 100 aps-conecta-clamav`. Restablezca el servicio y repita la carga. Para un rechazo de contenido, revise el archivo y su tamaño.
 
 ## Compromisos y límites
 
