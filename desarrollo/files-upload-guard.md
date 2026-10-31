@@ -25,7 +25,7 @@ resumen: "Protección de cargas WebDAV para Nextcloud 34: preparación temporal,
 
 ## Notas
 
-ADR-0022 delimita la compatibilidad con el envoltorio de almacenamiento y el nombre temporal de Nextcloud 34. El núcleo y el antivirus de tienda conservan sus archivos originales. El [seguimiento técnico](https://github.com/APS-Conecta/gestion/issues/239) registra la comprobación de sustituciones y permisos antes de aceptar la integración.
+[ADR-0022](https://github.com/APS-Conecta/gestion/blob/03d54692d12de1b56a3f05b7df5241d3ba18a082/docs/adr/0022-preserve-upload-staging-with-a-scoped-storage-guard.md) autoriza exclusivamente la clase privada `OC\Files\Storage\Wrapper\Wrapper` y el patrón de nombres temporales de Nextcloud 34. La excepción y la aplicación se retiran cuando una versión oficial compatible supera las mismas pruebas de conservación, permisos, cargas fragmentadas, instalación y actualización sin este componente. El núcleo y el antivirus de tienda conservan sus archivos originales. El [seguimiento técnico](https://github.com/APS-Conecta/gestion/issues/239) registra la comprobación de sustituciones y permisos antes de aceptar la integración.
 
 ```{toctree}
 :maxdepth: 1
