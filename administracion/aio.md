@@ -98,6 +98,8 @@ El asistente usa la etiqueta de su propia imagen para seleccionar las imágenes 
 
 La próxima versión instala un conjunto fijo: Euro-Office, Talk, búsqueda de texto completo, vistas previas, antivirus y AppAPI mediante HaRP. Farmacia, Estadística y Tótem conservan su selección independiente. La habilitación de grabaciones dependerá del perfil de recursos validado.
 
+El mínimo medido y el umbral de grabación permanecen pendientes en [#189](https://github.com/APS-Conecta/gestion/issues/189). El ensayo acordado utiliza diez cuentas ficticias, dos sesiones activas de Office y una llamada de cuatro participantes a 720p y 30 cuadros por segundo. Cada configuración contempla quince minutos de calentamiento y treinta de medición, con tres repeticiones. La VM de ensayo y los equipos que ejecutan los navegadores se miden por separado.
+
 El establecimiento aporta su dominio o dirección IP. La administración aplica las actualizaciones mediante la versión de la suite y conserva el control de la instalación.
 
 El conjunto utiliza TCP/UDP 443, TCP 8080 y TCP/UDP 3478. El puerto 80 queda disponible para otro servicio. La revisión previa identifica el puerto y el protocolo cuando encuentra un conflicto.
