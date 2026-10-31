@@ -397,11 +397,12 @@ def selftest_registro() -> None:
         raiz = Path(td)
         (raiz / "gestion").mkdir(parents=True)
         (raiz / "gestion" / rel).write_text(
-            '[{"id": "intravox", "source": "fork"}, '
-            '{"id": "farmacia", "source": "own"}, '
+            '[{"id": "intravox", "source": "fork", "repo": "APS-Conecta/IntraVox"}, '
+            '{"id": "farmacia", "source": "own", "repo": "APS-Conecta/farmacia"}, '
+            '{"id": "files_upload_guard", "source": "own", "repo": "APS-Conecta/files-upload-guard"}, '
             '{"id": "calendar", "source": "store"}]\n', encoding="utf-8")
         assert manifest_path(raiz) == raiz / "gestion" / rel, manifest_path(raiz)
-        assert own_apps(manifest_path(raiz)) == ["intravox", "farmacia"]
+        assert own_apps(manifest_path(raiz)) == ["IntraVox", "farmacia", "files-upload-guard"]
         (raiz / "gestion" / rel).unlink()
         try:
             own_apps(manifest_path(raiz))
