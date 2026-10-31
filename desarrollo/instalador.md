@@ -72,7 +72,11 @@ La fase 12 instala `files_antivirus` desde el canal de tienda declarado en `apps
 
 `av_max_file_size=-1` mantiene todas las cargas elegibles para revisión: un valor positivo omite el análisis de archivos ensamblados que lo superan. El límite de aceptación se aplica en ICAP y ClamAV con la misma entrada del instalador.
 
-La compuerta local comprueba unidades y valores inválidos. Clean boot verifica cargas mediante WebDAV con una cuenta sintética, contenido limpio y EICAR, además del límite de análisis. Registre las pruebas de falla y recuperación junto con la procedencia de las imágenes en el pull request.
+La fase 12 instala `files_upload_guard` desde su publicación firmada. Esta compatibilidad de Nextcloud 34 conserva el archivo anterior si una sustitución se rechaza o carece de una ubicación temporal segura. ADR-0022 delimita la dependencia del envoltorio de almacenamiento; el núcleo y la aplicación de tienda conservan sus archivos originales. El flujo compartido admite aplicaciones PHP sin interfaz de navegador mediante `php-only: true`, con la misma firma y verificación de paquetes.
+
+El servidor web conserva HTTP 500 y entrega orientación en español para errores de carga WebDAV. La persona revisa Archivos antes de repetir una operación cuyo resultado requiere comprobación.
+
+La compuerta local comprueba unidades y valores inválidos. Clean boot verifica contenido limpio, EICAR, archivos ensamblados, límites, comprimidos, fallas y recuperación mediante WebDAV. También comprueba sustituciones, permisos de carpetas compartidas y respuestas del servidor web. Registre los resultados junto con la procedencia de las imágenes en el pull request.
 
 ### Proxy de salida
 

@@ -156,6 +156,8 @@ En la próxima versión, el aprovisionamiento instala y configura el antivirus d
 
 Las cargas fragmentadas conservan el límite del archivo completo. El analizador rechaza los archivos infectados y los resultados que indican límites de análisis o archivos comprimidos cifrados. Ante una indisponibilidad, revise los registros en el servidor con `sudo docker logs --tail 100 aps-conecta-clamav`. Restablezca el servicio y repita la carga. Para un rechazo de contenido, revise el archivo y su tamaño.
 
+La protección de cargas se instala desde una publicación firmada y conserva el archivo anterior cuando una sustitución se rechaza. La carga requiere una ubicación temporal con permiso de creación; revise ese permiso si una carpeta compartida permite actualizar archivos y rechaza la operación. Ante un error HTTP 500, compruebe el resultado en Archivos antes de repetir la carga.
+
 ## Compromisos y límites
 
 La integración de búsqueda y AppAPI, la configuración inicial de llamadas y el perfil de grabación continúan en las etapas del {doc}`plan de cambios </proyecto/novedades/instalador>`. La presencia de un contenedor acredita su ejecución; cada función tiene además su verificación de integración.

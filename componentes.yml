@@ -53,8 +53,10 @@ components:
   - {name: Calendario, kind: app, id: calendar, upstream: "https://github.com/nextcloud/calendar", licence: AGPL-3.0-or-later}
   - {name: Contactos, kind: app, id: contacts, upstream: "https://github.com/nextcloud/contacts", licence: AGPL-3.0-or-later}
   - {name: Notify Push, kind: app, id: notify_push, upstream: "https://github.com/nextcloud/notify_push", licence: AGPL-3.0-or-later}
+  - {name: Antivirus de archivos, kind: app, id: files_antivirus, upstream: "https://github.com/nextcloud/files_antivirus", licence: AGPL-3.0-or-later}
 
   # ---- Aplicaciones propias de APS Conecta
+  - {name: Protección de cargas, kind: own-app, id: files_upload_guard, repo: files-upload-guard, upstream: "https://github.com/APS-Conecta/files-upload-guard", licence: AGPL-3.0-or-later}
   - {name: Epidemiología, kind: own-app, id: epidemiologia, upstream: "https://github.com/APS-Conecta/epidemiologia", licence: AGPL-3.0-or-later}
   - {name: Farmacia, kind: own-app, id: farmacia, upstream: "https://github.com/APS-Conecta/farmacia", licence: AGPL-3.0-or-later}
   - {name: Territorio, kind: own-app, id: territorio, upstream: "https://github.com/APS-Conecta/territorio", licence: AGPL-3.0-or-later}

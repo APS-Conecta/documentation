@@ -160,7 +160,7 @@ def app_versions(rows: list[dict], catalog_rows: list[dict]) -> dict[str, str]:
     for r in rows:
         if r["kind"] not in ("app", "own-app"):
             continue
-        repo = roster.get(r["id"].lower())
+        repo = roster.get(r.get("repo", r["id"]).lower())
         if repo is None:
             continue
         repo_dir = org() / repo

@@ -14,7 +14,7 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 
 | Versión | Fecha | Cambio |
 |---|---|---|
-| Próxima versión |  | El antivirus analiza las cargas antes de guardarlas y aplica un límite común al archivo completo. Los rechazos indican revisar el archivo o esperar la recuperación del servicio. |
+| Próxima versión |  | El antivirus analiza las cargas antes de guardarlas y aplica un límite común al archivo completo. Una sustitución rechazada conserva el archivo anterior; los errores indican revisar el resultado, el contenido o el servicio antes de repetir la carga. |
 | Próxima versión |  | Nextcloud y el servidor web validan las direcciones reenviadas mediante la subred interna real. Los registros y la protección de acceso conservan la dirección del cliente de la LAN. |
 | Próxima versión |  | La instalación informa el resultado final del asistente, continúa mientras existan avances y recupera una sesión vencida una vez. Una interrupción de conexión indica revisar el estado antes de iniciar otra vez. |
 | Próxima versión |  | La preparación conserva los servidores DNS del anfitrión y admite una interfaz LAN tardía. Las herramientas requeridas se instalan por separado del verificador de firma opcional. |
