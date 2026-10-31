@@ -160,7 +160,7 @@ def app_versions(rows: list[dict], catalog_rows: list[dict]) -> dict[str, str]:
     for r in rows:
         if r["kind"] not in ("app", "own-app"):
             continue
-        repo = roster.get(r["id"].lower())
+        repo = roster.get(r.get("repo", r["id"]).lower())
         if repo is None:
             continue
         repo_dir = org() / repo
@@ -288,6 +288,20 @@ def selftest() -> int:
     assert shipped_images('{"aio_services_v1": [{"image": "ghcr.io/aps-conecta/aio-redis"}]}') == {"redis"}
     assert base_images.__doc__ and nc_server_version("ENV NEXTCLOUD_VERSION=34.0.5\n") == "34.0.5"
     assert manifest_apps('[{"id": "intravox", "source": "fork"}, {"id": "calendar", "source": "store"}]') == {"intravox", "calendar"}
+    import tempfile
+    from unittest.mock import patch
+    with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, APS_ORG_ROOT=directory):
+        info = Path(directory) / "server-repo" / "appinfo" / "info.xml"
+        info.parent.mkdir(parents=True)
+        info.write_text("<info><version>0.1.0</version></info>", encoding="utf-8")
+        app_rows = [
+            {"kind": "own-app", "id": "server_guard", "repo": "server-repo"},
+            {"kind": "own-app", "id": "server-repo"},
+            {"kind": "app", "id": "calendar"},
+        ]
+        assert app_versions(app_rows, [{"repo": "server-repo"}]) == {
+            "server_guard": "0.1.0", "server-repo": "0.1.0",
+        }
     print(
         "[gen-componentes] selftest OK (drift both ways, manifest apps, base images, render)"
     )

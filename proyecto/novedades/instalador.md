@@ -1,7 +1,7 @@
 ---
 tipo: referencia
 audiencia: proyecto
-apps: [gestion]
+apps: [gestion, files-upload-guard]
 resumen: "Cambios de instalador visibles para usuarios y administradores, agrupados por versión."
 ---
 # Novedades de instalador
@@ -14,6 +14,7 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| Próxima versión |  | El antivirus analiza las cargas antes de guardarlas y aplica un límite común al archivo completo. Una sustitución rechazada conserva el archivo anterior; los errores indican revisar el resultado, el contenido o el servicio antes de repetir la carga. |
 | Próxima versión |  | Nextcloud y el servidor web validan las direcciones reenviadas mediante la subred interna real. Los registros y la protección de acceso conservan la dirección del cliente de la LAN. |
 | Próxima versión |  | La instalación informa el resultado final del asistente, continúa mientras existan avances y recupera una sesión vencida una vez. Una interrupción de conexión indica revisar el estado antes de iniciar otra vez. |
 | Próxima versión |  | La preparación conserva los servidores DNS del anfitrión y admite una interfaz LAN tardía. Las herramientas requeridas se instalan por separado del verificador de firma opcional. |
@@ -30,9 +31,10 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 | Próxima versión |  | El banco de pruebas y la aceptación del ciclo de vida usan la instalación HTTPS por IP, con el certificado y el comando del instalador. La revisión de puertos considera TCP y UDP y admite el puerto 80 ocupado. |
 | Próxima versión |  | La revisión previa exige x86-64, FUSE y Docker Engine compatible, mide el disco de datos real y detecta contenedores sin su carpeta de instalación. Las indicaciones del cortafuegos usan las subredes reales de la suite. |
 | Próxima versión |  | La instalación conserva el proxy institucional para las descargas, Docker, el asistente y la plataforma. El perfil mantiene sus credenciales privadas y excluye la comunicación interna. |
+| Próxima versión |  | El aprovisionamiento aplica el nombre del establecimiento en el tema en uso y lo conserva al reiniciar. |
 
 ## Notas
 
-El [plan de gestion #175](https://github.com/APS-Conecta/gestion/issues/175) registra la implementación y sus verificaciones. Las integraciones de antivirus, búsqueda y AppAPI, la configuración de Talk durante el aprovisionamiento y el perfil de grabación continúan en etapas posteriores.
+El [plan de gestion #175](https://github.com/APS-Conecta/gestion/issues/175) registra la implementación y sus verificaciones. Las integraciones de búsqueda y AppAPI, la configuración de Talk durante el aprovisionamiento y el perfil de grabación continúan en etapas posteriores.
 
 Estas entradas describen la próxima versión. Para instalar, seleccione una versión estable en [Publicaciones de la suite](https://github.com/APS-Conecta/gestion/releases).

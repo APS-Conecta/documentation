@@ -1,7 +1,7 @@
 ---
 tipo: referencia
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion, files-upload-guard]
 resumen: "El repositorio de la suite: el fork de AIO en un solo árbol, el paquete del host, el Provisionador, el manifiesto de aplicaciones y la publicación firmada."
 ---
 (instalador)=
@@ -63,6 +63,20 @@ Las autopruebas del anfitrión simulan errores con HTTP 200, una descarga de 70 
 El activo de instalación de cada versión lleva la suma del paquete y la clave pública. Desempaca la suite en `/opt/aps-conecta/instalador` y conserva el paquete en `/opt/aps-conecta/paquete` para verificarlo sin red. El procedimiento está en {doc}`/administracion/aio`.
 
 Antes de instalar la carpeta del paquete, ejecuta la comprobación de instalación existente del módulo del anfitrión incluido en el paquete verificado. Las comprobaciones de arquitectura, FUSE, Docker, disco y puertos se comparten entre la revisión previa, la preparación y el inicio desde el navegador. Las autopruebas del anfitrión y del arranque cubren los rechazos con comandos simulados; Clean boot instala el paquete antes de crear los contenedores.
+
+### Análisis de cargas
+
+La fase 12 instala `files_antivirus` desde el canal de tienda declarado en `apps.json`. La fase 14 y el inicio comparten `configure-apps.sh antivirus`, que configura la aplicación instalada antes de esperar al servicio. La aplicación permanece habilitada durante una demora del analizador.
+
+`Containers/antivirus-limit.sh` convierte el límite de carga a bytes y lo acota a 2.147.483.645. Nextcloud y ClamAV usan el mismo cálculo. La aplicación utiliza ICAP; el contenedor de ClamAV incluye c-icap con revisiones y sumas fijadas, y entrega el archivo completo al motor existente. El análisis de archivos comprimidos activa las alertas de cifrado y límites. Los mensajes en español pertenecen al tema; el inicio actualiza sus archivos y conserva `site.css`, generado para el establecimiento.
+
+`av_max_file_size=-1` mantiene todas las cargas elegibles para revisión: un valor positivo omite el análisis de archivos ensamblados que lo superan. El límite de aceptación se aplica en ICAP y ClamAV con la misma entrada del instalador.
+
+La fase 12 instala `files_upload_guard` desde su publicación firmada. Esta compatibilidad de Nextcloud 34 conserva el archivo anterior si una sustitución se rechaza o carece de una ubicación temporal segura. ADR-0022 delimita la dependencia del envoltorio de almacenamiento; el núcleo y la aplicación de tienda conservan sus archivos originales. El flujo compartido admite aplicaciones PHP sin interfaz de navegador mediante `php-only: true`, con la misma firma y verificación de paquetes.
+
+El servidor web conserva HTTP 500 y entrega orientación en español para errores de carga WebDAV. La persona revisa Archivos antes de repetir una operación cuyo resultado requiere comprobación.
+
+La compuerta local comprueba unidades y valores inválidos. Clean boot verifica contenido limpio, EICAR, archivos ensamblados, límites, comprimidos, fallas y recuperación mediante WebDAV. También comprueba sustituciones, permisos de carpetas compartidas y respuestas del servidor web. La importación programada del DEIS se comprueba antes de los reinicios controlados. Registre los resultados junto con la procedencia de las imágenes en el pull request.
 
 ### Proxy de salida
 
