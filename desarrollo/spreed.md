@@ -4,7 +4,7 @@ audiencia: desarrollo
 apps: [spreed]
 resumen: "Chat y videollamadas con la aplicación oficial de Nextcloud Talk."
 ---
-# Talk
+# spreed
 
 ## Resumen
 

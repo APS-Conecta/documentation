@@ -4,7 +4,7 @@ audiencia: desarrollo
 apps: [side_menu]
 resumen: "Menú lateral oficial con los colores de APS Conecta."
 ---
-# Custom Menu
+# side_menu
 
 ## Resumen
 

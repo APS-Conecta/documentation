@@ -46,9 +46,9 @@ Euro-Office, Talk y Custom Menu utilizan sus paquetes oficiales de tienda y cons
 
 ### Firma y credenciales
 
-El entorno `Release` contiene `MINISIGN_SECRET_KEY`, `MINISIGN_KEY_PASSWORD` y `SPREED_REFRESH_TOKEN`. Cada paso recibe únicamente la credencial que consume. Conserve `installer.pub` en el repositorio como clave pública de verificación.
+El entorno `Release` contiene `MINISIGN_SECRET_KEY` y `MINISIGN_KEY_PASSWORD`. Cada paso recibe únicamente la credencial que consume. Conserve `installer.pub` en el repositorio como clave pública de verificación.
 
-La cadena comprueba la firma y el contenido de las publicaciones de Talk. Las etiquetas de ensayo `v0.0.0-ci.N` se publican como preliminares y conservan la versión estable marcada como más reciente. El procedimiento está en [RELEASING.md](https://github.com/APS-Conecta/gestion/blob/main/aps/RELEASING.md).
+Nextcloud verifica la firma del paquete oficial de Talk al instalarlo. Las etiquetas de ensayo `v0.0.0-ci.N` se publican como preliminares y conservan la versión estable marcada como más reciente. El procedimiento está en [RELEASING.md](https://github.com/APS-Conecta/gestion/blob/main/aps/RELEASING.md).
 
 ### Desarrollo y verificación
 

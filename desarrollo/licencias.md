@@ -32,10 +32,10 @@ En este sitio, `REUSE.toml` asigna cada ruta: la prosa de las páginas es CC-BY-
 
 ## Pasos
 
-1. Mantener en el repositorio un `LICENSE` idéntico al de la organización.
+1. Mantener en cada aplicación propia un `LICENSE` idéntico al de la organización.
 2. Declarar el mismo identificador, `AGPL-3.0-or-later`, en `appinfo/info.xml`, `composer.json` y `package.json`, donde existan.
 3. Dejar fuera de la licencia las marcas: el logotipo, el logotipo monocromo, el logotipo con nombre y el favicon están reservados según la sección 7(e) de la AGPL. Las fichas de color siguen bajo la AGPL, como el código.
-4. Al adoptar una aplicación de terceros, mantener el fork en un repositorio propio de la organización, con los cambios como commits y versiones monótonas, y declarar la aplicación en el manifiesto de la suite.
+4. Adoptar el paquete oficial compatible de cada aplicación de terceros, conservar su licencia y declararlo en el manifiesto de la suite. Registrar las adaptaciones necesarias en una decisión de arquitectura.
 5. Declarar el componente en `componentes.yml` de este repositorio, con su licencia SPDX leída del propio componente y, si APS lo modifica, qué cambia.
 6. Atribuir en `THIRD-PARTY-NOTICES.md` los paquetes de terceros que compila una aplicación.
 7. En un repositorio con documentación en español, enlazar el {doc}`aviso legal </aviso>` de este sitio desde la sección «Licencia» del `README.md`.

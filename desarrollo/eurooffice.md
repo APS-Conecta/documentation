@@ -4,7 +4,7 @@ audiencia: desarrollo
 apps: [eurooffice]
 resumen: "Edición de documentos, planillas y presentaciones con el conector oficial y DocumentServer oficial."
 ---
-# Euro-Office
+# eurooffice
 
 ## Resumen
 
