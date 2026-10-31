@@ -8,10 +8,11 @@ resumen: "Cambios de side_menu visibles para usuarios y administradores, agrupad
 
 ## Resumen
 
-Esta página registra los cambios de side_menu que ve una persona usuaria o administradora, agrupados por versión. Los cambios aún no publicados aparecen como «Próxima versión». El historial anterior a la primera versión del repositorio propio está en el registro de cambios de upstream, en inglés.
+Cambios de la integración de Custom Menu en APS Conecta. Las novedades del producto se publican en su repositorio oficial.
 
 ## Tabla
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| Próxima versión |  | Instalación del paquete oficial desde la tienda de aplicaciones, con su firma e integridad verificadas. |
 | 6.0.1 | 2026-10-24 | Primera versión desde el repositorio propio: el tarball AGPL 6.0.1 de upstream, firmado con la clave de aplicaciones y publicado como release (instalador#38). |

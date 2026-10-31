@@ -40,6 +40,10 @@ Una versión publicada conserva sus resúmenes. La opción `--force` corresponde
 
 La consulta al registro admite manifiestos Docker y OCI y sus índices. La compuerta local comprueba el método nativo con ambos formatos y con un registro inaccesible.
 
+### Aplicaciones oficiales
+
+Euro-Office, Talk y Custom Menu utilizan sus paquetes oficiales de tienda y conservan la firma del proveedor. APS Conecta configura la integración y comprueba su funcionamiento. El proveedor de búsqueda mantiene la corrección temporal de identidad de la ADR-0023 hasta su publicación oficial. IntraVox aporta el montaje configurable y la importación que conserva el contenido del personal.
+
 ### Firma y credenciales
 
 El entorno `Release` contiene `MINISIGN_SECRET_KEY`, `MINISIGN_KEY_PASSWORD` y `SPREED_REFRESH_TOKEN`. Cada paso recibe únicamente la credencial que consume. Conserve `installer.pub` en el repositorio como clave pública de verificación.

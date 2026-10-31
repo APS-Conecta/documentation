@@ -93,31 +93,6 @@ repos:
       - proyecto/novedades/territorio.md
     depends_on: [aps-common]
     status: "En la suite desde v0.74.0 (2026-09)"
-  - repo: side_menu
-    kind: nextcloud-app
-    role: "Menú lateral personalizado — Custom menu de Simon Vieille (AGPL 6.0.1), mantenido como fork propio porque su fuente, gitnet.fr, está inaccesible."
-    manuals:
-      - desarrollo/side_menu.md
-      - proyecto/novedades/side_menu.md
-    depends_on: []
-    status: "En la suite desde 6.0.1 (2026-10-24)"
-  - repo: spreed
-    kind: nextcloud-app
-    role: "Talk de la suite — fork propio de spreed con releases firmadas: el chat y las videollamadas internas del establecimiento, sin salir a servicios de terceros."
-    manuals:
-      - proyecto/novedades/spreed.md
-    depends_on: [gestion]
-    status: "Activo"
-    version: "24.0.6"
-  - repo: eurooffice
-    kind: nextcloud-app
-    role: "Conector de Euro-Office para Nextcloud: edición en línea de documentos, planillas y presentaciones; fork propio del upstream."
-    manuals:
-      - administracion/oficina/index.md
-      - desarrollo/eurooffice.md
-      - proyecto/novedades/eurooffice.md
-    depends_on: []
-    status: "Fork recién creado; entra a la suite con su primera release"
   - repo: files-upload-guard
     kind: nextcloud-app
     role: "Protección de cargas para Nextcloud 34: conserva el archivo anterior cuando una carga es rechazada y verifica una ubicación temporal segura."
