@@ -14,6 +14,7 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| Próxima versión |  | La instalación configura las llamadas de Talk durante el aprovisionamiento. La revalidación comprueba TURN, STUN, la ruta HTTPS pública y el diagnóstico nativo de señalización. |
 | Próxima versión |  | La instalación reconoce manifiestos Docker y OCI al consultar las imágenes publicadas de la suite. |
 | Próxima versión |  | AppAPI verifica su servicio HaRP predeterminado y su comunicación HTTPS con la suite por IP. La revalidación incluye ambas conexiones después de reiniciar o repetir el aprovisionamiento. |
 | Próxima versión |  | El antivirus analiza las cargas antes de guardarlas y aplica un límite común al archivo completo. Una sustitución rechazada conserva el archivo anterior; los errores indican revisar el resultado, el contenido o el servicio antes de repetir la carga. |
@@ -38,6 +39,6 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 
 ## Notas
 
-El [plan de gestion #175](https://github.com/APS-Conecta/gestion/issues/175) registra la implementación y sus verificaciones. La configuración de Talk durante el aprovisionamiento y el perfil de grabación continúan en etapas posteriores.
+El [plan de gestion #175](https://github.com/APS-Conecta/gestion/issues/175) registra la implementación y sus verificaciones. El perfil de grabación continúa en una etapa posterior.
 
 Estas entradas describen la próxima versión. Para instalar, seleccione una versión estable en [Publicaciones de la suite](https://github.com/APS-Conecta/gestion/releases).

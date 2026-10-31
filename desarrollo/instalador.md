@@ -72,6 +72,16 @@ La comprobación inversa obtiene únicamente los ajustes de confianza y la URL d
 
 Las autopruebas cubren certificados válidos y desconocidos, argumentos y estado de salida, y configuraciones ausentes, duplicadas, malformadas o inaccesibles. Clean boot repite la verificación después del reinicio y del aprovisionamiento repetido.
 
+### Configuración y diagnóstico de Talk
+
+La fase 12 ejecuta `configure-apps.sh talk` después de instalar o comprobar la publicación firmada de Spreed. El arranque llama a la misma rutina. Un fallo de instalación, lectura de configuración o importación detiene ese paso.
+
+El módulo compara los ajustes nativos e importa solo las claves modificadas con `occ config:import` por la entrada estándar. Las credenciales permanecen en el entorno del contenedor y en esa entrada; la repetición conserva los valores sin escrituras adicionales.
+
+`scripts/talk-smoke.sh` exige la URL pública de señalización, TURN y STUN en el puerto 3478, y una respuesta HTTP 200 válida de `/standalone-signaling/api/v1/welcome`, con verificación del certificado de la suite. También exige `success` en `talk` → `OCA\Talk\SetupCheck\HighPerformanceBackend` de `occ setupchecks --output=json`; otras advertencias conservan su resultado independiente.
+
+La compuerta conserva los ajustes de conexión. El diagnóstico nativo puede inicializar claves de señalización y registrar capacidades del servicio. Clean boot comprueba el primer aprovisionamiento, el reinicio y la repetición. Su experimento TURN distingue la asignación autenticada, los permisos para cada dirección y el intercambio real de datos; una asignación aislada acredita solo esa operación.
+
 ### El arranque de una línea
 
 El activo de instalación de cada versión lleva la suma del paquete y la clave pública. Desempaca la suite en `/opt/aps-conecta/instalador` y conserva el paquete en `/opt/aps-conecta/paquete` para verificarlo sin red. El procedimiento está en {doc}`/administracion/aio`.
