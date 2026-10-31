@@ -64,6 +64,14 @@ El activo de instalación de cada versión lleva la suma del paquete y la clave 
 
 Antes de instalar la carpeta del paquete, ejecuta la comprobación de instalación existente del módulo del anfitrión incluido en el paquete verificado. Las comprobaciones de arquitectura, FUSE, Docker, disco y puertos se comparten entre la revisión previa, la preparación y el inicio desde el navegador. Las autopruebas del anfitrión y del arranque cubren los rechazos con comandos simulados; Clean boot instala el paquete antes de crear los contenedores.
 
+### Análisis de cargas
+
+La fase 12 instala `files_antivirus` desde el canal de tienda declarado en `apps.json`. La fase 14 y el inicio comparten `configure-apps.sh antivirus`, que configura la aplicación instalada antes de esperar al servicio. La aplicación permanece habilitada durante una demora del analizador.
+
+`Containers/antivirus-limit.sh` convierte el límite de carga a bytes y lo acota a 2.147.483.645. Nextcloud y ClamAV usan el mismo cálculo. La aplicación utiliza ICAP; el contenedor de ClamAV incluye c-icap con revisiones y sumas fijadas, y entrega el archivo completo al motor existente. El análisis de archivos comprimidos activa las alertas de cifrado y límites. Los mensajes en español pertenecen al tema; el inicio actualiza sus archivos y conserva `site.css`, generado para el establecimiento.
+
+La compuerta local comprueba unidades y valores inválidos. Clean boot verifica cargas mediante WebDAV con una cuenta sintética, contenido limpio y EICAR, además del límite de análisis. Registre las pruebas de falla y recuperación junto con la procedencia de las imágenes en el pull request.
+
 ### Proxy de salida
 
 El anfitrión valida y carga un perfil de variables fijo, con permisos privados y lectura literal. El arranque firmado delega su guardado al módulo del paquete verificado. Docker utiliza un archivo de entorno mediante una configuración de systemd; el comando de arranque contiene su ruta. La aplicación correcta se registra después del reinicio del servicio y una falla conserva el intento pendiente.

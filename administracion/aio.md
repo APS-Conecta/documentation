@@ -150,9 +150,15 @@ El asistente termina donde empieza el paquete del host. Con los contenedores en 
 
 Desde ahí, el Provisionador del instalador ejecuta las fases de aprovisionamiento con `docker exec` sobre la instancia en marcha: las mismas fases que levantan el entorno de desarrollo. La inicialización y la fase 14 comparten la rutina que configura la URL pública del servidor de documentos y el secreto JWT; por eso el `.env` del establecimiento no lleva claves de oficina. El aprovisionamiento se describe en {doc}`/administracion/aprovisionamiento`.
 
+### Antivirus de archivos
+
+En la próxima versión, el aprovisionamiento instala y configura el antivirus desde la tienda mediante el canal acotado de la suite. Cada carga se analiza antes de aceptarse. El límite se obtiene de `NEXTCLOUD_UPLOAD_LIMIT` y se aplica también a ClamAV; el valor predeterminado es `1G` (1 GiB). El máximo admitido por el analizador es 2.147.483.645 bytes.
+
+Las cargas fragmentadas conservan el límite del archivo completo. El analizador rechaza los archivos infectados y los resultados que indican límites de análisis o archivos comprimidos cifrados. Ante una indisponibilidad, espere la recuperación del servicio y vuelva a cargar el archivo. Si el rechazo continúa, revise el contenido y el tamaño; contacte a la administración para comprobar el servicio.
+
 ## Compromisos y límites
 
-La integración de antivirus, búsqueda y AppAPI, la configuración inicial de llamadas y el perfil de grabación continúan en las etapas del {doc}`plan de cambios </proyecto/novedades/instalador>`. La presencia de un contenedor acredita su ejecución; cada función tiene además su verificación de integración.
+La integración de búsqueda y AppAPI, la configuración inicial de llamadas y el perfil de grabación continúan en las etapas del {doc}`plan de cambios </proyecto/novedades/instalador>`. La presencia de un contenedor acredita su ejecución; cada función tiene además su verificación de integración.
 
 - **Mensajes en inglés.** El asistente muestra 68 mensajes que nacen en código PHP que el fork no traduce: los cambios PHP declarados son de comportamiento, no de textos. La declaración del fork lleva la lista completa, por archivo.
 - **Sin red al actualizar.** En los arranques que cambian de imagen, un establecimiento sin conexión espera la sonda de la tienda de aplicaciones (`apps.nextcloud.com`) hasta que vence o vuelve la red. Es un comportamiento de upstream que el fork no modifica.

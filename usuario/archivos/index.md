@@ -21,6 +21,10 @@ La aplicación **Archivos** guarda los documentos del establecimiento. Esta secc
 
 ## En APS Conecta Gestión
 
+### Cargar archivos
+
+En la próxima versión, el antivirus analiza cada archivo antes de guardarlo. El límite corresponde al archivo completo, incluso cuando se carga por partes. Si recibe un rechazo, revise el contenido y el tamaño. Para un archivo comprimido cifrado, prepare una copia que el analizador pueda revisar. Si el servicio está temporalmente indisponible, espere y repita la carga; si el problema continúa, contacte a la administración.
+
 ### Las cuatro áreas
 
 Los documentos del establecimiento viven en carpetas de equipo, no en la carpeta personal de cada cuenta. La suite crea esas carpetas en cuatro áreas:
