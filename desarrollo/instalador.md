@@ -144,7 +144,7 @@ La revisión previa informa recursos mínimos y recomendados. La instalación si
 
 La preparación de [#189](https://github.com/APS-Conecta/gestion/issues/189) incorpora `scripts/usage.py` en ambos trabajos de Clean boot. Conserva series JSONL acotadas de memoria, CPU, intercambio y OOM del anfitrión, junto con métricas de los contenedores. Cada muestra identifica su arranque y sus unidades; el cierre vincula el PID y la cantidad de muestras. Las métricas de Docker ausentes se registran como no disponibles. Una captura incompleta o una interrupción durante la carga estable invalida esa repetición.
 
-El [protocolo de medición](https://github.com/APS-Conecta/gestion/blob/c5184e8eb5c5d282c3971a7f7f14b3250dbd42f7/aps/RESOURCE-MEASUREMENTS.md) establece procedencia, carga y límites de interpretación. Los umbrales compartidos del instalador y del Provisionador se fijan después de medir operaciones reales de Office, Talk, cargas y búsqueda, con la grabación evaluada por separado. Los mínimos y recomendaciones deben incluir la referencia oficial de Nextcloud y la evidencia del ensayo. Los valores de memoria por proceso se interpretan dentro de ese alcance.
+El [protocolo de medición](https://github.com/APS-Conecta/gestion/blob/072f3a9a929b4b8b15fe9589320612d09e022616/aps/RESOURCE-MEASUREMENTS.md) establece procedencia, carga y límites de interpretación. Los umbrales compartidos del instalador y del Provisionador se fijan después de medir operaciones reales de Office, Talk, cargas y búsqueda, con la grabación evaluada por separado. Los mínimos y recomendaciones deben incluir la referencia oficial de Nextcloud y la evidencia del ensayo. Los valores de memoria por proceso se interpretan dentro de ese alcance.
 
 ### Instalaciones previas
 
