@@ -78,7 +78,7 @@ Las autopruebas cubren certificados válidos y desconocidos, argumentos y estado
 
 ### Configuración y diagnóstico de Talk
 
-La fase 12 ejecuta `configure-apps.sh talk` después de instalar o comprobar la publicación firmada de Spreed. El arranque llama a la misma rutina. Un fallo de instalación, lectura de configuración o importación detiene ese paso.
+La fase 12 ejecuta `configure-apps.sh talk` después de instalar o comprobar el paquete oficial de Talk. El arranque llama a la misma rutina. Un fallo de instalación, lectura de configuración o importación detiene ese paso.
 
 El módulo compara los ajustes nativos e importa solo las claves modificadas con `occ config:import` por la entrada estándar. Las credenciales permanecen en el entorno del contenedor y en esa entrada; la repetición conserva los valores sin escrituras adicionales.
 
@@ -93,6 +93,12 @@ El [experimento por IP](https://github.com/APS-Conecta/gestion/actions/runs/4121
 Después de revalidar, Clean boot por IP repite `talk-smoke.sh` antes del ensayo de mensajes. Usa `POST v4/room` con `roomType` y `roomName`, `POST v1/chat/{token}` y `GET` del mismo historial. Una cuenta ordinaria crea y envía; otra lee el texto exacto junto con la identidad, el identificador y la conversación correspondientes. La comprobación admite los mensajes del sistema.
 
 El creador elimina únicamente la conversación del ensayo. Cada escritura se ejecuta una vez y un fallo de limpieza conserva el fallo original. Las credenciales permanecen en el registro privado y en memoria; el cliente verifica el certificado de la suite y rechaza redirecciones. La política de grabación se mide por separado en [#189](https://github.com/APS-Conecta/gestion/issues/189).
+
+### Confianza del grabador
+
+El grabador oficial recibe la CA pública de la suite mediante un montaje de solo lectura. `Containers/talk-recording/prepare-trust.py` valida los certificados y prepara el conjunto de confianza de Python y la política nativa `Certificates.Install` de Firefox. Las notificaciones HTTP usan ese conjunto a través de `certifi`; el código oficial del grabador conserva la verificación TLS.
+
+Clean boot por IP comprueba las notificaciones Python y el navegador del grabador con la CA y sin ella. La compuerta local cubre la rotación, el nombre IP y los certificados desconocidos. Redis y la tienda tienen esperas acotadas; una demora del grabador conserva Talk y deja pendiente la configuración de grabación. Su activación por recursos continúa en [#189](https://github.com/APS-Conecta/gestion/issues/189) y [#190](https://github.com/APS-Conecta/gestion/issues/190).
 
 ### El arranque de una línea
 

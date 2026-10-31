@@ -186,7 +186,7 @@ El resultado de AppAPI se informa junto con las demás verificaciones. Si falla,
 
 ### Configuración y revisión de llamadas
 
-En la próxima versión, el aprovisionamiento configura Talk después de instalar su publicación firmada. El inicio reutiliza la misma rutina. TURN y STUN usan la dirección del servidor en el puerto 3478; la señalización utiliza la ruta pública `/standalone-signaling/`.
+En la próxima versión, el aprovisionamiento configura Talk después de instalar su paquete oficial. El inicio reutiliza la misma rutina. TURN y STUN usan la dirección del servidor en el puerto 3478; la señalización utiliza la ruta pública `/standalone-signaling/`.
 
 `sudo aps-conecta revalidate` comprueba esos ajustes, la respuesta HTTPS pública con el certificado de la suite y el diagnóstico nativo de señalización. Si falla, revise el resultado de llamadas, el estado de `aps-conecta-talk`, el certificado y el acceso al servidor desde la red afectada.
 
@@ -200,10 +200,10 @@ La aceptación de la versión comprueba el envío y la lectura del mismo texto e
 
 ## Compromisos y límites
 
-El perfil de grabación continúa en las etapas del {doc}`plan de cambios </proyecto/novedades/instalador>`. La presencia de un contenedor acredita su ejecución; cada función tiene además su verificación de integración.
+El perfil de grabación continúa en las etapas del {doc}`plan de cambios </proyecto/novedades/instalador>`. La próxima versión prepara la confianza del grabador oficial con la CA pública de la instalación por IP. Python y Firefox verifican el certificado de la suite. La grabación dispone de un tiempo limitado para responder durante el inicio; una demora conserva Talk y deja pendiente su configuración.
 
 - **Mensajes en inglés.** El asistente muestra 68 mensajes que nacen en código PHP que el fork no traduce: los cambios PHP declarados son de comportamiento, no de textos. La declaración del fork lleva la lista completa, por archivo.
-- **Sin red al actualizar.** En los arranques que cambian de imagen, un establecimiento sin conexión espera la sonda de la tienda de aplicaciones (`apps.nextcloud.com`) hasta que vence o vuelve la red. Es un comportamiento de upstream que el fork no modifica.
+- **Red al actualizar.** La tienda de aplicaciones dispone de 90 segundos para responder. Si continúa inaccesible, el inicio termina con error. Revise la conexión y repita la operación.
 - **Nombres de contenedor.** El nombre `aps-conecta-*` rige solo para instalaciones nuevas; una instalación con los nombres de upstream se reinstala, nunca se migra.
 - **Montajes fijados.** Un directorio del host montado en un contenedor cambia solo al recrear ese contenedor.
 - **Dominio o IP.** Una suite iniciada para un dominio no pasa a una dirección IP, ni al revés: se reinstala.

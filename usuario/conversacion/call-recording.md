@@ -48,4 +48,4 @@ Una vez terminada la llamada, la grabación se procesa y se guarda en el chat co
 
 ## En APS Conecta Gestión
 
-La disponibilidad de grabaciones depende de la validación del perfil de recursos de la suite. La administración del establecimiento informará su disponibilidad. Consulte {doc}`/proyecto/novedades/instalador` antes de seguir el procedimiento de esta página.
+La disponibilidad de grabaciones depende de la validación del perfil de recursos de la suite. La administración del establecimiento confirma su disponibilidad y prepara la conexión HTTPS del servicio con el certificado de la instalación. Consulte {doc}`/proyecto/novedades/instalador` antes de seguir el procedimiento de esta página.
