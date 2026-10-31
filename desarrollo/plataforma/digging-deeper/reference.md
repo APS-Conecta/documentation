@@ -379,7 +379,7 @@ y un ejemplo de respuesta:
 }
 ```
 
-En este ejemplo, el proveedor del selector inteligente «files» no admite ningún proveedor de la búsqueda unificada,
+En este ejemplo, el proveedor del selector inteligente de Archivos no admite ningún proveedor de la búsqueda unificada,
 pero «github-issue-pr» admite 2 de ellos y «openstreetmap-point» admite uno.
 
 #### Usar la API de la búsqueda unificada
