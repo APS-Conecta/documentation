@@ -125,7 +125,7 @@ repos:
       - administracion/aio.md
       - desarrollo/instalador.md
       - usuario/archivos/index.md
-      - proyecto/novedades/instalador.md
+      - proyecto/novedades/files-upload-guard.md
     depends_on: [gestion]
     status: "Publicada en v0.1.0; integración en la próxima versión de la suite"
   - repo: aps-common
