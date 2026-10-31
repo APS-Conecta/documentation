@@ -36,7 +36,8 @@ Gracias a la asociación de {vendor}`Nextcloud` con Collabora, {vendor}`Nextclou
 Los cambios del plan de actualización corresponden a la próxima versión. Consulte su estado en {doc}`/proyecto/novedades/instalador` y seleccione una versión publicada para instalar.
 ```
 
-La oficina de APS Conecta Gestión es Euro-Office: un servidor de documentos en su propio contenedor y la aplicación conectora `eurooffice`. Nextcloud Office no forma parte de la suite. El asistente de instalación de la suite quita las tarjetas de Collabora y OnlyOffice, rechaza cualquier oficina distinta de Euro-Office y rechaza también la petición de cambiarla o desactivarla. El servidor de documentos es DocumentServer 9.3.4.
+La oficina de APS Conecta Gestión utiliza Euro-Office DocumentServer oficial 9.3.7-1 y el conector oficial `eurooffice`, identificado como «Nextcloud Office». El instalador configura este editor como servicio de oficina de la suite.
+
 
 La aplicación `office` de la plataforma, una vista general que no edita documentos ni está conectada al editor, queda desactivada por la política de aplicaciones: una superficie sin función y con un nombre confuso es peor que ninguna.
 
@@ -69,19 +70,20 @@ La aplicación permanece habilitada cuando el servidor de documentos tarda en in
 
 La verificación de oficina, `scripts/office-smoke.sh`, forma parte de la revalidación posterior a cada actualización y falla ante el primer tramo roto:
 
-1. El conector `eurooffice` está activado.
-2. `/eurooffice/healthcheck` responde correctamente y devuelve `true` por la ruta pública, a través de apache: es el tramo que se corta con NAT de horquilla o DNS dividido mientras el contenedor sigue sano.
-3. La comprobación del propio conector prueba de una vez el healthcheck, el JWT, la versión mínima y una conversión real de un documento `docx` a través de `StorageUrl`.
-4. La versión del servidor de documentos es la fijada por la suite (9.3.4): la versión mínima del conector es más antigua y dejaría pasar otra versión sin aviso.
-5. La imagen del servidor de documentos es la de AIO o la del canal de la suite; cualquier otra, incluidas las de Collabora y OnlyOffice, falla.
+1. El conector `eurooffice` está activado y conserva su firma oficial.
+2. `occ integrity:check-app eurooffice` verifica los archivos del paquete.
+3. `/eurooffice/healthcheck` responde correctamente y devuelve `true` por la ruta pública, a través de apache: es el tramo que se corta con NAT de horquilla o DNS dividido mientras el contenedor sigue sano.
+4. La comprobación del propio conector prueba de una vez el healthcheck, el JWT, la versión mínima y una conversión real de un documento `docx` a través de `StorageUrl`.
+5. La versión nativa coincide con la fijada en el Dockerfile de la suite, basado en DocumentServer 9.3.7-1.
+6. La imagen del servidor de documentos es la de AIO o la del canal de la suite; cualquier otra, incluidas las de Collabora y OnlyOffice, falla.
 
-Ninguna verificación automática cubre la presentación en el navegador, la coedición, la fidelidad al abrir y guardar, ni la edición por formato. Una verificación en verde tampoco prueba que una persona en otro equipo pueda abrir un documento: esa comprobación es manual, abriendo un documento desde otro equipo de la red, y la guía clínica la pide después de la mudanza desde la suite anterior.
+La aceptación del editor incluye apertura desde el navegador, edición simultánea y lectura de los cambios guardados. La fidelidad de cada formato se comprueba con documentos representativos.
 
 Un error de «token» o de seguridad al abrir un documento apunta primero a la dirección del editor y después al secreto. El editor informa una falla de token cuando no logra cargarse: en el caso registrado, los secretos coincidían y la causa era una `DocumentServerUrl` que el navegador no alcanzaba. Una URL `http://` bajo una suite servida por `https://` queda además bloqueada como contenido mixto. Bajo AIO, el primer paso es confirmar que `DocumentServerUrl` tiene la forma pública.
 
 ### Compromisos y límites
 
-- **Memoria.** Euro-Office es pesado: el documento de arquitectura recomienda unos 8 GB de RAM para el uso con varias personas, y lo fija como piso de todo servidor de centro porque el servidor de documentos arranca con el resto de la suite.
+- **Memoria.** El dimensionamiento combina las referencias oficiales de Nextcloud 34 con la carga medida de Office y la suite completa. Los umbrales compartidos de [#189](https://github.com/APS-Conecta/gestion/issues/189) permanecen pendientes de esos resultados.
 
 ```{toctree}
 :maxdepth: 1
