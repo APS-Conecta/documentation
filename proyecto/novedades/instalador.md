@@ -14,6 +14,7 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| Próxima versión |  | La instalación reconoce manifiestos Docker y OCI al consultar las imágenes publicadas de la suite. |
 | Próxima versión |  | AppAPI verifica su servicio HaRP predeterminado y su comunicación HTTPS con la suite por IP. La revalidación incluye ambas conexiones después de reiniciar o repetir el aprovisionamiento. |
 | Próxima versión |  | El antivirus analiza las cargas antes de guardarlas y aplica un límite común al archivo completo. Una sustitución rechazada conserva el archivo anterior; los errores indican revisar el resultado, el contenido o el servicio antes de repetir la carga. |
 | Próxima versión |  | Nextcloud y el servidor web validan las direcciones reenviadas mediante la subred interna real. Los registros y la protección de acceso conservan la dirección del cliente de la LAN. |

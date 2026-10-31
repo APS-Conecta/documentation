@@ -38,6 +38,8 @@ Cada versión vincula un commit, las imágenes y el paquete firmado. Las aplicac
 
 Una versión publicada conserva sus resúmenes. La opción `--force` corresponde a conjuntos todavía inéditos. El paquete se obtiene con `git archive` del commit fijado.
 
+La consulta al registro admite manifiestos Docker y OCI y sus índices. La compuerta local comprueba el método nativo con ambos formatos y con un registro inaccesible.
+
 ### Firma y credenciales
 
 El entorno `Release` contiene `MINISIGN_SECRET_KEY`, `MINISIGN_KEY_PASSWORD` y `SPREED_REFRESH_TOKEN`. Cada paso recibe únicamente la credencial que consume. Conserve `installer.pub` en el repositorio como clave pública de verificación.
