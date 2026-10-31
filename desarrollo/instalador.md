@@ -60,7 +60,7 @@ Las autopruebas del anfitrión simulan errores con HTTP 200, una descarga de 70 
 
 ### AppAPI y HaRP
 
-AppAPI, incluido en Nextcloud 34, conserva la inicialización nativa de su servicio de despliegue predeterminado. El contenedor se llama `aps-conecta-harp`; su punto de conexión en `nextcloud-aio` recibe el alias `nextcloud-aio-harp` durante la creación. AppAPI utiliza ese nombre en su registro y el proxy institucional lo excluye de las solicitudes externas.
+AppAPI, incluido en Nextcloud 34, conserva la inicialización nativa de su servicio de despliegue predeterminado. El contenedor se llama `aps-conecta-harp`; su endpoint en `nextcloud-aio` recibe el alias `nextcloud-aio-harp` durante la creación. AppAPI utiliza ese nombre en su registro y el proxy institucional lo excluye de las solicitudes externas.
 
 HaRP monta el directorio de certificados públicos de la suite en modo de solo lectura. `Containers/harp/start.sh` combina esos certificados con los del sistema en `/tmp/ca-certificates.crt` y exporta `SSL_CERT_FILE` antes de ejecutar el inicio original de HaRP.
 
