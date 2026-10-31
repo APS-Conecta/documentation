@@ -77,7 +77,7 @@ Para activar una app, usar el siguiente comando:
 occ app:enable <app-id>
 ```
 
-Por ejemplo, para activar la app «files», ejecutar:
+Por ejemplo, para activar la app Archivos, ejecutar:
 
 ```console
 occ app:enable files
@@ -89,7 +89,7 @@ Para activar la app solo para grupos concretos, usar la opción `--groups`:
 occ app:enable files --groups=admin
 ```
 
-Este comando activa la app «files» solo para el grupo «admin».
+Este comando activa la app Archivos solo para el grupo «admin».
 
 Para desactivar una app, usar:
 

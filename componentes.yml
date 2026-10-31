@@ -54,6 +54,9 @@ components:
   - {name: Contactos, kind: app, id: contacts, upstream: "https://github.com/nextcloud/contacts", licence: AGPL-3.0-or-later}
   - {name: Notify Push, kind: app, id: notify_push, upstream: "https://github.com/nextcloud/notify_push", licence: AGPL-3.0-or-later}
   - {name: Antivirus de archivos, kind: app, id: files_antivirus, upstream: "https://github.com/nextcloud/files_antivirus", licence: AGPL-3.0-or-later}
+  - {name: Búsqueda de texto completo, kind: app, id: fulltextsearch, upstream: "https://github.com/nextcloud/fulltextsearch", licence: AGPL-3.0-or-later}
+  - {name: Conector de Elasticsearch, kind: app, id: fulltextsearch_elasticsearch, upstream: "https://github.com/nextcloud/fulltextsearch_elasticsearch", licence: AGPL-3.0-or-later}
+  - {name: Búsqueda en archivos, kind: own-app, id: files_fulltextsearch, repo: files-fulltextsearch, upstream: "https://github.com/nextcloud/files_fulltextsearch", fork: "https://github.com/APS-Conecta/files-fulltextsearch", licence: AGPL-3.0-or-later, changes: "Corrección de origen para conservar el identificador real del usuario en los resultados de búsqueda; publicación firmada para Nextcloud 34."}
 
   # ---- Aplicaciones propias de APS Conecta
   - {name: Protección de cargas, kind: own-app, id: files_upload_guard, repo: files-upload-guard, upstream: "https://github.com/APS-Conecta/files-upload-guard", licence: AGPL-3.0-or-later}

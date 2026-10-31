@@ -1,7 +1,7 @@
 ---
 tipo: explicacion
 audiencia: administracion
-apps: [gestion, files-upload-guard]
+apps: [gestion, files-upload-guard, files-fulltextsearch]
 resumen: "El instalador de la suite: el arranque de una línea, el asistente, las aplicaciones desde sus publicaciones firmadas, el candado de versiones y actualizar."
 ---
 # AIO
@@ -158,9 +158,17 @@ Las cargas fragmentadas conservan el límite del archivo completo. El analizador
 
 La protección de cargas se instala desde una publicación firmada y conserva el archivo anterior cuando una sustitución se rechaza. La carga requiere una ubicación temporal con permiso de creación; revise ese permiso si una carpeta compartida permite actualizar archivos y rechaza la operación. Ante un error HTTP 500, compruebe el resultado en Archivos antes de repetir la carga.
 
+### Búsqueda en documentos
+
+En la próxima versión, la fase 12 instala la aplicación de búsqueda y su conector desde la tienda. El proveedor de archivos llega de una publicación firmada de APS Conecta con la corrección para identificadores de usuario que contienen puntos. Su versión se gestiona mediante `sudo aps-conecta actualizar`, junto con las demás aplicaciones de la suite.
+
+La fase 14 configura las aplicaciones con el servicio Elasticsearch y activa la extracción de PDF y documentos de oficina. El inicio del contenedor reutiliza esa configuración. Si el servicio está temporalmente indisponible, la configuración se completa en el siguiente inicio.
+
+La preparación guarda `vm.overcommit_memory=1` y `vm.max_map_count=1048576` en `/etc/sysctl.d/90-aps-conecta.conf`. Conserva un valor activo de `vm.max_map_count` superior y aplica ambos ajustes desde ese archivo. El valor sigue la [recomendación de Elasticsearch para Docker](https://www.elastic.co/docs/deploy-manage/deploy/self-managed/install-elasticsearch-docker-prod). Si la consola informa una aplicación pendiente, aplique el ajuste en el anfitrión según la instrucción mostrada.
+
 ## Compromisos y límites
 
-La integración de búsqueda y AppAPI, la configuración inicial de llamadas y el perfil de grabación continúan en las etapas del {doc}`plan de cambios </proyecto/novedades/instalador>`. La presencia de un contenedor acredita su ejecución; cada función tiene además su verificación de integración.
+La integración de AppAPI, la configuración inicial de llamadas y el perfil de grabación continúan en las etapas del {doc}`plan de cambios </proyecto/novedades/instalador>`. La presencia de un contenedor acredita su ejecución; cada función tiene además su verificación de integración.
 
 - **Mensajes en inglés.** El asistente muestra 68 mensajes que nacen en código PHP que el fork no traduce: los cambios PHP declarados son de comportamiento, no de textos. La declaración del fork lleva la lista completa, por archivo.
 - **Sin red al actualizar.** En los arranques que cambian de imagen, un establecimiento sin conexión espera la sonda de la tienda de aplicaciones (`apps.nextcloud.com`) hasta que vence o vuelve la red. Es un comportamiento de upstream que el fork no modifica.
