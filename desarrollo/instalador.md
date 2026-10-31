@@ -58,6 +58,18 @@ El flujo de inicio termina con un resultado explícito dentro de su respuesta HT
 
 Las autopruebas del anfitrión simulan errores con HTTP 200, una descarga de 70 minutos con avances, una descarga detenida y la recuperación de sesión. Una respuesta de autenticación permite un reingreso; una interrupción ambigua exige revisar el estado antes de repetir el inicio.
 
+### AppAPI y HaRP
+
+AppAPI, incluido en Nextcloud 34, conserva la inicialización nativa de su servicio de despliegue predeterminado. El contenedor se llama `aps-conecta-harp`; su punto de conexión en `nextcloud-aio` recibe el alias `nextcloud-aio-harp` durante la creación. AppAPI utiliza ese nombre en su registro y el proxy institucional lo excluye de las solicitudes externas.
+
+HaRP monta el directorio de certificados públicos de la suite en modo de solo lectura. `Containers/harp/start.sh` combina esos certificados con los del sistema en `/tmp/ca-certificates.crt` y exporta `SSL_CERT_FILE` antes de ejecutar el inicio original de HaRP.
+
+`scripts/appapi-smoke.sh` comparte la verificación entre la instalación limpia y `aps-conecta revalidate`. Exige un servicio seleccionado, su red y URL pública, y el resultado `success` de `OCA\AppAPI\SetupChecks\DaemonCheck`. Evalúa ese resultado aunque otras comprobaciones de Nextcloud informen advertencias.
+
+La comprobación inversa obtiene únicamente los ajustes de confianza y la URL del proceso del agente. Configura la confianza antes de importar aiohttp y exige una respuesta HTTPS válida de `status.php` con la instancia instalada. El informe conserva privadas las credenciales del servicio.
+
+Las autopruebas cubren certificados válidos y desconocidos, argumentos y estado de salida, y configuraciones ausentes, duplicadas, malformadas o inaccesibles. Clean boot repite la verificación después del reinicio y del aprovisionamiento repetido.
+
 ### El arranque de una línea
 
 El activo de instalación de cada versión lleva la suma del paquete y la clave pública. Desempaca la suite en `/opt/aps-conecta/instalador` y conserva el paquete en `/opt/aps-conecta/paquete` para verificarlo sin red. El procedimiento está en {doc}`/administracion/aio`.
