@@ -1,7 +1,7 @@
 ---
 tipo: referencia
 audiencia: desarrollo
-apps: [gestion, files-upload-guard]
+apps: [gestion, files-upload-guard, files-fulltextsearch]
 resumen: "El repositorio de la suite: el fork de AIO en un solo árbol, el paquete del host, el Provisionador, el manifiesto de aplicaciones y la publicación firmada."
 ---
 (instalador)=
@@ -80,11 +80,13 @@ La compuerta local comprueba unidades y valores inválidos. Clean boot verifica 
 
 ### Búsqueda de contenido
 
-`apps.json` declara `fulltextsearch`, `fulltextsearch_elasticsearch` y `files_fulltextsearch` como aplicaciones de tienda. La fase `14-fulltextsearch` ejecuta el destino `fulltextsearch` de `configure-apps.sh` después de su instalación. El arranque usa la misma rutina; una aplicación ausente queda pendiente para la fase 12. La configuración conserva las aplicaciones habilitadas durante una demora del servicio.
+`apps.json` declara `fulltextsearch` y `fulltextsearch_elasticsearch` como aplicaciones de tienda. El proveedor `files_fulltextsearch` utiliza la publicación firmada de {doc}`/desarrollo/files-fulltextsearch`, con el mismo mecanismo de adquisición y bloqueo de versión de las aplicaciones propias. ADR-0023 registra esta excepción temporal al plan original y las condiciones para volver a la tienda.
+
+La fase `14-fulltextsearch` ejecuta el destino `fulltextsearch` de `configure-apps.sh` después de la instalación. El arranque usa la misma rutina; una aplicación ausente queda pendiente para la fase 12. La configuración conserva las aplicaciones habilitadas durante una demora del servicio.
 
 El módulo del anfitrión administra juntos los ajustes de memoria del núcleo. Su autoprueba comprueba el archivo persistente, la aplicación y la conservación de un límite de mapas superior. `ConfigurationManager::fulltextsearchJavaOptions` define el valor Java predeterminado y conserva las opciones del establecimiento.
 
-La aceptación por IP carga un archivo mediante WebDAV con una cuenta sin privilegios y un identificador con punto. Indexa ese archivo y busca una palabra exclusiva de su contenido. El resultado debe coincidir con el proveedor, el identificador público del archivo, su ruta y su tipo. La prueba elimina el documento al terminar.
+La aceptación por IP carga un archivo mediante WebDAV con una cuenta sin privilegios y un identificador con punto. Indexa ese archivo una vez y comprueba que el motor guarda su identidad y una palabra exclusiva del contenido. La búsqueda dispone de 30 segundos para devolver el mismo proveedor, identificador público, ruta y tipo. Solo se repite la lectura; los errores de comando y de JSON detienen la prueba. El documento se elimina al terminar.
 
 ### Proxy de salida
 

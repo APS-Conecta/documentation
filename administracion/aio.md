@@ -1,7 +1,7 @@
 ---
 tipo: explicacion
 audiencia: administracion
-apps: [gestion, files-upload-guard]
+apps: [gestion, files-upload-guard, files-fulltextsearch]
 resumen: "El instalador de la suite: el arranque de una línea, el asistente, las aplicaciones desde sus publicaciones firmadas, el candado de versiones y actualizar."
 ---
 # AIO
@@ -160,7 +160,9 @@ La protección de cargas se instala desde una publicación firmada y conserva el
 
 ### Búsqueda en documentos
 
-En la próxima versión, la fase 12 instala las tres aplicaciones de búsqueda desde la tienda. La fase 14 las configura con el servicio Elasticsearch de la suite y activa la extracción de PDF y documentos de oficina. El inicio del contenedor reutiliza esa configuración. Si el servicio está temporalmente indisponible, la configuración se completa en el siguiente inicio.
+En la próxima versión, la fase 12 instala la aplicación de búsqueda y su conector desde la tienda. El proveedor de archivos llega de una publicación firmada de APS Conecta con la corrección para identificadores de usuario que contienen puntos. Su versión se gestiona mediante `sudo aps-conecta actualizar`, junto con las demás aplicaciones de la suite.
+
+La fase 14 configura las aplicaciones con el servicio Elasticsearch y activa la extracción de PDF y documentos de oficina. El inicio del contenedor reutiliza esa configuración. Si el servicio está temporalmente indisponible, la configuración se completa en el siguiente inicio.
 
 La preparación guarda `vm.overcommit_memory=1` y `vm.max_map_count=1048576` en `/etc/sysctl.d/90-aps-conecta.conf`. Conserva un valor activo de `vm.max_map_count` superior y aplica ambos ajustes desde ese archivo. El valor sigue la [recomendación de Elasticsearch para Docker](https://www.elastic.co/docs/deploy-manage/deploy/self-managed/install-elasticsearch-docker-prod). Si la consola informa una aplicación pendiente, aplique el ajuste en el anfitrión según la instrucción mostrada.
 
