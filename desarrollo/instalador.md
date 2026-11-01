@@ -144,9 +144,15 @@ La tarjeta «La red del servidor» ofrece «Sí, corregir» cuando el servidor n
 
 La preparación separa la instalación de herramientas requeridas y del verificador opcional. Su ausencia mantiene la firma pendiente e informa cómo habilitar universe en Ubuntu.
 
-### Pisos de recursos y datos comunales
+### Datos comunales
 
-La revisión previa informa recursos mínimos y recomendados. La instalación silenciosa importa los datos comunales; la repetición conserva los datos existentes.
+`provisioning/data/packages.json` fija el origen y la suma de cada maestro. La próxima versión conserva la captura DEIS del 2026-11-01 en el repositorio y la descarga mediante un commit completo. `scripts/comuna-package.sh` extrae el ZIP con la biblioteca estándar de Python y recorta ambos maestros por código CUT.
+
+Clean boot por IP incluye subconjuntos publicados con su procedencia y licencia en `tests/fixtures/comuna/README.md`. El paquete de ensayo fija esos archivos locales antes de firmarse. La instalación ejecuta la importación real; una cuenta ordinaria consulta nombres y geometrías por la API OCS de Territorio. La repetición exige «0 creados» en ambos paquetes.
+
+### Pisos de recursos
+
+La revisión previa informa recursos mínimos y recomendados.
 
 La preparación de [#189](https://github.com/APS-Conecta/gestion/issues/189) incorpora `scripts/usage.py` en ambos trabajos de Clean boot. Conserva series JSONL acotadas de memoria, CPU, intercambio y OOM del anfitrión, junto con métricas de los contenedores. Cada muestra identifica su arranque y sus unidades; el cierre vincula el PID y la cantidad de muestras. Las métricas de Docker ausentes se registran como no disponibles. Una captura incompleta o una interrupción durante la carga estable invalida esa repetición.
 

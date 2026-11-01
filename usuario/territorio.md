@@ -19,7 +19,7 @@ La suite escribe en la configuración de Territorio la comuna que atiende el est
 El mapa base es el de OpenStreetMap, que cada navegador carga directamente: hace falta internet para verlo, y {doc}`/administracion/mapas-base` describe el servicio.
 El mapa abre sobre la parte de la comuna donde están los establecimientos de salud; si esa extensión no se conoce, sobre las unidades vecinales, luego sobre los registros y, por último, sobre el centro del país. El desplazamiento no tiene límites.
 Cada petición de teselas lleva a OpenStreetMap las coordenadas de la zona que se ve, con una precisión de unos 300 m en el zoom 17, y la dirección de la instancia; ningún registro ni nombre.
-Las unidades vecinales y los establecimientos de salud de la comuna llegan en un paquete de datos que la administración importa cuando el establecimiento empieza a usar Territorio.
+En la próxima versión, la instalación carga las unidades vecinales y los establecimientos de salud de la comuna elegida. La administración puede repetir la carga; los registros existentes y las ediciones locales se conservan.
 
 ## Requisitos
 
@@ -173,6 +173,7 @@ La administración consulta ese registro en la sección {guilabel}`Territorio` d
 
 ## Verificación
 
+- Las unidades vecinales y los establecimientos de salud de la comuna aparecen en el registro después de la carga inicial. Si faltan, solicite revisar la carga según {doc}`/administracion/aio`.
 - El mapa se despliega en pantalla completa y el panel lateral de 408 px se abre o cierra al accionar el botón de pestaña {guilabel}`◀` / {guilabel}`▶`.
 - El cuadro de búsqueda superior localiza tanto activos comunitarios como calles del catastro comunal.
 - Al seleccionar un activo, el panel muestra la ficha de inspección con sus datos, los botones {guilabel}`Editar` y {guilabel}`Centrar`, y los enlaces de teléfono y correo si los tiene.
