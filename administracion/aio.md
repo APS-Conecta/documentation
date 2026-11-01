@@ -116,6 +116,18 @@ Las aplicaciones propias y los forks llegan de la publicación firmada de cada r
 
 El **candado de aplicaciones propias y forks** —el registro de versiones, `/opt/aps-conecta/apps.lock.json`— anota la versión de Nextcloud y, por aplicación, su canal, etiqueta, versión y suma. Lo escribe la resolución al instalar, está dentro del alcance del respaldo y lo mueve solo `aps-conecta actualizar`. Una provisión repetida respeta el candado y no descarga nada, y una reparación nunca se convierte en una actualización: la {doc}`gestión de apps </administracion/aplicaciones>` de la interfaz no es el camino.
 
+### Datos comunales
+
+En la próxima versión, la instalación carga en Territorio las unidades vecinales y los establecimientos de la comuna elegida. Cada maestro tiene un origen y una suma de verificación fijados; la captura nacional DEIS corresponde al 2026-11-01.
+
+Para completar o repetir la carga, ejecute:
+
+```console
+sudo aps-conecta datos --importar
+```
+
+El resultado confirma dos archivos importados. Una repetición de los mismos datos informa «0 creados» por archivo y conserva las ediciones locales. Revise las unidades vecinales y los establecimientos en {doc}`/usuario/territorio`.
+
 ### Copias de seguridad
 
 La copia de la instancia es la de AIO, basada en BorgBackup: incremental, comprimida y cifrada. La clave de cifrado aparece en la interfaz del asistente, y sin ella no se restaura ninguna copia.

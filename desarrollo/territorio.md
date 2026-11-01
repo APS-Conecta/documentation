@@ -44,6 +44,7 @@ APS Conecta Gestión instala Territorio desde un paquete construido con una etiq
 La fase 16 del aprovisionamiento escribe `comuna_cut` y `comuna_name` desde el archivo del establecimiento, y se detiene si falta el código CUT: un `comuna_cut` vacío se lee como «sin elegir» y desarma el rechazo de archivos de otra comuna.
 El mapa base no se configura: Territorio carga las teselas de OpenStreetMap directamente y deriva la vista inicial del código CUT que esta fase escribe.
 Las unidades vecinales y los establecimientos DEIS de la comuna se importan desde un paquete que se recorta de los maestros nacionales fijados por suma de verificación en `provisioning/data/packages.json`.
+La próxima versión fija la captura DEIS a un commit y comprueba los registros importados mediante la API OCS; {doc}`/desarrollo/instalador` describe la adquisición y su aceptación.
 {doc}`/administracion/aprovisionamiento` describe las fases.
 
 ```{toctree}
