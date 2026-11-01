@@ -64,6 +64,12 @@ El entorno `Release` contiene `MINISIGN_SECRET_KEY` y `MINISIGN_KEY_PASSWORD`. C
 
 Nextcloud verifica la firma del paquete oficial de Talk al instalarlo. Las etiquetas de ensayo `v0.0.0-ci.N` se publican como preliminares y conservan la versión estable marcada como más reciente. El procedimiento está en [RELEASING.md](https://github.com/APS-Conecta/gestion/blob/main/aps/RELEASING.md).
 
+### Mensajes de operación
+
+El Provisionador informa la ruta absoluta que utiliza para leer un sitio o una planilla. Una coincidencia de usuario incluye una sola lista completa de cuentas reservadas, obtenida de la declaración del establecimiento. El resumen del entorno de ensayo muestra cada archivo de contraseña cuando existe.
+
+El arranque, la revisión del paquete y la resolución de aplicaciones priorizan `signify-openbsd`. Las autopruebas existentes cubren su selección, las instrucciones de instalación, los archivos de credenciales y los errores del Provisionador. Las rutas de datos y del registro se comprobaron en la suite en ejecución y se describen en {doc}`/administracion/aio`.
+
 ### Desarrollo y verificación
 
 Trabaje en una rama por tarea. Ejecute las verificaciones en un árbol de trabajo aislado y registre los resultados en el pull request. Los cambios de imágenes se validan con un conjunto reconstruido y una instalación limpia.
