@@ -44,6 +44,8 @@ La consulta al registro admite manifiestos Docker y OCI y sus índices. La compu
 
 Euro-Office, Talk y Custom Menu utilizan sus paquetes oficiales de tienda y conservan la firma del proveedor. APS Conecta configura la integración y comprueba su funcionamiento. El proveedor de búsqueda mantiene la corrección temporal de identidad de la ADR-0023 hasta su publicación oficial. IntraVox aporta el montaje configurable y la importación que conserva el contenido del personal.
 
+`scripts/releases.py` valida la firma y la compatibilidad de cada versión fijada (`pin`), con la versión registrada en `apps.lock.json` como mínimo. Antes de guardar o reutilizar un paquete, exige su directorio de aplicación y rechaza rutas absolutas, segmentos `..` y enlaces simbólicos o duros.
+
 ### Firma y credenciales
 
 El entorno `Release` contiene `MINISIGN_SECRET_KEY` y `MINISIGN_KEY_PASSWORD`. Cada paso recibe únicamente la credencial que consume. Conserve `installer.pub` en el repositorio como clave pública de verificación.
