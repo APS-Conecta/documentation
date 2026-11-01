@@ -37,7 +37,7 @@ Si una llamada presenta un problema, indique a la administración la hora, si af
 
 Ante un error al enviar un mensaje, revise el historial antes de repetirlo. Informe a la administración la hora y el nombre de la conversación si el problema continúa.
 
-La habilitación de grabaciones dependerá de un perfil de recursos validado. {doc}`/usuario/conversacion/call-recording` describe su uso cuando la función esté disponible.
+La grabación permanece desactivada en APS Conecta Gestión.
 
 ### Uso en el establecimiento
 
