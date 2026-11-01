@@ -14,6 +14,7 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| Próxima versión |  | Los integrantes de los grupos responsables comparten documentos de sus carpetas. Las jefaturas con acceso de lectura a una unidad también comparten sus documentos. La aceptación comprueba un archivo compartido en Talk entre cuentas sin administración. |
 | Próxima versión |  | Los fallos de aplicaciones detienen la actualización e identifican el paso afectado. El registro de versiones se conserva hasta completar todas las aplicaciones. El asistente incluye la carpeta elegida en el respaldo y muestra la ruta correspondiente de las credenciales. |
 | Próxima versión |  | Las versiones fijadas cumplen la compatibilidad de Nextcloud y el mínimo registrado. La validación de paquetes también cubre los ya guardados. |
 | Próxima versión |  | La carga comunal utiliza una captura DEIS fechada con origen fijo y suma verificada. La repetición conserva los registros y las ediciones locales de Territorio. |

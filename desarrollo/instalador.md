@@ -52,6 +52,12 @@ Euro-Office, Talk y Custom Menu utilizan sus paquetes oficiales de tienda y cons
 
 La autoprueba del anfitrión ejecuta la aplicación real con comandos de frontera simulados. Cubre fallos de habilitación, instalación oficial, configuración de Talk y lecturas de versiones, configuración y manifiesto. El asistente envía el alcance adicional del respaldo con `APS_HOME`; esa solicitud concentra su configuración.
 
+### Permisos para compartir documentos
+
+`deis.write_site` genera la matriz `SITE_ACL` para la consola y el Provisionador. La fase 40 aplica las concesiones mediante el mismo módulo de carpetas. Los grupos responsables reciben gestión y compartición; las jefaturas reciben lectura y compartición en unidades con otro cargo responsable. `all-staff` conserva lectura en `Transversal`.
+
+La autoprueba del Provisionador comprueba la matriz generada por su API. Clean boot por IP compara cada concesión con el estado nativo, comprueba la identidad de cuentas sin administración y comparte un documento existente de la biblioteca mediante la API oficial. Otra cuenta verifica la identidad del archivo adjunto en la conversación. La revalidación comprueba la divergencia de los inventarios.
+
 ### Firma y credenciales
 
 El entorno `Release` contiene `MINISIGN_SECRET_KEY` y `MINISIGN_KEY_PASSWORD`. Cada paso recibe únicamente la credencial que consume. Conserve `installer.pub` en el repositorio como clave pública de verificación.
