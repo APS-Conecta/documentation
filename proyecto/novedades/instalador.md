@@ -14,6 +14,7 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| Próxima versión |  | La aceptación por IP incorpora un flujo manual que instala desde la publicación pública y conserva sus veredictos y evidencias. |
 | Próxima versión |  | La instalación silenciosa admite `--sin-validar-dominio` mediante el controlador del asistente y conserva la opción en el comando de reintento. El manual precisa la configuración inicial y la ubicación del respaldo en ejecuciones posteriores. |
 | Próxima versión |  | La restauración de la base de datos se detiene ante el primer error SQL y conserva la marca de fallo. El siguiente inicio exige recuperar un respaldo válido. |
 | Próxima versión |  | `APS_HOME` concentra el estado del instalador y las aplicaciones. La guía de desarrollo incorpora el verificador local y el aprovisionamiento con una cuenta habilitada para Docker. |

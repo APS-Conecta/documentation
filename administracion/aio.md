@@ -161,6 +161,8 @@ Una copia hecha por un Nextcloud AIO sin modificar no se restaura en la suite. T
 
 La suite se actualiza como un conjunto, nunca un componente por separado. Antes de anunciar una etiqueta nueva, se instala en un equipo de ensayo limpio tal como lo hace un establecimiento, y ese ensayo es el registro de aceptación. El conjunto de imágenes cambia cuando el administrador instala una versión nueva. Las actualizaciones automáticas quedan retiradas; cada versión publicada conserva sus resúmenes.
 
+La aceptación publicada por IP registra sus comprobaciones y evidencias en el flujo `acceptance.yml` de Gestión. La descarga utiliza la URL pública de la versión. El registro permite revisar el resultado de la instalación y sus aplicaciones; los requisitos de capacidad se validan en el perfil de recursos.
+
 Las **aplicaciones** se mueven solo cuando el administrador lo decide, con:
 
 ```console

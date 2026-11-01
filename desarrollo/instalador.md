@@ -27,6 +27,7 @@ Cada versión vincula un commit, las imágenes y el paquete firmado. Las aplicac
 | Inventario de construcción | `python3 scripts/images.py build-matrix` | Todos los Dockerfiles de ejecución, derivados del inventario |
 | Imágenes publicadas | `python3 scripts/images.py verify VERSION --sha COMMIT` | Resúmenes y etiquetas de origen correspondientes al commit fijado |
 | Instalación limpia | `cleanboot.yml` | Instalación, reinicio, provisión repetida, recuperación y actualización verificadas |
+| Aceptación publicada por IP | `acceptance.yml` | Instalación desde la URL pública de una versión, con veredictos y evidencias |
 | Publicación | `release.yml` | Compuertas completas, procedencia, firmas y contenido comprobados |
 
 ## Notas
@@ -73,6 +74,14 @@ El arranque, la revisión del paquete y la resolución de aplicaciones priorizan
 ### Desarrollo y verificación
 
 Trabaje en una rama por tarea. Ejecute las verificaciones en un árbol de trabajo aislado y registre los resultados en el pull request. Los cambios de imágenes se validan con un conjunto reconstruido y una instalación limpia.
+
+La aceptación por IP utiliza Ubuntu 24.04 y el script existente `scripts/vm-acceptance.sh`. Seleccione una versión publicada que contenga las correcciones:
+
+```console
+gh workflow run acceptance.yml --repo APS-Conecta/gestion --ref main -f tag=vX.Y.Z
+```
+
+El valor predeterminado de `tag` es `latest`, resuelto por redirección pública. La descarga y la instalación se ejecutan sin token, con las tres aplicaciones opcionales y el respaldo diario. Una etapa fallida conserva su resultado aunque las comprobaciones posteriores sean correctas. Los fallos de arranque, preparación o certificado conservan la tabla de veredictos. El flujo adjunta los resultados y las evidencias públicas disponibles en `release-acceptance-*`. Las credenciales y la configuración permanecen en el directorio privado del ensayo. Esta aceptación verifica el paquete publicado; el perfil de capacidad continúa en #189.
 
 `install --sin-validar-dominio` delega en el controlador `asistente-aio`, que compone la solicitud del asistente. Las autopruebas existentes verifican la aceptación de la opción, la solicitud enviada, el modo silencioso y el comando de reintento.
 
