@@ -46,6 +46,12 @@ Euro-Office, Talk y Custom Menu utilizan sus paquetes oficiales de tienda y cons
 
 `scripts/releases.py` valida la firma y la compatibilidad de cada versión fijada (`pin`), con la versión registrada en `apps.lock.json` como mínimo. Antes de guardar o reutilizar un paquete, exige su directorio de aplicación y rechaza rutas absolutas, segmentos `..` y enlaces simbólicos o duros.
 
+### Actualización y alcance del respaldo
+
+`actualizar` comprueba el estado de cada lectura y operación de la fase 12 antes de continuar. Un fallo identifica la aplicación, elimina el candado candidato y conserva `apps.lock.json`. La configuración se valida como JSON antes de guardarse en memoria; el diagnóstico conserva privados sus valores.
+
+La autoprueba del anfitrión ejecuta la aplicación real con comandos de frontera simulados. Cubre fallos de habilitación, instalación oficial, configuración de Talk y lecturas de versiones, configuración y manifiesto. El asistente envía el alcance adicional del respaldo con `APS_HOME`; esa solicitud concentra su configuración.
+
 ### Firma y credenciales
 
 El entorno `Release` contiene `MINISIGN_SECRET_KEY` y `MINISIGN_KEY_PASSWORD`. Cada paso recibe únicamente la credencial que consume. Conserve `installer.pub` en el repositorio como clave pública de verificación.
