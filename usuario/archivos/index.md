@@ -21,6 +21,10 @@ La aplicación **Archivos** guarda los documentos del establecimiento. Esta secc
 
 ## En APS Conecta Gestión
 
+### Su carpeta personal
+
+En la próxima versión, una cuenta nueva comienza con su carpeta personal sin documentos de ejemplo. Guarde los documentos del establecimiento en las carpetas de equipo que corresponden a sus funciones.
+
 ### Cargar archivos
 
 En la próxima versión, el antivirus analiza cada archivo antes de guardarlo. El límite corresponde al archivo completo, incluso cuando se carga por partes. Si recibe un rechazo, revise el contenido y el tamaño. Para un archivo comprimido cifrado, prepare una copia que el analizador pueda revisar. Si el servicio está temporalmente indisponible, espere y repita la carga; si el problema continúa, contacte a la administración.
