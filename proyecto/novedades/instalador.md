@@ -14,6 +14,7 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| Próxima versión |  | Las carpetas de sector y unidad reciben archivos desde el primer acceso. La protección de cargas conserva los permisos y los archivos existentes. |
 | Próxima versión |  | Los scripts de APS Conecta entregan las credenciales por el entorno o por la entrada estándar. Las carpetas personales nuevas comienzan sin documentos de ejemplo y el aprovisionamiento conserva los documentos existentes. |
 | Próxima versión |  | La aceptación por IP incorpora un flujo manual que instala desde la publicación pública y conserva sus veredictos y evidencias. |
 | Próxima versión |  | La instalación silenciosa admite `--sin-validar-dominio` mediante el controlador del asistente y conserva la opción en el comando de reintento. El manual precisa la configuración inicial y la ubicación del respaldo en ejecuciones posteriores. |
