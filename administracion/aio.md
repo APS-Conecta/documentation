@@ -188,6 +188,10 @@ Después de una transferencia administrativa directa de archivos, actualice su r
 sudo docker exec --user www-data aps-conecta-nextcloud php /var/www/html/occ files:scan --path='USER/files/FOLDER'
 ```
 
+### Carpeta de instalación
+
+La carpeta de instalación se selecciona con `APS_HOME`; su valor predeterminado es `/opt/aps-conecta`. El Provisionador, las verificaciones y la resolución de aplicaciones utilizan esa carpeta para sus archivos de estado. Conserve la misma configuración durante la instalación, la revisión y la renovación de certificados.
+
 ### Antivirus de archivos
 
 En la próxima versión, el aprovisionamiento instala y configura el antivirus desde la tienda mediante el canal acotado de la suite. Cada carga se analiza antes de aceptarse. El límite se obtiene de `NEXTCLOUD_UPLOAD_LIMIT` y se aplica también a ClamAV; el valor predeterminado es `1G` (1 GiB). El máximo admitido por el analizador es 2.147.483.645 bytes.
