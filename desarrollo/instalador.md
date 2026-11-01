@@ -27,6 +27,7 @@ Cada versión vincula un commit, las imágenes y el paquete firmado. Las aplicac
 | Inventario de construcción | `python3 scripts/images.py build-matrix` | Todos los Dockerfiles de ejecución, derivados del inventario |
 | Imágenes publicadas | `python3 scripts/images.py verify VERSION --sha COMMIT` | Resúmenes y etiquetas de origen correspondientes al commit fijado |
 | Instalación limpia | `cleanboot.yml` | Instalación, reinicio, provisión repetida, recuperación y actualización verificadas |
+| Aceptación publicada por IP | `acceptance.yml` | Instalación desde la URL pública de una versión, con veredictos y evidencias |
 | Publicación | `release.yml` | Compuertas completas, procedencia, firmas y contenido comprobados |
 
 ## Notas
@@ -44,6 +45,20 @@ La consulta al registro admite manifiestos Docker y OCI y sus índices. La compu
 
 Euro-Office, Talk y Custom Menu utilizan sus paquetes oficiales de tienda y conservan la firma del proveedor. APS Conecta configura la integración y comprueba su funcionamiento. El proveedor de búsqueda mantiene la corrección temporal de identidad de la ADR-0023 hasta su publicación oficial. IntraVox aporta el montaje configurable y la importación que conserva el contenido del personal.
 
+`scripts/releases.py` valida la firma y la compatibilidad de cada versión fijada (`pin`), con la versión registrada en `apps.lock.json` como mínimo. Antes de guardar o reutilizar un paquete, exige su directorio de aplicación y rechaza rutas absolutas, segmentos `..` y enlaces simbólicos o duros.
+
+### Actualización y alcance del respaldo
+
+`actualizar` comprueba el estado de cada lectura y operación de la fase 12 antes de continuar. Un fallo identifica la aplicación, elimina el candado candidato y conserva `apps.lock.json`. La configuración se valida como JSON antes de guardarse en memoria; el diagnóstico conserva privados sus valores.
+
+La autoprueba del anfitrión ejecuta la aplicación real con comandos de frontera simulados. Cubre fallos de habilitación, instalación oficial, configuración de Talk y lecturas de versiones, configuración y manifiesto. El asistente envía el alcance adicional del respaldo con `APS_HOME`; esa solicitud concentra su configuración.
+
+### Permisos para compartir documentos
+
+`deis.write_site` genera la matriz `SITE_ACL` para la consola y el Provisionador. La fase 40 aplica las concesiones mediante el mismo módulo de carpetas. Los grupos responsables reciben gestión y compartición; las jefaturas reciben lectura y compartición en unidades con otro cargo responsable. `all-staff` conserva lectura en `Transversal`.
+
+La autoprueba del Provisionador comprueba la matriz generada por su API. Clean boot por IP compara cada concesión con el estado nativo, comprueba la identidad de cuentas sin administración y comparte un documento existente de la biblioteca mediante la API oficial. Otra cuenta verifica la identidad del archivo adjunto en la conversación. La revalidación comprueba la divergencia de los inventarios.
+
 ### Firma y credenciales
 
 El entorno `Release` contiene `MINISIGN_SECRET_KEY` y `MINISIGN_KEY_PASSWORD`. Cada paso recibe únicamente la credencial que consume. Conserve `installer.pub` en el repositorio como clave pública de verificación.
@@ -52,17 +67,37 @@ Nextcloud verifica la firma del paquete oficial de Talk al instalarlo. Las etiqu
 
 ### Credenciales durante la instalación
 
-Las contraseñas y las claves de servicio se entregan mediante variables de entorno por nombre o por la entrada estándar. `occ-install.php` recibe las contraseñas iniciales y ejecuta el instalador nativo de Nextcloud. `configure-apps.sh` importa los ajustes modificados con `occ config:import` y conserva las claves vecinas.
+Los scripts de APS Conecta entregan las contraseñas y las claves de servicio mediante variables de entorno por nombre o por la entrada estándar. `occ-install.php` recibe las contraseñas iniciales y ejecuta el instalador nativo de Nextcloud. `configure-apps.sh` importa los ajustes modificados con `occ config:import` y conserva las claves vecinas.
 
 Redis recibe su regla de autenticación por la entrada estándar; sus clientes usan `REDISCLI_AUTH`. PostgreSQL obtiene la contraseña con `psql` y `\getenv`. La restauración de Borg conserva la contraseña del asistente mediante el entorno. Los argumentos de estos procesos contienen las opciones públicas.
 
-La imagen de Imaginary compila el código oficial fijado y `api_key_env.go`, que inicializa la clave desde `IMAGINARY_SECRET`. Talk calcula la credencial TURN con la API criptográfica del entorno Erlang incluido en eTURNAL. Los conectores oficiales conservan su código y firma.
+La imagen de Imaginary compila el código oficial fijado y `api_key_env.go`, que inicializa la clave desde `IMAGINARY_SECRET`. Talk calcula la credencial TURN con la API criptográfica del entorno Erlang incluido en eTURNAL. Los conectores oficiales conservan su código y firma. El inicio interno de Euro-Office conserva la implementación oficial; su revisión de argumentos continúa en [#196](https://github.com/APS-Conecta/gestion/issues/196).
 
 La provisión usa directorios temporales privados para el certificado intermedio y la bienvenida de IntraVox, transfiere el contenido por la entrada estándar y elimina esos directorios al terminar. Administra las cuentas de personal y cargo y conserva sus documentos. La compuerta local comprueba argumentos, entrega exacta de credenciales y rutas temporales.
+
+### Mensajes de operación
+
+El Provisionador informa la ruta absoluta que utiliza para leer un sitio o una planilla. Una coincidencia de usuario incluye una sola lista completa de cuentas reservadas, obtenida de la declaración del establecimiento. El resumen del entorno de ensayo muestra cada archivo de contraseña cuando existe.
+
+El arranque, la revisión del paquete y la resolución de aplicaciones priorizan `signify-openbsd`. Las autopruebas existentes cubren su selección, las instrucciones de instalación, los archivos de credenciales y los errores del Provisionador. Las rutas de datos y del registro se comprobaron en la suite en ejecución y se describen en {doc}`/administracion/aio`.
 
 ### Desarrollo y verificación
 
 Trabaje en una rama por tarea. Ejecute las verificaciones en un árbol de trabajo aislado y registre los resultados en el pull request. Los cambios de imágenes se validan con un conjunto reconstruido y una instalación limpia.
+
+La aceptación por IP utiliza Ubuntu 24.04 y el script existente `scripts/vm-acceptance.sh`. Seleccione una versión publicada que contenga las correcciones:
+
+```console
+gh workflow run acceptance.yml --repo APS-Conecta/gestion --ref main -f tag=vX.Y.Z
+```
+
+El valor predeterminado de `tag` es `latest`, resuelto por redirección pública. La descarga y la instalación se ejecutan sin token, con las tres aplicaciones opcionales y el respaldo diario. Una etapa fallida conserva su resultado aunque las comprobaciones posteriores sean correctas. Los fallos de arranque, preparación o certificado conservan la tabla de veredictos. El flujo adjunta los resultados y las evidencias públicas disponibles en `release-acceptance-*`. Las credenciales y la configuración permanecen en el directorio privado del ensayo. Esta aceptación verifica el paquete publicado; el perfil de capacidad continúa en #189.
+
+`install --sin-validar-dominio` delega en el controlador `asistente-aio`, que compone la solicitud del asistente. Las autopruebas existentes verifican la aceptación de la opción, la solicitud enviada, el modo silencioso y el comando de reintento.
+
+`APS_HOME` concentra las credenciales, el resultado de ejecución, el estado del asistente, los certificados, el registro de versiones y los paquetes verificados. El valor predeterminado es `/opt/aps-conecta`. `AIO_STATE` y las variables `APS_APPS_*` conservan prioridad para sus rutas explícitas.
+
+La [sección de desarrollo de INSTALLER.md](https://github.com/APS-Conecta/gestion/blob/main/aps/INSTALLER.md#14-provisionar-como-usuario-de-desarrollo) indica cómo clonar el repositorio, instalar `signify` en el directorio de usuario y ejecutar el banco de pruebas y el aprovisionamiento con una cuenta habilitada para Docker. La cuenta conserva la propiedad del certificado y autoriza su lectura a Apache mediante una ACL. La aceptación exige divergencia vacía.
 
 `Containers/network-prefix.sh` calcula el prefijo IPv4 desde la dirección del servicio y su interfaz. Las imágenes de Nextcloud y Apache incluyen el mismo archivo y usan el contexto de construcción del repositorio. La compuerta local verifica prefijos e información ausente o ambigua; Clean boot comprueba una red `/20`, un cliente de la LAN con cabecera simulada y un proxy interno con una dirección reenviada válida.
 
@@ -73,6 +108,10 @@ El plan vigente está en [gestion #175](https://github.com/APS-Conecta/gestion/i
 El flujo de inicio termina con un resultado explícito dentro de su respuesta HTML. La consola valida ese resultado y comparte el mismo inicio con la actualización. Los avances de capas y bytes se distinguen de las señales periódicas de conexión; los estados repetidos y los reinicios cíclicos conservan el límite de 20 minutos de inactividad, medido con reloj monotónico.
 
 Las autopruebas del anfitrión simulan errores con HTTP 200, una descarga de 70 minutos con avances, una descarga detenida y la recuperación de sesión. Una respuesta de autenticación permite un reingreso; una interrupción ambigua exige revisar el estado antes de repetir el inicio.
+
+### Restauración de la base de datos
+
+`Containers/postgresql/start.sh` reproduce el volcado con `ON_ERROR_STOP=1` y conserva `import.failed` ante un error. La aceptación utiliza un volcado completo de la suite: verifica la restauración válida, una sentencia fallida y el rechazo del siguiente inicio.
 
 ### AppAPI y HaRP
 
@@ -154,9 +193,16 @@ La tarjeta «La red del servidor» ofrece «Sí, corregir» cuando el servidor n
 
 La preparación separa la instalación de herramientas requeridas y del verificador opcional. Su ausencia mantiene la firma pendiente e informa cómo habilitar universe en Ubuntu.
 
-### Pisos de recursos y datos comunales
+(pisos-de-recursos-y-datos-comunales)=
+### Datos comunales
 
-La revisión previa informa recursos mínimos y recomendados. La instalación silenciosa importa los datos comunales; la repetición conserva los datos existentes.
+`provisioning/data/packages.json` fija el origen y la suma de cada maestro. La próxima versión conserva la captura DEIS del 2026-11-01 en el repositorio y la descarga mediante un commit completo. `scripts/comuna-package.sh` extrae el ZIP con la biblioteca estándar de Python y recorta ambos maestros por código CUT.
+
+Clean boot por IP incluye subconjuntos publicados con su procedencia y licencia en `tests/fixtures/comuna/README.md`. El paquete de ensayo fija esos archivos locales antes de firmarse. La instalación ejecuta la importación real; una cuenta ordinaria consulta nombres y geometrías por la API OCS de Territorio. La repetición exige «0 creados» en ambos paquetes.
+
+### Pisos de recursos
+
+La revisión previa informa recursos mínimos y recomendados.
 
 La preparación de [#189](https://github.com/APS-Conecta/gestion/issues/189) incorpora `scripts/usage.py` en ambos trabajos de Clean boot. Conserva series JSONL acotadas de memoria, CPU, intercambio y OOM del anfitrión, junto con métricas de los contenedores. Cada muestra identifica su arranque y sus unidades; el cierre vincula el PID y la cantidad de muestras. Las métricas de Docker ausentes se registran como no disponibles. Una captura incompleta o una interrupción durante la carga estable invalida esa repetición.
 

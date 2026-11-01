@@ -30,6 +30,21 @@ El ancla de confianza es la URL de la versión —fijada a la etiqueta— más T
 
 Después, `sudo aps-conecta install` enlaza el comando `aps-conecta` y recorre los ocho pasos: «Revisar el servidor», «Preparar el servidor», «Descargar APS Conecta» y «Abrir el instalador web» en el servidor; «Elegir el centro», «Iniciar la suite», «Cargar equipos y personas» y «Revisar y ejecutar» en el navegador. Quien audita puede verificar a mano, con `signify-openbsd` y `sha256sum -c` contra la clave `installer.pub` del repositorio, como enseña el manual.
 
+La próxima versión prioriza `signify-openbsd` para verificar las firmas. Si falta el verificador, ejecute `sudo aps-conecta preparar`. La corrección manual instala el paquete y crea su enlace:
+
+```console
+sudo apt-get install signify-openbsd
+sudo ln -sf /usr/bin/signify-openbsd /usr/local/bin/signify
+```
+
+### Configuración inicial
+
+La instalación silenciosa con `--sitio` y `--planilla` admite `--sin-validar-dominio` para omitir la validación del dominio durante la configuración inicial.
+
+El primer recorrido completado del asistente define la configuración inicial. Mientras la suite está en marcha, las invocaciones posteriores conservan esos valores y el aprovisionamiento reconcilia el establecimiento. El banco de pruebas completa ese primer recorrido; una instalación silenciosa posterior utiliza su configuración. En ese estado, repetir `install --respaldo R` conserva la ubicación inicial. Ajuste esa ubicación desde la sección de respaldos del asistente.
+
+Antes del inicio o con la suite detenida, el controlador puede aplicar la configuración. La opción `--preparar` completa la preparación previa al arranque.
+
 ### Revisión del servidor
 
 La próxima versión comprueba los requisitos del servidor antes de preparar programas o iniciar la suite. Use `sudo aps-conecta preflight` para ver cada resultado y su corrección.
@@ -118,25 +133,41 @@ El **candado de aplicaciones propias y forks** —el registro de versiones, `/op
 
 ### Credenciales y cuentas
 
-En la próxima versión, el instalador entrega las contraseñas y claves de servicio por el entorno o por la entrada estándar. Mantenga los archivos de configuración y las copias cifradas bajo acceso administrativo.
+En la próxima versión, los scripts de instalación de APS Conecta entregan las contraseñas y claves de servicio por el entorno o por la entrada estándar. Mantenga los archivos de configuración y las copias cifradas bajo acceso administrativo.
 
 El aprovisionamiento crea las cuentas y los grupos del establecimiento y conserva los documentos existentes. Las carpetas personales nuevas comienzan sin documentos de ejemplo. Las carpetas de equipo mantienen su organización y sus permisos.
+
+### Datos comunales
+
+En la próxima versión, la instalación carga en Territorio las unidades vecinales y los establecimientos de la comuna elegida. Cada maestro tiene un origen y una suma de verificación fijados; la captura nacional DEIS corresponde al 2026-11-01.
+
+Para completar o repetir la carga, ejecute:
+
+```console
+sudo aps-conecta datos --importar
+```
+
+El resultado confirma dos archivos importados. Una repetición de los mismos datos informa «0 creados» por archivo y conserva las ediciones locales. Revise las unidades vecinales y los establecimientos en {doc}`/usuario/territorio`.
 
 ### Copias de seguridad
 
 La copia de la instancia es la de AIO, basada en BorgBackup: incremental, comprimida y cifrada. La clave de cifrado aparece en la interfaz del asistente, y sin ella no se restaura ninguna copia.
 
-El paso 6 del instalador web programa la copia diaria a las 04:00, hora de Santiago, en `/srv/aps-conecta/respaldos`, e incluye `/opt/aps-conecta`, donde están las credenciales, la ficha del establecimiento y el candado. El asistente funciona en UTC, así que el paso 6 envía la hora UTC equivalente (07:00 en horario de verano, 08:00 en horario de invierno) y el asistente muestra esa hora. Tras el siguiente cambio de horario, la copia corre a las 03:00 o a las 05:00 de Santiago.
+El paso 6 del instalador web programa la copia diaria a las 04:00, hora de Santiago, en `/srv/aps-conecta/respaldos`, e incluye la carpeta de instalación, que contiene las credenciales, la ficha del establecimiento y el candado. La carpeta predeterminada es `/opt/aps-conecta`. En la próxima versión, la solicitud del asistente utiliza la carpeta elegida y la indicación final muestra su archivo `credentials.txt`. El asistente funciona en UTC, así que el paso 6 envía la hora UTC equivalente (07:00 en horario de verano, 08:00 en horario de invierno) y el asistente muestra esa hora. Tras el siguiente cambio de horario, la copia corre a las 03:00 o a las 05:00 de Santiago.
 
 La copia detiene los contenedores en ejecución mientras se crea: la suite queda sin servicio durante esa ventana. El botón «Crear copia de seguridad» lo advierte con «Esto detendrá todos los contenedores en ejecución y creará la copia de seguridad.».
 
-La copia queda en el mismo disco que la instancia, por lo que debe copiarse fuera del servidor, a un disco externo u otro equipo. Los directorios adicionales se respaldan, pero nunca se restauran junto con la instancia: `/opt/aps-conecta` se recupera a mano con `borg extract`. El mapa base no se respalda porque no está en el servidor: el navegador carga las teselas de OpenStreetMap.
+La restauración de la base de datos se detiene ante el primer error SQL y conserva la marca `import.failed`. El siguiente inicio exige recuperar un respaldo válido. Revise `sudo docker logs --tail 80 aps-conecta-database` y restaure una copia desde el asistente.
+
+La copia queda en el mismo disco que la instancia, por lo que debe copiarse fuera del servidor, a un disco externo u otro equipo. Recupere la carpeta de instalación como directorio adicional con `borg extract` después de restaurar la instancia. El mapa base no se respalda porque no está en el servidor: el navegador carga las teselas de OpenStreetMap.
 
 Una copia hecha por un Nextcloud AIO sin modificar no se restaura en la suite. Tras una reinstalación, el asistente nuevo no puede reutilizar el repositorio de copias anterior.
 
 ### Actualizaciones
 
 La suite se actualiza como un conjunto, nunca un componente por separado. Antes de anunciar una etiqueta nueva, se instala en un equipo de ensayo limpio tal como lo hace un establecimiento, y ese ensayo es el registro de aceptación. El conjunto de imágenes cambia cuando el administrador instala una versión nueva. Las actualizaciones automáticas quedan retiradas; cada versión publicada conserva sus resúmenes.
+
+La aceptación publicada por IP registra sus comprobaciones y evidencias en el flujo `acceptance.yml` de Gestión. La descarga utiliza la URL pública de la versión. El registro permite revisar el resultado de la instalación y sus aplicaciones; los requisitos de capacidad se validan en el perfil de recursos.
 
 Las **aplicaciones** se mueven solo cuando el administrador lo decide, con:
 
@@ -150,7 +181,7 @@ sudo aps-conecta actualizar
 4. Descarga y verifica las candidatas en un candado nuevo y aplica una aplicación a la vez —las de tienda con un comando de actualización acotado, uno por aplicación—, y al final desinstala cada aplicación publicada que salió del manifiesto y quita su fila del candado; el candado viejo se reemplaza solo si todo resultó.
 5. Revalida el estado de la suite. La próxima versión comprueba humo, oficina, AppAPI, llamadas y divergencia.
 
-Si algo falla, el candado queda como estaba, se nombra la aplicación que falló y se imprime el comando para restaurar: el asistente, «Restaurar la copia de seguridad seleccionada», con la copia más reciente. Un salto de versión mayor de Nextcloud se rechaza mientras una aplicación predeterminada no tenga una versión compatible.
+En la próxima versión, los errores de instalación, habilitación, configuración y lectura detienen la actualización. Las aplicaciones aplicadas antes del fallo conservan sus cambios. Si algo falla, el candado queda como estaba, se nombra la aplicación que falló y se imprime el comando para restaurar: el asistente, «Restaurar la copia de seguridad seleccionada», con la copia más reciente. Un salto de versión mayor de Nextcloud se rechaza mientras una aplicación predeterminada no tenga una versión compatible.
 
 Tras actualizar la suite a una etiqueta nueva, `aps-conecta revalidate` ejecuta las verificaciones de la versión instalada e informa todos los resultados. La [guía clínica](https://github.com/APS-Conecta/gestion/blob/main/aps/GUIA-CLINICA.md#7-tras-actualizar) describe la revalidación y las revisiones manuales de cada actualización. Una instalación de la v0.3.0 o anterior usa los nombres de contenedor de upstream; la suite no los migra, y esa instalación se reinstala.
 
@@ -159,6 +190,25 @@ Tras actualizar la suite a una etiqueta nueva, `aps-conecta revalidate` ejecuta 
 El asistente termina donde empieza el paquete del host. Con los contenedores en marcha, la página posterior al arranque muestra «Suite en marcha» y devuelve al instalador web, que sigue con «Cargar equipos y personas» y «Revisar y ejecutar».
 
 Desde ahí, el Provisionador del instalador ejecuta las fases de aprovisionamiento con `docker exec` sobre la instancia en marcha: las mismas fases que levantan el entorno de desarrollo. La inicialización y la fase 14 comparten la rutina que configura la URL pública del servidor de documentos y el secreto JWT; por eso el `.env` del establecimiento no lleva claves de oficina. El aprovisionamiento se describe en {doc}`/administracion/aprovisionamiento`.
+
+### Datos y registro de Nextcloud
+
+La suite utiliza `/mnt/ncdata` para los datos y `/var/www/html/data/nextcloud.log` para el registro de Nextcloud. Consulte los valores configurados en su instalación:
+
+```console
+sudo docker exec --user www-data aps-conecta-nextcloud php /var/www/html/occ config:system:get datadirectory
+sudo docker exec --user www-data aps-conecta-nextcloud php /var/www/html/occ config:system:get logfile
+```
+
+Después de una transferencia administrativa directa de archivos, actualice su registro. Sustituya `USER` y `FOLDER` por la cuenta y la carpeta correspondientes:
+
+```console
+sudo docker exec --user www-data aps-conecta-nextcloud php /var/www/html/occ files:scan --path='USER/files/FOLDER'
+```
+
+### Carpeta de instalación
+
+La carpeta de instalación se selecciona con `APS_HOME`; su valor predeterminado es `/opt/aps-conecta`. El Provisionador, las verificaciones y la resolución de aplicaciones utilizan esa carpeta para sus archivos de estado. Conserve la misma configuración durante la instalación, la revisión y la renovación de certificados.
 
 ### Antivirus de archivos
 

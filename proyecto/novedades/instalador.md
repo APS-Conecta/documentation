@@ -14,7 +14,17 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 
 | Versión | Fecha | Cambio |
 |---|---|---|
-| Próxima versión |  | El instalador entrega las credenciales por el entorno o por la entrada estándar. Las carpetas personales nuevas comienzan sin documentos de ejemplo y el aprovisionamiento conserva los documentos existentes. |
+| Próxima versión |  | Los scripts de APS Conecta entregan las credenciales por el entorno o por la entrada estándar. Las carpetas personales nuevas comienzan sin documentos de ejemplo y el aprovisionamiento conserva los documentos existentes. |
+
+| Próxima versión |  | La aceptación por IP incorpora un flujo manual que instala desde la publicación pública y conserva sus veredictos y evidencias. |
+| Próxima versión |  | La instalación silenciosa admite `--sin-validar-dominio` mediante el controlador del asistente y conserva la opción en el comando de reintento. El manual precisa la configuración inicial y la ubicación del respaldo en ejecuciones posteriores. |
+| Próxima versión |  | La restauración de la base de datos se detiene ante el primer error SQL y conserva la marca de fallo. El siguiente inicio exige recuperar un respaldo válido. |
+| Próxima versión |  | `APS_HOME` concentra el estado del instalador y las aplicaciones. La guía de desarrollo incorpora el verificador local y el aprovisionamiento con una cuenta habilitada para Docker. |
+| Próxima versión |  | Los errores de archivos identifican su ruta completa. Una coincidencia de usuario muestra las cuentas reservadas del centro. La verificación prioriza `signify-openbsd` e informa su instalación completa; el resumen del ensayo muestra los archivos de contraseña existentes. El manual incorpora las rutas comprobadas de datos y del registro de Nextcloud. |
+| Próxima versión |  | Los integrantes de los grupos responsables comparten documentos de sus carpetas. Las jefaturas con acceso de lectura a una unidad también comparten sus documentos. La aceptación comprueba un archivo compartido en Talk entre cuentas sin administración. |
+| Próxima versión |  | Los fallos de aplicaciones detienen la actualización e identifican el paso afectado. El registro de versiones se conserva hasta completar todas las aplicaciones. El asistente incluye la carpeta elegida en el respaldo y muestra la ruta correspondiente de las credenciales. |
+| Próxima versión |  | Las versiones fijadas cumplen la compatibilidad de Nextcloud y el mínimo registrado. La validación de paquetes también cubre los ya guardados. |
+| Próxima versión |  | La carga comunal utiliza una captura DEIS fechada con origen fijo y suma verificada. La repetición conserva los registros y las ediciones locales de Territorio. |
 | Próxima versión |  | El grabador oficial reutiliza la CA pública de la instalación por IP para Python y Firefox. El inicio limita las esperas de Redis y de la tienda; la activación de grabaciones continúa pendiente del perfil de recursos. |
 | Próxima versión |  | La aceptación de la versión verifica el texto de los mensajes de Talk entre dos cuentas ordinarias y elimina la conversación de prueba. |
 | Próxima versión |  | La instalación configura las llamadas de Talk durante el aprovisionamiento. La revalidación comprueba TURN, STUN, la ruta HTTPS pública y el diagnóstico nativo; conserva la advertencia opcional conocida del servidor oficial y verifica la caché Redis. |
