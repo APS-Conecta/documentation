@@ -37,6 +37,12 @@ sudo apt-get install signify-openbsd
 sudo ln -sf /usr/bin/signify-openbsd /usr/local/bin/signify
 ```
 
+### Configuración inicial
+
+La instalación silenciosa con `--sitio` y `--planilla` admite `--sin-validar-dominio` para omitir la validación del dominio durante la configuración inicial.
+
+El primer recorrido completado del asistente define la configuración de la instancia. Con la suite en marcha, las invocaciones posteriores conservan esos valores y el aprovisionamiento reconcilia el establecimiento. El banco de pruebas completa ese primer recorrido; una instalación silenciosa posterior utiliza su configuración. Al repetir `install --respaldo R`, se conserva la ubicación inicial. Ajuste esa ubicación desde la sección de respaldos del asistente.
+
 ### Revisión del servidor
 
 La próxima versión comprueba los requisitos del servidor antes de preparar programas o iniciar la suite. Use `sudo aps-conecta preflight` para ver cada resultado y su corrección.
@@ -142,6 +148,8 @@ La copia de la instancia es la de AIO, basada en BorgBackup: incremental, compri
 El paso 6 del instalador web programa la copia diaria a las 04:00, hora de Santiago, en `/srv/aps-conecta/respaldos`, e incluye la carpeta de instalación, que contiene las credenciales, la ficha del establecimiento y el candado. La carpeta predeterminada es `/opt/aps-conecta`. En la próxima versión, la solicitud del asistente utiliza la carpeta elegida y la indicación final muestra su archivo `credentials.txt`. El asistente funciona en UTC, así que el paso 6 envía la hora UTC equivalente (07:00 en horario de verano, 08:00 en horario de invierno) y el asistente muestra esa hora. Tras el siguiente cambio de horario, la copia corre a las 03:00 o a las 05:00 de Santiago.
 
 La copia detiene los contenedores en ejecución mientras se crea: la suite queda sin servicio durante esa ventana. El botón «Crear copia de seguridad» lo advierte con «Esto detendrá todos los contenedores en ejecución y creará la copia de seguridad.».
+
+La restauración de la base de datos se detiene ante el primer error SQL y conserva la marca `import.failed`. El siguiente inicio exige recuperar un respaldo válido. Revise `sudo docker logs --tail 80 aps-conecta-database` y restaure una copia desde el asistente.
 
 La copia queda en el mismo disco que la instancia, por lo que debe copiarse fuera del servidor, a un disco externo u otro equipo. Recupere la carpeta de instalación como directorio adicional con `borg extract` después de restaurar la instancia. El mapa base no se respalda porque no está en el servidor: el navegador carga las teselas de OpenStreetMap.
 
