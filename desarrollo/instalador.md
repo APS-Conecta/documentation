@@ -50,6 +50,16 @@ El entorno `Release` contiene `MINISIGN_SECRET_KEY` y `MINISIGN_KEY_PASSWORD`. C
 
 Nextcloud verifica la firma del paquete oficial de Talk al instalarlo. Las etiquetas de ensayo `v0.0.0-ci.N` se publican como preliminares y conservan la versión estable marcada como más reciente. El procedimiento está en [RELEASING.md](https://github.com/APS-Conecta/gestion/blob/main/aps/RELEASING.md).
 
+### Credenciales durante la instalación
+
+Las contraseñas y las claves de servicio se entregan mediante variables de entorno por nombre o por la entrada estándar. `occ-install.php` recibe las contraseñas iniciales y ejecuta el instalador nativo de Nextcloud. `configure-apps.sh` importa los ajustes modificados con `occ config:import` y conserva las claves vecinas.
+
+Redis recibe su regla de autenticación por la entrada estándar; sus clientes usan `REDISCLI_AUTH`. PostgreSQL obtiene la contraseña con `psql` y `\getenv`. La restauración de Borg conserva la contraseña del asistente mediante el entorno. Los argumentos de estos procesos contienen las opciones públicas.
+
+La imagen de Imaginary compila el código oficial fijado y `api_key_env.go`, que inicializa la clave desde `IMAGINARY_SECRET`. Talk calcula la credencial TURN con la API criptográfica del entorno Erlang incluido en eTURNAL. Los conectores oficiales conservan su código y firma.
+
+La provisión usa directorios temporales privados para el certificado intermedio y la bienvenida de IntraVox, transfiere el contenido por la entrada estándar y elimina esos directorios al terminar. Administra las cuentas de personal y cargo y conserva sus documentos. La compuerta local comprueba argumentos, entrega exacta de credenciales y rutas temporales.
+
 ### Desarrollo y verificación
 
 Trabaje en una rama por tarea. Ejecute las verificaciones en un árbol de trabajo aislado y registre los resultados en el pull request. Los cambios de imágenes se validan con un conjunto reconstruido y una instalación limpia.

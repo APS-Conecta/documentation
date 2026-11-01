@@ -14,6 +14,7 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| Próxima versión |  | El instalador entrega las credenciales por el entorno o por la entrada estándar. Las carpetas personales nuevas comienzan sin documentos de ejemplo y el aprovisionamiento conserva los documentos existentes. |
 | Próxima versión |  | El grabador oficial reutiliza la CA pública de la instalación por IP para Python y Firefox. El inicio limita las esperas de Redis y de la tienda; la activación de grabaciones continúa pendiente del perfil de recursos. |
 | Próxima versión |  | La aceptación de la versión verifica el texto de los mensajes de Talk entre dos cuentas ordinarias y elimina la conversación de prueba. |
 | Próxima versión |  | La instalación configura las llamadas de Talk durante el aprovisionamiento. La revalidación comprueba TURN, STUN, la ruta HTTPS pública y el diagnóstico nativo; conserva la advertencia opcional conocida del servidor oficial y verifica la caché Redis. |

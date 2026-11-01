@@ -116,6 +116,12 @@ Las aplicaciones propias y los forks llegan de la publicación firmada de cada r
 
 El **candado de aplicaciones propias y forks** —el registro de versiones, `/opt/aps-conecta/apps.lock.json`— anota la versión de Nextcloud y, por aplicación, su canal, etiqueta, versión y suma. Lo escribe la resolución al instalar, está dentro del alcance del respaldo y lo mueve solo `aps-conecta actualizar`. Una provisión repetida respeta el candado y no descarga nada, y una reparación nunca se convierte en una actualización: la {doc}`gestión de apps </administracion/aplicaciones>` de la interfaz no es el camino.
 
+### Credenciales y cuentas
+
+En la próxima versión, el instalador entrega las contraseñas y claves de servicio por el entorno o por la entrada estándar. Mantenga los archivos de configuración y las copias cifradas bajo acceso administrativo.
+
+El aprovisionamiento crea las cuentas y los grupos del establecimiento y conserva los documentos existentes. Las carpetas personales nuevas comienzan sin documentos de ejemplo. Las carpetas de equipo mantienen su organización y sus permisos.
+
 ### Copias de seguridad
 
 La copia de la instancia es la de AIO, basada en BorgBackup: incremental, comprimida y cifrada. La clave de cifrado aparece en la interfaz del asistente, y sin ella no se restaura ninguna copia.
