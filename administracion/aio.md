@@ -111,11 +111,9 @@ El asistente usa la etiqueta de su propia imagen para seleccionar las imágenes 
 (lo-que-cambia-el-fork)=
 ### Servicios incluidos
 
-La próxima versión instala un conjunto fijo: Euro-Office, Talk, búsqueda de texto completo, vistas previas, antivirus y AppAPI mediante HaRP. Farmacia, Estadística y Tótem conservan su selección independiente. La habilitación de grabaciones dependerá del perfil de recursos validado.
+La próxima versión instala un conjunto fijo: Euro-Office, Talk, búsqueda de texto completo, vistas previas, antivirus y AppAPI mediante HaRP. Farmacia, Estadística y Tótem conservan su selección independiente. La grabación permanece desactivada.
 
-El mínimo medido y el umbral de grabación permanecen pendientes en [#189](https://github.com/APS-Conecta/gestion/issues/189). El ensayo acordado utiliza diez cuentas ficticias, dos sesiones activas de Office y una llamada de cuatro participantes a 720p y 30 cuadros por segundo. Cada configuración contempla quince minutos de calentamiento y treinta de medición, con tres repeticiones. El entorno de ensayo y los equipos que ejecutan los navegadores se miden por separado.
-
-Los valores mínimos y recomendados de hardware se publican con referencias oficiales de Nextcloud y resultados del ensayo de la suite completa. Cada resultado identifica la versión, los servicios, la carga y el margen observado.
+La administración dimensiona el servidor según las personas activas, las aplicaciones y la actividad. Los [requisitos oficiales de Nextcloud 34](https://github.com/nextcloud/documentation/blob/655c01bf5cd7b71dca088b67f701b74c1aa74b0d/admin_manual/installation/system_requirements.rst#L66) describen la memoria por proceso. La revisión previa conserva sus controles actuales.
 
 El establecimiento aporta su dominio o dirección IP. La administración aplica las actualizaciones mediante la versión de la suite y conserva el control de la instalación.
 
@@ -167,7 +165,7 @@ Una copia hecha por un Nextcloud AIO sin modificar no se restaura en la suite. T
 
 La suite se actualiza como un conjunto, nunca un componente por separado. Antes de anunciar una etiqueta nueva, se instala en un equipo de ensayo limpio tal como lo hace un establecimiento, y ese ensayo es el registro de aceptación. El conjunto de imágenes cambia cuando el administrador instala una versión nueva. Las actualizaciones automáticas quedan retiradas; cada versión publicada conserva sus resúmenes.
 
-La aceptación publicada por IP registra sus comprobaciones y evidencias en el flujo `acceptance.yml` de Gestión. La descarga utiliza la URL pública de la versión. El registro permite revisar el resultado de la instalación y sus aplicaciones; los requisitos de capacidad se validan en el perfil de recursos.
+La aceptación publicada por IP registra sus comprobaciones y evidencias en el flujo `acceptance.yml` de Gestión. La descarga utiliza la URL pública de la versión. El registro permite revisar el resultado de la instalación y sus aplicaciones.
 
 Las **aplicaciones** se mueven solo cuando el administrador lo decide, con:
 

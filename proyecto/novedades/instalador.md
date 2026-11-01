@@ -24,7 +24,7 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 | Próxima versión |  | Los fallos de aplicaciones detienen la actualización e identifican el paso afectado. El registro de versiones se conserva hasta completar todas las aplicaciones. El asistente incluye la carpeta elegida en el respaldo y muestra la ruta correspondiente de las credenciales. |
 | Próxima versión |  | Las versiones fijadas cumplen la compatibilidad de Nextcloud y el mínimo registrado. La validación de paquetes también cubre los ya guardados. |
 | Próxima versión |  | La carga comunal utiliza una captura DEIS fechada con origen fijo y suma verificada. La repetición conserva los registros y las ediciones locales de Territorio. |
-| Próxima versión |  | El grabador oficial reutiliza la CA pública de la instalación por IP para Python y Firefox. El inicio limita las esperas de Redis y de la tienda; la activación de grabaciones continúa pendiente del perfil de recursos. |
+| Próxima versión |  | El grabador oficial reutiliza la CA pública de la instalación por IP para Python y Firefox. El inicio limita las esperas de Redis y de la tienda; la grabación permanece desactivada. |
 | Próxima versión |  | La aceptación de la versión verifica el texto de los mensajes de Talk entre dos cuentas ordinarias y elimina la conversación de prueba. |
 | Próxima versión |  | La instalación configura las llamadas de Talk durante el aprovisionamiento. La revalidación comprueba TURN, STUN, la ruta HTTPS pública y el diagnóstico nativo; conserva la advertencia opcional conocida del servidor oficial y verifica la caché Redis. |
 | Próxima versión |  | La instalación reconoce manifiestos Docker y OCI al consultar las imágenes publicadas de la suite. |
@@ -51,6 +51,6 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 
 ## Notas
 
-El [plan de gestion #175](https://github.com/APS-Conecta/gestion/issues/175) registra la implementación y sus verificaciones. El perfil de grabación continúa en una etapa posterior.
+El [plan de gestion #175](https://github.com/APS-Conecta/gestion/issues/175) registra la implementación y sus verificaciones. El dimensionamiento automático queda retirado del alcance; la administración dimensiona el servidor según su uso.
 
 Estas entradas describen la próxima versión. Para instalar, seleccione una versión estable en [Publicaciones de la suite](https://github.com/APS-Conecta/gestion/releases).

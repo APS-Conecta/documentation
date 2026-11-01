@@ -91,7 +91,7 @@ La aceptación por IP utiliza Ubuntu 24.04 y el script existente `scripts/vm-acc
 gh workflow run acceptance.yml --repo APS-Conecta/gestion --ref main -f tag=vX.Y.Z
 ```
 
-El valor predeterminado de `tag` es `latest`, resuelto por redirección pública. La descarga y la instalación se ejecutan sin token, con las tres aplicaciones opcionales y el respaldo diario. Una etapa fallida conserva su resultado aunque las comprobaciones posteriores sean correctas. Los fallos de arranque, preparación o certificado conservan la tabla de veredictos. El flujo adjunta los resultados y las evidencias públicas disponibles en `release-acceptance-*`. Las credenciales y la configuración permanecen en el directorio privado del ensayo. Esta aceptación verifica el paquete publicado; el perfil de capacidad continúa en #189.
+El valor predeterminado de `tag` es `latest`, resuelto por redirección pública. La descarga y la instalación se ejecutan sin token, con las tres aplicaciones opcionales y el respaldo diario. Una etapa fallida conserva su resultado aunque las comprobaciones posteriores sean correctas. Los fallos de arranque, preparación o certificado conservan la tabla de veredictos. El flujo adjunta los resultados y las evidencias públicas disponibles en `release-acceptance-*`. Las credenciales y la configuración permanecen en el directorio privado del ensayo. Esta aceptación verifica la instalación y el funcionamiento del paquete publicado.
 
 `install --sin-validar-dominio` delega en el controlador `asistente-aio`, que compone la solicitud del asistente. Las autopruebas existentes verifican la aceptación de la opción, la solicitud enviada, el modo silencioso y el comando de reintento.
 
@@ -141,13 +141,13 @@ El [experimento por IP](https://github.com/APS-Conecta/gestion/actions/runs/4121
 
 Después de revalidar, Clean boot por IP repite `talk-smoke.sh` antes del ensayo de mensajes. Usa `POST v4/room` con `roomType` y `roomName`, `POST v1/chat/{token}` y `GET` del mismo historial. Una cuenta ordinaria crea y envía; otra lee el texto exacto junto con la identidad, el identificador y la conversación correspondientes. La comprobación admite los mensajes del sistema.
 
-El creador elimina únicamente la conversación del ensayo. Cada escritura se ejecuta una vez y un fallo de limpieza conserva el fallo original. Las credenciales permanecen en el registro privado y en memoria; el cliente verifica el certificado de la suite y rechaza redirecciones. La política de grabación se mide por separado en [#189](https://github.com/APS-Conecta/gestion/issues/189).
+El creador elimina únicamente la conversación del ensayo. Cada escritura se ejecuta una vez y un fallo de limpieza conserva el fallo original. Las credenciales permanecen en el registro privado y en memoria; el cliente verifica el certificado de la suite y rechaza redirecciones.
 
 ### Confianza del grabador
 
 El grabador oficial recibe la CA pública de la suite mediante un montaje de solo lectura. `Containers/talk-recording/prepare-trust.py` valida los certificados y prepara el conjunto de confianza de Python y la política nativa `Certificates.Install` de Firefox. Las notificaciones HTTP usan ese conjunto a través de `certifi`; el código oficial del grabador conserva la verificación TLS.
 
-Clean boot por IP comprueba las notificaciones Python y el navegador del grabador con la CA y sin ella. La compuerta local cubre la rotación, el nombre IP y los certificados desconocidos. Redis y la tienda tienen esperas acotadas; una demora del grabador conserva Talk y deja pendiente la configuración de grabación. Su activación por recursos continúa en [#189](https://github.com/APS-Conecta/gestion/issues/189) y [#190](https://github.com/APS-Conecta/gestion/issues/190).
+Clean boot por IP comprueba las notificaciones Python y el navegador del grabador con la CA y sin ella. La compuerta local cubre la rotación, el nombre IP y los certificados desconocidos. Redis y la tienda tienen esperas acotadas; una demora del grabador conserva Talk y deja pendiente la configuración de grabación. La grabación permanece desactivada en la configuración de la suite.
 
 ### El arranque de una línea
 
@@ -200,13 +200,11 @@ La preparación separa la instalación de herramientas requeridas y del verifica
 
 Clean boot por IP incluye subconjuntos publicados con su procedencia y licencia en `tests/fixtures/comuna/README.md`. El paquete de ensayo fija esos archivos locales antes de firmarse. La instalación ejecuta la importación real; una cuenta ordinaria consulta nombres y geometrías por la API OCS de Territorio. La repetición exige «0 creados» en ambos paquetes.
 
-### Pisos de recursos
+### Diagnóstico de recursos
 
-La revisión previa informa recursos mínimos y recomendados.
+La revisión previa conserva sus controles actuales. `scripts/usage.py` registra en ambos trabajos de Clean boot series acotadas de memoria, CPU, intercambio y OOM, junto con métricas de los servicios. Cada muestra identifica su arranque y sus unidades; el cierre vincula el PID y la cantidad de muestras. Las lecturas ausentes se registran como no disponibles.
 
-La preparación de [#189](https://github.com/APS-Conecta/gestion/issues/189) incorpora `scripts/usage.py` en ambos trabajos de Clean boot. Conserva series JSONL acotadas de memoria, CPU, intercambio y OOM del anfitrión, junto con métricas de los contenedores. Cada muestra identifica su arranque y sus unidades; el cierre vincula el PID y la cantidad de muestras. Las métricas de Docker ausentes se registran como no disponibles. Una captura incompleta o una interrupción durante la carga estable invalida esa repetición.
-
-El [protocolo de medición](https://github.com/APS-Conecta/gestion/blob/072f3a9a929b4b8b15fe9589320612d09e022616/aps/RESOURCE-MEASUREMENTS.md) establece procedencia, carga y límites de interpretación. Los umbrales compartidos del instalador y del Provisionador se fijan después de medir operaciones reales de Office, Talk, cargas y búsqueda, con la grabación evaluada por separado. Los mínimos y recomendaciones deben incluir la referencia oficial de Nextcloud y la evidencia del ensayo. Los valores de memoria por proceso se interpretan dentro de ese alcance.
+El [diagnóstico de recursos](https://github.com/APS-Conecta/gestion/blob/main/aps/RESOURCE-MEASUREMENTS.md) describe la captura y sus referencias. El plan #175 conserva las comprobaciones funcionales y retira el ensayo de capacidad, los umbrales medidos y el cálculo compartido de concurrencia. La administración dimensiona el servidor según su uso; la memoria indicada por Nextcloud por proceso conserva ese alcance.
 
 ### Instalaciones previas
 
