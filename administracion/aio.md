@@ -132,11 +132,11 @@ El resultado confirma dos archivos importados. Una repetición de los mismos dat
 
 La copia de la instancia es la de AIO, basada en BorgBackup: incremental, comprimida y cifrada. La clave de cifrado aparece en la interfaz del asistente, y sin ella no se restaura ninguna copia.
 
-El paso 6 del instalador web programa la copia diaria a las 04:00, hora de Santiago, en `/srv/aps-conecta/respaldos`, e incluye `/opt/aps-conecta`, donde están las credenciales, la ficha del establecimiento y el candado. El asistente funciona en UTC, así que el paso 6 envía la hora UTC equivalente (07:00 en horario de verano, 08:00 en horario de invierno) y el asistente muestra esa hora. Tras el siguiente cambio de horario, la copia corre a las 03:00 o a las 05:00 de Santiago.
+El paso 6 del instalador web programa la copia diaria a las 04:00, hora de Santiago, en `/srv/aps-conecta/respaldos`, e incluye la carpeta de instalación, que contiene las credenciales, la ficha del establecimiento y el candado. La carpeta predeterminada es `/opt/aps-conecta`. En la próxima versión, la solicitud del asistente utiliza la carpeta elegida y la indicación final muestra su archivo `credentials.txt`. El asistente funciona en UTC, así que el paso 6 envía la hora UTC equivalente (07:00 en horario de verano, 08:00 en horario de invierno) y el asistente muestra esa hora. Tras el siguiente cambio de horario, la copia corre a las 03:00 o a las 05:00 de Santiago.
 
 La copia detiene los contenedores en ejecución mientras se crea: la suite queda sin servicio durante esa ventana. El botón «Crear copia de seguridad» lo advierte con «Esto detendrá todos los contenedores en ejecución y creará la copia de seguridad.».
 
-La copia queda en el mismo disco que la instancia, por lo que debe copiarse fuera del servidor, a un disco externo u otro equipo. Los directorios adicionales se respaldan, pero nunca se restauran junto con la instancia: `/opt/aps-conecta` se recupera a mano con `borg extract`. El mapa base no se respalda porque no está en el servidor: el navegador carga las teselas de OpenStreetMap.
+La copia queda en el mismo disco que la instancia, por lo que debe copiarse fuera del servidor, a un disco externo u otro equipo. Recupere la carpeta de instalación como directorio adicional con `borg extract` después de restaurar la instancia. El mapa base no se respalda porque no está en el servidor: el navegador carga las teselas de OpenStreetMap.
 
 Una copia hecha por un Nextcloud AIO sin modificar no se restaura en la suite. Tras una reinstalación, el asistente nuevo no puede reutilizar el repositorio de copias anterior.
 
@@ -156,7 +156,7 @@ sudo aps-conecta actualizar
 4. Descarga y verifica las candidatas en un candado nuevo y aplica una aplicación a la vez —las de tienda con un comando de actualización acotado, uno por aplicación—, y al final desinstala cada aplicación publicada que salió del manifiesto y quita su fila del candado; el candado viejo se reemplaza solo si todo resultó.
 5. Revalida el estado de la suite. La próxima versión comprueba humo, oficina, AppAPI, llamadas y divergencia.
 
-Si algo falla, el candado queda como estaba, se nombra la aplicación que falló y se imprime el comando para restaurar: el asistente, «Restaurar la copia de seguridad seleccionada», con la copia más reciente. Un salto de versión mayor de Nextcloud se rechaza mientras una aplicación predeterminada no tenga una versión compatible.
+En la próxima versión, los errores de instalación, habilitación, configuración y lectura detienen la actualización. Las aplicaciones aplicadas antes del fallo conservan sus cambios. Si algo falla, el candado queda como estaba, se nombra la aplicación que falló y se imprime el comando para restaurar: el asistente, «Restaurar la copia de seguridad seleccionada», con la copia más reciente. Un salto de versión mayor de Nextcloud se rechaza mientras una aplicación predeterminada no tenga una versión compatible.
 
 Tras actualizar la suite a una etiqueta nueva, `aps-conecta revalidate` ejecuta las verificaciones de la versión instalada e informa todos los resultados. La [guía clínica](https://github.com/APS-Conecta/gestion/blob/main/aps/GUIA-CLINICA.md#7-tras-actualizar) describe la revalidación y las revisiones manuales de cada actualización. Una instalación de la v0.3.0 o anterior usa los nombres de contenedor de upstream; la suite no los migra, y esa instalación se reinstala.
 
