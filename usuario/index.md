@@ -9,7 +9,7 @@ resumen: "Uso diario de la plataforma para el personal del CESFAM: acceso, archi
 
 Introducción al uso diario de la plataforma para el personal del CESFAM. La guía de usuario cubre el acceso y la interfaz web, la gestión de archivos, la oficina colaborativa, la comunicación interna, la agenda y el directorio, el perfil personal y las aplicaciones sanitarias propias. La plataforma es la intranet operativa del establecimiento: una sola copia viva de cada documento, en español de Chile y con los permisos gobernados por grupos y roles.
 
-La administración del centro gestiona las versiones y las actualizaciones de las aplicaciones. Si una aplicación presenta un fallo, indique a la administración su nombre y la hora del problema. Esa información permite revisar su conexión con la plataforma.
+La administración del centro gestiona las versiones y las actualizaciones de las aplicaciones. Si una aplicación presenta un fallo, indique a la administración su nombre y la hora del problema. La administración utiliza esos datos para consultar el registro de Nextcloud.
 
 ````{upstream} user_manual/index.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 **Bienvenido a Nextcloud: un hogar seguro para todos sus datos.**

@@ -83,6 +83,8 @@ Completar desde la segunda fila y conservar los seis encabezados. Usar un identi
 
 Guardar como CSV UTF-8 con separador `;` y cargar el archivo en «Cargar equipos y personas». Los grupos corresponden a «Grupos válidos» del establecimiento. El botón «Descargar plantilla» del Provisionador genera un ejemplo con los equipos guardados para ese centro. Sustituir los datos ficticios por las personas del establecimiento antes de cargar.
 
+En la próxima versión, una coincidencia con una cuenta reservada muestra la fila y la lista completa del establecimiento. Corrija el identificador de la persona y repita la carga.
+
 ### Bajas y divergencia
 
 La provisión nunca elimina una cuenta. La verificación de divergencia compara las cuentas vivas con las declaradas —la planilla, las cuentas de cargo y la administración de la instalación—, y una cuenta viva sin declarar la hace fallar: el informe nombra la orden que la eliminaría y recuerda que eliminar una cuenta elimina sus archivos. Con la verificación en rojo, la re-provisión semanal queda fallida; {doc}`/administracion/operaciones/index` describe cómo llega el aviso. Un grupo vivo sin declarar también aparece, con la advertencia de revisar que no sea el único con acceso a una carpeta antes de eliminarlo.

@@ -30,6 +30,13 @@ El ancla de confianza es la URL de la versión —fijada a la etiqueta— más T
 
 Después, `sudo aps-conecta install` enlaza el comando `aps-conecta` y recorre los ocho pasos: «Revisar el servidor», «Preparar el servidor», «Descargar APS Conecta» y «Abrir el instalador web» en el servidor; «Elegir el centro», «Iniciar la suite», «Cargar equipos y personas» y «Revisar y ejecutar» en el navegador. Quien audita puede verificar a mano, con `signify-openbsd` y `sha256sum -c` contra la clave `installer.pub` del repositorio, como enseña el manual.
 
+La próxima versión prioriza `signify-openbsd` para verificar las firmas. Si falta el verificador, ejecute `sudo aps-conecta preparar`. La corrección manual instala el paquete y crea su enlace:
+
+```console
+sudo apt-get install signify-openbsd
+sudo ln -sf /usr/bin/signify-openbsd /usr/local/bin/signify
+```
+
 ### Revisión del servidor
 
 La próxima versión comprueba los requisitos del servidor antes de preparar programas o iniciar la suite. Use `sudo aps-conecta preflight` para ver cada resultado y su corrección.
@@ -165,6 +172,21 @@ Tras actualizar la suite a una etiqueta nueva, `aps-conecta revalidate` ejecuta 
 El asistente termina donde empieza el paquete del host. Con los contenedores en marcha, la página posterior al arranque muestra «Suite en marcha» y devuelve al instalador web, que sigue con «Cargar equipos y personas» y «Revisar y ejecutar».
 
 Desde ahí, el Provisionador del instalador ejecuta las fases de aprovisionamiento con `docker exec` sobre la instancia en marcha: las mismas fases que levantan el entorno de desarrollo. La inicialización y la fase 14 comparten la rutina que configura la URL pública del servidor de documentos y el secreto JWT; por eso el `.env` del establecimiento no lleva claves de oficina. El aprovisionamiento se describe en {doc}`/administracion/aprovisionamiento`.
+
+### Datos y registro de Nextcloud
+
+La suite utiliza `/mnt/ncdata` para los datos y `/var/www/html/data/nextcloud.log` para el registro de Nextcloud. Consulte los valores configurados en su instalación:
+
+```console
+sudo docker exec --user www-data aps-conecta-nextcloud php /var/www/html/occ config:system:get datadirectory
+sudo docker exec --user www-data aps-conecta-nextcloud php /var/www/html/occ config:system:get logfile
+```
+
+Después de una transferencia administrativa directa de archivos, actualice su registro. Sustituya `USER` y `FOLDER` por la cuenta y la carpeta correspondientes:
+
+```console
+sudo docker exec --user www-data aps-conecta-nextcloud php /var/www/html/occ files:scan --path='USER/files/FOLDER'
+```
 
 ### Antivirus de archivos
 
