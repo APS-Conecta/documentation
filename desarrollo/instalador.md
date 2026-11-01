@@ -144,6 +144,7 @@ La tarjeta «La red del servidor» ofrece «Sí, corregir» cuando el servidor n
 
 La preparación separa la instalación de herramientas requeridas y del verificador opcional. Su ausencia mantiene la firma pendiente e informa cómo habilitar universe en Ubuntu.
 
+(pisos-de-recursos-y-datos-comunales)=
 ### Datos comunales
 
 `provisioning/data/packages.json` fija el origen y la suma de cada maestro. La próxima versión conserva la captura DEIS del 2026-11-01 en el repositorio y la descarga mediante un commit completo. `scripts/comuna-package.sh` extrae el ZIP con la biblioteca estándar de Python y recorta ambos maestros por código CUT.
