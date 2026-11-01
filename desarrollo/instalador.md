@@ -81,7 +81,7 @@ La aceptación por IP utiliza Ubuntu 24.04 y el script existente `scripts/vm-acc
 gh workflow run acceptance.yml --repo APS-Conecta/gestion --ref main -f tag=vX.Y.Z
 ```
 
-El valor predeterminado de `tag` es `latest`, resuelto por redirección pública. La descarga y la instalación se ejecutan sin token, con las tres aplicaciones opcionales y el respaldo diario. El flujo conserva la marca roja ante un fallo y adjunta los veredictos y las evidencias públicas disponibles en `release-acceptance-*`. Las credenciales y la configuración permanecen en el directorio privado del ensayo. Esta aceptación verifica el paquete publicado; el perfil de capacidad continúa en #189.
+El valor predeterminado de `tag` es `latest`, resuelto por redirección pública. La descarga y la instalación se ejecutan sin token, con las tres aplicaciones opcionales y el respaldo diario. Una etapa fallida conserva su resultado aunque las comprobaciones posteriores sean correctas. Los fallos de arranque, preparación o certificado conservan la tabla de veredictos. El flujo adjunta los resultados y las evidencias públicas disponibles en `release-acceptance-*`. Las credenciales y la configuración permanecen en el directorio privado del ensayo. Esta aceptación verifica el paquete publicado; el perfil de capacidad continúa en #189.
 
 `install --sin-validar-dominio` delega en el controlador `asistente-aio`, que compone la solicitud del asistente. Las autopruebas existentes verifican la aceptación de la opción, la solicitud enviada, el modo silencioso y el comando de reintento.
 
