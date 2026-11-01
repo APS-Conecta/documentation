@@ -59,6 +59,10 @@ La autoprueba del anfitrión ejecuta la aplicación real con comandos de fronter
 
 La autoprueba del Provisionador comprueba la matriz generada por su API. Clean boot por IP compara cada concesión con el estado nativo, comprueba la identidad de cuentas sin administración y comparte un documento existente de la biblioteca mediante la API oficial. Otra cuenta verifica la identidad del archivo adjunto en la conversación. La revalidación comprueba la divergencia de los inventarios.
 
+### Primera carga en carpetas de equipo
+
+El trabajo por IP crea integrantes nuevos de sectores y unidades y realiza su primera solicitud WebDAV con PUT. Comprueba creación, lectura del contenido exacto, rechazo de escrituras sin permiso y limpieza de los datos del ensayo. La aplicación `files_upload_guard` llega por su publicación firmada; las verificaciones nativas comprueban la integridad de Nextcloud y DAV. La preparación utiliza las interfaces públicas de DAV y archivos, según la ADR-0022.
+
 ### Firma y credenciales
 
 El entorno `Release` contiene `MINISIGN_SECRET_KEY` y `MINISIGN_KEY_PASSWORD`. Cada paso recibe únicamente la credencial que consume. Conserve `installer.pub` en el repositorio como clave pública de verificación.

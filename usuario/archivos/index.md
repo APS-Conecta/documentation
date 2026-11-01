@@ -27,6 +27,8 @@ En la próxima versión, una cuenta nueva comienza con su carpeta personal sin d
 
 ### Cargar archivos
 
+En la próxima versión, puede cargar documentos en su sector o unidad desde el primer acceso. Los permisos de sus grupos determinan las carpetas donde puede guardar archivos.
+
 En la próxima versión, el antivirus analiza cada archivo antes de guardarlo. El límite corresponde al archivo completo, incluso cuando se carga por partes. Si recibe un rechazo, revise el contenido y el tamaño. Para un archivo comprimido cifrado, prepare una copia que el analizador pueda revisar. Si el servicio está temporalmente indisponible, espere y repita la carga; si el problema continúa, contacte a la administración.
 
 Si se rechaza una sustitución, el archivo anterior se conserva. Ante un error de carga, revise Archivos antes de repetirla.
@@ -76,7 +78,7 @@ Las unidades de partida tienen estos roles dueños:
 | Estadística-REM | Encargado/a de Estadística (REM) |
 | Dirección | Ninguno: la gestionan las Jefaturas |
 
-Ninguna concesión de esta matriz de partida incluye el permiso de compartir: los documentos de las carpetas de equipo no se comparten con otras cuentas ni por enlace público.
+En la próxima versión, los grupos que gestionan una carpeta pueden compartir sus documentos. Las jefaturas también comparten en las unidades donde tienen acceso de lectura; «Todo el personal» conserva lectura en Transversal.
 
 ### Una sola copia viva
 

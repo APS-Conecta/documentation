@@ -216,6 +216,8 @@ Las cargas fragmentadas conservan el límite del archivo completo. El analizador
 
 La protección de cargas se instala desde una publicación firmada y conserva el archivo anterior cuando una sustitución se rechaza. La carga requiere una ubicación temporal con permiso de creación; revise ese permiso si una carpeta compartida permite actualizar archivos y rechaza la operación. Ante un error HTTP 500, compruebe el resultado en Archivos antes de repetir la carga.
 
+La versión 0.1.2 de Protección de cargas permite cargar en sectores y unidades desde el primer acceso. La preparación es automática y conserva los permisos de cada grupo. La aplicación llega por el canal firmado de la suite; Nextcloud y DAV conservan sus archivos originales.
+
 ### Búsqueda en documentos
 
 En la próxima versión, la fase 12 instala la aplicación de búsqueda y su conector desde la tienda. El proveedor de archivos llega de una publicación firmada de APS Conecta con la corrección para identificadores de usuario que contienen puntos. Su versión se gestiona mediante `sudo aps-conecta actualizar`, junto con las demás aplicaciones de la suite.
