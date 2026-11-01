@@ -11,6 +11,8 @@ resumen: "Compartir archivos y carpetas por enlace público, con usuarios, grupo
 
 Esta página explica cómo compartir archivos y carpetas mediante enlaces públicos, con usuarios, grupos, círculos y conversaciones de Talk, y con usuarios de otros servidores federados, además de cómo ver quién más tiene acceso. Está dirigida a usuarios que comparten o reciben archivos.
 
+En la próxima versión, los integrantes de los grupos responsables comparten documentos de sus carpetas con otras personas o en conversaciones de Talk. Las jefaturas con acceso de lectura a una unidad también comparten sus documentos. El acceso general a `Transversal` permite leer su contenido.
+
 ````{upstream} user_manual/files/sharing.rst@3ad91587229242efe4502ce61aed9c0f1154bd5e
 Los usuarios de Nextcloud pueden compartir archivos y carpetas. Los destinatarios posibles son:
 

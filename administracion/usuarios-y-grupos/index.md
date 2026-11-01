@@ -33,13 +33,13 @@ La autorización de la suite es solo por grupos. Toda concesión toma un id de g
 
 ### El registro de grupos
 
-La fase 20 de la provisión es el registro de grupos: los crea con id en inglés y nombre mostrado en español, y las concesiones nombran siempre el id. La lista de los 22 cargos compartidos vive solo en [`20-groups.sh`](https://github.com/APS-Conecta/gestion/blob/main/provisioning/phases/20-groups.sh); los cargos propios de un centro se declaran en `SITE_ROLES`, en el archivo del sitio.
+La fase 20 de la provisión es el registro de grupos: los crea con identificadores estables y nombres mostrados en español, y las concesiones nombran siempre el id. La lista de cargos compartidos vive solo en [`20-groups.sh`](https://github.com/APS-Conecta/gestion/blob/main/provisioning/phases/20-groups.sh); los cargos propios de un centro se declaran en `SITE_ROLES`, en el archivo del sitio.
 
 | Grupo | Id | Quién lo integra | Quién lo declara |
 |---|---|---|---|
 | Todo el personal | `all-staff` | Toda cuenta | La fase 20 |
 | Categorías | `cat-jefaturas`, `cat-clinicos`, `cat-tecnicos`, `cat-administrativos` | Quien ocupa un cargo, según la categoría del cargo | La fase 20 |
-| Cargos compartidos | 22 grupos `role-*` | Quien ocupa el cargo | La fase 20 |
+| Cargos compartidos | Grupos `role-*` | Quien ocupa el cargo | La fase 20 |
 | Cargos propios del centro | Grupos `role-*` adicionales | Quien ocupa el cargo | `SITE_ROLES`, en el archivo del sitio |
 | Equipos | `prog-*` (programas) y `sector-*` (sectores) | Las personas del equipo | `SITE_TEAMS`, en el archivo del sitio |
 | Administración | `admin` | La persona marcada en `primer_admin` | El asistente de AIO |
@@ -53,12 +53,13 @@ La fase 20 de la provisión es el registro de grupos: los crea con id en inglés
 
 Los documentos del centro viven en carpetas de equipo (Group Folders). Estas carpetas no se anidan, así que los nombres de montaje con barra —`Programas/…`, `Unidades/…`, `Sectores/…`— dan el aspecto de árbol: `Transversal` es una sola carpeta, y cada programa, unidad y sector es la suya.
 
-La matriz de acceso es del centro: el archivo del sitio la declara en `SITE_ACL`, una fila `carpeta|grupo|permisos` por concesión, y la fase 40 la aplica. Hay dos niveles:
+La matriz de acceso es del centro: el archivo del sitio la declara en `SITE_ACL`, una fila `carpeta|grupo|permisos` por concesión, y la fase 40 la aplica. En la próxima versión incluye tres niveles:
 
-| Nivel | Campo de permisos | Máscara | Uso en la matriz de primer corte |
+| Nivel | Campo de permisos | Máscara | Uso en la matriz predeterminada |
 |---|---|---|---|
-| Lectura | Vacío | 1 | `Transversal` para `all-staff`; cada unidad con cargo dueño para `cat-jefaturas` |
-| Gestión | `read write delete` | 15 | El resto, incluida `Unidades/Dirección` para `cat-jefaturas` |
+| Lectura | Vacío | 1 | `Transversal` para `all-staff` |
+| Lectura y compartir | `read share` | 17 | Unidades con un cargo responsable, para `cat-jefaturas` |
+| Gestión y compartir | `read write delete share` | 31 | Grupos responsables, incluida `Unidades/Dirección` para `cat-jefaturas` |
 
 La gestión incluye eliminar: con solo leer y escribir, una carpeta admite agregar pero no quitar, y una subida equivocada queda para siempre; además, mover un archivo exige eliminarlo en el origen. Las carpetas de equipo guardan su propia papelera, así que lo eliminado se recupera. Toda concesión que existe en estas carpetas sin estar declarada se retira: borrar una fila de `SITE_ACL` quita el acceso.
 
