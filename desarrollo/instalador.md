@@ -74,6 +74,10 @@ El arranque, la revisión del paquete y la resolución de aplicaciones priorizan
 
 Trabaje en una rama por tarea. Ejecute las verificaciones en un árbol de trabajo aislado y registre los resultados en el pull request. Los cambios de imágenes se validan con un conjunto reconstruido y una instalación limpia.
 
+`APS_HOME` concentra las credenciales, el resultado de ejecución, el estado del asistente, los certificados, el registro de versiones y los paquetes verificados. El valor predeterminado es `/opt/aps-conecta`. `AIO_STATE` y las variables `APS_APPS_*` conservan prioridad para sus rutas explícitas.
+
+La [sección de desarrollo de INSTALLER.md](https://github.com/APS-Conecta/gestion/blob/main/aps/INSTALLER.md#14-provisionar-como-usuario-de-desarrollo) indica cómo clonar el repositorio, instalar `signify` en el directorio de usuario y ejecutar el banco de pruebas y el aprovisionamiento con una cuenta habilitada para Docker. La cuenta conserva la propiedad del certificado y autoriza su lectura a Apache mediante una ACL. La aceptación exige divergencia vacía.
+
 `Containers/network-prefix.sh` calcula el prefijo IPv4 desde la dirección del servicio y su interfaz. Las imágenes de Nextcloud y Apache incluyen el mismo archivo y usan el contexto de construcción del repositorio. La compuerta local verifica prefijos e información ausente o ambigua; Clean boot comprueba una red `/20`, un cliente de la LAN con cabecera simulada y un proxy interno con una dirección reenviada válida.
 
 Los trabajos de comprobación declaran permisos de lectura. El workflow reutilizable de imágenes admite `packages: write` para publicar y reduce los trabajos de comprobación a lectura. Los checkouts usan `persist-credentials: false`.

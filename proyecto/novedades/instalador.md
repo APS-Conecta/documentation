@@ -14,6 +14,7 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| Próxima versión |  | `APS_HOME` concentra el estado del instalador y las aplicaciones. La guía de desarrollo incorpora el verificador local y el aprovisionamiento con una cuenta habilitada para Docker. |
 | Próxima versión |  | Los errores de archivos identifican su ruta completa. Una coincidencia de usuario muestra las cuentas reservadas del centro. La verificación prioriza `signify-openbsd` e informa su instalación completa; el resumen del ensayo muestra los archivos de contraseña existentes. El manual incorpora las rutas comprobadas de datos y del registro de Nextcloud. |
 | Próxima versión |  | Los integrantes de los grupos responsables comparten documentos de sus carpetas. Las jefaturas con acceso de lectura a una unidad también comparten sus documentos. La aceptación comprueba un archivo compartido en Talk entre cuentas sin administración. |
 | Próxima versión |  | Los fallos de aplicaciones detienen la actualización e identifican el paso afectado. El registro de versiones se conserva hasta completar todas las aplicaciones. El asistente incluye la carpeta elegida en el respaldo y muestra la ruta correspondiente de las credenciales. |
