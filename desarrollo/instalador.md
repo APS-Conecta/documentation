@@ -200,6 +200,7 @@ La preparación separa la instalación de herramientas requeridas y del verifica
 
 Clean boot por IP incluye subconjuntos publicados con su procedencia y licencia en `tests/fixtures/comuna/README.md`. El paquete de ensayo fija esos archivos locales antes de firmarse. La instalación ejecuta la importación real; una cuenta ordinaria consulta nombres y geometrías por la API OCS de Territorio. La repetición exige «0 creados» en ambos paquetes.
 
+(pisos-de-recursos)=
 ### Diagnóstico de recursos
 
 La revisión previa conserva sus controles actuales. `scripts/usage.py` registra en ambos trabajos de Clean boot series acotadas de memoria, CPU, intercambio y OOM, junto con métricas de los servicios. Cada muestra identifica su arranque y sus unidades; el cierre vincula el PID y la cantidad de muestras. Las lecturas ausentes se registran como no disponibles.
