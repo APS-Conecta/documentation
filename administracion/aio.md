@@ -41,7 +41,9 @@ sudo ln -sf /usr/bin/signify-openbsd /usr/local/bin/signify
 
 La instalación silenciosa con `--sitio` y `--planilla` admite `--sin-validar-dominio` para omitir la validación del dominio durante la configuración inicial.
 
-El primer recorrido completado del asistente define la configuración de la instancia. Con la suite en marcha, las invocaciones posteriores conservan esos valores y el aprovisionamiento reconcilia el establecimiento. El banco de pruebas completa ese primer recorrido; una instalación silenciosa posterior utiliza su configuración. Al repetir `install --respaldo R`, se conserva la ubicación inicial. Ajuste esa ubicación desde la sección de respaldos del asistente.
+El primer recorrido completado del asistente define la configuración inicial. Mientras la suite está en marcha, las invocaciones posteriores conservan esos valores y el aprovisionamiento reconcilia el establecimiento. El banco de pruebas completa ese primer recorrido; una instalación silenciosa posterior utiliza su configuración. En ese estado, repetir `install --respaldo R` conserva la ubicación inicial. Ajuste esa ubicación desde la sección de respaldos del asistente.
+
+Antes del inicio o con la suite detenida, el controlador puede aplicar la configuración. La opción `--preparar` completa la preparación previa al arranque.
 
 ### Revisión del servidor
 
