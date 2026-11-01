@@ -74,6 +74,8 @@ El arranque, la revisión del paquete y la resolución de aplicaciones priorizan
 
 Trabaje en una rama por tarea. Ejecute las verificaciones en un árbol de trabajo aislado y registre los resultados en el pull request. Los cambios de imágenes se validan con un conjunto reconstruido y una instalación limpia.
 
+`install --sin-validar-dominio` delega en el controlador `asistente-aio`, que compone la solicitud del asistente. Las autopruebas existentes verifican la aceptación de la opción, la solicitud enviada, el modo silencioso y el comando de reintento.
+
 `APS_HOME` concentra las credenciales, el resultado de ejecución, el estado del asistente, los certificados, el registro de versiones y los paquetes verificados. El valor predeterminado es `/opt/aps-conecta`. `AIO_STATE` y las variables `APS_APPS_*` conservan prioridad para sus rutas explícitas.
 
 La [sección de desarrollo de INSTALLER.md](https://github.com/APS-Conecta/gestion/blob/main/aps/INSTALLER.md#14-provisionar-como-usuario-de-desarrollo) indica cómo clonar el repositorio, instalar `signify` en el directorio de usuario y ejecutar el banco de pruebas y el aprovisionamiento con una cuenta habilitada para Docker. La cuenta conserva la propiedad del certificado y autoriza su lectura a Apache mediante una ACL. La aceptación exige divergencia vacía.
@@ -87,6 +89,10 @@ El plan vigente está en [gestion #175](https://github.com/APS-Conecta/gestion/i
 El flujo de inicio termina con un resultado explícito dentro de su respuesta HTML. La consola valida ese resultado y comparte el mismo inicio con la actualización. Los avances de capas y bytes se distinguen de las señales periódicas de conexión; los estados repetidos y los reinicios cíclicos conservan el límite de 20 minutos de inactividad, medido con reloj monotónico.
 
 Las autopruebas del anfitrión simulan errores con HTTP 200, una descarga de 70 minutos con avances, una descarga detenida y la recuperación de sesión. Una respuesta de autenticación permite un reingreso; una interrupción ambigua exige revisar el estado antes de repetir el inicio.
+
+### Restauración de la base de datos
+
+`Containers/postgresql/start.sh` reproduce el volcado con `ON_ERROR_STOP=1` y conserva `import.failed` ante un error. La aceptación utiliza un volcado completo de la suite: verifica la restauración válida, una sentencia fallida y el rechazo del siguiente inicio.
 
 ### AppAPI y HaRP
 

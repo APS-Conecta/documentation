@@ -14,6 +14,8 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| Próxima versión |  | La instalación silenciosa admite `--sin-validar-dominio` mediante el controlador del asistente y conserva la opción en el comando de reintento. El manual precisa la configuración inicial y la ubicación del respaldo en ejecuciones posteriores. |
+| Próxima versión |  | La restauración de la base de datos se detiene ante el primer error SQL y conserva la marca de fallo. El siguiente inicio exige recuperar un respaldo válido. |
 | Próxima versión |  | `APS_HOME` concentra el estado del instalador y las aplicaciones. La guía de desarrollo incorpora el verificador local y el aprovisionamiento con una cuenta habilitada para Docker. |
 | Próxima versión |  | Los errores de archivos identifican su ruta completa. Una coincidencia de usuario muestra las cuentas reservadas del centro. La verificación prioriza `signify-openbsd` e informa su instalación completa; el resumen del ensayo muestra los archivos de contraseña existentes. El manual incorpora las rutas comprobadas de datos y del registro de Nextcloud. |
 | Próxima versión |  | Los integrantes de los grupos responsables comparten documentos de sus carpetas. Las jefaturas con acceso de lectura a una unidad también comparten sus documentos. La aceptación comprueba un archivo compartido en Talk entre cuentas sin administración. |
