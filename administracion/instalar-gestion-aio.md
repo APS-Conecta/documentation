@@ -4,11 +4,11 @@ audiencia: administracion
 apps: []
 resumen: "Instalar la suite en un servidor limpio: el comando único, las cinco pantallas del asistente, el archivo de contraseñas, el personal y las copias."
 ---
-# Instalar APS Conecta Gestión
+# Instalar APS Conecta Gestión AIO
 
 ## Objetivo
 
-Instalar APS Conecta Gestión para un establecimiento (un CESFAM, CECOSF o SAPU) en un servidor limpio.
+Instalar APS Conecta Gestión AIO para un establecimiento (un CESFAM, CECOSF o SAPU) en un servidor limpio.
 
 Un solo comando prepara el servidor e imprime un enlace. El enlace abre el asistente de instalación, que recorre cinco pantallas: «Centro», «Dirección», «Equipos», «Revisar» y «Listo». El asistente no pide contraseñas y la instalación no abre puertos en el router.
 
@@ -41,7 +41,7 @@ Con al menos 4 núcleos y 8 GiB de memoria, la suite instala además el grabador
 
    El comando descarga la última versión publicada de la suite. Revisa el servidor sin modificar nada, verifica la suma del paquete antes de desempacarlo, instala Docker Engine si falta, inicia el contenedor maestro de la suite y el asistente, e imprime el enlace.
 
-2. Si el servidor no cumple los requisitos, el comando se detiene con «Este servidor no cumple los requisitos de APS Conecta Gestión. No se modificó nada.» y una línea por cada requisito que falta:
+2. Si el servidor no cumple los requisitos, el comando se detiene con «Este servidor no cumple los requisitos de APS Conecta Gestión AIO. No se modificó nada.» y una línea por cada requisito que falta:
 
    | Línea | Significado |
    |---|---|
@@ -148,7 +148,7 @@ Cada persona entra además al grupo de todo el personal y a la categoría de su 
 #### Retirar a una persona
 
 1. Marque en la lista a las personas que dejaron el establecimiento.
-2. Presione «Retirar». El asistente pregunta: «¿Retirar a …? Su cuenta se desactivará y saldrá de todos los equipos; sus archivos y lo que compartió se conservan, y podrá reactivarse en «Cuentas», en APS Conecta Gestión.»
+2. Presione «Retirar». El asistente pregunta: «¿Retirar a …? Su cuenta se desactivará y saldrá de todos los equipos; sus archivos y lo que compartió se conservan, y podrá reactivarse en «Cuentas», en APS Conecta Gestión AIO.»
 3. Presione «Confirmar el retiro».
 
 La persona marcada como primer administrador no se retira: marque a otra en `primer_admin` y suba la planilla de nuevo. Una persona retirada sigue retirada aunque se suba otra planilla.
@@ -180,7 +180,7 @@ Con todos los pasos completados, la instalación compara la suite en marcha con 
 
 ### 7. Listo
 
-«Listo» muestra «APS Conecta Gestión quedó instalada. El personal del establecimiento la abre en esta dirección:» y la dirección. Al llegar a «Listo», el asistente se cierra y su enlace deja de funcionar.
+«Listo» muestra «APS Conecta Gestión AIO quedó instalada. El personal del establecimiento la abre en esta dirección:» y la dirección. Al llegar a «Listo», el asistente se cierra y su enlace deja de funcionar.
 
 1. Presione «Descargar el archivo de contraseñas» y guarde el archivo en un lugar seguro. El botón funciona mientras la página sigue abierta.
 2. Lea el mensaje bajo la dirección. Si dice que el computador no abre la dirección, siga [Si un computador no abre la dirección](#instalar-gestion-aio-router).
@@ -192,6 +192,7 @@ El archivo `contrasenas.txt` contiene:
 
 - el usuario `admin`, administrador de la suite, y su contraseña;
 - la frase de contraseña de la página de AIO, para las copias de seguridad y la restauración;
+- la contraseña de cifrado de las copias de seguridad de AIO, necesaria para restaurar una copia en otro servidor;
 - el nombre, el usuario y la primera contraseña de cada persona y de cada cuenta de cargo.
 
 El servidor conserva una copia, legible solo por root:
@@ -202,7 +203,7 @@ sudo cat /var/lib/aps-conecta/provisionador/contrasenas.txt
 
 ### El personal después de la instalación
 
-Después de «Listo», la instalación no vuelve a tocar las cuentas: el personal se administra en la página «Cuentas» de APS Conecta Gestión. Entran a ella la persona marcada en `primer_admin` y el usuario `admin`.
+Después de «Listo», la instalación no vuelve a tocar las cuentas: el personal se administra en la página «Cuentas» de APS Conecta Gestión AIO. Entran a ella la persona marcada en `primer_admin` y el usuario `admin`.
 
 - «Cuenta nueva» agrega a una persona; sus grupos le dan sus equipos y carpetas.
 - «Deshabilitar cuenta» impide que la persona inicie sesión y conserva sus archivos. «Habilitar cuenta» la reactiva; a quien se retiró durante la instalación hay que volver a asignarle sus grupos.
@@ -212,14 +213,14 @@ La planilla del personal ya no se aplica después de «Listo».
 
 ### Las copias de seguridad
 
-La copia de seguridad de AIO queda activa sin configurar nada. Corre cada noche a las 06:00 UTC (las 02:00 o las 03:00 en Chile continental) y guarda las copias en la carpeta `/var/backups/aps-conecta` del servidor. Durante la copia, los contenedores se detienen y se reinician al terminar.
+La copia de seguridad de AIO queda activa sin configurar nada. Corre cada noche a las 06:00 UTC (las 02:00 o las 03:00 en Chile continental) y guarda las copias en la carpeta `/var/backups/aps-conecta` del servidor. Durante la copia, los contenedores se detienen y se reinician al terminar. Las copias están cifradas: para restaurar una en otro servidor se necesita la contraseña de cifrado del archivo de contraseñas.
 
 Para guardar las copias en otro disco o restaurar una copia, use la página de AIO en `https://<centro>.gestion.apsconecta.cl:8080`, con la frase de contraseña del archivo de contraseñas. Mientras la suite está en marcha, esa página bloquea el inicio de sesión directo y explica cómo desbloquearlo.
 
 ## Verificación
 
 - «Listo» muestra la dirección de la suite y «Este equipo abre https://… correctamente.».
-- La dirección abre la página de inicio de sesión de APS Conecta Gestión sin advertencia de certificado.
+- La dirección abre la página de inicio de sesión de APS Conecta Gestión AIO sin advertencia de certificado.
 - Una persona de la planilla inicia sesión con su usuario y la primera contraseña del archivo de contraseñas.
 - Una persona retirada no puede iniciar sesión.
 
