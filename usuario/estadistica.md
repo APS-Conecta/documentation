@@ -13,10 +13,10 @@ Guardar esas consultas como preguntas y reunirlas en tableros para el resto del 
 Seguir mes a mes el avance de las Metas Sanitarias de Atención Primaria.
 
 Las cifras son las que el DEIS publica para todos los establecimientos del país, etiquetadas con el diccionario oficial de cada año.
-Estadística guarda solo conteos agregados que publican el DEIS y FONASA: no contiene información de pacientes.
+Estadística guarda solo conteos agregados que publican el DEIS y FONASA, o que el establecimiento escribe en su propia planilla REM: no contiene información de pacientes.
 Un archivo de FONASA que trae una columna de más, como un RUT o un nombre, se rechaza entero y no se guarda nada de él.
 La aplicación no llena ni valida la planilla REM, y no lee las series BS, BM ni D.
-Quien administra Estadística además carga y mantiene las cifras, la población de FONASA y los compromisos de las Metas Sanitarias desde **Administración → Estadística**.
+Quien administra Estadística además carga y mantiene las cifras, la carpeta de planillas del establecimiento, la población de FONASA y los compromisos de las Metas Sanitarias desde **Administración → Estadística**.
 
 ## Requisitos
 
@@ -181,6 +181,27 @@ La aplicación revisa el DEIS una vez al día y carga una serie por hora.
 Si una carga falla, sigue mostrándose la carga anterior y la tabla dice por qué falló.
 Más abajo se ve la Base de Establecimientos en uso.
 
+#### Planillas del establecimiento
+
+El establecimiento guarda en una carpeta de **Archivos** el formulario REM del DEIS que llena cada mes, en `.xlsm` o `.xlsx`: una planilla por serie y mes.
+
+1. Crear la carpeta en **Archivos**, o usar una compartida con quienes llenan las planillas.
+2. Presionar **Elegir la carpeta en Archivos…** y elegirla.
+
+La sección muestra «Carpeta: «…», en los archivos de …».
+La carpeta se revisa cada hora como la persona que la eligió, así que se lee solo lo que esa persona puede ver.
+Cada archivo de la carpeta aparece con su estado:
+
+| Estado | Qué significa |
+|---|---|
+| Leída: Serie A, marzo de 2026 | La planilla se leyó con el diccionario de su año |
+| Reemplazada por una más reciente | Hay otra planilla de la misma serie y mes guardada después, y cuenta la más reciente |
+| Rechazada: … | No se leyó, y el motivo dice por qué: es de otro establecimiento, su versión del formulario no es la del diccionario de ese año, no es un formulario REM del DEIS, o el archivo no se puede leer |
+
+Las macros de la planilla nunca se ejecutan: solo se leen sus celdas.
+Un archivo que se quita de la carpeta deja de contar.
+Por ahora la aplicación solo lee las planillas y dice su estado: las cifras que muestra siguen siendo las del DEIS.
+
 #### Población inscrita validada (FONASA)
 
 FONASA no publica su población inscrita en un archivo que se pueda descargar solo, así que se carga a mano.
@@ -238,5 +259,6 @@ Cada octubre, cuando el Ministerio publica las Orientaciones Técnicas del año 
 | Una meta sin porcentaje | Falta la población de FONASA de ese año, o el mes todavía no se publica | Avisar a quien administra Estadística si falta la población |
 | «Todavía no hay Metas Sanitarias cargadas» | No hay metas cargadas hasta el año en curso | Avisar a quien administra Estadística, que las carga como un archivo en «Cargar un archivo a mano» |
 | «La consulta se canceló antes de terminar» | La consulta superó el límite de 10 s | Acotar el periodo, las prestaciones o la comparación |
+| «No se encuentra la carpeta de planillas elegida» | La carpeta se borró, o quien la eligió ya no tiene acceso a ella | Elegir otra carpeta en «Planillas del establecimiento» |
 | Un mensaje de error rojo | Dice qué falló | Si pide recargar la página y el problema sigue, avisar a quien administra Estadística |
 | «Si este mensaje no desaparece, la aplicación no pudo cargar: avise al administrador» | La aplicación no llegó a abrirse en el navegador | Avisar a quien administra la instalación |
