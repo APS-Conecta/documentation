@@ -15,7 +15,7 @@ También sigue mes a mes las Metas Sanitarias de Atención Primaria.
 La versión 0.1.0 cierra el hito M1, el pilar REM.
 La guía de uso está en {doc}`/usuario/estadistica`.
 
-Un CESFAM recibe Estadística como aplicación opcional del asistente, desactivada por omisión: quien la elige recibe la publicación firmada más nueva compatible con su Nextcloud, del repositorio propio de la aplicación, sin contactar la tienda de aplicaciones, y la fase 16 escribe el establecimiento.
+Un CESFAM recibe Estadística como aplicación opcional del asistente, desactivada por omisión: quien la elige recibe la publicación firmada más nueva compatible con su Nextcloud, del repositorio propio de la aplicación, sin contactar la tienda de aplicaciones, y el asistente escribe el establecimiento.
 El paquete contiene solo código: las cifras REM no viajan en él y, después de instalar, `RemJob` descarga la ventana del DEIS.
 La versión instalada queda registrada en el candado del servidor ({doc}`/administracion/aplicaciones`).
 
@@ -27,15 +27,17 @@ Ese bloqueo rechaza sobre todo un archivo que agrega un RUT o un nombre.
 Las personas sin tramo de edad se cuentan y se informan al importar, pero no se guardan.
 
 **Invariante: el establecimiento es configuración de la instancia** ([ADR-0009](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0009-the-establishment-is-instance-configuration.md)).
-La aplicación lee tres claves de configuración y no tiene un método que las escriba: el único escritor es la [fase 16 de la provisión](https://github.com/APS-Conecta/gestion/blob/main/provisioning/phases/16-app-policy.sh), y `scripts/divergence.sh` de gestion las compara con el archivo del sitio.
-Un `deis_code` que no tenga seis dígitos se lee como ausencia de establecimiento, y la fase 16 se detiene antes de escribir un valor así.
+La aplicación lee tres claves de configuración y no tiene un método que las escriba.
+En una instalación con el {doc}`asistente </administracion/instalar-gestion-aio>`, las escribe su paso «Establecimiento en Estadística» desde el centro elegido, aunque no se haya marcado Estadística, para que la encuentre quien la active después; la comparación del final de la instalación las vuelve a escribir solo si Nextcloud ya no las tiene.
+En una instalación de gestion, las escribe la [fase 16 de la provisión](https://github.com/APS-Conecta/gestion/blob/main/provisioning/phases/16-app-policy.sh), y `scripts/divergence.sh` de gestion las compara con el archivo del sitio.
+Un `deis_code` que no tenga seis dígitos se lee como ausencia de establecimiento, y tanto el paso como la fase 16 se detienen antes de escribir un valor así.
 Ninguna pantalla de la aplicación elige otro establecimiento como propio.
 
 | Clave | Quién la escribe | Efecto |
 |---|---|---|
-| `deis_code` | Fase 16, desde `SITE_DEIS` | El establecimiento de la serie local. Sin ella, la aplicación muestra el país y los pares, sin serie local |
-| `establishment_type` | Fase 16, desde `SITE_TIPO` | Su tipo, que muestra la sección de administración |
-| `comuna_cut` | Fase 16, desde `SITE_COMUNA_CUT` | El CUT de cinco dígitos de su comuna |
+| `deis_code` | El asistente, desde el código DEIS del centro; en gestion, la fase 16, desde `SITE_DEIS` | El establecimiento de la serie local. Sin ella, la aplicación muestra el país y los pares, sin serie local |
+| `establishment_type` | El asistente, desde el tipo del centro en el registro DEIS; en gestion, la fase 16, desde `SITE_TIPO` | Su tipo, que muestra la sección de administración |
+| `comuna_cut` | El asistente, desde la comuna del centro; en gestion, la fase 16, desde `SITE_COMUNA_CUT` | El CUT de cinco dígitos de su comuna |
 | `first_year` | La sección de administración, «Años de historia nacional» | El primer año de historia nacional que se guarda; por defecto, el año en curso menos 3. Subirlo estrecha la ventana y borra los años que quedan fuera |
 
 Las claves `deis_checked_at`, `deis_etags`, `deis_check_errors` y `deis_register` son estado del trabajo en segundo plano, no ajustes.
