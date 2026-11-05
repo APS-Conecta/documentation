@@ -86,6 +86,7 @@ Los miembros de la comunidad comparten y comentan a diario sus experiencias con 
 :maxdepth: 1
 :glob:
 
+Instalar APS Conecta Gestión (un comando) <instalar-gestion-aio>
 Instalación <instalacion/index>
 AIO <aio>
 Arquitectura <arquitectura>
