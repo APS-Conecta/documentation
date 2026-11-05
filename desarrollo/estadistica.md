@@ -115,7 +115,8 @@ Cada tarjeta de `metas` trae `codigo`, `nombre`, `indicador`, `meta_nacional`, `
 `datos_al` es el último mes que el establecimiento informó en la serie de la meta, el de su fuente en `fecha_corte_local` de `GET indicadores`; en una meta de Serie P puede ser anterior a `mes`, y es `null` en una meta manual o sin establecimiento.
 `cumple` compara el porcentaje con la meta comprometida, o con la meta nacional si no hay una; en una meta manual, el porcentaje es su cumplimiento informado.
 `estado` es `esperando ruta oficial` cuando una ruta de la meta tiene `oficial: false`, y entonces la tarjeta no trae cifra; es `falta el denominador oficial de <año>` cuando `poblacion.falta_oficial` lo marca; si no, es `null`.
-El Resumen se arma en cada solicitud.
+Para el establecimiento configurado, `GET resumen` sirve el Resumen guardado en `estadistica_resumen`, así que todos leen las mismas cifras hasta el siguiente cálculo; mientras no hay uno guardado, lo arma en la solicitud.
+Para cualquier otro `establecimiento` lo arma en cada solicitud y no lo guarda.
 La pestaña **Resumen** es la primera y lee solo esta ruta.
 
 **Rutas internas.** Las acciones de la sección de administración están en la {doc}`referencia generada </_generated/referencia/estadistica>`.
@@ -142,6 +143,11 @@ Cada ejecución lee primero la carpeta de planillas, y después hace a lo más u
 3. Revisar el DEIS, una vez al día.
 
 Fuera de eso, la ejecución no toca la red.
+
+`ResumenJob` es un `QueuedJob` que vuelve a calcular y guarda el Resumen del establecimiento configurado, con `Resumen::build`, el mismo cálculo de la solicitud.
+Lo ponen en cola, en la misma transacción que su escritura, una carga REM (`RemImporter`), los compromisos de la sección de administración (`Goals::commit`: meta comprometida, denominador comprometido y cumplimiento informado), la población que la sección escribe para el establecimiento (`PivImporter::enter`), que gana a la de FONASA en su serie propia, y una semilla de metas, incluida o cargada a mano (`Goals::store`); nada más lo pone en cola.
+Nextcloud guarda una sola copia en cola, así que los cambios que llegan antes de que corra se calculan una vez, y un cambio durante el cálculo pone en cola el siguiente.
+La población que trae el archivo de FONASA entra en el Resumen en su siguiente cálculo.
 
 Cada (año, serie) tiene una fila de estado (`IngestState`) con dos mitades: la carga cambia solo cuando se cargan filas, en la misma transacción, y el intento se escribe en cada prueba.
 
@@ -220,6 +226,7 @@ Una revisión del DEIS que falla aparece en la sección de administración bajo 
 - **Una transacción por (año, serie).** Un `DELETE` y luego `INSERT … SELECT FROM unnest(CAST(? AS …[]))` en lotes de 5.000 filas, con la fila de estado en la misma transacción. Mientras tanto, quien consulta sigue viendo las filas anteriores, hasta que la transacción se confirma.
 - **El intento se anota antes del trabajo.** El inicio del intento consume `pending` en su propia sentencia, así que un archivo que vuelve a poner en cola la misma (año, serie) durante la carga sobrevive a ella.
 - **Olvidar un año, las filas al final.** La ETag y el archivo dejado se borran antes que las filas, porque las filas son lo que hace que el año esté «fuera»: una ejecución que muere a medias lo encuentra otra vez y lo olvida entero.
+- **El Resumen, reemplazado entero.** `estadistica_resumen` guarda solo el Resumen del establecimiento configurado: cada cálculo borra antes cualquier otra fila, y sin establecimiento configurado las borra todas. La fila tiene el documento JSON y, a su lado, la huella (`sha256` del documento), la hora del cálculo y la frase del último cálculo fallido. Las mismas entradas dan el mismo documento, byte a byte. `ResumenJob` no admite ejecuciones paralelas, así que un cálculo más antiguo no se guarda después de uno más nuevo.
 - **Una instantánea por consulta.** Todas las series, las etiquetas y la fuente de una respuesta se leen en una transacción `REPEATABLE READ, READ ONLY`, con `statement_timeout` de 10 s fijado localmente por `set_config(…, true)`. Una escritura que llegara al ejecutor falla en PostgreSQL.
 - **SQL solo con parámetros.** `QueryCompiler` escribe SQL desde su propio texto fijo y desde nombres de conjuntos cerrados (columnas, dimensiones, rasgos y las dos métricas); todo valor va como parámetro. Dos consultas que difieren solo en valores compilan a la misma sentencia.
 - **Solo cuentan las celdas informadas.** Una celda vacía es NULL, nunca 0, así que un informante es un establecimiento con al menos una celda informada entre las columnas elegidas.
@@ -237,11 +244,12 @@ Una revisión del DEIS que falla aparece en la sección de administración bajo 
 | La carpeta de planillas no se encuentra | Las planillas, que se olvidan, y la sección de administración lo dice | Las cifras del DEIS |
 | Nextcloud no entrega un archivo de la carpeta de planillas (su almacenamiento no responde, o falla su cifrado) | Ese archivo, que dice «No se pudo leer el archivo de Nextcloud» y se vuelve a intentar cada hora; el detalle queda en el registro del servidor | Los demás archivos de la carpeta |
 | Falla la lectura de la carpeta de planillas | Las planillas de esa ejecución de `RemJob`; el detalle queda en el registro del servidor | La unidad de trabajo del DEIS de esa misma ejecución |
+| Falla el cálculo del Resumen | Su actualización: la sección de administración, en «Metas Sanitarias», dice por qué en español, o que hubo un error interno cuyo detalle queda en el registro del servidor | El Resumen guardado anterior, hasta el siguiente cálculo que termina bien |
 | Falla una semilla de metas incluida | Las metas de ese año | Las demás semillas, y la activación de la aplicación |
 | La consulta de una tarjeta se rechaza | Esa tarjeta, que muestra su propio mensaje | Las demás tarjetas del tablero |
 | No hay establecimiento configurado | La serie local, los pares «como el propio», la población escrita a mano y los compromisos | El país y los pares elegidos por valor |
 
-Las cifras, el estado de carga, las etiquetas, el registro de establecimientos, las preguntas, los tableros, la población y las metas viven en la base de datos PostgreSQL de la instancia, y las filas REM viajan en el respaldo completo de esa base; un zip REM dejado espera su carga en el almacenamiento de la aplicación (`IAppData`).
+Las cifras, el estado de carga, las etiquetas, el registro de establecimientos, las preguntas, los tableros, la población, las metas y el Resumen guardado viven en la base de datos PostgreSQL de la instancia, y las filas REM viajan en el respaldo completo de esa base; un zip REM dejado espera su carga en el almacenamiento de la aplicación (`IAppData`).
 
 ## Deuda técnica y límites
 
