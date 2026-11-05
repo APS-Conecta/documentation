@@ -40,11 +40,14 @@ Si la instalación no tiene su establecimiento configurado, un aviso lo dice arr
 El **Resumen** muestra las Metas Sanitarias más nuevas cargadas, una tarjeta por meta, con las cifras del propio establecimiento en el año más reciente con cifras y en cada año anterior comparable.
 Mientras el año de esas metas no tiene cifras, como las metas 2027 cargadas en octubre de 2026, se cuentan sobre las cifras del año anterior.
 
+La aplicación trae las metas 2027 de la Res. Exenta 732: el Resumen muestra «Meta I 2027» a «Meta VIII 2027», contadas sobre las cifras de 2026.
+Hasta que el MINSAL publique las Orientaciones Técnicas 2027, cada meta con cifras REM dice «Sin porcentaje: esperando ruta oficial», y la Meta VIII muestra su «Cumplimiento informado».
+
 Cada tarjeta dice:
 
 | Parte | Contenido |
 |---|---|
-| Título | «Meta», su número y el año de las metas, como «Meta I 2026», y debajo el nombre de la meta |
+| Título | «Meta», su número y el año de las metas, como «Meta I 2027», y debajo el nombre de la meta |
 | Porcentaje | El porcentaje del último mes con cifra, y debajo el numerador y el denominador, como «7 de 12» |
 | Datos al | El último mes que el establecimiento informó en la serie de la meta (REM Serie A o REM Serie P) |
 | Cumple | «Cumple» o «No cumple» la meta comprometida, o la meta nacional si no hay meta comprometida, con esa meta entre paréntesis. El borde de la tarjeta repite lo mismo en color |
@@ -154,7 +157,7 @@ Quien creó el tablero, y quien administra Estadística, pueden **Cambiar el tí
 La pestaña muestra las Metas Sanitarias del año (Ley 19.813), una tarjeta por meta, cada una con su tabla mes a mes.
 
 1. Abrir la pestaña **Metas Sanitarias**.
-2. Elegir el año en **Año**, cuando hay metas cargadas de más de un año.
+2. Elegir el año en **Año**, cuando hay metas cargadas de más de un año. La pestaña parte en el año en curso, y las metas 2027 se eligen ahí.
 3. Marcar, bajo «Pares: los establecimientos que comparten con el suyo», los rasgos que deben compartir los pares.
 
 Los pares se eligen solo cuando la instalación tiene su establecimiento configurado, y la pestaña parte con **Tipo de establecimiento** marcado.
@@ -165,7 +168,7 @@ Cada tarjeta dice:
 | Parte | Contenido |
 |---|---|
 | Título | «Meta» con su número y su nombre, y debajo su indicador |
-| Metas y peso | La meta nacional, la meta comprometida por el establecimiento («Sin meta comprometida» si no hay) y el peso de la meta |
+| Metas y peso | La meta nacional, la meta comprometida por el establecimiento («Sin meta comprometida» si no hay) y el peso de la meta, con una raya si la resolución de metas no lo fija, como en 2027 |
 | Denominador | La población inscrita validada por FONASA a una fecha de corte, o la cifra que el establecimiento comprometió |
 | Tabla | Una fila por mes, con **Numerador**, **Denominador**, **Su establecimiento**, **Frente a la meta comprometida**, **Frente a la meta nacional**, **Nacional** y **Pares** |
 

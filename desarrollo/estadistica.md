@@ -206,6 +206,12 @@ Un archivo reemplaza su año entero y los compromisos se mantienen, porque nombr
 El año de un archivo va de 2009 al año siguiente al actual, para que las metas de un año se carguen en octubre del anterior, cuando el MINSAL publica sus Orientaciones Técnicas.
 Cada ruta REM, un `numerador` o un `denominador` con `fuente`, admite la clave `oficial`, `true` o `false`; sin ella, la ruta es oficial, así que una semilla anterior se lee igual.
 Una ruta preparada antes de que las Orientaciones Técnicas del año la confirmen va con `oficial: false`.
+`peso` es opcional: sin él, la meta no tiene peso y `indicadores` trae `peso: null`. Una `nota` tiene hasta 1000 caracteres.
+
+La aplicación trae `seeds/metas-2026.json` y `seeds/metas-2027.json`.
+La semilla 2027 copia de la Res. Exenta 732 los nombres, los indicadores y las metas nacionales, sin pesos.
+Sus rutas REM se prepararon con los diccionarios 2026 (`SA_26_V1.2`, `SP_26_V1.2`) y van todas con `oficial: false`, así que en el Resumen esas metas dicen `esperando ruta oficial` hasta que una versión mayor las confirme con el Anexo 3 de las Orientaciones Técnicas 2027.
+La nota de cada meta cita la prestación de cada código y las columnas que lee, y `GoalSeedTest` comprueba cada código × columna contra esas filas del diccionario 2026.
 
 **El corte de la PIV.** Un año de metas *t* lee el corte del 31-12-(*t* − 1); si no existe, el último corte anterior × 1,03; si tampoco, ninguno.
 La PIV da el denominador de una meta solo cuando su rango de edad es una suma de tramos enteros; `80 a más años` cuenta como 80–89.
@@ -262,6 +268,7 @@ Las cifras, el estado de carga, las etiquetas, el registro de establecimientos, 
 ## Deuda técnica y límites
 
 - **Validación pendiente.** La persona responsable compara las Metas I a VII de junio de 2026 con el cálculo de la unidad de Estadística-REM antes de anunciar la aplicación al personal.
+- **Preguntas abiertas de la semilla 2027.** Donde la Res. 732 no nombra códigos, cada ruta sigue la ruta 2026 del mismo concepto: la Meta I resta derivados y traslados; las Metas V y VI suman la columna total, sin separar las edades de la resolución; la Meta VII cuenta la EPOC en su columna total y su denominador en la existencia de la sección A del REM P3; el denominador de la Meta II cuenta solo mujeres.
 - **Preguntas abiertas de la semilla 2026.** Los pesos son los de 2025, porque las Orientaciones Técnicas 2026 no repiten ninguno; el denominador de la Meta II cuenta solo mujeres, mientras su numerador también cuenta a las personas transmasculinas de col02; el numerador de la Meta VI se cuenta en 2026, donde el texto dice 2025.
 - **Fecha de corte (B-030).** La serie local de una meta de Serie A termina en el último mes con una cifra escrita del propio establecimiento. La fecha de corte de la fuente, que acota las columnas Nacional y Pares, es el mes más alto de cualquier fila: en el extracto 2026, un solo establecimiento informó septiembre.
 - **Etiquetas prestadas (B-031).** Un año toma etiquetas solo de un diccionario posterior; el diccionario 2026 dejó fuera dos códigos que 2023–2025 sí etiquetan, y quedan «sin descripción».
