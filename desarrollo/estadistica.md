@@ -37,6 +37,7 @@ Ninguna pantalla de la aplicación elige otro establecimiento como propio.
 | `establishment_type` | Fase 16, desde `SITE_TIPO` | Su tipo, que muestra la sección de administración |
 | `comuna_cut` | Fase 16, desde `SITE_COMUNA_CUT` | El CUT de cinco dígitos de su comuna |
 | `first_year` | La sección de administración, «Años de historia nacional» | El primer año de historia nacional que se guarda; por defecto, el año en curso menos 3. Subirlo estrecha la ventana y borra los años que quedan fuera |
+| `planilla_owner`, `planilla_folder` | La sección de administración, «Planillas del establecimiento» | Quién eligió la carpeta de planillas, y el id de esa carpeta. El trabajo la lee como esa persona |
 
 Las claves `deis_checked_at`, `deis_etags`, `deis_check_errors` y `deis_register` son estado del trabajo en segundo plano, no ajustes.
 
@@ -122,7 +123,7 @@ Mapa de módulos <../_generated/mapa/estadistica>
 
 El único trabajo programado es `RemJob`, un `TimedJob` declarado en `appinfo/info.xml`: nada corre en el planificador del host ({doc}`/desarrollo/plataforma/basics/backgroundjobs`).
 Corre cada hora, como `TIME_SENSITIVE`, sin ejecuciones paralelas.
-Cada ejecución hace a lo más una unidad de trabajo, la primera que aplica:
+Cada ejecución lee primero la carpeta de planillas, y después hace a lo más una unidad de trabajo, la primera que aplica:
 
 1. Olvidar un año que la ventana ya no guarda, el más antiguo primero.
 2. Cargar una (año, serie) en cola, el año más nuevo primero: desde el archivo que dejó un administrador, si lo hay, y si no, desde el DEIS por rangos.
@@ -162,6 +163,16 @@ La misma pasada revisa con un HEAD condicional la Base de Establecimientos más 
 El año de un zip REM sale de sus filas, no del nombre del archivo, y tiene que estar dentro de la ventana.
 Sus series se ponen en cola solo después de guardar el archivo, todas en una sentencia.
 El archivo se conserva mientras una serie de su año falló por un error propio, para que el siguiente intento lo use en lugar de la copia del DEIS.
+
+**La carpeta de planillas** (ADR-0010). `PUT /admin/planillas` recibe la ruta de una carpeta dentro de los archivos propios de quien llama; es una escritura delegada, como las demás.
+Cada ejecución de `RemJob` lista los archivos que están directamente en la carpeta, como quien la eligió.
+Lee los nuevos y los cambiados, y todos otra vez cuando cambia el establecimiento configurado o un diccionario; olvida, con sus filas, los que ya no están.
+El formulario REM es su diccionario sin la columna A del código: cada cifra se lee una columna a la izquierda de su marcador `COLnn`, en la misma fila, según la ubicación que `estadistica_code` guarda al leer el diccionario de ese año.
+La hoja NOMBRE da el código del establecimiento (un dígito por celda, de C3 a H3), el mes (B6), el año (B7), la versión del formulario (A9) y la serie (B17).
+Una planilla se rechaza entera, con su motivo, si su código no es el configurado, si su versión no es la del diccionario de ese año, o si no es un formulario REM del DEIS.
+Una fila se guarda solo si alguna de sus cifras no es 0, como las publica el DEIS: los totales del formulario son fórmulas y una fila sin llenar trae ceros.
+Las cifras leídas se guardan en `estadistica_planilla_rem`, aparte de las del DEIS y con su archivo, y todavía no entran en ninguna consulta.
+Por cada serie y mes cuenta la planilla más reciente, por fecha de modificación y luego por id de archivo; las demás se muestran como reemplazadas.
 
 **La semilla de metas.** `EnsureSeedData` corre como paso de reparación en la instalación y después de cada migración.
 Carga un archivo de `seeds/` cuando su año no tiene metas o tiene una versión anterior; un archivo que cargó un administrador con una versión igual o mayor se queda.
@@ -207,6 +218,7 @@ Una revisión del DEIS que falla aparece en la sección de administración bajo 
 | `'has_internet_connection' => false` | No se consulta el DEIS, y la sección de administración lo dice | La carga desde archivos dejados a mano |
 | Falla la carga de un miembro | Esa (año, serie) no se actualiza | La última carga buena sigue sirviendo |
 | Un diccionario o la Base de Establecimientos no se pueden leer | Las etiquetas o los pares de esa carga | Las cifras se cargan igual, y el diccionario o el registro anteriores siguen sirviendo |
+| La carpeta de planillas no se encuentra | Las planillas, que se olvidan, y la sección de administración lo dice | Las cifras del DEIS |
 | Falla una semilla de metas incluida | Las metas de ese año | Las demás semillas, y la activación de la aplicación |
 | La consulta de una tarjeta se rechaza | Esa tarjeta, que muestra su propio mensaje | Las demás tarjetas del tablero |
 | No hay establecimiento configurado | La serie local, los pares «como el propio», la población escrita a mano y los compromisos | El país y los pares elegidos por valor |
