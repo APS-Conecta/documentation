@@ -46,7 +46,7 @@ Cada tarjeta dice:
 |---|---|
 | Título | «Meta», su número y el año de las metas, como «Meta I 2026», y debajo el nombre de la meta |
 | Porcentaje | El porcentaje del último mes con cifra, y debajo el numerador y el denominador, como «7 de 12» |
-| Datos al | El último mes que el establecimiento informó en la serie de la meta (REM Serie A o REM Serie P) |
+| Datos al | El último mes que el establecimiento informó en la serie de la meta (REM Serie A o REM Serie P), y de dónde salen las cifras con su fecha, como «datos públicos DEIS, con cifras hasta noviembre de 2026» |
 | Cumple | «Cumple» o «No cumple» la meta comprometida, o la meta nacional si no hay meta comprometida, con esa meta entre paréntesis. El borde de la tarjeta repite lo mismo en color |
 | Histórico | Un gráfico con una línea por año comparable, la del año más reciente destacada, y la meta como línea discontinua. Debajo, la tabla con el porcentaje de cada mes por año, su numerador y su denominador, y el **Cierre** de cada año terminado |
 
@@ -61,6 +61,13 @@ Para leer las tarjetas:
 - El **Cierre** de un año terminado es su porcentaje de diciembre: lo sumado en su periodo hasta diciembre en REM Serie A, el corte de diciembre en REM Serie P. Un año sin corte de diciembre no tiene cierre.
 - La Meta VIII no tiene cifras REM: muestra el «Cumplimiento informado» que se escribió a mano.
 - El Resumen muestra solo las cifras del propio establecimiento. Las nacionales y las de pares están en **Metas Sanitarias** y en **Consultar**.
+- Cada cifra de una tarjeta, el porcentaje, el numerador y el denominador, y cada cifra de su tabla se puede presionar o elegir con el teclado. Abre, en la barra lateral, de dónde sale la cifra en su mes y su año:
+  - el origen del mes y su fecha, como «Origen: datos públicos DEIS, con cifras hasta noviembre de 2026»;
+  - para el numerador y el denominador, la serie REM y el periodo de ese año, y los códigos que se suman y los que se restan, cada uno con su hoja, su sección y sus columnas, con los nombres del diccionario de ese año;
+  - para un denominador que no sale del REM, «Población inscrita validada por FONASA» o «Lo comprometió el establecimiento»;
+  - la referencia de las metas: la resolución y las Orientaciones Técnicas que las fijan.
+
+  La barra lateral se cierra con Escape o con su botón de cerrar, y el teclado vuelve a la cifra.
 - El Resumen se calcula en segundo plano después de cada carga de cifras REM o de metas y de cada cambio en los compromisos o en la **Población de su establecimiento**, y todos ven las mismas cifras hasta el cálculo siguiente. Una población de FONASA recién cargada entra en el Resumen en ese cálculo.
 
 ### Cifras REM

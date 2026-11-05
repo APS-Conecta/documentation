@@ -109,23 +109,27 @@ Un título tiene hasta 200 caracteres; un tablero, hasta 24 tarjetas, cada una d
 `GoalEvaluator` consulta todos los términos del año en el servidor, con las mismas sentencias que compila una consulta, en una sola instantánea de solo lectura.
 La vista de metas lee `GET indicadores` y no envía consultas propias.
 
-**Resumen.** `GET resumen` responde `{anio, nombre, establecimiento, metas}` con las metas de la semilla más nueva, para el establecimiento configurado o para el que nombra `establecimiento`.
-Cada tarjeta de `metas` trae `codigo`, `nombre`, `indicador`, `meta_nacional`, `meta_comprometida`, `manual`, `estado`, `mes`, `datos_al`, `numerador`, `denominador`, `porcentaje`, `cumple` e `historico`.
+**Resumen.** `GET resumen` responde `{anio, nombre, referencia, establecimiento, metas}` con las metas de la semilla más nueva, para el establecimiento configurado o para el que nombra `establecimiento`; `referencia` es la de la semilla.
+Cada tarjeta de `metas` trae `codigo`, `nombre`, `indicador`, `meta_nacional`, `meta_comprometida`, `manual`, `estado`, `mes`, `datos_al`, `numerador`, `denominador`, `porcentaje`, `cumple`, `historico`, `origen` y `fecha_corte`.
 El año de la tarjeta es el más reciente con cifras REM, y nunca uno posterior al de las metas: las metas del año siguiente, cargadas en octubre, se cuentan sobre las cifras del año en curso.
 `Resumen` (`lib/Goals/Resumen.php`) toma de `GoalEvaluator::history()` la respuesta para el establecimiento solo, sin serie nacional ni de pares, así que en el año de las metas `numerador`, `denominador` y `porcentaje` son los de la serie local de `GET indicadores` en el mismo `mes`: el último mes con porcentaje.
 `datos_al` es el último mes que el establecimiento informó en la serie de la meta, el de su fuente en `fecha_corte_local` de `GET indicadores`; en una meta de Serie P puede ser anterior a `mes`, y es `null` en una meta manual o sin establecimiento.
 `cumple` compara el porcentaje con la meta comprometida, o con la meta nacional si no hay una; en una meta manual, el porcentaje es su cumplimiento informado.
 `estado` es `esperando ruta oficial` cuando una ruta de la meta tiene `oficial: false`, y entonces la tarjeta no trae cifra; es `falta el denominador oficial de <año>` cuando `poblacion.falta_oficial` lo marca; si no, es `null`.
-`historico` es una lista `{anio, estado, cierre, meses}` por año de la ventana, del más antiguo al de la tarjeta.
+`origen` y `fecha_corte` dicen de dónde sale el `mes` de la tarjeta: hoy `datos públicos DEIS` y el último mes (`AAAA-MM`) de la carga de ese año en la fuente del numerador; sin `mes` son `null`.
+`historico` es una lista `{anio, estado, cierre, meses, ruta}` por año de la ventana, del más antiguo al de la tarjeta.
 Cada año cuenta las metas más nuevas con todos sus periodos corridos en años enteros (`GoalSeed::shift()`), la ventana de octubre a septiembre de la Meta I incluida, en una sola instantánea de solo lectura para todos los años.
-Cada mes de `meses` trae `mes`, `numerador`, `denominador` y `porcentaje`: en REM Serie A, la suma desde el inicio del periodo; en REM Serie P, solo los cortes de junio y diciembre, cada uno con su propio corte: cuando el establecimiento no informó ese corte, `numerador` (y `denominador`, si también es de Serie P) y `porcentaje` son `null`, nunca los del corte anterior.
+Cada mes de `meses` trae `mes`, `numerador`, `denominador`, `porcentaje`, `origen` y `fecha_corte`: en REM Serie A, la suma desde el inicio del periodo; en REM Serie P, solo los cortes de junio y diciembre, cada uno con su propio corte: cuando el establecimiento no informó ese corte, `numerador` (y `denominador`, si también es de Serie P) y `porcentaje` son `null`, nunca los del corte anterior.
 `cierre` es el `porcentaje` de diciembre de un año ya terminado, y `null` en otro caso.
 `estado` es `sin datos comparables`, sin meses, cuando el diccionario propio de ese año etiqueta algún código × columna de la ruta distinto que el del año de la tarjeta (se comparan hoja, sección, prestación y columna, sin distinguir mayúsculas, tildes ni plurales), cuando el año toma prestado el diccionario de otro, o cuando un periodo corrido empieza antes del primer año de la ventana.
 Si no, es `falta el denominador oficial de <año>` cuando falta el denominador comprometido de ese año, o `null`.
+`ruta` trae `numerador` y `denominador` de ese año, cada uno con `fuente`, `desde` y `hasta` (`AAAA-MM`, corridos a ese año), `sumar` y `restar`: una lista por consulta de la ruta, con cada código etiquetado para sus columnas por el diccionario de ese año, como lo etiqueta `POST consultas`.
+Un denominador de la población inscrita de FONASA tiene `fuente` `piv`, `desde` y `hasta` en `null` y ningún código; el que solo da el compromiso es `null`.
 Una meta manual, o una que espera su ruta oficial, trae `historico` vacío.
 Para el establecimiento configurado, `GET resumen` sirve el Resumen guardado en `estadistica_resumen`, así que todos leen las mismas cifras hasta el siguiente cálculo; mientras no hay uno guardado, lo arma en la solicitud.
 Para cualquier otro `establecimiento` lo arma en cada solicitud y no lo guarda.
 La pestaña **Resumen** es la primera y lee solo esta ruta, y dibuja `historico` con el envoltorio de Chart.js de la app.
+Cada cifra de una tarjeta y de su tabla abre el panel de su origen en `NcAppSidebar` (`src/components/ResumenFuente.vue`), un fragmento que se carga en el primer clic.
 
 **Rutas internas.** Las acciones de la sección de administración están en la {doc}`referencia generada </_generated/referencia/estadistica>`.
 Cada una lleva `#[AuthorizedAdminSetting(settings: AdminSettings::class)]` y responde un rechazo como un 422 con `{message}`.
