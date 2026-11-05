@@ -56,7 +56,7 @@ Las decisiones están en los ADR del repositorio, en `docs/adr/`:
 | 0004 | REM es una tabla tipada sobre una ventana de años, cargada entera por (año, serie) |
 | 0005 | La aplicación consulta al DEIS en tiempo de ejecución, por rangos HTTP, una vez al día |
 | 0006 | Una sola especificación de consulta, compilada a SQL con parámetros y ejecutada en solo lectura |
-| 0007 | La Población Inscrita Validada (PIV) de FONASA se sube a mano, se guarda por corte y se prorratea |
+| 0007 | La Población Inscrita Validada (PIV) de FONASA se sube a mano, se guarda por corte y da el denominador solo a rangos de tramos de edad enteros |
 | 0008 | Las Metas Sanitarias son un archivo semilla por año, leído mes a mes |
 
 ## Contratos de componentes y API
@@ -182,7 +182,9 @@ Un archivo reemplaza su año entero y los compromisos se mantienen, porque nombr
 El año de un archivo va de 2009 al año siguiente al actual, para que las metas de un año se carguen en octubre del anterior, cuando el MINSAL publica sus Orientaciones Técnicas.
 
 **El corte de la PIV.** Un año de metas *t* lee el corte del 31-12-(*t* − 1); si no existe, el último corte anterior × 1,03; si tampoco, ninguno.
-Un tramo de edad cuenta su población por los años que comparte con el rango de la meta, dividida por 10, y `80 a más años` cuenta como 80–89.
+La PIV da el denominador de una meta solo cuando su rango de edad es una suma de tramos enteros; `80 a más años` cuenta como 80–89.
+Un rango que corta un tramo no tiene denominador, ni local, ni nacional, ni de pares, hasta que se escribe el denominador comprometido del año, que vale solo para la serie local.
+En `indicadores`, `poblacion.falta_oficial` marca esa meta.
 Las cifras que un administrador escribe para el propio establecimiento ganan sobre las de FONASA celda por celda, solo en la serie local.
 
 ## Taxonomía de errores
