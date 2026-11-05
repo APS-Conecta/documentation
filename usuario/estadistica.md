@@ -61,6 +61,7 @@ Para leer las tarjetas:
 - El **Cierre** de un año terminado es su porcentaje de diciembre: lo sumado en su periodo hasta diciembre en REM Serie A, el corte de diciembre en REM Serie P. Un año sin corte de diciembre no tiene cierre.
 - La Meta VIII no tiene cifras REM: muestra el «Cumplimiento informado» que se escribió a mano.
 - El Resumen muestra solo las cifras del propio establecimiento. Las nacionales y las de pares están en **Metas Sanitarias** y en **Consultar**.
+- El Resumen se calcula en segundo plano después de cada carga de cifras REM o de metas y de cada cambio en los compromisos o en la **Población de su establecimiento**, y todos ven las mismas cifras hasta el cálculo siguiente. Una población de FONASA recién cargada entra en el Resumen en ese cálculo.
 
 ### Cifras REM
 
@@ -251,6 +252,9 @@ Un año sin corte propio usa el último corte anterior multiplicado por 1,03.
 5. Presionar **Guardar**.
 
 Una casilla en blanco no compromete nada.
+
+La sección dice cuándo se calculó el Resumen en uso.
+Si su último cálculo falló, lo dice con el motivo, y sigue en uso el anterior.
 
 #### Cargar un archivo a mano
 
