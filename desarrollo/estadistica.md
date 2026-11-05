@@ -145,9 +145,9 @@ Cada ejecución lee primero la carpeta de planillas, y después hace a lo más u
 Fuera de eso, la ejecución no toca la red.
 
 `ResumenJob` es un `QueuedJob` que vuelve a calcular y guarda el Resumen del establecimiento configurado, con `Resumen::build`, el mismo cálculo de la solicitud.
-Lo ponen en cola, en la misma transacción que su escritura, una carga REM (`RemImporter`), los compromisos de la sección de administración (`Goals::commit`: meta comprometida, denominador comprometido y cumplimiento informado) y una semilla de metas, incluida o cargada a mano (`Goals::store`); nada más lo pone en cola.
+Lo ponen en cola, en la misma transacción que su escritura, una carga REM (`RemImporter`), los compromisos de la sección de administración (`Goals::commit`: meta comprometida, denominador comprometido y cumplimiento informado), la población que la sección escribe para el establecimiento (`PivImporter::enter`), que gana a la de FONASA en su serie propia, y una semilla de metas, incluida o cargada a mano (`Goals::store`); nada más lo pone en cola.
 Nextcloud guarda una sola copia en cola, así que los cambios que llegan antes de que corra se calculan una vez, y un cambio durante el cálculo pone en cola el siguiente.
-La población de FONASA entra en el Resumen en su siguiente cálculo.
+La población que trae el archivo de FONASA entra en el Resumen en su siguiente cálculo.
 
 Cada (año, serie) tiene una fila de estado (`IngestState`) con dos mitades: la carga cambia solo cuando se cargan filas, en la misma transacción, y el intento se escribe en cada prueba.
 
@@ -226,7 +226,7 @@ Una revisión del DEIS que falla aparece en la sección de administración bajo 
 - **Una transacción por (año, serie).** Un `DELETE` y luego `INSERT … SELECT FROM unnest(CAST(? AS …[]))` en lotes de 5.000 filas, con la fila de estado en la misma transacción. Mientras tanto, quien consulta sigue viendo las filas anteriores, hasta que la transacción se confirma.
 - **El intento se anota antes del trabajo.** El inicio del intento consume `pending` en su propia sentencia, así que un archivo que vuelve a poner en cola la misma (año, serie) durante la carga sobrevive a ella.
 - **Olvidar un año, las filas al final.** La ETag y el archivo dejado se borran antes que las filas, porque las filas son lo que hace que el año esté «fuera»: una ejecución que muere a medias lo encuentra otra vez y lo olvida entero.
-- **El Resumen, reemplazado entero.** `estadistica_resumen` guarda una fila por establecimiento: el documento JSON y, a su lado, la huella (`sha256` del documento), la hora del cálculo y la frase del último cálculo fallido. Las mismas entradas dan el mismo documento, byte a byte. `ResumenJob` no admite ejecuciones paralelas, así que un cálculo más antiguo no se guarda después de uno más nuevo.
+- **El Resumen, reemplazado entero.** `estadistica_resumen` guarda solo el Resumen del establecimiento configurado: cada cálculo borra antes cualquier otra fila, y sin establecimiento configurado las borra todas. La fila tiene el documento JSON y, a su lado, la huella (`sha256` del documento), la hora del cálculo y la frase del último cálculo fallido. Las mismas entradas dan el mismo documento, byte a byte. `ResumenJob` no admite ejecuciones paralelas, así que un cálculo más antiguo no se guarda después de uno más nuevo.
 - **Una instantánea por consulta.** Todas las series, las etiquetas y la fuente de una respuesta se leen en una transacción `REPEATABLE READ, READ ONLY`, con `statement_timeout` de 10 s fijado localmente por `set_config(…, true)`. Una escritura que llegara al ejecutor falla en PostgreSQL.
 - **SQL solo con parámetros.** `QueryCompiler` escribe SQL desde su propio texto fijo y desde nombres de conjuntos cerrados (columnas, dimensiones, rasgos y las dos métricas); todo valor va como parámetro. Dos consultas que difieren solo en valores compilan a la misma sentencia.
 - **Solo cuentan las celdas informadas.** Una celda vacía es NULL, nunca 0, así que un informante es un establecimiento con al menos una celda informada entre las columnas elegidas.
