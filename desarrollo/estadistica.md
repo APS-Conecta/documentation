@@ -53,7 +53,7 @@ Las decisiones están en los ADR del repositorio, en `docs/adr/`:
 | 0004 | REM es una tabla tipada sobre una ventana de años, cargada entera por (año, serie) |
 | 0005 | La aplicación consulta al DEIS en tiempo de ejecución, por rangos HTTP, una vez al día |
 | 0006 | Una sola especificación de consulta, compilada a SQL con parámetros y ejecutada en solo lectura |
-| 0007 | La Población Inscrita Validada (PIV) de FONASA se sube a mano y se guarda por corte; su enmienda del 2026-11-05 deja solo tramos de edad enteros |
+| 0007 | La Población Inscrita Validada (PIV) de FONASA se sube a mano, se guarda por corte y da el denominador solo a rangos de tramos de edad enteros |
 | 0008 | Las Metas Sanitarias son un archivo semilla por año, leído mes a mes |
 
 ## Contratos de componentes y API
