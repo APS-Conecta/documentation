@@ -219,6 +219,8 @@ Una revisión del DEIS que falla aparece en la sección de administración bajo 
 | Falla la carga de un miembro | Esa (año, serie) no se actualiza | La última carga buena sigue sirviendo |
 | Un diccionario o la Base de Establecimientos no se pueden leer | Las etiquetas o los pares de esa carga | Las cifras se cargan igual, y el diccionario o el registro anteriores siguen sirviendo |
 | La carpeta de planillas no se encuentra | Las planillas, que se olvidan, y la sección de administración lo dice | Las cifras del DEIS |
+| Nextcloud no entrega un archivo de la carpeta de planillas (su almacenamiento no responde, o falla su cifrado) | Ese archivo, que dice «No se pudo leer el archivo de Nextcloud» y se vuelve a intentar cada hora; el detalle queda en el registro del servidor | Los demás archivos de la carpeta |
+| Falla la lectura de la carpeta de planillas | Las planillas de esa ejecución de `RemJob`; el detalle queda en el registro del servidor | La unidad de trabajo del DEIS de esa misma ejecución |
 | Falla una semilla de metas incluida | Las metas de ese año | Las demás semillas, y la activación de la aplicación |
 | La consulta de una tarjeta se rechaza | Esa tarjeta, que muestra su propio mensaje | Las demás tarjetas del tablero |
 | No hay establecimiento configurado | La serie local, los pares «como el propio», la población escrita a mano y los compromisos | El país y los pares elegidos por valor |
