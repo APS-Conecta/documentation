@@ -74,7 +74,7 @@ El contrato es `openapi.json`, que un script del repositorio genera desde el con
 | `preguntas/{id}` | GET, PUT, DELETE | 200 · 403 · 404 · 422 |
 | `tableros` | GET, POST | 200 · 201: el tablero guardado · 422 |
 | `tableros/{id}` | GET, PUT, DELETE | 200 · 403 · 404 · 422 |
-| `indicadores` | GET, con `anio` y `pares` opcionales | 200: las metas del año, mes a mes · 400 · 404: no hay metas para ese año · 422 |
+| `indicadores` | GET, con `anio` y `pares` opcionales | 200: las metas del año, mes a mes, y en `fecha_corte_local` el último mes que el establecimiento informó en cada serie · 400 · 404: no hay metas para ese año · 422 |
 
 **La especificación de consulta.** `POST consultas` recibe `{consulta, establecimiento?}`.
 Una consulta es un documento JSON con claves en español, y `QuerySpec::from()` es su único lector.
@@ -219,13 +219,13 @@ Las cifras, el estado de carga, las etiquetas, el registro de establecimientos, 
 
 - **Validación pendiente.** La persona responsable compara las Metas I a VII de junio de 2026 con el cálculo de la unidad de Estadística-REM antes de anunciar la aplicación al personal.
 - **Preguntas abiertas de la semilla 2026.** Los pesos son los de 2025, porque las Orientaciones Técnicas 2026 no repiten ninguno; el denominador de la Meta II cuenta solo mujeres, mientras su numerador también cuenta a las personas transmasculinas de col02; el numerador de la Meta VI se cuenta en 2026, donde el texto dice 2025.
-- **Fecha de corte (B-030).** La fecha de corte es el mes más alto de cualquier fila: en el extracto 2026, un solo establecimiento informó septiembre, y cada meta de Serie A repite agosto en septiembre.
+- **Fecha de corte (B-030).** La serie local de una meta de Serie A termina en el último mes con una cifra escrita del propio establecimiento. La fecha de corte de la fuente, que acota las columnas Nacional y Pares, es el mes más alto de cualquier fila: en el extracto 2026, un solo establecimiento informó septiembre.
 - **Etiquetas prestadas (B-031).** Un año toma etiquetas solo de un diccionario posterior; el diccionario 2026 dejó fuera dos códigos que 2023–2025 sí etiquetan, y quedan «sin descripción».
 - **Consultas nacionales pesadas (B-032).** Una consulta nacional sobre toda la ventana que suma una hoja entera se cancela a los 10 s con sus 50 columnas. Los únicos índices son la clave primaria y `(estab, anio)`, sobre 27,3 millones de filas.
 - **Incompleto a comienzo de año (B-020).** El año en curso puede marcarse «incompleto» temprano en el año, porque `Completeness` compara cada servicio con el año completo más cercano, entero.
 - **Deuda de la plantilla (B-015 a B-019).** Pasar `@nextcloud/webpack-vue-config` a su versión 7, los 404 de `.htaccess`, un `composer.phar` sin versión fija ni verificación, la prueba de navegador fuera de CI y el valor por defecto de `APS` en un worktree se corrigen primero en farmacia y luego aquí: el clon no sigue a la plantilla por sí solo.
 - **Pruebas fuera de CI.** Ningún trabajo de CI corre la suite de integración contra PostgreSQL ni la prueba de navegador.
-- **Interfaz (B-012, B-013).** En un teléfono, la grilla de población escrita a mano es más ancha que su sección; el paquete principal pesa 711.997 bytes frente a un presupuesto de 720.000.
+- **Interfaz (B-012, B-013).** En un teléfono, la grilla de población escrita a mano es más ancha que su sección. Cada pestaña carga su código la primera vez que se abre, así que el paquete principal pesa 327.875 bytes frente a un presupuesto de 720.000; cada bloque `<style>` todavía lleva su archivo `.vue` entero, en base64, dentro de su paquete.
 - **Techo de carga.** La carga corre a unos 32.000 filas por segundo dentro de OCP; `COPY` por una segunda conexión lo subiría, y fue rechazado.
 - **Tamaño.** La ventana por defecto de cuatro años ocupa unos 4,9 GB de base de datos, y lo mismo en cada respaldo. Un respaldo de gestion que omita las filas REM, que la aplicación puede volver a descargar, queda pendiente de medir el tiempo del volcado.
 - **Filtro por hoja.** Un filtro por hoja es la unión de sus códigos en los diccionarios del periodo, no año por año.
