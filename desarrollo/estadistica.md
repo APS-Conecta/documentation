@@ -110,8 +110,9 @@ Un título tiene hasta 200 caracteres; un tablero, hasta 24 tarjetas, cada una d
 La vista de metas lee `GET indicadores` y no envía consultas propias.
 
 **Resumen.** `GET resumen` responde `{anio, nombre, establecimiento, metas}` con las metas de la semilla más nueva, para el establecimiento configurado o para el que nombra `establecimiento`.
-Cada tarjeta de `metas` trae `codigo`, `nombre`, `indicador`, `meta_nacional`, `meta_comprometida`, `manual`, `estado`, `mes`, `numerador`, `denominador`, `porcentaje` y `cumple`.
+Cada tarjeta de `metas` trae `codigo`, `nombre`, `indicador`, `meta_nacional`, `meta_comprometida`, `manual`, `estado`, `mes`, `datos_al`, `numerador`, `denominador`, `porcentaje` y `cumple`.
 `Resumen` (`lib/Goals/Resumen.php`) toma la respuesta de `GoalEvaluator` para el establecimiento solo, sin serie nacional ni de pares, así que `numerador`, `denominador` y `porcentaje` son los de la serie local de `GET indicadores` en el mismo `mes`: el último mes con porcentaje.
+`datos_al` es el último mes que el establecimiento informó en la serie de la meta, el de su fuente en `fecha_corte_local` de `GET indicadores`; en una meta de Serie P puede ser anterior a `mes`, y es `null` en una meta manual o sin establecimiento.
 `cumple` compara el porcentaje con la meta comprometida, o con la meta nacional si no hay una; en una meta manual, el porcentaje es su cumplimiento informado.
 `estado` es `esperando ruta oficial` cuando una ruta de la meta tiene `oficial: false`, y entonces la tarjeta no trae cifra; es `falta el denominador oficial de <año>` cuando `poblacion.falta_oficial` lo marca; si no, es `null`.
 El Resumen se arma en cada solicitud.

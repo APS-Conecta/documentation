@@ -45,7 +45,7 @@ Cada tarjeta dice:
 |---|---|
 | Título | «Meta», su número y el año de las metas, como «Meta I 2026», y debajo el nombre de la meta |
 | Porcentaje | El porcentaje del último mes con cifra, y debajo el numerador y el denominador, como «7 de 12» |
-| Datos al | El mes de esas cifras |
+| Datos al | El último mes que el establecimiento informó en la serie de la meta (REM Serie A o REM Serie P) |
 | Cumple | «Cumple» o «No cumple» la meta comprometida, o la meta nacional si no hay meta comprometida, con esa meta entre paréntesis. El borde de la tarjeta repite lo mismo en color |
 
 Para leer las tarjetas:
