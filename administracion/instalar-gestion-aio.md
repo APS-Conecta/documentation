@@ -20,7 +20,7 @@ Al terminar, el personal abre la suite en `https://<centro>.gestion.apsconecta.c
   - procesador x86_64;
   - al menos 2 núcleos de CPU y 6 GiB de memoria;
   - al menos 27 GB libres en `/var/lib/docker` (o en `/var/lib`, si Docker no está instalado): la suite y su primera copia de seguridad nocturna, que queda en el mismo disco;
-  - Ubuntu o Debian, si Docker no está instalado: el comando instala Docker Engine solo en esos sistemas;
+  - Ubuntu, Debian o un sistema basado en ellos (Linux Mint, LMDE…), si Docker no está instalado: el comando instala Docker Engine solo en esos sistemas; con Docker ya instalado, sirve cualquier Linux;
   - acceso a internet;
   - los puertos 80, 443 (TCP y UDP), 8080, 8081 y 8443 libres.
 - Acceso de administrador (`sudo`) en el servidor.
@@ -49,7 +49,7 @@ Con al menos 4 núcleos y 8 GiB de memoria, la suite instala además el grabador
    | «tiene … GiB de memoria; se requieren al menos 6 GiB» | Falta memoria. |
    | «tiene … núcleo(s) de CPU; se requieren al menos 2» | Faltan núcleos de CPU. |
    | «tiene … GB libres en …; se requieren al menos 27 GB» | Falta espacio en la carpeta indicada. |
-   | «Docker no está instalado y el instalador solo lo instala en Ubuntu o Debian (…)» | El servidor no tiene Docker y su sistema no es Ubuntu ni Debian. |
+   | «Docker no está instalado y el instalador solo lo instala en Ubuntu, Debian o un sistema basado en ellos (…)» | El servidor no tiene Docker y su sistema no se basa en Ubuntu ni en Debian. Instalar Docker Engine y volver a ejecutar el comando. |
 
 Si el comando ya se ejecutó en ese servidor, volver a ejecutarlo no reinstala nada. Antes de «Listo», imprime un enlace nuevo al mismo asistente, que conserva lo avanzado. Después de «Listo», imprime la dirección de la suite y la ruta del archivo de contraseñas.
 
