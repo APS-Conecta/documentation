@@ -57,8 +57,8 @@ Para leer las tarjetas:
 - «Sin porcentaje: falta el denominador oficial de 2026», con el año de las cifras, dice que la meta cuenta personas en un rango de edad que corta los tramos de FONASA, y que quien administra Estadística todavía no escribe su **Denominador comprometido** de ese año. Un año anterior en esa situación lo dice bajo el gráfico, como «2025: falta el denominador oficial de 2025».
 - Cada año anterior se cuenta con la ruta de las metas más nuevas, corrida en años enteros. La ventana de octubre a septiembre de la Meta I se corre igual.
 - Un año dice «sin datos comparables» bajo el gráfico, y no muestra cifras, cuando su diccionario del REM nombra de otra forma alguna prestación o columna de la ruta, aparte de mayúsculas, tildes y plurales. Lo mismo ocurre cuando ese año no tiene diccionario propio, o cuando la ruta necesita meses anteriores al primer año que guarda la instalación.
-- En el gráfico, un mes sin cifra es un hueco en la línea, nunca 0, y la tabla dice «sin informar». Las metas de REM Serie P se dibujan en sus cortes de junio y diciembre.
-- El **Cierre** de un año terminado es su porcentaje de diciembre: lo sumado en su periodo hasta diciembre en REM Serie A, el corte de diciembre en REM Serie P.
+- En el gráfico, un mes sin cifra es un hueco en la línea, nunca 0, y la tabla dice «sin informar». Las metas de REM Serie P se dibujan en sus cortes de junio y diciembre; un corte que el establecimiento no informó es un hueco, nunca el corte anterior repetido.
+- El **Cierre** de un año terminado es su porcentaje de diciembre: lo sumado en su periodo hasta diciembre en REM Serie A, el corte de diciembre en REM Serie P. Un año sin corte de diciembre no tiene cierre.
 - La Meta VIII no tiene cifras REM: muestra el «Cumplimiento informado» que se escribió a mano.
 - El Resumen muestra solo las cifras del propio establecimiento. Las nacionales y las de pares están en **Metas Sanitarias** y en **Consultar**.
 
