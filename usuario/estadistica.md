@@ -2,12 +2,13 @@
 tipo: guia
 audiencia: usuario
 apps: [estadistica]
-resumen: "Consultar las cifras REM del establecimiento frente al país y a sus pares, guardarlas en preguntas y tableros, y seguir las Metas Sanitarias mes a mes."
+resumen: "Ver las Metas Sanitarias del establecimiento de un vistazo, consultar sus cifras REM frente al país y a sus pares, y guardarlas en preguntas y tableros."
 ---
 # Estadística
 
 ## Objetivo
 
+Ver de un vistazo, en el **Resumen**, dónde está el establecimiento en cada una de sus Metas Sanitarias.
 Consultar en **Estadística** las cifras REM del establecimiento al lado del promedio nacional y del de establecimientos parecidos, los pares.
 Guardar esas consultas como preguntas y reunirlas en tableros para el resto del personal.
 Seguir mes a mes el avance de las Metas Sanitarias de Atención Primaria.
@@ -29,10 +30,32 @@ Quien administra Estadística además carga y mantiene las cifras, la carpeta de
 
 ### Abrir Estadística
 
-1. Abrir **Estadística** en la barra superior.
-2. Elegir una de sus cuatro pestañas: **Consultar**, **Preguntas**, **Tableros** o **Metas Sanitarias**.
+1. Abrir **Estadística** en la barra superior. Se abre en la pestaña **Resumen**.
+2. Elegir otra de sus cinco pestañas si hace falta: **Consultar**, **Preguntas**, **Tableros** o **Metas Sanitarias**.
 
 Si la instalación no tiene su establecimiento configurado, un aviso lo dice arriba: «Esta instalación todavía no tiene su establecimiento configurado: verá las cifras nacionales y de pares, pero no las propias».
+
+### Resumen
+
+El **Resumen** muestra las Metas Sanitarias más nuevas cargadas, una tarjeta por meta, con las cifras del propio establecimiento en el año de esas metas.
+
+Cada tarjeta dice:
+
+| Parte | Contenido |
+|---|---|
+| Título | «Meta», su número y el año de las metas, como «Meta I 2026», y debajo el nombre de la meta |
+| Porcentaje | El porcentaje del último mes con cifra, y debajo el numerador y el denominador, como «7 de 12» |
+| Datos al | El mes de esas cifras |
+| Cumple | «Cumple» o «No cumple» la meta comprometida, o la meta nacional si no hay meta comprometida, con esa meta entre paréntesis. El borde de la tarjeta repite lo mismo en color |
+
+Para leer las tarjetas:
+
+- Un mes sin ningún número escrito en las celdas de la meta no tiene cifra, y nunca se muestra como 0: la tarjeta muestra el último mes que sí la tiene, y «Sin informar» si ninguno la tiene.
+- «Sin porcentaje: esperando ruta oficial» dice que las Orientaciones Técnicas del año todavía no confirman cómo se cuenta esa meta en el REM.
+- «Sin porcentaje: falta el denominador oficial de 2026», con el año de las metas, dice que la meta cuenta personas en un rango de edad que corta los tramos de FONASA, y que quien administra Estadística todavía no escribe su **Denominador comprometido**.
+- La Meta VIII no tiene cifras REM: muestra el «Cumplimiento informado» que se escribió a mano.
+- El Resumen muestra solo las cifras del propio establecimiento. Las nacionales y las de pares están en **Metas Sanitarias** y en **Consultar**.
+- Sin establecimiento configurado, las tarjetas dicen «Sin informar».
 
 ### Cifras REM
 
@@ -246,6 +269,7 @@ Cada octubre, cuando el Ministerio publica las Orientaciones Técnicas del año 
 
 - La consulta muestra la línea «Fuente: …» y, bajo el gráfico, la tabla con las mismas cifras.
 - Al guardar una pregunta, un aviso dice que «quedó guardada en Preguntas», y la pregunta aparece en la pestaña **Preguntas** con su autor.
+- Estadística se abre en la pestaña **Resumen**, con una tarjeta por meta.
 - La pestaña **Metas Sanitarias** muestra una tarjeta por meta, con su tabla mes a mes.
 - Tras cargar un archivo a mano, la tabla **Cifras REM cargadas** o la sección correspondiente de **Administración → Estadística** muestra lo cargado, o dice por qué se rechazó.
 
@@ -257,6 +281,7 @@ Cada octubre, cuando el Ministerio publica las Orientaciones Técnicas del año 
 | Faltan las cifras propias | La instalación no tiene su establecimiento configurado | Avisar a quien instaló la suite |
 | «Base de Establecimientos: todavía no se ha cargado, así que no hay pares con qué comparar» | Falta el registro de establecimientos del DEIS | Avisar a quien administra Estadística |
 | Una meta sin porcentaje | Falta la población de FONASA de ese año, o el mes todavía no se publica | Avisar a quien administra Estadística si falta la población |
+| «Sin porcentaje: esperando ruta oficial» | Las Orientaciones Técnicas del año todavía no confirman la ruta REM de esa meta | Esperar la versión de las metas que la confirma |
 | «Todavía no hay Metas Sanitarias cargadas» | No hay metas cargadas hasta el año en curso | Avisar a quien administra Estadística, que las carga como un archivo en «Cargar un archivo a mano» |
 | «La consulta se canceló antes de terminar» | La consulta superó el límite de 10 s | Acotar el periodo, las prestaciones o la comparación |
 | «No se encuentra la carpeta de planillas elegida» | La carpeta se borró, o quien la eligió ya no tiene acceso a ella | Elegir otra carpeta en «Planillas del establecimiento» |

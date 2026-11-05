@@ -76,6 +76,7 @@ El contrato es `openapi.json`, que un script del repositorio genera desde el con
 | `tableros` | GET, POST | 200 · 201: el tablero guardado · 422 |
 | `tableros/{id}` | GET, PUT, DELETE | 200 · 403 · 404 · 422 |
 | `indicadores` | GET, con `anio` y `pares` opcionales | 200: las metas del año, mes a mes, y en `fecha_corte_local` el último mes que el establecimiento informó en cada serie · 400 · 404: no hay metas para ese año · 422 |
+| `resumen` | GET, con `establecimiento` opcional | 200: una tarjeta por meta de las metas más nuevas · 400: un código DEIS que no tiene seis dígitos · 404: no hay metas cargadas · 422 |
 
 **La especificación de consulta.** `POST consultas` recibe `{consulta, establecimiento?}`.
 Una consulta es un documento JSON con claves en español, y `QuerySpec::from()` es su único lector.
@@ -107,6 +108,14 @@ Un título tiene hasta 200 caracteres; un tablero, hasta 24 tarjetas, cada una d
 **Indicadores.** Cada término de la ruta de una meta es una consulta que `QuerySpec::from()` juzga al leer la semilla.
 `GoalEvaluator` consulta todos los términos del año en el servidor, con las mismas sentencias que compila una consulta, en una sola instantánea de solo lectura.
 La vista de metas lee `GET indicadores` y no envía consultas propias.
+
+**Resumen.** `GET resumen` responde `{anio, nombre, establecimiento, metas}` con las metas de la semilla más nueva, para el establecimiento configurado o para el que nombra `establecimiento`.
+Cada tarjeta de `metas` trae `codigo`, `nombre`, `indicador`, `meta_nacional`, `meta_comprometida`, `manual`, `estado`, `mes`, `numerador`, `denominador`, `porcentaje` y `cumple`.
+`Resumen` (`lib/Goals/Resumen.php`) toma la respuesta de `GoalEvaluator` para el establecimiento solo, sin serie nacional ni de pares, así que `numerador`, `denominador` y `porcentaje` son los de la serie local de `GET indicadores` en el mismo `mes`: el último mes con porcentaje.
+`cumple` compara el porcentaje con la meta comprometida, o con la meta nacional si no hay una; en una meta manual, el porcentaje es su cumplimiento informado.
+`estado` es `esperando ruta oficial` cuando una ruta de la meta tiene `oficial: false`, y entonces la tarjeta no trae cifra; es `falta el denominador oficial de <año>` cuando `poblacion.falta_oficial` lo marca; si no, es `null`.
+El Resumen se arma en cada solicitud.
+La pestaña **Resumen** es la primera y lee solo esta ruta.
 
 **Rutas internas.** Las acciones de la sección de administración están en la {doc}`referencia generada </_generated/referencia/estadistica>`.
 Cada una lleva `#[AuthorizedAdminSetting(settings: AdminSettings::class)]` y responde un rechazo como un 422 con `{message}`.
@@ -180,6 +189,8 @@ Por cada serie y mes cuenta la planilla más reciente, por fecha de modificació
 Carga un archivo de `seeds/` cuando su año no tiene metas o tiene una versión anterior; un archivo que cargó un administrador con una versión igual o mayor se queda.
 Un archivo reemplaza su año entero y los compromisos se mantienen, porque nombran su meta por código.
 El año de un archivo va de 2009 al año siguiente al actual, para que las metas de un año se carguen en octubre del anterior, cuando el MINSAL publica sus Orientaciones Técnicas.
+Cada ruta REM, un `numerador` o un `denominador` con `fuente`, admite la clave `oficial`, `true` o `false`; sin ella, la ruta es oficial, así que una semilla anterior se lee igual.
+Una ruta preparada antes de que las Orientaciones Técnicas del año la confirmen va con `oficial: false`.
 
 **El corte de la PIV.** Un año de metas *t* lee el corte del 31-12-(*t* − 1); si no existe, el último corte anterior × 1,03; si tampoco, ninguno.
 La PIV da el denominador de una meta solo cuando su rango de edad es una suma de tramos enteros; `80 a más años` cuenta como 80–89.
@@ -193,7 +204,7 @@ Los 400 y 422, y el 403 de una pregunta o un tablero, llevan en `message` la fra
 
 | Código | Significado | Reintento | Remedio del cliente |
 |---|---|---|---|
-| 400 | La solicitud no se entiende: un `anio` fuera de rango en `fuentes/{id}` o en `indicadores`, o, en `indicadores`, un rasgo de `pares` que no existe | No | Corregir el parámetro |
+| 400 | La solicitud no se entiende: un `anio` fuera de rango en `fuentes/{id}` o en `indicadores`; en `indicadores`, un rasgo de `pares` que no existe, o, en `resumen`, un `establecimiento` que no tiene seis dígitos | No | Corregir el parámetro |
 | 403 | Cambiar una pregunta o un tablero ajenos sin administrar Estadística, o guardar sin sesión; en las rutas internas, quien no es administrador ni miembro de un grupo delegado | No | Pedir el cambio a quien la creó o a quien administra Estadística; iniciar sesión |
 | 404 | No existe ese id, o no hay metas cargadas para ese año | No | Ninguno |
 | 422 | Entendido y rechazado (`RefusedException`): una especificación inválida, un título o tarjetas fuera de regla, una semilla o un compromiso inválidos, o una consulta cancelada al pasar los 10 s | Solo después de acotar la consulta | Mostrar el mensaje; acotar el periodo, las prestaciones o la comparación |
@@ -241,7 +252,7 @@ Las cifras, el estado de carga, las etiquetas, el registro de establecimientos, 
 - **Incompleto a comienzo de año (B-020).** El año en curso puede marcarse «incompleto» temprano en el año, porque `Completeness` compara cada servicio con el año completo más cercano, entero.
 - **Deuda de la plantilla (B-015 a B-019).** Pasar `@nextcloud/webpack-vue-config` a su versión 7, los 404 de `.htaccess`, un `composer.phar` sin versión fija ni verificación, la prueba de navegador fuera de CI y el valor por defecto de `APS` en un worktree se corrigen primero en farmacia y luego aquí: el clon no sigue a la plantilla por sí solo.
 - **Pruebas fuera de CI.** Ningún trabajo de CI corre la suite de integración contra PostgreSQL ni la prueba de navegador.
-- **Interfaz (B-012, B-013).** En un teléfono, la grilla de población escrita a mano es más ancha que su sección. Cada pestaña carga su código la primera vez que se abre, así que el paquete principal pesa 327.875 bytes frente a un presupuesto de 720.000; cada bloque `<style>` todavía lleva su archivo `.vue` entero, en base64, dentro de su paquete.
+- **Interfaz (B-012, B-013).** En un teléfono, la grilla de población escrita a mano es más ancha que su sección. Cada pestaña carga su código la primera vez que se abre, así que el paquete principal pesa 329.277 bytes frente a un presupuesto de 720.000; cada bloque `<style>` todavía lleva su archivo `.vue` entero, en base64, dentro de su paquete.
 - **Techo de carga.** La carga corre a unos 32.000 filas por segundo dentro de OCP; `COPY` por una segunda conexión lo subiría, y fue rechazado.
 - **Tamaño.** La ventana por defecto de cuatro años ocupa unos 4,9 GB de base de datos, y lo mismo en cada respaldo. Un respaldo de gestion que omita las filas REM, que la aplicación puede volver a descargar, queda pendiente de medir el tiempo del volcado.
 - **Filtro por hoja.** Un filtro por hoja es la unión de sus códigos en los diccionarios del periodo, no año por año.
@@ -249,5 +260,5 @@ Las cifras, el estado de carga, las etiquetas, el registro de establecimientos, 
 - **Relectura diaria.** Un miembro que falla por su contenido se vuelve a descargar cada día hasta que el DEIS lo corrija.
 - **PIV.** Cada corte nuevo es un paso manual, una vez al año. Los filtros por sexo ven solo Mujeres y Hombres. Los códigos administrativos de comuna del archivo de FONASA cuentan en el total nacional y en ningún grupo de pares.
 - **Riesgos de entrada.** El tope de 256 MiB del lector XLSX se suma de los tamaños que el zip declara de sí mismo, así que un zip que declara de menos es el borde que falta probar; en el CSV de FONASA quedan los prefijos de fórmula y la codificación.
-- **Navegación.** Un tablero no se puede enlazar, porque recargar la página vuelve a **Consultar**; una pregunta no se puede reabrir en los cuatro pasos para cambiar lo que consulta.
+- **Navegación.** Un tablero no se puede enlazar, porque recargar la página vuelve al **Resumen**; una pregunta no se puede reabrir en los cuatro pasos para cambiar lo que consulta.
 - **No previsto.** Un selector de establecimiento, COMGES, llenar o validar la planilla REM, y las series BS, BM y D.
