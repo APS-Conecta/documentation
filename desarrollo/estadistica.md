@@ -123,8 +123,8 @@ Cada mes de `meses` trae `mes`, `numerador`, `denominador`, `porcentaje`, `orige
 `cierre` es el `porcentaje` de diciembre de un año ya terminado, y `null` en otro caso.
 `estado` es `sin datos comparables`, sin meses, cuando el diccionario propio de ese año etiqueta algún código × columna de la ruta distinto que el del año de la tarjeta (se comparan hoja, sección, prestación y columna, sin distinguir mayúsculas, tildes ni plurales), cuando el año toma prestado el diccionario de otro, o cuando un periodo corrido empieza antes del primer año de la ventana.
 Si no, es `falta el denominador oficial de <año>` cuando falta el denominador comprometido de ese año, o `null`.
-`ruta` trae `numerador` y `denominador` de ese año, cada uno con `fuente`, `desde` y `hasta` (`AAAA-MM`, corridos a ese año), `sumar` y `restar`: una lista por consulta de la ruta, con cada código etiquetado para sus columnas por el diccionario de ese año, como lo etiqueta `POST consultas`.
-Un denominador de la población inscrita de FONASA tiene `fuente` `piv`, `desde` y `hasta` en `null` y ningún código; el que solo da el compromiso es `null`.
+`ruta` trae `numerador` y `denominador` de ese año, cada uno con `fuente`, `nombre` (el de esa fuente en `GET fuentes`), `desde` y `hasta` (`AAAA-MM`, corridos a ese año), `sumar` y `restar`: una lista por consulta de la ruta, con cada código etiquetado para sus columnas por el diccionario de ese año, como lo etiqueta `POST consultas`.
+Un denominador de la población inscrita de FONASA tiene `fuente` `piv`, el `nombre` de esa fuente, `desde` y `hasta` en `null` y ningún código; el que solo da el compromiso es `null`.
 Una meta manual, o una que espera su ruta oficial, trae `historico` vacío.
 Para el establecimiento configurado, `GET resumen` sirve el Resumen guardado en `estadistica_resumen`, así que todos leen las mismas cifras hasta el siguiente cálculo; mientras no hay uno guardado, lo arma en la solicitud.
 Para cualquier otro `establecimiento` lo arma en cada solicitud y no lo guarda.
