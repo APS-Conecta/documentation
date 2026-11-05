@@ -55,7 +55,6 @@ Para leer las tarjetas:
 - «Sin porcentaje: falta el denominador oficial de 2026», con el año de las metas, dice que la meta cuenta personas en un rango de edad que corta los tramos de FONASA, y que quien administra Estadística todavía no escribe su **Denominador comprometido**.
 - La Meta VIII no tiene cifras REM: muestra el «Cumplimiento informado» que se escribió a mano.
 - El Resumen muestra solo las cifras del propio establecimiento. Las nacionales y las de pares están en **Metas Sanitarias** y en **Consultar**.
-- Sin establecimiento configurado, las tarjetas dicen «Sin informar».
 
 ### Cifras REM
 
