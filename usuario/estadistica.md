@@ -147,7 +147,7 @@ Para leer la tabla:
 - En las columnas de su establecimiento, un mes de la Serie A posterior al último que su establecimiento informó aparece con una raya, aunque otros establecimientos ya lo hayan informado. La línea de las fuentes, bajo el nombre de las metas, dice hasta qué mes llegan las cifras de cada serie y hasta cuál informó su establecimiento.
 - **Frente a la meta comprometida** y **Frente a la meta nacional** dan la diferencia en puntos: con «+» sobre la meta y con «−» bajo ella.
 - Un año sin corte propio de FONASA usa el último corte anterior más un 3 %, y lo dice.
-- Una meta que cuenta personas en un rango de edad que corta los tramos de FONASA dice que su población está «estimada por prorrateo de los tramos de edad».
+- Toda cifra es oficial. Una meta que cuenta personas en un rango de edad que corta los tramos de FONASA no tiene porcentaje, ni propio, ni nacional, ni de pares, y dice «Sin porcentaje: falta el denominador oficial de 2027», con el año de las metas. Cuando quien administra Estadística escribe su **Denominador comprometido**, aparece el porcentaje de su establecimiento; el nacional y el de pares siguen vacíos.
 - La Meta VIII no tiene cifras REM: muestra el «Cumplimiento informado» que se escribió a mano.
 - La aplicación no calcula un cumplimiento global: el oficial es el de la SEREMI.
 - Las cifras **Nacional** y **Pares** suman a todos los establecimientos que informaron: es el mismo cálculo para todos, no la evaluación de la SEREMI.
@@ -197,7 +197,7 @@ Un año sin corte propio usa el último corte anterior multiplicado por 1,03.
 
 1. Elegir el año en **Metas de**.
 2. Escribir la **Meta comprometida (%)** de cada meta.
-3. Escribir el **Denominador comprometido** de las metas que se cuentan sobre población, si se comprometió otro que la población de FONASA.
+3. Escribir el **Denominador comprometido** de las metas que se cuentan sobre población, si se comprometió otro que la población de FONASA. Una meta cuyo rango de edad corta los tramos de FONASA solo tiene denominador con él.
 4. Escribir el **Cumplimiento (%)** de las metas que se informan a mano, como la Meta VIII.
 5. Presionar **Guardar**.
 
