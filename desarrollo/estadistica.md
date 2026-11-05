@@ -72,7 +72,7 @@ El contrato es `openapi.json`, que un script del repositorio genera desde el con
 | `preguntas/{id}` | GET, PUT, DELETE | 200 · 403 · 404 · 422 |
 | `tableros` | GET, POST | 200 · 201: el tablero guardado · 422 |
 | `tableros/{id}` | GET, PUT, DELETE | 200 · 403 · 404 · 422 |
-| `indicadores` | GET, con `anio` y `pares` opcionales | 200: las metas del año, mes a mes · 400 · 404: no hay metas para ese año · 422 |
+| `indicadores` | GET, con `anio` y `pares` opcionales | 200: las metas del año, mes a mes, y en `fecha_corte_local` el último mes que el establecimiento informó en cada serie · 400 · 404: no hay metas para ese año · 422 |
 
 **La especificación de consulta.** `POST consultas` recibe `{consulta, establecimiento?}`.
 Una consulta es un documento JSON con claves en español, y `QuerySpec::from()` es su único lector.
@@ -217,7 +217,7 @@ Las cifras, el estado de carga, las etiquetas, el registro de establecimientos, 
 
 - **Validación pendiente.** La persona responsable compara las Metas I a VII de junio de 2026 con el cálculo de la unidad de Estadística-REM antes de anunciar la aplicación al personal.
 - **Preguntas abiertas de la semilla 2026.** Los pesos son los de 2025, porque las Orientaciones Técnicas 2026 no repiten ninguno; el denominador de la Meta II cuenta solo mujeres, mientras su numerador también cuenta a las personas transmasculinas de col02; el numerador de la Meta VI se cuenta en 2026, donde el texto dice 2025.
-- **Fecha de corte (B-030).** La fecha de corte es el mes más alto de cualquier fila: en el extracto 2026, un solo establecimiento informó septiembre, y cada meta de Serie A repite agosto en septiembre.
+- **Fecha de corte (B-030).** La serie local de una meta de Serie A termina en el último mes con una cifra escrita del propio establecimiento. La fecha de corte de la fuente, que acota las columnas Nacional y Pares, es el mes más alto de cualquier fila: en el extracto 2026, un solo establecimiento informó septiembre.
 - **Etiquetas prestadas (B-031).** Un año toma etiquetas solo de un diccionario posterior; el diccionario 2026 dejó fuera dos códigos que 2023–2025 sí etiquetan, y quedan «sin descripción».
 - **Consultas nacionales pesadas (B-032).** Una consulta nacional sobre toda la ventana que suma una hoja entera se cancela a los 10 s con sus 50 columnas. Los únicos índices son la clave primaria y `(estab, anio)`, sobre 27,3 millones de filas.
 - **Incompleto a comienzo de año (B-020).** El año en curso puede marcarse «incompleto» temprano en el año, porque `Completeness` compara cada servicio con el año completo más cercano, entero.

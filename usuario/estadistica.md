@@ -144,6 +144,7 @@ Para leer la tabla:
 
 - Las metas que se cuentan en la Serie P se miden en sus cortes de junio y diciembre: cada mes muestra el último corte hasta ese mes, y no hay cifra antes de junio.
 - Un mes que el DEIS todavía no publica aparece con una raya.
+- En las columnas de su establecimiento, un mes de la Serie A posterior al último que su establecimiento informó aparece con una raya, aunque otros establecimientos ya lo hayan informado. La línea de las fuentes, bajo el nombre de las metas, dice hasta qué mes llegan las cifras de cada serie y hasta cuál informó su establecimiento.
 - **Frente a la meta comprometida** y **Frente a la meta nacional** dan la diferencia en puntos: con «+» sobre la meta y con «−» bajo ella.
 - Un año sin corte propio de FONASA usa el último corte anterior más un 3 %, y lo dice.
 - Una meta que cuenta personas en un rango de edad que corta los tramos de FONASA dice que su población está «estimada por prorrateo de los tramos de edad».
