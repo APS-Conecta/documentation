@@ -15,7 +15,7 @@ También sigue mes a mes las Metas Sanitarias de Atención Primaria.
 La versión 0.1.0 cierra el hito M1, el pilar REM.
 La guía de uso está en {doc}`/usuario/estadistica`.
 
-Un CESFAM recibe Estadística como aplicación opcional del asistente, desactivada por omisión: quien la elige recibe la publicación firmada más nueva compatible con su Nextcloud, del repositorio propio de la aplicación, sin contactar la tienda de aplicaciones, y la fase 16 escribe el establecimiento.
+Un CESFAM recibe Estadística como aplicación opcional del asistente, desactivada por omisión: quien la elige recibe la publicación firmada más nueva compatible con su Nextcloud, del repositorio propio de la aplicación, sin contactar la tienda de aplicaciones, y el asistente escribe el establecimiento.
 El paquete contiene solo código: las cifras REM no viajan en él y, después de instalar, `RemJob` descarga la ventana del DEIS.
 La versión instalada queda registrada en el candado del servidor ({doc}`/administracion/aplicaciones`).
 
@@ -27,16 +27,19 @@ Ese bloqueo rechaza sobre todo un archivo que agrega un RUT o un nombre.
 Las personas sin tramo de edad se cuentan y se informan al importar, pero no se guardan.
 
 **Invariante: el establecimiento es configuración de la instancia** ([ADR-0009](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0009-the-establishment-is-instance-configuration.md)).
-La aplicación lee tres claves de configuración y no tiene un método que las escriba: el único escritor es la [fase 16 de la provisión](https://github.com/APS-Conecta/gestion/blob/main/provisioning/phases/16-app-policy.sh), y `scripts/divergence.sh` de gestion las compara con el archivo del sitio.
-Un `deis_code` que no tenga seis dígitos se lee como ausencia de establecimiento, y la fase 16 se detiene antes de escribir un valor así.
+La aplicación lee tres claves de configuración y no tiene un método que las escriba.
+En una instalación con el {doc}`asistente </administracion/instalar-gestion-aio>`, las escribe su paso «Establecimiento en Estadística» desde el centro elegido, aunque no se haya marcado Estadística, para que la encuentre quien la active después; si Nextcloud ya no las tiene, la comparación del final de la instalación vuelve a poner el paso en rojo y «Reintentar» las escribe de nuevo.
+En una instalación de gestion, las escribe la [fase 16 de la provisión](https://github.com/APS-Conecta/gestion/blob/main/provisioning/phases/16-app-policy.sh), y `scripts/divergence.sh` de gestion las compara con el archivo del sitio.
+Un `deis_code` que no tenga seis dígitos se lee como ausencia de establecimiento, y tanto el paso como la fase 16 se detienen antes de escribir un valor así.
 Ninguna pantalla de la aplicación elige otro establecimiento como propio.
 
 | Clave | Quién la escribe | Efecto |
 |---|---|---|
-| `deis_code` | Fase 16, desde `SITE_DEIS` | El establecimiento de la serie local. Sin ella, la aplicación muestra el país y los pares, sin serie local |
-| `establishment_type` | Fase 16, desde `SITE_TIPO` | Su tipo, que muestra la sección de administración |
-| `comuna_cut` | Fase 16, desde `SITE_COMUNA_CUT` | El CUT de cinco dígitos de su comuna |
+| `deis_code` | El asistente, desde el código DEIS del centro; en gestion, la fase 16, desde `SITE_DEIS` | El establecimiento de la serie local. Sin ella, la aplicación muestra el país y los pares, sin serie local |
+| `establishment_type` | El asistente, desde el tipo del centro en el registro DEIS; en gestion, la fase 16, desde `SITE_TIPO` | Su tipo, que muestra la sección de administración |
+| `comuna_cut` | El asistente, desde la comuna del centro; en gestion, la fase 16, desde `SITE_COMUNA_CUT` | El CUT de cinco dígitos de su comuna |
 | `first_year` | La sección de administración, «Años de historia nacional» | El primer año de historia nacional que se guarda; por defecto, el año en curso menos 3. Subirlo estrecha la ventana y borra los años que quedan fuera |
+| `planilla_owner`, `planilla_folder` | La sección de administración, «Planillas del establecimiento» | Quién eligió la carpeta de planillas, y el id de esa carpeta. El trabajo la lee como esa persona |
 
 Las claves `deis_checked_at`, `deis_etags`, `deis_check_errors` y `deis_register` son estado del trabajo en segundo plano, no ajustes.
 
@@ -122,7 +125,7 @@ Mapa de módulos <../_generated/mapa/estadistica>
 
 El único trabajo programado es `RemJob`, un `TimedJob` declarado en `appinfo/info.xml`: nada corre en el planificador del host ({doc}`/desarrollo/plataforma/basics/backgroundjobs`).
 Corre cada hora, como `TIME_SENSITIVE`, sin ejecuciones paralelas.
-Cada ejecución hace a lo más una unidad de trabajo, la primera que aplica:
+Cada ejecución lee primero la carpeta de planillas, y después hace a lo más una unidad de trabajo, la primera que aplica:
 
 1. Olvidar un año que la ventana ya no guarda, el más antiguo primero.
 2. Cargar una (año, serie) en cola, el año más nuevo primero: desde el archivo que dejó un administrador, si lo hay, y si no, desde el DEIS por rangos.
@@ -162,6 +165,16 @@ La misma pasada revisa con un HEAD condicional la Base de Establecimientos más 
 El año de un zip REM sale de sus filas, no del nombre del archivo, y tiene que estar dentro de la ventana.
 Sus series se ponen en cola solo después de guardar el archivo, todas en una sentencia.
 El archivo se conserva mientras una serie de su año falló por un error propio, para que el siguiente intento lo use en lugar de la copia del DEIS.
+
+**La carpeta de planillas** (ADR-0010). `PUT /admin/planillas` recibe la ruta de una carpeta dentro de los archivos propios de quien llama; es una escritura delegada, como las demás.
+Cada ejecución de `RemJob` lista los archivos que están directamente en la carpeta, como quien la eligió.
+Lee los nuevos y los cambiados, y todos otra vez cuando cambia el establecimiento configurado o un diccionario; olvida, con sus filas, los que ya no están.
+El formulario REM es su diccionario sin la columna A del código: cada cifra se lee una columna a la izquierda de su marcador `COLnn`, en la misma fila, según la ubicación que `estadistica_code` guarda al leer el diccionario de ese año.
+La hoja NOMBRE da el código del establecimiento (un dígito por celda, de C3 a H3), el mes (B6), el año (B7), la versión del formulario (A9) y la serie (B17).
+Una planilla se rechaza entera, con su motivo, si su código no es el configurado, si su versión no es la del diccionario de ese año, o si no es un formulario REM del DEIS.
+Una fila se guarda solo si alguna de sus cifras no es 0, como las publica el DEIS: los totales del formulario son fórmulas y una fila sin llenar trae ceros.
+Las cifras leídas se guardan en `estadistica_planilla_rem`, aparte de las del DEIS y con su archivo, y todavía no entran en ninguna consulta.
+Por cada serie y mes cuenta la planilla más reciente, por fecha de modificación y luego por id de archivo; las demás se muestran como reemplazadas.
 
 **La semilla de metas.** `EnsureSeedData` corre como paso de reparación en la instalación y después de cada migración.
 Carga un archivo de `seeds/` cuando su año no tiene metas o tiene una versión anterior; un archivo que cargó un administrador con una versión igual o mayor se queda.
@@ -209,6 +222,9 @@ Una revisión del DEIS que falla aparece en la sección de administración bajo 
 | `'has_internet_connection' => false` | No se consulta el DEIS, y la sección de administración lo dice | La carga desde archivos dejados a mano |
 | Falla la carga de un miembro | Esa (año, serie) no se actualiza | La última carga buena sigue sirviendo |
 | Un diccionario o la Base de Establecimientos no se pueden leer | Las etiquetas o los pares de esa carga | Las cifras se cargan igual, y el diccionario o el registro anteriores siguen sirviendo |
+| La carpeta de planillas no se encuentra | Las planillas, que se olvidan, y la sección de administración lo dice | Las cifras del DEIS |
+| Nextcloud no entrega un archivo de la carpeta de planillas (su almacenamiento no responde, o falla su cifrado) | Ese archivo, que dice «No se pudo leer el archivo de Nextcloud» y se vuelve a intentar cada hora; el detalle queda en el registro del servidor | Los demás archivos de la carpeta |
+| Falla la lectura de la carpeta de planillas | Las planillas de esa ejecución de `RemJob`; el detalle queda en el registro del servidor | La unidad de trabajo del DEIS de esa misma ejecución |
 | Falla una semilla de metas incluida | Las metas de ese año | Las demás semillas, y la activación de la aplicación |
 | La consulta de una tarjeta se rechaza | Esa tarjeta, que muestra su propio mensaje | Las demás tarjetas del tablero |
 | No hay establecimiento configurado | La serie local, los pares «como el propio», la población escrita a mano y los compromisos | El país y los pares elegidos por valor |
@@ -225,7 +241,7 @@ Las cifras, el estado de carga, las etiquetas, el registro de establecimientos, 
 - **Incompleto a comienzo de año (B-020).** El año en curso puede marcarse «incompleto» temprano en el año, porque `Completeness` compara cada servicio con el año completo más cercano, entero.
 - **Deuda de la plantilla (B-015 a B-019).** Pasar `@nextcloud/webpack-vue-config` a su versión 7, los 404 de `.htaccess`, un `composer.phar` sin versión fija ni verificación, la prueba de navegador fuera de CI y el valor por defecto de `APS` en un worktree se corrigen primero en farmacia y luego aquí: el clon no sigue a la plantilla por sí solo.
 - **Pruebas fuera de CI.** Ningún trabajo de CI corre la suite de integración contra PostgreSQL ni la prueba de navegador.
-- **Interfaz (B-012, B-013).** En un teléfono, la grilla de población escrita a mano es más ancha que su sección; el paquete principal pesa 711.997 bytes frente a un presupuesto de 720.000.
+- **Interfaz (B-012, B-013).** En un teléfono, la grilla de población escrita a mano es más ancha que su sección. Cada pestaña carga su código la primera vez que se abre, así que el paquete principal pesa 327.875 bytes frente a un presupuesto de 720.000; cada bloque `<style>` todavía lleva su archivo `.vue` entero, en base64, dentro de su paquete.
 - **Techo de carga.** La carga corre a unos 32.000 filas por segundo dentro de OCP; `COPY` por una segunda conexión lo subiría, y fue rechazado.
 - **Tamaño.** La ventana por defecto de cuatro años ocupa unos 4,9 GB de base de datos, y lo mismo en cada respaldo. Un respaldo de gestion que omita las filas REM, que la aplicación puede volver a descargar, queda pendiente de medir el tiempo del volcado.
 - **Filtro por hoja.** Un filtro por hoja es la unión de sus códigos en los diccionarios del periodo, no año por año.
