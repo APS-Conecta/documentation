@@ -131,7 +131,7 @@ Una meta manual, o una que espera su ruta oficial, trae `historico` vacío.
 Desde el `cierre` de ese año, una base igual o mayor que la meta nacional se mantiene; si no, se cierra `brecha` % de la distancia a la meta nacional, o `brecha_si_cumplio` % cuando la base alcanzó la meta comprometida guardada de ese año para esa meta, nunca bajo `piso`; una regla `fija` da ese valor.
 Se calcula exacta, en diezmilésimas de punto, y `porcentaje` se redondea a un decimal, la mitad hacia arriba.
 Una meta manual trae su `fija`, sin `base`.
-Sin cifra, `porcentaje` es `null` y `motivo` dice por qué: `esperando ruta oficial`, `falta el denominador oficial de <año>` o `no hay cierre comparable de <año>`.
+Sin cifra, `porcentaje` es `null` y `motivo` dice por qué: `esperando ruta oficial`, `falta el denominador oficial de <año>`, `no hay cierre comparable de <año>` o `no hay cierre comparable` (la ventana no tiene ningún año completo).
 Sin la meta comprometida del año base, la regla con `brecha_si_cumplio` cierra `brecha` y `motivo` lo dice.
 Para el establecimiento configurado, `GET resumen` sirve el Resumen guardado en `estadistica_resumen`, así que todos leen las mismas cifras hasta el siguiente cálculo; mientras no hay uno guardado, lo arma en la solicitud.
 Para cualquier otro `establecimiento` lo arma en cada solicitud y no lo guarda.
