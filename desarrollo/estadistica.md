@@ -92,6 +92,7 @@ Rechaza en español, con un 422 y antes de que exista SQL, toda clave, columna, 
 | `comparar` | `{nacional, pares}`: agrega la serie nacional y la de un grupo de pares. Cada rasgo de `pares` es un valor de la Base de Establecimientos, o `true` para el valor del propio establecimiento |
 
 `establecimiento` es el código DEIS de seis dígitos de la serie local; sin él, la serie local es el `deis_code` configurado.
+Por cada serie y mes que cubre una planilla del establecimiento, su serie local son las cifras de la planilla más reciente, y una celda en blanco queda sin informar aunque el DEIS tenga un número (ADR-0010); los demás meses, la serie nacional y la de pares, con sus informantes, son del DEIS.
 Las páginas de la aplicación nunca lo envían.
 
 La respuesta es `{series: {local, nacional, pares}, etiquetas: {local, pares, codigos}, fuente}`.
@@ -116,7 +117,7 @@ El año de la tarjeta es el más reciente con cifras REM, y nunca uno posterior 
 `datos_al` es el último mes que el establecimiento informó en la serie de la meta, el de su fuente en `fecha_corte_local` de `GET indicadores`; en una meta de Serie P puede ser anterior a `mes`, y es `null` en una meta manual o sin establecimiento.
 `cumple` compara el porcentaje con la meta comprometida, o con la meta nacional si no hay una; en una meta manual, el porcentaje es su cumplimiento informado.
 `estado` es `esperando ruta oficial` cuando una ruta de la meta tiene `oficial: false`, y entonces la tarjeta no trae cifra; es `falta el denominador oficial de <año>` cuando `poblacion.falta_oficial` lo marca; si no, es `null`.
-`origen` y `fecha_corte` dicen de dónde sale el `mes` de la tarjeta: hoy `datos públicos DEIS` y el último mes (`AAAA-MM`) de la carga de ese año en la fuente del numerador; sin `mes` son `null`.
+`origen` y `fecha_corte` dicen de dónde sale el `mes` de la tarjeta: `planilla del establecimiento` y el día en que se guardó su archivo (`AAAA-MM-DD`) en un mes que cubre una planilla de la serie del numerador; si no, `datos públicos DEIS` y el último mes (`AAAA-MM`) de la carga de ese año en la fuente del numerador; sin `mes` son `null`.
 `historico` es una lista `{anio, estado, cierre, meses, ruta}` por año de la ventana, del más antiguo al de la tarjeta.
 Cada año cuenta las metas más nuevas con todos sus periodos corridos en años enteros (`GoalSeed::shift()`), la ventana de octubre a septiembre de la Meta I incluida, en una sola instantánea de solo lectura para todos los años.
 Cada mes de `meses` trae `mes`, `numerador`, `denominador`, `porcentaje`, `origen` y `fecha_corte`: en REM Serie A, la suma desde el inicio del periodo; en REM Serie P, solo los cortes de junio y diciembre, cada uno con su propio corte: cuando el establecimiento no informó ese corte, `numerador` (y `denominador`, si también es de Serie P) y `porcentaje` son `null`, nunca los del corte anterior.
@@ -164,7 +165,7 @@ Cada ejecución lee primero la carpeta de planillas, y después hace a lo más u
 Fuera de eso, la ejecución no toca la red.
 
 `ResumenJob` es un `QueuedJob` que vuelve a calcular y guarda el Resumen del establecimiento configurado, con `Resumen::build`, el mismo cálculo de la solicitud.
-Lo ponen en cola, en la misma transacción que su escritura, una carga REM (`RemImporter`), los compromisos de la sección de administración (`Goals::commit`: meta comprometida, denominador comprometido y cumplimiento informado), la población que la sección escribe para el establecimiento (`PivImporter::enter`), que gana a la de FONASA en su serie propia, y una semilla de metas, incluida o cargada a mano (`Goals::store`); nada más lo pone en cola.
+Lo ponen en cola, en la misma transacción que su escritura, una carga REM (`RemImporter`), los compromisos de la sección de administración (`Goals::commit`: meta comprometida, denominador comprometido y cumplimiento informado), la población que la sección escribe para el establecimiento (`PivImporter::enter`), que gana a la de FONASA en su serie propia, una semilla de metas, incluida o cargada a mano (`Goals::store`), y una planilla que se lee, o una leída que se olvida (`Planillas`); nada más lo pone en cola.
 Nextcloud guarda una sola copia en cola, así que los cambios que llegan antes de que corra se calculan una vez, y un cambio durante el cálculo pone en cola el siguiente.
 La población que trae el archivo de FONASA entra en el Resumen en su siguiente cálculo.
 
@@ -208,8 +209,9 @@ El formulario REM es su diccionario sin la columna A del código: cada cifra se 
 La hoja NOMBRE da el código del establecimiento (un dígito por celda, de C3 a H3), el mes (B6), el año (B7), la versión del formulario (A9) y la serie (B17).
 Una planilla se rechaza entera, con su motivo, si su código no es el configurado, si su versión no es la del diccionario de ese año, o si no es un formulario REM del DEIS.
 Una fila se guarda solo si alguna de sus cifras no es 0, como las publica el DEIS: los totales del formulario son fórmulas y una fila sin llenar trae ceros.
-Las cifras leídas se guardan en `estadistica_planilla_rem`, aparte de las del DEIS y con su archivo, y todavía no entran en ninguna consulta.
+Las cifras leídas se guardan en `estadistica_planilla_rem`, aparte de las del DEIS y con su archivo, y `estadistica_planilla` guarda el establecimiento de cada planilla.
 Por cada serie y mes cuenta la planilla más reciente, por fecha de modificación y luego por id de archivo; las demás se muestran como reemplazadas.
+Esa planilla es la serie local de su establecimiento en ese mes: `QueryCompiler::local()` lee sus filas en lugar de todas las del DEIS, y las consultas, las metas, `fecha_corte_local` y el Resumen leen por ese mismo camino.
 
 **La semilla de metas.** `EnsureSeedData` corre como paso de reparación en la instalación y después de cada migración.
 Carga un archivo de `seeds/` cuando su año no tiene metas o tiene una versión anterior; un archivo que cargó un administrador con una versión igual o mayor se queda.
@@ -284,6 +286,7 @@ Las cifras, el estado de carga, las etiquetas, el registro de establecimientos, 
 - **Preguntas abiertas de la semilla 2027.** Donde la Res. 732 no nombra códigos, cada ruta sigue la ruta 2026 del mismo concepto: la Meta I resta derivados y traslados; las Metas V y VI suman la columna total, sin separar las edades de la resolución; la Meta VII cuenta la EPOC en su columna total y su denominador en la existencia de la sección A del REM P3; el denominador de la Meta II cuenta solo mujeres.
 - **Preguntas abiertas de la semilla 2026.** Los pesos son los de 2025, porque las Orientaciones Técnicas 2026 no repiten ninguno; el denominador de la Meta II cuenta solo mujeres, mientras su numerador también cuenta a las personas transmasculinas de col02; el numerador de la Meta VI se cuenta en 2026, donde el texto dice 2025.
 - **Fecha de corte (B-030).** La serie local de una meta de Serie A termina en el último mes con una cifra escrita del propio establecimiento. La fecha de corte de la fuente, que acota las columnas Nacional y Pares, es el mes más alto de cualquier fila: en el extracto 2026, un solo establecimiento informó septiembre.
+- **Planilla de un año sin cifras del DEIS.** El año del Resumen es el más reciente que el DEIS cargó, así que una planilla de enero no entra en el Resumen hasta la primera carga de su año.
 - **Etiquetas prestadas (B-031).** Un año toma etiquetas solo de un diccionario posterior; el diccionario 2026 dejó fuera dos códigos que 2023–2025 sí etiquetan, y quedan «sin descripción».
 - **Consultas nacionales pesadas (B-032).** Una consulta nacional sobre toda la ventana que suma una hoja entera se cancela a los 10 s con sus 50 columnas. Los únicos índices son la clave primaria y `(estab, anio)`, sobre 27,3 millones de filas.
 - **Incompleto a comienzo de año (B-020).** El año en curso puede marcarse «incompleto» temprano en el año, porque `Completeness` compara cada servicio con el año completo más cercano, entero.

@@ -49,7 +49,7 @@ Cada tarjeta dice:
 |---|---|
 | Título | «Meta», su número y el año de las metas, como «Meta I 2027», y debajo el nombre de la meta |
 | Porcentaje | El porcentaje del último mes con cifra, y debajo el numerador y el denominador, como «7 de 12» |
-| Datos al | El último mes que el establecimiento informó en la serie de la meta (REM Serie A o REM Serie P), y de dónde salen las cifras con su fecha, como «datos públicos DEIS, con cifras hasta noviembre de 2026» |
+| Datos al | El último mes que el establecimiento informó en la serie de la meta (REM Serie A o REM Serie P), en el DEIS o en su planilla, y de dónde salen las cifras con su fecha, como «datos públicos DEIS, con cifras hasta noviembre de 2026» o «planilla del establecimiento, guardada el 9 de noviembre de 2026» |
 | Cumple | «Cumple» o «No cumple» la meta comprometida, o la meta nacional si no hay meta comprometida, con esa meta entre paréntesis. El borde de la tarjeta repite lo mismo en color |
 | Meta mínima | «Meta mínima 2027: 70,8 % — referencia: la meta la fija el Servicio de Salud», y debajo el año del cierre del que sale, como «Desde el cierre 2025.» |
 | Histórico | Un gráfico con una línea por año comparable, la del año más reciente destacada, y la meta como línea discontinua. Debajo, la tabla con el porcentaje de cada mes por año, su numerador y su denominador, y el **Cierre** de cada año terminado |
@@ -75,13 +75,13 @@ Para leer las tarjetas:
 - La Meta VIII no tiene cifras REM: muestra el «Cumplimiento informado» que se escribió a mano.
 - El Resumen muestra solo las cifras del propio establecimiento. Las nacionales y las de pares están en **Metas Sanitarias** y en **Consultar**.
 - Cada cifra de una tarjeta, el porcentaje, el numerador y el denominador, y cada cifra de su tabla, el **Cierre** incluido, se puede presionar o elegir con el teclado. Abre, en la barra lateral, de dónde sale la cifra en su mes y su año:
-  - el origen del mes y su fecha, como «Origen: datos públicos DEIS, con cifras hasta noviembre de 2026»;
+  - el origen del mes y su fecha, como «Origen: datos públicos DEIS, con cifras hasta noviembre de 2026», o «Origen: planilla del establecimiento, guardada el 9 de noviembre de 2026» en un mes que cubre una planilla;
   - para el numerador y el denominador, el nombre de su fuente, como «REM Serie A», y el periodo de ese año, y los códigos que se suman y los que se restan, cada uno con su hoja, su sección y sus columnas, con los nombres del diccionario de ese año;
   - para un denominador que no sale del REM, «Población inscrita validada (FONASA)» o «Lo comprometió el establecimiento»;
   - la referencia de las metas: la resolución y las Orientaciones Técnicas que las fijan.
 
   La barra lateral se cierra con Escape o con su botón de cerrar, y el teclado vuelve a la cifra.
-- El Resumen se calcula en segundo plano después de cada carga de cifras REM o de metas y de cada cambio en los compromisos o en la **Población de su establecimiento**, y todos ven las mismas cifras hasta el cálculo siguiente. Una población de FONASA recién cargada entra en el Resumen en ese cálculo.
+- El Resumen se calcula en segundo plano después de cada carga de cifras REM o de metas, de cada planilla que se lee o se quita de la carpeta y de cada cambio en los compromisos o en la **Población de su establecimiento**, y todos ven las mismas cifras hasta el cálculo siguiente. Una población de FONASA recién cargada entra en el Resumen en ese cálculo.
 
 ### Cifras REM
 
@@ -249,7 +249,9 @@ Cada archivo de la carpeta aparece con su estado:
 
 Las macros de la planilla nunca se ejecutan: solo se leen sus celdas.
 Un archivo que se quita de la carpeta deja de contar.
-Por ahora la aplicación solo lee las planillas y dice su estado: las cifras que muestra siguen siendo las del DEIS.
+Por cada serie y mes, la planilla más reciente reemplaza las cifras del DEIS en las del propio establecimiento: en el **Resumen**, en **Metas Sanitarias** y en **Consultar**.
+Una celda en blanco de la planilla queda sin informar, aunque el DEIS tenga un número.
+Los meses sin planilla, las cifras nacionales y las de pares siguen siendo las del DEIS.
 
 #### Población inscrita validada (FONASA)
 
