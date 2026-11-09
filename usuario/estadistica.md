@@ -81,7 +81,7 @@ Para leer las tarjetas:
   - la referencia de las metas: la resolución y las Orientaciones Técnicas que las fijan.
 
   La barra lateral se cierra con Escape o con su botón de cerrar, y el teclado vuelve a la cifra.
-- El Resumen se calcula en segundo plano después de cada carga de cifras REM o de metas, de cada planilla que se lee o se quita de la carpeta y de cada cambio en los compromisos o en la **Población de su establecimiento**, y todos ven las mismas cifras hasta el cálculo siguiente. Una población de FONASA recién cargada entra en el Resumen en ese cálculo.
+- El Resumen se calcula en segundo plano después de cada carga de cifras REM, de metas o de la población de FONASA, de cada planilla que se lee o se quita de la carpeta y de cada cambio en los compromisos o en la **Población de su establecimiento**, y todos ven las mismas cifras hasta el cálculo siguiente.
 
 ### Cifras REM
 
