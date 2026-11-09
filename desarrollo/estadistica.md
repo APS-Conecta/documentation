@@ -110,7 +110,7 @@ Un título tiene hasta 200 caracteres; un tablero, hasta 24 tarjetas, cada una d
 `GoalEvaluator` consulta todos los términos del año en el servidor, con las mismas sentencias que compila una consulta, en una sola instantánea de solo lectura.
 La vista de metas lee `GET indicadores` y no envía consultas propias.
 
-**Resumen.** `GET resumen` responde `{anio, nombre, referencia, establecimiento, metas}` con las metas de la semilla más nueva, para el establecimiento configurado o para el que nombra `establecimiento`; `referencia` es la de la semilla.
+**Resumen.** `GET resumen` responde `{anio, nombre, referencia, establecimiento, metas, nota}` con las metas de la semilla más nueva, para el establecimiento configurado o para el que nombra `establecimiento`; `referencia` es la de la semilla.
 Cada tarjeta de `metas` trae `codigo`, `nombre`, `indicador`, `meta_nacional`, `meta_comprometida`, `manual`, `estado`, `mes`, `datos_al`, `numerador`, `denominador`, `porcentaje`, `cumple`, `historico`, `origen`, `fecha_corte` y `meta_minima`.
 El año de la tarjeta es el más reciente con cifras REM, y nunca uno posterior al de las metas: las metas del año siguiente, cargadas en octubre, se cuentan sobre las cifras del año en curso.
 `Resumen` (`lib/Goals/Resumen.php`) toma de `GoalEvaluator::history()` la respuesta para el establecimiento solo, sin serie nacional ni de pares, así que en el año de las metas `numerador`, `denominador` y `porcentaje` son los de la serie local de `GET indicadores` en el mismo `mes`: el último mes con porcentaje.
@@ -136,7 +136,9 @@ Sin cifra, `porcentaje` es `null` y `motivo` dice por qué: `esperando ruta ofic
 Sin la meta comprometida del año base, la regla con `brecha_si_cumplio` cierra `brecha` y `motivo` lo dice.
 Para el establecimiento configurado, `GET resumen` sirve el Resumen guardado en `estadistica_resumen`, así que todos leen las mismas cifras hasta el siguiente cálculo; mientras no hay uno guardado, lo arma en la solicitud.
 Para cualquier otro `establecimiento` lo arma en cada solicitud y no lo guarda.
+`nota` es el texto que un modelo escribió sobre lo que cambió en el último cálculo, o `null`: sin un proveedor de texto a texto, mientras su tarea no responde, cuando la validación la descartó, y para cualquier otro `establecimiento`.
 La pestaña **Resumen** es la primera y lee solo esta ruta, y dibuja `historico` con el envoltorio de Chart.js de la app.
+Muestra `nota` arriba de las tarjetas como texto plano, nunca con `v-html`, bajo «Escrita por un modelo de IA a partir de las cifras».
 Cada cifra de una tarjeta y de su tabla abre el panel de su origen en `NcAppSidebar` (`src/components/ResumenFuente.vue`), un fragmento que se carga en el primer clic.
 
 **Rutas internas.** Las acciones de la sección de administración están en la {doc}`referencia generada </_generated/referencia/estadistica>`.
@@ -167,6 +169,13 @@ Fuera de eso, la ejecución no toca la red.
 `ResumenJob` es un `QueuedJob` que vuelve a calcular y guarda el Resumen del establecimiento configurado, con `Resumen::build`, el mismo cálculo de la solicitud.
 Lo ponen en cola, en la misma transacción que su escritura, una carga REM (`RemImporter`), los compromisos de la sección de administración (`Goals::commit`: meta comprometida, denominador comprometido y cumplimiento informado), un archivo de FONASA cargado por la puerta (`PivImporter::import`), la población que la sección escribe para el establecimiento (`PivImporter::enter`), que gana a la de FONASA en su serie propia, una semilla de metas, incluida o cargada a mano (`Goals::store`), y una planilla que se lee, o una leída que se olvida (`Planillas`); nada más lo pone en cola.
 Nextcloud guarda una sola copia en cola, así que los cambios que llegan antes de que corra se calculan una vez, y un cambio durante el cálculo pone en cola el siguiente.
+
+**La nota.** Cuando un cálculo cambia la huella, y Nextcloud ofrece un proveedor de `core:text2text` (`getAvailableTaskTypeIds()` de `OCP\TaskProcessing\IManager`), `Nota::request()` programa una sola tarea, sin usuario, con la huella nueva como `customId`.
+La entrada es la instrucción fija en español, decir solo qué cambió, con las cifras exactas, sin causas ni consejos, y una línea por cada cifra de una tarjeta que cambió desde el Resumen guardado anterior, antes y ahora, como la escribe la pantalla: porcentaje, numerador, denominador, datos al, meta comprometida o nacional y meta mínima.
+El primer Resumen guardado no pide nota, y un cálculo que no cambia ninguna de esas cifras tampoco.
+La tarea es asíncrona: `NotaListener` escucha `TaskSuccessfulEvent`, toma solo las tareas de texto a texto de esta app, y `ResumenStore::note()` guarda la respuesta solo si la huella de la tarea sigue siendo la guardada y `Nota::check()` la acepta.
+`Nota::check()` toma cada número de la respuesta, dígitos con `.` y `,` entre ellos y el `%` que los siga, y exige que sea, tal cual, una cifra que el Resumen guardado muestra en es-CL (`.` de miles, `,` decimal, a lo más un decimal, la meta mínima con uno exacto, `%` en los porcentajes), o un año o un número de mes que el Resumen nombra.
+Un número inventado, redondeado de otra forma o escrito sin su punto de miles descarta la nota entera.
 
 Cada (año, serie) tiene una fila de estado (`IngestState`) con dos mitades: la carga cambia solo cuando se cargan filas, en la misma transacción, y el intento se escribe en cada prueba.
 
@@ -254,7 +263,7 @@ Una revisión del DEIS que falla aparece en la sección de administración bajo 
 - **Una transacción por (año, serie).** Un `DELETE` y luego `INSERT … SELECT FROM unnest(CAST(? AS …[]))` en lotes de 5.000 filas, con la fila de estado en la misma transacción. Mientras tanto, quien consulta sigue viendo las filas anteriores, hasta que la transacción se confirma.
 - **El intento se anota antes del trabajo.** El inicio del intento consume `pending` en su propia sentencia, así que un archivo que vuelve a poner en cola la misma (año, serie) durante la carga sobrevive a ella.
 - **Olvidar un año, las filas al final.** La ETag y el archivo dejado se borran antes que las filas, porque las filas son lo que hace que el año esté «fuera»: una ejecución que muere a medias lo encuentra otra vez y lo olvida entero.
-- **El Resumen, reemplazado entero.** `estadistica_resumen` guarda solo el Resumen del establecimiento configurado: cada cálculo borra antes cualquier otra fila, y sin establecimiento configurado las borra todas. La fila tiene el documento JSON y, a su lado, la huella (`sha256` del documento), la hora del cálculo y la frase del último cálculo fallido. Las mismas entradas dan el mismo documento, byte a byte. `ResumenJob` no admite ejecuciones paralelas, así que un cálculo más antiguo no se guarda después de uno más nuevo.
+- **El Resumen, reemplazado entero.** `estadistica_resumen` guarda solo el Resumen del establecimiento configurado: cada cálculo borra antes cualquier otra fila, y sin establecimiento configurado las borra todas. La fila tiene el documento JSON y, a su lado, la huella (`sha256` del documento), la hora del cálculo, la frase del último cálculo fallido y la nota. Las mismas entradas dan el mismo documento, byte a byte: la nota nunca entra en él. Un cálculo que cambia la huella borra la nota en la misma sentencia, y uno que la deja igual la conserva. `ResumenJob` no admite ejecuciones paralelas, así que un cálculo más antiguo no se guarda después de uno más nuevo.
 - **Una instantánea por consulta.** Todas las series, las etiquetas y la fuente de una respuesta se leen en una transacción `REPEATABLE READ, READ ONLY`, con `statement_timeout` de 10 s fijado localmente por `set_config(…, true)`. Una escritura que llegara al ejecutor falla en PostgreSQL.
 - **SQL solo con parámetros.** `QueryCompiler` escribe SQL desde su propio texto fijo y desde nombres de conjuntos cerrados (columnas, dimensiones, rasgos y las dos métricas); todo valor va como parámetro. Dos consultas que difieren solo en valores compilan a la misma sentencia.
 - **Solo cuentan las celdas informadas.** Una celda vacía es NULL, nunca 0, así que un informante es un establecimiento con al menos una celda informada entre las columnas elegidas.
@@ -273,6 +282,7 @@ Una revisión del DEIS que falla aparece en la sección de administración bajo 
 | Nextcloud no entrega un archivo de la carpeta de planillas (su almacenamiento no responde, o falla su cifrado) | Ese archivo, que dice «No se pudo leer el archivo de Nextcloud» y se vuelve a intentar cada hora; el detalle queda en el registro del servidor | Los demás archivos de la carpeta |
 | Falla la lectura de la carpeta de planillas | Las planillas de esa ejecución de `RemJob`; el detalle queda en el registro del servidor | La unidad de trabajo del DEIS de esa misma ejecución |
 | Falla el cálculo del Resumen | Su actualización: la sección de administración, en «Metas Sanitarias», dice por qué en español, o que hubo un error interno cuyo detalle queda en el registro del servidor | El Resumen guardado anterior, hasta el siguiente cálculo que termina bien |
+| No hay proveedor de texto a texto, falla su tarea, o la respuesta trae un número que el Resumen no muestra | La nota | El cálculo del Resumen, que se guarda igual |
 | Falla una semilla de metas incluida | Las metas de ese año | Las demás semillas, y la activación de la aplicación |
 | La consulta de una tarjeta se rechaza | Esa tarjeta, que muestra su propio mensaje | Las demás tarjetas del tablero |
 | No hay establecimiento configurado | La serie local, los pares «como el propio», la población escrita a mano y los compromisos | El país y los pares elegidos por valor |
@@ -286,6 +296,7 @@ Las cifras, el estado de carga, las etiquetas, el registro de establecimientos, 
 - **Preguntas abiertas de la semilla 2026.** Los pesos son los de 2025, porque las Orientaciones Técnicas 2026 no repiten ninguno; el denominador de la Meta II cuenta solo mujeres, mientras su numerador también cuenta a las personas transmasculinas de col02; el numerador de la Meta VI se cuenta en 2026, donde el texto dice 2025.
 - **Fecha de corte (B-030).** La serie local de una meta de Serie A termina en el último mes con una cifra escrita del propio establecimiento. La fecha de corte de la fuente, que acota las columnas Nacional y Pares, es el mes más alto de cualquier fila: en el extracto 2026, un solo establecimiento informó septiembre.
 - **Planilla de un año sin cifras del DEIS.** El año del Resumen es el más reciente que el DEIS cargó, así que una planilla de enero no entra en el Resumen hasta la primera carga de su año.
+- **Nota en palabras.** La validación revisa los números escritos con dígitos: un número escrito con letras, o una afirmación sin números, pasa sin revisar. La etiqueta dice que la escribió un modelo.
 - **Etiquetas prestadas (B-031).** Un año toma etiquetas solo de un diccionario posterior; el diccionario 2026 dejó fuera dos códigos que 2023–2025 sí etiquetan, y quedan «sin descripción».
 - **Consultas nacionales pesadas (B-032).** Una consulta nacional sobre toda la ventana que suma una hoja entera se cancela a los 10 s con sus 50 columnas. Los únicos índices son la clave primaria y `(estab, anio)`, sobre 27,3 millones de filas.
 - **Incompleto a comienzo de año (B-020).** El año en curso puede marcarse «incompleto» temprano en el año, porque `Completeness` compara cada servicio con el año completo más cercano, entero.

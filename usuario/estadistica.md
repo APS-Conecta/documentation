@@ -43,6 +43,9 @@ Mientras el año de esas metas no tiene cifras, como las metas 2027 cargadas en 
 La aplicación trae las metas 2027 de la Res. Exenta 732: el Resumen muestra «Meta I 2027» a «Meta VIII 2027», contadas sobre las cifras de 2026.
 Hasta que el MINSAL publique las Orientaciones Técnicas 2027, cada meta con cifras REM dice «Sin porcentaje: esperando ruta oficial» y «Sin meta mínima 2027: esperando ruta oficial», y la Meta VIII muestra su «Cumplimiento informado» y «Meta mínima 2027: 100,0 %».
 
+Arriba de las tarjetas puede aparecer una **nota**: un texto breve sobre lo que cambió desde el cálculo anterior del Resumen, con sus cifras.
+La escribe un modelo de IA, y debajo dice «Escrita por un modelo de IA a partir de las cifras».
+
 Cada tarjeta dice:
 
 | Parte | Contenido |
@@ -74,6 +77,8 @@ Para leer las tarjetas:
 - Una meta sin cifra no tiene meta mínima y dice por qué, como «Sin meta mínima 2027: esperando ruta oficial», «Sin meta mínima 2027: falta el denominador oficial de 2025» o «Sin meta mínima 2027: no hay cierre comparable de 2025».
 - La Meta VIII no tiene cifras REM: muestra el «Cumplimiento informado» que se escribió a mano.
 - El Resumen muestra solo las cifras del propio establecimiento. Las nacionales y las de pares están en **Metas Sanitarias** y en **Consultar**.
+- La nota dice solo qué cifras cambiaron, sin causas ni consejos. Se muestra solo cuando cada número que trae es una cifra del Resumen tal como la muestran las tarjetas, o un año o un mes que el Resumen nombra; si no, no hay nota. El modelo recibe solo las cifras agregadas que cambiaron, nunca datos de pacientes.
+- Sin un servicio de generación de texto conectado a Nextcloud no hay nota, y el resto del Resumen se ve igual.
 - Cada cifra de una tarjeta, el porcentaje, el numerador y el denominador, y cada cifra de su tabla, el **Cierre** incluido, se puede presionar o elegir con el teclado. Abre, en la barra lateral, de dónde sale la cifra en su mes y su año:
   - el origen del mes y su fecha, como «Origen: datos públicos DEIS, con cifras hasta noviembre de 2026», o «Origen: planilla del establecimiento, guardada el 9 de noviembre de 2026» en un mes que cubre una planilla;
   - para el numerador y el denominador, el nombre de su fuente, como «REM Serie A», y el periodo de ese año, y los códigos que se suman y los que se restan, cada uno con su hoja, su sección y sus columnas, con los nombres del diccionario de ese año;
@@ -313,6 +318,7 @@ Cada octubre, cuando el Ministerio publica las Orientaciones Técnicas del año 
 | Faltan las cifras propias | La instalación no tiene su establecimiento configurado | Avisar a quien instaló la suite |
 | «Base de Establecimientos: todavía no se ha cargado, así que no hay pares con qué comparar» | Falta el registro de establecimientos del DEIS | Avisar a quien administra Estadística |
 | Una meta sin porcentaje | Falta la población de FONASA de ese año, o el mes todavía no se publica | Avisar a quien administra Estadística si falta la población |
+| No aparece la nota | Nextcloud no tiene un servicio de generación de texto conectado, las cifras no cambiaron en el último cálculo, o el texto del modelo traía un número que no está en el Resumen | Nada: las tarjetas muestran las cifras igual |
 | «Sin porcentaje: esperando ruta oficial» | Las Orientaciones Técnicas del año todavía no confirman la ruta REM de esa meta | Esperar la versión de las metas que la confirma |
 | «Sin meta mínima 2027: no hay cierre comparable de 2025» | Ese año no tiene cifra de diciembre del establecimiento, o no es comparable | Revisar en el histórico de la tarjeta qué le falta a ese año |
 | «Todavía no hay Metas Sanitarias cargadas» | No hay metas cargadas hasta el año en curso | Avisar a quien administra Estadística, que las carga como un archivo en «Cargar un archivo a mano» |
