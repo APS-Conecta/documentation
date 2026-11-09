@@ -250,7 +250,7 @@ Cada archivo de la carpeta aparece con su estado:
 |---|---|
 | Leída: Serie A, marzo de 2026 | La planilla se leyó con el diccionario de su año |
 | Reemplazada por una más reciente | Hay otra planilla de la misma serie y mes guardada después, y cuenta la más reciente |
-| Rechazada: … | No se leyó, y el motivo dice por qué: es de otro establecimiento, su versión del formulario no es la del diccionario de ese año, no es un formulario REM del DEIS, o el archivo no se puede leer |
+| Rechazada: … | No se leyó, y el motivo dice por qué: es de otro establecimiento, su versión del formulario no es la del diccionario de ese año, no es un formulario REM del DEIS, o el archivo no se puede leer. Una planilla de un año cuyo diccionario el DEIS todavía no publica espera: se lee sola cuando el DEIS publica el primer archivo de ese año, con las cifras de enero, así que no hace falta volver a guardarla |
 
 Las macros de la planilla nunca se ejecutan: solo se leen sus celdas.
 Un archivo que se quita de la carpeta deja de contar.
