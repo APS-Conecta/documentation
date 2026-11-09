@@ -111,7 +111,7 @@ Un título tiene hasta 200 caracteres; un tablero, hasta 24 tarjetas, cada una d
 La vista de metas lee `GET indicadores` y no envía consultas propias.
 
 **Resumen.** `GET resumen` responde `{anio, nombre, referencia, establecimiento, metas}` con las metas de la semilla más nueva, para el establecimiento configurado o para el que nombra `establecimiento`; `referencia` es la de la semilla.
-Cada tarjeta de `metas` trae `codigo`, `nombre`, `indicador`, `meta_nacional`, `meta_comprometida`, `manual`, `estado`, `mes`, `datos_al`, `numerador`, `denominador`, `porcentaje`, `cumple`, `historico`, `origen` y `fecha_corte`.
+Cada tarjeta de `metas` trae `codigo`, `nombre`, `indicador`, `meta_nacional`, `meta_comprometida`, `manual`, `estado`, `mes`, `datos_al`, `numerador`, `denominador`, `porcentaje`, `cumple`, `historico`, `origen`, `fecha_corte` y `meta_minima`.
 El año de la tarjeta es el más reciente con cifras REM, y nunca uno posterior al de las metas: las metas del año siguiente, cargadas en octubre, se cuentan sobre las cifras del año en curso.
 `Resumen` (`lib/Goals/Resumen.php`) toma de `GoalEvaluator::history()` la respuesta para el establecimiento solo, sin serie nacional ni de pares, así que en el año de las metas `numerador`, `denominador` y `porcentaje` son los de la serie local de `GET indicadores` en el mismo `mes`: el último mes con porcentaje.
 `datos_al` es el último mes que el establecimiento informó en la serie de la meta, el de su fuente en `fecha_corte_local` de `GET indicadores`; en una meta de Serie P puede ser anterior a `mes`, y es `null` en una meta manual o sin establecimiento.
@@ -127,6 +127,13 @@ Si no, es `falta el denominador oficial de <año>` cuando falta el denominador c
 `ruta` trae `numerador` y `denominador` de ese año, cada uno con `fuente`, `nombre` (el de esa fuente en `GET fuentes`), `desde` y `hasta` (`AAAA-MM`, corridos a ese año), `sumar` y `restar`: una lista por consulta de la ruta, con cada código etiquetado para sus columnas por el diccionario de ese año, como lo etiqueta `POST consultas`.
 Un denominador de la población inscrita de FONASA tiene `fuente` `piv`, el `nombre` de esa fuente, `desde` y `hasta` en `null` y ningún código; el que solo da el compromiso es `null`.
 Una meta manual, o una que espera su ruta oficial, trae `historico` vacío.
+`meta_minima` es `{porcentaje, base, motivo}`, o `null` cuando la semilla no trae la regla de la meta (`Resumen::minimum()`).
+`base` es el año de su cierre: el último año de `historico` ya terminado cuya carga en la fuente del numerador llega a diciembre, así que pasa a un año cuando se publica su diciembre.
+Desde el `cierre` de ese año, una base igual o mayor que la meta nacional se mantiene; si no, se cierra `brecha` % de la distancia a la meta nacional, o `brecha_si_cumplio` % cuando la base alcanzó la meta comprometida guardada de ese año para esa meta, nunca bajo `piso`; una regla `fija` da ese valor.
+Se calcula exacta, en diezmilésimas de punto, y `porcentaje` se redondea a un decimal, la mitad hacia arriba.
+Una meta manual trae su `fija`, sin `base`.
+Sin cifra, `porcentaje` es `null` y `motivo` dice por qué: `esperando ruta oficial`, `falta el denominador oficial de <año>`, `no hay cierre comparable de <año>` o `no hay cierre comparable` (la ventana no tiene ningún año completo).
+Sin la meta comprometida del año base, la regla con `brecha_si_cumplio` cierra `brecha` y `motivo` lo dice.
 Para el establecimiento configurado, `GET resumen` sirve el Resumen guardado en `estadistica_resumen`, así que todos leen las mismas cifras hasta el siguiente cálculo; mientras no hay uno guardado, lo arma en la solicitud.
 Para cualquier otro `establecimiento` lo arma en cada solicitud y no lo guarda.
 La pestaña **Resumen** es la primera y lee solo esta ruta, y dibuja `historico` con el envoltorio de Chart.js de la app.
@@ -212,10 +219,12 @@ Un archivo reemplaza su año entero y los compromisos se mantienen, porque nombr
 El año de un archivo va de 2009 al año siguiente al actual, para que las metas de un año se carguen en octubre del anterior, cuando el MINSAL publica sus Orientaciones Técnicas.
 Cada ruta REM, un `numerador` o un `denominador` con `fuente`, admite la clave `oficial`, `true` o `false`; sin ella, la ruta es oficial, así que una semilla anterior se lee igual.
 Una ruta preparada antes de que las Orientaciones Técnicas del año la confirmen va con `oficial: false`.
+Cada meta admite la clave `meta_minima`, la regla de su meta mínima en porcentajes enteros: `brecha`, con `brecha_si_cumplio` y `piso` si hacen falta, o `fija`; sin ella, la meta no tiene meta mínima.
 `peso` es opcional: sin él, la meta no tiene peso y `indicadores` trae `peso: null`. Una `nota` tiene hasta 1000 caracteres.
 
 La aplicación trae `seeds/metas-2026.json` y `seeds/metas-2027.json`.
-La semilla 2027 copia de la Res. Exenta 732 los nombres, los indicadores y las metas nacionales, sin pesos.
+La semilla 2027 copia de la Res. Exenta 732 los nombres, los indicadores, las metas nacionales y la regla de la meta mínima de cada meta, sin pesos.
+La Meta II escribe «un cierre de 40 % o menos se compromete al menos a 50 %» como `piso: 50`, que da lo mismo con las brechas de la resolución.
 Sus rutas REM se prepararon con los diccionarios 2026 (`SA_26_V1.2`, `SP_26_V1.2`) y van todas con `oficial: false`, así que en el Resumen esas metas dicen `esperando ruta oficial` hasta que una versión mayor las confirme con el Anexo 3 de las Orientaciones Técnicas 2027.
 La nota de cada meta cita la prestación de cada código y las columnas que lee, y `GoalSeedTest` comprueba cada código × columna contra esas filas del diccionario 2026.
 
