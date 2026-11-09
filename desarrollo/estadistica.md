@@ -165,9 +165,8 @@ Cada ejecución lee primero la carpeta de planillas, y después hace a lo más u
 Fuera de eso, la ejecución no toca la red.
 
 `ResumenJob` es un `QueuedJob` que vuelve a calcular y guarda el Resumen del establecimiento configurado, con `Resumen::build`, el mismo cálculo de la solicitud.
-Lo ponen en cola, en la misma transacción que su escritura, una carga REM (`RemImporter`), los compromisos de la sección de administración (`Goals::commit`: meta comprometida, denominador comprometido y cumplimiento informado), la población que la sección escribe para el establecimiento (`PivImporter::enter`), que gana a la de FONASA en su serie propia, una semilla de metas, incluida o cargada a mano (`Goals::store`), y una planilla que se lee, o una leída que se olvida (`Planillas`); nada más lo pone en cola.
+Lo ponen en cola, en la misma transacción que su escritura, una carga REM (`RemImporter`), los compromisos de la sección de administración (`Goals::commit`: meta comprometida, denominador comprometido y cumplimiento informado), un archivo de FONASA cargado por la puerta (`PivImporter::import`), la población que la sección escribe para el establecimiento (`PivImporter::enter`), que gana a la de FONASA en su serie propia, una semilla de metas, incluida o cargada a mano (`Goals::store`), y una planilla que se lee, o una leída que se olvida (`Planillas`); nada más lo pone en cola.
 Nextcloud guarda una sola copia en cola, así que los cambios que llegan antes de que corra se calculan una vez, y un cambio durante el cálculo pone en cola el siguiente.
-La población que trae el archivo de FONASA entra en el Resumen en su siguiente cálculo.
 
 Cada (año, serie) tiene una fila de estado (`IngestState`) con dos mitades: la carga cambia solo cuando se cargan filas, en la misma transacción, y el intento se escribe en cada prueba.
 
