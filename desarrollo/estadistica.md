@@ -174,8 +174,8 @@ Nextcloud guarda una sola copia en cola, así que los cambios que llegan antes d
 La entrada es la instrucción fija en español, decir solo qué cambió, con las cifras exactas, sin causas ni consejos, y una línea por cada cifra de una tarjeta que cambió desde el Resumen guardado anterior, antes y ahora, como la escribe la pantalla: porcentaje, numerador, denominador, datos al, meta comprometida o nacional y meta mínima.
 El primer Resumen guardado no pide nota, y un cálculo que no cambia ninguna de esas cifras tampoco.
 La tarea es asíncrona: `NotaListener` escucha `TaskSuccessfulEvent`, toma solo las tareas de texto a texto de esta app, y `ResumenStore::note()` guarda la respuesta solo si la huella de la tarea sigue siendo la guardada y `Nota::check()` la acepta.
-`Nota::check()` toma cada número de la respuesta, dígitos con `.` y `,` entre ellos y el `%` que los siga, y exige que sea, tal cual, una cifra que el Resumen guardado muestra en es-CL (`.` de miles, `,` decimal, a lo más un decimal, la meta mínima con uno exacto, `%` en los porcentajes), o un año o un número de mes que el Resumen nombra.
-Un número inventado, redondeado de otra forma o escrito sin su punto de miles descarta la nota entera.
+`Nota::check()` toma cada número de la respuesta, dígitos con `.` y `,` entre ellos y el `%` que los siga, y exige que sea, tal cual, una cifra que el Resumen guardado muestra en es-CL (`.` de miles, `,` decimal, a lo más un decimal, la meta mínima con uno exacto, `%` en los porcentajes), un año que el Resumen nombra, o un mes que nombra escrito con su año (`11/2099`), nunca un número de mes suelto.
+Un número inventado, redondeado de otra forma o escrito sin su punto de miles descarta la nota entera, y también una respuesta que no es UTF-8 válido.
 
 Cada (año, serie) tiene una fila de estado (`IngestState`) con dos mitades: la carga cambia solo cuando se cargan filas, en la misma transacción, y el intento se escribe en cada prueba.
 
