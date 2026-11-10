@@ -29,6 +29,8 @@ Al terminar, el personal abre la suite en `https://<centro>.gestion.apsconecta.c
 
 Con al menos 4 núcleos y 8 GiB de memoria, la suite instala además el grabador de llamadas de Talk.
 
+La [IA local](#instalar-gestion-aio-ia-local), opcional, necesita memoria por sobre los 6 GiB de la suite y espacio en disco para su modelo, de unos 4,6 GB, y para la imagen de Ollama. Usa una GPU NVIDIA si el servidor tiene instalado el NVIDIA Container Toolkit, o una GPU AMD o Intel; sin GPU, usa el procesador.
+
 ## Pasos
 
 ### 1. Ejecutar el comando
@@ -160,13 +162,25 @@ Una planilla corregida actualiza el nombre, el correo y los equipos de cada pers
 
 ### 6. Revisar
 
-«Revisar» resume lo que se instalará: el centro, la dirección, los equipos, las personas, las cuentas de cargo, los componentes, las aplicaciones y las copias de seguridad.
+«Revisar» resume lo que se instalará: el centro, la dirección, los equipos, las personas, las cuentas de cargo, los componentes, las aplicaciones, la IA local y las copias de seguridad.
 
 1. Revisar el resumen.
 2. En «Aplicaciones opcionales», marcar las que usará el establecimiento: Farmacia, Estadística o Tótem. La elección del primer «Instalar» queda fija.
-3. Presionar «Instalar».
+3. En «IA local», marcarla si el establecimiento la usará. Sin marcar, queda desactivada.
+4. Presionar «Instalar».
 
 Los componentes se instalan siempre: Talk, Euro-Office, Imaginary (vistas previas de imágenes), ClamAV (antivirus), búsqueda de texto completo y HaRP (servidor de aplicaciones externas). Si el servidor alcanza el mínimo de grabación de Requisitos, la lista incluye además el «Grabador de Talk», sin que haya que elegirlo.
+
+(instalar-gestion-aio-ia-local)=
+#### La IA local
+
+La IA local es un modelo de lenguaje que corre en el propio servidor, en el contenedor de Ollama. Da a las aplicaciones de la suite un proveedor de texto: con ella aparece, por ejemplo, la nota de Estadística. Ningún dato sale del servidor.
+
+- Junto a la casilla, «Revisar» dice qué encontró en el servidor: «El servidor tiene una GPU NVIDIA con su NVIDIA Container Toolkit: la IA local la usará.», «El servidor tiene una GPU AMD o Intel: la IA local la usará.» o «El servidor no tiene ninguna GPU que la IA local pueda usar: usará el procesador y responderá más lento.».
+- Activada, el paso «IA local» descarga el modelo `gemma4:e2b` en la versión que fija la suite; la descarga puede tardar varios minutos. Ollama atiende una solicitud a la vez y usa como máximo la memoria que el servidor tiene por sobre los 6 GiB de la suite.
+- Mientras el asistente está abierto, la casilla la activa o la desactiva. Después de «Instalar», el paso «IA local» vuelve a correr con la nueva elección.
+- Desactivada, la suite deja de tener ese proveedor y el contenedor de Ollama se detiene. El modelo queda en el servidor: al volver a activarla, no se descarga otra vez.
+- Una actualización de la suite conserva la elección y el modelo que fija la versión.
 
 La página muestra el avance de cada paso de la instalación y de cada contenedor. Descargar e iniciar los contenedores puede tardar varios minutos. La instalación sigue en el servidor aunque se cierre la página.
 
@@ -236,3 +250,5 @@ Para guardar las copias en otro disco o restaurar una copia, use la página de A
 | «La planilla tiene errores: corríjalos y súbala de nuevo.» | Corregir cada línea que indica el asistente y subir la planilla otra vez. |
 | «No se pudo confirmar el cierre del asistente. …» | Volver a ejecutar el comando: imprime un enlace nuevo para descargar el archivo de contraseñas o, si el asistente ya se cerró, la ruta del archivo en el servidor. |
 | «Este equipo no logra abrir https://…» | Seguir [Si un computador no abre la dirección](#instalar-gestion-aio-router). |
+| «El servidor tiene … GiB de memoria y APS Conecta Gestión usa 6 GiB: no queda memoria para la IA local. …» | Desactivar la IA local en «Revisar», o ampliar la memoria del servidor y presionar «Reintentar». |
+| «El modelo gemma4:e2b que publica Ollama ya no es el que fija esta versión de APS Conecta Gestión, …» | Desactivar la IA local en «Revisar» para terminar la instalación, y contactar a APS Conecta. |
