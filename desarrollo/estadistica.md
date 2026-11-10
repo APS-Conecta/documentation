@@ -88,6 +88,11 @@ La declara el atributo `#[AiOperation('read')]` o `#[AiOperation('write')]` del 
 
 Ningún `DELETE` ni ninguna ruta de administración lleva la marca, y la prueba de contrato de la API falla si una la lleva o si a una operación de esta tabla le falta.
 
+El [conector de la suite](https://github.com/APS-Conecta/nextcloud-mcp-connector) lleva una copia de este `openapi.json`, porque la aplicación no lo publica, y con ella construye estas herramientas al arrancar.
+Cada operación marcada es una herramienta: su nombre es `estadistica_` seguido del `operationId` con guiones bajos (`estadistica_api_resumen`), y su descripción es el `summary` de la operación.
+Cada herramienta, con su descripción y sus parámetros, cabe en 1400 bytes: el detalle va en la `description` de la operación, que el conector no copia.
+Una operación recién marcada llega a la IA cuando se actualiza esa copia en el conector, sin cambiar su código.
+
 **La especificación de consulta.** `POST consultas` recibe `{consulta, establecimiento?}`.
 Una consulta es un documento JSON con claves en español, y `QuerySpec::from()` es su único lector.
 Rechaza en español, con un 422 y antes de que exista SQL, toda clave, columna, dimensión o métrica que no conoce.
