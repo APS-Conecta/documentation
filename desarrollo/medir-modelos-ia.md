@@ -16,7 +16,7 @@ El umbral es de al menos 95 % de llamadas correctas, con un p95 de respuesta de 
 
 - Linux, o WSL en Windows, con Docker, Git y Python 3.10 o posterior.
 - Unos 10 GB libres en disco para la imagen de Ollama y los dos modelos.
-- En un equipo con GPU: una GPU NVIDIA con su controlador y el NVIDIA Container Toolkit, de modo que `nvidia-smi` responda.
+- En un equipo con GPU: una GPU NVIDIA con su controlador y el NVIDIA Container Toolkit, de modo que `nvidia-smi` responda, o una GPU AMD o Intel con `/dev/dri` presente en el equipo.
 
 ## Pasos
 
@@ -35,7 +35,7 @@ El umbral es de al menos 95 % de llamadas correctas, con un p95 de respuesta de 
      ollama/ollama:0.40.16@sha256:910d0d8107b538fb0894e63163eb195de0cc7aefcbc666dc62d3b18f71124592
    ```
 
-   En un equipo sin GPU, el mismo comando sin `--gpus=all`.
+   En un equipo con GPU AMD o Intel, el mismo comando con `--device /dev/dri` en lugar de `--gpus=all`, como lo hace la suite. En un equipo sin GPU, el mismo comando sin `--gpus=all`.
 
 3. Ejecutar la medición:
 
@@ -66,4 +66,4 @@ El umbral es de al menos 95 % de llamadas correctas, con un p95 de respuesta de 
 |---|---|
 | «Ollama holds digest …, not the pin …; not measured» | El registro de Ollama movió la etiqueta del modelo y ya no entrega el digest fijado. Informarlo en la incidencia: no se mide otro digest. |
 | «Connection refused» | Ollama no está iniciado: repetir el paso 2. |
-| `model_bytes_in_vram` en 0 con GPU | Docker no ve la GPU: revisar el NVIDIA Container Toolkit y que el contenedor se inició con `--gpus=all`. |
+| `model_bytes_in_vram` en 0 con GPU | Docker no ve la GPU. Con NVIDIA: revisar el NVIDIA Container Toolkit y que el contenedor se inició con `--gpus=all`. Con AMD o Intel: revisar que el contenedor se inició con `--device /dev/dri`. |
