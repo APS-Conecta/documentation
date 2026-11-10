@@ -2,7 +2,7 @@
 tipo: guia
 audiencia: administracion
 apps: []
-resumen: "Instalar la suite en un servidor limpio: el comando único, las cinco pantallas del asistente, el archivo de contraseñas, el personal y las copias."
+resumen: "Instalar la suite en un servidor limpio: el comando único, las cinco pantallas del asistente, el personal, las contraseñas y las copias."
 ---
 # Instalar APS Conecta Gestión (un comando)
 
@@ -25,7 +25,7 @@ Al terminar, el personal abre la suite en `https://<centro>.gestion.apsconecta.c
   - los puertos 80, 443 (TCP y UDP), 8080, 8081 y 8443 libres.
 - Acceso de administrador (`sudo`) en el servidor.
 - Un computador o teléfono conectado a la red del establecimiento, para abrir el asistente.
-- Los datos del personal: usuario, nombre, apellidos, correo y grupos de cada persona.
+- Los datos del personal: usuario, nombre, apellidos, correo y cargo de cada persona.
 
 Con al menos 4 núcleos y 8 GiB de memoria, la suite instala además el grabador de llamadas de Talk.
 
@@ -124,9 +124,9 @@ Si el mensaje sigue después de la excepción en el router, compruebe que el com
 
 ### 5. Equipos
 
-1. Escribir los sectores en «Sectores» y los programas en «Programas», uno por línea. Cada uno es un equipo, con su grupo y su carpeta compartida; el asistente los muestra mientras escribe. Por ejemplo, «Norte» es el equipo «Sector Norte», con el grupo `sector-norte` y la carpeta `Sectores/Sector Norte`, y «Cardiovascular» es «Programa Cardiovascular», con el grupo `prog-cardiovascular` y la carpeta `Programas/Cardiovascular`.
-2. Presionar «Descargar la planilla» y completarla, una persona por línea.
-3. Guardarla como CSV y subirla en «Subir la planilla completa». El asistente lista a las personas que creará. Si la planilla tiene errores, muestra cada uno con su número de línea y no carga a nadie: corregirla y subirla de nuevo.
+1. Escribir los sectores en «Sectores» y los programas en «Programas», uno por línea. Cada uno es un equipo, con su carpeta compartida; el asistente los muestra mientras escribe. Por ejemplo, «Norte» es el equipo «Sector Norte», con la carpeta `Sectores/Sector Norte`, y «Cardiovascular» es «Programa Cardiovascular», con la carpeta `Programas/Cardiovascular`.
+2. Presionar «Descargar la planilla» y completar su hoja «Personal» como indica su hoja «Instrucciones», una persona por fila.
+3. Subir la planilla, como libro de Excel o como CSV, en «Subir la planilla completa». El asistente lista a las personas que creará, cada una con su cargo. Si la planilla tiene errores, muestra cada uno con su número de línea y no carga a nadie: corregirla y subirla de nuevo.
 4. Revisar la lista. Para quitar a alguien que dejó el establecimiento, usar «Retirar».
 5. Presionar «Continuar».
 
@@ -134,31 +134,56 @@ Cada sector tiene además su cuenta de jefatura. Los sectores y los programas qu
 
 #### La planilla del personal
 
-La planilla separa las columnas con «;» y su primera línea las nombra: `usuario;nombre;apellidos;correo;grupos;primer_admin`. El asistente la acepta en UTF-8 o como la guarda Excel en CSV simple.
+«Descargar la planilla» entrega el libro de Excel `planilla-personal.xlsx`, hecho para el establecimiento. Funciona desde que se confirma el centro, antes de escribir los sectores y los programas, y se completa con Excel, LibreOffice Calc o Google Sheets.
 
-| Columna | Contenido |
+- La hoja «Instrucciones» explica cada columna con un ejemplo: si es obligatoria, qué acepta y cómo guardar y subir el archivo.
+- La hoja «Personal» recibe una persona por fila desde la fila 2; la primera, que nombra las columnas, no se cambia. Al seleccionar una celda, la hoja muestra qué acepta su columna.
+
+| Columna | Obligatoria | Contenido |
+|---|---|---|
+| «Usuario» | Sí | Hasta 64 caracteres entre letras minúsculas sin tildes, números, puntos y guiones; comienza con una letra o un número. No se repite. |
+| «Nombre» y «Apellidos» | Sí | Juntos suman a lo más 64 caracteres. |
+| «Correo» | No | Queda guardado en la cuenta de la persona. |
+| «Cargo» | No | Uno de la lista de la celda. Si el de la persona no está, la celda queda vacía y la persona tiene igual su cuenta, en «Todo el personal». |
+| «Primer administrador» | En una persona | «sí» para una sola persona, la que administrará la suite; «no» o vacío para las demás. |
+
+«Cargo» y «Primer administrador» son listas desplegables que rechazan un valor que no está en ellas. La lista de «Cargo» trae los cargos del establecimiento en el orden de sus categorías, Jefaturas, Clínicos, Técnicos y Administrativos, y el cargo de la dirección lleva el tipo del establecimiento, por ejemplo «Director/a de CESFAM»:
+
+| Categoría | Cargos |
 |---|---|
-| `usuario` | Hasta 64 caracteres entre letras minúsculas sin tildes, números, puntos y guiones; comienza con una letra o un número. No se repite. |
-| `nombre` y `apellidos` | Obligatorios. Juntos suman a lo más 64 caracteres. |
-| `correo` | Opcional. Queda guardado en la cuenta de la persona. |
-| `grupos` | Los grupos de la persona, separados por espacios, tal como los lista «Grupos que acepta la planilla»: el equipo (`sector-norte`), el rol (`role-medico`) y los demás. |
-| `primer_admin` | «sí» para una sola persona, la que administrará la suite; vacío para las demás. |
+| Jefaturas | Director/a de CESFAM (con el tipo del establecimiento), Subdirector/a Médico o Jefe Técnico, Jefe/a de Sector (Gestión MAIS), Jefe/a de SOME, Jefe/a de Programa, Médico/a Gestor/a, Jefe/a de Apoyo Clínico, Jefe/a de Servicios Generales |
+| Clínicos | Médico General / de Familia, Cirujano Dentista, Químico Farmacéutico (Dir. Técnico Farmacia), Enfermera/o, Matrona/Matrón, Kinesiólogo/a, Psicólogo/a, Trabajador/a Social, Nutricionista, Terapeuta Ocupacional, Fonoaudiólogo/a, Tecnólogo/a Médico/a, Educador/a de Párvulos, Profesor/a de Educación Física, Gestor/a Comunitario/a, Médico/a Oftalmólogo/a |
+| Técnicos | TENS – Procedimientos / Vacunatorio, TENS – Farmacia / PNAC, TONS (Técnico en Odontología), Podólogo/a, Técnico/a en Rehabilitación, Facilitador/a Intercultural, Técnico/a de Salud |
+| Administrativos | Administrativo SOME, Encargado/a OIRS, Encargado/a de Estadística (REM), Conductor (Ambulancia / Traslado), Auxiliar de Servicio, Informático/a (Soporte TI), Recursos Humanos, Abastecimiento y Finanzas, Secretario/a de Dirección, Guardia de Seguridad |
 
-Cada persona entra además al grupo de todo el personal y a la categoría de su rol. Los usuarios `admin`, `director`, `subdirector`, `jefe.farmacia`, `jefe.some` y los de las jefaturas de sector están reservados para el administrador de la suite y las cuentas de cargo: la planilla los rechaza.
+Cada persona entra al grupo «Todo el personal», al de su cargo y al de la categoría de su cargo, así que se le puede compartir un archivo por su cargo («Enfermera/o») o por su categoría («Clínicos»). La persona marcada en «Primer administrador» entra además al grupo de administración de la suite. Los usuarios `admin`, `director`, `subdirector`, `jefe.farmacia`, `jefe.some` y los de las jefaturas de sector están reservados para el administrador de la suite y las cuentas de cargo: la planilla los rechaza.
+
+La planilla se sube en uno de dos formatos:
+
+- **Libro de Excel (.xlsx)**, tal como lo guardan Excel y LibreOffice Calc; en Google Sheets, con «Archivo > Descargar > Microsoft Excel (.xlsx)». El asistente lee la hoja «Personal».
+- **CSV delimitado por «;»**, con la hoja «Personal» guardada en UTF-8 o como la guarda Excel en CSV simple (Windows-1252). Su primera línea nombra las mismas columnas: `Usuario;Nombre;Apellidos;Correo;Cargo;Primer administrador`.
+
+Los dos formatos cargan las mismas personas y dan los mismos errores. Los encabezados, los cargos y «sí» se reconocen sin importar tildes ni mayúsculas: en un CSV, «enfermera/o» es «Enfermera/o». Un cargo que no está en la lista es un error que nombra su línea y su valor.
+
+#### Las carpetas del establecimiento
+
+Todo lo compartido es de todo el personal. Cada persona lee, escribe, elimina y comparte en la carpeta de cada sector y de cada programa, en las de las unidades SOME, Farmacia, Dental, OIRS y Estadística-REM, y en `Intranet`, que guarda las páginas de bienvenida: todo el personal las edita.
+
+Las carpetas `Unidades/Dirección` y `Unidades/Subdirección` son solo del equipo directivo. Las ven y las usan las personas con cargo Director/a, Subdirector/a Médico o Jefe Técnico o Secretario/a de Dirección, y las cuentas de cargo `director` y `subdirector`. El resto del personal no las ve.
 
 #### Retirar a una persona
 
 1. Marcar en la lista a las personas que dejaron el establecimiento.
-2. Presionar «Retirar». El asistente pregunta «¿Retirar a …? …»: la cuenta se desactiva y sale de todos los equipos, y sus archivos y lo que compartió se conservan.
+2. Presionar «Retirar». El asistente pregunta «¿Retirar a …? …»: la cuenta se desactiva y sale de todos los grupos que asigna la instalación, y sus archivos y lo que compartió se conservan.
 3. Presionar «Confirmar el retiro».
 
-La persona marcada como primer administrador no se retira: marque a otra en `primer_admin` y suba la planilla de nuevo. Una persona retirada sigue retirada aunque se suba otra planilla.
+La persona marcada como primer administrador no se retira: marque a otra con «sí» en «Primer administrador» y suba la planilla de nuevo. Una persona retirada sigue retirada aunque se suba otra planilla.
 
 #### Corregir el personal durante la instalación
 
 Hasta «Listo», «Equipos» acepta una planilla corregida y «Retirar». Los cambios se aplican al presionar «Reintentar» en «Revisar».
 
-Una planilla corregida actualiza el nombre, el correo y los equipos de cada persona, y la saca de los equipos que ya no lista. Si deja fuera a una persona cuya cuenta la instalación ya creó, esa persona se retira: la lista la muestra como «Retirado/a: ya no está en la planilla». Una persona que aún no tenía cuenta simplemente no se crea. Las cuentas creadas fuera del asistente nunca se retiran.
+Una planilla corregida actualiza el nombre, el correo y el cargo de cada persona. Con un cargo distinto, la persona sale de los grupos de su cargo y su categoría anteriores y entra a los nuevos. Si la planilla deja fuera a una persona cuya cuenta la instalación ya creó, esa persona se retira: la lista la muestra como «Retirado/a: ya no está en la planilla». Una persona que aún no tenía cuenta simplemente no se crea. Las cuentas creadas fuera del asistente nunca se retiran.
 
 ### 6. Revisar
 
@@ -216,13 +241,58 @@ sudo cat /var/lib/aps-conecta/provisionador/contrasenas.txt
 
 ### El personal después de la instalación
 
-Después de «Listo», la instalación no vuelve a tocar las cuentas: el personal se administra en la página «Cuentas» de APS Conecta Gestión. Entran a ella la persona marcada en `primer_admin` y el usuario `admin`.
+Después de «Listo», la instalación no vuelve a tocar las cuentas: el personal se administra en la página «Cuentas» de APS Conecta Gestión. Entran a ella la persona marcada en «Primer administrador» y el usuario `admin`, y también las cuentas de cargo de jefatura, con el alcance que describe [La jefatura](#instalar-gestion-aio-jefatura).
 
-- «Cuenta nueva» agrega a una persona; sus grupos le dan sus equipos y carpetas.
+- «Cuenta nueva» agrega a una persona. En «Todo el personal» recibe todas las carpetas compartidas, y en el grupo de su cargo, lo que el cargo abre.
 - «Deshabilitar cuenta» impide que la persona inicie sesión y conserva sus archivos. «Habilitar cuenta» la reactiva; a quien se retiró durante la instalación hay que volver a asignarle sus grupos.
 - «Eliminar cuenta» borra la cuenta.
 
 La planilla del personal ya no se aplica después de «Listo».
+
+### Restablecer una contraseña
+
+APS Conecta Gestión no envía correos para restablecer una contraseña. La persona recupera el acceso en persona, con una contraseña temporal que le da su jefatura o la administración de la suite.
+
+#### La persona
+
+1. En la página de inicio de sesión, presionar «¿Contraseña olvidada?». Se abre la página de ayuda «¿Olvidó su contraseña?», con el nombre del establecimiento, desde cualquier computador o teléfono de la red del establecimiento.
+2. Pedir en persona, a su jefatura o a la administración de la suite, una contraseña temporal.
+3. Iniciar sesión con ella y cambiarla de inmediato en «Ajustes → Seguridad». No compartir nunca la contraseña.
+
+La suite no obliga a cambiar la contraseña temporal: la página de ayuda y la jefatura se lo piden a la persona.
+
+(instalar-gestion-aio-jefatura)=
+#### La jefatura
+
+Las cuentas de cargo de jefatura administran el grupo «Todo el personal»: `director`, `subdirector`, `jefe.farmacia`, `jefe.some` y la jefatura de cada sector (por ejemplo, `jefe.norte`). La facultad es del cargo y pasa a quien lo ocupe después. Cada cuenta entra con la primera contraseña que lista el archivo de contraseñas.
+
+1. Iniciar sesión con la cuenta de cargo y abrir «Cuentas» en el menú de la cuenta.
+2. En la fila de la persona, presionar «Editar».
+3. En «Editar cuenta», escribir una contraseña temporal en «Nueva contraseña» y presionar «Guardar».
+4. Cuando la suite lo pida, escribir la contraseña de la propia cuenta de cargo.
+5. Entregar la contraseña temporal a la persona, en persona.
+
+En «Cuentas», la jefatura también crea una cuenta en «Todo el personal» con «Cuenta nueva», cambia el nombre y el correo de una cuenta, y la deshabilita o la elimina. Cada acción pide la contraseña de la cuenta de cargo. Las cuentas de administración, `admin` y la del primer administrador, quedan fuera de su alcance: ninguna jefatura las cambia, las deshabilita ni las elimina.
+
+El registro de auditoría anota cada cambio de contraseña como `Password of user "<usuario>" has been changed`, con la cuenta que lo hizo en su campo `user`. Para leerlo en el servidor:
+
+```console
+sudo docker exec --user www-data nextcloud-aio-nextcloud grep 'Password of user' /var/www/html/data/audit.log
+```
+
+#### Un administrador sin acceso
+
+Ninguna jefatura restablece la contraseña de una cuenta de administración. Si `admin` o el primer administrador pierde la suya, quien tiene acceso de administrador (`sudo`) al servidor fija una nueva con `occ user:resetpassword` en el contenedor `nextcloud-aio-nextcloud` de AIO.
+
+1. En el servidor, ejecutar, con el usuario de la cuenta en lugar de `admin`:
+
+   ```console
+   sudo docker exec --interactive --tty --user www-data nextcloud-aio-nextcloud php occ user:resetpassword admin
+   ```
+
+2. Escribir la contraseña nueva cuando el comando pida «Enter a new password:» y repetirla en «Confirm the new password:». El comando termina con «Successfully reset password for admin».
+
+La contraseña se escribe en la pregunta del comando y no se ve al escribirla: nunca aparece en la línea de comandos ni en un registro.
 
 ### Las copias de seguridad
 
@@ -236,6 +306,7 @@ Para guardar las copias en otro disco o restaurar una copia, use la página de A
 - La dirección abre la página de inicio de sesión de APS Conecta Gestión sin advertencia de certificado.
 - Una persona de la planilla inicia sesión con su usuario y la primera contraseña del archivo de contraseñas.
 - Una persona retirada no puede iniciar sesión.
+- En la página de inicio de sesión, «¿Contraseña olvidada?» abre la página de ayuda con el nombre del establecimiento.
 
 ## Problemas frecuentes
 
