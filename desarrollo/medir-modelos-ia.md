@@ -8,7 +8,9 @@ resumen: "Medir los modelos candidatos de la IA local con las preguntas fijas de
 
 ## Objetivo
 
-Antes de que la suite adopte un modelo para la IA local, el comando de medición de [gestion-aio](https://github.com/APS-Conecta/gestion-aio) prueba cada candidato, `gemma4:e2b` y `qwen3.5:2b`, en su digest fijado. Le hace 32 preguntas fijas en español sobre las herramientas del primer tramo: las operaciones de Estadística y las del conector MCP. Ninguna herramienta se ejecuta, tampoco las escrituras: cada respuesta se califica por la herramienta que el modelo llama, por sus argumentos y por el tiempo que tarda.
+Antes de que la suite adopte un modelo para la IA local, el comando de medición de [gestion-aio](https://github.com/APS-Conecta/gestion-aio) prueba cada candidato, `gemma4:e2b` y `qwen3.5:2b`, en su digest fijado. Le hace 32 preguntas fijas en español y le ofrece las herramientas que el conector MCP entrega en su rama principal, las operaciones de Estadística incluidas. Ninguna herramienta se ejecuta, tampoco las escrituras: cada respuesta se califica por la herramienta que el modelo llama, por sus argumentos y por el tiempo que tarda.
+
+Esas herramientas, con sus nombres, descripciones y parámetros, están guardadas en `aps/benchmark/tools.json`. Cuando el conector cambia las suyas, quien mantiene gestion-aio las vuelve a tomar con `aps/benchmark/refresh-tools.sh`, que requiere Docker y Git, y corrige en `aps/benchmark/questions.json` cada pregunta que espere una herramienta que ya no está: mientras quede una, la medición se detiene sin medir.
 
 El umbral es de al menos 95 % de llamadas correctas, con un p95 de respuesta de 15 s o menos, en el equipo de 6 GB de VRAM. Cada equipo de referencia entrega un archivo de resultados por modelo.
 
