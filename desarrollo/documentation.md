@@ -54,7 +54,7 @@ El `README` sigue este orden: título H1, una oración tomada del `role` del cat
 
 ### El tejido de la plataforma base
 
-Las páginas de la plataforma base tejen los manuales oficiales que publica {vendor}`Nextcloud` (`nextcloud/documentation`). La rama sigue a la suite: `stable<mayor>`, con el mayor leído de la versión del servidor que empaqueta el instalador (`Containers/nextcloud`). `tools/fetch-upstream.sh` hace un clon parcial en `_generated/upstream`, con el historial completo para que el SHA de cada bloque resuelva y solo los archivos de texto, sin descargar imágenes.
+Las páginas de la plataforma base tejen los manuales oficiales que publica {vendor}`Nextcloud` (`nextcloud/documentation`). La rama sigue a la suite: `stable<mayor>`, con el mayor leído de la versión del servidor que empaqueta gestion-aio (`Containers/nextcloud`). `tools/fetch-upstream.sh` hace un clon parcial en `_generated/upstream`, con el historial completo para que el SHA de cada bloque resuelva y solo los archivos de texto, sin descargar imágenes.
 
 Un bloque tejido es la directiva `{upstream}`, que actúa a la vez como marcador, atribución y contexto de lectura: muestra una línea «Fuente» y, con `:difiere:`, un aviso de que APS Conecta Gestión se aparta del original. Sus referencias cruzadas conservan los destinos originales y resuelven a la página de APS donde ese documento está tejido o, mientras no lo está, al sitio de documentación del fabricante, así que un sitio a medio tejer nunca tiene un enlace muerto.
 
