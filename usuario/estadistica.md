@@ -163,17 +163,16 @@ Quien creó una pregunta, y quien administra Estadística, ven además **Editar*
 1. Abrir **Tableros** en la navegación.
 2. Escribir un título en **Título del nuevo tablero**.
 3. Presionar **Crear tablero**.
-4. Elegir una pregunta en **Agregar una pregunta guardada**.
-5. Presionar **Agregar tarjeta**.
-6. Ordenar las tarjetas con **Subir** y **Bajar**.
-7. Elegir el ancho de cada tarjeta: **1 columna**, **2 columnas** o **3 columnas**.
-8. Presionar **Quitar** en una tarjeta para sacarla del tablero.
+4. Elegir una pregunta en **Pregunta guardada**.
+5. Presionar **Agregar una pregunta**.
+6. Abrir el menú de acciones de una tarjeta para ordenarla con **Subir** y **Bajar**, elegir su ancho (**1 columna**, **2 columnas** o **3 columnas**) o **Quitar** la tarjeta del tablero.
 
 El tablero recién creado queda abierto.
+Los demás tableros se abren eligiéndolos en **Tablero**, que muestra a su autor al lado.
 Cada cambio se guarda al hacerlo, y un tablero tiene hasta 24 tarjetas.
 Cada tarjeta hace su propia consulta: si una falla, las demás siguen mostrándose.
 Si alguien elimina una pregunta que el tablero muestra, su tarjeta dice «Esta pregunta fue eliminada. Quien edita el tablero puede quitar la tarjeta».
-Quien creó el tablero, y quien administra Estadística, pueden **Cambiar el título** o **Eliminar el tablero**; eliminar un tablero no elimina sus preguntas.
+Quien creó el tablero, y quien administra Estadística, pueden **Cambiar el título** o **Eliminar el tablero**; eliminar un tablero pide confirmarlo y no elimina sus preguntas.
 
 ### Metas Sanitarias
 
