@@ -75,7 +75,7 @@ El contrato es `openapi.json`, que un script del repositorio genera desde el con
 | `preguntas/{id}` | GET, PUT, DELETE | 200 · 403 · 404 · 422 |
 | `tableros` | GET, POST | 200 · 201: el tablero guardado · 422 |
 | `tableros/{id}` | GET, PUT, DELETE | 200 · 403 · 404 · 422 |
-| `indicadores` | GET, con `anio` y `pares` opcionales | 200: las metas del año, mes a mes, y en `fecha_corte_local` el último mes que el establecimiento informó en cada serie · 400 · 404: no hay metas para ese año · 422 |
+| `indicadores` | GET, con `anio`, `pares` y `establecimiento` opcionales | 200: las metas del año, mes a mes, y en `fecha_corte_local` el último mes que el establecimiento informó en cada serie · 400 · 404: no hay metas para ese año · 422 |
 | `resumen` | GET, con `establecimiento` opcional | 200: una tarjeta por meta de las metas más nuevas · 400: un código DEIS que no tiene seis dígitos · 404: no hay metas cargadas · 422 |
 
 **La marca de IA.** Cada operación que la IA de la suite puede llamar lleva en `openapi.json` la extensión `x-aps-ai`, con el valor `read` o `write`, y el conector de la suite solo construye herramientas desde las operaciones marcadas.
@@ -124,6 +124,8 @@ Un título tiene hasta 200 caracteres; un tablero, hasta 24 tarjetas, cada una d
 **Indicadores.** Cada término de la ruta de una meta es una consulta que `QuerySpec::from()` juzga al leer la semilla.
 `GoalEvaluator` consulta todos los términos del año en el servidor, con las mismas sentencias que compila una consulta, en una sola instantánea de solo lectura.
 La vista de metas lee `GET indicadores` y no envía consultas propias.
+`establecimiento` es el código DEIS de seis dígitos de la serie local; sin él, la serie local es el `deis_code` configurado.
+Las metas de otro establecimiento leen solo sus propios compromisos (`estadistica_commitment.estab`), y `fecha_corte_local` y los pares son los del establecimiento pedido.
 
 **Resumen.** `GET resumen` responde `{anio, nombre, referencia, establecimiento, metas, nota}` con las metas de la semilla más nueva, para el establecimiento configurado o para el que nombra `establecimiento`; `referencia` es la de la semilla.
 Cada tarjeta de `metas` trae `codigo`, `nombre`, `indicador`, `meta_nacional`, `meta_comprometida`, `manual`, `estado`, `mes`, `datos_al`, `numerador`, `denominador`, `porcentaje`, `cumple`, `historico`, `origen`, `fecha_corte` y `meta_minima`.
@@ -265,7 +267,7 @@ Los 400 y 422, y el 403 de una pregunta o un tablero, llevan en `message` la fra
 
 | Código | Significado | Reintento | Remedio del cliente |
 |---|---|---|---|
-| 400 | La solicitud no se entiende: un `anio` fuera de rango en `fuentes/{id}` o en `indicadores`; en `indicadores`, un rasgo de `pares` que no existe, o, en `resumen`, un `establecimiento` que no tiene seis dígitos | No | Corregir el parámetro |
+| 400 | La solicitud no se entiende: un `anio` fuera de rango en `fuentes/{id}` o en `indicadores`; en `indicadores`, un rasgo de `pares` que no existe, o, en `indicadores` y `resumen`, un `establecimiento` que no tiene seis dígitos | No | Corregir el parámetro |
 | 403 | Cambiar una pregunta o un tablero ajenos sin administrar Estadística, o guardar sin sesión; en las rutas internas, quien no es administrador ni miembro de un grupo delegado | No | Pedir el cambio a quien la creó o a quien administra Estadística; iniciar sesión |
 | 404 | No existe ese id, o no hay metas cargadas para ese año | No | Ninguno |
 | 422 | Entendido y rechazado (`RefusedException`): una especificación inválida, un título o tarjetas fuera de regla, una semilla o un compromiso inválidos, o una consulta cancelada al pasar los 10 s | Solo después de acotar la consulta | Mostrar el mensaje; acotar el periodo, las prestaciones o la comparación |
