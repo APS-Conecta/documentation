@@ -93,6 +93,7 @@ Para leer las tarjetas:
 
 Una consulta se arma en cuatro pasos, **1. Datos**, **2. Filtrar**, **3. Resumir** y **4. Visualizar**, y se hace al presionar **Consultar**, no antes.
 Al abrirse, **Consultar** propone el año cargado más reciente, de enero al último mes con cifras, agrupado por **Mes** y comparado con **Todo el país**.
+Los pasos quedan a la izquierda y el resultado a su derecha, a la vista mientras se recorren los pasos; en una pantalla angosta, el resultado queda debajo de ellos.
 
 1. Abrir **Consultar** en la navegación.
 2. En **1. Datos**, elegir la fuente: **REM Serie A** o **REM Serie P**.
@@ -111,6 +112,8 @@ La Serie A es mensual.
 La Serie P es un corte: sus filas traen solo los meses 6 y 12, y cuentan a las personas en control a esa fecha.
 Bajo cada fuente se lee su origen, los años cargados y el mes hasta el que llegan sus cifras.
 Una hoja con una sola sección la deja elegida.
+En lugar de los pasos 5 a 7, **Buscar una prestación** encuentra una prestación por su código o por parte de su nombre, sin importar tildes ni mayúsculas, y lista hasta 50.
+Al elegir una, quedan elegidas su hoja y su sección, y la prestación se agrega a **Prestaciones (vacío: todas las de la sección)**.
 Las dimensiones de **Agrupar por (hasta 2)** son **Año**, **Mes**, **Prestación**, **Columna** y los rasgos del establecimiento: **Tipo de establecimiento**, **Dependencia**, **Nivel de atención**, **Servicio de salud**, **Región** y **Comuna**.
 Mientras falte algo, el botón **Consultar** queda inactivo y a su lado se lee qué falta, por ejemplo, «Elija una hoja del REM».
 
