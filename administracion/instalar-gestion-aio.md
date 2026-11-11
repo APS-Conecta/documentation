@@ -83,6 +83,12 @@ El navegador que abre el enlace conserva su sesión hasta «Listo». El asistent
 
 ### 3. Centro
 
+:::{figure} ../capturas/asistente-centro.png
+:alt: Paso «Centro» del asistente: filtros de región, comuna, tipo y nombre, la lista de establecimientos del registro DEIS y el mapa.
+
+«Centro» al abrirse, antes de elegir el establecimiento.
+:::
+
 1. Buscar el establecimiento en el registro DEIS con «Región», «Comuna», «Tipo» y «Nombre».
 2. Elegir el establecimiento en la lista. El mapa muestra su punto oficial.
 3. Si el marcador no está sobre el establecimiento, hacer clic en el lugar correcto o arrastrarlo. «Volver al punto oficial» lo devuelve a su lugar.
@@ -93,6 +99,12 @@ La zona horaria se deduce de la ubicación: `Pacific/Easter` en Isla de Pascua, 
 ### 4. Dirección
 
 «Dirección» obtiene por sí sola, del servicio de nombres de APS Conecta, el nombre de la suite: `<centro>.gestion.apsconecta.cl`. No pide ningún dato.
+
+:::{figure} ../capturas/asistente-direccion.png
+:alt: Paso «Dirección» del asistente con el nombre de la suite asignado y el botón «Continuar».
+
+«Dirección» con el nombre que obtuvo para la suite; en esta instalación de prueba, bajo `ci.gestion.apsconecta.cl`.
+:::
 
 - El nombre se forma con el nombre corto del establecimiento, en minúsculas, sin tildes, con «ñ» como «n» y con guiones. Si dos establecimientos comparten el nombre corto, se agrega la comuna.
 - Cada código DEIS tiene un solo nombre, que no se edita.
@@ -133,6 +145,12 @@ Si el mensaje sigue después de la excepción en el router, compruebe que el com
 3. Subir la planilla, como libro de Excel o como CSV, en «Subir la planilla completa». El asistente lista a las personas que creará, cada una con su cargo. Si la planilla tiene errores, muestra cada uno con su número de línea y no carga a nadie: corregirla y subirla de nuevo.
 4. Revisar la lista. Para quitar a alguien que dejó el establecimiento, usar «Retirar».
 5. Presionar «Continuar».
+
+:::{figure} ../capturas/asistente-equipos.png
+:alt: Paso «Equipos» del asistente: dos sectores y un programa con sus carpetas, y la lista del personal de la planilla subida.
+
+«Equipos» con los sectores, los programas y el personal de la planilla.
+:::
 
 Cada sector tiene además su cuenta de jefatura. Los sectores y los programas quedan fijos al presionar «Instalar».
 
@@ -193,6 +211,12 @@ Una planilla corregida actualiza el nombre, el correo y el cargo de cada persona
 
 «Revisar» resume lo que se instalará: el centro, la dirección, los equipos, las personas, las cuentas de cargo, los componentes, las aplicaciones, la IA local y las copias de seguridad.
 
+:::{figure} ../capturas/asistente-revisar.png
+:alt: Paso «Revisar» completo: centro, dirección, equipos, personas, cuentas de cargo, componentes, aplicaciones, aplicaciones opcionales, IA local, copias de seguridad y el botón «Instalar».
+
+«Revisar» completo, antes de presionar «Instalar».
+:::
+
 1. Revisar el resumen.
 2. En «Aplicaciones opcionales», marcar las que usará el establecimiento: Farmacia, Estadística o Tótem. La elección del primer «Instalar» queda fija.
 3. En «IA local», marcarla si el establecimiento la usará. Sin marcar, queda desactivada.
@@ -213,6 +237,12 @@ La IA local es un modelo de lenguaje que corre en el propio servidor, en el cont
 
 La página muestra el avance de cada paso de la instalación y de cada contenedor. Descargar e iniciar los contenedores puede tardar varios minutos. La instalación sigue en el servidor aunque se cierre la página.
 
+:::{figure} ../capturas/asistente-progreso.png
+:alt: Avance de la instalación: el estado de cada contenedor, de «En espera» a «En ejecución», y el registro de la instalación.
+
+El avance de la instalación mientras AIO descarga e inicia los contenedores.
+:::
+
 Un paso que falla no detiene a los que no dependen de él. Sus dependientes quedan «En espera», y la página dice «Algunos pasos no se completaron; su motivo está en rojo. …».
 
 1. Leer el motivo en rojo de cada paso y corregir lo que indique.
@@ -223,6 +253,12 @@ Con todos los pasos completados, la instalación compara la suite en marcha con 
 ### 7. Listo
 
 «Listo» muestra «APS Conecta Gestión quedó instalada. El personal del establecimiento la abre en esta dirección:» y la dirección. Al llegar a «Listo», el asistente se cierra y su enlace deja de funcionar.
+
+:::{figure} ../capturas/asistente-listo.png
+:alt: Paso «Listo»: la dirección de la suite, el botón «Descargar el archivo de contraseñas» y el aviso de que el enlace del asistente ya no funciona.
+
+«Listo», con la dirección de la suite y el archivo de contraseñas.
+:::
 
 1. Presionar «Descargar el archivo de contraseñas» y guardar el archivo en un lugar seguro. El botón funciona mientras la página sigue abierta.
 2. Leer el mensaje bajo la dirección. Si dice que el computador no abre la dirección, seguir [Si un computador no abre la dirección](#instalar-gestion-aio-router).

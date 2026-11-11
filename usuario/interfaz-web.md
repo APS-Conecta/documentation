@@ -166,3 +166,15 @@ Para entrar por primera vez:
 2. Escribir el nombre de cuenta y la contraseña inicial entregados.
 3. Iniciar sesión.
 4. Leer la pantalla de bienvenida de la intranet, que se abre sola.
+
+:::{figure} ../capturas/inicio-de-sesion.png
+:alt: Página de inicio de sesión de APS Conecta Gestión: los campos de cuenta y contraseña, «Iniciar sesión» y «¿Contraseña olvidada?».
+
+La página de inicio de sesión, con el nombre corto del establecimiento sobre el formulario y el lema de la suite al pie.
+:::
+
+:::{figure} ../capturas/inicio.png
+:alt: «Inicio», la pantalla de bienvenida de la intranet, con el nombre corto del establecimiento en la barra superior, el botón «Editar página» y cuatro accesos: «Las carpetas del establecimiento», «La agenda del equipo», «Teléfonos y correos» y «Mensajes y videollamadas».
+
+«Inicio», la pantalla que se abre después de iniciar sesión.
+:::
