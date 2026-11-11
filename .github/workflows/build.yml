@@ -99,9 +99,11 @@ jobs:
           APS_ORG_ROOT: ${{ runner.temp }}/org         # the generate chain runs here too
         run: make linkcheck
       - name: Chromium (aps-conecta-web theme.yml shape)
+        # The runner image ships Chrome's system libraries, so only the browser is fetched: --with-deps made this
+        # step depend on Ubuntu's apt mirrors, which the runners could not resolve on 2026-11-11.
         run: |
           pip install --quiet playwright
-          playwright install --with-deps --only-shell chromium
+          playwright install --only-shell chromium
       - name: Served-site gate
         env:
           GH_TOKEN: ${{ steps.token.outputs.token }}   # gen-catalogo.py live visibility
