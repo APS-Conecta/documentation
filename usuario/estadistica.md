@@ -146,12 +146,16 @@ Para leer el resultado:
 
 - La línea «Fuente: …» dice de qué fuente vienen las cifras y hasta qué mes llegan.
 - Todo gráfico trae debajo su tabla, con las mismas cifras.
+- En el gráfico, **Su establecimiento** va en el color principal del tema, y **Nacional** y **Pares** en gris, con trazos distintos: en barras, una en barras llenas y la otra en barras con solo su borde. La leyenda nombra siempre cada serie.
+- Al pasar el cursor por un gráfico de líneas, o al elegirlo con el teclado y moverse con las flechas, arriba del gráfico se leen las cifras de cada serie en ese punto, y un lector de pantalla las anuncia. En un gráfico de barras, el tabulador recorre las barras y cada una dice su cifra.
 - En las series **Nacional** y **Pares**, el número entre paréntesis es la cantidad de establecimientos que informaron.
 - Una celda sin cifra muestra una raya.
 - «Qué se contó» despliega cada prestación sumada, con su hoja, su sección y sus columnas.
 - Bajo la tabla, una línea dice el código DEIS del propio establecimiento y otra, los rasgos que comparten los pares.
 - Con dos dimensiones, cada valor de la segunda tiene su propio gráfico; con más de 12 valores, las cifras quedan solo en la tabla.
 - Si algún año de la fuente está incompleto, un aviso dice que el DEIS lo publicó cortado y que sus cifras pueden quedar bajo lo real.
+
+Una pregunta abierta y cada tarjeta de un tablero muestran su resultado de la misma forma.
 
 ### Guardar una consulta como pregunta
 
