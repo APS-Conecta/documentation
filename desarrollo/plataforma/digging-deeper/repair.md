@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo crear y registrar pasos de reparación que se ejecutan al instalar, desinstalar o actualizar una app, sus tipos y los pasos costosos."
 ---
 (nc-dev-migration-repair-steps)=

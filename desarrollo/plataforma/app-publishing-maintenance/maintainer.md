@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "El rol de quien mantiene una app: clasificar errores, gestionar pull requests, versiones y vulnerabilidades, y contar con mantenedores de respaldo."
 ---
 (nc-dev-app-maintainer)=

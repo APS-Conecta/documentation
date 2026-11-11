@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Preparar a mano un entorno de desarrollo sin docker: servidor web, código fuente desde GitHub, apps incluidas, modo de depuración y código al día."
 ---
 (nc-dev-devenv)=

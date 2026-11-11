@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Aviso de que las notas de versión se dividieron en una subpágina por versión de Nextcloud, con el enlace a esas subpáginas."
 ---
 # Ubicación de las notas de versión

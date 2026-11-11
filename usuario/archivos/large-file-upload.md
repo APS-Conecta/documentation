@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Por qué las subidas desde el navegador tienen un límite de tamaño y qué hacer cuando se necesita subir archivos más grandes."
 ---
 # Subida de archivos grandes

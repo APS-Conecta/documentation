@@ -3,12 +3,13 @@
 
 componentes.yml declares what only a person knows (origin, SPDX licence, what APS changes). This
 script adds what the code knows, at build time, from the suite checkout under APS_ORG_ROOT
-(APS-Conecta/gestion — the suite repository, renamed from instalador at the cutover):
+(APS-Conecta/gestion-aio — the suite repository):
 
   version    app release version (the roster checkout of the app's own repo); "—" for store apps,
              whose version the installer resolves at install time; image tag (the FROM base of the
              suite image, or the server ENV for the Nextcloud row)
-  drift      every app of the suite manifest (apps.json), every base image of the suite's shipped
+  drift      every app of the suite manifest (aps/provisionador/apps.json) or of a shipped AIO
+             container's switch, every base image of the suite's shipped
              containers (php/containers.json → Containers/<name>/Dockerfile) and every
              distribution-fork catalog row has a row here, and every row here is still shipped —
              otherwise the build fails
@@ -43,9 +44,10 @@ def fail(msg: str) -> None:
 
 
 def shipped_images(containers_json: str) -> set[str]:
-    """The suite container names (php/containers.json): aio-<name> images built from Containers/."""
+    """The suite container names (php/containers.json): aio-<name> images built from Containers/,
+    and the suite's own gestion-<name>, which builds on aio-<name>."""
     return {
-        str(c["image"]).rsplit("/", 1)[-1].removeprefix("aio-")
+        str(c["image"]).rsplit("/", 1)[-1].removeprefix("aio-").removeprefix("gestion-")
         for c in json.loads(containers_json)["aio_services_v1"]
     }
 
@@ -73,8 +75,13 @@ def nc_server_version(nextcloud_dockerfile: str) -> str:
 
 
 def manifest_apps(apps_json: str) -> set[str]:
-    """The app ids of the suite manifest (apps.json): the one list of apps the suite installs."""
+    """The app ids of the suite manifest (apps.json): the one list of the apps the suite adds."""
     return {r["id"] for r in json.loads(apps_json)}
+
+
+def aio_apps(rows: list[dict], shipped: set[str]) -> set[str]:
+    """The app ids that come with a shipped AIO container's switch (the row's `container`)."""
+    return {r["id"] for r in rows if r.get("container") in shipped}
 
 
 def drift(rows: list[dict], imgs: dict, apps: set, forks: set[str]) -> list[str]:
@@ -183,14 +190,15 @@ def gather():
     rows = yaml.safe_load((ROOT / "componentes.yml").read_text(encoding="utf-8"))[
         "components"
     ]
-    suite = org() / "gestion"
+    suite = org() / "gestion-aio"
     if not suite.is_dir():
-        fail(f"checkout de gestion ausente: {suite} (clonar la nómina bajo APS_ORG_ROOT)")
+        fail(f"checkout de gestion-aio ausente: {suite} (clonar la nómina bajo APS_ORG_ROOT)")
     shipped = shipped_images((suite / "php" / "containers.json").read_text(encoding="utf-8"))
     imgs = base_images(suite / "Containers", shipped)
     nc_version = nc_server_version(
         (suite / "Containers" / "nextcloud" / "Dockerfile").read_text(encoding="utf-8"))
-    apps = manifest_apps((suite / "apps.json").read_text(encoding="utf-8"))
+    apps = manifest_apps((suite / "aps" / "provisionador" / "apps.json").read_text(encoding="utf-8"))
+    apps |= aio_apps(rows, shipped)
     catalog_rows = yaml.safe_load((ROOT / "catalogo.yml").read_text(encoding="utf-8"))[
         "repos"
     ]
@@ -275,8 +283,8 @@ def selftest() -> int:
     assert drift(gone, dict(imgs, php="x"), apps, set()) == [
         "componentes.yml lists base image gone, which no longer ships"
     ]
-    assert drift(rows, dict(imgs, php="x"), apps, {"gestion"}) == [
-        "distribution fork gestion ships but has no componentes.yml row"
+    assert drift(rows, dict(imgs, php="x"), apps, {"gestion-aio"}) == [
+        "distribution fork gestion-aio ships but has no componentes.yml row"
     ]
     res = resolve(rows, imgs, "34.0.5", {"eurooffice": "11.0.7"})
     assert [r["version"] for r in res] == ["34.0.5", "8.10.2-alpine", "8.4.26-fpm-alpine3.24", "—", "11.0.7"], res
@@ -286,6 +294,12 @@ def selftest() -> int:
         in render(res)
     )
     assert shipped_images('{"aio_services_v1": [{"image": "ghcr.io/aps-conecta/aio-redis"}]}') == {"redis"}
+    # the suite's own image builds on upstream's: gestion-nextcloud reads Containers/nextcloud
+    assert shipped_images('{"aio_services_v1": [{"image": "ghcr.io/aps-conecta/gestion-nextcloud"}]}') == {"nextcloud"}
+    # an app that comes with an AIO container's switch ships while its container ships
+    switched = [{"kind": "app", "id": "spreed", "container": "talk"}, {"kind": "app", "id": "calendar"}]
+    assert aio_apps(switched, {"talk", "redis"}) == {"spreed"}
+    assert aio_apps(switched, {"redis"}) == set()
     assert base_images.__doc__ and nc_server_version("ENV NEXTCLOUD_VERSION=34.0.5\n") == "34.0.5"
     assert manifest_apps('[{"id": "intravox", "source": "fork"}, {"id": "calendar", "source": "store"}]') == {"intravox", "calendar"}
     import tempfile

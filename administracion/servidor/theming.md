@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Personalizar la apariencia de Nextcloud con la app theming: nombre, colores, logo y fondos, configuración con occ, iconos y enlaces a apps móviles de marca."
 ---
 # Personalización del tema

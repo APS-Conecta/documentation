@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Pasos para diagnosticar problemas de AppAPI: red, despliegue de ExApps, error al crear volúmenes y lista de apps vacía en la gestión de ExApps."
 ---
 # Solución de problemas

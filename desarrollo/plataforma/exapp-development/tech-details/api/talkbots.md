@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API OCS de AppAPI para registrar y anular bots de Talk de una ExApp: endpoints y datos de la solicitud."
 ---
 # Bots de Talk

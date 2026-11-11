@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "La aplicación Correo: cuentas y ajustes, redacción, bandeja de salida, acciones sobre mensajes, filtros, seguridad e integración con el calendario."
 ---
 # Usar la aplicación Correo

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo se traducen las ExApps: archivos l10n del frontend y del backend, sincronización con Transifex e instalación de traducciones manual o con Docker."
 ---
 (nc-dev-ex_app_translations_page)=

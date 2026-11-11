@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Context Agent: herramientas que el agente de IA ejecuta en las apps, herramientas MCP propias, requisitos, instalación, servidor MCP y limitaciones."
 ---
 # App: Context Agent (context_agent)

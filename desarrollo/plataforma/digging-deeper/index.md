@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice de los temas avanzados: IA, API e integración, usuarios y autenticación, groupware, búsqueda, herramientas de desarrollo e internos del servidor."
 ---
 # En profundidad

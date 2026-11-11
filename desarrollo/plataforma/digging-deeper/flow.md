@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo una app se integra en el motor de flujos de trabajo Flow: entidades que exponen eventos, operaciones que actúan sobre ellos y su configuración."
 ---
 # Nextcloud Flow

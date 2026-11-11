@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Imponer nombres de archivo válidos en Windows: activarlo desde la interfaz web o con occ, sus consecuencias y cómo sanear los nombres no válidos."
 ---
 (nc-windows_compatible_filenames)=

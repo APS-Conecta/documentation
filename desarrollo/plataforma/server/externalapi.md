@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API externa OCS: registrar métodos en routes.php, devolver datos y excepciones, autenticación, formato de salida, códigos de estado y retrocompatibilidad."
 ---
 # API externa

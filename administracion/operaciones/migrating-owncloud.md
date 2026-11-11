@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo migrar de ownCloud a Nextcloud: versiones compatibles, comandos posteriores a occ upgrade y la ruta de actualización de Nextcloud y PHP."
 ---
 # Migrar desde ownCloud

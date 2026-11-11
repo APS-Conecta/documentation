@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "El asistente de IA en el servidor: instalación, apps de backend por función, opciones de configuración y comandos occ de procesamiento de tareas."
 ---
 # Asistente de Nextcloud

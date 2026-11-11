@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo convertir a enteros grandes (BigInt) los identificadores de las tablas filecache y activity con el comando occ db:convert-filecache-bigint."
 ---
 # Identificadores BigInt (64 bits)

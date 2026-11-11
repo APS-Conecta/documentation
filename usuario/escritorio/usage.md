@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Uso del cliente de escritorio: iconos de estado, menú de la bandeja, ajustes de cuenta, estado de usuario, compartir, red y editor de archivos ignorados."
 ---
 # Uso del cliente de sincronización

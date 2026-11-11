@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice del diseño de interfaz e interacción: introducción, guía de redacción, fundamentos, disposición y componentes de disposición y atómicos."
 ---
 # Diseño de interfaz e interacción

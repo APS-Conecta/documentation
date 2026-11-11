@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Qué es un middleware, sus hooks, cómo escribirlo y registrarlo (también como global), y cómo leer anotaciones de los métodos del controlador."
 ---
 # Middlewares

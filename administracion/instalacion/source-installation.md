@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Formas de instalar Nextcloud en Linux y la instalación manual con Apache: módulos, URL amigables, SSL, PHP-FPM, VM en Windows, Snap e instalador web."
 ---
 # Instalación en Linux

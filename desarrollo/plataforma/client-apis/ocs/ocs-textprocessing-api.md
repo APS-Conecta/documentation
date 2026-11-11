@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API OCS de procesamiento de texto, obsoleta desde la versión 30: obtener los tipos de tarea, programar tareas y obtenerlas por ID."
 ---
 (nc-dev-ocs-textprocessing-api)=

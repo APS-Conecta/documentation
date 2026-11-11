@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Función de ausencia: la zona horaria que usa (default_timezone) y cómo desactivarla o reactivarla para todos los usuarios con hide_absence_settings."
 ---
 # Función de ausencia

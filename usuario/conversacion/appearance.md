@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Ajustes de apariencia de Talk: vista compacta de la lista de conversaciones y mensajes del chat en lista clásica o en burbujas."
 ---
 # Apariencia

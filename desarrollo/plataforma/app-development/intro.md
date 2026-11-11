@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Crear una app desde un esqueleto de la tienda de apps o contribuir a una existente desde apps-extra, activarla y conocer sus directorios."
 ---
 # Introducción

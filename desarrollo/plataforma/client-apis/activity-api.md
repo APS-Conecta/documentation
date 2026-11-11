@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API de la app Actividad: publicar eventos; implementar proveedores, ajustes y filtros; y consumir el flujo de actividad con la API REST v2."
 ---
 (nc-dev-activity-api)=

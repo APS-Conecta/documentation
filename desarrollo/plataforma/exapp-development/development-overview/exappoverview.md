@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo se organiza una ExApp: estructura de carpetas, metadatos de info.xml, backend, frontend vía el proxy de AppAPI, traducciones y comandos del Makefile."
 ---
 (nc-dev-exappoverview)=

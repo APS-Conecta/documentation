@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios de la versión 32 para las apps: tests/autoload.php, colores de estado, iconos con contorno, OCP consumible e implementable y cambios de API."
 ---
 # Actualización a Nextcloud 32

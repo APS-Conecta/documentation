@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo autentica AppAPI las solicitudes de las ExApps: flujo, cabeceras requeridas, el atributo AppAPIAuth y la clave de sesión app_api."
 ---
 (nc-dev-app_api_auth)=

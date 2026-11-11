@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Estructura HTML estándar en la que se inyecta una app (el div #content) y reglas sobre cabecera, desplazamiento, navegación y lista de contenido."
 ---
 # Contenido principal

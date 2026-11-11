@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Instalar sin el asistente gráfico: descomprimir el código, asignar el directorio al usuario HTTP y completar la instalación con occ."
 ---
 # Instalación desde la línea de comandos

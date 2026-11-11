@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice de la IA de la plataforma base: visión general, asistente, apps de IA locales, IA como servicio, diagnóstico y cumplimiento de la Ley de IA de la UE."
 ---
 # Inteligencia artificial

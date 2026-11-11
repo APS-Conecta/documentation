@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo registrar mensajes desde una app con el logger PSR-3: niveles, interpolación, contexto, excepciones, archivos propios, eventos y registro de auditoría."
 ---
 # Registro

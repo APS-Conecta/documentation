@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API OCS de utilidades del sistema que AppAPI ofrece para la lógica interna de las ExApps: obtener la lista de ID de usuarios de Nextcloud."
 ---
 # API OCS varias

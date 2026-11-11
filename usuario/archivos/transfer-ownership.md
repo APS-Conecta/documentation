@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Transferir la propiedad de un archivo o carpeta a otro usuario, con sus ajustes de uso compartido y permisos, desde Ajustes > Compartir."
 ---
 # Transferir la propiedad

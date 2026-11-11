@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Conectar OpenStack Swift o Rackspace como almacenamiento externo: los datos que pide cada mecanismo de autenticación, la región y el tiempo de espera."
 ---
 # Almacenamiento de objetos OpenStack

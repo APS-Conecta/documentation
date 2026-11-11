@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API de AppAPI para que una ExApp registre y anule comandos OCC que disparan acciones en la ExApp: parámetros, modos de Symfony y un ejemplo."
 ---
 (nc-dev-occ_command)=

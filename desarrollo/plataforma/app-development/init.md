@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Agregar una entrada de navegación en appinfo/info.xml y los eventos de inicialización para cargar JavaScript y CSS solo en las páginas necesarias."
 ---
 # Navegación y configuración previa a la app

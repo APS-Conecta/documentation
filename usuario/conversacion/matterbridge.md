@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Qué es la integración de Matterbridge en Talk: puentes con otros servicios de chat, quién la instala y dónde se configura cada puente."
 ---
 # Matterbridge

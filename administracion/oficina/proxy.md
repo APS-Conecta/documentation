@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Rutas que un proxy inverso debe reenviar al demonio coolwsd de Nextcloud Office en el puerto 9980."
 ---
 # Proxy inverso

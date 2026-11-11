@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo usar la API pública de Talk desde una app mediante IBroker: comprobar que Talk existe y crear, personalizar y eliminar conversaciones."
 ---
 # Integración con Talk

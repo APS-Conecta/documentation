@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo crear, modificar y obtener usuarios con IUserManager, iniciar y cerrar sesión con IUserSession y leer o fijar los gerentes de un usuario."
 ---
 # Gestión de usuarios

@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Backend CardDAV: libreta de direcciones del sistema y su privacidad, elementos compartidos, límites de frecuencia, contacto de ejemplo y retención de datos."
 ---
 # Contactos / CardDAV

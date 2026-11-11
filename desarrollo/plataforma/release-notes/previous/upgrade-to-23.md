@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios de la versión 23 para las apps: getPassword anulable, API de calendario obsoletas, doctrine/dbal 3.1 y ExternalLinkActions obsoleta."
 ---
 # Actualización a Nextcloud 23

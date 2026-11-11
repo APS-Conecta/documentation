@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Categorías de datos personales que almacena el servidor: cuenta, perfil, archivos, registros, groupware, Talk, sesiones y servicios de terceros."
 ---
 (nc-gdpr_personal_data)=

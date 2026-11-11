@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios al actualizar a Nextcloud 32: PHP, cabecera X-XSS-Protection, libreta de direcciones del sistema, vistas previas MP3, AppAPI e integridad de S3."
 ---
 # Actualización a Nextcloud 32

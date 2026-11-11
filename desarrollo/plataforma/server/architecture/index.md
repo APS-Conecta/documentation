@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice de la arquitectura del servidor Nextcloud: hoy reúne la API del sistema de archivos."
 ---
 (nc-dev-architectureindex)=

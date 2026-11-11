@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Qué es occ y cómo ejecutarlo como usuario HTTP: ayuda, formatos de salida, autocompletado, límites del modo de mantenimiento y depuración."
 ---
 (nc-occ)=

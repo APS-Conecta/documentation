@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Variables CSS de color, fondo, estado y estructura, clases CSS predefinidas y pautas de RTL para dar a los componentes un aspecto coherente."
 ---
 (nc-dev-css)=

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "La aplicación Calendario y cómo la usa el establecimiento: la hora de Chile, los calendarios de equipo y los avisos sin correo electrónico."
 ---
 (nc-calendar-app)=

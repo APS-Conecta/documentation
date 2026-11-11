@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo implementar un proveedor de contenido para Context Chat: la interfaz IContentProvider, el servicio IContentManager, su registro y el envío de contenido."
 ---
 (nc-dev-context_chat)=

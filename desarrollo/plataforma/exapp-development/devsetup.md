@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo preparar el entorno de desarrollo de ExApps: instalar AppAPI desde el código fuente, tipos de daemon de despliegue y comandos make para Docker."
 ---
 (nc-dev-dev-setup)=

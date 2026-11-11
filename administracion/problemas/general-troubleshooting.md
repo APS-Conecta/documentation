@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Soporte, informe de errores y fallos frecuentes: registros, PHP, servidor web, WebDAV, descubrimiento de servicios, directorio de datos y cuotas."
 ---
 # Solución general de problemas

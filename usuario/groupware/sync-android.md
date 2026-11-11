@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Sincronizar archivos y notificaciones con el cliente Android, y contactos y calendarios con DAVx⁵, con o sin la aplicación móvil."
 ---
 # Sincronizar con Android

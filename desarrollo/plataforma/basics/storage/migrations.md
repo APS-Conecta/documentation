@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo cambiar el esquema de la base de datos de una app con migraciones: pasos, metadatos, comandos occ migrations y cómo agregar o reemplazar índices."
 ---
 (nc-dev-app_db_migrations)=

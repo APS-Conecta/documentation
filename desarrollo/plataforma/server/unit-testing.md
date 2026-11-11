@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Escribir y ejecutar pruebas unitarias de PHP con PHPUnit y de JavaScript con Karma y Jasmine para el servidor y sus apps."
 ---
 # Pruebas unitarias

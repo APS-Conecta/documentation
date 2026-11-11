@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Conceptos y términos de la documentación para desarrolladores: PHP, peticiones web, base de datos, herramientas de frontend y términos de la plataforma."
 ---
 (nc-dev-dev-glossary)=

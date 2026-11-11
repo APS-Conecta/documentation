@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Preconfigurar la instalación con config/autoconfig.php: parámetros con otro nombre y ejemplos para el directorio de datos y cada base de datos."
 ---
 # Configuración automática

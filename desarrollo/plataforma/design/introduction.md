@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Principios de diseño comunes a todas las apps: simplicidad, accesibilidad, software que funciona y no estorba, cuidado de los datos y pruebas de usabilidad."
 ---
 (nc-dev-navigation)=

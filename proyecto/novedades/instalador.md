@@ -1,7 +1,7 @@
 ---
 tipo: referencia
 audiencia: proyecto
-apps: [gestion, files-upload-guard]
+apps: [gestion-aio, files-upload-guard]
 resumen: "Cambios de instalador visibles para usuarios y administradores, agrupados por versión."
 ---
 # Novedades de instalador
@@ -52,6 +52,6 @@ Esta página registra los cambios de instalador que ve una persona usuaria o adm
 
 ## Notas
 
-El [plan de gestion #175](https://github.com/APS-Conecta/gestion/issues/175) registra la implementación y sus verificaciones. El dimensionamiento automático queda retirado del alcance; la administración dimensiona el servidor según su uso.
+El plan de gestion #175 registra la implementación y sus verificaciones. El dimensionamiento automático queda retirado del alcance; la administración dimensiona el servidor según su uso.
 
-Estas entradas describen la próxima versión. Para instalar, seleccione una versión estable en [Publicaciones de la suite](https://github.com/APS-Conecta/gestion/releases).
+Estas entradas describen la próxima versión. Para instalar, seleccione una versión estable en Publicaciones de la suite.

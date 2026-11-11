@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API OCS de texto a imagen: comprobar la disponibilidad, programar, obtener, eliminar y listar tareas de generación de imágenes, y obtener sus imágenes."
 ---
 (nc-dev-ocs-text2image-api)=

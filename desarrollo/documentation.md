@@ -36,7 +36,7 @@ La organización escribe en español lo que su personal lee y en inglés lo que 
 
 El registro es formal y directo: «usted» o impersonal, pasos en infinitivo, hechos verificados en afirmativo. El por qué es simple: quien lee este sitio y sus manuales es personal de salud que lee español.
 
-Las decisiones que afectan a toda la organización viven como ADR en `docs/adr/` del repositorio de la suite ([ADR-0007](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0007-org-wide-decisions-live-in-this-repository.md)); una decisión propia de un producto vive en el repositorio de ese producto. Un ADR no se borra ni se reescribe: solo cambia su estado, que enlaza a su reemplazo cuando lo hay, o se le agrega una línea de enmienda fechada.
+Las decisiones que afectan a toda la organización viven como ADR en `docs/adr/` del repositorio de la suite (ADR-0007); una decisión propia de un producto vive en el repositorio de ese producto. Un ADR no se borra ni se reescribe: solo cambia su estado, que enlaza a su reemplazo cuando lo hay, o se le agrega una línea de enmienda fechada.
 
 Junto al código, cada repositorio conserva: `README`, `LICENSE`/`LICENSES`, `THIRD-PARTY-NOTICES` donde se empaqueta código, el registro de cambios, `AGENTS.md` y el `CLAUDE.md` que ya exista —no se agregan ni se quitan—, `CONTEXT.md`, `docs/adr/`, `docs/agents/` y, en repositorios privados, el modelo de amenazas; además de los `README` de carpeta que declaran el contrato de su carpeta. Todo en inglés salvo el `README`. La prosa dirigida a personas que no va con el código —manuales, guías de operación, notas de diseño, `CONTRIBUTING`— vive en este sitio: el hecho que falta aterriza aquí primero y después el repositorio borra su copia.
 
@@ -54,7 +54,7 @@ El `README` sigue este orden: título H1, una oración tomada del `role` del cat
 
 ### El tejido de la plataforma base
 
-Las páginas de la plataforma base tejen los manuales oficiales que publica {vendor}`Nextcloud` (`nextcloud/documentation`). La rama sigue a la suite: `stable<mayor>`, con el mayor leído de la versión del servidor que empaqueta el instalador (`Containers/nextcloud`). `tools/fetch-upstream.sh` hace un clon parcial en `_generated/upstream`, con el historial completo para que el SHA de cada bloque resuelva y solo los archivos de texto, sin descargar imágenes.
+Las páginas de la plataforma base tejen los manuales oficiales que publica {vendor}`Nextcloud` (`nextcloud/documentation`). La rama sigue a la suite: `stable<mayor>`, con el mayor leído de la versión del servidor que empaqueta gestion-aio (`Containers/nextcloud`). `tools/fetch-upstream.sh` hace un clon parcial en `_generated/upstream`, con el historial completo para que el SHA de cada bloque resuelva y solo los archivos de texto, sin descargar imágenes.
 
 Un bloque tejido es la directiva `{upstream}`, que actúa a la vez como marcador, atribución y contexto de lectura: muestra una línea «Fuente» y, con `:difiere:`, un aviso de que APS Conecta Gestión se aparta del original. Sus referencias cruzadas conservan los destinos originales y resuelven a la página de APS donde ese documento está tejido o, mientras no lo está, al sitio de documentación del fabricante, así que un sitio a medio tejer nunca tiene un enlace muerto.
 
@@ -72,7 +72,7 @@ El objetivo `generate` del `Makefile` corre los generadores antes de cada compil
 
 | Generador | Escribe |
 | --- | --- |
-| `tools/gen-catalogo.py` | El catálogo de repositorios, con la tabla de dependencias y la semilla de URL privadas que `linkcheck` omite. Valida la nómina, la paridad con la lista de aplicaciones de la suite (`apps.json` del instalador), y que cada manual declarado exista y lleve su repositorio en `apps`. |
+| `tools/gen-catalogo.py` | El catálogo de repositorios, con la tabla de dependencias y la semilla de URL privadas que `linkcheck` omite. Valida la nómina, la paridad con la lista de aplicaciones de la suite (`aps/provisionador/apps.json` de gestion-aio), y que cada manual declarado exista y lleve su repositorio en `apps`. |
 | `tools/gen-referencia.py` | La referencia de cada aplicación (comandos `occ`, ajustes y rutas) desde `appinfo/info.xml` y `appinfo/routes.php`. Degrada, nunca omite: una superficie vacía se declara con una frase «Sin …», y una entrada que no se puede interpretar corta la compilación. |
 | `tools/gen-mapa.py` | El mapa de módulos de cada repositorio, extraído con graphify, salvo los valores por defecto de la organización y este sitio. |
 | `tools/gen-inicio-rapido.py` | La sección «Inicio rápido de desarrollo» del README de cada repositorio, incluida en {doc}`/_generated/inicio-rapido/index`. |

@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "El sistema de gestión de referencias: vistas previas de enlaces y selector inteligente, que las apps amplían, y qué proveedores ponen a disposición."
 ---
 # Gestión de referencias

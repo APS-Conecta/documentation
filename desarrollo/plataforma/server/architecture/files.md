@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo se organiza el sistema de archivos de Nextcloud: APIs Node y View, almacenamientos, caché, escáner, envoltorios y mapa del código."
 ---
 # API del sistema de archivos de Nextcloud

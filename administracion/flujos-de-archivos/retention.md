@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Eliminación automática de archivos con una etiqueta colaborativa según su antigüedad: regla de ejemplo, criterios de antigüedad y etiquetas adecuadas."
 ---
 # Retención de archivos

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "La página de gestión de usuarios: crear, deshabilitar y eliminar cuentas, nombres mostrados, contraseñas, grupos, administradores y cuotas."
 ---
 # Gestión de usuarios

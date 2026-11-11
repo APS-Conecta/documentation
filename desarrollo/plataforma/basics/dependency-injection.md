@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "La inyección de dependencias en el App Framework: el patrón, el contenedor, el ensamblado automático, los servicios del núcleo y los servicios opcionales."
 ---
 # Contenedores / Inyección de dependencias

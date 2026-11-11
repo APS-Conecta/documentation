@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo usar el sistema de plantillas PHP de las apps: imprimir valores sin XSS, incluir otras plantillas, CSS, JavaScript e imágenes."
 ---
 # Plantillas

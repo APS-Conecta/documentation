@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios de la versión 16 para las apps: CSP, bibliotecas JavaScript obsoletas, PHP 7.1 y PostgreSQL 9.5 requeridos y API de backend eliminadas."
 ---
 # Actualización a Nextcloud 16

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Preguntas frecuentes del cliente de escritorio: Editar localmente, subidas repetidas, límites de sincronización, mover la carpeta y cambiar el idioma."
 ---
 # Preguntas frecuentes

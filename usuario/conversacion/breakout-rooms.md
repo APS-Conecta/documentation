@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Dividir una llamada de Talk en salas de grupos: cómo las configura un moderador, cómo se asignan los participantes y cómo se gestionan."
 ---
 (nc-breakout-rooms)=

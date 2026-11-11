@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API OCS de preferencias de las ExApps: establecer, obtener y eliminar valores de configuración del usuario autenticado, con solicitud y respuesta."
 ---
 # Preferencias

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo listar, restaurar, eliminar y vaciar el contenido de la papelera de un usuario mediante el endpoint WebDAV de la papelera."
 ---
 (nc-dev-webdavtrashbin)=

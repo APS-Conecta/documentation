@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice de la visión general del desarrollo de ExApps: pasos de desarrollo, visión general, ciclo de vida y adaptación a HaRP."
 ---
 (nc-dev-development_overview)=

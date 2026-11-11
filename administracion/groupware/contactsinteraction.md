@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo la app Interacción de contactos registra a quién contacta cada usuario y lo ofrece como libreta CardDAV de solo lectura, y cuánto conserva esos datos."
 ---
 # Interacción de contactos

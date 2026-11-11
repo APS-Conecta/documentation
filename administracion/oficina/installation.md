@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Formas de ejecutar el servicio coolwsd de Nextcloud Office: All In One, paquetes de la distribución, Docker o el servidor CODE integrado."
 ---
 # Instalación

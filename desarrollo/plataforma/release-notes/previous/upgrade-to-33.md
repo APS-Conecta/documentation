@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios de la versión 33 para las apps: API de archivos, barra lateral y perfil, API JavaScript eliminadas, PHP 8.2 a 8.5, ID Snowflake y API de backend."
 ---
 # Actualización a Nextcloud 33

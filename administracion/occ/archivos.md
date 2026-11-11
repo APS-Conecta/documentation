@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Comandos occ de archivos: caché y análisis, almacenamiento de objetos, vistas previas, papelera, versiones, comparticiones, montajes externos e integridad."
 ---
 (nc-file_operations_label)=

@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Categorías de la API pública de PHP (OCP) según sus atributos, y reglas para publicar una API inestable en el espacio de nombres NCU."
 ---
 # Referencia de la API

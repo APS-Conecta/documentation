@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Dónde está el archivo de configuración del cliente de escritorio en cada sistema y algunos valores que pueden establecerse en él."
 ---
 # Archivo de configuración

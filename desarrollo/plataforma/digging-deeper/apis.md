@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice de API e integración: referencia de la API, API REST y de JavaScript, cliente HTTP, Dashboard, correo, notificaciones, páginas públicas y Talk."
 ---
 # API e integración

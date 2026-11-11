@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo convertir una base de datos SQLite a MySQL, MariaDB o PostgreSQL con occ db:convert-type, y qué tablas antiguas no se convierten."
 ---
 # Conversión del tipo de base de datos

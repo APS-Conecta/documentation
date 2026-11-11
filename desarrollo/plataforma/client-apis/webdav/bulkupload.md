@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API de subida masiva: subir muchos archivos pequeños en una sola solicitud HTTP multipart, con las cabeceras de cada archivo y un script de ejemplo."
 ---
 # Subida masiva de archivos

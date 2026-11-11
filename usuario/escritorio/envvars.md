@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Variables de entorno que controlan el cliente de escritorio, con sus valores predeterminados, y su comportamiento cuando queda poco espacio en disco."
 ---
 # Variables de entorno

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo configurar de forma permanente un proxy corporativo para PHP CLI, en php.ini o con variables de entorno, para que los comandos occ accedan a Internet."
 ---
 # Proxy corporativo: ajustes permanentes para PHP CLI

@@ -1,7 +1,7 @@
 ---
 tipo: tutorial
 audiencia: desarrollo
-apps: [farmacia, estadistica, territorio, aps-common, gestion]
+apps: [farmacia, estadistica, territorio, aps-common, gestion-aio]
 resumen: "Cómo se arma una aplicación propia: la plantilla farmacia, aps-common, los textos en español, el paquete confirmado, los arneses y la entrada a gestion."
 ---
 # Desarrollo de aplicaciones

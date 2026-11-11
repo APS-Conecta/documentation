@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Integrar el motor de flujos de trabajo Windmill: instalación, conexión del espacio de trabajo, disparadores, scripts, autenticación y pasos de aprobación."
 ---
 (nc-windmill_workflows)=

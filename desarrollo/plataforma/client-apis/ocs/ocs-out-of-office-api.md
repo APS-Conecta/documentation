@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API OCS de ausencias (fuera de la oficina): consultar el período en curso o el próximo, modificar los datos y borrarlos, con campos y códigos."
 ---
 (nc-dev-ocs-out-of-office-api)=

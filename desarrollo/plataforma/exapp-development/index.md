@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice del desarrollo de ExApps: introducción, entorno de desarrollo, visión general del desarrollo, detalles técnicos y preguntas frecuentes."
 ---
 # Desarrollo de ExApps

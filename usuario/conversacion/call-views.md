@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Las dos disposiciones de una llamada de Talk, vista de cuadrícula y vista de orador, y cómo alternar entre ellas."
 ---
 # Disposición de la llamada

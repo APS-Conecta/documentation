@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Qué es la firma de código, cómo resolver los mensajes de integridad del código, cómo volver a analizar y qué significa cada error de verificación."
 ---
 # Firma de código

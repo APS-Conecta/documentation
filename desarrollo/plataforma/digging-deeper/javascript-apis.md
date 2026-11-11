@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Las API de JavaScript para apps: los paquetes npm de @nextcloud, los eventos de cambio del estado de la red y las variables globales OC, OCA y OCP."
 ---
 # API de JavaScript

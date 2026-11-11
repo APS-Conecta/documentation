@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Configuraciones de administración de la app Text con occ y php.ini: espacios de trabajo, extensión predeterminada, edición enriquecida y codificaciones."
 ---
 # App Text

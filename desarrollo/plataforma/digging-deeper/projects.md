@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo integrar una app en los proyectos: registrar un proveedor de recursos, su interfaz de selección y el selector de proyectos en Vue."
 ---
 # Proyectos

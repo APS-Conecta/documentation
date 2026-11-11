@@ -1,7 +1,7 @@
 ---
 tipo: referencia
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo se construye y se prueba gestion, el tronco de la suite: rama y versiones, la pila de desarrollo y cada compuerta de integración continua."
 ---
 # gestion
@@ -64,9 +64,3 @@ La instalación limpia de instalador elige un establecimiento del registro de fo
 - La compuerta de deriva todavía no compara epidemiologia, y omite la paridad con aps-common cuando no encuentra esa copia; los repositorios que compara son privados y necesitan el token `APS_BOT_PAT`.
 - La instalación limpia de instalador tarda unos 15 minutos con la descarga de imágenes y tiene un límite de 60 minutos.
 - La prueba de la oficina se omite en la pila Compose de desarrollo: responde solo por el servidor de documentos de AIO.
-
-```{toctree}
-:maxdepth: 1
-
-Mapa de módulos <../_generated/mapa/gestion>
-```

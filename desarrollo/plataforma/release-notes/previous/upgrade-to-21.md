@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios de la versión 21 para las apps: PHP 8, bibliotecas del núcleo como doctrine/dbal 3.0, verificador de código obsoleto, PSR-0 y database.xml."
 ---
 # Actualización a Nextcloud 21

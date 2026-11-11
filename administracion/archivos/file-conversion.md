@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Qué apps aportan la conversión de archivos en el servidor: Pandoc o Nextcloud Office cubren la mayoría; otras apps pueden añadir conversiones propias."
 ---
 # Conversión de archivos

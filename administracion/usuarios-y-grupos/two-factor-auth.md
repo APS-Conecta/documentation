@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Activar proveedores de autenticación de dos factores, imponerla a todos o a grupos, y limpiar, desactivar o consultar la 2FA de usuarios con occ."
 ---
 (nc-two-factor-auth)=

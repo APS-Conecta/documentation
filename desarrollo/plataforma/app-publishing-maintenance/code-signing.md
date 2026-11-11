@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Firma de código de las apps: por qué existe, cómo funciona con certificados X.509, cómo firmar una app y qué significa cada error de verificación."
 ---
 (nc-dev-app-code-signing)=

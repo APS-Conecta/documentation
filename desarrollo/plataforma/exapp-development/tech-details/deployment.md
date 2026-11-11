@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo desplegar una ExApp: registrar el DaemonConfig y la ExApp con occ, instalación manual, variables de entorno y el esquema del info.xml."
 ---
 (nc-dev-app_deployment)=

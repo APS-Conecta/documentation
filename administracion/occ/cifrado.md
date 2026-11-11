@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Comandos occ del cifrado en el servidor: estado, cifrar y descifrar todo, módulos, almacenamiento de claves, clave maestra y reparación."
 ---
 (nc-encryption_label)=

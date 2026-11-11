@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Menú emergente que se abre al hacer clic en el icono de tres puntos: disposición básica, detalles técnicos de su marcado y alineación."
 ---
 (nc-dev-popovermenu)=

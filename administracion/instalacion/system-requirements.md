@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Requisitos de un servidor Nextcloud (sistema operativo, base de datos, servidor web, PHP, memoria) y versiones mínimas de clientes y navegadores."
 ---
 # Requisitos del sistema

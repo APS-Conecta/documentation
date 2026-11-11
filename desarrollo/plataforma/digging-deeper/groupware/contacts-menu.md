@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo una app extiende las entradas del menú de contactos: proveedores IProvider e IBulkProvider, datos del contacto, acciones y estado del usuario."
 ---
 # Menú de contactos

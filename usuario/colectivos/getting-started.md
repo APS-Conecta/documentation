@@ -2,7 +2,7 @@
 tipo: tutorial
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Primeros pasos en Collectives: crear un primer colectivo con dos páginas, enlazar una con otra y dar formato al contenido."
 ---
 # Cómo empezar

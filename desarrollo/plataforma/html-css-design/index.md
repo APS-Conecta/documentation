@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice de las pautas de HTML/CSS: navegación, contenido principal, lista de contenido, menú emergente, elementos HTML, CSS e iconos."
 ---
 # Pautas de HTML/CSS

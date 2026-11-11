@@ -1,7 +1,7 @@
 ---
 tipo: guia
 audiencia: desarrollo
-apps: [gestion, farmacia, estadistica, territorio, epidemiologia, IntraVox, aps-common, documentation]
+apps: [gestion-aio, farmacia, estadistica, territorio, epidemiologia, IntraVox, aps-common, documentation]
 resumen: "Las compuertas que corre cada repositorio antes de fusionar —documentación, pruebas, paquete, deriva, humo y arranque limpio— y qué prueba cada una."
 ---
 # Calidad

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo escribir, registrar y programar trabajos en segundo plano (QueuedJob y TimedJob), incluidos los trabajos insensibles al tiempo y el paralelismo."
 ---
 (nc-dev-app-backgroundjobs)=

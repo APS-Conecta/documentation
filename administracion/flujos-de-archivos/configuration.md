@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Comando occ que desactiva los flujos de usuario para que los usuarios no definan sus propias reglas de flujo."
 ---
 # Configuración de Flujo

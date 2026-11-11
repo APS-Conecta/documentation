@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo consultar la base de datos desde una app: IDBConnection, transacciones, mappers y entidades, consejos para las tablas y compatibilidad entre motores."
 ---
 (nc-dev-database)=

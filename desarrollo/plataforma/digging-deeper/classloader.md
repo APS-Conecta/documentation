@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo carga las clases el cargador automático: mapa de clases del servidor, PSR-4 en las apps y reemplazo por un cargador de clases de Composer."
 ---
 (nc-dev-appclassloader)=

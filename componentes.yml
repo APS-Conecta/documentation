@@ -4,7 +4,7 @@
 # Una persona declara aquí lo que solo una persona sabe: de dónde viene cada componente, su
 # licencia (SPDX, leída del propio componente) y, si APS lo modifica, qué cambia. Lo demás lo
 # calcula tools/gen-componentes.py en cada compilación desde el repositorio de la suite
-# (gestion): la versión de cada aplicación (el checkout de su propio repositorio; «—» cuando
+# (gestion-aio): la versión de cada aplicación (el checkout de su propio repositorio; «—» cuando
 # la suite la resuelve al instalar) y la de cada imagen base (el FROM del contenedor que la
 # suite distribuye, php/containers.json → Containers/). La compilación falla si la suite
 # distribuye algo que no figura aquí, o si aquí figura algo que la suite ya no distribuye.
@@ -12,11 +12,12 @@
 # kind:
 #   image    imagen base de un contenedor que la suite distribuye (el FROM de su Dockerfile),
 #            o el servidor Nextcloud que el contenedor nextcloud empaqueta (id nextcloud)
-#   app      aplicación Nextcloud de terceros que el manifiesto de la suite (apps.json) instala
+#   app      aplicación Nextcloud de terceros que el manifiesto de la suite (aps/provisionador/apps.json) instala,
+#            o que llega con el interruptor de AIO del contenedor `container`
 #   own-app  aplicación propia de APS (repositorio de la organización) o fork propio de un upstream
 #   fork     repositorio de la organización que bifurca un proyecto upstream; `id` = repositorio
-#   asset    archivo de terceros que sirve el tema; `id` = ruta en gestion
-#   data     datos de terceros que distribuye la suite; `id` = ruta en gestion
+#   asset    archivo de terceros que sirve el tema; `id` = ruta en gestion-aio
+#   data     datos de terceros que distribuye la suite; `id` = ruta en gestion-aio
 #
 # AIO: el LICENSE upstream es la AGPL v3 sin cláusula «o posterior» (GitHub la detecta como AGPL-3.0,
 # que en SPDX equivale a AGPL-3.0-only). Upstreams de eurooffice e IntraVox leídos del info.xml del
@@ -51,15 +52,15 @@ components:
 
   # ---- Aplicaciones Nextcloud de terceros (las instala el manifiesto de la suite)
   - {name: Carpetas de grupo, kind: app, id: groupfolders, upstream: "https://github.com/nextcloud/groupfolders", licence: AGPL-3.0-or-later}
-  - {name: Conector de Euro-Office, kind: app, id: eurooffice, upstream: "https://github.com/Euro-Office/eurooffice-nextcloud", licence: AGPL-3.0-only}
+  - {name: Conector de Euro-Office, kind: app, id: eurooffice, container: eurooffice, upstream: "https://github.com/Euro-Office/eurooffice-nextcloud", licence: AGPL-3.0-only}
   - {name: Menú lateral, kind: app, id: side_menu, upstream: "https://gitnet.fr/deblan/side_menu", licence: AGPL-3.0-or-later}
-  - {name: Talk, kind: app, id: spreed, upstream: "https://github.com/nextcloud/spreed", licence: AGPL-3.0-or-later}
+  - {name: Talk, kind: app, id: spreed, container: talk, upstream: "https://github.com/nextcloud/spreed", licence: AGPL-3.0-or-later}
   - {name: Calendario, kind: app, id: calendar, upstream: "https://github.com/nextcloud/calendar", licence: AGPL-3.0-or-later}
   - {name: Contactos, kind: app, id: contacts, upstream: "https://github.com/nextcloud/contacts", licence: AGPL-3.0-or-later}
-  - {name: Notify Push, kind: app, id: notify_push, upstream: "https://github.com/nextcloud/notify_push", licence: AGPL-3.0-or-later}
-  - {name: Antivirus de archivos, kind: app, id: files_antivirus, upstream: "https://github.com/nextcloud/files_antivirus", licence: AGPL-3.0-or-later}
-  - {name: Búsqueda de texto completo, kind: app, id: fulltextsearch, upstream: "https://github.com/nextcloud/fulltextsearch", licence: AGPL-3.0-or-later}
-  - {name: Conector de Elasticsearch, kind: app, id: fulltextsearch_elasticsearch, upstream: "https://github.com/nextcloud/fulltextsearch_elasticsearch", licence: AGPL-3.0-or-later}
+  - {name: Notify Push, kind: app, id: notify_push, container: notify-push, upstream: "https://github.com/nextcloud/notify_push", licence: AGPL-3.0-or-later}
+  - {name: Antivirus de archivos, kind: app, id: files_antivirus, container: clamav, upstream: "https://github.com/nextcloud/files_antivirus", licence: AGPL-3.0-or-later}
+  - {name: Búsqueda de texto completo, kind: app, id: fulltextsearch, container: fulltextsearch, upstream: "https://github.com/nextcloud/fulltextsearch", licence: AGPL-3.0-or-later}
+  - {name: Conector de Elasticsearch, kind: app, id: fulltextsearch_elasticsearch, container: fulltextsearch, upstream: "https://github.com/nextcloud/fulltextsearch_elasticsearch", licence: AGPL-3.0-or-later}
   - {name: Búsqueda en archivos, kind: own-app, id: files_fulltextsearch, repo: files-fulltextsearch, upstream: "https://github.com/nextcloud/files_fulltextsearch", fork: "https://github.com/APS-Conecta/files-fulltextsearch", licence: AGPL-3.0-or-later, changes: "Corrección de origen para conservar el identificador real del usuario en los resultados de búsqueda; publicación firmada para Nextcloud 34."}
 
   # ---- Aplicaciones propias de APS Conecta
@@ -72,12 +73,12 @@ components:
   - {name: Inicio (IntraVox), kind: own-app, id: intravox, upstream: "https://github.com/nextcloud/IntraVox", fork: "https://github.com/APS-Conecta/IntraVox", licence: AGPL-3.0-or-later, changes: "Fork con funciones locales: muros y páginas protegidas, portada de bienvenida administrada, raíz de almacenamiento con nombre para el personal y el idioma español por defecto (IntraVox ADR-0001)."}
 
   # ---- Instalador
-  - {name: Nextcloud All-in-One (gestion), kind: fork, id: gestion, upstream: "https://github.com/nextcloud/all-in-one", fork: "https://github.com/APS-Conecta/gestion", licence: AGPL-3.0-only, changes: "Asistente en español de Chile con la marca y el nombre del producto, Euro-Office como única suite ofimática, tienda de aplicaciones cerrada que abre solo para sus comandos acotados, autoactualización y contenedores comunitarios desactivados, aplicaciones desde sus publicaciones firmadas y solo el tema en la imagen, imágenes propias en el registro, valores por defecto de APS, certificado del instalador y base de datos única con pgvector."}
+  - {name: Nextcloud All-in-One (gestion-aio), kind: fork, id: gestion-aio, upstream: "https://github.com/nextcloud/all-in-one", fork: "https://github.com/APS-Conecta/gestion-aio", licence: AGPL-3.0-only, changes: "Asistente en español de Chile con la marca y el nombre del producto, Euro-Office como única suite ofimática, tienda de aplicaciones cerrada que abre solo para sus comandos acotados, autoactualización y contenedores comunitarios desactivados, aplicaciones desde sus publicaciones firmadas y solo el tema en la imagen, imágenes propias en el registro, valores por defecto de APS, certificado del instalador y base de datos única con pgvector."}
 
   # ---- Recursos del tema
-  - {name: Tipografía Fraunces, kind: asset, id: themes/apsconecta/core/fonts, upstream: "https://github.com/undercasetype/Fraunces", licence: OFL-1.1, changes: "Servida en WOFF2; un subconjunto va incrustado en los logotipos SVG (versión modificada según la OFL, sin los nombres reservados)."}
-  - {name: Tipografía Nunito Sans, kind: asset, id: themes/apsconecta/core/fonts, upstream: "https://github.com/googlefonts/NunitoSans", licence: OFL-1.1, changes: "Servida en WOFF2; un subconjunto va incrustado en los logotipos SVG (versión modificada según la OFL, sin los nombres reservados)."}
-  - {name: Leaflet, kind: asset, id: themes/apsconecta/core/mapa/leaflet.js, upstream: "https://github.com/Leaflet/Leaflet", licence: BSD-2-Clause, version: "1.9.4"}
+  - {name: Tipografía Fraunces, kind: asset, id: aps/brand, upstream: "https://github.com/undercasetype/Fraunces", licence: OFL-1.1, changes: "Servida en WOFF2; un subconjunto va incrustado en los logotipos SVG (versión modificada según la OFL, sin los nombres reservados)."}
+  - {name: Tipografía Nunito Sans, kind: asset, id: aps/brand, upstream: "https://github.com/googlefonts/NunitoSans", licence: OFL-1.1, changes: "Servida en WOFF2; un subconjunto va incrustado en los logotipos SVG (versión modificada según la OFL, sin los nombres reservados)."}
+  - {name: Leaflet, kind: asset, id: aps/provisionador/www/leaflet.js, upstream: "https://github.com/Leaflet/Leaflet", licence: BSD-2-Clause, version: "1.9.4"}
 
   # ---- Datos
-  - {name: Registro de establecimientos (DEIS) con coordenadas del Geoportal de Chile, kind: data, id: sites, upstream: "https://deis.minsal.cl/", licence: "sin licencia declarada", note: "Datos públicos del MINSAL; crédito «Puntos: MINSAL/DEIS, Geoportal de Chile»."}
+  - {name: Registro de establecimientos (DEIS) con coordenadas del Geoportal de Chile, kind: data, id: aps/deis, upstream: "https://deis.minsal.cl/", licence: "sin licencia declarada", note: "Datos públicos del MINSAL; crédito «Puntos: MINSAL/DEIS, Geoportal de Chile»."}

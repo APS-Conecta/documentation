@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Traducir una app: herramienta de traducción, sincronización con Transifex (.tx/config, ramas, .l10nignore, permisos) y traducción manual con gettext."
 ---
 (nc-dev-translation)=

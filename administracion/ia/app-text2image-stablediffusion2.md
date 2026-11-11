@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "text2image_stablediffusion2, generación de imágenes local: requisitos, instalación, escalado, tienda de apps, repositorio y limitaciones conocidas."
 ---
 # App: Generación de imágenes local (text2image_stablediffusion2)

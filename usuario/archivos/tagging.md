@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Etiquetas del sistema: niveles de acceso, explorar archivos por etiqueta, asignar etiquetas a uno o varios archivos y crearlas."
 ---
 # Etiquetas del sistema

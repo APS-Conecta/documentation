@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Añadir cuentas CalDAV y CardDAV en iOS para sincronizar el calendario y los contactos, y qué revisar si la conexión falla."
 ---
 # Sincronizar con iOS

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Requisitos y parámetros de la base de datos: configurar MySQL, MariaDB o PostgreSQL, SSL para MySQL, solución de problemas y comandos SQL útiles."
 ---
 # Configuración de MySQL, MariaDB y PostgreSQL

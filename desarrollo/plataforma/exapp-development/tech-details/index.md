@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice de los detalles técnicos de las ExApps: flujo de instalación, despliegue, autenticación, traducciones y las API de AppAPI."
 ---
 # Detalles técnicos

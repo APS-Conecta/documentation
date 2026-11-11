@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Qué es Collectives: un espacio para que grupos y comunidades escriban y se organicen en colaboración y estructuren su conocimiento compartido."
 ---
 # Cuadernos (Collectives)

@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Elementos HTML con estilo propio: la barra de progreso html5 y las casillas de verificación y botones de opción tematizados, con sus requisitos."
 ---
 (nc-dev-html)=

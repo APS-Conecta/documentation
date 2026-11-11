@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Los cuatro canales de actualización del cliente de escritorio (Enterprise, Stable, Beta y Daily), para qué sirve cada uno y dónde obtener sus versiones."
 ---
 # Canales de actualización

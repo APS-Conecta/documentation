@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo interactúan las apps con user_oidc y oidc mediante eventos: obtener el token de inicio de sesión, intercambiar tokens y generar un token interno."
 ---
 # OpenID Connect (Oidc)

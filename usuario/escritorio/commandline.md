@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "El cliente de línea de comandos nextcloudcmd: paquetes, sintaxis, opciones, credenciales, lista de exclusión y un ejemplo de sincronización."
 ---
 # Uso del cliente de línea de comandos

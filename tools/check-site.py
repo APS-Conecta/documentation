@@ -8,7 +8,7 @@
 #
 # families, evaluated in order; exit 1 names the first failed family:
 #   docs      documentElement.lang == 'es'; a visible Spanish <h1>; <link rel="icon">
-#   brand     HTTP 200 x11 under _static/ — 4 woff2 + 3 logo SVG + 4 favicon files
+#   brand     HTTP 200 x5 under _static/ — 2 woff2 + 2 logo SVG + the favicon
 #             (delivery, via context.request; the page only fetches faces in use)
 #   fonts     after document.fonts.ready, fonts.check('400 1em "Nunito Sans"') and
 #             ('600 1em "Fraunces"') are both true, and both faces are loaded —
@@ -38,20 +38,14 @@ from urllib.parse import urljoin, urlparse
 
 from playwright.sync_api import sync_playwright
 
-# The 11 brand assets (gestion themes/apsconecta/core — the fetch-brand contract):
-# 4 variable woff2 faces + the 3 logo SVGs + the 4 favicon files.
+# The 5 brand assets (gestion-aio aps/brand and aps/theme/apsconecta/core — the
+# fetch-brand contract): 2 variable woff2 faces + the 2 logo SVGs + the favicon.
 BRAND_ASSETS = (
     "fonts/Fraunces.woff2",
-    "fonts/Fraunces-Italic.woff2",
     "fonts/NunitoSans.woff2",
-    "fonts/NunitoSans-Italic.woff2",
     "img/logo/logo.svg",
-    "img/logo/logo-mark.svg",
     "img/logo/logo-header.svg",
     "img/favicon.svg",
-    "img/favicon.ico",
-    "img/favicon-mask.svg",
-    "img/favicon-touch.png",
 )
 
 SIDEBAR_RGB = "rgb(83, 21, 168)"  # #5315a8 — Furo's --color-sidebar-background (conf.py)
@@ -156,7 +150,7 @@ def main():
                 errs.append('no <link rel="icon"> on the landing page')
             check_family("docs", errs)
 
-            # brand: all 11 assets deliver (the browser only fetches faces in use).
+            # brand: all 5 assets deliver (the browser only fetches faces in use).
             errs = []
             for asset in BRAND_ASSETS:
                 url = urljoin(static_base, asset)

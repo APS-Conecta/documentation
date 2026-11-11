@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Extender el servidor DAV desde una app: registrar un plugin de SabreDAV, manejar eventos como propFind y evitar consultas repetidas por cada archivo."
 ---
 (nc-dev-dav_extensions)=

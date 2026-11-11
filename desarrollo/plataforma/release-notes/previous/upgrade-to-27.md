@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios de la versión 27 para las apps: módulos .mjs, API Files Router, fin del cargador PSR-0, ITimeFactory con PSR-20 y cambios de las API."
 ---
 # Actualización a Nextcloud 27

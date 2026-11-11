@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Delegar las tareas de IA en proveedores de pago (OpenAI, Replicate, IBM watsonx): apps de integración, compatibilidad y retardo de las tareas."
 ---
 # IA como servicio

@@ -2,7 +2,7 @@
 tipo: tutorial
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Dónde están los tutoriales de desarrollo de apps: desde preparar el entorno de desarrollo hasta una app completa con almacenamiento en base de datos."
 ---
 # Tutorial

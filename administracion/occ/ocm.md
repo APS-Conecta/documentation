@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Comandos occ de OCM: listar las claves de firma del JWKS, sus tres ranuras y la rotación en tres pasos (preparar, activar, retirar)."
 ---
 (nc-ocm_label)=

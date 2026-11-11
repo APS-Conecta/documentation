@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo consumir la API de Voz a texto de OCP, escuchar sus eventos de transcripción e implementar y registrar un proveedor de Voz a texto."
 ---
 (nc-dev-speech-to-text)=

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Sincronizar archivos con el cliente de escritorio para Windows, macOS y Linux, y dónde obtener los clientes móviles para Android e iOS."
 ---
 # Sincronización de escritorio y móvil

@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Referencia de config/config.php: carga, formato, archivos combinados, variables de entorno y todos los parámetros admitidos con sus valores predeterminados."
 ---
 # Parámetros de configuración

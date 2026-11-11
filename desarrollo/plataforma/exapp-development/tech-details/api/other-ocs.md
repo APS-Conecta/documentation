@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Otras API OCS de Nextcloud que las ExApps pueden usar con la autenticación de AppAPI, si AppAPI las admite y la ExApp concede el acceso."
 ---
 # Otras API OCS

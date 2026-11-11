@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Editar, fijar y buscar mensajes de Talk, ponerles recordatorios, usar hilos, responder en privado y reaccionar con emojis."
 ---
 # Interactuar con los mensajes

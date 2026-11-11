@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Lexicon: definir en un solo lugar las claves de configuración de una app, registrarlo, los argumentos de cada entrada, los preajustes y su comando occ."
 ---
 # Lexicon

@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API OCS de AppAPI para registrar y anular ajustes declarativos de ExApps, desde Nextcloud 29, con un ejemplo de esquema de ajustes en Python."
 ---
 (nc-dev-exapp_declarative_settings_section)=

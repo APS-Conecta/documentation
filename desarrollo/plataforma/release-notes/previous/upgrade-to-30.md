@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios de la versión 30 para las apps: dependencia de backend caldav, diseño más compacto, nonce de CSP, fin de PHP 8.0 y TaskProcessing."
 ---
 # Actualización a Nextcloud 30

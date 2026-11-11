@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Entrada de la sección de compartir y colaborar del manual base: compartir, subidas anónimas, recursos federados y transferencia de propiedad."
 ---
 # Compartir y colaborar

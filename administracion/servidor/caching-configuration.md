@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Caché de memoria en Nextcloud: opcache, APCu, Redis y Memcached, recomendaciones por tipo de despliegue y su configuración en config.php."
 ---
 # Caché de memoria

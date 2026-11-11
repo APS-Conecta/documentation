@@ -3,7 +3,7 @@
 #
 # A partial clone: full commit history (so a block's SHA always resolves) but blobs only on
 # demand and a sparse checkout of text files, so images never download. The branch follows the
-# suite: stable<major>, with the major read from instalador's server container (upstreamlib).
+# suite: stable<major>, with the major read from gestion-aio's server container (upstreamlib).
 # Idempotent: an existing clone is fetched and moved to the branch tip.
 set -euo pipefail
 cd "$(dirname "$0")/.."

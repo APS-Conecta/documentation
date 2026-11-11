@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Los ID Snowflake de Nextcloud: qué información contienen, cómo almacenarlos en la base de datos, generarlos y decodificarlos con occ o desde el código."
 ---
 (nc-dev-snowflake_ids)=

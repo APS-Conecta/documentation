@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "llm2, modelo de lenguaje local: modelos recomendados, idiomas, requisitos, instalación, modelos alternativos y su configuración, escalado y limitaciones."
 ---
 # App: Modelo de lenguaje de gran tamaño local (llm2)

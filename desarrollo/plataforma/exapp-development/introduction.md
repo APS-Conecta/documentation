@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Qué son las ExApps y AppAPI, las tareas principales del ecosistema AppAPI y un glosario de los términos que usa su código."
 ---
 # Introducción

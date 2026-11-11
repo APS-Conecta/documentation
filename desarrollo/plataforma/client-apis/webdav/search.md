@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Búsqueda WebDAV (RFC 5323): cómo enviar solicitudes SEARCH, qué propiedades DAV admite, el ámbito de búsqueda y cuerpos de consulta de ejemplo."
 ---
 (nc-dev-webdavsearch)=

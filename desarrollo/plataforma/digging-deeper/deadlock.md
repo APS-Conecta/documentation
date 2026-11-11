@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Qué son los interbloqueos de MySQL/MariaDB, cómo investigarlos y cómo una app puede ignorarlos, reintentar la transacción o evitarlos."
 ---
 # Interbloqueos

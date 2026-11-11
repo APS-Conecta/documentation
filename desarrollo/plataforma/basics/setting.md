@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo crear secciones y configuraciones de administración de una app, delegar su administración y autorizar claves de configuración y controladores."
 ---
 # Ajustes

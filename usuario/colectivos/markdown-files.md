@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Acceder desde Archivos a los archivos Markdown de las páginas de Collectives: la carpeta oculta y cómo cambiar su nombre por usuario."
 ---
 # Acceder a los archivos Markdown

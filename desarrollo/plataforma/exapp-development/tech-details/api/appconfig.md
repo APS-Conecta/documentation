@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API OCS de AppConfig de las ExApps: establecer, obtener y eliminar valores de configuración de la app, con los datos de solicitud y respuesta."
 ---
 # AppConfig

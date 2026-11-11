@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo obtener un cliente HTTP con IClientService, enviar solicitudes HEAD, GET, POST, PUT, DELETE y OPTIONS y manejar sus errores."
 ---
 # Cliente HTTP

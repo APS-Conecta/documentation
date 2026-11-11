@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo una ExApp declara en info.xml las rutas accesibles por el proxy de ExApps de AppAPI: campos de cada ruta, registro y anulación automáticos."
 ---
 (nc-dev-ex_app_routes)=

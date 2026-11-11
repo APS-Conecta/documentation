@@ -21,7 +21,7 @@ A **new** page:
 tipo: guia | referencia | explicacion | tutorial
 esqueleto: plataforma
 audiencia: usuario | administracion | desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "≤ 158 characters, Spanish, what the page covers"
 ---
 # <the upstream title, in Spanish>

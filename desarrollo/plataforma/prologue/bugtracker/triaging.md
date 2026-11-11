@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo hacer el triaje de informes de errores en GitHub: buscar duplicados, juzgar relevancia y completitud, reproducirlos y etiquetarlos."
 ---
 # Triaje de errores de Nextcloud

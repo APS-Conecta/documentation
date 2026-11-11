@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo consumir la API de Procesamiento de tareas de OCP: tipos de tarea y sus formas, tareas, estados y eventos, y cómo implementar y registrar proveedores."
 ---
 (nc-dev-task_processing)=

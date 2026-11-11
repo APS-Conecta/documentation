@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Iconos para apps: la lista de iconos de core/img/ y la API de color SVG están obsoletas desde la versión 25; en su lugar, iconos de Material Design."
 ---
 (nc-dev-icons)=

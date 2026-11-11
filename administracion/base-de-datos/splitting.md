@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo separar tablas en otra base de datos (prueba de concepto con la app Actividad): criterios, parámetros con prefijo, división inicial y migraciones."
 ---
 # División de bases de datos

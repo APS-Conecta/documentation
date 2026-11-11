@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Ajustes de la app Correo: alertas de abuso, adjuntos, sincronización, TLS, OAuth de Google y Microsoft, tiempos de espera, delegación y funciones con LLM."
 ---
 # Correo

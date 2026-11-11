@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Activar la app Dashboard y fijar con occ la disposición de widgets de un usuario, la predeterminada para todos y la app que se abre por defecto."
 ---
 # App Dashboard

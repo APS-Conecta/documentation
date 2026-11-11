@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "El cliente de escritorio para Windows, macOS y Linux, que mantiene los archivos sincronizados entre el equipo y el servidor."
 ---
 # Cliente de escritorio

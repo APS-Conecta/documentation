@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Comandos occ de DAV (libretas, calendarios, suscripciones, ausencias) y de base de datos (índices, columnas, esquema y conversiones)."
 ---
 # Comandos de DAV y de base de datos

@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "OpenID Connect: autenticar contra un proveedor de identidad externo con user_oidc, usar el servidor como proveedor con oidc y validar tokens bearer."
 ---
 # Autenticación de usuarios con OpenID Connect

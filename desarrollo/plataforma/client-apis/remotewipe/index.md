@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API de borrado remoto para clientes: consulta del estado de borrado, datos que el cliente debe eliminar y aviso de finalización al servidor."
 ---
 (nc-dev-remotewipeindex)=

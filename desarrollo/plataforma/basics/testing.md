@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo probar una app: PHPUnit para las clases PHP con el bootstrap de pruebas y el contenedor, y Karma para el JavaScript."
 ---
 # Pruebas

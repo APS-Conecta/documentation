@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Compilar el cliente de escritorio: clonar desde GitHub, compilar en macOS y Windows, construir el instalador de Windows, parámetros de cmake y sanitizadores."
 ---
 # Compilar el cliente

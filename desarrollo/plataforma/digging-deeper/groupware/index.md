@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice de la integración con groupware: calendarios, proveedores de calendario personalizados, menú de contactos y proveedores de correo."
 ---
 # Integración con groupware

@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API de metadatos de archivos: IFilesMetadataManager, eventos en vivo y en segundo plano, occ, PROPPATCH, PROPFIND y SEARCH de WebDAV, y consultas."
 ---
 # Metadatos de archivos
