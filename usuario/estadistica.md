@@ -45,7 +45,8 @@ La aplicación trae las metas 2027 de la Res. Exenta 732: el Resumen muestra «M
 Hasta que el MINSAL publique las Orientaciones Técnicas 2027, cada meta con cifras REM dice «Esperando ruta oficial», «Sin porcentaje: esperando ruta oficial» y «Sin meta mínima 2027: esperando ruta oficial», y la Meta VIII muestra su cumplimiento informado y «Meta mínima 2027: 100,0 %».
 Mientras alguna meta espera su ruta oficial, un aviso arriba de las tarjetas lo dice, «Las metas tendrán cifras cuando MINSAL confirme sus rutas REM», con el botón **Ver las Metas Sanitarias 2026**, que abre la vista **Metas Sanitarias** en el año anterior a las metas.
 
-Arriba de las tarjetas, una sola línea dice hasta qué mes tiene cifras del establecimiento cada serie del REM que cuentan las metas, como «REM Serie A: datos al octubre de 2026 · REM Serie P: datos al junio de 2026».
+Arriba de las tarjetas, una sola línea dice hasta qué mes tiene cifras del establecimiento cada serie del REM que cuentan las metas, como «REM Serie A: datos al octubre de 2026 · REM Serie P: corte de junio de 2026».
+Si ninguna serie tiene cifras todavía, como mientras las metas 2027 esperan sus rutas oficiales, la línea dice «Metas Sanitarias 2027: sin cifras todavía».
 
 Arriba de las tarjetas puede aparecer una **nota**: un texto breve sobre lo que cambió desde el cálculo anterior del Resumen, con sus cifras.
 La escribe un modelo de IA, y debajo dice «Escrita por un modelo de IA a partir de las cifras».
@@ -69,7 +70,7 @@ Para leer las tarjetas:
 
 - Un mes sin ningún número escrito en las celdas de la meta no tiene cifra, y nunca se muestra como 0: la tarjeta muestra el último mes que sí la tiene, y «Sin informar» con «Nadie informó esta meta en el periodo.» si ninguno la tiene.
 - «Sin porcentaje: esperando ruta oficial» dice que las Orientaciones Técnicas del año todavía no confirman cómo se cuenta esa meta en el REM.
-- «Sin porcentaje: falta el denominador oficial de 2026», con el año de las cifras, dice que la meta cuenta personas en un rango de edad que corta los tramos de FONASA, y que quien administra Estadística todavía no escribe su **Denominador comprometido** de ese año. La tarjeta muestra igual el numerador ya contado, como «140 en el numerador, a octubre de 2026». Un año anterior en esa situación lo dice bajo el gráfico, como «2025: falta el denominador oficial de 2025».
+- «Sin porcentaje: falta el denominador oficial de 2026», con el año de las cifras, dice que la meta cuenta personas en un rango de edad que corta los tramos de FONASA, y que quien administra Estadística todavía no escribe su **Denominador comprometido** de ese año. La tarjeta muestra igual el numerador ya contado, como «140 en el numerador, a octubre de 2026», o en una meta de REM Serie P «al corte de junio de 2026». Un año anterior en esa situación lo dice bajo el gráfico, como «2025: falta el denominador oficial de 2025».
 - Cada año anterior se cuenta con la ruta de las metas más nuevas, corrida en años enteros. La ventana de octubre a septiembre de la Meta I se corre igual.
 - Un año dice «sin datos comparables» bajo el gráfico, y no muestra cifras, cuando su diccionario del REM nombra de otra forma alguna prestación o columna de la ruta, aparte de mayúsculas, tildes y plurales. Lo mismo ocurre cuando ese año no tiene diccionario propio, o cuando la ruta necesita meses anteriores al primer año que guarda la instalación.
 - En el gráfico, un mes sin cifra es un hueco en la línea, nunca 0, y la tabla dice «sin informar». Las metas de REM Serie P se dibujan en sus cortes de junio y diciembre; un corte que el establecimiento no informó es un hueco, nunca el corte anterior repetido.

@@ -155,7 +155,7 @@ Para el establecimiento configurado, `GET resumen` sirve el Resumen guardado en 
 Para cualquier otro `establecimiento` lo arma en cada solicitud y no lo guarda.
 `nota` es el texto que un modelo escribió sobre lo que cambió en el último cálculo, o `null`: sin un proveedor de texto a texto, mientras su tarea no responde, cuando la validación la descartó, y para cualquier otro `establecimiento`.
 La vista **Resumen** es la primera y lee solo esta ruta, y dibuja `historico` con el envoltorio de Chart.js de la app, dentro de la tarjeta, al abrirlo desde su título.
-El estado de cada meta lo decide `src/status.js` con los campos de la ruta: `estado` primero, luego `porcentaje` frente a `meta_comprometida`, o a `meta_nacional` sin ella; los recuadros de conteo filtran las tarjetas con ese mismo estado.
+El estado de cada meta lo decide `src/status.js` con los campos de la ruta: `estado` primero, luego `cumple`; los recuadros de conteo filtran las tarjetas con ese mismo estado.
 Muestra `nota` arriba de las tarjetas como texto plano, nunca con `v-html`, bajo «Escrita por un modelo de IA a partir de las cifras».
 La cifra de una tarjeta y cada cifra de su tabla abren el panel de su origen en `NcAppSidebar` (`src/components/ResumenFuente.vue`), un fragmento que se carga en el primer clic.
 
