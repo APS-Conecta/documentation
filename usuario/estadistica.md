@@ -206,7 +206,7 @@ Cada fila dice:
 | Meta y peso | La meta con que se juzga, la comprometida por el establecimiento o, si no hay, la nacional, y el peso de la meta |
 | Gráfico | Los porcentajes de los meses del año frente a esa meta, en pequeño |
 | Última cifra | El porcentaje del último mes con cifra, o el cumplimiento informado; una raya si no hay |
-| Estado | Un ícono y una palabra, como en el Resumen: «Cumple», «No cumple», «Falta el denominador oficial» o «Sin informar» |
+| Estado | Un ícono y una palabra, como en el Resumen: «Cumple», «No cumple», «Falta el denominador oficial», «Esperando ruta oficial» o «Sin informar» |
 
 Presionar una fila la abre y cierra la que estaba abierta. La fila abierta dice:
 
