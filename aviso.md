@@ -65,7 +65,6 @@ APS Conecta Gestión nace de una idea de Daniel Espinoza Charrier y se construye
 
 - **rpiv (rpiv-pi):** corridas por etapas —investigación, diseño, plan, implementación y validación— en las que el plan espera aprobación antes de implementarse.
 - **Flujos multiagente de Claude Code:** varios agentes en paralelo con una verificación adversarial de cada resultado; así se teje la documentación de Nextcloud en este sitio.
-- **Rutinas programadas de Claude:** la revisión de cada pull request, los resúmenes diarios y semanales, las propuestas de integración, el consejo de diseño y 📚 Scribe, que mantiene esta documentación.
 - **pi en GitHub Actions y los agentes programados de Jules:** primeras revisiones y mejoras nocturnas acotadas, cada una en su propio pull request.
 
 ### Herramientas y modelos

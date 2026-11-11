@@ -29,13 +29,7 @@ jobs:
       - name: Roster (from catalogo.yml)
         id: roster
         run: |
-          python3 - <<'PY' >> "$GITHUB_OUTPUT"
-          import yaml
-          print("repos<<REPOS")
-          for row in yaml.safe_load(open("catalogo.yml"))["repos"]:
-              print(row["repo"])
-          print("REPOS")
-          PY
+          { echo "repos<<REPOS"; tools/roster.sh --list; echo "REPOS"; } >> "$GITHUB_OUTPUT"
       - name: Mint App token (read-scoped, roster-fed)
         id: token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
