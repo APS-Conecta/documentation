@@ -157,9 +157,10 @@ Para leer el resultado:
 
 Lo que se guarda queda visible para todo el personal.
 La pregunta guarda la consulta tal como se hizo y la forma en que se muestra.
-Cada pregunta de la lista muestra su autor.
-Quien creó una pregunta, y quien administra Estadística, ven además **Editar** y **Eliminar**.
+Cada pregunta de la lista muestra su autor y la fecha de su último cambio.
+Quien creó una pregunta, y quien administra Estadística, ven además su menú de acciones, con **Editar** y **Eliminar**.
 **Editar** cambia el **Título** y **Mostrar como**; para cambiar lo que la pregunta consulta, se guarda una pregunta nueva desde **Consultar**.
+**Eliminar** pide confirmación en un diálogo que avisa que los tableros que muestran la pregunta dirán que fue eliminada.
 
 ### Reunir preguntas en un tablero
 
@@ -309,7 +310,7 @@ Cada octubre, cuando el Ministerio publica las Orientaciones Técnicas del año 
 ## Verificación
 
 - La consulta muestra la línea «Fuente: …» y, bajo el gráfico, la tabla con las mismas cifras.
-- Al guardar una pregunta, un aviso dice que «quedó guardada en Preguntas», y la pregunta aparece en **Preguntas** con su autor.
+- Al guardar una pregunta, un aviso dice que «quedó guardada en Preguntas», y la pregunta aparece en **Preguntas** con su autor y la fecha de hoy.
 - Estadística se abre en **Resumen**, marcada en la navegación, con una tarjeta por meta.
 - La vista **Metas Sanitarias** muestra una tarjeta por meta, con su tabla mes a mes.
 - Tras cargar un archivo a mano, la tabla **Cifras REM cargadas** o la sección correspondiente de **Administración → Estadística** muestra lo cargado, o dice por qué se rechazó.
