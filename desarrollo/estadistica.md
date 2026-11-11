@@ -154,10 +154,11 @@ Sin la meta comprometida del año base, la regla con `brecha_si_cumplio` cierra 
 Para el establecimiento configurado, `GET resumen` sirve el Resumen guardado en `estadistica_resumen`, así que todos leen las mismas cifras hasta el siguiente cálculo; mientras no hay uno guardado, lo arma en la solicitud.
 Para cualquier otro `establecimiento` lo arma en cada solicitud y no lo guarda.
 `nota` es el texto que un modelo escribió sobre lo que cambió en el último cálculo, o `null`: sin un proveedor de texto a texto, mientras su tarea no responde, cuando la validación la descartó, y para cualquier otro `establecimiento`.
-La vista **Resumen** es la primera y lee solo esta ruta, y dibuja `historico` con el envoltorio de Chart.js de la app, dentro de la tarjeta, al abrirlo desde su título.
+La vista **Resumen** es la primera y lee solo esta ruta.
 El estado de cada meta lo decide `src/status.js` con los campos de la ruta: `estado` primero, luego `cumple`; los recuadros de conteo filtran las tarjetas con ese mismo estado.
 Muestra `nota` arriba de las tarjetas como texto plano, nunca con `v-html`, bajo «Escrita por un modelo de IA a partir de las cifras».
-La cifra de una tarjeta y cada cifra de su tabla abren el panel de su origen en `NcAppSidebar` (`src/components/ResumenFuente.vue`), un fragmento que se carga en el primer clic.
+El detalle de una meta es `NcAppSidebar` (`src/components/DetailSidebar.vue`), un fragmento que se carga en el primer clic: el título de la tarjeta lo abre en la pestaña Evolución y su cifra en Origen.
+Evolución dibuja `historico` con `src/components/MetricChart.vue`, un gráfico SVG al ancho de su contenedor, solo con variables de color de Nextcloud, junto a su tabla gemela (`MonthTable.vue`); Origen muestra la `ruta` del último año de `historico` (`RouteList.vue`).
 
 **Rutas internas.** Las acciones de la sección de administración están en la {doc}`referencia generada </_generated/referencia/estadistica>`.
 Cada una lleva `#[AuthorizedAdminSetting(settings: AdminSettings::class)]` y responde un rechazo como un 422 con `{message}`.
