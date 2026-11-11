@@ -153,8 +153,8 @@ Los problemas de APS Conecta Gestión, de sus aplicaciones y de su instalación 
 
 APS Conecta Gestión configura la interfaz igual para todo el personal del establecimiento. Las diferencias con la descripción anterior son estas:
 
-- **Pantalla de inicio.** Después de iniciar sesión se abre la pantalla de bienvenida de la intranet (IntraVox), no el **Dashboard**. El icono de casa de la barra superior vuelve a esa pantalla. Si la intranet no está instalada, el inicio vuelve al **Dashboard**.
-- **Nombre del centro.** La barra superior y la página de inicio de sesión muestran el nombre corto del establecimiento junto a la marca de APS Conecta.
+- **Pantalla de inicio.** Después de iniciar sesión se abre «Inicio», la pantalla de bienvenida de la intranet (IntraVox). El logotipo de la barra superior vuelve a esa pantalla. Si la intranet no está instalada, se abre **Archivos**.
+- **Nombre del centro.** La barra superior y la página de inicio de sesión muestran el nombre corto del establecimiento junto a la marca de APS Conecta. En la pantalla de un teléfono, la barra superior muestra solo el logotipo.
 - **Idioma.** La interfaz está siempre en español, con fechas y números en el formato de Chile. El idioma del navegador no la cambia.
 - **Apariencia.** La suite fija el tema claro con los colores de APS Conecta. El tema oscuro, el de alto contraste y los fondos o colores personales que describe la sección «Acceso universal» no están disponibles.
 - **Aplicaciones.** El conjunto de aplicaciones es fijo y la tienda de aplicaciones está desactivada: ninguna aplicación se agrega desde la interfaz.
