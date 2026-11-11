@@ -72,7 +72,7 @@ El objetivo `generate` del `Makefile` corre los generadores antes de cada compil
 
 | Generador | Escribe |
 | --- | --- |
-| `tools/gen-catalogo.py` | El catálogo de repositorios, con la tabla de dependencias y la semilla de URL privadas que `linkcheck` omite. Valida la nómina, la paridad con la lista de aplicaciones de la suite (`apps.json` del instalador), y que cada manual declarado exista y lleve su repositorio en `apps`. |
+| `tools/gen-catalogo.py` | El catálogo de repositorios, con la tabla de dependencias y la semilla de URL privadas que `linkcheck` omite. Valida la nómina, la paridad con la lista de aplicaciones de la suite (`aps/provisionador/apps.json` de gestion-aio), y que cada manual declarado exista y lleve su repositorio en `apps`. |
 | `tools/gen-referencia.py` | La referencia de cada aplicación (comandos `occ`, ajustes y rutas) desde `appinfo/info.xml` y `appinfo/routes.php`. Degrada, nunca omite: una superficie vacía se declara con una frase «Sin …», y una entrada que no se puede interpretar corta la compilación. |
 | `tools/gen-mapa.py` | El mapa de módulos de cada repositorio, extraído con graphify, salvo los valores por defecto de la organización y este sitio. |
 | `tools/gen-inicio-rapido.py` | La sección «Inicio rápido de desarrollo» del README de cada repositorio, incluida en {doc}`/_generated/inicio-rapido/index`. |
