@@ -154,7 +154,7 @@ Sin la meta comprometida del año base, la regla con `brecha_si_cumplio` cierra 
 Para el establecimiento configurado, `GET resumen` sirve el Resumen guardado en `estadistica_resumen`, así que todos leen las mismas cifras hasta el siguiente cálculo; mientras no hay uno guardado, lo arma en la solicitud.
 Para cualquier otro `establecimiento` lo arma en cada solicitud y no lo guarda.
 `nota` es el texto que un modelo escribió sobre lo que cambió en el último cálculo, o `null`: sin un proveedor de texto a texto, mientras su tarea no responde, cuando la validación la descartó, y para cualquier otro `establecimiento`.
-La pestaña **Resumen** es la primera y lee solo esta ruta, y dibuja `historico` con el envoltorio de Chart.js de la app.
+La sección **Resumen** es la primera y lee solo esta ruta, y dibuja `historico` con el envoltorio de Chart.js de la app.
 Muestra `nota` arriba de las tarjetas como texto plano, nunca con `v-html`, bajo «Escrita por un modelo de IA a partir de las cifras».
 Cada cifra de una tarjeta y de su tabla abre el panel de su origen en `NcAppSidebar` (`src/components/ResumenFuente.vue`), un fragmento que se carga en el primer clic.
 
@@ -321,7 +321,7 @@ Las cifras, el estado de carga, las etiquetas, el registro de establecimientos, 
 - **Incompleto a comienzo de año (B-020).** El año en curso puede marcarse «incompleto» temprano en el año, porque `Completeness` compara cada servicio con el año completo más cercano, entero.
 - **Deuda de la plantilla (B-015 a B-019).** Pasar `@nextcloud/webpack-vue-config` a su versión 7, los 404 de `.htaccess`, un `composer.phar` sin versión fija ni verificación, la prueba de navegador fuera de CI y el valor por defecto de `APS` en un worktree se corrigen primero en farmacia y luego aquí: el clon no sigue a la plantilla por sí solo.
 - **Pruebas fuera de CI.** Ningún trabajo de CI corre la suite de integración contra PostgreSQL ni la prueba de navegador.
-- **Interfaz (B-012, B-013).** En un teléfono, la grilla de población escrita a mano es más ancha que su sección. Cada pestaña carga su código la primera vez que se abre, así que el paquete principal pesa 329.277 bytes frente a un presupuesto de 720.000; cada bloque `<style>` todavía lleva su archivo `.vue` entero, en base64, dentro de su paquete.
+- **Interfaz (B-012, B-013).** En un teléfono, la grilla de población escrita a mano es más ancha que su sección. Cada sección carga su código la primera vez que se abre, así que el paquete principal, con la navegación de Nextcloud, pesa 574.178 bytes frente a un presupuesto de 720.000; cada bloque `<style>` todavía lleva su archivo `.vue` entero, en base64, dentro de su paquete.
 - **Techo de carga.** La carga corre a unos 32.000 filas por segundo dentro de OCP; `COPY` por una segunda conexión lo subiría, y fue rechazado.
 - **Tamaño.** La ventana por defecto de cuatro años ocupa unos 4,9 GB de base de datos, y lo mismo en cada respaldo. Un respaldo de gestion que omita las filas REM, que la aplicación puede volver a descargar, queda pendiente de medir el tiempo del volcado.
 - **Filtro por hoja.** Un filtro por hoja es la unión de sus códigos en los diccionarios del periodo, no año por año.
