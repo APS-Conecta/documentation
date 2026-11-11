@@ -146,8 +146,8 @@ Para leer el resultado:
 
 - La línea «Fuente: …» dice de qué fuente vienen las cifras y hasta qué mes llegan.
 - Todo gráfico trae debajo su tabla, con las mismas cifras.
-- En el gráfico, **Su establecimiento** va en el color principal del tema, y **Nacional** y **Pares** en gris, con trazos distintos: en barras, una en columnas llenas y la otra en columnas con solo su borde. La leyenda nombra siempre cada serie.
-- Al pasar el cursor por un gráfico de líneas, o al elegirlo con el teclado y moverse con las flechas, arriba del gráfico se leen las cifras de cada serie en ese punto, y un lector de pantalla las anuncia. En un gráfico de barras, el tabulador recorre las columnas y cada una dice su cifra.
+- En el gráfico, **Su establecimiento** va en el color principal del tema, y **Nacional** y **Pares** en gris, con trazos distintos: en barras, una en barras llenas y la otra en barras con solo su borde. La leyenda nombra siempre cada serie.
+- Al pasar el cursor por un gráfico de líneas, o al elegirlo con el teclado y moverse con las flechas, arriba del gráfico se leen las cifras de cada serie en ese punto, y un lector de pantalla las anuncia. En un gráfico de barras, el tabulador recorre las barras y cada una dice su cifra.
 - En las series **Nacional** y **Pares**, el número entre paréntesis es la cantidad de establecimientos que informaron.
 - Una celda sin cifra muestra una raya.
 - «Qué se contó» despliega cada prestación sumada, con su hoja, su sección y sus columnas.
