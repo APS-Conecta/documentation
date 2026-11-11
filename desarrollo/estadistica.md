@@ -119,6 +119,7 @@ Así, una especificación válida nunca cambia de significado.
 `POST preguntas` guarda la consulta solo si `QuerySpec::from()` la acepta, y la guarda tal como llegó, no en su forma normalizada.
 Cada vez que una tarjeta o una pregunta abierta se consulta, la consulta guardada se juzga de nuevo en `POST consultas`.
 El tipo de gráfico (`tipo`: `barra`, `linea` o `tabla`) se guarda al lado de la consulta, no dentro de ella.
+`src/components/Visualization.vue` dibuja la respuesta en Consultar, en una pregunta y en una tarjeta con el mismo `MetricChart.vue` de Evolución, en barras o en líneas, solo con variables de color de Nextcloud, sobre su tabla gemela.
 Un título tiene hasta 200 caracteres; un tablero, hasta 24 tarjetas, cada una de 1 a 3 columnas de ancho.
 
 **Indicadores.** Cada término de la ruta de una meta es una consulta que `QuerySpec::from()` juzga al leer la semilla.
