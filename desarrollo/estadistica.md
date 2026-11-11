@@ -124,6 +124,7 @@ Un título tiene hasta 200 caracteres; un tablero, hasta 24 tarjetas, cada una d
 **Indicadores.** Cada término de la ruta de una meta es una consulta que `QuerySpec::from()` juzga al leer la semilla.
 `GoalEvaluator` consulta todos los términos del año en el servidor, con las mismas sentencias que compila una consulta, en una sola instantánea de solo lectura.
 La vista de metas lee `GET indicadores` y no envía consultas propias.
+El estado de cada fila lo decide `indicadorStatus` en `src/status.js`, con las mismas palabras del Resumen: `poblacion.falta_oficial` primero, luego el último mes con `porcentaje`, o el `cumplimiento` de una meta manual, frente a la meta comprometida o, sin ella, la nacional.
 `establecimiento` es el código DEIS de seis dígitos de la serie local; sin él, la serie local es el `deis_code` configurado.
 Las metas de otro establecimiento leen solo sus propios compromisos (`estadistica_commitment.estab`), y `fecha_corte_local` y los pares son los del establecimiento pedido.
 
