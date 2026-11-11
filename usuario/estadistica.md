@@ -30,8 +30,9 @@ Quien administra Estadística además carga y mantiene las cifras, la carpeta de
 
 ### Abrir Estadística
 
-1. Abrir **Estadística** en la barra superior. Se abre en la pestaña **Resumen**.
-2. Elegir otra de sus cinco pestañas si hace falta: **Consultar**, **Preguntas**, **Tableros** o **Metas Sanitarias**.
+1. Abrir **Estadística** en la barra superior. Se abre en **Resumen**.
+2. Elegir otra de sus cinco vistas en la navegación de la izquierda si hace falta: **Metas Sanitarias**, **Consultar**, **Preguntas** o **Tableros**.
+   En un teléfono la navegación se pliega; se abre con el botón **Abrir navegación**, en la esquina superior.
 
 Si la instalación no tiene su establecimiento configurado, un aviso lo dice arriba: «Esta instalación todavía no tiene su establecimiento configurado: verá las cifras nacionales y de pares, pero no las propias».
 
@@ -91,9 +92,9 @@ Para leer las tarjetas:
 ### Cifras REM
 
 Una consulta se arma en cuatro pasos, **1. Datos**, **2. Filtrar**, **3. Resumir** y **4. Visualizar**, y se hace al presionar **Consultar**, no antes.
-Al abrirse, la pestaña propone el año cargado más reciente, de enero al último mes con cifras, agrupado por **Mes** y comparado con **Todo el país**.
+Al abrirse, **Consultar** propone el año cargado más reciente, de enero al último mes con cifras, agrupado por **Mes** y comparado con **Todo el país**.
 
-1. Abrir la pestaña **Consultar**.
+1. Abrir **Consultar** en la navegación.
 2. En **1. Datos**, elegir la fuente: **REM Serie A** o **REM Serie P**.
 3. En **2. Filtrar**, elegir el primer mes en **Desde**.
 4. Elegir el último mes en **Hasta**.
@@ -148,7 +149,7 @@ Para leer el resultado:
 
 1. Escribir un título en **Título de la pregunta**, bajo el resultado.
 2. Presionar **Guardar como pregunta**.
-3. Abrir la pestaña **Preguntas**.
+3. Abrir **Preguntas** en la navegación.
 4. Presionar **Ver** en la pregunta para hacerla de nuevo con las cifras de hoy.
 
 Lo que se guarda queda visible para todo el personal.
@@ -159,7 +160,7 @@ Quien creó una pregunta, y quien administra Estadística, ven además **Editar*
 
 ### Reunir preguntas en un tablero
 
-1. Abrir la pestaña **Tableros**.
+1. Abrir **Tableros** en la navegación.
 2. Escribir un título en **Título del nuevo tablero**.
 3. Presionar **Crear tablero**.
 4. Elegir una pregunta en **Agregar una pregunta guardada**.
@@ -176,13 +177,13 @@ Quien creó el tablero, y quien administra Estadística, pueden **Cambiar el tí
 
 ### Metas Sanitarias
 
-La pestaña muestra las Metas Sanitarias del año (Ley 19.813), una tarjeta por meta, cada una con su tabla mes a mes.
+La vista muestra las Metas Sanitarias del año (Ley 19.813), una tarjeta por meta, cada una con su tabla mes a mes.
 
-1. Abrir la pestaña **Metas Sanitarias**.
-2. Elegir el año en **Año**, cuando hay metas cargadas de más de un año. La pestaña parte en el año en curso, y las metas 2027 se eligen ahí.
+1. Abrir **Metas Sanitarias** en la navegación.
+2. Elegir el año en **Año**, cuando hay metas cargadas de más de un año. La vista parte en el año en curso, y las metas 2027 se eligen ahí.
 3. Marcar, bajo «Pares: los establecimientos que comparten con el suyo», los rasgos que deben compartir los pares.
 
-Los pares se eligen solo cuando la instalación tiene su establecimiento configurado, y la pestaña parte con **Tipo de establecimiento** marcado.
+Los pares se eligen solo cuando la instalación tiene su establecimiento configurado, y la vista parte con **Tipo de establecimiento** marcado.
 Si se desmarcan todos los rasgos, la columna **Pares** desaparece.
 
 Cada tarjeta dice:
@@ -210,7 +211,7 @@ Para leer la tabla:
 ### Administrar Estadística
 
 Esta parte es para quien administra Estadística: los administradores de la plataforma y los grupos a los que se delega la sección en **Administración → Privilegios de administración**.
-Todo está en **Administración → Estadística**.
+Todo está en **Administración → Estadística**; los administradores de la plataforma llegan también desde **Ajustes de Estadística**, al pie de la navegación de la app.
 
 Arriba, la sección dice qué establecimiento sirve la instalación.
 Ese establecimiento se define en el instalador, no en esta pantalla.
@@ -305,9 +306,9 @@ Cada octubre, cuando el Ministerio publica las Orientaciones Técnicas del año 
 ## Verificación
 
 - La consulta muestra la línea «Fuente: …» y, bajo el gráfico, la tabla con las mismas cifras.
-- Al guardar una pregunta, un aviso dice que «quedó guardada en Preguntas», y la pregunta aparece en la pestaña **Preguntas** con su autor.
-- Estadística se abre en la pestaña **Resumen**, con una tarjeta por meta.
-- La pestaña **Metas Sanitarias** muestra una tarjeta por meta, con su tabla mes a mes.
+- Al guardar una pregunta, un aviso dice que «quedó guardada en Preguntas», y la pregunta aparece en **Preguntas** con su autor.
+- Estadística se abre en **Resumen**, marcada en la navegación, con una tarjeta por meta.
+- La vista **Metas Sanitarias** muestra una tarjeta por meta, con su tabla mes a mes.
 - Tras cargar un archivo a mano, la tabla **Cifras REM cargadas** o la sección correspondiente de **Administración → Estadística** muestra lo cargado, o dice por qué se rechazó.
 
 ## Problemas frecuentes
