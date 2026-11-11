@@ -23,7 +23,7 @@ Los cambios del plan de actualización corresponden a la próxima versión. Cons
 ### El arranque de una línea
 
 ```console
-curl -fsSL https://github.com/APS-Conecta/gestion-aio/releases/download/vX.Y.Z/gestion-aio-vX.Y.Z-install.sh | sudo bash
+curl -fsSL https://github.com/APS-Conecta/gestion-aio/releases/download/vX.Y.Z/install.sh | sudo bash
 ```
 
 El ancla de confianza es la URL de la versión —fijada a la etiqueta— más TLS: el instalador lleva dentro la suma sha256 del paquete y la clave pública de la firma del proyecto. La descarga se verifica antes de desempacar nada; un servidor que ya tiene `signify` comprueba además la firma, y el paso «preparar» incorpora el verificador cuando está disponible en el repositorio de paquetes. Las siguientes revisiones comprueban la firma del paquete guardado cuando disponen del verificador. El desempaque es atómico y la suite queda en `/opt/aps-conecta/instalador`, con el paquete guardado —tarball, sumas y firma— en `/opt/aps-conecta/paquete`, para que la revisión previa vuelva a verificarlo sin red. La copia del repositorio no instala: lleva su suma vacía a propósito, y solo el activo de la publicación ejecuta.
@@ -73,7 +73,7 @@ En la próxima versión, la instalación admite un proxy HTTP(S) con autenticaci
 ```bash
 read -r -s -p 'Dirección del proxy: ' HTTPS_PROXY; echo
 export HTTPS_PROXY HTTP_PROXY="$HTTPS_PROXY" https_proxy="$HTTPS_PROXY" http_proxy="$HTTPS_PROXY"
-curl -fsSL https://github.com/APS-Conecta/gestion-aio/releases/download/vX.Y.Z/gestion-aio-vX.Y.Z-install.sh \
+curl -fsSL https://github.com/APS-Conecta/gestion-aio/releases/download/vX.Y.Z/install.sh \
   | sudo --preserve-env=HTTPS_PROXY,HTTP_PROXY,NO_PROXY,https_proxy,http_proxy,no_proxy bash
 ```
 
