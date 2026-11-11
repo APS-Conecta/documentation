@@ -1,9 +1,9 @@
 # Weave contract — translating and weaving one upstream Nextcloud document
 
-The rules every weave agent follows: the bulk-weave workflow (scribe W-runs) and the 📚 Scribe
-`upstream` lane. Deterministic gates enforce what they can (`tools/upstream-fidelity.py`,
-`tools/check-structure.py`, `tools/term-check.py`, `sphinx-build -W`,
-`tools/rebrand-check.py`); the reviewer agent checks the rest.
+The rules every weave agent follows in the bulk-weave workflow (scribe W-runs). Deterministic
+gates enforce what they can (`tools/upstream-fidelity.py`, `tools/check-structure.py`,
+`tools/term-check.py`, `sphinx-build -W`, `tools/rebrand-check.py`); the reviewer agent
+checks the rest.
 
 ## 1. Inputs
 

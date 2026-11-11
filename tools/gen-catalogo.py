@@ -79,7 +79,7 @@ REQUIRED = ("repo", "kind", "role", "manuals", "depends_on", "status")
 OPTIONAL = ("version", "soft_depends_on", "readme")
 MANUAL_RE = re.compile(r"^(?:usuario|administracion|desarrollo|proyecto)/(?:[a-z0-9_-]+/)*[a-z0-9_-]+\.md$")
 # Las filas cuyo cambio ve una persona usuaria o administradora llevan su página de
-# novedades (scribe Q4): la escribe 📚 Scribe; el catálogo garantiza que exista.
+# novedades (scribe Q4): el catálogo garantiza que exista.
 NOVEDADES_KINDS = {"suite", "distribution-fork", "nextcloud-app"}
 MANIFEST_OWN = {"own", "fork"}  # las filas del manifiesto que el catálogo documenta como aplicaciones
 SEMVER_RE = re.compile(r"^#{1,3}\s*\[?\s*v?(\d+(?:\.\d+){2}[0-9A-Za-z.+-]*)", re.M)

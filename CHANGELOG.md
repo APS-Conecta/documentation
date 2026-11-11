@@ -79,8 +79,8 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 - Per-app release notes (scribe S2a): `proyecto/novedades/` holds one page per
   catalog row whose `kind` is suite, distribution-fork or nextcloud-app, listed in
   that row's `manuals`. `gen-catalogo.py` fails the build when such a row lacks its
-  page, so the page set follows the catalog. 📚 Scribe fills the tables.
-- Daily `schedule:` on `build.yml` (09:30 UTC, after Scribe) that also deploys, so
+  page, so the page set follows the catalog.
+- Daily `schedule:` on `build.yml` (09:30 UTC) that also deploys, so
   the generated reference follows every repo's `main` on days nothing merges here.
 - The base-platform machinery (scribe S2b): `upstream.yml` (source rule
   `nextcloud/documentation` `stable<major>`, the site-wide rename rule, and the map
@@ -131,9 +131,3 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 - `catalogo.yml` `manuals` accept nested pages (`<audience>/<dir>/<page>.md`).
 - Vendored repo-docs re-rendered to canon after repo-docs #11 (no `Docs:` line in
   the PR gate) and #12 (the opt-in `site-structure` rule).
-
-### Fixed
-
-### Removed
-
-- `proyecto/novedades/aio.md` (Scribe page of the deleted AIO repository).

@@ -12,7 +12,7 @@ on:
   pull_request:
   workflow_dispatch:     # token-reach verification on any branch; deploy stays gated
   schedule:
-    - cron: "30 9 * * *"  # daily, after 📚 Scribe (09:00 UTC): generated pages follow every repo's main
+    - cron: "30 9 * * *"  # daily: generated pages follow every repo's main
 
 permissions: {}          # GITHUB_TOKEN is never used for a write; build re-grants read
 
@@ -34,16 +34,10 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt pyyaml   # pyyaml for the roster parse; the site toolchain stays the four pins
-      - name: Roster (the 15, from catalogo.yml — the workflow owns no repo list)
+      - name: Roster (from catalogo.yml — the workflow owns no repo list)
         id: roster
         run: |
-          python3 - <<'PY' >> "$GITHUB_OUTPUT"
-          import yaml
-          print("repos<<REPOS")
-          for row in yaml.safe_load(open("catalogo.yml"))["repos"]:
-              print(row["repo"])
-          print("REPOS")
-          PY
+          { echo "repos<<REPOS"; tools/roster.sh --list; echo "REPOS"; } >> "$GITHUB_OUTPUT"
       - name: Mint App token (read-scoped, roster-fed)
         id: token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
@@ -55,13 +49,8 @@ jobs:
       - name: Clone the roster (RUNNER_TEMP boundary; a failed clone fails the job)
         env:
           GH_TOKEN: ${{ steps.token.outputs.token }}   # gh reads it; never URL/argv
-          ROSTER: ${{ steps.roster.outputs.repos }}
           APS_ORG_ROOT: ${{ runner.temp }}/org         # clones land outside the checkout
-        run: |
-          while IFS= read -r repo; do
-            [ -n "$repo" ] || continue
-            gh repo clone "APS-Conecta/$repo" "${APS_ORG_ROOT}/$repo" -- --depth 1
-          done <<< "$ROSTER"
+        run: tools/roster.sh
       - name: Install actionlint 1.7.12
         run: |
           curl -sSfL -o /tmp/actionlint_1.7.12_linux_amd64.tar.gz \
