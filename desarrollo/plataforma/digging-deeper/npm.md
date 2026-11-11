@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Convenciones de scripts npm para las apps: build, dev y watch, test y lint en package.json, con ejemplos para webpack, eslint y stylelint."
 ---
 (nc-dev-app-npm)=

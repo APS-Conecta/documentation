@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Incorporar a un equipo en Collectives con un primer proyecto: una página de presentaciones, una plantilla común y una presentación por persona."
 ---
 # Cómo incorporar al equipo

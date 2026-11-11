@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Operaciones WebDAV básicas: autenticación, recursos públicos, propiedades, listar, descargar, subir, mover, copiar, favoritos y cabeceras especiales."
 ---
 (nc-dev-webdavindex)=

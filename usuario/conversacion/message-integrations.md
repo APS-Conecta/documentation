@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Aplicaciones que se integran con los mensajes de Talk: convertir un mensaje en una tarjeta de Deck y compartir una tarjeta de Deck en un chat."
 ---
 # Aplicaciones que se integran con los mensajes

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo se actualiza el cliente de escritorio en Windows, macOS y Linux, y cómo deshabilitar las actualizaciones automáticas en cada sistema."
 ---
 # El actualizador automático

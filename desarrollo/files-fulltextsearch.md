@@ -27,7 +27,7 @@ resumen: "Proveedor de búsqueda de archivos para Nextcloud 34: identidad del us
 
 La [corrección de origen](https://github.com/nextcloud/files_fulltextsearch/pull/463) conserva las consultas de autorización y utiliza el identificador real al completar el resultado. El paquete mantiene la interfaz y la licencia originales. La construcción compila la configuración de administración y copia el script heredado a su ruta habitual sin alterar sus bytes.
 
-[ADR-0023](https://github.com/APS-Conecta/gestion/blob/f18f3b2b02c80f59e4981f12b646b6d29c3fed49/docs/adr/0023-signed-search-provider-until-the-fixed-store-release.md) registra dos aplicaciones de tienda y este proveedor firmado. El retorno requiere una publicación compatible de tienda que incluya la corrección, una migración de canal y bloqueo de versión verificada, y las mismas pruebas de instalación y búsqueda. El [seguimiento técnico](https://github.com/APS-Conecta/gestion/issues/241) registra la integración.
+ADR-0023 registra dos aplicaciones de tienda y este proveedor firmado. El retorno requiere una publicación compatible de tienda que incluya la corrección, una migración de canal y bloqueo de versión verificada, y las mismas pruebas de instalación y búsqueda. El seguimiento técnico registra la integración.
 
 ```{toctree}
 :maxdepth: 1

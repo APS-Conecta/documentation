@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo añadir compatibilidad con OpenAPI a una app: requisitos, buenas prácticas, tipado de respuestas, ámbitos, etiquetas y generación de la especificación."
 ---
 # Tutorial de OpenAPI para OCS

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Subir archivos de más de 512 MB: límites del sistema, ajustes de PHP, Apache y nginx, directorio temporal, tamaño de fragmento y almacenamiento de objetos."
 ---
 (nc-uploading_big_files)=

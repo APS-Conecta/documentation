@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo ofrecer una API REST desde una app: ApiController y CORS, versionado en la URL, cabeceras CORS y comparación entre controladores REST y OCS."
 ---
 (nc-dev-rest-apis)=

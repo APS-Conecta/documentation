@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cliente oficial para Android y biblioteca android-library para comunicarse con el servidor: código fuente, contribución, autenticación e integración en apps."
 ---
 (nc-dev-androidindex)=

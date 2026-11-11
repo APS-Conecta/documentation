@@ -2,40 +2,40 @@
 # fetch-brand.sh — repopulate _generated/brand/ with the APS-Conecta brand assets.
 #
 # Source resolution (first hit wins):
-#   1. $SUITE_SRC                   — explicit path (CI points it at the clone)
-#   2. /opt/aps-conecta-org/instalador — the org checkout, when present
-#   3. shallow clone of APS-Conecta/instalador at main — gh if GH_TOKEN is set,
+#   1. $SUITE_SRC                       — explicit path (CI points it at the clone)
+#   2. /opt/aps-conecta-org/gestion-aio — the org checkout, when present
+#   3. shallow clone of APS-Conecta/gestion-aio at main — gh if GH_TOKEN is set,
 #      else git. Credentials arrive ambient (gh reads GH_TOKEN itself, git its
 #      own configuration); never on the URL, never on argv.
 #
-# The 11-asset set (4 woff2 under fonts/, 3 logo SVG under img/logo/, 4 favicon
-# files under img/) is copied from <src>/themes/apsconecta/core/ preserving
-# structure. Idempotent: the destination is wiped and repopulated, so repeated
-# runs produce identical bytes. No partial brand is ever left behind: every
-# source asset is verified BEFORE the wipe, and the result is re-asserted as
-# exactly 11 non-empty files.
+# The 5-asset set comes from the suite's theme: the 2 woff2 fonts and the
+# favicon of aps/brand/, the 2 logo SVGs of aps/theme/apsconecta/core/img/,
+# each copied under the name the site serves (fonts/, img/logo/, img/). The SVGs
+# name brand tokens as var(--aps-…); gestion-aio's own renderer
+# (aps/provisionador/brand.py) writes each token's value in, as the suite does
+# for art a browser draws without stylesheets. Idempotent: the destination is
+# wiped and repopulated, so repeated runs produce identical bytes. No partial
+# brand is ever left behind: the set is built and rendered in a staging
+# directory that replaces the destination only once complete, and the result
+# is re-asserted as exactly 5 non-empty files.
 
 set -euo pipefail
 
 BRAND_OUT="${BRAND_OUT:-_generated/brand}"
-SRC_SUBDIR="themes/apsconecta/core"
+STAGE="$BRAND_OUT.new"
 
+# <source path in gestion-aio>:<served path under $BRAND_OUT>
 ASSETS=(
-  fonts/Fraunces.woff2
-  fonts/Fraunces-Italic.woff2
-  fonts/NunitoSans.woff2
-  fonts/NunitoSans-Italic.woff2
-  img/logo/logo.svg
-  img/logo/logo-header.svg
-  img/logo/logo-mark.svg
-  img/favicon.svg
-  img/favicon.ico
-  img/favicon-mask.svg
-  img/favicon-touch.png
+  aps/brand/fraunces.woff2:fonts/Fraunces.woff2
+  aps/brand/nunito-sans.woff2:fonts/NunitoSans.woff2
+  aps/theme/apsconecta/core/img/logo.svg:img/logo/logo.svg
+  aps/theme/apsconecta/core/img/logoheader.svg:img/logo/logo-header.svg
+  aps/brand/favicon.svg:img/favicon.svg
 )
 
 CLONE_TMP=""
 cleanup() {
+  rm -rf "$STAGE" || true
   if [[ -n "$CLONE_TMP" ]]; then
     rm -rf "$CLONE_TMP" || true
   fi
@@ -47,50 +47,44 @@ resolve_src() {
     printf '%s\n' "$SUITE_SRC"
     return
   fi
-  if [[ -d /opt/aps-conecta-org/instalador ]]; then
-    printf '%s\n' /opt/aps-conecta-org/instalador
+  if [[ -d /opt/aps-conecta-org/gestion-aio ]]; then
+    printf '%s\n' /opt/aps-conecta-org/gestion-aio
     return
   fi
   local tmp clone
   tmp="$(mktemp -d)"
   CLONE_TMP="$tmp"
-  clone="$tmp/instalador"
+  clone="$tmp/gestion-aio"
   if [[ -n "${GH_TOKEN:-}" ]]; then
-    gh repo clone APS-Conecta/instalador "$clone" -- --depth 1 --branch main 1>&2
+    gh repo clone APS-Conecta/gestion-aio "$clone" -- --depth 1 --branch main 1>&2
   else
-    git clone --depth 1 --branch main https://github.com/APS-Conecta/instalador.git "$clone" 1>&2
+    git clone --depth 1 --branch main https://github.com/APS-Conecta/gestion-aio.git "$clone" 1>&2
   fi
   printf '%s\n' "$clone"
 }
 
 src="$(resolve_src)"
-src_assets="$src/$SRC_SUBDIR"
 
-if [[ ! -d "$src_assets" ]]; then
-  echo "fetch-brand.sh: no theme assets at $src_assets" >&2
-  exit 1
-fi
-
-# Verify the full set in the source BEFORE wiping: a missing asset fails the
-# run and leaves any previous good copy in place.
-for rel in "${ASSETS[@]}"; do
-  if [[ ! -s "$src_assets/$rel" ]]; then
-    echo "fetch-brand.sh: missing or empty source asset: $src_assets/$rel" >&2
+rm -rf "$STAGE"
+for pair in "${ASSETS[@]}"; do
+  from="$src/${pair%%:*}" to="$STAGE/${pair#*:}"
+  if [[ ! -s "$from" ]]; then
+    echo "fetch-brand.sh: missing or empty source asset: $from" >&2
     exit 1
   fi
+  mkdir -p "$(dirname "$to")"
+  cp "$from" "$to"
 done
+# Another repository's code: it runs without the token.
+env -u GH_TOKEN python3 -I "$src/aps/provisionador/brand.py" "$STAGE"/img/favicon.svg "$STAGE"/img/logo/*.svg
 
-rm -rf "$BRAND_OUT"
-for rel in "${ASSETS[@]}"; do
-  mkdir -p "$BRAND_OUT/$(dirname "$rel")"
-  cp "$src_assets/$rel" "$BRAND_OUT/$rel"
-done
-
-# No partial brand: exactly 11 non-empty files, or fail.
-count="$(find "$BRAND_OUT" -type f -size +0c | wc -l)"
-if [[ "$count" -ne 11 ]]; then
-  echo "fetch-brand.sh: expected 11 non-empty files under $BRAND_OUT, found $count" >&2
+# No partial brand: exactly 5 non-empty files, or fail.
+count="$(find "$STAGE" -type f -size +0c | wc -l)"
+if [[ "$count" -ne 5 ]]; then
+  echo "fetch-brand.sh: expected 5 non-empty files under $STAGE, found $count" >&2
   exit 1
 fi
+rm -rf "$BRAND_OUT"
+mv "$STAGE" "$BRAND_OUT"
 
-echo "fetch-brand.sh: 11 brand assets in $BRAND_OUT (source: $src)"
+echo "fetch-brand.sh: 5 brand assets in $BRAND_OUT (source: $src)"

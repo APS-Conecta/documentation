@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Pasar de CODE 6.4 a CODE 21.11: rutas del proxy inverso renombradas, paquetes loolwsd → coolwsd y actualización de la imagen de docker."
 ---
 # Migración desde Collabora Online

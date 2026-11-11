@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Pasos para desarrollar una ExApp: entorno, plantilla, métodos del ciclo de vida, empaquetado en Docker, publicación en la AppStore y pruebas."
 ---
 (nc-dev-exappdevelopment)=

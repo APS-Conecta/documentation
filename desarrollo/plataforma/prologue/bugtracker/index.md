@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Dónde informar de un error según el componente afectado: servidor, cliente de escritorio, clientes de Android e iOS o una app."
 ---
 # Gestor de errores

@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Entrada de la sección de seguridad y cifrado del manual base: cifrado de archivos y uso del cifrado de extremo a extremo."
 ---
 # Seguridad y cifrado

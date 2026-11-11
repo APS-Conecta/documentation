@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice de IA para apps: Context Chat, procesamiento de tareas, integración del asistente, traducción automática, voz a texto, texto y texto a imagen."
 ---
 # IA y aprendizaje automático

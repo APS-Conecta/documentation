@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Eventos de calendario en conversaciones de Talk: próximos eventos, programar una reunión desde un chat y usar una conversación como ubicación."
 ---
 # Integración del calendario con Talk

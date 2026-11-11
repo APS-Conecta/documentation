@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API OCS de traducción: obtener los idiomas y opciones de traducción disponibles y traducir una cadena, con campos, códigos de estado y límites."
 ---
 (nc-dev-ocs-translation-api)=

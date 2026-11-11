@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API de la app Archivos reescrita en Nextcloud 27: bibliotecas externas de referencia, eventos de nodos del bus de eventos y el enrutador expuesto."
 ---
 (nc-dev-filesapi)=

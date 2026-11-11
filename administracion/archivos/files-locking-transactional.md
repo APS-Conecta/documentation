@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Bloqueo transaccional de archivos: qué protege, qué no impide y cómo configurar Redis como memcache.locking para aliviar la base de datos."
 ---
 # Bloqueo transaccional de archivos

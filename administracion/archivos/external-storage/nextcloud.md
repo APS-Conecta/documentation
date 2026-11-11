@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Conectar otro servidor Nextcloud como almacenamiento externo: qué URL usar en el campo URL y dónde está el resto de la configuración."
 ---
 # Nextcloud

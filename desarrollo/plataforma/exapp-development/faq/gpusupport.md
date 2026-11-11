@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo habilitar el soporte de GPU en el daemon de despliegue de AppAPI, qué requiere en el host y por qué no se puede limitar el número de GPU por ExApp."
 ---
 # Soporte de GPU

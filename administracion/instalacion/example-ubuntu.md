@@ -2,7 +2,7 @@
 tipo: tutorial
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Recorrido de instalación en Ubuntu 24.04 LTS con Apache y MariaDB: paquetes .deb, base de datos, descarga verificada y copia al document root."
 ---
 (nc-ubuntu_installation_label)=

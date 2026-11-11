@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Conectar un servidor SMB/CIFS como almacenamiento externo: requisitos, datos, mayúsculas y minúsculas, y notificaciones de actualización con occ."
 ---
 # SMB/CIFS

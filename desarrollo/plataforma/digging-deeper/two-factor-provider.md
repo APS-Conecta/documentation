@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo implementar y registrar un proveedor de autenticación de dos factores: estado por usuario, icono, ajustes personales y activación por el administrador."
 ---
 # Proveedores de dos factores

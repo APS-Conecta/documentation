@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo una app registra y define comprobaciones de configuración: nombre, categoría, niveles de gravedad del resultado y peticiones HTTP contra el servidor."
 ---
 (nc-dev-setup-checks)=

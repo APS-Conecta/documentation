@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Remite al Código de conducta que se pide conocer a quienes contribuyen y participan en la comunidad de desarrollo."
 ---
 # Código de conducta

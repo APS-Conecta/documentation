@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo funciona la protección contra fuerza bruta de Nextcloud, cómo ajustarla, diagnosticar ralentizaciones, excluir IP y combinarla con fail2ban."
 ---
 # Protección contra ataques de fuerza bruta

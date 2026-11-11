@@ -1,7 +1,7 @@
 ---
 tipo: guia
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Crear desde Archivos un documento, una hoja de cálculo o una presentación con Euro-Office, en formato OOXML y con un nombre según la convención."
 ---
 # Crear un documento con Euro-Office

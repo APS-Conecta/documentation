@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo se publican y mantienen las versiones mayores y de mantenimiento de Nextcloud: calendario, fin de vida, canales, betas y regresión de versión."
 ---
 # Calendario de mantenimiento y publicación

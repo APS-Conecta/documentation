@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Compartir archivos con usuarios de otros servidores, directamente con su dirección o mediante un enlace enviado por correo electrónico."
 ---
 # Usar recursos compartidos en federación

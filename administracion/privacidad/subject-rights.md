@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Atender los derechos del RGPD: acceso, supresión, portabilidad, rectificación y limitación del tratamiento, con occ y lo que queda por limpiar."
 ---
 (nc-gdpr_subject_rights)=

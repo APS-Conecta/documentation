@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Periodos de conservación configurables (papelera, versiones, actividad, tokens, sesiones, registros, copias de seguridad) y su ajuste al RGPD."
 ---
 (nc-gdpr_data_retention)=

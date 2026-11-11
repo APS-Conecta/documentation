@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Contraseñas de aplicación de Nextcloud, el borrado remoto y la limpieza automática de las que no se usan, con los parámetros que fijan sus plazos."
 ---
 (nc-authentication)=

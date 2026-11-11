@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Punto de entrada al chat de Talk; enviar mensajes, interactuar con ellos, sus integraciones y los adjuntos tienen cada uno su página en esta sección."
 ---
 # Chat

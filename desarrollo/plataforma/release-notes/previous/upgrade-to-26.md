@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios de la versión 26 para las apps: sección Groupware, Bootstrap eliminado, fin de PHP 7.4, PHP 8.2, atributos de PHP, PSR-0 y cambios de API."
 ---
 # Actualización a Nextcloud 26

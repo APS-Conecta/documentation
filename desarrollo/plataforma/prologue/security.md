@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Problemas de seguridad comunes en apps y cómo prevenirlos: inyección SQL y de shell, XSS, secuestro de clics, recorrido de directorios, CSRF y CORS."
 ---
 # Pautas de seguridad

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo consultar el estado de un grupo de usuarios con IManager de OCP y cómo cambiarlo y revertirlo mediante programación desde una app."
 ---
 # Estado del usuario

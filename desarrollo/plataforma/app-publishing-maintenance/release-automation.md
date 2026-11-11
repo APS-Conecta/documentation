@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo automatizar con GitHub Actions la compilación, la firma y la subida de una versión de una app a la tienda de apps, con los cambios del Makefile."
 ---
 # Automatización de versiones

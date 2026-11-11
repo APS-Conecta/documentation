@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Conectar el escritorio GNOME mediante Cuentas en línea para ver calendarios, contactos, tareas y archivos en Evolution, Nautilus y sus apps."
 ---
 # Sincronizar con el escritorio GNOME

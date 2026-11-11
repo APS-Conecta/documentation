@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Servir la instancia con NGINX y PHP-FPM: ajustes de la configuración, webroot o subdirectorio, y soluciones a errores frecuentes."
 ---
 (nc-nginx-config)=

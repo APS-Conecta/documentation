@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "App Actividad: correos de notificación, opciones de config.php, carpetas de equipo, caducidad, programación de envíos y solución de problemas."
 ---
 # App Actividad

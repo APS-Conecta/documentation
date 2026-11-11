@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Organizar las conversaciones de Talk con etiquetas propias y elegir cómo se ordenan y agrupan en la lista."
 ---
 # Organizar conversaciones

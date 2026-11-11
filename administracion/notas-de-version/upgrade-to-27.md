@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios al actualizar a Nextcloud 27: versiones de PHP, libreta de direcciones del sistema expuesta y nuevas extensiones estáticas en nginx."
 ---
 # Actualización a Nextcloud 27

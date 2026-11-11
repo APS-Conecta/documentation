@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Vistas previas de enlaces: sus tres tipos, dónde aparecen (Text, Talk, Nextcloud Office), cómo se resuelven y qué apps las proporcionan."
 ---
 # Vistas previas de enlaces

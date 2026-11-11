@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Contextos de archivo y booleanos de SELinux para Nextcloud: escritura en sus directorios, red, base de datos remota, LDAP, correo y almacenamiento."
 ---
 (nc-selinux-config-label)=

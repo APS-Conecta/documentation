@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo reemplazar la vista predeterminada de un recurso compartido público implementando la interfaz IPublicShareTemplateProvider."
 ---
 # Plantilla de recurso compartido público

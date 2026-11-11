@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "stt_whisper2, voz a texto local con Whisper: modelos recomendados, requisitos, instalación, modelos alternativos, escalado y limitaciones."
 ---
 # App: Voz a texto local con Whisper (stt_whisper2)

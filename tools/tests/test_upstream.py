@@ -201,7 +201,7 @@ class RenameTest(unittest.TestCase):
         self.assertTrue(u.vendor_link("https://nextcloud.com/download/", cfg))
         self.assertTrue(u.vendor_link("https://www.nextcloud.com/x", cfg))
         self.assertTrue(u.vendor_link("https://github.com/nextcloud/server/wiki", cfg))
-        self.assertFalse(u.vendor_link("https://github.com/APS-Conecta/gestion", cfg))
+        self.assertFalse(u.vendor_link("https://github.com/APS-Conecta/gestion-aio", cfg))
         self.assertFalse(u.vendor_link("https://notnextcloud.com/", cfg))
         html = (
             '<p><a href="https://nextcloud.com/download">página de descargas de Nextcloud</a> '
@@ -901,8 +901,8 @@ class RenderTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             src = Path(tmp)
             # the unwoven link's fallback URL names the major: a fixture org, not this box's suite repo
-            (src / "org" / "gestion" / "Containers" / "nextcloud").mkdir(parents=True)
-            (src / "org" / "gestion" / "Containers" / "nextcloud" / "Dockerfile").write_text(
+            (src / "org" / "gestion-aio" / "Containers" / "nextcloud").mkdir(parents=True)
+            (src / "org" / "gestion-aio" / "Containers" / "nextcloud" / "Dockerfile").write_text(
                 "ENV NEXTCLOUD_VERSION=34\n", encoding="utf-8")
             env = mock.patch.dict(os.environ, {"APS_ORG_ROOT": str(src / "org")})
             env.start()
@@ -1074,8 +1074,8 @@ class BareRefTitleTest(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmp:
             src = Path(tmp)
-            (src / "org" / "gestion" / "Containers" / "nextcloud").mkdir(parents=True)
-            (src / "org" / "gestion" / "Containers" / "nextcloud" / "Dockerfile").write_text(
+            (src / "org" / "gestion-aio" / "Containers" / "nextcloud").mkdir(parents=True)
+            (src / "org" / "gestion-aio" / "Containers" / "nextcloud" / "Dockerfile").write_text(
                 "ENV NEXTCLOUD_VERSION=34\n", encoding="utf-8")
             env = mock.patch.dict(os.environ, {"APS_ORG_ROOT": str(src / "org")})
             env.start()
@@ -1142,8 +1142,8 @@ class LabelScopeTest(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmp:
             src = Path(tmp)
-            (src / "org" / "gestion" / "Containers" / "nextcloud").mkdir(parents=True)
-            (src / "org" / "gestion" / "Containers" / "nextcloud" / "Dockerfile").write_text(
+            (src / "org" / "gestion-aio" / "Containers" / "nextcloud").mkdir(parents=True)
+            (src / "org" / "gestion-aio" / "Containers" / "nextcloud" / "Dockerfile").write_text(
                 "ENV NEXTCLOUD_VERSION=34\n", encoding="utf-8")
             env = mock.patch.dict(os.environ, {"APS_ORG_ROOT": str(src / "org")})
             env.start()
@@ -1180,8 +1180,8 @@ class DifiereLinkTest(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmp:
             src = Path(tmp)
-            (src / "org" / "gestion" / "Containers" / "nextcloud").mkdir(parents=True)
-            (src / "org" / "gestion" / "Containers" / "nextcloud" / "Dockerfile").write_text(
+            (src / "org" / "gestion-aio" / "Containers" / "nextcloud").mkdir(parents=True)
+            (src / "org" / "gestion-aio" / "Containers" / "nextcloud" / "Dockerfile").write_text(
                 "ENV NEXTCLOUD_VERSION=34\n", encoding="utf-8")
             env = mock.patch.dict(os.environ, {"APS_ORG_ROOT": str(src / "org")})
             env.start()
@@ -1236,8 +1236,8 @@ class W9GateTest(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmp:
             src = Path(tmp)
-            (src / "org" / "gestion" / "Containers" / "nextcloud").mkdir(parents=True)
-            (src / "org" / "gestion" / "Containers" / "nextcloud" / "Dockerfile").write_text(
+            (src / "org" / "gestion-aio" / "Containers" / "nextcloud").mkdir(parents=True)
+            (src / "org" / "gestion-aio" / "Containers" / "nextcloud" / "Dockerfile").write_text(
                 "ENV NEXTCLOUD_VERSION=34\n", encoding="utf-8")
             env = mock.patch.dict(os.environ, {"APS_ORG_ROOT": str(src / "org")})
             env.start()

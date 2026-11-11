@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Prólogo para desarrolladores: código de conducta, ayuda y comunicación, gestor de errores, pautas de seguridad y compatibilidad con el ecosistema de apps."
 ---
 # Prólogo

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo habilitar en MySQL o MariaDB la compatibilidad con caracteres de 4 bytes (utf8mb4) para poder usar emojis, paso a paso y con occ."
 ---
 # Habilitar la compatibilidad con 4 bytes en MySQL

@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Punto de entrada a las integraciones de Talk con otras aplicaciones, cada una descrita en su propia página de esta sección."
 ---
 # Integraciones

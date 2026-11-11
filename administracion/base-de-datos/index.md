@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Base de datos del servidor: configuración, conversión desde SQLite, compatibilidad con 4 bytes en MySQL, identificadores BigInt, replicación y división."
 ---
 # Configuración de la base de datos

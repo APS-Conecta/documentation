@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Comandos occ taskprocessing para inspeccionar y depurar tareas de IA: obtener una tarea por su ID, sus campos y listar y filtrar tareas."
 ---
 # Inspección y depuración

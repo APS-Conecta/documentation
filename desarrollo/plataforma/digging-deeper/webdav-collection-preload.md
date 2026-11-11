@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo usar el evento preloadCollection de un PROPFIND WebDAV para precargar en bloque los datos de los hijos de una colección y evitar consultas N+1."
 ---
 (nc-dev-collection_preload)=

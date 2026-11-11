@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Añadir un recurso DAV groupware en KOrganizer o Kalendar para sincronizar calendarios, contactos y tareas con KDE Kontact."
 ---
 # Sincronizar con KDE Kontact

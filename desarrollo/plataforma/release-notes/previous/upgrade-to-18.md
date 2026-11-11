@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios de la versión 18 para las apps: tamaño de fuente, globales obsoletas, espacio WorkflowEngine y cambios en compartición, barra lateral y Viewer."
 ---
 # Actualización a Nextcloud 18

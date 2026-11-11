@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Qué hacen los bots de Talk, algunos ejemplos disponibles y dónde está la lista completa; los comandos se eliminaron en favor de los bots."
 ---
 # Bots y comandos

@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice del desarrollo de apps: introducción, tutorial, arranque, metadatos, navegación, dependencias, extensión del servidor DAV y traducción."
 ---
 # Desarrollo de apps

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "El snap de Nextcloud: instalación, primer inicio de sesión y actualización o reversión con snap refresh y snap revert."
 ---
 # Actualizar con paquetes snap

@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Dónde encontrar las recomendaciones de despliegue actualizadas para empresas: el portal de clientes del fabricante."
 ---
 # Recomendaciones de despliegue

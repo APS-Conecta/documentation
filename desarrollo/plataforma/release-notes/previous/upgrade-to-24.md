@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios de la versión 24 para las apps: rango de info.xml, compatibilidad con PHP 8.1, fin de PHP 7.3 y obsolescencia de los slugs de entidad."
 ---
 # Actualización a Nextcloud 24

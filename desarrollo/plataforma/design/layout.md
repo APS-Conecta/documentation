@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Disposiciones habituales de una app web: navegación, contenido y barra lateral, sus casos especiales, y navegación, lista y contenido, también en móvil."
 ---
 # Disposición

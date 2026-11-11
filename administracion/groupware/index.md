@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Groupware del servidor: calendario y CalDAV, contactos y CardDAV, interacción de contactos, correo, función de ausencia y solución de problemas."
 ---
 # Groupware

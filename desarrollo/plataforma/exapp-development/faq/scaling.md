@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo escalan las ExApps con AppAPI: escalado vertical a cargo de la ExApp, horizontal con servidor-trabajador, y GPU compartidas por daemon."
 ---
 # Escalado

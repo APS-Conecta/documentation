@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Punto de entrada a la gestión de ExApps: AppAPI, daemons de despliegue, configuraciones de ejemplo, prueba de despliegue y opciones avanzadas."
 ---
 # Gestión de ExApps

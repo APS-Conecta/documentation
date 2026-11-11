@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo se guardan y caducan las versiones de los archivos, cómo restaurarlas o descargarlas, y que se pueden nombrar o eliminar."
 ---
 # Control de versiones

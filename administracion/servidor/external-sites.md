@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Incrustar sitios web o documentos externos en Nextcloud con la app External sites, y por qué algunos sitios no permiten que se los incruste."
 ---
 # Enlazar sitios externos

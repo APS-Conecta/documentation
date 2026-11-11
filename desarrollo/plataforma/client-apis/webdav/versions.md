@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo listar las versiones de un archivo y restaurar una de ellas mediante el endpoint WebDAV de versiones."
 ---
 (nc-dev-webdavversions)=

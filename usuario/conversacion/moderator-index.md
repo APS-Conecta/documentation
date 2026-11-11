@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Qué puede hacer un moderador en Talk: conversaciones, participantes, seminarios web con sala de espera, grabación, salas de grupos y chats externos."
 ---
 # Para moderadores

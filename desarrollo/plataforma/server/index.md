@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice del desarrollo del servidor: código de frontend y backend, análisis estático, pruebas unitarias, API externa, arquitectura y guías de prueba."
 ---
 (nc-dev-coreindex)=

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo consumir la API de Texto a imagen de OCP: tareas, estados y eventos, y cómo implementar y registrar un proveedor de Texto a imagen."
 ---
 (nc-dev-text2image)=

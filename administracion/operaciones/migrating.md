@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo trasladar una instancia de Nextcloud a otro servidor sin cambiar el sistema original: preparación, copia de base de datos y archivos, y cambio de DNS."
 ---
 # Migrar a otro servidor

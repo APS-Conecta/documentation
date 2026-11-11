@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Reglas para redactar cadenas visibles: mensajes breves, mayúsculas, tono, nombres y género, botones, variables, comentarios para traductores."
 ---
 (nc-dev-ux-writing)=

@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: contratos
 audiencia: desarrollo
-apps: [territorio, gestion]
+apps: [territorio, gestion-aio]
 resumen: "Contratos de territorio: superficies OCS e inyección, ciclo de vida de registros, pares y lotes, cursor de revisiones, errores, fallos y deuda técnica."
 ---
 # territorio

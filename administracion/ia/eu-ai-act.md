@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo responde la IA de la plataforma base a la Ley de IA de la UE: transparencia, fiabilidad, interoperabilidad, seguridad y modelos de IA grandes."
 ---
 # Legal: cumplimiento de la Ley de IA de la UE

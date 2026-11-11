@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Implementar el cliente de escritorio de forma gestionada: opciones del instalador MSI, creación de cuentas sin interacción y preconfiguración del asistente."
 ---
 # Implementación y configuración del cliente de escritorio

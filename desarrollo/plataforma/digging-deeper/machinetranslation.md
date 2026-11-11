@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo consumir la API de Traducción de OCP e implementar y registrar un proveedor de Traducción, con contexto de usuario y detección de idioma."
 ---
 (nc-dev-machinetranslation)=

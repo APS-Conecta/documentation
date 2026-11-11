@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Conexiones que Nextcloud Office necesita, cómo verificarlas y respuestas a los errores frecuentes con Collabora Online."
 ---
 # Solución de problemas

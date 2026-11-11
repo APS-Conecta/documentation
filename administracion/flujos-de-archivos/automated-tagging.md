@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Asignación de etiquetas colaborativas restringidas e invisibles a archivos según reglas: un ejemplo, las reglas disponibles y las acciones."
 ---
 # Etiquetado automatizado de archivos

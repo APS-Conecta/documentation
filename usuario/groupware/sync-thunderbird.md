@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Sincronizar contactos y calendarios con Thunderbird mediante CardDAV y CalDAV nativos, o los contactos con el complemento CardBook."
 ---
 # Sincronizar con Thunderbird

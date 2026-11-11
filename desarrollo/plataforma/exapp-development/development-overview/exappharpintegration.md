@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo adaptar una ExApp a HaRP: cliente FRP con start.sh, certificados y permisos, ejecución con un usuario que no es root y una prueba de integración."
 ---
 # Adaptar las ExApps a HaRP

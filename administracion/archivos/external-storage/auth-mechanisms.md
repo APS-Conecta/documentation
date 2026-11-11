@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Mecanismos de autenticación del almacenamiento externo: especiales, por contraseña y de clave pública, y qué implican para compartir almacenamiento."
 ---
 # Mecanismos de autenticación del almacenamiento externo

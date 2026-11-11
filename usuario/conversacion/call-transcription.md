@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Transcripción en directo de las llamadas de Talk y su traducción en directo: qué se necesita, quién fija el idioma y cómo se activa."
 ---
 # Transcripción y traducción

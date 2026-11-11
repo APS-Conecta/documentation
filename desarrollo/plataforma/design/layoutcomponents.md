@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Componentes de disposición de una app: navegación y sus partes, ajustes, elemento de lista, contenido (vistas y tamaños) y barra lateral con sus pestañas."
 ---
 # Componentes de disposición

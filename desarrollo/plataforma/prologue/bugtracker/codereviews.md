@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Revisiones de código en GitHub: ningún cambio sin revisar, cómo avanza una pull request y las dos aprobaciones necesarias antes de fusionarla."
 ---
 (nc-dev-code-reviews)=

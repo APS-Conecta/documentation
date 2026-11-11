@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API de AppAPI para que una ExApp registre y anule escuchas de eventos de Nextcloud: parámetros, carga útil del evento y subtipos de eventos de nodo."
 ---
 (nc-dev-events_listener)=

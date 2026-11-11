@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Actualización manual de Nextcloud Server desde el archivo comprimido, paso a paso, con las versiones anteriores y la solución de problemas."
 ---
 # Actualizar manualmente

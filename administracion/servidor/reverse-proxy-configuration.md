@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Nextcloud detrás de un proxy inverso: proxies de confianza, parámetros overwrite, redirecciones de descubrimiento de servicios y ejemplos de config.php."
 ---
 (nc-serverconf_reverseproxy)=

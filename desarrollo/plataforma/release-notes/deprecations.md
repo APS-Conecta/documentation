@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API declaradas obsoletas en esta versión, el método que reemplaza a cada una y el plazo mínimo de tres años antes de su eliminación, salvo ruptura inevitable."
 ---
 (nc-dev-deprecated-apis)=

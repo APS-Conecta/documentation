@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Estándares de código de HTML y CSS: HTML5, sangría, clases en lugar de ID, CSS reutilizable y la convención de nombres BEM, con ejemplos."
 ---
 # Estándares de código de CSS y HTML

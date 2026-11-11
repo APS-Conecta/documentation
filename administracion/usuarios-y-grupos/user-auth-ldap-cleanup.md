@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "La limpieza de usuarios LDAP: el proceso que marca como deleted a los que ya no están disponibles y los comandos occ para revisarlos y borrar sus datos."
 ---
 # Limpieza de usuarios LDAP

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Unirse sin cuenta a un chat o una llamada de Talk: nombre, cámara y micrófono, pantalla compartida, pantalla completa e invitación por correo."
 ---
 # Unirse a una llamada o un chat como invitado

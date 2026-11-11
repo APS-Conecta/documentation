@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Grabar llamadas de Talk: iniciar y detener una grabación, compartir el archivo grabado y pedir el consentimiento de grabación."
 ---
 (nc-call-recording)=

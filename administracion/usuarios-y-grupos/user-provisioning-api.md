@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "La API de aprovisionamiento: qué permite hacer con usuarios, grupos y apps, su URL base, las cabeceras obligatorias y sus conjuntos de instrucciones."
 ---
 # API de aprovisionamiento de usuarios

@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Advertencias que muestra el comprobador de configuración de Nextcloud en la página de administración y qué hacer con cada una."
 ---
 # Advertencias en la página de administración

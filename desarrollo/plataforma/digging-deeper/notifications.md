@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Las apps pueden enviar notificaciones a los usuarios y actuar sobre las que reciben; la página remite a la documentación de la app oficial Notificaciones."
 ---
 # Notificaciones

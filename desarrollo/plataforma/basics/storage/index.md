@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice del almacenamiento y la base de datos en las apps: migraciones, acceso a la base de datos, configuración, sistema de archivos y AppData."
 ---
 # Almacenamiento y base de datos

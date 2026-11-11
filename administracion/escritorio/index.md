@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "El cliente de sincronización de escritorio para Windows, macOS y Linux, con las páginas sobre su implementación y la solución de problemas."
 ---
 # Clientes de escritorio

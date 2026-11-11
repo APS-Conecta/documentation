@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Punto de entrada a la configuración del servidor Nextcloud; cada tema, de los parámetros de config.php a la caché, tiene su página en esta sección."
 ---
 # Configuración de Nextcloud

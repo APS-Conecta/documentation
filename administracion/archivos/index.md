@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Compartición y gestión de archivos: compartir, federación, subidas grandes, almacenamiento externo, cifrado, bloqueo, vistas previas, versiones y papelera."
 ---
 # Compartición y gestión de archivos

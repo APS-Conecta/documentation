@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API de AppAPI para registrar entradas de ExApps en el menú de acciones de archivos: parámetros, carga útil enviada, redirección a la interfaz y flujo."
 ---
 (nc-dev-file_actions_menu_section)=

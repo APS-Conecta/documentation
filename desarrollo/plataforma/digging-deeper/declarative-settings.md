@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo registrar el esquema de ajustes declarativos de una app, por clase o por evento, dónde se guardan sus valores y qué tipos de campo admite."
 ---
 (nc-dev-declarative_settings_section)=

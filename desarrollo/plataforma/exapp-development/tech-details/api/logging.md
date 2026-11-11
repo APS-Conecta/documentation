@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API OCS de AppAPI para que las ExApps envíen mensajes al registro de Nextcloud: endpoint, datos de la solicitud, niveles de registro y respuestas."
 ---
 # Registro

@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice de la API WebDAV: operaciones básicas con archivos y carpetas, subida por fragmentos y masiva, papelera, versiones, búsqueda y comentarios."
 ---
 (nc-dev-webdavapiindex)=

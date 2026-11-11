@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Asistente de IA de la plataforma base: ajustes personales, ejecutar tareas, notificaciones, historial, chat con IA y selectores inteligentes."
 ---
 (nc-ai-assistant)=

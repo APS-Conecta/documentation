@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo registrar widgets del Dashboard, darles interfaz de usuario y exponerlos por la API del Dashboard: botones, icono, opciones, elementos y recarga."
 ---
 # Dashboard

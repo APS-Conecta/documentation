@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Crear una conversación abierta que cualquier usuario registrado del servidor puede descubrir y a la que puede unirse, y ver todas las disponibles."
 ---
 # Conversaciones abiertas

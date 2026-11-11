@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Conectar Linux, macOS, Windows y dispositivos móviles a los archivos por WebDAV: URL, montajes, clientes de terceros y problemas conocidos."
 ---
 # Acceder a los archivos de Nextcloud mediante WebDAV

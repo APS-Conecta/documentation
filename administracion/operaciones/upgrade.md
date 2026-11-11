@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo actualizar Nextcloud: los dos métodos, el paso a paso entre versiones mayores, requisitos previos, modo de mantenimiento y pasos manuales posteriores."
 ---
 # Cómo actualizar

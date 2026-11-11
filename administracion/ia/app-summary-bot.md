@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Summary Bot, bot de resúmenes para los chats de Talk: requisitos, instalación desde la tienda o manual, uso, clasificación de IA ética y limitaciones."
 ---
 # App: Summary Bot (bot de resúmenes del chat de Talk)

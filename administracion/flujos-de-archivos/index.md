@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Flujo: configuración de los flujos de usuario, control de acceso a archivos, etiquetado automatizado y retención de archivos."
 ---
 # Flujo

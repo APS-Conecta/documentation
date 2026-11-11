@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cumplimiento del RGPD: datos personales almacenados, solicitudes de los interesados, conservación de datos, apps útiles y cookies."
 ---
 (nc-gdpr)=

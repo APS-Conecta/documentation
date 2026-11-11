@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios críticos de cada versión de Nextcloud al actualizar una instalación existente, y enlace al registro de cambios oficial."
 ---
 # Notas de versión

@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Qué hace el cifrado del lado del servidor, sus preguntas frecuentes, cómo afecta a los recursos compartidos y qué archivos no se cifran."
 ---
 # Usar el cifrado del lado del servidor

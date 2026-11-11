@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Instalar Collabora Online (coolwsd) en Ubuntu 24.04 desde sus paquetes: claves de firma, repositorio, paquetes y configuración básica."
 ---
 # Ejemplo de instalación en Ubuntu 24.04

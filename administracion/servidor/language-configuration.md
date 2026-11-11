@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Parámetros de config.php para fijar o forzar el idioma y la configuración regional predeterminados de Nextcloud."
 ---
 # Idioma y configuración regional

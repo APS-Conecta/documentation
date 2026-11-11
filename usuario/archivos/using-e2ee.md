@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cifrado de extremo a extremo: qué es, dónde habilitarlo, qué no se puede hacer desde el navegador y por qué guardar el mnemónico."
 ---
 # Usar el cifrado de extremo a extremo

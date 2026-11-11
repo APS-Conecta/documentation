@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo una app agrega sus propias acciones al perfil de usuario: implementar ILinkAction y registrar la acción durante el arranque de la app."
 ---
 # Perfil

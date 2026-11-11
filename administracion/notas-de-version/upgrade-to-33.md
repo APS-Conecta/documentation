@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios al actualizar a Nextcloud 33: requisitos, conectividad, vistas previas MP3, ID Snowflake, endpoint /metrics, agente de usuario y worker de IA."
 ---
 # Actualización a Nextcloud 33

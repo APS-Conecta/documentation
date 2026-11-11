@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Esquema del módulo de cifrado predeterminado: tipos de clave, formato y ubicación de cada archivo de clave, y los pasos de cifrado, firma y descifrado."
 ---
 # Detalles del cifrado en el servidor

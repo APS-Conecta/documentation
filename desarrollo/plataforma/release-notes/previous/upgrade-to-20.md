@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios de la versión 20 para las apps: temas, jQuery 2.2, búsqueda unificada, nueva API de arranque, PSR-3 y PSR-11 y la lista de API y eventos obsoletos."
 ---
 # Actualización a Nextcloud 20

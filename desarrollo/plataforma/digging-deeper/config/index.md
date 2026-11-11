@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice de configuración y preferencias: las API AppConfig y UserConfig, y el Lexicon que define las claves de configuración de una app."
 ---
 # Configuración y preferencias

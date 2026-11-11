@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo restaurar una copia de seguridad de Nextcloud: carpetas, base de datos (MariaDB, MySQL, SQLite, PostgreSQL) y resincronización con los clientes."
 ---
 # Restaurar una copia de seguridad

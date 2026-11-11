@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Distribuir archivos y carpetas predeterminados a los usuarios nuevos con skeletondirectory y cambiar la carpeta de plantillas predeterminada con occ."
 ---
 # Proporcionar archivos predeterminados

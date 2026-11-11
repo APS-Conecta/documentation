@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice de groupware y flujos de trabajo: la integración con groupware, Flow y los proyectos."
 ---
 # Groupware y flujos de trabajo

@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Retención de la papelera: valores de trashbin_retention_obligation en config.php y trabajo en segundo plano que elimina definitivamente los archivos."
 ---
 # Elementos eliminados (papelera)

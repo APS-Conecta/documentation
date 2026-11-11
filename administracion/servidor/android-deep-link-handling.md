@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Enlaces profundos en Android: por qué desde Android 12 cada host debe publicar su propio assetlinks.json y por qué Nextcloud no puede hacerlo por todos."
 ---
 # Gestión de enlaces profundos en Android

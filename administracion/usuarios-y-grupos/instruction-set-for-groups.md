@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Llamadas OCS para buscar, crear, editar y eliminar grupos y para consultar sus miembros y subadministradores, con ejemplos y su salida XML."
 ---
 # Conjunto de instrucciones para grupos

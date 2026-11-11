@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Conversaciones de Talk entre servidores federados: dónde está el CloudID, cómo se envía una invitación y cómo se acepta."
 ---
 # Federación

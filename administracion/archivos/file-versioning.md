@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo caducan las versiones de archivos: patrón de conservación, límite de espacio, ajuste versions_retention_obligation y trabajo en segundo plano."
 ---
 # Control de las versiones de archivos y su antigüedad

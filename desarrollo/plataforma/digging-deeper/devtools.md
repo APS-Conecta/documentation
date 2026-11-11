@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice de las herramientas de desarrollo: depuración, perfilador, integración continua, NPM, rendimiento, cargador de clases y PSR."
 ---
 # Herramientas de desarrollo

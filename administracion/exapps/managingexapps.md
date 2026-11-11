@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Comandos occ de AppAPI para registrar, anular el registro, actualizar, habilitar, deshabilitar y listar ExApps, con sus argumentos y opciones."
 ---
 # Comandos occ de ExApps

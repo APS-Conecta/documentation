@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Compartir archivos en un chat de Talk y crear encuestas en chats grupales: ajustes, importar y exportar, cerrar y guardar borradores."
 ---
 # Adjuntos

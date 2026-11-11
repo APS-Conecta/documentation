@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo dirigir a los usuarios a una URL propia de restablecimiento de contraseña cuando el backend de autenticación, como LDAP, es de solo lectura."
 ---
 # Restablecer la contraseña de un usuario

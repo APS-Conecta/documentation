@@ -1,7 +1,7 @@
 ---
 tipo: referencia
 audiencia: proyecto
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios de Talk visibles para usuarios y administradores, agrupados por versión."
 ---
 # Novedades de Talk

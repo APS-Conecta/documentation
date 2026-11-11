@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice de los clientes y sus API: generalidades, actividad, Android, Archivos, Login Flow, OCS, borrado remoto, WebDAV e integración de clientes."
 ---
 (nc-dev-apiindex)=

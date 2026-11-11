@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice de los primeros pasos para desarrollar sobre la plataforma: glosario, proceso de desarrollo, entorno de desarrollo y estilo de código."
 ---
 # Primeros pasos

@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Parámetros de las vistas previas en config.php: desactivarlas, tamaño máximo, factor de escala, calidad JPEG y memoria máxima de generación."
 ---
 # Configuración de las vistas previas

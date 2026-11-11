@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo desinstalar el cliente de escritorio en Windows, macOS y Linux, y dónde queda la configuración del usuario, que la desinstalación no elimina."
 ---
 # Desinstalación

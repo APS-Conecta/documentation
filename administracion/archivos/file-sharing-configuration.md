@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Ajustes de compartición de archivos, ajustes avanzados con occ, caducidad de recursos compartidos, transferencia de archivos y enlaces de entrega."
 ---
 (nc-file-sharing-configuration)=

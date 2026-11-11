@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice del frontend de las apps: plantillas, JavaScript, CSS y soporte de tematización."
 ---
 # Frontend

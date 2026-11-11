@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Almacén de objetos (OpenStack Swift, S3, Azure Blob Storage) como almacenamiento principal: implicaciones, parámetros, multibucket, multiinstancia y SSE-C."
 ---
 # Configurar el almacenamiento de objetos como almacenamiento principal

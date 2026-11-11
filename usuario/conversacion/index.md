@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Talk, la mensajería y las llamadas del establecimiento: cuándo está disponible, cómo se conectan las llamadas y las conversaciones de equipo."
 ---
 # Conversación

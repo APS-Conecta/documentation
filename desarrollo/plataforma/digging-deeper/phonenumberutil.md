@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Uso de la utilidad IPhoneNumberUtil de OCP: convertir números de teléfono al formato E164 y obtener el código de país de una región."
 ---
 (nc-dev-phonenumberutil)=

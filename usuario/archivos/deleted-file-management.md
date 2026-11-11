@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo funciona la papelera: restaurar archivos eliminados, qué pasa al borrar archivos compartidos, y sus límites de espacio y de retención."
 ---
 # Archivos eliminados

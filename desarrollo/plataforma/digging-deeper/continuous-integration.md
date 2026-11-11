@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo configurar la integración continua de una app: linting de info.xml, php y php-cs, y análisis estático con Psalm en GitHub Actions."
 ---
 (nc-dev-app-ci)=

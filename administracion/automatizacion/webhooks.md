@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Receptores de webhooks: activar la app, registrar y filtrar webhooks, acelerar su envío con workers y carga útil de los eventos habituales."
 ---
 # Receptores de webhooks

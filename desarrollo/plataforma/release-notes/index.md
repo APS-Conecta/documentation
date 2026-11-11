@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice de las notas de versión para desarrollo: cambios críticos, nuevas API, API obsoletas y notas de versiones anteriores."
 ---
 # Notas de versión

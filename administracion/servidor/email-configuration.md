@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Conectar Nextcloud a un servidor de correo: asistente, SMTP, Sendmail y qmail, plantillas de correo, parámetros de config.php y solución de problemas."
 ---
 (nc-email-config)=

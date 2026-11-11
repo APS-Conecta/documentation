@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo probar en desarrollo el envío de correo, Redis, almacenamiento S3 y SMB, SAML, OnlyOffice, Collabora sin SSL y WebAuthn sin SSL."
 ---
 # Cómo probar ...

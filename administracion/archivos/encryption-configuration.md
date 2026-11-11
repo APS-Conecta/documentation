@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cifrado en el servidor (SSE): alcance y límites, modos de clave, activación, comandos occ, descifrado, claves de recuperación y solución de problemas."
 ---
 # Cifrado en el servidor

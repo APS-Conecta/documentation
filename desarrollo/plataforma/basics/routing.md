@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo definir rutas de una app: routes.php y atributos, rutas OCS, valores de la URL, recursos, URLGenerator y los comandos occ router."
 ---
 # Rutas

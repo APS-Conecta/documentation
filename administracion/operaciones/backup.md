@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Qué respaldar en una instalación de Nextcloud y cómo: modo de mantenimiento, copia de las carpetas y volcado de MariaDB, MySQL, SQLite o PostgreSQL."
 ---
 # Copia de seguridad

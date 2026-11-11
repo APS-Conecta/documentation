@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Comandos occ de AppAPI para registrar, anular el registro y listar daemons de despliegue, sus opciones, DeployConfig y opciones adicionales."
 ---
 (nc-managing-deploy-daemons)=

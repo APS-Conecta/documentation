@@ -1,7 +1,7 @@
 ---
 tipo: explicacion
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Las dos formas de la instalación, la pila de desarrollo y la de un centro: contenedores, datos, red, dominios de fallo y dimensionamiento."
 ---
 # Arquitectura

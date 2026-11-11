@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Iniciar una llamada de Talk o unirse a ella en el navegador, Talk Desktop o móvil, y usar los controles durante la llamada."
 ---
 # Unirse a una llamada

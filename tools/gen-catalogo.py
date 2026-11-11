@@ -7,7 +7,7 @@ y `_generated/linkcheck-private.txt` (una URL raíz por fila privada — la semi
 de `linkcheck_ignore` en conf.py).
 
 Valida: esquema de filas, paridad con la lista de aplicaciones de la suite (las
-filas `own` y `fork` de `apps.json`, el manifiesto único de la suite (gestion), se pliegan
+filas `own` y `fork` de `aps/provisionador/apps.json`, el manifiesto único de la suite (gestion-aio), se pliegan
 sobre los nombres canónicos del catálogo y exigen su fila `nextcloud-app`) y que
 cada `manuals` resuelva a un .md comprometido del árbol y lleve su repositorio
 en `apps`. Versiona por cadena (`version:` explícita →
@@ -42,9 +42,9 @@ ORG_ROOT = Path(os.environ.get("APS_ORG_ROOT", "/opt/aps-conecta-org"))
 
 def manifest_path(org_root: Path) -> Path:
     """La lista de aplicaciones de la suite vive en el manifiesto único del
-    repositorio de la suite (gestion, apps.json), no en ninguna fase de
+    repositorio de la suite (gestion-aio, aps/provisionador/apps.json), no en ninguna fase de
     provisión: el manifiesto es la única lista de aplicaciones que queda."""
-    return org_root / "gestion" / "apps.json"
+    return org_root / "gestion-aio" / "aps" / "provisionador" / "apps.json"
 
 
 REGISTRY = manifest_path(ORG_ROOT)
@@ -145,7 +145,7 @@ def own_app_repos(registry: Path) -> list[str]:
         text = registry.read_text(encoding="utf-8")
     except FileNotFoundError:
         fail(f"registro ausente para la paridad: {registry} "
-             "(apps.json vive en gestion: clonar APS-Conecta/gestion "
+             "(apps.json vive en gestion-aio: clonar APS-Conecta/gestion-aio "
              "bajo APS_ORG_ROOT)")
     try:
         rows = json.loads(text)
@@ -234,7 +234,7 @@ def _changelog_version(repo_dir: Path) -> str:
 
 
 def version_for(row: dict) -> str:
-    if "version" in row:  # anulación explícita (p. ej. gestion: la versión de la suite)
+    if "version" in row:  # anulación explícita (p. ej. gestion-aio: la versión de la suite)
         return str(row["version"]).strip()
     repo_dir = ORG_ROOT / row["repo"]
     if not repo_dir.is_dir():
@@ -388,26 +388,26 @@ def main() -> int:
 
 def selftest_registro() -> None:
     """La lista de aplicaciones se lee del manifiesto del repositorio de la
-    suite (gestion): una raíz donde gestion tiene `apps.json` resuelve, y sin
-    él el error nombra la ruta de gestion."""
-    rel = Path("apps.json")
+    suite (gestion-aio): una raíz donde gestion-aio tiene `aps/provisionador/apps.json`
+    resuelve, y sin él el error nombra la ruta de gestion-aio."""
+    rel = Path("aps/provisionador/apps.json")
     with tempfile.TemporaryDirectory() as td:
         raiz = Path(td)
-        (raiz / "gestion").mkdir(parents=True)
-        (raiz / "gestion" / rel).write_text(
+        (raiz / "gestion-aio" / rel).parent.mkdir(parents=True)
+        (raiz / "gestion-aio" / rel).write_text(
             '[{"id": "intravox", "source": "fork", "repo": "APS-Conecta/IntraVox"}, '
             '{"id": "farmacia", "source": "own", "repo": "APS-Conecta/farmacia"}, '
             '{"id": "files_upload_guard", "source": "own", "repo": "APS-Conecta/files-upload-guard"}, '
             '{"id": "calendar", "source": "store"}]\n', encoding="utf-8")
-        assert manifest_path(raiz) == raiz / "gestion" / rel, manifest_path(raiz)
+        assert manifest_path(raiz) == raiz / "gestion-aio" / rel, manifest_path(raiz)
         assert own_app_repos(manifest_path(raiz)) == ["IntraVox", "farmacia", "files-upload-guard"]
-        (raiz / "gestion" / rel).unlink()
+        (raiz / "gestion-aio" / rel).unlink()
         try:
             own_app_repos(manifest_path(raiz))
         except SystemExit:
             pass
         else:
-            raise AssertionError("sin apps.json en gestion la paridad debe fallar")
+            raise AssertionError("sin apps.json en gestion-aio la paridad debe fallar")
 
 if __name__ == "__main__":
     if "--selftest" in sys.argv[1:]:

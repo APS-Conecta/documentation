@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API OCS de estado del usuario: consultar y cambiar el estado propio y sus mensajes, estados predefinidos, estados de otros usuarios y respaldo."
 ---
 # API OCS de estado

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "El actualizador integrado de Nextcloud: qué hace, cómo usarlo desde la web o la línea de comandos, el modo por lotes y la solución de problemas."
 ---
 # Actualizar con el actualizador integrado

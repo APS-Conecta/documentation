@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Instalar Collabora Online con Docker tras un proxy inverso Apache, configurar la app Nextcloud Office y actualizar el contenedor."
 ---
 # Ejemplo de instalación con Docker

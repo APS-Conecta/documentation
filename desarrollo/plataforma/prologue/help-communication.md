@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Canales de ayuda y comunicación para desarrollar: los foros y el contacto con quienes mantienen una app o división concreta."
 ---
 # Ayuda y comunicación

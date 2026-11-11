@@ -5,8 +5,9 @@
 
    · Paleta y razones de contraste: gestion themes/apsconecta/MAPEO.md §1
      (libro mayor de contraste).
-   · Gradiente de cabecera, @font-face y tipografía: gestion
+   · Gradiente de cabecera y tipografía: gestion
      themes/apsconecta/core/css/server.css.
+   · @font-face: gestion-aio aps/brand/tokens.css.
    · El umbral «background_color debe ser el violeta oscuro (#5315a8)» existe
      en gestion porque Nextcloud deriva de ese valor el color del texto de la
      cabecera y la inversión de iconos (defaults.php, THEMING-MODEL regla 5).
@@ -18,28 +19,20 @@
    solo carga las fuentes, oculta el selector de tema y ajusta lo que las
    variables no alcanzan. Solo luz — el ecosistema no publica modo oscuro. */
 
-/* ---- Luz, siempre (gestion opera con enforce_theme=light; ídem aquí) ---- */
+/* ---- Luz, siempre (gestion-aio opera con enforce_theme=light; ídem aquí) ---- */
 :root { color-scheme: light; }
 
 /* ---- Fuentes autohospedadas (cero egreso) ----
-   Redeclaradas de gestion core/css/server.css, verbatim salvo la URL: aquí es
-   relativa a la hoja (../fonts/ → _static/fonts/), no la ruta absoluta de
-   Nextcloud. Solo .woff2, sin .ttf de respaldo (ADR-0001 del tema). */
+   Redeclaradas de gestion-aio aps/brand/tokens.css, verbatim salvo la URL: aquí
+   es relativa a la hoja (../fonts/ → _static/fonts/), no la carpeta de la hoja de
+   tokens. Solo .woff2, sin .ttf de respaldo (ADR-0001 del tema). */
 @font-face {
-  font-family: "Fraunces"; font-style: normal; font-weight: 400 800; font-display: swap;
+  font-family: "Fraunces"; font-style: normal; font-weight: 100 900; font-display: swap;
   src: url("../fonts/Fraunces.woff2") format("woff2");
 }
 @font-face {
-  font-family: "Fraunces"; font-style: italic; font-weight: 400 800; font-display: swap;
-  src: url("../fonts/Fraunces-Italic.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Nunito Sans"; font-style: normal; font-weight: 400 800; font-display: swap;
+  font-family: "Nunito Sans"; font-style: normal; font-weight: 200 1000; font-display: swap;
   src: url("../fonts/NunitoSans.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Nunito Sans"; font-style: italic; font-weight: 400 800; font-display: swap;
-  src: url("../fonts/NunitoSans-Italic.woff2") format("woff2");
 }
 
 /* ---- Solo luz: el selector de tema de Furo no se ofrece ---- */

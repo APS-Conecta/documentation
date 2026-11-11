@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Llamadas OCS para listar las apps instaladas, consultar la información de una app y activarla o desactivarla, con ejemplos y su salida XML."
 ---
 # Conjunto de instrucciones para apps

@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Por qué Nextcloud no admite, por ahora, cambiar el dominio después de la primera configuración."
 ---
 # Cambio de dominio

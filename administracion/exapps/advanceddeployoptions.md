@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Opciones de despliegue avanzadas de AppAPI: variables de entorno y montajes para el contenedor de una ExApp, desde la página de apps o la CLI."
 ---
 # Opciones de despliegue avanzadas

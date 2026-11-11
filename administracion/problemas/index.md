@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Solución de problemas del servidor: diagnóstico general de fallos, aplicación de parches y firma de código."
 ---
 # Incidencias y solución de problemas

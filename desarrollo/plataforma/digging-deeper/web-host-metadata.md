@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo escribir y registrar manejadores para las peticiones HTTP a la ruta .well-known/* (RFC6415), con un ejemplo genérico y uno de webfinger."
 ---
 (nc-dev-web-host-metadata)=

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo incluir los archivos CSS (y SCSS) de una app en sus plantillas y cómo importar Web Components desde la carpeta component/."
 ---
 # CSS

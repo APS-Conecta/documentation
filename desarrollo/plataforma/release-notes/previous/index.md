@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Notas de versión anteriores para desarrollo: los cambios más importantes de cada versión, de la 14 a la 33, y guías para actualizar apps existentes."
 ---
 (nc-dev-previous-versions)=

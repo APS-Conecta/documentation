@@ -2,7 +2,7 @@
 tipo: tutorial
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Recorrido de instalación en OpenBSD, sin soporte oficial: httpd(8), PHP-FPM, PostgreSQL, redis, tarea cron, chroot y asistente web."
 ---
 (nc-openbsd_installation_label)=

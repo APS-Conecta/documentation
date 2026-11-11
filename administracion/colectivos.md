@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Collectives en el servidor: apps necesarias, group_everyone, invitados, recursos compartidos públicos, contenido inicial, grupos e importación de Markdown."
 ---
 # Cuadernos (Collectives)

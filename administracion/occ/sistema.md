@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Comandos occ de sistema: delegación, trabajos en segundo plano, registro, mantenimiento, seguridad, estado, temas, instalación y actualización."
 ---
 # Comandos de sistema y mantenimiento

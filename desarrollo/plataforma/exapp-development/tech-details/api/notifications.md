@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API OCS de AppAPI para que las ExApps envíen notificaciones a los usuarios con cadenas de objetos enriquecidos: endpoint, carga útil y parámetros."
 ---
 # Notificaciones
