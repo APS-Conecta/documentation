@@ -172,21 +172,20 @@ Quien creó una pregunta, y quien administra Estadística, ven además su menú 
 1. Abrir **Tableros** en la navegación.
 2. Escribir un título en **Título del nuevo tablero**.
 3. Presionar **Crear tablero**.
-4. Elegir una pregunta en **Agregar una pregunta guardada**.
-5. Presionar **Agregar tarjeta**.
-6. Ordenar las tarjetas con **Subir** y **Bajar**.
-7. Elegir el ancho de cada tarjeta: **1 columna**, **2 columnas** o **3 columnas**.
-8. Presionar **Quitar** en una tarjeta para sacarla del tablero.
+4. Elegir una pregunta en **Pregunta guardada**.
+5. Presionar **Agregar una pregunta**.
+6. Abrir el menú de acciones de una tarjeta para ordenarla con **Subir** y **Bajar**, elegir su ancho (**1 columna**, **2 columnas** o **3 columnas**) o **Quitar** la tarjeta del tablero.
 
 El tablero recién creado queda abierto.
+Los demás tableros se abren eligiéndolos en **Tablero**, que muestra a su autor al lado.
 Cada cambio se guarda al hacerlo, y un tablero tiene hasta 24 tarjetas.
 Cada tarjeta hace su propia consulta: si una falla, las demás siguen mostrándose.
 Si alguien elimina una pregunta que el tablero muestra, su tarjeta dice «Esta pregunta fue eliminada. Quien edita el tablero puede quitar la tarjeta».
-Quien creó el tablero, y quien administra Estadística, pueden **Cambiar el título** o **Eliminar el tablero**; eliminar un tablero no elimina sus preguntas.
+Quien creó el tablero, y quien administra Estadística, pueden **Cambiar el título** o **Eliminar el tablero**; eliminar un tablero pide confirmarlo y no elimina sus preguntas.
 
 ### Metas Sanitarias
 
-La vista muestra las Metas Sanitarias del año (Ley 19.813), una tarjeta por meta, cada una con su tabla mes a mes.
+La vista muestra las Metas Sanitarias del año (Ley 19.813), una fila por meta, que se abre en su tabla mes a mes.
 
 1. Abrir **Metas Sanitarias** en la navegación.
 2. Elegir el año en **Año**, cuando hay metas cargadas de más de un año. La vista parte en el año en curso, y las metas 2027 se eligen ahí.
@@ -195,11 +194,21 @@ La vista muestra las Metas Sanitarias del año (Ley 19.813), una tarjeta por met
 Los pares se eligen solo cuando la instalación tiene su establecimiento configurado, y la vista parte con **Tipo de establecimiento** marcado.
 Si se desmarcan todos los rasgos, la columna **Pares** desaparece.
 
-Cada tarjeta dice:
+Cada fila dice:
 
 | Parte | Contenido |
 |---|---|
-| Título | «Meta» con su número y su nombre, y debajo su indicador |
+| Meta | Su número y su nombre |
+| Meta y peso | La meta con que se juzga, la comprometida por el establecimiento o, si no hay, la nacional, y el peso de la meta |
+| Gráfico | Los porcentajes de los meses del año frente a esa meta, en pequeño |
+| Última cifra | El porcentaje del último mes con cifra, o el cumplimiento informado; una raya si no hay |
+| Estado | Un ícono y una palabra, como en el Resumen: «Cumple», «No cumple», «Falta el denominador oficial», «Esperando ruta oficial» o «Sin informar» |
+
+Presionar una fila la abre y cierra la que estaba abierta. La fila abierta dice:
+
+| Parte | Contenido |
+|---|---|
+| Indicador | Lo que mide la meta |
 | Metas y peso | La meta nacional, la meta comprometida por el establecimiento («Sin meta comprometida» si no hay) y el peso de la meta, con una raya si la resolución de metas no lo fija, como en 2027 |
 | Denominador | La población inscrita validada por FONASA a una fecha de corte, o la cifra que el establecimiento comprometió |
 | Tabla | Una fila por mes, con **Numerador**, **Denominador**, **Su establecimiento**, **Frente a la meta comprometida**, **Frente a la meta nacional**, **Nacional** y **Pares** |
@@ -317,7 +326,7 @@ Cada octubre, cuando el Ministerio publica las Orientaciones Técnicas del año 
 - La consulta muestra la línea «Fuente: …» y, bajo el gráfico, la tabla con las mismas cifras.
 - Al guardar una pregunta, un aviso dice que «quedó guardada en Preguntas», y la pregunta aparece en **Preguntas** con su autor y la fecha de hoy.
 - Estadística se abre en **Resumen**, marcada en la navegación, con una tarjeta por meta.
-- La vista **Metas Sanitarias** muestra una tarjeta por meta, con su tabla mes a mes.
+- La vista **Metas Sanitarias** muestra una fila por meta, con su última cifra y su estado, y cada fila se abre en su tabla mes a mes.
 - Tras cargar un archivo a mano, la tabla **Cifras REM cargadas** o la sección correspondiente de **Administración → Estadística** muestra lo cargado, o dice por qué se rechazó.
 
 ## Problemas frecuentes
