@@ -42,27 +42,35 @@ El **Resumen** muestra las Metas Sanitarias más nuevas cargadas, una tarjeta po
 Mientras el año de esas metas no tiene cifras, como las metas 2027 cargadas en octubre de 2026, se cuentan sobre las cifras del año anterior.
 
 La aplicación trae las metas 2027 de la Res. Exenta 732: el Resumen muestra «Meta I 2027» a «Meta VIII 2027», contadas sobre las cifras de 2026.
-Hasta que el MINSAL publique las Orientaciones Técnicas 2027, cada meta con cifras REM dice «Sin porcentaje: esperando ruta oficial» y «Sin meta mínima 2027: esperando ruta oficial», y la Meta VIII muestra su «Cumplimiento informado» y «Meta mínima 2027: 100,0 %».
+Hasta que el MINSAL publique las Orientaciones Técnicas 2027, cada meta con cifras REM dice «Esperando ruta oficial», «Sin porcentaje: esperando ruta oficial» y «Sin meta mínima 2027: esperando ruta oficial», y la Meta VIII muestra su cumplimiento informado y «Meta mínima 2027: 100,0 %».
+Mientras alguna meta espera su ruta oficial, un aviso arriba de las tarjetas lo dice, «Las metas tendrán cifras cuando MINSAL confirme sus rutas REM», con el botón **Ver las Metas Sanitarias 2026**, que abre la vista **Metas Sanitarias** en el año anterior a las metas.
+
+Arriba de las tarjetas, una sola línea dice hasta qué mes tiene cifras del establecimiento cada serie del REM que cuentan las metas, como «REM Serie A: datos al octubre de 2026 · REM Serie P: corte de junio de 2026».
+Si ninguna serie tiene cifras todavía, como mientras las metas 2027 esperan sus rutas oficiales, la línea dice «Metas Sanitarias 2027: sin cifras todavía».
 
 Arriba de las tarjetas puede aparecer una **nota**: un texto breve sobre lo que cambió desde el cálculo anterior del Resumen, con sus cifras.
 La escribe un modelo de IA, y debajo dice «Escrita por un modelo de IA a partir de las cifras».
+
+Sobre las tarjetas, un recuadro por estado dice cuántas metas lo tienen, como «2 Cumplen», y **Todas las metas** las cuenta todas; solo aparece el recuadro de un estado que alguna meta tiene.
+Presionar un recuadro muestra solo las metas de ese estado, y debajo una línea dice cuántas se ven, como «2 metas: no cumplen.»; un lector de pantalla la anuncia.
 
 Cada tarjeta dice:
 
 | Parte | Contenido |
 |---|---|
-| Título | «Meta», su número y el año de las metas, como «Meta I 2027», y debajo el nombre de la meta |
-| Porcentaje | El porcentaje del último mes con cifra, y debajo el numerador y el denominador, como «7 de 12» |
-| Datos al | El último mes que el establecimiento informó en la serie de la meta (REM Serie A o REM Serie P), en el DEIS o en su planilla, y de dónde salen las cifras con su fecha, como «datos públicos DEIS, con cifras hasta noviembre de 2026» o «planilla del establecimiento, guardada el 9 de noviembre de 2026» |
-| Cumple | «Cumple» o «No cumple» la meta comprometida, o la meta nacional si no hay meta comprometida, con esa meta entre paréntesis. El borde de la tarjeta repite lo mismo en color |
+| Meta | «Meta», su número y el año de las metas, como «Meta I 2027» |
+| Título | El nombre de la meta. Si la meta tiene histórico, el título es un botón que lo abre y lo cierra dentro de la tarjeta |
+| Cifra | El porcentaje del último mes con cifra y, a su lado, el numerador y el denominador, como «58,3 % 7 de 12». Debajo, una barra con el porcentaje y una marca en la meta, como «meta 50 %» |
+| Estado | Un ícono y una palabra: «Cumple» o «No cumple» la meta comprometida, o la meta nacional si no hay meta comprometida; «Falta el denominador oficial»; «Esperando ruta oficial», o «Sin informar». El color acompaña a la palabra, nunca la reemplaza |
+| Bajo el estado | La distancia a la meta en puntos, como «+8,3 puntos frente a la meta comprometida (50 %).», o por qué la meta no tiene porcentaje |
 | Meta mínima | «Meta mínima 2027: 70,8 % — referencia: la meta la fija el Servicio de Salud», y debajo el año del cierre del que sale, como «Desde el cierre 2025.» |
-| Histórico | Un gráfico con una línea por año comparable, la del año más reciente destacada, y la meta como línea discontinua. Debajo, la tabla con el porcentaje de cada mes por año, su numerador y su denominador, y el **Cierre** de cada año terminado |
+| Histórico | Al abrirlo desde el título, un gráfico con una línea por año comparable, la del año más reciente destacada, y la meta como línea discontinua. Debajo, la tabla con el porcentaje de cada mes por año, su numerador y su denominador, y el **Cierre** de cada año terminado |
 
 Para leer las tarjetas:
 
-- Un mes sin ningún número escrito en las celdas de la meta no tiene cifra, y nunca se muestra como 0: la tarjeta muestra el último mes que sí la tiene, y «Sin informar» si ninguno la tiene.
+- Un mes sin ningún número escrito en las celdas de la meta no tiene cifra, y nunca se muestra como 0: la tarjeta muestra el último mes que sí la tiene, y «Sin informar» con «Nadie informó esta meta en el periodo.» si ninguno la tiene.
 - «Sin porcentaje: esperando ruta oficial» dice que las Orientaciones Técnicas del año todavía no confirman cómo se cuenta esa meta en el REM.
-- «Sin porcentaje: falta el denominador oficial de 2026», con el año de las cifras, dice que la meta cuenta personas en un rango de edad que corta los tramos de FONASA, y que quien administra Estadística todavía no escribe su **Denominador comprometido** de ese año. Un año anterior en esa situación lo dice bajo el gráfico, como «2025: falta el denominador oficial de 2025».
+- «Sin porcentaje: falta el denominador oficial de 2026», con el año de las cifras, dice que la meta cuenta personas en un rango de edad que corta los tramos de FONASA, y que quien administra Estadística todavía no escribe su **Denominador comprometido** de ese año. La tarjeta muestra igual el numerador ya contado, como «140 en el numerador, a octubre de 2026», o en una meta de REM Serie P «al corte de junio de 2026». Un año anterior en esa situación lo dice bajo el gráfico, como «2025: falta el denominador oficial de 2025».
 - Cada año anterior se cuenta con la ruta de las metas más nuevas, corrida en años enteros. La ventana de octubre a septiembre de la Meta I se corre igual.
 - Un año dice «sin datos comparables» bajo el gráfico, y no muestra cifras, cuando su diccionario del REM nombra de otra forma alguna prestación o columna de la ruta, aparte de mayúsculas, tildes y plurales. Lo mismo ocurre cuando ese año no tiene diccionario propio, o cuando la ruta necesita meses anteriores al primer año que guarda la instalación.
 - En el gráfico, un mes sin cifra es un hueco en la línea, nunca 0, y la tabla dice «sin informar». Las metas de REM Serie P se dibujan en sus cortes de junio y diciembre; un corte que el establecimiento no informó es un hueco, nunca el corte anterior repetido.
@@ -76,11 +84,11 @@ Para leer las tarjetas:
   Un cierre igual o mayor que la meta nacional se mantiene. La meta mínima se calcula exacta y se muestra con un decimal.
 - Sin la meta comprometida del año del cierre, la Meta II cierra el 40 % y lo dice, como «Desde el cierre 2025; sin la meta comprometida 2025, se cierra el 40 % de la brecha.»
 - Una meta sin cifra no tiene meta mínima y dice por qué, como «Sin meta mínima 2027: esperando ruta oficial», «Sin meta mínima 2027: falta el denominador oficial de 2025» o «Sin meta mínima 2027: no hay cierre comparable de 2025».
-- La Meta VIII no tiene cifras REM: muestra el «Cumplimiento informado» que se escribió a mano.
+- La Meta VIII no tiene cifras REM: su cifra es el cumplimiento que se escribió a mano, sin numerador ni denominador, y sin él dice «Todavía no se ha informado su cumplimiento.».
 - El Resumen muestra solo las cifras del propio establecimiento. Las nacionales y las de pares están en **Metas Sanitarias** y en **Consultar**.
 - La nota dice solo qué cifras cambiaron, sin causas ni consejos. Se muestra solo cuando cada número que trae es una cifra del Resumen tal como la muestran las tarjetas, o un año o un mes que el Resumen nombra; si no, no hay nota. El modelo recibe solo las cifras agregadas que cambiaron, nunca datos de pacientes.
 - Sin un servicio de generación de texto conectado a Nextcloud no hay nota, y el resto del Resumen se ve igual.
-- Cada cifra de una tarjeta, el porcentaje, el numerador y el denominador, y cada cifra de su tabla, el **Cierre** incluido, se puede presionar o elegir con el teclado. Abre, en la barra lateral, de dónde sale la cifra en su mes y su año:
+- La cifra de una tarjeta, su porcentaje con el numerador y el denominador, y cada cifra de su tabla, el **Cierre** incluido, se puede presionar o elegir con el teclado. Abre, en la barra lateral, de dónde sale la cifra en su mes y su año:
   - el origen del mes y su fecha, como «Origen: datos públicos DEIS, con cifras hasta noviembre de 2026», o «Origen: planilla del establecimiento, guardada el 9 de noviembre de 2026» en un mes que cubre una planilla;
   - para el numerador y el denominador, el nombre de su fuente, como «REM Serie A», y el periodo de ese año, y los códigos que se suman y los que se restan, cada uno con su hoja, su sección y sus columnas, con los nombres del diccionario de ese año;
   - para un denominador que no sale del REM, «Población inscrita validada (FONASA)» o «Lo comprometió el establecimiento»;
@@ -93,6 +101,7 @@ Para leer las tarjetas:
 
 Una consulta se arma en cuatro pasos, **1. Datos**, **2. Filtrar**, **3. Resumir** y **4. Visualizar**, y se hace al presionar **Consultar**, no antes.
 Al abrirse, **Consultar** propone el año cargado más reciente, de enero al último mes con cifras, agrupado por **Mes** y comparado con **Todo el país**.
+Los pasos quedan a la izquierda y el resultado a su derecha, a la vista mientras se recorren los pasos; en una pantalla angosta, el resultado queda debajo de ellos.
 
 1. Abrir **Consultar** en la navegación.
 2. En **1. Datos**, elegir la fuente: **REM Serie A** o **REM Serie P**.
@@ -111,6 +120,8 @@ La Serie A es mensual.
 La Serie P es un corte: sus filas traen solo los meses 6 y 12, y cuentan a las personas en control a esa fecha.
 Bajo cada fuente se lee su origen, los años cargados y el mes hasta el que llegan sus cifras.
 Una hoja con una sola sección la deja elegida.
+En lugar de los pasos 5 a 7, **Buscar una prestación** encuentra una prestación por su código o por parte de su nombre, sin importar tildes ni mayúsculas, y lista hasta 50.
+Al elegir una, quedan elegidas su hoja y su sección, y la prestación se agrega a **Prestaciones (vacío: todas las de la sección)**.
 Las dimensiones de **Agrupar por (hasta 2)** son **Año**, **Mes**, **Prestación**, **Columna** y los rasgos del establecimiento: **Tipo de establecimiento**, **Dependencia**, **Nivel de atención**, **Servicio de salud**, **Región** y **Comuna**.
 Mientras falte algo, el botón **Consultar** queda inactivo y a su lado se lee qué falta, por ejemplo, «Elija una hoja del REM».
 
@@ -154,9 +165,10 @@ Para leer el resultado:
 
 Lo que se guarda queda visible para todo el personal.
 La pregunta guarda la consulta tal como se hizo y la forma en que se muestra.
-Cada pregunta de la lista muestra su autor.
-Quien creó una pregunta, y quien administra Estadística, ven además **Editar** y **Eliminar**.
+Cada pregunta de la lista muestra su autor y la fecha de su último cambio.
+Quien creó una pregunta, y quien administra Estadística, ven además su menú de acciones, con **Editar** y **Eliminar**.
 **Editar** cambia el **Título** y **Mostrar como**; para cambiar lo que la pregunta consulta, se guarda una pregunta nueva desde **Consultar**.
+**Eliminar** pide confirmación en un diálogo que avisa que los tableros que muestran la pregunta dirán que fue eliminada.
 
 ### Reunir preguntas en un tablero
 
@@ -305,7 +317,7 @@ Cada octubre, cuando el Ministerio publica las Orientaciones Técnicas del año 
 ## Verificación
 
 - La consulta muestra la línea «Fuente: …» y, bajo el gráfico, la tabla con las mismas cifras.
-- Al guardar una pregunta, un aviso dice que «quedó guardada en Preguntas», y la pregunta aparece en **Preguntas** con su autor.
+- Al guardar una pregunta, un aviso dice que «quedó guardada en Preguntas», y la pregunta aparece en **Preguntas** con su autor y la fecha de hoy.
 - Estadística se abre en **Resumen**, marcada en la navegación, con una tarjeta por meta.
 - La vista **Metas Sanitarias** muestra una tarjeta por meta, con su tabla mes a mes.
 - Tras cargar un archivo a mano, la tabla **Cifras REM cargadas** o la sección correspondiente de **Administración → Estadística** muestra lo cargado, o dice por qué se rechazó.
@@ -320,7 +332,7 @@ Cada octubre, cuando el Ministerio publica las Orientaciones Técnicas del año 
 | Una meta sin porcentaje | Falta la población de FONASA de ese año, o el mes todavía no se publica | Avisar a quien administra Estadística si falta la población |
 | No aparece la nota | Nextcloud no tiene un servicio de generación de texto conectado, las cifras no cambiaron en el último cálculo, o el texto del modelo traía un número que no está en el Resumen | Nada: las tarjetas muestran las cifras igual |
 | «Sin porcentaje: esperando ruta oficial» | Las Orientaciones Técnicas del año todavía no confirman la ruta REM de esa meta | Esperar la versión de las metas que la confirma |
-| «Sin meta mínima 2027: no hay cierre comparable de 2025» | Ese año no tiene cifra de diciembre del establecimiento, o no es comparable | Revisar en el histórico de la tarjeta qué le falta a ese año |
+| «Sin meta mínima 2027: no hay cierre comparable de 2025» | Ese año no tiene cifra de diciembre del establecimiento, o no es comparable | Abrir el histórico desde el título de la tarjeta y revisar qué le falta a ese año |
 | «Todavía no hay Metas Sanitarias cargadas» | No hay metas cargadas hasta el año en curso | Avisar a quien administra Estadística, que las carga como un archivo en «Cargar un archivo a mano» |
 | «La consulta se canceló antes de terminar» | La consulta superó el límite de 10 s | Acotar el periodo, las prestaciones o la comparación |
 | «No se encuentra la carpeta de planillas elegida» | La carpeta se borró, o quien la eligió ya no tiene acceso a ella | Elegir otra carpeta en «Planillas del establecimiento» |
