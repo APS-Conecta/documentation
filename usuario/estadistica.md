@@ -59,12 +59,11 @@ Cada tarjeta dice:
 | Parte | Contenido |
 |---|---|
 | Meta | «Meta», su número y el año de las metas, como «Meta I 2027» |
-| Título | El nombre de la meta. Si la meta tiene histórico, el título es un botón que lo abre y lo cierra dentro de la tarjeta |
-| Cifra | El porcentaje del último mes con cifra y, a su lado, el numerador y el denominador, como «58,3 % 7 de 12». Debajo, una barra con el porcentaje y una marca en la meta, como «meta 50 %» |
+| Título | El nombre de la meta: un botón que abre su detalle junto a las tarjetas, en la pestaña **Evolución** |
+| Cifra | El porcentaje del último mes con cifra y, a su lado, el numerador y el denominador, como «58,3 % 7 de 12»: un botón que abre su detalle en la pestaña **Origen**. Debajo, una barra con el porcentaje y una marca en la meta, como «meta 50 %» |
 | Estado | Un ícono y una palabra: «Cumple» o «No cumple» la meta comprometida, o la meta nacional si no hay meta comprometida; «Falta el denominador oficial»; «Esperando ruta oficial», o «Sin informar». El color acompaña a la palabra, nunca la reemplaza |
 | Bajo el estado | La distancia a la meta en puntos, como «+8,3 puntos frente a la meta comprometida (50 %).», o por qué la meta no tiene porcentaje |
 | Meta mínima | «Meta mínima 2027: 70,8 % — referencia: la meta la fija el Servicio de Salud», y debajo el año del cierre del que sale, como «Desde el cierre 2025.» |
-| Histórico | Al abrirlo desde el título, un gráfico con una línea por año comparable, la del año más reciente destacada, y la meta como línea discontinua. Debajo, la tabla con el porcentaje de cada mes por año, su numerador y su denominador, y el **Cierre** de cada año terminado |
 
 Para leer las tarjetas:
 
@@ -88,13 +87,11 @@ Para leer las tarjetas:
 - El Resumen muestra solo las cifras del propio establecimiento. Las nacionales y las de pares están en **Metas Sanitarias** y en **Consultar**.
 - La nota dice solo qué cifras cambiaron, sin causas ni consejos. Se muestra solo cuando cada número que trae es una cifra del Resumen tal como la muestran las tarjetas, o un año o un mes que el Resumen nombra; si no, no hay nota. El modelo recibe solo las cifras agregadas que cambiaron, nunca datos de pacientes.
 - Sin un servicio de generación de texto conectado a Nextcloud no hay nota, y el resto del Resumen se ve igual.
-- La cifra de una tarjeta, su porcentaje con el numerador y el denominador, y cada cifra de su tabla, el **Cierre** incluido, se puede presionar o elegir con el teclado. Abre, en la barra lateral, de dónde sale la cifra en su mes y su año:
-  - el origen del mes y su fecha, como «Origen: datos públicos DEIS, con cifras hasta noviembre de 2026», o «Origen: planilla del establecimiento, guardada el 9 de noviembre de 2026» en un mes que cubre una planilla;
-  - para el numerador y el denominador, el nombre de su fuente, como «REM Serie A», y el periodo de ese año, y los códigos que se suman y los que se restan, cada uno con su hoja, su sección y sus columnas, con los nombres del diccionario de ese año;
-  - para un denominador que no sale del REM, «Población inscrita validada (FONASA)» o «Lo comprometió el establecimiento»;
-  - la referencia de las metas: la resolución y las Orientaciones Técnicas que las fijan.
+- El título de una tarjeta abre, en la barra lateral, el detalle de la meta en la pestaña **Evolución**, y su cifra lo abre en la pestaña **Origen**; las dos pestañas están arriba del detalle.
+  - **Evolución** muestra la cifra y el estado de la meta, y un gráfico con una línea por año comparable: la del año más reciente en el color principal del tema, las anteriores en gris con trazos distintos, y la meta como línea discontinua con su nombre. Al pasar el cursor por el gráfico, o al elegirlo con el teclado y moverse con las flechas, arriba del gráfico se leen las cifras de cada año en ese mes, y un lector de pantalla las anuncia. Debajo, la tabla con el porcentaje de cada mes por año, su numerador y su denominador, y el **Cierre** de cada año terminado. Una meta sin histórico dice «Todavía no hay cifras».
+  - **Origen** dice de dónde sale la cifra: el origen de su mes y su fecha, como «Origen: datos públicos DEIS, con cifras hasta noviembre de 2026», o «Origen: planilla del establecimiento, guardada el 9 de noviembre de 2026» en un mes que cubre una planilla; para el numerador y el denominador, el nombre de su fuente, como «REM Serie A», y el periodo del año de las metas, y los códigos que se suman y los que se restan, cada uno con su hoja, su sección y sus columnas, con los nombres del diccionario de ese año; para un denominador que no sale del REM, «Población inscrita validada (FONASA)» o «Lo comprometió el establecimiento», y la referencia de las metas: la resolución y las Orientaciones Técnicas que las fijan. Una meta manual dice «Lo informa quien administra Estadística: no se cuenta en el REM.», y una que espera su ruta oficial, «La ruta REM de esta meta se mostrará aquí cuando MINSAL la confirme. Estadística no la deduce.».
 
-  La barra lateral se cierra con Escape o con su botón de cerrar, y el teclado vuelve a la cifra.
+  La barra lateral se cierra con Escape o con su botón de cerrar, y el teclado vuelve al título o a la cifra que la abrió.
 - El Resumen se calcula en segundo plano después de cada carga de cifras REM, de metas o de la población de FONASA, de cada planilla que se lee o se quita de la carpeta y de cada cambio en los compromisos o en la **Población de su establecimiento**, y todos ven las mismas cifras hasta el cálculo siguiente.
 
 ### Cifras REM
@@ -342,7 +339,7 @@ Cada octubre, cuando el Ministerio publica las Orientaciones Técnicas del año 
 | Una meta sin porcentaje | Falta la población de FONASA de ese año, o el mes todavía no se publica | Avisar a quien administra Estadística si falta la población |
 | No aparece la nota | Nextcloud no tiene un servicio de generación de texto conectado, las cifras no cambiaron en el último cálculo, o el texto del modelo traía un número que no está en el Resumen | Nada: las tarjetas muestran las cifras igual |
 | «Sin porcentaje: esperando ruta oficial» | Las Orientaciones Técnicas del año todavía no confirman la ruta REM de esa meta | Esperar la versión de las metas que la confirma |
-| «Sin meta mínima 2027: no hay cierre comparable de 2025» | Ese año no tiene cifra de diciembre del establecimiento, o no es comparable | Abrir el histórico desde el título de la tarjeta y revisar qué le falta a ese año |
+| «Sin meta mínima 2027: no hay cierre comparable de 2025» | Ese año no tiene cifra de diciembre del establecimiento, o no es comparable | Abrir la pestaña **Evolución** desde el título de la tarjeta y revisar qué le falta a ese año |
 | «Todavía no hay Metas Sanitarias cargadas» | No hay metas cargadas hasta el año en curso | Avisar a quien administra Estadística, que las carga como un archivo en «Cargar un archivo a mano» |
 | «La consulta se canceló antes de terminar» | La consulta superó el límite de 10 s | Acotar el periodo, las prestaciones o la comparación |
 | «No se encuentra la carpeta de planillas elegida» | La carpeta se borró, o quien la eligió ya no tiene acceso a ella | Elegir otra carpeta en «Planillas del establecimiento» |
