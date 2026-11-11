@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Comandos occ para instalar, activar, actualizar y eliminar apps, elegir el planificador de trabajos en segundo plano y leer o cambiar la configuración."
 ---
 # Comandos de apps, trabajos en segundo plano y configuración

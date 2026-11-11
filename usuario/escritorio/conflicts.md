@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Qué es un conflicto de sincronización en el cliente de escritorio, cómo se avisa, cómo resolverlo y la subida experimental de conflictos."
 ---
 # Conflictos

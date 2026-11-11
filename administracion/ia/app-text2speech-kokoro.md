@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "text2speech_kokoro, texto a voz local con Kokoro: idiomas, requisitos, instalación, escalado, tienda de apps, repositorio y limitaciones conocidas."
 ---
 # App: Texto a voz local (text2speech_kokoro)

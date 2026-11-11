@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo obtener el parche de un pull request de GitHub, aplicarlo al servidor o a una app y revertirlo."
 ---
 # Aplicar parches a Nextcloud

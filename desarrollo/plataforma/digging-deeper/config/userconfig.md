@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API UserConfig para las preferencias de los usuarios: valores tipados, sensibles, indexados y diferidos, y los métodos para guardar, leer, gestionar y buscar."
 ---
 # UserConfig

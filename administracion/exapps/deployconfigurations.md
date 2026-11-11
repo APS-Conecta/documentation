@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Configuraciones de ejemplo del daemon de despliegue Docker, con HaRP o con Docker Socket Proxy, y cómo se comunica Nextcloud con las ExApps."
 ---
 (nc-deploy-configs)=

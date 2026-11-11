@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Qué localizar y eliminar para desinstalar Nextcloud: directorio de la aplicación, datos, base de datos, caché y registros, según su configuración."
 ---
 # Desinstalación

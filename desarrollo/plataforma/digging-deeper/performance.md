@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Rendimiento al desarrollar: cargador de clases, trabajos en segundo plano, consultas y transacciones en clústeres de bases de datos y datos en caché."
 ---
 # Consideraciones de rendimiento

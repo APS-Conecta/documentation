@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Ajustes que mejoran el rendimiento de Nextcloud: cron, registro, caché, base de datos, AES-NI, HTTP/2, PHP-FPM, OPcache e Imaginary."
 ---
 # Ajuste del servidor

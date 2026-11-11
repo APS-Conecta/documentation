@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Endurecer el servidor: contraseñas y tokens, sistema operativo, despliegue, HTTPS y HSTS, cabeceras, conexiones remotas y fail2ban."
 ---
 # Endurecimiento y recomendaciones de seguridad

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo consumir la API de Procesamiento de texto de OCP: tipos de tarea, tareas, estados y eventos, y cómo implementar y registrar un proveedor."
 ---
 (nc-dev-text_processing)=

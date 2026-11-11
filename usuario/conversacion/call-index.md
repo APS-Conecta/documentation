@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Llamadas en Talk: el documento de origen solo agrupa las páginas de llamadas, que están en esta misma sección."
 ---
 # Llamadas

@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Context Chat: requisitos, instalación de sus dos apps, indexación, escalado, comandos occ, opciones, registros, solución de problemas y limitaciones."
 ---
 # App: Context Chat

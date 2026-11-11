@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Configurar la compartición federada entre servidores: crear recursos compartidos federados, servidores de confianza, enlaces públicos y ajustes relacionados."
 ---
 # Configurar la compartición federada

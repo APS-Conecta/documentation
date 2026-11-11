@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Clientes de escritorio para Windows, macOS y Linux: qué permite el cliente de sincronización y dónde está la guía para compilarlo por cuenta propia."
 ---
 # Clientes de escritorio

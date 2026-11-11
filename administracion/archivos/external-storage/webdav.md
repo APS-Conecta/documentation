@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Montar un directorio de un servidor WebDAV u otro servidor Nextcloud como almacenamiento externo: datos necesarios, HTTPS y subcarpeta remota."
 ---
 # WebDAV

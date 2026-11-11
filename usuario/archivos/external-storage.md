@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Usar montajes de almacenamiento externo en Archivos: estado de la conexión, compartir, añadir montajes propios y backends compatibles."
 ---
 (nc-external_storage_user_label)=

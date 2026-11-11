@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo integrar el asistente en el frontend web de otra app: mostrar el resultado de una tarea, abrir el formulario y rellenar la entrada desde un archivo."
 ---
 (nc-dev-assistant-integration)=

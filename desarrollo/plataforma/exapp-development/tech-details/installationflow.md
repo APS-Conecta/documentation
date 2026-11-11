@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Pasos con que AppAPI instala una ExApp: descarga de la imagen según computeDevice y los endpoints /heartbeat, /init y /enabled que la app implementa."
 ---
 (nc-dev-app_installation_flow)=

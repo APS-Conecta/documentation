@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo depurar: modo de depuración, registro de errores, variables, XDebug, JavaScript, plantillas, consultas SQL de MariaDB y directorios de apps alternativos."
 ---
 # Depuración

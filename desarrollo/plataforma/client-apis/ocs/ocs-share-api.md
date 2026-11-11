@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API OCS de recursos compartidos: crear, consultar, actualizar y eliminar recursos compartidos locales y federados; atributos y envío de correo."
 ---
 # API OCS de recursos compartidos

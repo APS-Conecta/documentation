@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Opciones de línea de comandos para iniciar el cliente de escritorio: registro, directorio de configuración e inicio en segundo plano."
 ---
 # Opciones de línea de comandos

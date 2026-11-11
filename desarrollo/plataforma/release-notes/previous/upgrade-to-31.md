@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios de la versión 31 para las apps: diseño de plantillas sin main, CSS lógico, comparticiones públicas en Vue, PHP 8.4 y alias de DI eliminados."
 ---
 # Actualización a Nextcloud 31

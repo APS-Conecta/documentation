@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Entrada de la sección de gestión de archivos del manual base: archivos eliminados, versiones, cuota de almacenamiento y etiquetas."
 ---
 # Gestionar los archivos

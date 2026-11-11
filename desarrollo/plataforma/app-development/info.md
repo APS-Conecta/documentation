@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Referencia de appinfo/info.xml: ejemplos mínimo y completo, cómo se valida y usa cada etiqueta, límites de longitud, elementos obsoletos y changelog."
 ---
 (nc-dev-app metadata)=

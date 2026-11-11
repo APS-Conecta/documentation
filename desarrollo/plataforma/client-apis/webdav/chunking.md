@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Subida de archivos grandes por fragmentos (API v2): crear la carpeta, subir y ensamblar los fragmentos, fijar la hora de modificación o abortar."
 ---
 # Subida de archivos por fragmentos

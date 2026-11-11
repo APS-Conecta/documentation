@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Recognize: etiquetado de fotos, audio y vídeo y reconocimiento facial; requisitos, instalación, escalado, limitaciones y clasificación de IA ética."
 ---
 # App: Recognize

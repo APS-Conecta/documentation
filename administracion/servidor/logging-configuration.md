@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Registro de Nextcloud: niveles y tipos de registro, parámetros de config.php, registro condicional, campos y registros de auditoría y de flujos."
 ---
 # Registro

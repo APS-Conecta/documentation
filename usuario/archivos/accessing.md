@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Entrada de la sección de acceso a archivos del manual base: interfaz web, WebDAV, sincronización, archivos grandes y almacenamiento externo."
 ---
 # Acceder a sus archivos

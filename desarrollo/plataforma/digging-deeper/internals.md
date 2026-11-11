@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice del funcionamiento interno del servidor: configuración, ajustes, seguridad, comprobaciones, reparación, bloqueos, IDs Snowflake, tiempo y métricas."
 ---
 # Funcionamiento interno del servidor

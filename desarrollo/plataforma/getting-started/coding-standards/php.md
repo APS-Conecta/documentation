@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Estándares de código de PHP: etiquetas de apertura y cierre, PHPDoc, nombres, operadores estrictos, estructuras de control y pruebas unitarias."
 ---
 # Estándares de código de PHP

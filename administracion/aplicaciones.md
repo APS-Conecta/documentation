@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Activar, desactivar, actualizar y restringir apps desde la página de apps o con occ; directorios de apps propios y tienda de apps autoalojada."
 ---
 # Gestión de apps

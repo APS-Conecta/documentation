@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Análisis estático del código PHP del servidor con psalm y las extensiones de PHP que deben estar instaladas y habilitadas para ejecutarlo."
 ---
 # Análisis estático

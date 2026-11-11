@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Componentes atómicos de la interfaz: botones, menú de acciones, campos de entrada, selectores, etiquetas, modal, avatar, burbujas y estados de carga o vacíos."
 ---
 # Componentes atómicos

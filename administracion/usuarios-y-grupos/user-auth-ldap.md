@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "La app LDAP: pestañas de configuración, ajustes avanzados y expertos, opciones de occ, avatares, resolución de problemas y funcionamiento interno."
 ---
 # Autenticación de usuarios con LDAP

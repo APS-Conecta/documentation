@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "El conjunto de aplicaciones de trabajo en grupo: correo, calendario, contactos y Deck, y su sincronización con otros dispositivos."
 ---
 # Groupware

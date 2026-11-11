@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios al actualizar a Nextcloud 26: versiones de PHP, nueva biblioteca de correo del sistema, retención de tokens de DAV y configuración de nginx."
 ---
 # Actualización a Nextcloud 26

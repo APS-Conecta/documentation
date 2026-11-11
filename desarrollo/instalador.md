@@ -1,7 +1,7 @@
 ---
 tipo: referencia
 audiencia: desarrollo
-apps: [gestion, files-upload-guard, files-fulltextsearch]
+apps: [gestion-aio, files-upload-guard, files-fulltextsearch]
 resumen: "El repositorio de la suite: el fork de AIO en un solo árbol, el paquete del host, el Provisionador, el manifiesto de aplicaciones y la publicación firmada."
 ---
 (instalador)=
@@ -9,7 +9,7 @@ resumen: "El repositorio de la suite: el fork de AIO en un solo árbol, el paque
 
 ## Resumen
 
-El repositorio [APS-Conecta/gestion](https://github.com/APS-Conecta/gestion) reúne el fork de AIO, el paquete del anfitrión, el Provisionador y el manifiesto de aplicaciones. El desarrollo avanza en un solo árbol sobre `main`.
+El repositorio [APS-Conecta/gestion-aio](https://github.com/APS-Conecta/gestion-aio) reúne el fork de AIO, el paquete del anfitrión, el Provisionador y el manifiesto de aplicaciones. El desarrollo avanza en un solo árbol sobre `main`.
 
 ```{note}
 Los cambios del plan de actualización corresponden a la próxima versión. Consulte su estado en {doc}`/proyecto/novedades/instalador` y seleccione una versión publicada para instalar.
@@ -67,7 +67,7 @@ El trabajo por IP crea integrantes nuevos de sectores y unidades y realiza su pr
 
 El entorno `Release` contiene `MINISIGN_SECRET_KEY` y `MINISIGN_KEY_PASSWORD`. Cada paso recibe únicamente la credencial que consume. Conserve `installer.pub` en el repositorio como clave pública de verificación.
 
-Nextcloud verifica la firma del paquete oficial de Talk al instalarlo. Las etiquetas de ensayo `v0.0.0-ci.N` se publican como preliminares y conservan la versión estable marcada como más reciente. El procedimiento está en [RELEASING.md](https://github.com/APS-Conecta/gestion/blob/main/aps/RELEASING.md).
+Nextcloud verifica la firma del paquete oficial de Talk al instalarlo. Las etiquetas de ensayo `v0.0.0-ci.N` se publican como preliminares y conservan la versión estable marcada como más reciente. El procedimiento está en RELEASING.md.
 
 ### Credenciales durante la instalación
 
@@ -75,7 +75,7 @@ Los scripts de APS Conecta entregan las contraseñas y las claves de servicio me
 
 Redis recibe su regla de autenticación por la entrada estándar; sus clientes usan `REDISCLI_AUTH`. PostgreSQL obtiene la contraseña con `psql` y `\getenv`. La restauración de Borg conserva la contraseña del asistente mediante el entorno. Los argumentos de estos procesos contienen las opciones públicas.
 
-La imagen de Imaginary compila el código oficial fijado y `api_key_env.go`, que inicializa la clave desde `IMAGINARY_SECRET`. Talk calcula la credencial TURN con la API criptográfica del entorno Erlang incluido en eTURNAL. Los conectores oficiales conservan su código y firma. El inicio interno de Euro-Office conserva la implementación oficial; su revisión de argumentos continúa en [#196](https://github.com/APS-Conecta/gestion/issues/196).
+La imagen de Imaginary compila el código oficial fijado y `api_key_env.go`, que inicializa la clave desde `IMAGINARY_SECRET`. Talk calcula la credencial TURN con la API criptográfica del entorno Erlang incluido en eTURNAL. Los conectores oficiales conservan su código y firma. El inicio interno de Euro-Office conserva la implementación oficial; su revisión de argumentos continúa en #196.
 
 La provisión usa directorios temporales privados para el certificado intermedio y la bienvenida de IntraVox, transfiere el contenido por la entrada estándar y elimina esos directorios al terminar. Administra las cuentas de personal y cargo y conserva sus documentos. La compuerta local comprueba argumentos, entrega exacta de credenciales y rutas temporales.
 
@@ -92,7 +92,7 @@ Trabaje en una rama por tarea. Ejecute las verificaciones en un árbol de trabaj
 La aceptación por IP utiliza Ubuntu 24.04 y el script existente `scripts/vm-acceptance.sh`. Seleccione una versión publicada que contenga las correcciones:
 
 ```console
-gh workflow run acceptance.yml --repo APS-Conecta/gestion --ref main -f tag=vX.Y.Z
+gh workflow run aps-acceptance.yml --repo APS-Conecta/gestion-aio --ref main -f tag=vX.Y.Z
 ```
 
 El valor predeterminado de `tag` es `latest`, resuelto por redirección pública. La descarga y la instalación se ejecutan sin token, con las tres aplicaciones opcionales y el respaldo diario. Una etapa fallida conserva su resultado aunque las comprobaciones posteriores sean correctas. Los fallos de arranque, preparación o certificado conservan la tabla de veredictos. El flujo adjunta los resultados y las evidencias públicas disponibles en `release-acceptance-*`. Las credenciales y la configuración permanecen en el directorio privado del ensayo. Esta aceptación verifica la instalación y el funcionamiento del paquete publicado.
@@ -101,13 +101,13 @@ El valor predeterminado de `tag` es `latest`, resuelto por redirección pública
 
 `APS_HOME` concentra las credenciales, el resultado de ejecución, el estado del asistente, los certificados, el registro de versiones y los paquetes verificados. El valor predeterminado es `/opt/aps-conecta`. `AIO_STATE` y las variables `APS_APPS_*` conservan prioridad para sus rutas explícitas.
 
-La [sección de desarrollo de INSTALLER.md](https://github.com/APS-Conecta/gestion/blob/main/aps/INSTALLER.md#14-provisionar-como-usuario-de-desarrollo) indica cómo clonar el repositorio, instalar `signify` en el directorio de usuario y ejecutar el banco de pruebas y el aprovisionamiento con una cuenta habilitada para Docker. La cuenta conserva la propiedad del certificado y autoriza su lectura a Apache mediante una ACL. La aceptación exige divergencia vacía.
+La sección de desarrollo de INSTALLER.md indica cómo clonar el repositorio, instalar `signify` en el directorio de usuario y ejecutar el banco de pruebas y el aprovisionamiento con una cuenta habilitada para Docker. La cuenta conserva la propiedad del certificado y autoriza su lectura a Apache mediante una ACL. La aceptación exige divergencia vacía.
 
 `Containers/network-prefix.sh` calcula el prefijo IPv4 desde la dirección del servicio y su interfaz. Las imágenes de Nextcloud y Apache incluyen el mismo archivo y usan el contexto de construcción del repositorio. La compuerta local verifica prefijos e información ausente o ambigua; Clean boot comprueba una red `/20`, un cliente de la LAN con cabecera simulada y un proxy interno con una dirección reenviada válida.
 
 Los trabajos de comprobación declaran permisos de lectura. El workflow reutilizable de imágenes admite `packages: write` para publicar y reduce los trabajos de comprobación a lectura. Los checkouts usan `persist-credentials: false`.
 
-El plan vigente está en [gestion #175](https://github.com/APS-Conecta/gestion/issues/175). La documentación acompaña cada entrega en sus manuales de uso, administración y desarrollo.
+El plan vigente está en gestion #175. La documentación acompaña cada entrega en sus manuales de uso, administración y desarrollo.
 
 El flujo de inicio termina con un resultado explícito dentro de su respuesta HTML. La consola valida ese resultado y comparte el mismo inicio con la actualización. Los avances de capas y bytes se distinguen de las señales periódicas de conexión; los estados repetidos y los reinicios cíclicos conservan el límite de 20 minutos de inactividad, medido con reloj monotónico.
 
@@ -137,11 +137,11 @@ El módulo compara los ajustes nativos e importa solo las claves modificadas con
 
 `scripts/talk-smoke.sh` exige la URL pública de señalización, TURN y STUN en el puerto 3478, y una respuesta HTTP 200 válida de `/standalone-signaling/api/v1/welcome`, con verificación del certificado de la suite. Evalúa `talk` → `OCA\Talk\SetupCheck\HighPerformanceBackend` de `occ setupchecks --output=json`.
 
-Admite `success` o el mensaje nativo completo cuya única característica opcional ausente sea `changed-users`, en inglés o español. Esa advertencia conserva su aviso y exige además `success` en `system` → `OCA\Settings\SetupChecks\MemcacheConfigured` y el ajuste distribuido `\OC\Memcache\Redis`. Cualquier otra advertencia o error de señalización falla. [ADR-0024](https://github.com/APS-Conecta/gestion/blob/336e57547dfb4fd553af11ead545ca51418ab2cc/docs/adr/0024-supported-talk-compatibility-warning.md) delimita esta compatibilidad con el servidor oficial y su condición de retiro.
+Admite `success` o el mensaje nativo completo cuya única característica opcional ausente sea `changed-users`, en inglés o español. Esa advertencia conserva su aviso y exige además `success` en `system` → `OCA\Settings\SetupChecks\MemcacheConfigured` y el ajuste distribuido `\OC\Memcache\Redis`. Cualquier otra advertencia o error de señalización falla. ADR-0024 delimita esta compatibilidad con el servidor oficial y su condición de retiro.
 
 La compuerta conserva los ajustes de conexión. El diagnóstico nativo puede inicializar claves de señalización y registrar capacidades del servicio. Clean boot comprueba el primer aprovisionamiento, el reinicio y la repetición. Su experimento TURN distingue la asignación autenticada, los permisos para cada dirección y el intercambio real de datos; una asignación aislada acredita solo esa operación.
 
-El [experimento por IP](https://github.com/APS-Conecta/gestion/actions/runs/41211391805/job/124567070362) confirmó STUN, la asignación TURN autenticada y el intercambio bidireccional con el par privado permitido de Talk. El destino privado de LAN sin permiso recibió un rechazo 403 autenticado y ningún dato. La política de pares se conserva. Este resultado corresponde al relé; la llamada entre navegadores se valida en la aceptación de cada instalación.
+El experimento por IP confirmó STUN, la asignación TURN autenticada y el intercambio bidireccional con el par privado permitido de Talk. El destino privado de LAN sin permiso recibió un rechazo 403 autenticado y ningún dato. La política de pares se conserva. Este resultado corresponde al relé; la llamada entre navegadores se valida en la aceptación de cada instalación.
 
 Después de revalidar, Clean boot por IP repite `talk-smoke.sh` antes del ensayo de mensajes. Usa `POST v4/room` con `roomType` y `roomName`, `POST v1/chat/{token}` y `GET` del mismo historial. Una cuenta ordinaria crea y envía; otra lee el texto exacto junto con la identidad, el identificador y la conversación correspondientes. La comprobación admite los mensajes del sistema.
 
@@ -209,7 +209,7 @@ Clean boot por IP incluye subconjuntos publicados con su procedencia y licencia 
 
 La revisión previa conserva sus controles actuales. `scripts/usage.py` registra en ambos trabajos de Clean boot series acotadas de memoria, CPU, intercambio y OOM, junto con métricas de los servicios. Cada muestra identifica su arranque y sus unidades; el cierre vincula el PID y la cantidad de muestras. Las lecturas ausentes se registran como no disponibles.
 
-El [diagnóstico de recursos](https://github.com/APS-Conecta/gestion/blob/main/aps/RESOURCE-MEASUREMENTS.md) describe la captura y sus referencias. El plan #175 conserva las comprobaciones funcionales y retira el ensayo de capacidad, los umbrales medidos y el cálculo compartido de concurrencia. La administración dimensiona el servidor según su uso; la memoria indicada por Nextcloud por proceso conserva ese alcance.
+El diagnóstico de recursos describe la captura y sus referencias. El plan #175 conserva las comprobaciones funcionales y retira el ensayo de capacidad, los umbrales medidos y el cálculo compartido de concurrencia. La administración dimensiona el servidor según su uso; la memoria indicada por Nextcloud por proceso conserva ese alcance.
 
 ### Instalaciones previas
 

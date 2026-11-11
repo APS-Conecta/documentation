@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Qué son AppAPI y las ExApps, cómo instalar AppAPI, registrar un daemon de despliegue con HaRP o Docker Socket Proxy e instalar ExApps."
 ---
 # AppAPI y aplicaciones externas

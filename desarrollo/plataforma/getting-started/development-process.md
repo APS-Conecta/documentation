@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo se desarrolla el código: control de versiones con git, nombres de ramas, ramas de destino de las contribuciones y backports de correcciones."
 ---
 # Proceso de desarrollo

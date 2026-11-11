@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Conversar sobre un archivo desde la barra lateral de Archivos, también en llamada mientras se edita, y volver al archivo desde Talk."
 ---
 # Integración con Archivos

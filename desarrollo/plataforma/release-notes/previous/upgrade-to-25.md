@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios de la versión 25 para las apps: rango de info.xml, fin del soporte de SCSS, opción para desactivar atajos de teclado y paquete nextcloud/ocp."
 ---
 # Actualización a Nextcloud 25

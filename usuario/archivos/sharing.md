@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Compartir archivos y carpetas por enlace público, con usuarios, grupos y conversaciones, y con usuarios de servidores federados."
 ---
 # Compartir archivos

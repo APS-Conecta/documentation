@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Comandos occ de LDAP: buscar y comprobar usuarios y grupos, y crear, modificar, probar y eliminar configuraciones de LDAP."
 ---
 # Comandos de LDAP

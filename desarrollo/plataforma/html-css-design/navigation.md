@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Barra lateral de navegación de una app: botón de acción primaria, menú de navegación con sus utilidades y tipos de entrada, y área de ajustes."
 ---
 # Navegación

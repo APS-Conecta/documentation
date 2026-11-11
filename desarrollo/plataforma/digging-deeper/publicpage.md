@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo exponer páginas públicas de una app con PublicShareController y AuthPublicShareController: token, contraseña y funciones que implementar."
 ---
 # Páginas públicas

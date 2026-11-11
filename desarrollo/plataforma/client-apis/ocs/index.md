@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice de la API OCS: enlace a la nueva documentación OpenAPI y páginas anteriores sobre recursos compartidos, estado, ausencias, IA y más."
 ---
 (nc-dev-ocsapiindex)=

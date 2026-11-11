@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Montar un directorio del propio servidor como almacenamiento externo local: riesgo de seguridad, propiedad y permisos, y campos del formulario."
 ---
 # Local

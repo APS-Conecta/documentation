@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo escribir controladores: parámetros de la solicitud, sesiones, cookies, respuestas HTML, OCS y JSON, responders y opciones de seguridad."
 ---
 # Controladores

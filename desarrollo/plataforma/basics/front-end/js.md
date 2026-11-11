@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo cargar el JavaScript de una app, enviar el token CSRF, generar URL, extender el menú «Nuevo» de Archivos, cargar el estado inicial y respetar los atajos."
 ---
 (nc-dev-applicationjs)=

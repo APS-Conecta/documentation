@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Compartir la pantalla en una llamada de Talk: permiso del navegador, qué se puede compartir, vista de presentador, cómo dejar de compartir y hacer zoom."
 ---
 # Compartir pantalla

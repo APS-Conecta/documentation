@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice de los conceptos básicos para desarrollar apps: solicitudes, rutas, inyección de dependencias, controladores, eventos, caché, registro y pruebas."
 ---
 # Conceptos básicos

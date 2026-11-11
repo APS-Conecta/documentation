@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Crear una carpeta de entrega para recibir archivos de personas sin cuenta, y cómo suben archivos quienes reciben el enlace."
 ---
 # Realizar subidas anónimas

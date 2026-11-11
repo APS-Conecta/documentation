@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API OCS de preferencias de usuario: establecer y eliminar una o varias preferencias de una app, con sus datos y códigos de estado."
 ---
 # API OCS de preferencias de usuario

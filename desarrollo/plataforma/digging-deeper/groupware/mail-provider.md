@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo una app consume servicios de correo de otras apps mediante el gestor de correo, o los proporciona implementando y registrando un proveedor."
 ---
 (nc-dev-mail-providers)=

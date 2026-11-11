@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios de la versión 14 para las apps: soporte de PHP, frontend, API de backend modificadas, obsoletas y eliminadas, comportamiento, configuración y OCS."
 ---
 # Actualización a Nextcloud 14

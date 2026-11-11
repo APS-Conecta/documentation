@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API OCS de recomendaciones: URL base, cabecera obligatoria y los endpoints que devuelven archivos y carpetas recomendados con actividad reciente."
 ---
 # API OCS de recomendaciones

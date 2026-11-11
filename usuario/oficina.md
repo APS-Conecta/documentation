@@ -1,7 +1,7 @@
 ---
 tipo: guia
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Editar documentos, hojas de cálculo y presentaciones en el navegador con Euro-Office, entre varias personas y sobre una sola copia."
 ---
 # Oficina

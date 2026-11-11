@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Endpoint /metrics de OpenMetrics en Nextcloud: qué clientes pueden consultarlo y cómo omitir métricas en config.php."
 ---
 # Monitoreo

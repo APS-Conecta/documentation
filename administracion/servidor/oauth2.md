@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Conectar servicios externos a Nextcloud con OAuth2: alta del cliente, extremos, token de acceso, seguridad y cómo omitir el aviso previo al inicio de sesión."
 ---
 # OAuth2

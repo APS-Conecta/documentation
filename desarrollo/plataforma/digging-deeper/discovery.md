@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice de búsqueda y descubrimiento: la búsqueda, los proveedores de referencias y los metadatos de archivos."
 ---
 # Búsqueda y descubrimiento

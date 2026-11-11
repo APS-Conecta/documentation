@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Reglas de la tienda de apps: pautas legales, técnicas y de respeto a los usuarios, pérdida de la calificación y cómo mover el repositorio a la organización."
 ---
 (nc-dev-app-store-publishing)=

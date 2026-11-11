@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Pautas para contribuir código: flujo de trabajo, etiquetas de issues y pull requests, principios de interfaz, estándares de código y cabeceras de licencia."
 ---
 # Estilo de código y pautas generales

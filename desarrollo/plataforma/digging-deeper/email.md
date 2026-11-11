@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo enviar correo electrónico desde una app con el componente de correo y la interfaz IMailer, y cómo añadir adjuntos en línea a un mensaje."
 ---
 (nc-dev-email)=

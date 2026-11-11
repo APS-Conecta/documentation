@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios de la versión 15 para las apps: unsafe-eval ya no permitido por defecto, fin de PHP 7.0 y API de frontend y backend obsoletas o eliminadas."
 ---
 # Actualización a Nextcloud 15

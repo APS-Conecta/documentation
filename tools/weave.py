@@ -210,7 +210,7 @@ def prepare(batch_id: str) -> list[str]:
             name = parts[depth - 1].replace("-", " ").capitalize()
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(
-                f"---\ntipo: referencia\nesqueleto: borrador\naudiencia: {parts[0]}\napps: [gestion]\n"
+                f"---\ntipo: referencia\nesqueleto: borrador\naudiencia: {parts[0]}\napps: [gestion-aio]\n"
                 f'resumen: "{name}: páginas de la plataforma base."\n---\n# {name}\n\n## Resumen\n\n'
                 f"Las páginas de esta sección derivan de la documentación de la plataforma base.\n\n{TOCTREE}",
                 encoding="utf-8",

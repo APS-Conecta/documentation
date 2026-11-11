@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Llamar a un usuario directamente desde el menú de su avatar en cualquier aplicación, sin abrir antes una conversación, y buenas prácticas."
 ---
 # Llamar desde cualquier lugar

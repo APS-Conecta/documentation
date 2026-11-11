@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Configurar un mensaje de ausencia en los ajustes de Disponibilidad y cómo lo usan el estado de usuario, el calendario, Correo y Talk."
 ---
 (nc-groupware-absence)=

@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Módulos de PHP necesarios y recomendados para Nextcloud, conectores de base de datos y ajustes de php.ini para el servidor web y la CLI."
 ---
 # Preparación de PHP

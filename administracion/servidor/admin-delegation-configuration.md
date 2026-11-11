@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Delegar el acceso a páginas de configuración de administración en grupos que no son admin, y los riesgos de escalada de privilegios que conlleva."
 ---
 # Privilegios de administración (delegación)

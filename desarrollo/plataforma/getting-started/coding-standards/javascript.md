@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Estándares de código de JavaScript y Typescript: Vue, ESLint, estructura de archivos, nombres, sangría, cadenas, funciones, objetos y operadores."
 ---
 # JavaScript y Typescript

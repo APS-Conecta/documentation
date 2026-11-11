@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo obtener, activar, desactivar y usar la app del perfilador para detectar problemas de rendimiento, y cómo ampliarla con un DataCollector propio."
 ---
 # Perfilador

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Paquetes PHP de terceros con Composer en una app: autoloader, archivos a quitar, conflictos entre apps y herramientas aisladas con composer-bin-plugin."
 ---
 (nc-dev-app-dependencies)=

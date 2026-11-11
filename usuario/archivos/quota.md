@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo se calcula la cuota de almacenamiento: qué cuenta y qué no, archivos compartidos, versiones y el límite propio de la papelera."
 ---
 # Cuota de almacenamiento

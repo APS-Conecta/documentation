@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios imprescindibles para que una app siga funcionando en la nueva versión: rango en info.xml y API de frontend y backend eliminadas."
 ---
 (nc-dev-critical-changes)=

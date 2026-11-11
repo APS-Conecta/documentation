@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo recuperar una contraseña de administrador perdida: el enlace de restablecimiento, otro administrador o el comando occ user:resetpassword."
 ---
 # Restablecer una contraseña de administrador perdida

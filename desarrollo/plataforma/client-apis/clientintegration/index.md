@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API de integración de clientes: cómo una app de servidor añade acciones al menú contextual de archivos y carpetas en los clientes de escritorio y móviles."
 ---
 (nc-dev-clientintegrationindex)=

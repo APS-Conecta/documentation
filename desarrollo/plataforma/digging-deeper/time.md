@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "La interfaz ITimeFactory de OCP, que envuelve funciones de tiempo de uso común para facilitar las pruebas, y los métodos que agrega a ClockInterface."
 ---
 # Trabajar con el tiempo

@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "La clase Application de una app, la interfaz IBootstrap y las etapas de registro y arranque con las que una app se engancha al inicio de cada proceso."
 ---
 (nc-dev-bootstrapping)=

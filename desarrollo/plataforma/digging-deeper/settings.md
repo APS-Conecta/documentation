@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo una app registra configuraciones de administración y ajustes personales: la clase ISettings con su plantilla, una sección y su registro en info.xml."
 ---
 (nc-dev-settings-section)=

@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "El Docker Socket Proxy para el daemon de despliegue de AppAPI: el DSP de AppAPI, el de Nextcloud AIO y otras implementaciones."
 ---
 # Docker Socket Proxy

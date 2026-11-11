@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "La cuenta propia: idioma, región y teléfono, visibilidad del perfil, sesiones, contraseña, verificación en dos pasos y accesibilidad en la suite."
 ---
 # Perfil y seguridad

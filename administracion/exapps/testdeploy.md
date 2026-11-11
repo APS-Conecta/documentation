@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "La prueba de despliegue de AppAPI: qué verifica cada comprobación de estado, sus errores posibles y cómo descargar los registros del contenedor."
 ---
 (nc-test_deploy)=

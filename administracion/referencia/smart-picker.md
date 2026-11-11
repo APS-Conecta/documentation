@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "El selector inteligente: en qué apps se usa (Text, Talk, Nextcloud Office, Correo) y qué proveedores conocidos lo amplían, internos o de terceros."
 ---
 # El selector inteligente

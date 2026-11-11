@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Qué ofrece la app de tematización a quienes desarrollan apps: variables CSS, el objeto JavaScript OCA.Theming y los iconos generados."
 ---
 # Soporte de tematización

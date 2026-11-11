@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Las recomendaciones de estándares PHP (PSR) que implementa Nextcloud: carga automática, logger, contenedor y reloj, con sus versiones."
 ---
 (nc-dev-psr)=

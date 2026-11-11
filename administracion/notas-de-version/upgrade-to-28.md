@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios al actualizar a Nextcloud 28: PHP, archivos .mjs en el servidor web, comprobaciones de configuración, monitorización y vistas previas de Office."
 ---
 # Actualización a Nextcloud 28

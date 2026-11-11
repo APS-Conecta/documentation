@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo publicar una versión de una app: versionado semántico, registro de cambios, versiones preliminares y nightly, pasos de publicación y apps incluidas."
 ---
 (nc-dev-app-release-process)=

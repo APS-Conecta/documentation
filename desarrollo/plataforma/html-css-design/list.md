@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Estructura estándar para mostrar una lista de elementos en el contenido principal: disposición, reglas y menú emergente dentro de un elemento."
 ---
 # Lista de contenido

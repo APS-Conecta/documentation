@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Diagnosticar fallos de sincronización del cliente de escritorio: pruebas de servidor y WebDAV, errores conocidos, registros, volcados de memoria y Citrix."
 ---
 # Solución de problemas

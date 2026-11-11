@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Instalar ClamAV, activar y configurar la app Antivirus para archivos, comprobarla con EICAR y gestionar el analizador en segundo plano con occ."
 ---
 # Escáner antivirus

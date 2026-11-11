@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API OCS del Asistente: programar y gestionar tareas de IA, su historial y resultados; cómo consultar su especificación OpenAPI."
 ---
 (nc-dev-ocs-assistant-api)=

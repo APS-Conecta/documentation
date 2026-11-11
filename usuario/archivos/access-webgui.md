@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "La aplicación Archivos en el navegador: navegar, ver detalles y actividad, buscar, subir y crear, seleccionar, mover y previsualizar archivos."
 ---
 # Acceder a los archivos con la interfaz web de Nextcloud

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Descargar e instalar el cliente de escritorio en Windows, macOS y Linux, sus requisitos y la configuración inicial con el asistente."
 ---
 # Instalación

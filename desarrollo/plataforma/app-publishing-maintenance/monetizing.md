@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo recibir compensación económica por una app: enlaces de donación en info.xml y el botón de solicitud de presupuesto para soporte empresarial."
 ---
 (nc-dev-app-store-monetizing)=

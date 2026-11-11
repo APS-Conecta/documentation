@@ -1,7 +1,7 @@
 ---
 tipo: guia
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Comprobar la postura de seguridad que fija el aprovisionamiento —red, sesiones, salidas, integridad, tienda cerrada— y conocer lo que no fija."
 ---
 # Seguridad

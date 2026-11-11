@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "La opción dbreplica, que separa lecturas y escrituras: las réplicas atienden solo lecturas y la conexión predeterminada, las escrituras."
 ---
 # Replicación

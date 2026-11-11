@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Transcripción y traducción en directo de las llamadas de Talk: instalación, requisitos de hardware, registros y limitaciones de live_transcription."
 ---
 # App: Transcripción y traducción en directo en Nextcloud Talk (live_transcription)

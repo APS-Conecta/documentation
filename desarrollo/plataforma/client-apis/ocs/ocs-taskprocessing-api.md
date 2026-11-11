@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API OCS de procesamiento de tareas: ejecutar tareas como instrucciones a modelos de lenguaje grandes, que implementan apps; remite a su OpenAPI."
 ---
 (nc-dev-ocs-taskprocessing-api)=

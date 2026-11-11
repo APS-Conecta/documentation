@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios de la versión 22 para las apps: comandos de migración, registro JSON, scss, Node 14, fin de IE11 y database.xml, eventos PSR y HTTP 401."
 ---
 # Actualización a Nextcloud 22

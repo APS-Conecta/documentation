@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Por qué vías se exponen las API de Nextcloud (REST, OCS y WebDAV) y el error genérico del modo de mantenimiento: HTTP 503 con su cabecera."
 ---
 # Generalidades

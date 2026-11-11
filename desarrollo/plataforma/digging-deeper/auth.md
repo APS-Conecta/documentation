@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice de usuarios y autenticación: gestión y migración de usuarios, perfil, estado, periodos de ausencia, OpenID Connect y proveedores de segundo factor."
 ---
 # Usuarios y autenticación

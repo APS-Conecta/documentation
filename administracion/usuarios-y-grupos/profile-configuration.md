@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Perfiles de usuario: activarlos o desactivarlos, la visibilidad de sus campos, los ámbitos de cada propiedad y sus valores predeterminados en config.php."
 ---
 (nc-profile)=

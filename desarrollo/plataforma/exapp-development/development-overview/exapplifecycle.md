@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Métodos del ciclo de vida de una ExApp (healthcheck, /heartbeat, /init, /enabled), sus tiempos de espera, el esquema del ciclo y la autenticación AppAPIAuth."
 ---
 (nc-dev-ex_app_lifecycle)=

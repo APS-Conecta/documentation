@@ -1,7 +1,7 @@
 ---
 tipo: guia
 audiencia: desarrollo
-apps: [.github, gestion, documentation]
+apps: [.github, gestion-aio, documentation]
 resumen: "La licencia del código de la organización, cómo se declara en cada repositorio, la reserva de las marcas y las compuertas que verifican todo eso."
 ---
 # Licencias
@@ -28,7 +28,7 @@ En este sitio, `REUSE.toml` asigna cada ruta: la prosa de las páginas es CC-BY-
 
 ## Requisitos
 
-- Saber quién es dueño de cada hecho: esta página fija la regla de la organización y el análisis de agregación; el [ADR de AGPL en toda la organización](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0006-agpl-across-the-org.md) registra la decisión; la tabla de componentes lleva el inventario de terceros; y `componentes.yml` alimenta la tabla publicada.
+- Saber quién es dueño de cada hecho: esta página fija la regla de la organización y el análisis de agregación; el ADR de AGPL en toda la organización registra la decisión; la tabla de componentes lleva el inventario de terceros; y `componentes.yml` alimenta la tabla publicada.
 
 ## Pasos
 

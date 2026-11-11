@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo un cliente obtiene credenciales propias con el flujo de inicio de sesión (v1 y v2) y cómo convierte y elimina contraseñas de aplicación."
 ---
 (nc-dev-loginflowindex)=

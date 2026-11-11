@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios de la versión 19 para las apps: fin del polyfill de Babel, jQuery obsoleto, reemplazos de globales, Symfony 4.4 y servicios por nombre obsoletos."
 ---
 # Actualización a Nextcloud 19

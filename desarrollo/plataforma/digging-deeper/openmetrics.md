@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo registrar en info.xml e implementar un exportador de métricas en formato OpenMetrics para el endpoint /metrics, con un ejemplo de su salida."
 ---
 # Exportador de Open Metrics

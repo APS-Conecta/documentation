@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Funciones de IA de la plataforma base: apps que las aportan, clasificación de IA ética, apps que las usan, workers de tareas de IA y preguntas frecuentes."
 ---
 # Visión general

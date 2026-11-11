@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Qué son los ajustes predefinidos de conversación de Talk y cómo funcionan los de sala de voz, seminario web y presentación."
 ---
 # Ajustes predefinidos de conversación

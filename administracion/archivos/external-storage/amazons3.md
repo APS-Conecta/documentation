@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Conectar un bucket de Amazon S3 o compatible como almacenamiento externo: datos necesarios, campos del formulario, parámetros y clave SSE-C."
 ---
 # Amazon S3

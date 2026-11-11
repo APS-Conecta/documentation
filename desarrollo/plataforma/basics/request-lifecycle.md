@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo procesa Nextcloud una solicitud HTTP: el controlador frontal, la carga de las apps básicas, la autenticación, las rutas y la ejecución del enrutador."
 ---
 # Ciclo de vida de una solicitud

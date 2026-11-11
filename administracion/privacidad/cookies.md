@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Las cookies que establece el servidor: nombre, finalidad, datos personales y duración, y la base jurídica de las cookies de «Recordarme»."
 ---
 (nc-cookies)=

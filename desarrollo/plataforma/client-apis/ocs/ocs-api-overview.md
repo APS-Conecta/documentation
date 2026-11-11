@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Panorama de los endpoints de la API OCS: autenticación, pruebas con curl, usuarios, capacidades, descarga directa, autocompletado e idioma forzado."
 ---
 # Panorama general de las API OCS

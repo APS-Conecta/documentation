@@ -1,7 +1,7 @@
 ---
 tipo: guia
 audiencia: usuario
-apps: [IntraVox, gestion]
+apps: [IntraVox, gestion-aio]
 resumen: "Publicar un aviso en Inicio: escribirlo en borrador dentro de «Avisos», pedir su revisión, publicarlo y devolverlo a borrador cuando vence."
 ---
 # Publicar un aviso en Inicio

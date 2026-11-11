@@ -1,4 +1,4 @@
-"""gen-catalogo: la lista de aplicaciones se lee del manifiesto del repositorio de la suite (gestion)."""
+"""gen-catalogo: la lista de aplicaciones se lee del manifiesto del repositorio de la suite (gestion-aio)."""
 
 import sys
 import unittest
@@ -11,13 +11,13 @@ gc = load("gen-catalogo")
 
 
 class RegistroTest(unittest.TestCase):
-    def test_el_manifiesto_vive_en_gestion(self):
+    def test_el_manifiesto_vive_en_gestion_aio(self):
         raiz = Path("/org")
         self.assertEqual(
             gc.manifest_path(raiz),
-            raiz / "gestion" / "apps.json")
+            raiz / "gestion-aio" / "aps" / "provisionador" / "apps.json")
 
-    def test_gestion_sin_manifiesto_falla(self):
+    def test_gestion_aio_sin_manifiesto_falla(self):
         gc.selftest_registro()
 
 

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Ejemplos en Java con la biblioteca android-library: credenciales, carpetas, archivos, descargas, subidas, movimientos y recursos compartidos."
 ---
 # Ejemplos

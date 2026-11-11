@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API OCS de destinatarios de recursos compartidos: URL base y las llamadas para buscar destinatarios y obtener destinatarios recomendados."
 ---
 # API OCS de destinatarios de recursos compartidos

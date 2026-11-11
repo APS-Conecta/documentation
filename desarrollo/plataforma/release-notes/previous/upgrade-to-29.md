@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios de la versión 29 para las apps: Circles pasa a Teams, notas de cambios de apps, IAppConfig rehecho, atributos de ruta y API eliminadas."
 ---
 # Actualización a Nextcloud 29

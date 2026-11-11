@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo una app consulta calendarios y eventos, crea eventos y registra backends de recursos y salas para el servidor CalDAV."
 ---
 # Integración con el calendario

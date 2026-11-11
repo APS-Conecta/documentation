@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Las reglas de la política de contraseñas: longitud mínima, historial, caducidad, bloqueo, caracteres exigidos y comprobación de contraseñas filtradas."
 ---
 # Política de contraseñas de usuario

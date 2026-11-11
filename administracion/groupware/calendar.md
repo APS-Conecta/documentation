@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Servidor de calendario CalDAV: invitaciones, cumpleaños, recordatorios, FreeBusy, suscripciones, federación, papelera, salas, límites y retención de datos."
 ---
 # Calendario / CalDAV

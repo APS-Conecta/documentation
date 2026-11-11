@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Publicación y mantenimiento de apps: mantenedores, proceso de versiones, monetización, reglas de la tienda de apps, firma de código y automatización."
 ---
 # Publicación y mantenimiento de apps

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Conectar un servidor SFTP como almacenamiento externo: servidor y puerto, autenticación por contraseña o por clave pública, y subcarpeta remota."
 ---
 # SFTP

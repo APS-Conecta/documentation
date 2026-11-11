@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "El asistente de instalación web: cuenta de administración, directorio de datos, elección de base de datos, autoconfiguración y dominios de confianza."
 ---
 # Asistente de instalación

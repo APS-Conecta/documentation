@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice de las API de Nextcloud que AppAPI ofrece a las ExApps, y aviso de que todas sus API OCS, salvo la de ExApp, requieren AppAPIAuth."
 ---
 (nc-dev-app_api_nextcloud_apis)=

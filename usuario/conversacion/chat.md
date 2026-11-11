@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Escribir mensajes en Talk: Markdown, emojis, selector inteligente, respuestas, mensajes silenciosos y programados, y resumen del chat con IA."
 ---
 # Enviar mensajes

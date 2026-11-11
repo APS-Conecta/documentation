@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Trabajos en segundo plano de Nextcloud: la ventana de mantenimiento y los modos AJAX, Webcron, cron del sistema y temporizador de systemd."
 ---
 # Trabajos en segundo plano

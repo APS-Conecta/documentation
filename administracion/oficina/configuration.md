@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Ajustes de la app Nextcloud Office y opciones adicionales de coolwsd: servidor, grupos, OOXML, apps externas, vistas previas, fuentes, vista segura y WOPI."
 ---
 # Configuración

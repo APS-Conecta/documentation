@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Ver y filtrar el flujo de actividad, la actividad de un archivo, la fuente RSS y las notificaciones de actividad por correo electrónico y push."
 ---
 (nc-activity)=

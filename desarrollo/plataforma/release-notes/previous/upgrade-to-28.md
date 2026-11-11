@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios de la versión 28 para las apps: nueva app Archivos, PHP 8.3, doctrine/dbal 3.7, symfony/event-dispatcher y eventos tipados."
 ---
 # Actualización a Nextcloud 28

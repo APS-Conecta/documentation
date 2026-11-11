@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Registros de contenedores de Docker en AppAPI: no se admite la autenticación, por lo que las imágenes de las ExApps deben ser públicas."
 ---
 # Registro de contenedores de Docker

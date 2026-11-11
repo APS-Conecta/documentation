@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Utilidades de seguridad para apps: limitar la frecuencia de operaciones con ILimiter, validar hosts remotos y comprobar dominios de confianza."
 ---
 (nc-dev-security)=

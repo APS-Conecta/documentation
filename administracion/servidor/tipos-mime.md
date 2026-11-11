@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Crear alias de tipos MIME y asignaciones de extensiones en Nextcloud con archivos JSON propios, y cómo se elige el icono si falta el del tipo completo."
 ---
 # Gestión de tipos MIME

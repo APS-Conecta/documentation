@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Declaraciones sobre el software del servidor: reúne la página del consumo de energía típico medido para la certificación Ángel Azul."
 ---
 # Declaraciones

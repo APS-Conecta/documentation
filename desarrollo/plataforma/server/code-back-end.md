@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Qué hacer al cambiar código PHP de backend: actualizar el cargador automático y anotar las API públicas con @since y @deprecated."
 ---
 # Código de backend

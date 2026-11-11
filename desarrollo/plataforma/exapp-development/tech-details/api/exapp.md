@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API OCS de ExApp: listar ExApps, informar el progreso de inicialización, obtener la URL de Nextcloud, hacer solicitudes a ExApps y leer su estado."
 ---
 # ExApp

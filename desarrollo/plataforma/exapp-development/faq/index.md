@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Índice de las preguntas frecuentes de AppAPI: registro de contenedores, Docker Socket Proxy, GPU, escalado, proxy corporativo y solución de problemas."
 ---
 # Preguntas frecuentes

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo una app aporta resultados a la búsqueda unificada: proveedores simples, avanzados y externos, su registro, la paginación y la privacidad."
 ---
 (nc-dev-unified-search)=

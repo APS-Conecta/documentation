@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "El despachador de eventos de OCP, cómo escribir eventos y listeners, los eventos públicos de la plataforma (OCP) y de las apps (OCA), y los hooks obsoletos."
 ---
 (nc-dev-events)=

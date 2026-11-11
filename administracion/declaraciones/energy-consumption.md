@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Consumo de energía típico según los escenarios de uso estándar de la certificación Ángel Azul para software DE-UZ 215, con los informes descargables."
 ---
 # Consumo de energía

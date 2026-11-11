@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo hacer traducible una app en PHP, plantillas, JavaScript y ExApps, y pautas para escribir cadenas, plurales y pistas para quienes traducen."
 ---
 (nc-dev-translations)=

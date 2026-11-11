@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Activar y configurar el almacenamiento externo: montajes, autenticación, variables de ruta, permisos, opciones de montaje, backends y codificación de nombres."
 ---
 # Configuración del almacenamiento externo

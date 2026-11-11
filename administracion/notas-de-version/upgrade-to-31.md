@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios al actualizar a Nextcloud 31: PHP, formato de fila MySQL/MariaDB, memoria de APCu, tamaño de fragmento, monitorización, vistas previas MP3 y AppAPI."
 ---
 # Actualización a Nextcloud 31

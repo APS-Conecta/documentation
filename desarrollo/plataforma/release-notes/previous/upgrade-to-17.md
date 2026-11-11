@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios de la versión 17 para las apps: globales de JavaScript obsoletas y sus reemplazos, API de backend retiradas y cambios en LDAP y aprovisionamiento."
 ---
 # Actualización a Nextcloud 17

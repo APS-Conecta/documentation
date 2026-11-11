@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Grupos de reglas de File Access Control: qué bloquea el acceso denegado, ejemplos, carpetas y subidas, errores comunes y reglas disponibles."
 ---
 # Control de acceso a archivos

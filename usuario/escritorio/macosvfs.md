@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "La integración de archivos virtuales en macOS: funciones, configuración, Finder, indicadores de estado, menú contextual y problemas conocidos."
 ---
 # Cliente de archivos virtuales para macOS

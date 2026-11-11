@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo documentar cambios que afectan a quienes desarrollan apps: definición de terminado, notas de versión, API nuevas y obsoletas, y notas de administración."
 ---
 # Compatibilidad con el ecosistema de apps

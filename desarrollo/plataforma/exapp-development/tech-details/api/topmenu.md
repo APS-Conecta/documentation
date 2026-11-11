@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API TopMenu de AppAPI: registrar y anular entradas de ExApps en el menú superior, estado inicial, scripts y estilos, con sus endpoints OCS."
 ---
 (nc-dev-top_menu_section)=

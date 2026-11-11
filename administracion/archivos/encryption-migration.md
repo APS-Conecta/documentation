@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Comprobar con occ si quedan archivos en el formato de cifrado heredado (sin encabezado) y desactivar su compatibilidad en config.php."
 ---
 # Migración del cifrado en el servidor

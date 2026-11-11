@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Tipos de conversación de Talk, panel de Talk, crear, filtrar, archivar y gestionar conversaciones, vetar participantes, caducidad y notificaciones."
 ---
 # Tipos y gestión de conversaciones

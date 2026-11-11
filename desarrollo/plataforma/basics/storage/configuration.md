@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo leer y escribir desde una app los valores de configuración del sistema, de la app y de usuario con IConfig, y cómo nombrar las claves."
 ---
 # Configuración

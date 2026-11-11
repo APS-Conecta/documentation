@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Punto de entrada a las conversaciones de Talk; tipos, organización, ajustes predefinidos, conversaciones abiertas y apariencia tienen su página aquí."
 ---
 # Conversaciones

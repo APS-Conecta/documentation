@@ -26,10 +26,10 @@ El lector de la PIV de FONASA (`lib/Piv/PivReader.php`) tiene el encabezado bloq
 Ese bloqueo rechaza sobre todo un archivo que agrega un RUT o un nombre.
 Las personas sin tramo de edad se cuentan y se informan al importar, pero no se guardan.
 
-**Invariante: el establecimiento es configuración de la instancia** ([ADR-0009](https://github.com/APS-Conecta/gestion/blob/main/docs/adr/0009-the-establishment-is-instance-configuration.md)).
+**Invariante: el establecimiento es configuración de la instancia** (ADR-0009).
 La aplicación lee tres claves de configuración y no tiene un método que las escriba.
 En una instalación con el {doc}`asistente </administracion/instalar-gestion-aio>`, las escribe su paso «Establecimiento en Estadística» desde el centro elegido, aunque no se haya marcado Estadística, para que la encuentre quien la active después; si Nextcloud ya no las tiene, la comparación del final de la instalación vuelve a poner el paso en rojo y «Reintentar» las escribe de nuevo.
-En una instalación de gestion, las escribe la [fase 16 de la provisión](https://github.com/APS-Conecta/gestion/blob/main/provisioning/phases/16-app-policy.sh), y `scripts/divergence.sh` de gestion las compara con el archivo del sitio.
+En una instalación de gestion, las escribe la fase 16 de la provisión, y `scripts/divergence.sh` de gestion las compara con el archivo del sitio.
 Un `deis_code` que no tenga seis dígitos se lee como ausencia de establecimiento, y tanto el paso como la fase 16 se detienen antes de escribir un valor así.
 Ninguna pantalla de la aplicación elige otro establecimiento como propio.
 

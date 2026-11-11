@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Conectar un servidor FTP o FTPS como almacenamiento externo: datos necesarios, restricción de acceso, FTPS y el ajuste de PHP allow_url_fopen."
 ---
 # FTP/FTPS

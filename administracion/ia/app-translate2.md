@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "translate2, traducción automática local: idiomas, requisitos, espacio, instalación, cambio de modelo, clasificación de IA ética y limitaciones."
 ---
 # App: Traducción automática local 2 (translate2)

@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cambios al actualizar a Nextcloud 30: requisitos del sistema, WebP, opciones de config.php, Imaginary, contraseñas de aplicación, monitorización y AppAPI."
 ---
 # Actualización a Nextcloud 30

@@ -2,7 +2,7 @@
 tipo: explicacion
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "La sala de espera de Talk muestra a los invitados una pantalla de espera hasta que empieza la llamada; cuándo se abre y dónde se configura."
 ---
 # Seminario web y sala de espera

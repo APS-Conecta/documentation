@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Comandos occ para gestionar cuentas de usuario, grupos, la autenticación de dos factores y las etiquetas del sistema, con ejemplos y su salida."
 ---
 # Comandos de usuarios y grupos

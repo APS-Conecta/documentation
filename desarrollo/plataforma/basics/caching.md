@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Tipos de caché que ofrece la API (en memoria, local y distribuida), sus ventajas y desventajas, y cómo obtener y usar cada una desde una app."
 ---
 # Caché

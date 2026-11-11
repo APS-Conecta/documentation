@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: administracion
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "La API OCS de user_ldap para crear, leer, modificar y eliminar configuraciones LDAP, con ejemplos curl, salida XML y la tabla de claves."
 ---
 # La API de configuración de LDAP

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Preparar Node.js y npm, compilar componentes Vue, scripts, estilos y plantillas Handlebars del servidor, y confirmar los archivos compilados."
 ---
 # Código de frontend

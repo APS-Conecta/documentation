@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "La aplicación Contactos como directorio del personal: las cuentas del establecimiento, las cuentas por cargo y los datos que no salen del servidor."
 ---
 # Contactos

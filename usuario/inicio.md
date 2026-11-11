@@ -1,7 +1,7 @@
 ---
 tipo: guia
 audiencia: usuario
-apps: [IntraVox, gestion]
+apps: [IntraVox, gestion-aio]
 resumen: "Recorrer Inicio, la portada de la intranet del CESFAM: avisos, noticias, accesos rápidos y las secciones del establecimiento."
 ---
 # Inicio (IntraVox)

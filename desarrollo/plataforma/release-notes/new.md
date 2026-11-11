@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Novedades de la plataforma en esta versión: constructor de consultas tipado, pasos de reparación costosos y espacios de nombres de las apps."
 ---
 (nc-dev-new-apis)=

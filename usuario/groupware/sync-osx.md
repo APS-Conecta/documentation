@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Añadir cuentas CalDAV y CardDAV en Cuentas de Internet de macOS para sincronizar Calendario y Contactos, y qué revisar si falla."
 ---
 # Sincronizar con macOS

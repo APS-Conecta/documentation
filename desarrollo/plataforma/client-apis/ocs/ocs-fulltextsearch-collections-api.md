@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API OCS de colecciones de FullTextSearch: preparar una colección con occ e indexar el contenido en un motor de búsqueda externo."
 ---
 # API OCS de colecciones de FullTextSearch

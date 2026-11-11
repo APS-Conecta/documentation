@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Sincronizar calendario y contactos con la app Calendario de Windows 10 vía CalDAV y CardDAV, y resolver problemas de 2FA y TLSv1.2."
 ---
 # Sincronizar con Windows 10

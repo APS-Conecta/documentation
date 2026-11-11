@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "La carpeta AppData: un sistema de archivos simple y privado por app, cómo inyectar IAppData y los métodos de su raíz, sus carpetas y sus archivos."
 ---
 # AppData

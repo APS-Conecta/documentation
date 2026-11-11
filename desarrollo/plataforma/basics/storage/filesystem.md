@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo acceder al sistema de archivos desde una app con la API de nodos: leer y escribir archivos, almacenamiento directo, backends y puntos de montaje."
 ---
 # API del sistema de archivos de Nextcloud

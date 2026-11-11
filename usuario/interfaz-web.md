@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: usuario
-apps: [gestion, IntraVox]
+apps: [gestion-aio, IntraVox]
 resumen: "Cómo entrar a la plataforma desde el navegador y orientarse en la interfaz web del establecimiento."
 ---
 # Interfaz web

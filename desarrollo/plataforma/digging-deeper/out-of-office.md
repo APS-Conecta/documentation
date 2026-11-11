@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Acceso a los periodos de ausencia de los usuarios desde una app: la interfaz IAvailabilityCoordinator, los eventos emitidos y la estructura IOutOfOfficeData."
 ---
 # Periodos de ausencia

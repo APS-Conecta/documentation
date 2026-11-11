@@ -1,7 +1,7 @@
 ---
 tipo: guia
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Levantar la pila de desarrollo de gestion: sus servicios, la imagen derivada con Xdebug, los permisos de los montajes y el lugar donde corre el humo."
 ---
 # Entorno

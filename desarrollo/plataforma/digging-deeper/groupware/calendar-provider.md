@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo una app registra calendarios propios: ICalendarProvider de solo lectura o con escritura, datos iMIP, acceso CalDAV y las clases heredadas de Sabre."
 ---
 (nc-dev-calendar-providers)=

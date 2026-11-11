@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Elementos de diseño comunes a todas las apps: colores y sus variables por plataforma, tipografía, iconos, nombres de apps y redacción."
 ---
 # Fundamentos

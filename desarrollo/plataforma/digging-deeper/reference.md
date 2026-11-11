@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Proveedores de referencias: mostrar vistas previas de enlaces y el selector inteligente en una app o un cliente, y ampliarlos desde una app."
 ---
 (nc-dev-reference providers)=

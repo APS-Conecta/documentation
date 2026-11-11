@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API AppConfig: valores tipados, sensibles y diferidos, la interfaz de AppFramework y los métodos para guardar, leer y gestionar la configuración de una app."
 ---
 (nc-dev-app config)=

@@ -2,7 +2,7 @@
 tipo: guia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "Cómo obtener la biblioteca android-library para Android y añadirla a un proyecto, como dependencia de Gradle o como submódulo de Git."
 ---
 # Instalación de la biblioteca

@@ -2,7 +2,7 @@
 tipo: referencia
 esqueleto: plataforma
 audiencia: desarrollo
-apps: [gestion]
+apps: [gestion-aio]
 resumen: "API WebDAV de comentarios: el endpoint por objeto y por comentario, los métodos que acepta y un ejemplo de solicitud REPORT con su respuesta."
 ---
 # Comentarios
