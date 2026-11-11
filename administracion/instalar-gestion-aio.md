@@ -1,7 +1,7 @@
 ---
 tipo: guia
 audiencia: administracion
-apps: []
+apps: [gestion-aio]
 resumen: "Instalar la suite en un servidor limpio: el comando único, las cinco pantallas del asistente, el personal, las contraseñas y las copias."
 ---
 # Instalar APS Conecta Gestión (un comando)
@@ -53,7 +53,11 @@ La [IA local](#instalar-gestion-aio-ia-local), opcional, necesita memoria por so
    | «tiene … GB libres en …; se requieren al menos 27 GB» | Falta espacio en la carpeta indicada. |
    | «Docker no está instalado y el instalador solo lo instala en Ubuntu, Debian o un sistema basado en ellos (…)» | El servidor no tiene Docker y su sistema no se basa en Ubuntu ni en Debian. Instalar Docker Engine y volver a ejecutar el comando. |
 
-Si el comando ya se ejecutó en ese servidor, volver a ejecutarlo no reinstala nada. Antes de «Listo», imprime un enlace nuevo al mismo asistente, que conserva lo avanzado. Después de «Listo», imprime la dirección de la suite y la ruta del archivo de contraseñas.
+Si el comando ya se ejecutó en ese servidor, lo que hace depende de la versión que el servidor tiene instalada:
+
+- **La misma versión:** no reinstala nada. Antes de «Listo», imprime un enlace nuevo al mismo asistente, que conserva lo avanzado. Después de «Listo», imprime la dirección de la suite y la ruta del archivo de contraseñas.
+- **Una versión anterior:** detiene la suite y la actualiza a la versión del comando. El asistente se reabre con el progreso hasta «Listo», y se conservan las cuentas como quedaron en «Cuentas», con los administradores de grupo y los permisos de carpetas que se agregaron después de «Listo». Si «Equipos» rechaza la planilla del personal que guardó la versión anterior, descargar la planilla nueva, completarla con el mismo personal, subirla y presionar «Reintentar» en «Revisar».
+- **Una versión más nueva que la del comando:** el comando se detiene sin cambiar nada.
 
 ### 2. Abrir el asistente
 

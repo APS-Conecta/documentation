@@ -82,7 +82,7 @@ El objetivo `generate` del `Makefile` corre los generadores antes de cada compil
 
 ### Compuertas
 
-El flujo `build` corre en cada pull request, en cada push a `main` y a diario después de 📚 Scribe, para que las páginas generadas sigan la rama `main` de cada repositorio. Clona los repositorios de `catalogo.yml` con un token de GitHub App de solo lectura y envuelve cada compuerta en un objetivo de `make`, así que `-W --keep-going` vive en un solo lugar, el `Makefile`:
+El flujo `build` corre en cada pull request, en cada push a `main` y a diario, para que las páginas generadas sigan la rama `main` de cada repositorio. Clona los repositorios de `catalogo.yml` con un token de GitHub App de solo lectura y envuelve cada compuerta en un objetivo de `make`, así que `-W --keep-going` vive en un solo lugar, el `Makefile`:
 
 | Compuerta | Qué prueba |
 | --- | --- |
