@@ -33,11 +33,6 @@ En una instalación de gestion, las escribe la fase 16 de la provisión, y `scri
 Un `deis_code` que no tenga seis dígitos se lee como ausencia de establecimiento, y tanto el paso como la fase 16 se detienen antes de escribir un valor así.
 Ninguna pantalla de la aplicación elige otro establecimiento como propio.
 
-**Invariante: el color y la tipografía son del tema.**
-La aplicación lee solo las variables CSS de Nextcloud y el tema de la suite, el color primario de Theming y las tipografías del `server.css` de gestion-aio ({doc}`/desarrollo/tema`), así que sigue el tema claro y el oscuro.
-`npm run lint-js` falla si un archivo de `src/` escribe un color (hexadecimal, `rgb()`, `hsl()` o un nombre de color en CSS) o una tipografía; ni la geometría SVG ni un comentario cuentan.
-`make test-browser` abre cada vista con el tema claro y con el oscuro, que fija como ajuste de usuario de Theming del administrador.
-
 | Clave | Quién la escribe | Efecto |
 |---|---|---|
 | `deis_code` | El asistente, desde el código DEIS del centro; en gestion, la fase 16, desde `SITE_DEIS` | El establecimiento de la serie local. Sin ella, la aplicación muestra el país y los pares, sin serie local |
@@ -47,6 +42,11 @@ La aplicación lee solo las variables CSS de Nextcloud y el tema de la suite, el
 | `planilla_owner`, `planilla_folder` | La sección de administración, «Planillas del establecimiento» | Quién eligió la carpeta de planillas, y el id de esa carpeta. El trabajo la lee como esa persona |
 
 Las claves `deis_checked_at`, `deis_etags`, `deis_check_errors` y `deis_register` son estado del trabajo en segundo plano, no ajustes.
+
+**Invariante: el color y la tipografía son del tema.**
+La aplicación lee solo las variables CSS de Nextcloud y el tema de la suite, el color primario de Theming y las tipografías del `server.css` de gestion-aio ({doc}`/desarrollo/tema`), así que sigue el tema claro y el oscuro.
+`npm run lint-js` falla si un archivo de `src/` escribe un color (hexadecimal, `rgb()`, `hsl()` o un nombre de color en CSS o en un atributo de color de SVG) o una tipografía; ni la geometría SVG ni un comentario cuentan.
+`make test-browser` abre cada vista con el tema claro y con el oscuro, que fija como ajuste de usuario de Theming del administrador.
 
 La sección **Estadística** de las configuraciones de administración implementa `IDelegatedSettings`: un administrador la delega a cualquier grupo ({doc}`/administracion/servidor/admin-delegation-configuration`).
 El aprovisionamiento de gestion crea el grupo «Encargado/a de Estadística (REM)»; la delegación de la sección la otorga un administrador.
