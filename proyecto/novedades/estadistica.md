@@ -14,6 +14,13 @@ Esta página registra los cambios de estadistica que ve una persona usuaria o ad
 
 | Versión | Fecha | Cambio |
 |---|---|---|
+| 0.4.0 | 2026-11-12 | Estadística usa la navegación de Nextcloud: sus cinco vistas, **Resumen**, **Metas Sanitarias**, **Consultar**, **Preguntas** y **Tableros**, están a la izquierda, y quien administra la plataforma encuentra **Ajustes de Estadística** al pie. |
+| 0.4.0 | 2026-11-12 | El Resumen dice una sola vez hasta qué mes llegan sus cifras, y un recuadro por estado cuenta las metas que lo tienen y, al presionarlo, muestra solo esas. Cada tarjeta muestra su cifra frente a la meta en una barra, su estado con un ícono y una palabra, y los puntos que la separan de la meta o por qué no tiene porcentaje. |
+| 0.4.0 | 2026-11-12 | El título de una tarjeta del Resumen abre su detalle en la barra lateral, en la pestaña **Evolución**: un gráfico con una línea por año comparable, que se lee con el teclado, y su tabla. Su cifra abre la pestaña **Origen**: la ruta del REM y la referencia de la meta. |
+| 0.4.0 | 2026-11-12 | **Metas Sanitarias** muestra cada meta en una fila con su última cifra y su estado; al abrirla aparece su tabla de meses. |
+| 0.4.0 | 2026-11-12 | **Consultar** muestra los cuatro pasos al lado del resultado, y **Buscar una prestación** la encuentra por su código o por parte de su nombre. |
+| 0.4.0 | 2026-11-12 | En **Preguntas** y **Tableros**, las acciones de cada pregunta y de cada tarjeta están en su menú de acciones, y eliminar una pregunta o un tablero pide confirmación en un diálogo. |
+| 0.4.0 | 2026-11-12 | Los gráficos usan los colores del tema de la suite y se leen con el teclado: el establecimiento en el color principal, y el país y los pares en gris, con trazos distintos y una leyenda siempre visible. |
 | 0.3.0 | 2026-11-10 | Estadística abre en el Resumen: una tarjeta por cada meta sanitaria de la resolución más reciente (Res. Exenta 732, metas 2027) para el establecimiento, con su porcentaje, «N de D», «Datos al» y «Cumple» o «No cumple». Una meta sin cifra dice por qué. |
 | 0.3.0 | 2026-11-10 | Cada tarjeta del Resumen abre su histórico: la meta en cada año comparable, en un gráfico con una línea por año y en una tabla. |
 | 0.3.0 | 2026-11-10 | Cada cifra del Resumen y de su histórico abre un panel con su origen: la fecha de corte, la ruta del REM de ese año y la referencia de la meta. |
