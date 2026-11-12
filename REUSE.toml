@@ -1,6 +1,6 @@
 version = 1
 
-# Site prose (+ future capturas/) — CC BY 3.0 per COPYING
+# Site prose and capturas/ — CC BY 3.0 per COPYING
 [[annotations]]
 path = ["index.md", "aviso.md", "usuario/**", "administracion/**", "desarrollo/**", "proyecto/**", "capturas/**"]
 SPDX-License-Identifier = "CC-BY-3.0"

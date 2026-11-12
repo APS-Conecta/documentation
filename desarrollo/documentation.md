@@ -96,13 +96,14 @@ El flujo `build` corre en cada pull request, en cada push a `main` y a diario, p
 
 El flujo `docs` corre `make structure` —la estructura de las páginas: encabezado tipado y esqueleto de secciones— y, mientras el escaneo nativo de secretos de GitHub no esté activado en este repositorio, el barrido `gitleaks` del rango de commits del pull request. El título del pull request, en inglés, es regla de esta página: la sección «Idioma y registro» la fija.
 
-Tres flujos más completan el repositorio: `about-sync` replica los roles de `catalogo.yml` en las descripciones de los repositorios cuando cambia el catálogo, `capturas` toma cada lunes las capturas de las cinco aplicaciones y abre un borrador de pull request solo si cambian, e `ia-check` comprueba cada lunes que ningún modelo ni bot escriba en los repositorios sin estar declarado en `ia.yml`.
+Dos flujos más completan el repositorio: `about-sync` replica los roles de `catalogo.yml` en las descripciones de los repositorios cuando cambia el catálogo, e `ia-check` comprueba cada lunes que ningún modelo ni bot escriba en los repositorios sin estar declarado en `ia.yml`.
+
+Las capturas de pantalla del manual (el inicio de sesión, «Inicio» y los pasos del asistente de instalación) se guardan en `capturas/` y vienen del artefacto `acceptance-screenshots` de la ejecución que publica cada versión de APS Conecta Gestión. La actualización del manual de cada versión las renueva a mano; nada lo automatiza.
 
 ## Compromisos y límites
 
 - **Enlaces que `linkcheck` omite.** Las URL que solo aparecen dentro de bloques tejidos no se comprueban: mantenerlas vivas es tarea del original. Tampoco se comprueban las URL de repositorios privados, las anclas de GitHub, que se arman con JavaScript, ni dos hosts que fallan de forma intermitente desde los runners de GitHub (deis.minsal.cl y gitnet.fr).
 - **Traducción mayoritariamente automática.** Los catálogos oficiales en español cubren cerca del 20 % del texto vigente; el resto lo traduce un flujo con inteligencia artificial, acotado por `upstream-fidelity`.
-- **Capturas comparadas por tamaño.** Dos ejecuciones locales sobre una pila nueva produjeron PNG distintos byte a byte en las cinco aplicaciones por el ruido de tiempo de gráficos y mapas en canvas, así que la compuerta semanal compara por clase de tamaño con un 5 % de tolerancia en lugar de exigir igualdad de bytes.
 - **Solo modo claro.** El tema fija el modo claro; las variables oscuras repiten las claras.
 - **Sin URL canónica.** `html_baseurl` falta a propósito: emitiría etiquetas canónicas con un host externo, que la regla de aislamiento del sitio prohíbe.
 - **La hoja de ruta fuera de CI.** `tools/hoja-de-ruta.sh` usa la sesión de GitHub del responsable, porque el token de CI no alcanza para crear ni actualizar el proyecto de la organización; por eso no es un objetivo de `make` ni corre en CI.

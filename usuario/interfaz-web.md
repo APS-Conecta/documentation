@@ -153,8 +153,8 @@ Los problemas de APS Conecta Gestión, de sus aplicaciones y de su instalación 
 
 APS Conecta Gestión configura la interfaz igual para todo el personal del establecimiento. Las diferencias con la descripción anterior son estas:
 
-- **Pantalla de inicio.** Después de iniciar sesión se abre la pantalla de bienvenida de la intranet (IntraVox), no el **Dashboard**. El icono de casa de la barra superior vuelve a esa pantalla. Si la intranet no está instalada, el inicio vuelve al **Dashboard**.
-- **Nombre del centro.** La barra superior y la página de inicio de sesión muestran el nombre corto del establecimiento junto a la marca de APS Conecta.
+- **Pantalla de inicio.** Después de iniciar sesión se abre «Inicio», la pantalla de bienvenida de la intranet (IntraVox). El logotipo de la barra superior vuelve a esa pantalla. Si la intranet no está instalada, se abre **Archivos**.
+- **Nombre del centro.** La barra superior y la página de inicio de sesión muestran el nombre corto del establecimiento junto a la marca de APS Conecta. En la pantalla de un teléfono, la barra superior muestra solo el logotipo.
 - **Idioma.** La interfaz está siempre en español, con fechas y números en el formato de Chile. El idioma del navegador no la cambia.
 - **Apariencia.** La suite fija el tema claro con los colores de APS Conecta. El tema oscuro, el de alto contraste y los fondos o colores personales que describe la sección «Acceso universal» no están disponibles.
 - **Aplicaciones.** El conjunto de aplicaciones es fijo y la tienda de aplicaciones está desactivada: ninguna aplicación se agrega desde la interfaz.
@@ -166,3 +166,15 @@ Para entrar por primera vez:
 2. Escribir el nombre de cuenta y la contraseña inicial entregados.
 3. Iniciar sesión.
 4. Leer la pantalla de bienvenida de la intranet, que se abre sola.
+
+:::{figure} ../capturas/inicio-de-sesion.png
+:alt: Página de inicio de sesión de APS Conecta Gestión: los campos de cuenta y contraseña, «Iniciar sesión» y «¿Contraseña olvidada?».
+
+La página de inicio de sesión, con el nombre corto del establecimiento sobre el formulario y el lema de la suite al pie.
+:::
+
+:::{figure} ../capturas/inicio.png
+:alt: «Inicio», la pantalla de bienvenida de la intranet, con el nombre corto del establecimiento en la barra superior, el botón «Editar página» y cuatro accesos: «Las carpetas del establecimiento», «La agenda del equipo», «Teléfonos y correos» y «Mensajes y videollamadas».
+
+«Inicio», la pantalla que se abre después de iniciar sesión.
+:::
