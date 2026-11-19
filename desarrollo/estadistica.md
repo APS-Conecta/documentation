@@ -83,21 +83,6 @@ El contrato es `openapi.json`, que un script del repositorio genera desde el con
 | `indicadores` | GET, con `anio`, `pares` y `establecimiento` opcionales | 200: las metas del año, mes a mes, y en `fecha_corte_local` el último mes que el establecimiento informó en cada serie · 400 · 404: no hay metas para ese año · 422 |
 | `resumen` | GET, con `establecimiento` opcional | 200: una tarjeta por meta de las metas más nuevas · 400: un código DEIS que no tiene seis dígitos · 404: no hay metas cargadas · 422 |
 
-**La marca de IA.** Cada operación que la IA de la suite puede llamar lleva en `openapi.json` la extensión `x-aps-ai`, con el valor `read` o `write`, y el conector de la suite solo construye herramientas desde las operaciones marcadas.
-La declara el atributo `#[AiOperation('read')]` o `#[AiOperation('write')]` del método de `ApiController`, y el script que genera `openapi.json` la escribe.
-
-| Marca | Operaciones |
-|---|---|
-| `read` | `GET fuentes`, `GET fuentes/{id}`, `POST consultas`, `GET preguntas`, `GET preguntas/{id}`, `GET tableros`, `GET tableros/{id}`, `GET indicadores` y `GET resumen` |
-| `write` | `POST preguntas`, `PUT preguntas/{id}`, `POST tableros` y `PUT tableros/{id}` |
-
-Ningún `DELETE` ni ninguna ruta de administración lleva la marca, y la prueba de contrato de la API falla si una la lleva o si a una operación de esta tabla le falta.
-
-El [conector de la suite](https://github.com/APS-Conecta/nextcloud-mcp-connector) lleva una copia de este `openapi.json`, porque la aplicación no lo publica, y con ella construye estas herramientas al arrancar.
-Cada operación marcada es una herramienta: su nombre es `estadistica_` seguido del `operationId` con guiones bajos (`estadistica_api_resumen`), y su descripción es el `summary` de la operación.
-Cada herramienta, con su descripción y sus parámetros, cabe en 1400 bytes: el detalle va en la `description` de la operación, que el conector no copia.
-Una operación recién marcada llega a la IA cuando se actualiza esa copia en el conector, sin cambiar su código.
-
 **La especificación de consulta.** `POST consultas` recibe `{consulta, establecimiento?}`.
 Una consulta es un documento JSON con claves en español, y `QuerySpec::from()` es su único lector.
 Rechaza en español, con un 422 y antes de que exista SQL, toda clave, columna, dimensión o métrica que no conoce.
