@@ -33,6 +33,9 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- The «Estándares de código» page under `desarrollo/` (#292): the org's twelve coding
+  rules, the one source the review's Standards axis cites; it links «Calidad» for the gates.
+  «Idioma y registro» now lists issue titles and bodies among the English texts.
 - Catalogue rows for the fork apps (`side_menu`, `eurooffice`) and `totem`
   (instalador #51): the forks publish from their own repos; totem rides instalador #41 — an
   optional wizard app, off by default, first signed release v0.3.0 — with `desarrollo/` and

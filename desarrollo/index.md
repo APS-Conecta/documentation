@@ -16,6 +16,7 @@ Entorno <entorno>
 Desarrollo de aplicaciones <desarrollo-de-aplicaciones>
 Tema <tema>
 Calidad <calidad>
+Estándares de código <estandares-de-codigo>
 Licencias <licencias>
 gestion-aio <gestion-aio>
 gestion <gestion>
