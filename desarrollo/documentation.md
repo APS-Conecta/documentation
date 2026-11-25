@@ -30,8 +30,8 @@ Cada página declara en su encabezado `tipo`, `audiencia`, `apps` y `resumen`, y
 
 La organización escribe en español lo que su personal lee y en inglés lo que solo una máquina o quien desarrolla lee. Un solo reparto, sin lista de repositorios:
 
-- **En español:** este sitio; el `README` de cada repositorio —los forks usan `.github/README.md`, con enlaces absolutos—; los archivos comunitarios de `.github`; los títulos de las incidencias; y lo que el producto muestra a una persona: interfaz, mensajes y archivos sembrados. Los manuales viven solo en este sitio.
-- **En inglés:** el código, los identificadores, los comentarios, los commits y los títulos de pull request —en inglés y con Conventional Commits—; `AGENTS.md`, `CLAUDE.md`, `CONTEXT.md` y `docs/agents`; los `README` de carpeta; los ADR; los modelos de amenazas; y el registro de cambios.
+- **En español:** este sitio; el `README` de cada repositorio —los forks usan `.github/README.md`, con enlaces absolutos—; los archivos comunitarios de `.github`; y lo que el producto muestra a una persona: interfaz, mensajes y archivos sembrados. Los manuales viven solo en este sitio.
+- **En inglés:** el código, los identificadores, los comentarios, los commits y los títulos de pull request —en inglés y con Conventional Commits—; los títulos y el cuerpo de las incidencias; `AGENTS.md`, `CLAUDE.md`, `CONTEXT.md` y `docs/agents`; los `README` de carpeta; los ADR; los modelos de amenazas; y el registro de cambios.
 - **Quedan como están:** el texto de upstream, el `readme.md` del instalador, los anclajes de encabezados ya publicados y la historia fechada. Los ADR existentes y las entradas de registro de cambios pasadas no se traducen.
 
 El registro es formal y directo: «usted» o impersonal, pasos en infinitivo, hechos verificados en afirmativo. El por qué es simple: quien lee este sitio y sus manuales es personal de salud que lee español.
