@@ -20,7 +20,7 @@ Esta página reúne las reglas de código de todos los repositorios de la organi
 | 4 | DRY: una regla se escribe una sola vez; se reutiliza la función auxiliar existente, nunca una copia paralela. |
 | 5 | SOLID: un solo motivo de cambio por módulo; se depende de las interfaces que ofrece {vendor}`Nextcloud`. |
 | 6 | Los nombres dicen lo que una cosa hace o contiene, con las palabras del glosario. |
-| 7 | Prueba primero, en la costura de prueba acordada del repositorio: se afirma el comportamiento, no los detalles internos; los valores esperados vienen de una fuente independiente; la corrección de un error empieza con una prueba que lo reproduce. |
+| 7 | Primero la prueba, en la costura de prueba acordada del repositorio: se afirma el comportamiento, no los detalles internos; los valores esperados vienen de una fuente independiente; la corrección de un error empieza con una prueba que lo reproduce. |
 | 8 | Solo componentes `Nc*` y variables del tema. |
 | 9 | Ni secretos ni texto de documentos en los registros. |
 | 10 | Los archivos generados (archivos de bloqueo, especificaciones OpenAPI) nunca se editan a mano. |
