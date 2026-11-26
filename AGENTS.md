@@ -6,6 +6,9 @@ term-check rebrand-check linkcheck check-site` — plus `make structure` (the `d
 run the gate with that `APS_ORG_ROOT`, `SUITE_SRC=$APS_ORG_ROOT/gestion-aio` and `gh`
 authenticated. A step you could not run is named in the pull request.
 
+- **Standards:** the org's code rules are the site's [«Estándares de código»](desarrollo/estandares-de-codigo.md) page.
+- **Seams:** a test lives at the site's own gates, `build` and `docs`: a change is proven by the check that would fail without it. A pull request names the seam its test lives at; a test at any other seam is a review finding.
+
 ## Commits
 
 - Commits and pull request titles: English Conventional Commits, as `desarrollo/documentation.md` («Idioma y registro») sets.
