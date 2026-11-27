@@ -202,7 +202,7 @@ Cada (año, serie) tiene una fila de estado (`IngestState`) con dos mitades: la 
 | Fallido | `lastError` con la frase del rechazo, o con la de error interno | Un rechazo del archivo, o un error propio | Se revierte, y la carga anterior sigue sirviendo |
 | Olvidado | La fila ya no existe | El año quedó fuera de la ventana | La ETag y el archivo dejado se borran primero; las filas, el estado y las etiquetas, al final y en una transacción |
 
-`Completeness` marca un miembro como incompleto por cuatro causas: una última fila cortada, filas ilegibles, filas de otro año, o un servicio de salud cuyos establecimientos informantes cayeron bajo el 75 % del año completo más cercano.
+`Completeness` marca un miembro como incompleto por cuatro causas: una última fila cortada, filas ilegibles, filas de otro año, o un servicio de salud cuyos establecimientos informantes, de enero al último mes del miembro, cayeron bajo el 75 % de los mismos meses del año completo más cercano.
 
 **La revisión diaria.** Cuando no hay nada en cola y pasó un día, envía un HEAD condicional por cada año de la ventana.
 Por cada año que cambió, lee el directorio central del zip y pone en cola cada miembro de Serie A o P cuyo CRC-32 o tamaño difiere del último juzgado.
@@ -312,7 +312,6 @@ Las cifras, el estado de carga, las etiquetas, el registro de establecimientos, 
 - **Nota sin cifras.** La validación cubre los números escritos con dígitos y el conjunto cerrado `Nota::NUMBER_WORDS`: una afirmación sin números, o con un número escrito con una palabra fuera de ese conjunto («un», «una», «uno», «cero», «medio», «cuarto», «miles»), pasa sin revisar. La etiqueta dice que la escribió un modelo.
 - **Etiquetas prestadas (B-031).** Un año toma etiquetas solo de un diccionario posterior; el diccionario 2026 dejó fuera dos códigos que 2023–2025 sí etiquetan, y quedan «sin descripción».
 - **Consultas nacionales pesadas (B-032).** Una consulta nacional sobre toda la ventana que suma una hoja entera se cancela a los 10 s con sus 50 columnas. Los únicos índices son la clave primaria y `(estab, anio)`, sobre 27,3 millones de filas.
-- **Incompleto a comienzo de año (B-020).** El año en curso puede marcarse «incompleto» temprano en el año, porque `Completeness` compara cada servicio con el año completo más cercano, entero.
 - **Deuda de la plantilla (B-015 a B-019).** Pasar `@nextcloud/webpack-vue-config` a su versión 7, los 404 de `.htaccess`, un `composer.phar` sin versión fija ni verificación, la prueba de navegador fuera de CI y el valor por defecto de `APS` en un worktree se corrigen primero en farmacia y luego aquí: el clon no sigue a la plantilla por sí solo.
 - **Pruebas fuera de CI.** Ningún trabajo de CI corre la suite de integración contra PostgreSQL ni la prueba de navegador.
 - **Interfaz (B-012, B-013).** En un teléfono, la grilla de población escrita a mano es más ancha que su sección. Cada vista carga su código la primera vez que se abre, así que el paquete principal, con la navegación de Nextcloud, pesa 603.043 bytes frente a un presupuesto de 720.000; cada bloque `<style>` todavía lleva su archivo `.vue` entero, en base64, dentro de su paquete.

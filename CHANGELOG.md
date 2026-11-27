@@ -58,6 +58,11 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
   (storage-folder rename, walls) and `ARCHITECTURE.md` access model merged into `licencias`,
   `intravox` and `usuarios-y-grupos`.
 
+### Fixed
+
+- `desarrollo/estadistica` (#297): `Completeness` compares a servicio with the same months of
+  the nearest complete year (estadistica#24).
+
 ### Changed
 
 - The tooling reads the suite repo (`instalador`) instead of the old gestion: `fetch-brand.sh`,
