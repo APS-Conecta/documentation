@@ -62,6 +62,8 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 - `desarrollo/estadistica` (#297): `Completeness` compares a servicio with the same months of
   the nearest complete year (estadistica#24).
+- `desarrollo/estadistica` (#298): a código its year's dictionary lacks takes the nearest later
+  year's label, else the nearest earlier year's, marked «etiqueta de <año>» (estadistica#26).
 
 ### Changed
 
