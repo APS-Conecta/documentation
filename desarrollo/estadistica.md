@@ -101,6 +101,7 @@ Por cada serie y mes que cubre una planilla del establecimiento, su serie local 
 Las páginas de la aplicación nunca lo envían.
 
 La respuesta es `{series: {local, nacional, pares}, etiquetas: {local, pares, codigos}, fuente}`.
+`etiquetas.codigos` etiqueta cada código con el diccionario de su año; un código que ese diccionario no trae (todos, en un año sin diccionario legible) toma la etiqueta del año posterior más cercano, si no la del anterior más cercano, con la nota «etiqueta de <año>», y un código que ningún diccionario nombra queda «sin descripción».
 Cada serie es una lista de `{grupo, valor, informantes}`, y `grupo` trae los valores del grupo en el orden de `agrupar`.
 Este contrato solo se extiende y nunca cambia de forma: una clave solo se agrega, nunca se renombra, y una clave desconocida sigue siendo un 422.
 Así, una especificación válida nunca cambia de significado.
@@ -310,7 +311,6 @@ Las cifras, el estado de carga, las etiquetas, el registro de establecimientos, 
 - **Fecha de corte (B-030).** La serie local de una meta de Serie A termina en el último mes con una cifra escrita del propio establecimiento. La fecha de corte de la fuente, que acota las columnas Nacional y Pares, es el mes más alto de cualquier fila: en el extracto 2026, un solo establecimiento informó septiembre.
 - **Planilla de un año sin diccionario.** Una planilla se lee con el diccionario de su año, y el DEIS lo publica solo dentro del primer zip de ese año, con las cifras de enero, tres a cuatro semanas después del cierre de enero. Hasta entonces, una planilla del año nuevo se rechaza con `No hay diccionario de <año> de la Serie <serie> con el cual leer la planilla.` Cuando el diccionario se carga, la siguiente ejecución de `RemJob` vuelve a leer todas las planillas, también las rechazadas, y el Resumen, que ya tiene las cifras de enero del DEIS, pasa al año nuevo.
 - **Nota sin cifras.** La validación cubre los números escritos con dígitos y el conjunto cerrado `Nota::NUMBER_WORDS`: una afirmación sin números, o con un número escrito con una palabra fuera de ese conjunto («un», «una», «uno», «cero», «medio», «cuarto», «miles»), pasa sin revisar. La etiqueta dice que la escribió un modelo.
-- **Etiquetas prestadas (B-031).** Un año toma etiquetas solo de un diccionario posterior; el diccionario 2026 dejó fuera dos códigos que 2023–2025 sí etiquetan, y quedan «sin descripción».
 - **Consultas nacionales pesadas (B-032).** Una consulta nacional sobre toda la ventana que suma una hoja entera se cancela a los 10 s con sus 50 columnas. Los únicos índices son la clave primaria y `(estab, anio)`, sobre 27,3 millones de filas.
 - **Deuda de la plantilla (B-015 a B-019).** Pasar `@nextcloud/webpack-vue-config` a su versión 7, los 404 de `.htaccess`, un `composer.phar` sin versión fija ni verificación, la prueba de navegador fuera de CI y el valor por defecto de `APS` en un worktree se corrigen primero en farmacia y luego aquí: el clon no sigue a la plantilla por sí solo.
 - **Pruebas fuera de CI.** Ningún trabajo de CI corre la suite de integración contra PostgreSQL ni la prueba de navegador.
