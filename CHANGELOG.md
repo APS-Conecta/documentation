@@ -66,6 +66,9 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
   year's label, else the nearest earlier year's, marked «etiqueta de <año>» (estadistica#26).
 - `desarrollo/estadistica` (#299): the known limitations list only B-012 under «Interfaz», since
   estadistica's production build ships no CSS source maps (estadistica#23).
+- `desarrollo/estadistica` (#300): the template debt lists only B-016, the `.htaccess` 403s, and
+  the browser check leaves «Pruebas fuera de CI», since estadistica's main delivers B-015, B-017,
+  B-018 and B-019 (estadistica#104–#107).
 
 ### Changed
 
