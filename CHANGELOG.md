@@ -69,6 +69,8 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 - `desarrollo/estadistica` (#300): the template debt lists only B-016, the `.htaccess` 403s, and
   the browser check leaves «Pruebas fuera de CI», since estadistica's main delivers B-015, B-017,
   B-018 and B-019 (estadistica#104–#107).
+- `desarrollo/estadistica` (#302): B-032 narrows to a national whole-hoja consulta grouped by
+  columna, and the snapshot transaction also sets JIT off (estadistica#27).
 
 ### Changed
 
