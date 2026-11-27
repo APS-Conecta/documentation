@@ -64,6 +64,8 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
   the nearest complete year (estadistica#24).
 - `desarrollo/estadistica` (#298): a código its year's dictionary lacks takes the nearest later
   year's label, else the nearest earlier year's, marked «etiqueta de <año>» (estadistica#26).
+- `desarrollo/estadistica` (#299): the known limitations list only B-012 under «Interfaz», since
+  estadistica's production build ships no CSS source maps (estadistica#23).
 
 ### Changed
 
