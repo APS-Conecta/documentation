@@ -60,6 +60,9 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
   replacing the retired gestion tarballs as the source `upstream-fidelity` swaps labels against.
   A roster repo that pushes a broken `l10n/es.json` degrades to a stderr note instead of
   failing the build (IntraVox and estadistica did, mid-run).
+- `usuario/estadistica` (#313): «Direcciones y enlaces» names each view's address, that a reload
+  keeps it and Back steps between views, the Metas year in the address, «Copiar enlace» on a
+  tablero, and what a dead link shows (estadistica#131, estadistica#132).
 - OSM-only basemap pages: `administracion/mapas-base` and its dependents describe the
   OpenStreetMap tile service directly and the retired PMTiles file (redo of the closed #190).
 - gestion's `LICENSING.md` §3.2/§3.4 (OFL fonts, Geoportal coordinates), `WELCOME-SCREEN.md`
