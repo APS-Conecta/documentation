@@ -99,7 +99,7 @@ El flujo `docs` corre `make structure` —la estructura de las páginas: encabez
 
 Dos flujos más completan el repositorio: `about-sync` replica los roles de `catalogo.yml` en las descripciones de los repositorios cuando cambia el catálogo, e `ia-check` comprueba cada lunes que ningún modelo ni bot escriba en los repositorios sin estar declarado en `ia.yml`.
 
-Las capturas de pantalla del manual (el inicio de sesión, «Inicio» y los pasos del asistente de instalación) se guardan en `capturas/` y vienen del artefacto `acceptance-screenshots` de la ejecución que publica cada versión de APS Conecta Gestión. La actualización del manual de cada versión las renueva a mano; nada lo automatiza.
+Las capturas de pantalla del manual (el inicio de sesión, «Inicio» y los pasos del asistente de instalación) se guardan en `capturas/` y vienen del artefacto `acceptance-screenshots` de la ejecución que publica cada versión de APS Conecta Gestión. La actualización del manual de cada versión las renueva a mano; nada lo automatiza. Las capturas de «IA» (`capturas/ia-*.png`) vienen de la instancia desechable de desarrollo del repositorio ia, con su `main` y datos de ejemplo, porque la suite todavía no la instala.
 
 ## Compromisos y límites
 

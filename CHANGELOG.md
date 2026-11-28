@@ -33,6 +33,12 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- The «IA» pages (#289): `usuario/ia.md` for staff and Editors («Para ti», Reviews from «IA» and
+  from Files, Bulletins and their Editions, Automatic actions, «Documentos») and
+  `administracion/ia/ia.md` for admins (what «IA» needs from the server and the Model, Editor
+  groups, Off hours, delegation, «Estado» with «Reintentar», the Flow rule), with screenshots of
+  `APS-Conecta/ia`'s `main` on its throwaway instance; the catalogue lists `ia` as an unreleased app
+  with its `desarrollo/ia.md` hub.
 - The «Marca» page under `desarrollo/` (#287): the brand manual's rules, next to «Tema»; its
   palette table is generated from gestion-aio's brand token file (`tools/gen-marca.py`).
 - The «Estándares de código» page under `desarrollo/` (#292): the org's twelve coding
