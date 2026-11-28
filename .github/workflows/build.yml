@@ -71,6 +71,8 @@ jobs:
           SUITE_SRC: ${{ runner.temp }}/org/gestion-aio  # fetch-brand.sh resolution branch 1
         run: make html
       - name: Unit tests (tools/tests)
+        env:
+          APS_ORG_ROOT: ${{ runner.temp }}/org         # test_tema.py reads the files «Tema» links
         run: make test
       - name: Upstream fidelity (every woven block says what its source says)
         env:

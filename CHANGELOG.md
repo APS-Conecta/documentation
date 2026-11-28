@@ -62,6 +62,11 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+- «Tema» (#288) describes gestion-aio's theme as it is built: the brand token file, the variable
+  map (linked), the theme step, the legacy screens, the guards, how to change a colour and the
+  measured rules. `tools/tests/test_tema.py`, which the unit-test step runs with `APS_ORG_ROOT`,
+  holds it to gestion-aio: each file it names links to its repository's `main` and is in the
+  roster checkout, and each other name it writes in code is in a file it links.
 - The site's stylesheet and Furo variables (#287) take every brand colour and font from the
   brand token file the brand fetch serves at `_static/brand/`, with the fonts beside it under the
   suite's file names; the off-palette `#d0c4e8`, `#f7f5fb` and `#e06f00` take the nearest roles,
