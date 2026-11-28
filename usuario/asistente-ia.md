@@ -57,4 +57,4 @@ Cualquier resultado generado mediante el selector inteligente se puede insertar 
 
 ## En APS Conecta Gestión
 
-APS Conecta Gestión no incluye el Asistente ni otras funciones de inteligencia artificial. La suite instala un conjunto fijo de aplicaciones y deja desactivada la tienda de aplicaciones: el Asistente no aparece en el menú y no se puede agregar desde la interfaz.
+APS Conecta Gestión no incluye el Asistente ni otras funciones de inteligencia artificial. La suite instala un conjunto fijo de aplicaciones y deja desactivada la tienda de aplicaciones: el Asistente no aparece en el menú y no se puede agregar desde la interfaz. Para revisar documentos y leer boletines con el modelo local está {doc}`ia`, que no es un chat y que la suite todavía no instala.

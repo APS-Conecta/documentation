@@ -49,6 +49,15 @@ repos:
       - desarrollo/buscador-documental.md
     depends_on: [gestion-aio]
     status: "Construida — fuera de la suite"
+  - repo: ia
+    kind: app-in-design
+    role: "«IA»: revisa documentos y escribe boletines con el modelo local de la suite, junto al Asistente de Nextcloud."
+    manuals:
+      - usuario/ia.md
+      - administracion/ia/ia.md
+      - desarrollo/ia.md
+    depends_on: [gestion-aio]
+    status: "En construcción — fuera de la suite"
   - repo: totem
     kind: nextcloud-app
     role: "Turnos de atención para CESFAM, CECOSF y SAPU: la persona retira su número en el tótem, la pantalla de sala lo anuncia con voz en español y la ventanilla avanza la fila."
