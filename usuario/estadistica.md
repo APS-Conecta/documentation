@@ -192,7 +192,7 @@ Quien creó el tablero, y quien administra Estadística, pueden **Cambiar el tí
 La vista muestra las Metas Sanitarias del año (Ley 19.813), una fila por meta, que se abre en su tabla mes a mes.
 
 1. Abrir **Metas Sanitarias** en la navegación.
-2. Elegir el año en **Año**, cuando hay metas cargadas de más de un año. La vista parte en el año en curso, y las metas 2027 se eligen ahí.
+2. Elegir el año en **Año**, cuando hay metas cargadas de más de un año. La vista parte en el año en curso, o en el que nombra su dirección, y las metas 2027 se eligen ahí.
 3. Marcar, bajo «Pares: los establecimientos que comparten con el suyo», los rasgos que deben compartir los pares.
 
 Los pares se eligen solo cuando la instalación tiene su establecimiento configurado, y la vista parte con **Tipo de establecimiento** marcado.
@@ -229,6 +229,34 @@ Para leer la tabla:
 - La aplicación no calcula un cumplimiento global: el oficial es el de la SEREMI.
 - Las cifras **Nacional** y **Pares** suman a todos los establecimientos que informaron: es el mismo cálculo para todos, no la evaluación de la SEREMI.
 - Sin establecimiento configurado, la tabla no trae las columnas propias.
+
+### Direcciones y enlaces
+
+Cada vista tiene su dirección, que se agrega a la de Estadística, como `…/apps/estadistica/#/tableros/12`:
+
+| Dirección | Abre |
+|---|---|
+| `#/resumen` | El **Resumen** |
+| `#/metas/<año>` | **Metas Sanitarias** de ese año, como `#/metas/2027` |
+| `#/consultar` | **Consultar** |
+| `#/preguntas` | **Preguntas** |
+| `#/tableros` | **Tableros**, sin un tablero abierto |
+| `#/tableros/<número>` | Ese tablero, como `#/tableros/12` |
+
+- Elegir una vista en la navegación, o un tablero en **Tablero**, cambia la dirección. Recargar la página mantiene la vista abierta, el botón Atrás del navegador vuelve a la vista o al tablero anterior, y Adelante rehace ese paso.
+- Cambiar el **Año** en **Metas Sanitarias** cambia la dirección sin agregar un paso: Atrás sale de **Metas Sanitarias** en vez de recorrer los años.
+- El botón **Ver las Metas Sanitarias 2026** del Resumen abre `#/metas/2026`.
+- Una dirección a un año sin Metas Sanitarias abre el año más reciente que las tiene, con el aviso «No hay Metas Sanitarias de <año>.», con el año pedido.
+- Una dirección a un tablero eliminado, o a un número que no existe, muestra «Este tablero ya no existe» y «Elija otro tablero de la lista.» sobre la lista de tableros, y la dirección pasa a `#/tableros`.
+- Una dirección que la aplicación no conoce abre el **Resumen**, y la dirección pasa a `#/resumen`.
+
+Para enviar un tablero a otra persona del personal:
+
+1. Abrir el tablero en **Tableros**.
+2. Abrir el menú de acciones del tablero, al lado de su autor.
+3. Presionar **Copiar enlace**. Copia la dirección completa del tablero, y un aviso dice «Enlace copiado.».
+
+Si el navegador no deja copiar, el aviso dice «No se pudo copiar el enlace.»; la dirección del navegador es la misma y se copia a mano.
 
 ### Administrar Estadística
 
@@ -330,6 +358,7 @@ Cada octubre, cuando el Ministerio publica las Orientaciones Técnicas del año 
 - La consulta muestra la línea «Fuente: …» y, bajo el gráfico, la tabla con las mismas cifras.
 - Al guardar una pregunta, un aviso dice que «quedó guardada en Preguntas», y la pregunta aparece en **Preguntas** con su autor y la fecha de hoy.
 - Estadística se abre en **Resumen**, marcada en la navegación, con una tarjeta por meta.
+- La dirección del navegador nombra la vista abierta, y recargar la página la mantiene.
 - La vista **Metas Sanitarias** muestra una fila por meta, con su última cifra y su estado, y cada fila se abre en su tabla mes a mes.
 - Tras cargar un archivo a mano, la tabla **Cifras REM cargadas** o la sección correspondiente de **Administración → Estadística** muestra lo cargado, o dice por qué se rechazó.
 
@@ -345,6 +374,8 @@ Cada octubre, cuando el Ministerio publica las Orientaciones Técnicas del año 
 | «Sin porcentaje: esperando ruta oficial» | Las Orientaciones Técnicas del año todavía no confirman la ruta REM de esa meta | Esperar la versión de las metas que la confirma |
 | «Sin meta mínima 2027: no hay cierre comparable de 2025» | Ese año no tiene cifra de diciembre del establecimiento, o no es comparable | Abrir la pestaña **Evolución** desde el título de la tarjeta y revisar qué le falta a ese año |
 | «Todavía no hay Metas Sanitarias cargadas» | No hay metas cargadas hasta el año en curso | Avisar a quien administra Estadística, que las carga como un archivo en «Cargar un archivo a mano» |
+| «Este tablero ya no existe» | La dirección lleva a un tablero eliminado o a un número que no existe | Elegir otro tablero de la lista, o pedir el enlace de nuevo a quien lo envió |
+| «No hay Metas Sanitarias de <año>.» | La dirección pide un año sin metas cargadas | Nada: la vista muestra el año más reciente que las tiene |
 | «La consulta se canceló antes de terminar» | La consulta superó el límite de 10 s | Acotar el periodo, las prestaciones o la comparación |
 | «No se encuentra la carpeta de planillas elegida» | La carpeta se borró, o quien la eligió ya no tiene acceso a ella | Elegir otra carpeta en «Planillas del establecimiento» |
 | Un mensaje de error rojo | Dice qué falló | Si pide recargar la página y el problema sigue, avisar a quien administra Estadística |
