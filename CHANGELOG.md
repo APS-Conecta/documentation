@@ -33,6 +33,8 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- The «Marca» page under `desarrollo/` (#287): the brand manual's rules, next to «Tema»; its
+  palette table is generated from gestion-aio's brand token file (`tools/gen-marca.py`).
 - The «Estándares de código» page under `desarrollo/` (#292): the org's twelve coding
   rules, the one source the review's Standards axis cites; it links «Calidad» for the gates.
   «Idioma y registro» now lists issue titles and bodies among the English texts.
@@ -60,6 +62,10 @@ Versioning: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+- The site's stylesheet and Furo variables (#287) take every brand colour and font from the
+  brand token file the brand fetch serves at `_static/brand/`, with the fonts beside it under the
+  suite's file names; the off-palette `#d0c4e8`, `#f7f5fb` and `#e06f00` take the nearest roles,
+  violet-tint-hover, violet-wash and warning.
 - `desarrollo/estadistica` (#297): `Completeness` compares a servicio with the same months of
   the nearest complete year (estadistica#24).
 - `desarrollo/estadistica` (#298): a código its year's dictionary lacks takes the nearest later

@@ -76,8 +76,8 @@ components:
   - {name: Nextcloud All-in-One (gestion-aio), kind: fork, id: gestion-aio, upstream: "https://github.com/nextcloud/all-in-one", fork: "https://github.com/APS-Conecta/gestion-aio", licence: AGPL-3.0-only, changes: "Asistente en español de Chile con la marca y el nombre del producto, Euro-Office como única suite ofimática, tienda de aplicaciones cerrada que abre solo para sus comandos acotados, autoactualización y contenedores comunitarios desactivados, aplicaciones desde sus publicaciones firmadas y solo el tema en la imagen, imágenes propias en el registro, valores por defecto de APS, certificado del instalador y base de datos única con pgvector."}
 
   # ---- Recursos del tema
-  - {name: Tipografía Fraunces, kind: asset, id: aps/brand, upstream: "https://github.com/undercasetype/Fraunces", licence: OFL-1.1, changes: "Servida en WOFF2; un subconjunto va incrustado en los logotipos SVG (versión modificada según la OFL, sin los nombres reservados)."}
-  - {name: Tipografía Nunito Sans, kind: asset, id: aps/brand, upstream: "https://github.com/googlefonts/NunitoSans", licence: OFL-1.1, changes: "Servida en WOFF2; un subconjunto va incrustado en los logotipos SVG (versión modificada según la OFL, sin los nombres reservados)."}
+  - {name: Tipografía Fraunces, kind: asset, id: aps/brand, upstream: "https://github.com/undercasetype/Fraunces", licence: OFL-1.1, changes: "Servida en WOFF2."}
+  - {name: Tipografía Nunito Sans, kind: asset, id: aps/brand, upstream: "https://github.com/googlefonts/NunitoSans", licence: OFL-1.1, changes: "Servida en WOFF2."}
   - {name: Leaflet, kind: asset, id: aps/provisionador/www/leaflet.js, upstream: "https://github.com/Leaflet/Leaflet", licence: BSD-2-Clause, version: "1.9.4"}
 
   # ---- Datos

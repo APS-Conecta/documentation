@@ -15,6 +15,7 @@ Introducción al desarrollo sobre la suite para la organización. El desarrollo 
 Entorno <entorno>
 Desarrollo de aplicaciones <desarrollo-de-aplicaciones>
 Tema <tema>
+Marca <marca>
 Calidad <calidad>
 Estándares de código <estandares-de-codigo>
 Licencias <licencias>

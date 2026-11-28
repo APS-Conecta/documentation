@@ -25,7 +25,6 @@ APS Conecta Gestión utiliza Nextcloud 34 y conserva su núcleo oficial. La suit
 |---|---|---|
 | Nextcloud All-in-One (gestion-aio) | Fork propio de Nextcloud All-in-One; su declaración enumera los cambios | `APS-Conecta/gestion-aio`, `aps/keep-list.txt` |
 | IntraVox (portada de la intranet, «Inicio») | Fork con funciones locales | `APS-Conecta/IntraVox`, ADR-0001 del fork |
-| Tipografías Fraunces y Nunito Sans | Un subconjunto de cada una va incrustado en los logotipos SVG, una versión modificada que la OFL permite | `themes/apsconecta/core/` de gestion |
 
 La tabla de componentes, al final de esta sección, lista cada componente de terceros que la suite distribuye en cada compilación del sitio y describe qué cambia en cada uno.
 

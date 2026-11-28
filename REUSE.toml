@@ -10,7 +10,7 @@ SPDX-License-Identifier = "CC-BY-3.0"
 path = ["conf.py", "Makefile", "tools/**", "_templates/**"]
 SPDX-License-Identifier = "AGPL-3.0-or-later"
 
-# Brand mapping (palette + @font-face redeclarations) — reserved
+# Brand mapping (the token file's roles on Furo and Pagefind) — reserved
 [[annotations]]
 path = ["_static/css/aps-brand.css"]
 SPDX-License-Identifier = "LicenseRef-APS-Conecta-Reservado"

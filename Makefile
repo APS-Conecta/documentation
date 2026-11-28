@@ -31,6 +31,7 @@ generate:
 	python3 tools/gen-glosario.py
 	python3 tools/gen-componentes.py
 	python3 tools/gen-ia.py
+	python3 tools/gen-marca.py
 
 # Cada bloque tejido dice lo que dice su fuente upstream (estructura, código, enlaces, texto oficial).
 fidelity: upstream
