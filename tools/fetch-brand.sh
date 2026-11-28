@@ -8,16 +8,18 @@
 #      else git. Credentials arrive ambient (gh reads GH_TOKEN itself, git its
 #      own configuration); never on the URL, never on argv.
 #
-# The 5-asset set comes from the suite's theme: the 2 woff2 fonts and the
-# favicon of aps/brand/, the 2 logo SVGs of aps/theme/apsconecta/core/img/,
-# each copied under the name the site serves (fonts/, img/logo/, img/). The SVGs
+# The 6-asset set comes from the suite's theme: the brand token file, the 2
+# woff2 fonts beside it and the favicon of aps/brand/, and the 2 logo SVGs of
+# aps/theme/apsconecta/core/img/. The token file and its fonts keep the suite's
+# names under brand/, where its @font-face finds them; the images are served
+# under img/logo/ and img/. The SVGs
 # name brand tokens as var(--aps-…); gestion-aio's own renderer
 # (aps/provisionador/brand.py) writes each token's value in, as the suite does
 # for art a browser draws without stylesheets. Idempotent: the destination is
 # wiped and repopulated, so repeated runs produce identical bytes. No partial
 # brand is ever left behind: the set is built and rendered in a staging
 # directory that replaces the destination only once complete, and the result
-# is re-asserted as exactly 5 non-empty files.
+# is re-asserted as exactly 6 non-empty files.
 
 set -euo pipefail
 
@@ -26,8 +28,9 @@ STAGE="$BRAND_OUT.new"
 
 # <source path in gestion-aio>:<served path under $BRAND_OUT>
 ASSETS=(
-  aps/brand/fraunces.woff2:fonts/Fraunces.woff2
-  aps/brand/nunito-sans.woff2:fonts/NunitoSans.woff2
+  aps/brand/tokens.css:brand/tokens.css
+  aps/brand/fraunces.woff2:brand/fraunces.woff2
+  aps/brand/nunito-sans.woff2:brand/nunito-sans.woff2
   aps/theme/apsconecta/core/img/logo.svg:img/logo/logo.svg
   aps/theme/apsconecta/core/img/logoheader.svg:img/logo/logo-header.svg
   aps/brand/favicon.svg:img/favicon.svg
@@ -78,13 +81,13 @@ done
 # Another repository's code: it runs without the token.
 env -u GH_TOKEN python3 -I "$src/aps/provisionador/brand.py" "$STAGE"/img/favicon.svg "$STAGE"/img/logo/*.svg
 
-# No partial brand: exactly 5 non-empty files, or fail.
+# No partial brand: exactly 6 non-empty files, or fail.
 count="$(find "$STAGE" -type f -size +0c | wc -l)"
-if [[ "$count" -ne 5 ]]; then
-  echo "fetch-brand.sh: expected 5 non-empty files under $STAGE, found $count" >&2
+if [[ "$count" -ne 6 ]]; then
+  echo "fetch-brand.sh: expected 6 non-empty files under $STAGE, found $count" >&2
   exit 1
 fi
 rm -rf "$BRAND_OUT"
 mv "$STAGE" "$BRAND_OUT"
 
-echo "fetch-brand.sh: 5 brand assets in $BRAND_OUT (source: $src)"
+echo "fetch-brand.sh: 6 brand assets in $BRAND_OUT (source: $src)"

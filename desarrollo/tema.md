@@ -21,7 +21,7 @@ La página {doc}`/administracion/servidor/theming` describe la app Theming de la
 | Identidad | Nombre, lema, direcciones, colores, `productName` e imágenes de marca | La configuración de la app Theming | `provisioning/phases/15-branding.sh` |
 | CSS y fuentes | `@font-face`, tipografía de títulos, barra superior, foco y alto contraste | `themes/apsconecta/core/css/server.css` | El propio archivo |
 | Iconos por aplicación | Reemplazos de iconos que desentonan | `themes/apsconecta/apps/<appid>/img/` | Nadie: el directorio no existe |
-| Fuente de la marca | Fichas de color, arte de los logotipos y manual de marca | El kit de marca, fuera de git | Diseño |
+| Fuente de la marca | Las reglas de la marca y la ficha de tokens de marca | La página {doc}`marca` y `aps/brand/tokens.css` | Diseño |
 
 La capa CSS y las pantallas heredadas son las únicas razones de que exista el directorio del tema. Las imágenes se registran con `occ theming:config` desde rutas absolutas, y la identidad y el color son configuración; solo `@font-face` y los tres archivos de las pantallas heredadas necesitan una ruta que el servidor lea.
 

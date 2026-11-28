@@ -8,13 +8,13 @@
 #
 # families, evaluated in order; exit 1 names the first failed family:
 #   docs      documentElement.lang == 'es'; a visible Spanish <h1>; <link rel="icon">
-#   brand     HTTP 200 x5 under _static/ — 2 woff2 + 2 logo SVG + the favicon
+#   brand     HTTP 200 x6 under _static/ — the token file, 2 woff2 + 2 logo SVG + the favicon
 #             (delivery, via context.request; the page only fetches faces in use)
 #   fonts     after document.fonts.ready, fonts.check('400 1em "Nunito Sans"') and
 #             ('600 1em "Fraunces"') are both true, and both faces are loaded —
 #             use, not just delivery (check() alone is vacuously true with no
 #             @font-face declared, so the face status is asserted too)
-#   theme     the Furo sidebar computes rgb(83, 21, 168); aps-brand.css declares
+#   theme     the Furo sidebar computes rgb(83, 21, 168), the token file's violet-dark; aps-brand.css declares
 #             color-scheme: light; with the browser asking for dark mode the page
 #             still renders light (body[data-theme="light"], white background)
 #   responsive at 360x800 no page scrolls sideways (index, legal notice, catalog) and
@@ -38,17 +38,18 @@ from urllib.parse import urljoin, urlparse
 
 from playwright.sync_api import sync_playwright
 
-# The 5 brand assets (gestion-aio aps/brand and aps/theme/apsconecta/core — the
-# fetch-brand contract): 2 variable woff2 faces + the 2 logo SVGs + the favicon.
+# The 6 brand assets (gestion-aio aps/brand and aps/theme/apsconecta/core — the
+# fetch-brand contract): the token file, its 2 variable woff2 faces + the 2 logo SVGs + the favicon.
 BRAND_ASSETS = (
-    "fonts/Fraunces.woff2",
-    "fonts/NunitoSans.woff2",
+    "brand/tokens.css",
+    "brand/fraunces.woff2",
+    "brand/nunito-sans.woff2",
     "img/logo/logo.svg",
     "img/logo/logo-header.svg",
     "img/favicon.svg",
 )
 
-SIDEBAR_RGB = "rgb(83, 21, 168)"  # #5315a8 — Furo's --color-sidebar-background (conf.py)
+SIDEBAR_RGB = "rgb(83, 21, 168)"  # #5315a8, --aps-violet-dark — Furo's --color-sidebar-background (conf.py)
 NARROW_PAGES = ("", "aviso.html", "_generated/catalogo.html")
 SEARCH_QUERY, SEARCH_EXPECT, SEARCH_FILTER = "vademécum", "usuario/farmacia", "usuario"
 BRAND_CSS = "css/aps-brand.css"
@@ -150,7 +151,7 @@ def main():
                 errs.append('no <link rel="icon"> on the landing page')
             check_family("docs", errs)
 
-            # brand: all 5 assets deliver (the browser only fetches faces in use).
+            # brand: all 6 assets deliver (the browser only fetches faces in use).
             errs = []
             for asset in BRAND_ASSETS:
                 url = urljoin(static_base, asset)

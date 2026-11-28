@@ -1,9 +1,9 @@
 # Documentación APS-Conecta — configuración de Sphinx.
 #
-# La marca se transplanta, no se vuelve a dibujar: paleta y tipografía provienen
-# del tema de la suite (APS-Conecta/gestion-aio, aps/brand) y se citan en
-# _static/css/aps-brand.css. Los activos binarios (fuentes, logotipos, favicons)
-# nunca se versionan: los obtiene `make brand` en _generated/brand/ (ignorado).
+# The brand is transplanted, never redrawn: the palette and the fonts come from the suite's brand token file
+# (APS-Conecta/gestion-aio aps/brand/tokens.css), and this file and _static/css/aps-brand.css only name its roles as
+# var(--aps-…). The token file, the fonts, the logos and the favicon are never committed: `make brand` fetches them
+# into _generated/brand/ (ignored).
 #
 # html_baseurl está ausente A PROPÓSITO: emitiría etiquetas
 # <link rel="canonical" href="https://…"> con host externo, que la regla de
@@ -35,7 +35,7 @@ html_theme = 'furo'
 # falla en la ruta estática ausente — obtener la marca antes de compilar es
 # estructural, no advisory.
 html_static_path = ['_static', '_generated/brand']
-html_css_files = ['css/aps-brand.css']
+html_css_files = ['brand/tokens.css', 'css/aps-brand.css']
 html_logo = '_generated/brand/img/logo/logo-header.svg'
 html_favicon = '_generated/brand/img/favicon.svg'
 html_title = 'Documentación APS Conecta'
@@ -45,27 +45,27 @@ html_show_copyright = False
 locale_dirs = ['locales']
 
 _APS = {
-    # Paleta del tema de gestión (themes/apsconecta/MAPEO.md §1, libro mayor de contraste).
-    'color-brand-primary': '#5315a8',
-    'color-brand-content': '#9a4c00',          # enlaces: oro oscuro, AA sobre blanco
-    'color-brand-visited': '#7f21fe',
-    'color-sidebar-background': '#5315a8',
-    'color-sidebar-background-border': '#5315a8',
-    'color-sidebar-brand-text': '#ffffff',
-    'color-sidebar-caption-text': '#ffffff',
-    'color-sidebar-link-text': '#ffffff',
-    'color-sidebar-link-text--top-level': '#ffffff',
-    'color-sidebar-item-background--current': '#e06f00',
-    'color-sidebar-item-background--hover': 'rgba(255, 255, 255, 0.26)',
-    'color-sidebar-item-expander-background--hover': 'rgba(255, 255, 255, 0.26)',
-    'color-sidebar-search-background': '#ffffff',
-    'color-sidebar-search-text': '#101828',
-    'color-foreground-primary': '#101828',     # tinta
-    'color-foreground-secondary': '#485363',   # apagado
-    'color-background-primary': '#ffffff',
-    'color-background-secondary': '#f7f5fb',
-    'font-stack': '"Nunito Sans", system-ui, -apple-system, sans-serif',
-    'font-stack--headings': '"Fraunces", Georgia, serif',
+    # The roles of the brand token file (desarrollo/marca), which html_css_files loads first.
+    'color-brand-primary': 'var(--aps-violet-dark)',
+    'color-brand-content': 'var(--aps-warning-text)',  # links
+    'color-brand-visited': 'var(--aps-violet)',
+    'color-sidebar-background': 'var(--aps-violet-dark)',
+    'color-sidebar-background-border': 'var(--aps-violet-dark)',
+    'color-sidebar-brand-text': 'var(--aps-paper)',
+    'color-sidebar-caption-text': 'var(--aps-paper)',
+    'color-sidebar-link-text': 'var(--aps-paper)',
+    'color-sidebar-link-text--top-level': 'var(--aps-paper)',
+    'color-sidebar-item-background--current': 'var(--aps-warning)',
+    'color-sidebar-item-background--hover': 'color-mix(in srgb, var(--aps-paper) 26%, transparent)',
+    'color-sidebar-item-expander-background--hover': 'color-mix(in srgb, var(--aps-paper) 26%, transparent)',
+    'color-sidebar-search-background': 'var(--aps-paper)',
+    'color-sidebar-search-text': 'var(--aps-ink)',
+    'color-foreground-primary': 'var(--aps-ink)',
+    'color-foreground-secondary': 'var(--aps-muted)',
+    'color-background-primary': 'var(--aps-paper)',
+    'color-background-secondary': 'var(--aps-violet-wash)',
+    'font-stack': 'var(--aps-font-body)',
+    'font-stack--headings': 'var(--aps-font-display)',
 }
 html_theme_options = {
     'light_css_variables': _APS,
