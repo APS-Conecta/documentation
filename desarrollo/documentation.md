@@ -79,6 +79,7 @@ El objetivo `generate` del `Makefile` corre los generadores antes de cada compil
 | `tools/gen-glosario.py` | El glosario. |
 | `tools/gen-componentes.py` | La tabla de componentes del aviso legal y la compuerta de deriva que la respalda. |
 | `tools/gen-ia.py` | La tabla de uso de inteligencia artificial del aviso legal. |
+| `tools/gen-marca.py` | La tabla de la paleta de {doc}`/desarrollo/marca`, desde el archivo de tokens de marca de gestion-aio; falla si un rol de color no tiene uso o si un uso no tiene rol. |
 
 ### Compuertas
 
